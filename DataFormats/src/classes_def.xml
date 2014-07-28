@@ -1,0 +1,26 @@
+<lcgdict>
+<!--   <class name="reco::SkimEvent"/> -->
+<!--   <class name="std::vector<reco::SkimEvent>"/> -->
+<!--   <class name="edm::Wrapper<reco::SkimEvent>"/> -->
+<!--   <class name="edm::Wrapper<std::vector<reco::SkimEvent> >"/> -->
+<!--  <class name="reco::SkimEvent4L"/>
+  <class name="std::vector<reco::SkimEvent4L>"/>
+  <class name="edm::Wrapper<reco::SkimEvent4L>"/>
+  <class name="edm::Wrapper<std::vector<reco::SkimEvent4L> >"/>
+  <class name="reco::SkimEvent4L::Pair" />
+  <class name="reco::SkimEvent2L"/>
+  <class name="std::vector<reco::SkimEvent2L>"/>
+  <class name="edm::Wrapper<reco::SkimEvent2L>"/>
+  <class name="edm::Wrapper<std::vector<reco::SkimEvent2L> >"/>-->
+<!--   <class name="edm::ValueMap<reco::PFMET>"/> -->
+<!--   <class name="edm::Wrapper<edm::ValueMap<reco::PFMET> >"/> -->
+<!--   <class name="edm::Wrapper<edm::RefVector<std::vector<reco::Vertex>,reco::Vertex,edm::refhelper::FindUsingAdvance<std::vector<reco::Vertex>,reco::Vertex> > >"/> -->
+<!--   <class name="edm::RefToBase<reco::RecoCandidate>"/> -->
+<!--   <class name="edm::RefToBaseVector<reco::RecoCandidate>"/> -->
+<!--   <class name="edm::reftobase::BaseVectorHolder<reco::RecoCandidate>"/> -->
+<!--   <class name="edm::Ptr<reco::RecoCandidate>"/> -->
+<!--   <class name="std::vector<edm::Ptr<reco::RecoCandidate> >"/> -->
+<!--   <class name="edm::Wrapper<edm::ValueMap<StoredPileupJetIdentifier> >"/> -->
+<!--   <class name="std::vector<StoredPileupJetIdentifier>"/> -->
+  <class name="std::map<unsigned int,std::vector<std::pair<unsigned int,int> > >"/>
+</lcgdict>
