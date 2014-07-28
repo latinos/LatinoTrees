@@ -1,0 +1,34 @@
+<use name="FWCore/Framework"/>
+<use name="FWCore/PluginManager"/>
+<use name="FWCore/ParameterSet"/>
+<use name="LatinoTrees/DataFormats"/>
+<use name="DataFormats/PatCandidates"/>
+<use name="DataFormats/JetReco"/>
+<use name="RecoJets/JetProducers"/>
+<use name="DataFormats/METReco"/>
+<use name="DataFormats/Common"/>
+<use name="PhysicsTools/UtilAlgos"/>
+<use name="FWCore/ServiceRegistry"/>
+<use name="TrackingTools/IPTools"/>
+<use name="TrackingTools/TransientTrack"/>
+<use name="TrackingTools/Records"/>
+<use name="RecoVertex/GaussianSumVertexFit"/>
+<use name="PhysicsTools/IsolationAlgos"/>
+<use name="SimTracker/Records"/>
+<use name="SimTracker/TrackAssociation"/>
+<use name="SimDataFormats/PileupSummaryInfo"/>
+<!-- <use name="WWAnalysis/Tools"/> -->
+<use name="DataFormats/EcalRecHit"/>
+<use name="Geometry/CaloTopology"/>
+<use name="Geometry/Records"/>
+<use name="RecoEcal/EgammaCoreTools"/>
+<use name="PhysicsTools/SelectorUtils"/>
+<use name="PhysicsTools/Utilities"/>
+<use name="JetMETCorrections/Objects"/>
+<use name="CondFormats/JetMETObjects"/>
+<use name="rootminuit2"/>
+<!-- <use name="DYMvaInCMSSW/GetDYMVA"/> -->
+<!-- <use name="pharris/MVAMet"/> -->
+<export>
+  <lib name="1"/>
+</export>
