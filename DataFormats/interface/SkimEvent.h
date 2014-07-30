@@ -1,7 +1,7 @@
 #ifndef AnalysisDataFormats_SkimEvent_h
 #define AnalysisDataFormats_SkimEvent_h
 
-#include "FWCore/Framework/interface/Event.h"
+// #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/FileInPath.h"
 #include "FWCore/Framework/interface/Frameworkfwd.h"
