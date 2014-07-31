@@ -31,6 +31,9 @@
 // #include "pharris/MVAMet/interface/MetUtilities.h"
 // #include "pharris/MVAMet/interface/MVAMet.h"
 
+//---- pat
+#include <DataFormats/PatCandidates/interface/MET.h>
+
 // MC information Gen level
 #include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
 

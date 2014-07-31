@@ -91,14 +91,17 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     iEvent.getByLabel(jetTag_,jetH);
 
     edm::Handle<double> rhoJetIso;
-    edm::InputTag rho_src ("kt6PFJetsForIso","rho");
+
+    edm::InputTag rho_src ("fixedGridRhoFastjetAll"); // miniAOD
+//     edm::InputTag rho_src ("kt6PFJetsForIso","rho");
     iEvent.getByLabel(rho_src,rhoJetIso);
 
     edm::Handle<pat::JetCollection> tagJetH;
     if(!(tagJetTag_==edm::InputTag(""))) iEvent.getByLabel(tagJetTag_,tagJetH);
 
 
-    edm::Handle<reco::PFMETCollection> pfMetH;
+//     edm::Handle<reco::PFMETCollection> pfMetH;
+    edm::Handle< std::vector<pat::MET> > pfMetH;
     iEvent.getByLabel(pfMetTag_,pfMetH);
 
 // edm::Handle<reco::METCollection> tcMetH;
@@ -192,7 +195,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
              float deltall = ROOT::Math::VectorUtil::DeltaR(electrons->at(i).p4(),electrons->at(j).p4());
              if (deltall > 0.001) {
                  skimEvent->push_back( *(new reco::SkimEvent(hypoType_) ) );
-                 skimEvent->back().setEventInfo(iEvent);
+//                  skimEvent->back().setEventInfo(iEvent);
 
                  // Leptons
                  skimEvent->back().setLepton(electrons,i);
@@ -259,7 +262,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
         if( muons->at(j).pt() >= electrons->at(i).pt() ) continue;
         skimEvent->push_back( *(new reco::SkimEvent(hypoType_) ) );
-        skimEvent->back().setEventInfo(iEvent);
+//         skimEvent->back().setEventInfo(iEvent);
 
                 // Leptons
         skimEvent->back().setLepton(electrons,i);
@@ -330,7 +333,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
              if (deltall > 0.001) {
                 if( muons->at(j).pt() < electrons->at(i).pt() ) continue;
                 skimEvent->push_back( *(new reco::SkimEvent(hypoType_) ) );
-                skimEvent->back().setEventInfo(iEvent);
+//                 skimEvent->back().setEventInfo(iEvent);
                 // Leptons
                 skimEvent->back().setLepton(electrons,i);
                 skimEvent->back().setLepton(muons,j);
@@ -399,7 +402,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
              if (deltall > 0.001) {
 
                 skimEvent->push_back( *(new reco::SkimEvent(hypoType_) ) );
-                skimEvent->back().setEventInfo(iEvent);
+//                 skimEvent->back().setEventInfo(iEvent);
                 // Leptons
                 skimEvent->back().setLepton(muons,i);
                 skimEvent->back().setLepton(muons,j);

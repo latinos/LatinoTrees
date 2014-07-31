@@ -298,8 +298,8 @@ void reco::SkimEvent::setTCMet(const edm::Handle<reco::METCollection> & mH) {
     tcMet_ = reco::METRef(mH,0);
 }
 
-void reco::SkimEvent::setPFMet(const edm::Handle<reco::PFMETCollection> & mH) {
-    pfMet_ = reco::PFMETRef(mH,0);
+void reco::SkimEvent::setPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
+    pfMet_ = pat::METRef(mH,0);
 }
 
 void reco::SkimEvent::setChargedMet(const reco::PFMET & chMET) {

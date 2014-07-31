@@ -30,6 +30,8 @@
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 #include "DataFormats/Common/interface/ValueMap.h"
 
+//---- pat
+#include <DataFormats/PatCandidates/interface/MET.h>
 
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticleFwd.h"
@@ -415,7 +417,7 @@ const float genMetEta() const;
             void setFatJets(const edm::Handle<pat::JetCollection> &);
             void setTagJets(const edm::Handle<pat::JetCollection> &);
             void setTCMet(const edm::Handle<reco::METCollection> &);
-            void setPFMet(const edm::Handle<reco::PFMETCollection> &);
+            void setPFMet(const edm::Handle< std::vector<pat::MET> > &);
             void setMvaMet(const reco::PFMET &met) {mvaMet_ = met;}
             void setChargedMet(const reco::PFMET &);
             void setChargedMetSmurf(const reco::MET& met) {chargedMetSmurf_ = met;}
@@ -551,7 +553,8 @@ const float genMetEta() const;
             std::vector<double> sumPts_;
             std::vector<double> sumPt2s_;
             reco::METRef tcMet_;
-            reco::PFMETRef pfMet_;
+//             reco::PFMETRef pfMet_;
+            pat::METRef pfMet_;
             reco::PFMET mvaMet_;
             reco::PFMET chargedMet_;
             reco::MET chargedMetSmurf_;
