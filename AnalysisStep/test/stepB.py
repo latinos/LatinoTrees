@@ -37,16 +37,16 @@ options.register ('skipEvents',
                   'Number of events to skip')
 
 options.register ('label',
-'XXX',
-opts.VarParsing.multiplicity.singleton,
-opts.VarParsing.varType.string,
-'Label')
+                  'XXX',
+                  opts.VarParsing.multiplicity.singleton,
+                  opts.VarParsing.varType.string,
+                  'Label')
 
 options.register ('json',
-'YYY',
-opts.VarParsing.multiplicity.singleton,
-opts.VarParsing.varType.string,
-'Json file for data')
+                  'YYY',
+                  opts.VarParsing.multiplicity.singleton,
+                  opts.VarParsing.varType.string,
+                  'Json file for data')
 
 options.register ('id',
                   0, # default value
@@ -186,64 +186,64 @@ from LatinoTrees.AnalysisStep.stepB_cff import * # get also functions
 
 #########################################
 # add CA jets for FatJet
-def addFatJet(process):
-    from RecoJets.JetProducers.ak5PFJets_cfi import ak5PFJets
-    process.ca8PFJetsCHS = ak5PFJets.clone(
-        src = 'pfNoPileUp',
-        jetPtMin = cms.double(10.0),
-        doAreaFastjet = cms.bool(True),
-        rParam = cms.double(0.8),
-        jetAlgorithm = cms.string("CambridgeAachen"),
-    )
-
-    jetSource = 'ca8PFJetsCHS'
-
-    # corrections
-    from PhysicsTools.PatAlgos.recoLayer0.jetCorrFactors_cfi import patJetCorrFactors
-    process.patJetCorrFactorsCA8CHS = patJetCorrFactors.clone()
-    process.patJetCorrFactorsCA8CHS.src = jetSource
-    # will need to add L2L3 corrections in the cfg
-    process.patJetCorrFactorsCA8CHS.levels = ['L1FastJet', 'L2Relative', 'L3Absolute']
-    process.patJetCorrFactorsCA8CHS.payload = 'AK7PFchs'
-    process.patJetCorrFactorsCA8CHS.useRho = True
-
-    # pat jet
-    from PhysicsTools.PatAlgos.producersLayer1.jetProducer_cfi import patJets
-    process.patJetsCA8CHS = patJets.clone()
-    process.patJetsCA8CHS.jetSource = jetSource
-    process.patJetsCA8CHS.addJetCharge = False
-    process.patJetsCA8CHS.embedCaloTowers = False
-    process.patJetsCA8CHS.embedPFCandidates = False
-    process.patJetsCA8CHS.addAssociatedTracks = False
-    process.patJetsCA8CHS.addBTagInfo = False
-    process.patJetsCA8CHS.addDiscriminators = False
-    process.patJetsCA8CHS.getJetMCFlavour = False
-    process.patJetsCA8CHS.jetCorrFactorsSource = cms.VInputTag(cms.InputTag('patJetCorrFactorsCA8CHS'))
-    process.patJetsCA8CHS.genPartonMatch = cms.InputTag('patJetPartonMatchCA8CHS')
-    process.patJetsCA8CHS.genJetMatch = cms.InputTag('patJetGenJetMatchCA8CHS')
-
-    from PhysicsTools.PatAlgos.selectionLayer1.jetSelector_cfi import selectedPatJets
-    process.selectedPatJetsCA8CHS = selectedPatJets.clone()
-    process.selectedPatJetsCA8CHS.src = 'patJetsCA8CHS'
-    process.selectedPatJetsCA8CHS.cut = 'pt()>20'
-
-
-#process.jetMCSequenceCA8CHS = cms.Sequence(
-    #process.patJetPartonMatchCA8CHS +
-    #process.genParticlesForJetsNoNu +
-    #process.ca8GenJetsNoNu +
-    #process.patJetGenJetMatchCA8CHS
+#def addFatJet(process):
+    #from RecoJets.JetProducers.ak5PFJets_cfi import ak5PFJets
+    #process.ca8PFJetsCHS = ak5PFJets.clone(
+        #src = 'pfNoPileUp',
+        #jetPtMin = cms.double(10.0),
+        #doAreaFastjet = cms.bool(True),
+        #rParam = cms.double(0.8),
+        #jetAlgorithm = cms.string("CambridgeAachen"),
     #)
 
-    process.PATJetSequenceCA8CHS = cms.Sequence(
-        process.ca8PFJetsCHS +
-        #process.jetMCSequenceCA8CHS +
-        process.patJetCorrFactorsCA8CHS
-        #process.patJetsCA8CHS +
-        #process.selectedPatJetsCA8CHS
-        )
+    #jetSource = 'ca8PFJetsCHS'
 
-    process.PATJetPathCA8CHS = cms.Path ( process.PATJetSequenceCA8CHS )
+    ## corrections
+    #from PhysicsTools.PatAlgos.recoLayer0.jetCorrFactors_cfi import patJetCorrFactors
+    #process.patJetCorrFactorsCA8CHS = patJetCorrFactors.clone()
+    #process.patJetCorrFactorsCA8CHS.src = jetSource
+    ## will need to add L2L3 corrections in the cfg
+    #process.patJetCorrFactorsCA8CHS.levels = ['L1FastJet', 'L2Relative', 'L3Absolute']
+    #process.patJetCorrFactorsCA8CHS.payload = 'AK7PFchs'
+    #process.patJetCorrFactorsCA8CHS.useRho = True
+
+    ## pat jet
+    #from PhysicsTools.PatAlgos.producersLayer1.jetProducer_cfi import patJets
+    #process.patJetsCA8CHS = patJets.clone()
+    #process.patJetsCA8CHS.jetSource = jetSource
+    #process.patJetsCA8CHS.addJetCharge = False
+    #process.patJetsCA8CHS.embedCaloTowers = False
+    #process.patJetsCA8CHS.embedPFCandidates = False
+    #process.patJetsCA8CHS.addAssociatedTracks = False
+    #process.patJetsCA8CHS.addBTagInfo = False
+    #process.patJetsCA8CHS.addDiscriminators = False
+    #process.patJetsCA8CHS.getJetMCFlavour = False
+    #process.patJetsCA8CHS.jetCorrFactorsSource = cms.VInputTag(cms.InputTag('patJetCorrFactorsCA8CHS'))
+    #process.patJetsCA8CHS.genPartonMatch = cms.InputTag('patJetPartonMatchCA8CHS')
+    #process.patJetsCA8CHS.genJetMatch = cms.InputTag('patJetGenJetMatchCA8CHS')
+
+    #from PhysicsTools.PatAlgos.selectionLayer1.jetSelector_cfi import selectedPatJets
+    #process.selectedPatJetsCA8CHS = selectedPatJets.clone()
+    #process.selectedPatJetsCA8CHS.src = 'patJetsCA8CHS'
+    #process.selectedPatJetsCA8CHS.cut = 'pt()>20'
+
+
+##process.jetMCSequenceCA8CHS = cms.Sequence(
+    ##process.patJetPartonMatchCA8CHS +
+    ##process.genParticlesForJetsNoNu +
+    ##process.ca8GenJetsNoNu +
+    ##process.patJetGenJetMatchCA8CHS
+    ##)
+
+    #process.PATJetSequenceCA8CHS = cms.Sequence(
+        #process.ca8PFJetsCHS +
+        ##process.jetMCSequenceCA8CHS +
+        #process.patJetCorrFactorsCA8CHS
+        ##process.patJetsCA8CHS +
+        ##process.selectedPatJetsCA8CHS
+        #)
+
+    #process.PATJetPathCA8CHS = cms.Path ( process.PATJetSequenceCA8CHS )
 
 
 #addFatJet(process)
@@ -256,42 +256,44 @@ def addFatJet(process):
 
 #########################################
 
-def addVarFlags(s3, vars = {}, flags = {} ):
-    for (key,val) in vars.iteritems():
-        setattr(s3.variables, key, val)
-    for (key,val) in flags.iteritems():
-        setattr(s3.flags, key, val)
+#def addVarFlags(s3, vars = {}, flags = {} ):
+    #for (key,val) in vars.iteritems():
+        #setattr(s3.variables, key, val)
+    #for (key,val) in flags.iteritems():
+        #setattr(s3.flags, key, val)
 
-def addMuVars( s3 ):
-    vars = {}
-    flags = {}
+#def addMuVars( s3 ):
+    #vars = {}
+    #flags = {}
 
-    muVars = dict(
-        normalizedChi2 = "? {0}.isGlobalMuon ? {0}.globalTrack.normalizedChi2 : -9999",
-        numberOfValidMuonHits = "? {0}.isGlobalMuon ? {0}.globalTrack.hitPattern.numberOfValidMuonHits : -9999",
-        numberOfMatches = "? {0}.isGlobalMuon ? {0}.numberOfMatches : -9999",
-        TMLastStationTight = "? {0}.isTrackerMuon ? {0}.muonID('TMLastStationTight') : -9999",
-        trkKink = "{0}.combinedQuality.trkKink",
-        trackerLayersWithMeasurement = "{0}.innerTrack.hitPattern.trackerLayersWithMeasurement",
-        numberOfValidPixelHits = "{0}.innerTrack.hitPattern.numberOfValidPixelHits",
-        trackRelErr = "abs({0}.track.ptError / {0}.pt)",
-# trackRelErr2 = "abs({0}.track.ptError / {0}.track.pt)",
-    )
-    muFlags = dict(
-        isGlobalMuon = "{0}.isGlobalMuon()",
-        isTrakerMuon = "{0}.isTrackerMuon()",
-        isPFMuon = "{0}.isPFMuon",
-    )
+    #muVars = dict(
+        #normalizedChi2 = "? {0}.isGlobalMuon ? {0}.globalTrack.normalizedChi2 : -9999",
+        #numberOfValidMuonHits = "? {0}.isGlobalMuon ? {0}.globalTrack.hitPattern.numberOfValidMuonHits : -9999",
+        #numberOfMatches = "? {0}.isGlobalMuon ? {0}.numberOfMatches : -9999",
+        #TMLastStationTight = "? {0}.isTrackerMuon ? {0}.muonID('TMLastStationTight') : -9999",
+        #trkKink = "{0}.combinedQuality.trkKink",
+        #trackerLayersWithMeasurement = "{0}.innerTrack.hitPattern.trackerLayersWithMeasurement",
+        #numberOfValidPixelHits = "{0}.innerTrack.hitPattern.numberOfValidPixelHits",
+        #trackRelErr = "abs({0}.track.ptError / {0}.pt)",
+## trackRelErr2 = "abs({0}.track.ptError / {0}.track.pt)",
+    #)
+    #muFlags = dict(
+        #isGlobalMuon = "{0}.isGlobalMuon()",
+        #isTrakerMuon = "{0}.isTrackerMuon()",
+        #isPFMuon = "{0}.isPFMuon",
+    #)
 
-    for i in [0,1]:
-        for (name,raw) in muVars.iteritems():
-            formula = ('? abs({0}.pdgId) == 13 ? '+raw+' : -9999').format('candByPt('+str(i)+')')
-            vars[name+str(i+1)] = cms.string(formula)
-        for (name,raw) in muFlags.iteritems():
-            formula = ('? abs({0}.pdgId) == 13 ? '+raw+' : -9999').format('candByPt('+str(i)+')')
-            flags[name+str(i+1)] = cms.string(formula)
+    #for i in [0,1]:
+        #for (name,raw) in muVars.iteritems():
+            #formula = ('? abs({0}.pdgId) == 13 ? '+raw+' : -9999').format('candByPt('+str(i)+')')
+            #vars[name+str(i+1)] = cms.string(formula)
+        #for (name,raw) in muFlags.iteritems():
+            #formula = ('? abs({0}.pdgId) == 13 ? '+raw+' : -9999').format('candByPt('+str(i)+')')
+            #flags[name+str(i+1)] = cms.string(formula)
 
-    addVarFlags(s3, vars = vars, flags = flags)
+    #addVarFlags(s3, vars = vars, flags = flags)
+
+#########################################
 
 
 doLHE = options.doLHE
@@ -427,8 +429,10 @@ else:
 
 process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
+
 if options.selection == 'TightTight':
-    label = "Scenario6"; muon = "wwMuScenario6"; ele = "wwEleScenario6"; softmu = "wwMu4VetoScenario6"; preSeq = cms.Sequence();
+    label = "Scenario6"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; preSeq = cms.Sequence();
+    #label = "Scenario6"; muon = "wwMuScenario6"; ele = "wwEleScenario6"; softmu = "wwMu4VetoScenario6"; preSeq = cms.Sequence();
 elif options.selection == 'LooseLoose':
     label = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; preSeq = cms.Sequence();
 else:
@@ -474,7 +478,7 @@ for X in "elel", "mumu", "elmu", "muel":
 
 # step 2 (end)
 
-for X in "elel", "mumu", "elmu", "muel", "ellell":
+for X in "elel", "mumu", "elmu", "muel": #, "ellell":
     tree = process.stepBTree.clone(src = cms.InputTag("ww%s%s"% (X,label) ));
     seq = cms.Sequence()
     setattr(process, X+'TreeSequence', seq)
@@ -530,30 +534,30 @@ for X in "elel", "mumu", "elmu", "muel", "ellell":
 
 
     if dataset[0] == 'MC':
-        setattr(process, X+"NPU", process.nPU.clone(src = cms.InputTag("ww%s%s"% (X,label))))
-        if Summer11:
-            setattr(process, X+"PuWeight", process.puWeightS4AB.clone(src = cms.InputTag("ww%s%s"% (X,label))))
-            setattr(process, X+"PuWeightA", process.puWeightS4A.clone (src = cms.InputTag("ww%s%s"% (X,label))))
-            setattr(process, X+"PuWeightB", process.puWeightS4B.clone (src = cms.InputTag("ww%s%s"% (X,label))))
-        elif Fall11:
-            setattr(process, X+"PuWeight", process.puWeightS6AB.clone(src = cms.InputTag("ww%s%s"% (X,label))))
-            setattr(process, X+"PuWeightA", process.puWeightS6A.clone (src = cms.InputTag("ww%s%s"% (X,label))))
-            setattr(process, X+"PuWeightB", process.puWeightS6B.clone (src = cms.InputTag("ww%s%s"% (X,label))))
-        else :
-            setattr(process, X+"PuWeight", process.puWeightS7AB.clone(src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
-            setattr(process, X+"PuWeightA", process.puWeightS7A.clone (src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
-            setattr(process, X+"PuWeightB", process.puWeightS7B.clone (src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
-        tree.variables.trpu = cms.InputTag(X+"NPU:tr")
-        tree.variables.itpu = cms.InputTag(X+"NPU:it")
-        tree.variables.ootpum1 = cms.InputTag(X+"NPU:m1")
-        tree.variables.ootpup1 = cms.InputTag(X+"NPU:p1")
-        tree.variables.puW = cms.InputTag(X+"PuWeight")
-        tree.variables.puAW = cms.InputTag(X+"PuWeightA")
-        tree.variables.puBW = cms.InputTag(X+"PuWeightB")
-        seq += getattr(process, X+"NPU")
-        seq += getattr(process, X+"PuWeight")
-        seq += getattr(process, X+"PuWeightA")
-        seq += getattr(process, X+"PuWeightB")
+        #setattr(process, X+"NPU", process.nPU.clone(src = cms.InputTag("ww%s%s"% (X,label))))
+        #if Summer11:
+            #setattr(process, X+"PuWeight", process.puWeightS4AB.clone(src = cms.InputTag("ww%s%s"% (X,label))))
+            #setattr(process, X+"PuWeightA", process.puWeightS4A.clone (src = cms.InputTag("ww%s%s"% (X,label))))
+            #setattr(process, X+"PuWeightB", process.puWeightS4B.clone (src = cms.InputTag("ww%s%s"% (X,label))))
+        #elif Fall11:
+            #setattr(process, X+"PuWeight", process.puWeightS6AB.clone(src = cms.InputTag("ww%s%s"% (X,label))))
+            #setattr(process, X+"PuWeightA", process.puWeightS6A.clone (src = cms.InputTag("ww%s%s"% (X,label))))
+            #setattr(process, X+"PuWeightB", process.puWeightS6B.clone (src = cms.InputTag("ww%s%s"% (X,label))))
+        #else :
+            #setattr(process, X+"PuWeight", process.puWeightS7AB.clone(src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
+            #setattr(process, X+"PuWeightA", process.puWeightS7A.clone (src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
+            #setattr(process, X+"PuWeightB", process.puWeightS7B.clone (src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
+        #tree.variables.trpu = cms.InputTag(X+"NPU:tr")
+        #tree.variables.itpu = cms.InputTag(X+"NPU:it")
+        #tree.variables.ootpum1 = cms.InputTag(X+"NPU:m1")
+        #tree.variables.ootpup1 = cms.InputTag(X+"NPU:p1")
+        #tree.variables.puW = cms.InputTag(X+"PuWeight")
+        #tree.variables.puAW = cms.InputTag(X+"PuWeightA")
+        #tree.variables.puBW = cms.InputTag(X+"PuWeightB")
+        #seq += getattr(process, X+"NPU")
+        #seq += getattr(process, X+"PuWeight")
+        #seq += getattr(process, X+"PuWeightA")
+        #seq += getattr(process, X+"PuWeightB")
         if puStudy: addExtraPUWeights(process,tree,X+label,seq)
         if dy:
             setattr(process, X+"DYWeight", process.dyWeight.clone(src = cms.InputTag("ww%s%s"% (X,label))))
@@ -611,16 +615,16 @@ process.TFileService = cms.Service("TFileService",fileName = cms.string(options.
 
 
 if IsoStudy:
-  for X in "elel", "mumu", "elmu", "muel", "ellell":
-    getattr(process,"ww%s%s"% (X,label)).elTag = "wwEleIDMerge"
-    getattr(process,"ww%s%s"% (X,label)).muTag = "wwMuonsMergeID"
+  for X in "elel", "mumu", "elmu", "muel": #, "ellell":
+    #getattr(process,"ww%s%s"% (X,label)).elTag = "wwEleIDMerge"
+    #getattr(process,"ww%s%s"% (X,label)).muTag = "wwMuonsMergeID"
     getattr(process,"%sTree"% X).cut = cms.string("!isSTA(0) && !isSTA(1) && leptEtaCut(2.4,2.5) && ptMax > 20 && ptMin > 10 && passesIP && nExtraLep(10) == 0")
-    prepend = process.isoStudySequence + process.wwEleIDMerge + process.wwMuonsMergeID
-    getattr(process,"sel%s%s"% (X,label))._seq = prepend + getattr(process,"sel%s%s"% (X,label))._seq
+    #prepend = process.isoStudySequence + process.wwEleIDMerge + process.wwMuonsMergeID
+    #getattr(process,"sel%s%s"% (X,label))._seq = prepend + getattr(process,"sel%s%s"% (X,label))._seq
 
 
 if SameSign:
-  for X in "elel", "mumu", "elmu", "muel", "ellell":
+  for X in "elel", "mumu", "elmu", "muel": #, "ellell":
     getattr(process,"%sTree"% X).cut = cms.string("q(0)*q(1) > 0 && !isSTA(0) && !isSTA(1) && leptEtaCut(2.4,2.5) && ptMax > 20 && ptMin > 10")
 
 

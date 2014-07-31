@@ -16,15 +16,15 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     elTag = cms.InputTag("slimmedElectrons"), # miniAOD
     softMuTag = cms.InputTag("slimmedMuons"), #miniAOD wwMuons4Veto
     # extraElTag = cms.InputTag("wwElectrons"),
-    jetTag = cms.InputTag("slimPatJetsTriggerMatch"),
-    tagJetTag = cms.InputTag("slimPatJetsTriggerMatch"),
-    fatJetTag = cms.InputTag("slimPatFatJetsTriggerMatch"),
-    pfMetTag = cms.InputTag("pfMet"),
-    tcMetTag = cms.InputTag("tcMet"),
-    chargedMetTag = cms.InputTag("trackMetProducer"),
-    vtxTag = cms.InputTag("goodPrimaryVertices"),
+    jetTag = cms.InputTag("slimmedJets"), # miniAOD slimPatJetsTriggerMatch
+    tagJetTag = cms.InputTag("slimmedJets"), # miniAOD slimPatJetsTriggerMatch
+    fatJetTag = cms.InputTag("slimmedJets"), # miniAOD  slimPatFatJetsTriggerMatch
+    pfMetTag = cms.InputTag("slimmedMETs"), # miniAOD pfMet
+    tcMetTag = cms.InputTag("slimmedMETs"), # miniAOD tcMet
+    chargedMetTag = cms.InputTag("slimmedMETs"), # miniAOD trackMetProducer
+    vtxTag = cms.InputTag("offlineSlimmedPrimaryVertices"), # miniAOD goodPrimaryVertices
 ### allCandsTag = cms.InputTag("allReducedPFCands"), ### Needed for MVAMet
-    chCandsTag = cms.InputTag("reducedPFCands"),
+    chCandsTag = cms.InputTag("packedPFCandidates"), # miniAOD reducedPFCands
     sptTag = cms.InputTag("vertexMapProd","sumPt"),
     spt2Tag = cms.InputTag("vertexMapProd","sumPt2"),
     # branchAlias = cms.string("wwelmu"),
@@ -92,10 +92,10 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     # doubleElMCPaths = cms.vstring("HLT_Ele17_SW_TightCaloEleId_Ele8HE_L1R_v*"),
     # muEGMCPaths = cms.vstring("HLT_Mu5_Ele17_v*","HLT_Mu11_Ele8_v*"),
 
-    looseMuSelection = cms.string(PRESEL_MU +"&&"+ MUON_ID_LOOSE),
-    tightMuSelection = cms.string(PRESEL_MU +"&&"+ MUON_ID_CUT +"&&"+ MUON_MERGE_ISO+"&&"+MUON_MERGE_IP),
-    looseEleSelection = cms.string(ELE_BASE + " && " + ELE_ID_LOOSE_2011),
-    tightEleSelection = cms.string(ELE_BASE + " && " + ELE_MERGE_ID + " && " + ELE_MERGE_ISO + " && " + ELE_MERGE_CONV + " && " + ELE_MERGE_IP),
+    #looseMuSelection = cms.string(PRESEL_MU +"&&"+ MUON_ID_LOOSE),
+    #tightMuSelection = cms.string(PRESEL_MU +"&&"+ MUON_ID_CUT +"&&"+ MUON_MERGE_ISO+"&&"+MUON_MERGE_IP),
+    #looseEleSelection = cms.string(ELE_BASE + " && " + ELE_ID_LOOSE_2011),
+    #tightEleSelection = cms.string(ELE_BASE + " && " + ELE_MERGE_ID + " && " + ELE_MERGE_ISO + " && " + ELE_MERGE_CONV + " && " + ELE_MERGE_IP),
 )
 
 def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons4Veto',preSequence=cms.Sequence()):
@@ -118,9 +118,9 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
 # if peakingType == 'peaking': p = cms.Path( process.peakingFilter)
 # if peakingType == 'non-peaking': p = cms.Path(~process.peakingFilter)
         p = cms.Path(
-            getattr(process,thisMuTag) +
-            getattr(process,thisEleTag) +
-            getattr(process,thisSoftMuTag) +
+            #getattr(process,thisMuTag) +
+            #getattr(process,thisEleTag) +
+            #getattr(process,thisSoftMuTag) +
             getattr(process,'ww'+hypo+label) +
             getattr(process,'skim'+hypo+label)
         )
@@ -131,17 +131,24 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
         if hasattr(process,'out'): process.out.outputCommands.append( 'keep *_{0}_*_*'.format( 'ww'+hypo+label ) )
         if hasattr(process,'out'): process.out.SelectEvents.SelectEvents.append( 'sel'+hypo+label )
 
-    bestll = cms.EDProducer("SkimEventBest2L2vProducer",
-                                    mumuEvents=cms.InputTag('wwmumu%s' % label),
-                                    elelEvents=cms.InputTag('wwelel%s' % label),
-                                    elmuEvents=cms.InputTag('wwelmu%s' % label),
-                                    muelEvents=cms.InputTag('wwmuel%s' % label),
-                                   )
-    setattr( process,'wwellell%s' % label,bestll )
-    # add path for best
-    setattr( process, 'selellell%s' % label, cms.Path(
-        getattr(process, 'wwellell%s' % label)
-    ))
+    #bestll = cms.EDProducer("SkimEventBest2L2vProducer",
+                                    #mumuEvents=cms.InputTag('wwmumu%s' % label),
+                                    #elelEvents=cms.InputTag('wwelel%s' % label),
+                                    #elmuEvents=cms.InputTag('wwelmu%s' % label),
+                                    #muelEvents=cms.InputTag('wwmuel%s' % label),
+                                   #)
+    #setattr( process,'wwellell%s' % label,bestll )
+    ## add path for best
+    #setattr( process, 'selellell%s' % label, cms.Path(
+        #getattr(process, 'wwellell%s' % label)
+    #))
+
+
+
+
+
+
+
 
 
 # process.ttLeps = cms.EDProducer("CandViewMerger",
