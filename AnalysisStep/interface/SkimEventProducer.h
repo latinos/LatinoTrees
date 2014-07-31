@@ -97,6 +97,8 @@ const reco::Candidate* cand1,const reco::Candidate* cand2);
         edm::InputTag chCandsTag_;
         edm::InputTag sptTag_;
         edm::InputTag spt2Tag_;
+        edm::InputTag rhoTag_;
+
 // std::string l2File_;
 // std::string l3File_;
 // std::string resFile_;

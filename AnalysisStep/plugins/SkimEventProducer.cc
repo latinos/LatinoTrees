@@ -73,8 +73,8 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
 }
 
 
-void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
-{
+void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
+
     std::auto_ptr<std::vector<reco::SkimEvent> > skimEvent(new std::vector<reco::SkimEvent> );
 
     //SkimEvent::hypoType type = SkimEvent::hypoTypeByName(hypoType_);
@@ -92,7 +92,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     edm::Handle<double> rhoJetIso;
 
-    edm::InputTag rho_src ("fixedGridRhoFastjetAll"); // miniAOD
+    edm::InputTag rho_src (rhoTag_); // miniAOD
 //     edm::InputTag rho_src ("kt6PFJetsForIso","rho");
     iEvent.getByLabel(rho_src,rhoJetIso);
 

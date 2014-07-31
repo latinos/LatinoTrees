@@ -27,6 +27,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     chCandsTag = cms.InputTag("packedPFCandidates"), # miniAOD reducedPFCands
     sptTag = cms.InputTag("vertexMapProd","sumPt"),
     spt2Tag = cms.InputTag("vertexMapProd","sumPt2"),
+    rhoTag = cms.InputTag("fixedGridRhoFastjetAll"), # miniAOD
     # branchAlias = cms.string("wwelmu"),
     hypoType = cms.string("WWELMU"),
     
@@ -105,7 +106,8 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
     tempSkimEventFilter = cms.EDFilter("SkimEventSelector",
        src = cms.InputTag(""),
        filter = cms.bool(True),
-       cut = cms.string("nLep >=2 "),
+       cut = cms.string("1"),
+       #cut = cms.string("nLep >=2 "),
     )
 
     for hypo in hypos:
