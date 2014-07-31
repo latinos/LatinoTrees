@@ -46,8 +46,8 @@ stepBTree = cms.EDFilter("ProbeTreeProducer",
 # +(" && triggerMatchingCut('DATASET')")
     ),
     variables = cms.PSet(
-        hypo = cms.string("hypo()"),
-        channel = cms.string("channel()"),
+        #hypo = cms.string("hypo()"),
+        #channel = cms.string("channel()"),
         mll = cms.string("mll()"),
         ptll = cms.string("pTll()"),
         yll = cms.string("yll()"), #fixed! returns (p4a+p4b).Rapidity()
@@ -369,8 +369,8 @@ stepBTree = cms.EDFilter("ProbeTreeProducer",
 
     ),
     flags = cms.PSet(
-        sameflav = cms.string("hypo == 3 || hypo == 6"),
-        zveto = cms.string("abs(mll-91.1876)>15. || hypo == 4 || hypo == 5"),
+        #sameflav = cms.string("hypo == 3 || hypo == 6"),
+        #zveto = cms.string("abs(mll-91.1876)>15. || hypo == 4 || hypo == 5"),
         # here we do apply a dz cut cause we are actually counting bjets
         bveto = cms.string("bTaggedJetsBetween(10,30,2.1,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3) == 0"),
         bveto_ip = cms.string("bTaggedJetsBetween(10,30,2.1,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0"),

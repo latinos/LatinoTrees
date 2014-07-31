@@ -60,12 +60,6 @@ options.register ('scale',
                   opts.VarParsing.varType.float, # string, int, or float
                   'Scale factor')
 
-options.register ('two',
-                  True, # default value
-                  opts.VarParsing.multiplicity.singleton, # singleton or list
-                  opts.VarParsing.varType.bool, # string, int, or float
-                  'Make step2?')
-
 options.register ('doTauEmbed',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
@@ -438,205 +432,206 @@ elif options.selection == 'LooseLoose':
 else:
     raise ValueError('selection must be either TightTight or LooseLoose')
 
-# step 2 (begin)
-if options.two: # path already set up
-    from LatinoTrees.AnalysisStep.skimEventProducer_cfi import addEventHypothesis
-    process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","HLT")
-    if doTauEmbed == True:
-        process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","EmbeddedRECO")
-        process.skimEventProducer.mcGenWeightTag = cms.InputTag("generator:minVisPtFilter")
-    addEventHypothesis(process,label,muon,ele,softmu,preSeq)
+# create the EventHypothesis
+# and tweaks for special MC/data samples
 
-for X in "elel", "mumu", "elmu", "muel":
-    if (wztth == True) or (doPDFvar == True):
-        getattr(process,"ww%s%s"% (X,label)).mcGenEventInfoTag = "generator"
-        getattr(process,"ww%s%s"% (X,label)).genParticlesTag = "prunedGen"
+from LatinoTrees.AnalysisStep.skimEventProducer_cfi import addEventHypothesis
+process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","HLT")
+if doTauEmbed == True:
+  process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","EmbeddedRECO")
+  process.skimEventProducer.mcGenWeightTag = cms.InputTag("generator:minVisPtFilter")
+addEventHypothesis(process,label,muon,ele,softmu,preSeq)
 
-    if doSusy == True :
-        getattr(process,"ww%s%s"% (X,label)).genParticlesTag = "prunedGen"
+if (wztth == True) or (doPDFvar == True):
+    getattr(process,"ww%s"% (label)).mcGenEventInfoTag = "generator"
+    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
 
-    if doHiggs == True :
-        getattr(process,"ww%s%s"% (X,label)).genParticlesTag = "prunedGen"
+if doSusy == True :
+    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
 
-    if doLHE == True :
-        getattr(process,"ww%s%s"% (X,label)).mcLHEEventInfoTag = "source"
-        getattr(process,"ww%s%s"% (X,label)).whichLHE = cms.untracked.int32(typeLHEcomment)
+if doHiggs == True :
+    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
 
-    if doGen == True :
-        getattr(process,"ww%s%s"% (X,label)).genParticlesTag = "prunedGen"
-        getattr(process,"ww%s%s"% (X,label)).genMetTag = "genMetTrue"
-        getattr(process,"ww%s%s"% (X,label)).genJetTag = cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
+if doLHE == True :
+    getattr(process,"ww%s"% (label)).mcLHEEventInfoTag = "source"
+    getattr(process,"ww%s"% (label)).whichLHE = cms.untracked.int32(typeLHEcomment)
 
-    if doGenVV == True :
-        getattr(process,"ww%s%s"% (X,label)).mcLHEEventInfoTag = "source"
-        getattr(process,"ww%s%s"% (X,label)).genParticlesTag = "prunedGen"
-        getattr(process,"ww%s%s"% (X,label)).genMetTag = "genMetTrue"
-        getattr(process,"ww%s%s"% (X,label)).genJetTag = cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
+if doGen == True :
+    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
+    getattr(process,"ww%s"% (label)).genMetTag = "genMetTrue"
+    getattr(process,"ww%s"% (label)).genJetTag = cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
+
+if doGenVV == True :
+    getattr(process,"ww%s"% (label)).mcLHEEventInfoTag = "source"
+    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
+    getattr(process,"ww%s"% (label)).genMetTag = "genMetTrue"
+    getattr(process,"ww%s"% (label)).genJetTag = cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
+
+if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
+    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
+
+
+# latino trees construction
+
+tree = process.stepBTree.clone(src = cms.InputTag("ww%s"% (label) ));
+seq = cms.Sequence()
+setattr(process, 'TreeSequence', seq)
+setattr(process, "Nvtx", process.nverticesModule.clone(probes = cms.InputTag("ww%s"% (label))))
+seq += getattr(process, "Nvtx")
+tree.variables.nvtx = cms.InputTag("Nvtx")
+if IsoStudy: addIsoStudyVariables(process,tree)
+
+# LHE information dumper
+if doLHE:
+  addLHEVariables(process,tree)
+
+  tree.variables.numbLHE = cms.string("numberOfbQuarks()")
+  tree.variables.numtLHE = cms.string("numberOftQuarks()")
+
+  tree.variables.HEPMCweightScale0 = cms.string("HEPMCweightScale(0)")
+  tree.variables.HEPMCweightScale1 = cms.string("HEPMCweightScale(1)")
+  tree.variables.HEPMCweightScale2 = cms.string("HEPMCweightScale(2)")
+  tree.variables.HEPMCweightScale3 = cms.string("HEPMCweightScale(3)")
+  tree.variables.HEPMCweightScale4 = cms.string("HEPMCweightScale(4)")
+  tree.variables.HEPMCweightScale5 = cms.string("HEPMCweightScale(5)")
+  tree.variables.HEPMCweightScale6 = cms.string("HEPMCweightScale(6)")
+
+  if typeLHEcomment == 1 :
+     #import ROOT
+     for i in range (70) :
+         #ROOT.gROOT.ProcessLine("tree.variables.HEPMCweightScale" + str(i+7) + " = cms.string(\"HEPMCweightScale(" + str(i+7) + ")\")")
+         exec("tree.variables.HEPMCweightScale" + str(i+7) + " = cms.string(\"HEPMCweightScale(" + str(i+7) + ")\")")
+
+  tree.variables.HEPMCweightRen0 = cms.string("HEPMCweightRen(0)")
+  tree.variables.HEPMCweightRen1 = cms.string("HEPMCweightRen(1)")
+  tree.variables.HEPMCweightRen2 = cms.string("HEPMCweightRen(2)")
+  tree.variables.HEPMCweightRen3 = cms.string("HEPMCweightRen(3)")
+  tree.variables.HEPMCweightRen4 = cms.string("HEPMCweightRen(4)")
+  tree.variables.HEPMCweightRen5 = cms.string("HEPMCweightRen(5)")
+  tree.variables.HEPMCweightRen6 = cms.string("HEPMCweightRen(6)")
+
+  tree.variables.HEPMCweightFac0 = cms.string("HEPMCweightFac(0)")
+  tree.variables.HEPMCweightFac1 = cms.string("HEPMCweightFac(1)")
+  tree.variables.HEPMCweightFac2 = cms.string("HEPMCweightFac(2)")
+  tree.variables.HEPMCweightFac3 = cms.string("HEPMCweightFac(3)")
+  tree.variables.HEPMCweightFac4 = cms.string("HEPMCweightFac(4)")
+  tree.variables.HEPMCweightFac5 = cms.string("HEPMCweightFac(5)")
+  tree.variables.HEPMCweightFac6 = cms.string("HEPMCweightFac(6)")
+
+if doGen: addGenVariables(process,tree)
+
+if doGenVV: addGenVVVariables(process,tree)
+
+addAdditionalJets(process,tree)
+
+if options.doFatJet :
+    addFatJets(process,tree)
+
+
+if dataset[0] == 'MC':
+    #setattr(process, X+"NPU", process.nPU.clone(src = cms.InputTag("ww%s%s"% (X,label))))
+    #if Summer11:
+        #setattr(process, X+"PuWeight", process.puWeightS4AB.clone(src = cms.InputTag("ww%s%s"% (X,label))))
+        #setattr(process, X+"PuWeightA", process.puWeightS4A.clone (src = cms.InputTag("ww%s%s"% (X,label))))
+        #setattr(process, X+"PuWeightB", process.puWeightS4B.clone (src = cms.InputTag("ww%s%s"% (X,label))))
+    #elif Fall11:
+        #setattr(process, X+"PuWeight", process.puWeightS6AB.clone(src = cms.InputTag("ww%s%s"% (X,label))))
+        #setattr(process, X+"PuWeightA", process.puWeightS6A.clone (src = cms.InputTag("ww%s%s"% (X,label))))
+        #setattr(process, X+"PuWeightB", process.puWeightS6B.clone (src = cms.InputTag("ww%s%s"% (X,label))))
+    #else :
+        #setattr(process, X+"PuWeight", process.puWeightS7AB.clone(src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
+        #setattr(process, X+"PuWeightA", process.puWeightS7A.clone (src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
+        #setattr(process, X+"PuWeightB", process.puWeightS7B.clone (src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
+    #tree.variables.trpu = cms.InputTag(X+"NPU:tr")
+    #tree.variables.itpu = cms.InputTag(X+"NPU:it")
+    #tree.variables.ootpum1 = cms.InputTag(X+"NPU:m1")
+    #tree.variables.ootpup1 = cms.InputTag(X+"NPU:p1")
+    #tree.variables.puW = cms.InputTag(X+"PuWeight")
+    #tree.variables.puAW = cms.InputTag(X+"PuWeightA")
+    #tree.variables.puBW = cms.InputTag(X+"PuWeightB")
+    #seq += getattr(process, X+"NPU")
+    #seq += getattr(process, X+"PuWeight")
+    #seq += getattr(process, X+"PuWeightA")
+    #seq += getattr(process, X+"PuWeightB")
+    if puStudy: addExtraPUWeights(process,tree,label,seq)
+    if dy:
+        setattr(process, "DYWeight", process.dyWeight.clone(src = cms.InputTag("ww%s"% (label))))
+        tree.variables.kfW = cms.InputTag("DYWeight")
+        seq += getattr(process, "DYWeight")
+    elif mhiggs > 0:
+        setattr(process, "PtWeight", process.ptWeight.clone(src = cms.InputTag("ww%s"% (label))))
+        tree.variables.kfW = cms.InputTag("PtWeight")
+        seq += process.higgsPt
+        seq += getattr(process, "PtWeight")
 
     if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
-        getattr(process,"ww%s%s"% (X,label)).genParticlesTag = "prunedGen"
+        tree.variables.mctruth = cms.string("getFinalStateMC()")
 
-# step 2 (end)
+if id in ["077", "078", "074" ]:
+    tree.variables.PtZ = cms.string("getZPt()")
+    tree.variables.MZ = cms.string("getZMass()")
+    tree.variables.WZchan = cms.string("getWZdecayMC()")
 
-for X in "elel", "mumu", "elmu", "muel": #, "ellell":
-    tree = process.stepBTree.clone(src = cms.InputTag("ww%s%s"% (X,label) ));
-    seq = cms.Sequence()
-    setattr(process, X+'TreeSequence', seq)
-    setattr(process, X+"Nvtx", process.nverticesModule.clone(probes = cms.InputTag("ww%s%s"% (X,label))))
-    seq += getattr(process, X+"Nvtx")
-    tree.variables.nvtx = cms.InputTag(X+"Nvtx")
-    if IsoStudy: addIsoStudyVariables(process,tree)
-    if doLHE:
-     addLHEVariables(process,tree)
+if doTauEmbed == True:
+    tree.variables.mctruth = cms.string("mcGenWeight()")
 
-     tree.variables.numbLHE = cms.string("numberOfbQuarks()")
-     tree.variables.numtLHE = cms.string("numberOftQuarks()")
+if wztth == True:
+    tree.variables.mctruth = cms.string("mcHiggsProd()")
+    tree.variables.mcHWWdecay = cms.string("getWWdecayMC()")
 
-     tree.variables.HEPMCweightScale0 = cms.string("HEPMCweightScale(0)")
-     tree.variables.HEPMCweightScale1 = cms.string("HEPMCweightScale(1)")
-     tree.variables.HEPMCweightScale2 = cms.string("HEPMCweightScale(2)")
-     tree.variables.HEPMCweightScale3 = cms.string("HEPMCweightScale(3)")
-     tree.variables.HEPMCweightScale4 = cms.string("HEPMCweightScale(4)")
-     tree.variables.HEPMCweightScale5 = cms.string("HEPMCweightScale(5)")
-     tree.variables.HEPMCweightScale6 = cms.string("HEPMCweightScale(6)")
+if doSusy == True :
+    tree.variables.susyMstop = cms.string("getSusyStopMass()")
+    tree.variables.susyMLSP = cms.string("getSusyLSPMass()")
 
-     if typeLHEcomment == 1 :
-        #import ROOT
-        for i in range (70) :
-            #ROOT.gROOT.ProcessLine("tree.variables.HEPMCweightScale" + str(i+7) + " = cms.string(\"HEPMCweightScale(" + str(i+7) + ")\")")
-            exec("tree.variables.HEPMCweightScale" + str(i+7) + " = cms.string(\"HEPMCweightScale(" + str(i+7) + ")\")")
+if doHiggs == True :
+    tree.variables.MHiggs = cms.string("getHiggsMass()")
+    tree.variables.PtHiggs = cms.string("getHiggsPt()")
+    tree.variables.HEPMCweight = cms.string("HEPMCweight()")
 
-     tree.variables.HEPMCweightRen0 = cms.string("HEPMCweightRen(0)")
-     tree.variables.HEPMCweightRen1 = cms.string("HEPMCweightRen(1)")
-     tree.variables.HEPMCweightRen2 = cms.string("HEPMCweightRen(2)")
-     tree.variables.HEPMCweightRen3 = cms.string("HEPMCweightRen(3)")
-     tree.variables.HEPMCweightRen4 = cms.string("HEPMCweightRen(4)")
-     tree.variables.HEPMCweightRen5 = cms.string("HEPMCweightRen(5)")
-     tree.variables.HEPMCweightRen6 = cms.string("HEPMCweightRen(6)")
+if doPDFvar == True :
+    tree.variables.pdfscalePDF = cms.string("getPDFscalePDF()")
+    tree.variables.pdfx1 = cms.string("getPDFx1()")
+    tree.variables.pdfx2 = cms.string("getPDFx2()")
+    tree.variables.pdfid1 = cms.string("getPDFid1()")
+    tree.variables.pdfid2 = cms.string("getPDFid2()")
+    tree.variables.pdfx1PDF = cms.string("getPDFx1PDF()")
+    tree.variables.pdfx2PDF = cms.string("getPDFx2PDF()")
 
-     tree.variables.HEPMCweightFac0 = cms.string("HEPMCweightFac(0)")
-     tree.variables.HEPMCweightFac1 = cms.string("HEPMCweightFac(1)")
-     tree.variables.HEPMCweightFac2 = cms.string("HEPMCweightFac(2)")
-     tree.variables.HEPMCweightFac3 = cms.string("HEPMCweightFac(3)")
-     tree.variables.HEPMCweightFac4 = cms.string("HEPMCweightFac(4)")
-     tree.variables.HEPMCweightFac5 = cms.string("HEPMCweightFac(5)")
-     tree.variables.HEPMCweightFac6 = cms.string("HEPMCweightFac(6)")
+setattr(process,"Tree", tree)
+seq += tree
 
-    if doGen: addGenVariables(process,tree)
-
-    if doGenVV: addGenVVVariables(process,tree)
+# path already set up
+p = getattr(process,'sel'+label)
+p += seq
+setattr(process,'sel'+label,p)
 
 
-    addAdditionalJets(process,tree)
-
-    if options.doFatJet :
-        addFatJets(process,tree)
 
 
-    if dataset[0] == 'MC':
-        #setattr(process, X+"NPU", process.nPU.clone(src = cms.InputTag("ww%s%s"% (X,label))))
-        #if Summer11:
-            #setattr(process, X+"PuWeight", process.puWeightS4AB.clone(src = cms.InputTag("ww%s%s"% (X,label))))
-            #setattr(process, X+"PuWeightA", process.puWeightS4A.clone (src = cms.InputTag("ww%s%s"% (X,label))))
-            #setattr(process, X+"PuWeightB", process.puWeightS4B.clone (src = cms.InputTag("ww%s%s"% (X,label))))
-        #elif Fall11:
-            #setattr(process, X+"PuWeight", process.puWeightS6AB.clone(src = cms.InputTag("ww%s%s"% (X,label))))
-            #setattr(process, X+"PuWeightA", process.puWeightS6A.clone (src = cms.InputTag("ww%s%s"% (X,label))))
-            #setattr(process, X+"PuWeightB", process.puWeightS6B.clone (src = cms.InputTag("ww%s%s"% (X,label))))
-        #else :
-            #setattr(process, X+"PuWeight", process.puWeightS7AB.clone(src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
-            #setattr(process, X+"PuWeightA", process.puWeightS7A.clone (src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
-            #setattr(process, X+"PuWeightB", process.puWeightS7B.clone (src = cms.InputTag("ww%s%s"% (X,label)), nTrueInt = cms.bool(True)))
-        #tree.variables.trpu = cms.InputTag(X+"NPU:tr")
-        #tree.variables.itpu = cms.InputTag(X+"NPU:it")
-        #tree.variables.ootpum1 = cms.InputTag(X+"NPU:m1")
-        #tree.variables.ootpup1 = cms.InputTag(X+"NPU:p1")
-        #tree.variables.puW = cms.InputTag(X+"PuWeight")
-        #tree.variables.puAW = cms.InputTag(X+"PuWeightA")
-        #tree.variables.puBW = cms.InputTag(X+"PuWeightB")
-        #seq += getattr(process, X+"NPU")
-        #seq += getattr(process, X+"PuWeight")
-        #seq += getattr(process, X+"PuWeightA")
-        #seq += getattr(process, X+"PuWeightB")
-        if puStudy: addExtraPUWeights(process,tree,X+label,seq)
-        if dy:
-            setattr(process, X+"DYWeight", process.dyWeight.clone(src = cms.InputTag("ww%s%s"% (X,label))))
-            tree.variables.kfW = cms.InputTag(X+"DYWeight")
-            seq += getattr(process, X+"DYWeight")
-        elif mhiggs > 0:
-            setattr(process, X+"PtWeight", process.ptWeight.clone(src = cms.InputTag("ww%s%s"% (X,label))))
-            tree.variables.kfW = cms.InputTag(X+"PtWeight")
-            seq += process.higgsPt
-            seq += getattr(process, X+"PtWeight")
 
-        if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
-            tree.variables.mctruth = cms.string("getFinalStateMC()")
-
-    if id in ["077", "078", "074" ]:
-        tree.variables.PtZ = cms.string("getZPt()")
-        tree.variables.MZ = cms.string("getZMass()")
-        tree.variables.WZchan = cms.string("getWZdecayMC()")
-
-    if doTauEmbed == True:
-        tree.variables.mctruth = cms.string("mcGenWeight()")
-
-    if wztth == True:
-        tree.variables.mctruth = cms.string("mcHiggsProd()")
-        tree.variables.mcHWWdecay = cms.string("getWWdecayMC()")
-
-    if doSusy == True :
-        tree.variables.susyMstop = cms.string("getSusyStopMass()")
-        tree.variables.susyMLSP = cms.string("getSusyLSPMass()")
-
-    if doHiggs == True :
-        tree.variables.MHiggs = cms.string("getHiggsMass()")
-        tree.variables.PtHiggs = cms.string("getHiggsPt()")
-        tree.variables.HEPMCweight = cms.string("HEPMCweight()")
-
-    if doPDFvar == True :
-        tree.variables.pdfscalePDF = cms.string("getPDFscalePDF()")
-        tree.variables.pdfx1 = cms.string("getPDFx1()")
-        tree.variables.pdfx2 = cms.string("getPDFx2()")
-        tree.variables.pdfid1 = cms.string("getPDFid1()")
-        tree.variables.pdfid2 = cms.string("getPDFid2()")
-        tree.variables.pdfx1PDF = cms.string("getPDFx1PDF()")
-        tree.variables.pdfx2PDF = cms.string("getPDFx2PDF()")
-
-    setattr(process,X+"Tree", tree)
-    seq += tree
-    if options.two: # path already set up
-        p = getattr(process,'sel'+X+label)
-        p += seq
-        setattr(process,'sel'+X+label,p)
-    else: # path not already set up
-        setattr(process,'sel'+X+label, cms.Path(seq))
-
+# define output
 process.TFileService = cms.Service("TFileService",fileName = cms.string(options.outputFile))
 
 
 if IsoStudy:
-  for X in "elel", "mumu", "elmu", "muel": #, "ellell":
-    #getattr(process,"ww%s%s"% (X,label)).elTag = "wwEleIDMerge"
-    #getattr(process,"ww%s%s"% (X,label)).muTag = "wwMuonsMergeID"
-    getattr(process,"%sTree"% X).cut = cms.string("!isSTA(0) && !isSTA(1) && leptEtaCut(2.4,2.5) && ptMax > 20 && ptMin > 10 && passesIP && nExtraLep(10) == 0")
-    #prepend = process.isoStudySequence + process.wwEleIDMerge + process.wwMuonsMergeID
-    #getattr(process,"sel%s%s"% (X,label))._seq = prepend + getattr(process,"sel%s%s"% (X,label))._seq
+  #getattr(process,"ww%s%s"% (X,label)).elTag = "wwEleIDMerge"
+  #getattr(process,"ww%s%s"% (X,label)).muTag = "wwMuonsMergeID"
+  getattr(process,"Tree").cut = cms.string("!isSTA(0) && !isSTA(1) && leptEtaCut(2.4,2.5) && ptMax > 20 && ptMin > 10 && passesIP && nExtraLep(10) == 0")
+  #prepend = process.isoStudySequence + process.wwEleIDMerge + process.wwMuonsMergeID
+  #getattr(process,"sel%s%s"% (X,label))._seq = prepend + getattr(process,"sel%s%s"% (X,label))._seq
 
 
 if SameSign:
-  for X in "elel", "mumu", "elmu", "muel": #, "ellell":
-    getattr(process,"%sTree"% X).cut = cms.string("q(0)*q(1) > 0 && !isSTA(0) && !isSTA(1) && leptEtaCut(2.4,2.5) && ptMax > 20 && ptMin > 10")
+  getattr(process,"Tree").cut = cms.string("q(0)*q(1) > 0 && !isSTA(0) && !isSTA(1) && leptEtaCut(2.4,2.5) && ptMax > 20 && ptMin > 10")
 
 
 # save all events
 if doNoFilter:
   print ">> Dump all events"
 
-  for X in "elel", "mumu", "elmu", "muel": #, "ellell":
-    getattr(process,"%sTree"% X).cut = cms.string("1")
+  getattr(process,"Tree").cut = cms.string("1")
 
-  for X in "elel", "mumu", "elmu", "muel":
-    getattr(process,"skim%s%s"% (X,label)).cut = cms.string("nLep >= 0")
+  getattr(process,"skim%s"% (label)).cut = cms.string("nLep >= 0")
 
 
 

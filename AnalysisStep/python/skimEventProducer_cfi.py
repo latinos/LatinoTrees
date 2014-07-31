@@ -29,7 +29,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     spt2Tag = cms.InputTag("vertexMapProd","sumPt2"),
     rhoTag = cms.InputTag("fixedGridRhoFastjetAll"), # miniAOD
     # branchAlias = cms.string("wwelmu"),
-    hypoType = cms.string("WWELMU"),
+    #hypoType = cms.string("WWELMU"),
     
     triggerTag = cms.InputTag("TriggerResults","","HLT"),
     singleMuDataPaths = cms.vstring(
@@ -99,8 +99,13 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     #tightEleSelection = cms.string(ELE_BASE + " && " + ELE_MERGE_ID + " && " + ELE_MERGE_ISO + " && " + ELE_MERGE_CONV + " && " + ELE_MERGE_IP),
 )
 
+
+
+
+
+
 def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons4Veto',preSequence=cms.Sequence()):
-    hypos = ['mumu','muel','elmu','elel']
+
     process.peakingFilter = cms.EDFilter("GenFilterDiBosons")
 
     tempSkimEventFilter = cms.EDFilter("SkimEventSelector",
@@ -110,70 +115,24 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
        #cut = cms.string("nLep >=2 "),
     )
 
-    for hypo in hypos:
-        #create the four hypothesis:
-        setattr(process,'ww'+hypo+label,process.skimEventProducer.clone(hypoType='WW'+hypo.upper(),muTag=thisMuTag,elTag=thisEleTag,softMuTag=thisSoftMuTag))
-        #create SkimEventSelectors (asking for nLep >=2)
-        setattr(process,'skim'+hypo+label,tempSkimEventFilter.clone(src='ww'+hypo+label))
-        # create sequence
-# p = cms.Path(preSequence)
-# if peakingType == 'peaking': p = cms.Path( process.peakingFilter)
-# if peakingType == 'non-peaking': p = cms.Path(~process.peakingFilter)
-        p = cms.Path(
-            #getattr(process,thisMuTag) +
-            #getattr(process,thisEleTag) +
-            #getattr(process,thisSoftMuTag) +
-            getattr(process,'ww'+hypo+label) +
-            getattr(process,'skim'+hypo+label)
-        )
-        setattr(process,'sel'+hypo+label,p)
-        # add to scheduler
-        if getattr(process,'schedule') != None: process.schedule.append( getattr(process,'sel'+hypo+label) )
-        # add to pooloutput module
-        if hasattr(process,'out'): process.out.outputCommands.append( 'keep *_{0}_*_*'.format( 'ww'+hypo+label ) )
-        if hasattr(process,'out'): process.out.SelectEvents.SelectEvents.append( 'sel'+hypo+label )
-
-    #bestll = cms.EDProducer("SkimEventBest2L2vProducer",
-                                    #mumuEvents=cms.InputTag('wwmumu%s' % label),
-                                    #elelEvents=cms.InputTag('wwelel%s' % label),
-                                    #elmuEvents=cms.InputTag('wwelmu%s' % label),
-                                    #muelEvents=cms.InputTag('wwmuel%s' % label),
-                                   #)
-    #setattr( process,'wwellell%s' % label,bestll )
-    ## add path for best
-    #setattr( process, 'selellell%s' % label, cms.Path(
-        #getattr(process, 'wwellell%s' % label)
-    #))
+    #create the only hypothesis (>= 1 lepton):
+    setattr(process,'ww'+label,process.skimEventProducer.clone(muTag=thisMuTag,elTag=thisEleTag,softMuTag=thisSoftMuTag))
+    #create SkimEventSelectors (asking for nLep >=2)
+    setattr(process,'skim'+label,tempSkimEventFilter.clone(src='ww'+label))
+    # create sequence
+    p = cms.Path(
+        getattr(process,'ww'+label) +
+        getattr(process,'skim'+label)
+    )
+    setattr(process,'sel'+label,p)
+    # add to scheduler
+    if getattr(process,'schedule') != None: process.schedule.append( getattr(process,'sel'+label) )
+    # add to pooloutput module
+    if hasattr(process,'out'): process.out.outputCommands.append( 'keep *_{0}_*_*'.format( 'ww'+label ) )
+    if hasattr(process,'out'): process.out.SelectEvents.SelectEvents.append( 'sel'+label )
 
 
 
 
 
 
-
-
-
-# process.ttLeps = cms.EDProducer("CandViewMerger",
-# src = cms.VInputTag(
-# cms.InputTag("wwMuonsMergeIP"),
-# cms.InputTag("wwEleIPMerge"),
-# )
-# )
-#
-# process.ttDiLeps = cms.EDProducer("CandViewShallowCloneCombiner",
-# decay = cms.string('ttLeps@+ ttLeps@-'),
-# cut = cms.string(
-# 'deltaR(daughter(0).eta,daughter(0).phi,daughter(1).eta,daughter(1).phi) > 0.05 && ' +
-# 'min(daughter(0).pt,daughter(1).pt) > 10 && ' +
-# 'max(daughter(0).pt,daughter(1).pt) > 20'
-# ),
-# checkCharge = cms.bool(True)
-# )
-#
-# process.ttCount = cms.EDFilter("CandViewCountFilter", src = cms.InputTag("ttDiLeps"), minNumber = cms.uint32(1))
-#
-#
-# process.ttFilter = cms.Sequence( process.wwEleIPMerge + process.wwMuonsMergeIP + process.ttLeps + process.ttDiLeps + process.ttCount)
-# process.ttPath = cms.Path( process.ttFilter )
-# process.schedule.append( process.ttPath )
-# process.out.SelectEvents.SelectEvents.append( 'ttPath' )

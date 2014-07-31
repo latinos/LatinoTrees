@@ -9,15 +9,15 @@
 #include <algorithm>
 #include <sstream>
 
-const int reco::SkimEvent::channel() const {
-    switch(hypo_) {
-        case WWMUMU: return 0;
-        case WWELEL: return 1;
-        case WWELMU: return 2;
-        case WWMUEL: return 3;
-    }
-return -1;
-}
+// const int reco::SkimEvent::channel() const {
+//     switch(hypo_) {
+//         case WWMUMU: return 0;
+//         case WWELEL: return 1;
+//         case WWELMU: return 2;
+//         case WWMUEL: return 3;
+//     }
+// return -1;
+// }
 
 std::vector<std::string> reco::SkimEvent::jecFiles_;
 
@@ -102,13 +102,13 @@ const bool reco::SkimEvent::isHardMuID(size_t i) const {
 
 const bool reco::SkimEvent::passesSmurfMuonID() const {
 
-    switch(hypo_) {
-        case WWELMU: return isHardMuID(indexByPt(1)); break;
-        case WWMUEL: return isHardMuID(indexByPt(0)); break;
-        case WWMUMU: return (isHardMuID(indexByPt(0)) && isHardMuID(indexByPt(1))); break;
-        case WWELEL: return true; break;
-        default : return true; break;
-    }
+//     switch(hypo_) {
+//         case WWELMU: return isHardMuID(indexByPt(1)); break;
+//         case WWMUEL: return isHardMuID(indexByPt(0)); break;
+//         case WWMUMU: return (isHardMuID(indexByPt(0)) && isHardMuID(indexByPt(1))); break;
+//         case WWELEL: return true; break;
+//         default : return true; break;
+//     }
     return true;
 
 }
@@ -128,32 +128,33 @@ bool highToLow(const indexValueStruct &a, const indexValueStruct &b) {
 }
 
 // To be kept in synch with the enumerator definitions in SkimEvent.h file
-const std::string reco::SkimEvent::hypoTypeNames[] = { "undefined", "WELNU", "WMUNU", "WWELEL", "WWELMU", "WWMUEL", "WWMUMU"};
+// const std::string reco::SkimEvent::hypoTypeNames[] = { "undefined", "WELNU", "WMUNU", "WWELEL", "WWELMU", "WWMUEL", "WWMUMU"};
 
 
-std::string reco::SkimEvent::hypoTypeName(reco::SkimEvent::hypoType a){
-  if(int(a) < int(hypoTypeSize) && int(a)>0) return hypoTypeNames[int(a)];
-  return "undefined";
-}
-
-
-
-reco::SkimEvent::hypoType reco::SkimEvent::hypoTypeByName(const std::string &name){
-  hypoType size = hypoTypeSize;
-  int index = std::find(hypoTypeNames, hypoTypeNames+size, name)-hypoTypeNames;
-  if(index == size) return undefined; // better this or throw() ?
-
-  // cast
-  return hypoType(index);
-}
+// std::string reco::SkimEvent::hypoTypeName(reco::SkimEvent::hypoType a){
+//   if(int(a) < int(hypoTypeSize) && int(a)>0) return hypoTypeNames[int(a)];
+//   return "undefined";
+// }
+//
+//
+//
+// reco::SkimEvent::hypoType reco::SkimEvent::hypoTypeByName(const std::string &name){
+//   hypoType size = hypoTypeSize;
+//   int index = std::find(hypoTypeNames, hypoTypeNames+size, name)-hypoTypeNames;
+//   if(index == size) return undefined; // better this or throw() ?
+//
+//   // cast
+//   return hypoType(index);
+// }
 
 
 
 reco::SkimEvent::SkimEvent() :
-        hypo_(-1), sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{ }
+//         hypo_(-1),
+        sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{ }
 
-reco::SkimEvent::SkimEvent(const reco::SkimEvent::hypoType &h) :
-        hypo_(h), sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{ }
+// reco::SkimEvent::SkimEvent(const reco::SkimEvent::hypoType &h) :
+//         hypo_(h), sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{ }
 
 
 
@@ -1812,12 +1813,14 @@ const bool reco::SkimEvent::leptEtaCut(float maxAbsEtaMu,float maxAbsEtaEl) cons
   bool check0(true);
   bool check1(true);
 
-  if(abs(leps_[0]->pdgId())==11 && fabs(leps_[0]->eta())>=maxAbsEtaEl) check0=false;
-  if(abs(leps_[0]->pdgId())==13 && fabs(leps_[0]->eta())>=maxAbsEtaMu) check0=false;
-
-  if(abs(leps_[1]->pdgId())==11 && fabs(leps_[1]->eta())>=maxAbsEtaEl) check1=false;
-  if(abs(leps_[1]->pdgId())==13 && fabs(leps_[1]->eta())>=maxAbsEtaMu) check1=false;
-
+  if (leps_.size()>0) { // FIXME
+   if(abs(leps_[0]->pdgId())==11 && fabs(leps_[0]->eta())>=maxAbsEtaEl) check0=false;
+   if(abs(leps_[0]->pdgId())==13 && fabs(leps_[0]->eta())>=maxAbsEtaMu) check0=false;
+  }
+  if (leps_.size()>1) {
+   if(abs(leps_[1]->pdgId())==11 && fabs(leps_[1]->eta())>=maxAbsEtaEl) check1=false;
+   if(abs(leps_[1]->pdgId())==13 && fabs(leps_[1]->eta())>=maxAbsEtaMu) check1=false;
+  }
   return (check0 && check1);
 }
 
@@ -1842,18 +1845,18 @@ const bool reco::SkimEvent::triggerBitsCut( SkimEvent::primaryDatasetType pdType
 
     if (pdType == MC) return true;
 
-    if( hypo() == WWMUMU ) {
-        if ( pdType == DoubleMuon ) return ( passesDoubleMuData_ );
-        else if ( pdType == SingleMuon ) return ( !passesDoubleMuData_ && passesSingleMuData_ );
-        //else if ( pdType == MC ) return ( passesDoubleMuMC_ || passesSingleMuMC_ );
-    } else if( hypo() == WWMUEL || hypo() == WWELMU ) {
-        if ( pdType == SingleMuon ) return ( passesSingleMuData_ );
-        else if ( pdType == MuEG ) return ( !passesSingleMuData_ && passesMuEGData_ );
-        //else if ( pdType == MC ) return ( passesSingleMuMC_ || passesMuEGMC_ );
-    } else if( hypo() == WWELEL ) {
-        if ( pdType == DoubleElectron ) return ( passesDoubleElData_ );
-        //else if ( pdType == MC ) return ( passesDoubleElMC_ );
-    }
+//     if( hypo() == WWMUMU ) {
+//         if ( pdType == DoubleMuon ) return ( passesDoubleMuData_ );
+//         else if ( pdType == SingleMuon ) return ( !passesDoubleMuData_ && passesSingleMuData_ );
+//         //else if ( pdType == MC ) return ( passesDoubleMuMC_ || passesSingleMuMC_ );
+//     } else if( hypo() == WWMUEL || hypo() == WWELMU ) {
+//         if ( pdType == SingleMuon ) return ( passesSingleMuData_ );
+//         else if ( pdType == MuEG ) return ( !passesSingleMuData_ && passesMuEGData_ );
+//         //else if ( pdType == MC ) return ( passesSingleMuMC_ || passesMuEGMC_ );
+//     } else if( hypo() == WWELEL ) {
+//         if ( pdType == DoubleElectron ) return ( passesDoubleElData_ );
+//         //else if ( pdType == MC ) return ( passesDoubleElMC_ );
+//     }
 
     return false;
 
@@ -1977,42 +1980,42 @@ el->triggerObjectMatchByPath("HLT_Mu11_Ele8_v*",true);
 const bool reco::SkimEvent::triggerMatchingCut(SkimEvent::primaryDatasetType pdType) const{
   if( pdType == MC ) return true;
 
-  using namespace std;
+//   using namespace std;
   bool result(false);
 
-  if(hypo()==WWMUMU){
-    if(pdType==DoubleMuon){ //configuration (1)
-      result=(passTriggerDoubleMu(0) && passTriggerDoubleMu(1));}
-    if(pdType==SingleMuon) {//configuration (2)
-      result=( (passTriggerSingleMu(0) || passTriggerSingleMu(1)) &&
-!(passTriggerDoubleMu(0) && passTriggerDoubleMu(1)) );
-    }
-    if(pdType==MC){
-      result=( (passTriggerDoubleMu(0,false) && passTriggerDoubleMu(1,false)) ||
-(passTriggerSingleMu(0,false) || passTriggerSingleMu(1,false)) );
-    }
-  }
-
-  if(hypo()==WWMUEL || hypo()==WWELMU){
-    if(pdType==SingleMuon) //configuration (3)
-      result=( passTriggerSingleMu(0) || passTriggerSingleMu(1) );
-    if(pdType==MuEG){ //configuration (4)
-      result=( (passTriggerElMu(0) && passTriggerElMu(1)) &&
-!(passTriggerSingleMu(0) || passTriggerSingleMu(1)) );
-    }
-    if(pdType==MC){
-      result=( (passTriggerSingleMu(0,false) || passTriggerSingleMu(1,false)) ||
-(passTriggerElMu(0,false) && passTriggerElMu(1,false)) );   
-    }
-  }
-
-
-  if(hypo()==WWELEL){
-    if(pdType==DoubleElectron)//configuration (5)
-      result= (passTriggerDoubleEl(0) && passTriggerDoubleEl(1));
-    if(pdType==MC)
-      result= (passTriggerDoubleEl(0,false) && passTriggerDoubleEl(1,false));
-  }
+//   if(hypo()==WWMUMU){
+//     if(pdType==DoubleMuon){ //configuration (1)
+//       result=(passTriggerDoubleMu(0) && passTriggerDoubleMu(1));}
+//     if(pdType==SingleMuon) {//configuration (2)
+//       result=( (passTriggerSingleMu(0) || passTriggerSingleMu(1)) &&
+// !(passTriggerDoubleMu(0) && passTriggerDoubleMu(1)) );
+//     }
+//     if(pdType==MC){
+//       result=( (passTriggerDoubleMu(0,false) && passTriggerDoubleMu(1,false)) ||
+// (passTriggerSingleMu(0,false) || passTriggerSingleMu(1,false)) );
+//     }
+//   }
+// 
+//   if(hypo()==WWMUEL || hypo()==WWELMU){
+//     if(pdType==SingleMuon) //configuration (3)
+//       result=( passTriggerSingleMu(0) || passTriggerSingleMu(1) );
+//     if(pdType==MuEG){ //configuration (4)
+//       result=( (passTriggerElMu(0) && passTriggerElMu(1)) &&
+// !(passTriggerSingleMu(0) || passTriggerSingleMu(1)) );
+//     }
+//     if(pdType==MC){
+//       result=( (passTriggerSingleMu(0,false) || passTriggerSingleMu(1,false)) ||
+// (passTriggerElMu(0,false) && passTriggerElMu(1,false)) );   
+//     }
+//   }
+// 
+// 
+//   if(hypo()==WWELEL){
+//     if(pdType==DoubleElectron)//configuration (5)
+//       result= (passTriggerDoubleEl(0) && passTriggerDoubleEl(1));
+//     if(pdType==MC)
+//       result= (passTriggerDoubleEl(0,false) && passTriggerDoubleEl(1,false));
+//   }
 
   return result;
 }

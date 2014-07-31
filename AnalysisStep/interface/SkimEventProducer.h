@@ -62,7 +62,7 @@ reco::MET doChMET(edm::Handle<reco::CandidateView> candsH,
 const reco::Candidate* cand1,const reco::Candidate* cand2);
  
         std::string branchAlias_;
-     reco::SkimEvent::hypoType hypoType_;
+//      reco::SkimEvent::hypoType hypoType_;
 
         edm::InputTag triggerTag_;
         TriggerBitChecker singleMuData_;

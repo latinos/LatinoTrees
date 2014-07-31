@@ -70,20 +70,20 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             //typedef edm::RefToBase<reco::RecoCandidate> refToCand;
             typedef edm::Ptr<reco::RecoCandidate> refToCand;
 
-            enum hypoType {undefined = 0, WELNU = 1, WMUNU=2, WWELEL=3, WWELMU=4, WWMUEL=5, WWMUMU=6, hypoTypeSize=7};
+//             enum hypoType {undefined = 0, WELNU = 1, WMUNU=2, WWELEL=3, WWELMU=4, WWMUEL=5, WWMUMU=6, hypoTypeSize=7};
             enum primaryDatasetType {MC = 0, SingleMuon=1, SingleElectron=2, DoubleMuon=3, MuEG=4, DoubleElectron=5, primaryDatasetTypeSize=6, AllEmbed=7};
             //enum metType { TCMET=0, PFMET=1, CHMET=2, MINMET=3 };
             enum metType { TCMET=0, PFMET=1, CHMET=2};
 
-            static const std::string hypoTypeNames[];
+//             static const std::string hypoTypeNames[];
 
             /// static functions used to convert to&from hypoType and strings
-            static std::string hypoTypeName(SkimEvent::hypoType);
-            static hypoType hypoTypeByName(const std::string &name);
+//             static std::string hypoTypeName(SkimEvent::hypoType);
+//             static hypoType hypoTypeByName(const std::string &name);
 
 
             SkimEvent();
-            SkimEvent(const hypoType &);
+//             SkimEvent(const hypoType &);
 
             //
             float userFloat( const std::string & key ) const;
@@ -145,8 +145,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const pat::Electron * getElectron(const refToCand&) const;
             const pat::Muon * getMuon(const refToCand&) const;
 
-            const int hypo() const { return hypo_; }
-            const int channel() const ;
+//             const int hypo() const { return hypo_; }
+//             const int channel() const ;
             const int nLep(float a = -1) const;
             const int nExtraLep(float a = -1) const;
             const int nSoftMu(float a = -1, float vetoJets=-1, float dRCut = 0.3) const;
@@ -548,7 +548,7 @@ const float genMetEta() const;
             //static sortPatJetByPtClass sortPatJetByPt;
             static std::vector<std::string> jecFiles_;
 
-            int hypo_;
+//             int hypo_;
             reco::VertexRefVector vtxs_;
             std::vector<double> sumPts_;
             std::vector<double> sumPt2s_;
