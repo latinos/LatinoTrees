@@ -444,7 +444,7 @@ const float reco::SkimEvent::leptBdt(size_t i) const {
 
 const float reco::SkimEvent::leptLH(size_t i) const {
   if(i >= leps_.size()) return -9999.0;
-  if( isElectron(i) ) return getElectron(i)->electronID("egammaIDLikelihood");
+//   if( isElectron(i) ) return getElectron(i)->electronID("egammaIDLikelihood"); # FIXME
   else return 999999.;
 }
 

@@ -5,7 +5,7 @@ import os
 
 nverticesModule = cms.EDProducer("VertexMultiplicityCounter",
     probes = cms.InputTag("REPLACE_ME"),
-    objects = cms.InputTag("goodPrimaryVertices"),
+    objects = cms.InputTag("offlineSlimmedPrimaryVertices"), # miniAOD goodPrimaryVertices
     objectSelection = cms.string("!isFake && ndof > 4 && abs(z) <= 25 && position.Rho <= 2"),
 )
 
@@ -328,17 +328,18 @@ stepBTree = cms.EDFilter("ProbeTreeProducer",
         tightmu = cms.string("passesSmurfMuonID"),
         worstJetLepPt = cms.string("max(matchedJetPt(0, 0.5)/pt(0), matchedJetPt(1, 0.5)/pt(1))"),
         dataset = cms.string("REPLACE_ME"),
-        puAW = cms.InputTag("puWeightA"),
-        puBW = cms.InputTag("puWeightB"),
-        puW = cms.InputTag("puWeight"),
+        #puAW = cms.InputTag("puWeightA"),  # miniAOD
+        #puBW = cms.InputTag("puWeightB"),  # miniAOD
+        #puW = cms.InputTag("puWeight"),  # miniAOD
+        puW = cms.string("1"),
         kfW = cms.InputTag("ptWeight"),
         baseW = cms.string("REPLACE_ME"),
         fourW = cms.string("REPLACE_ME"),
         fermiW = cms.string("REPLACE_ME"),
-        trpu = cms.InputTag("nPU:tr"),
-        itpu = cms.InputTag("nPU:it"),
-        ootpup1 = cms.InputTag("nPU:p1"),
-        ootpum1 = cms.InputTag("nPU:m1"),
+        #trpu = cms.InputTag("nPU:tr"),
+        #itpu = cms.InputTag("nPU:it"),
+        #ootpup1 = cms.InputTag("nPU:p1"),
+        #ootpum1 = cms.InputTag("nPU:m1"),
         effAW = cms.string("1"),
         effBW = cms.string("1"),
         effW = cms.string("1"),

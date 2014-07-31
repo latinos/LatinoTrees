@@ -514,27 +514,27 @@ void SkimEventProducer::addDYMVA(reco::SkimEvent* event)
     int applyID = 4;
 
     float jet1pt = event->leadingJetPt (index, minPt, eta, applyCorrection, applyID);
-    float jet1phi = event->leadingJetPhi(index, minPt, eta, applyCorrection, applyID);
+//     float jet1phi = event->leadingJetPhi(index, minPt, eta, applyCorrection, applyID);
 
-    double dPhiDiLepJet1 = fabs(event->dPhillLeadingJet(eta, applyCorrection, applyID));
-    double dPhiJet1MET = fabs(deltaPhi(jet1phi, event->pfMetPhi()));
-    double dPhillPfMET = fabs(event->dPhillPfMet());
+//     double dPhiDiLepJet1 = fabs(event->dPhillLeadingJet(eta, applyCorrection, applyID));
+//     double dPhiJet1MET = fabs(deltaPhi(jet1phi, event->pfMetPhi()));
+//     double dPhillPfMET = fabs(event->dPhillPfMet());
 
     if (jet1pt < 15) {
       jet1pt = 15;
-      dPhiDiLepJet1 = -0.1;
-      dPhiJet1MET = -0.1;
+//       dPhiDiLepJet1 = -0.1;
+//       dPhiJet1MET = -0.1;
     }
 
-    std::cout << " LT:: dPhiDiLepJet1 = " << dPhiDiLepJet1 << std::endl;
-    std::cout << " LT:: dPhiJet1MET = " << dPhiJet1MET << std::endl;
-    std::cout << " LT:: dPhillPfMET = " << dPhillPfMET << std::endl;
+//     std::cout << " LT:: dPhiDiLepJet1 = " << dPhiDiLepJet1 << std::endl;
+//     std::cout << " LT:: dPhiJet1MET = " << dPhiJet1MET << std::endl;
+//     std::cout << " LT:: dPhillPfMET = " << dPhillPfMET << std::endl;
 
-    float px_rec = event->pfMet()*cos(event->pfMetPhi()) + event->pXll();
-    float py_rec = event->pfMet()*sin(event->pfMetPhi()) + event->pYll();
-    double recoil = sqrt(px_rec*px_rec + py_rec*py_rec);
+//     float px_rec = event->pfMet()*cos(event->pfMetPhi()) + event->pXll();
+//     float py_rec = event->pfMet()*sin(event->pfMetPhi()) + event->pYll();
+//     double recoil = sqrt(px_rec*px_rec + py_rec*py_rec);
 
-    std::cout << " LT:: recoil = " << recoil << std::endl;
+//     std::cout << " LT:: recoil = " << recoil << std::endl;
 
 //     dymva0 = getDYMVA_v0->getValue(event->nCentralJets(30.0, eta, applyCorrection,applyID),
 //                    event->pfMet(),
