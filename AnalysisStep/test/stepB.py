@@ -632,7 +632,7 @@ if SameSign:
 if doNoFilter:
   print ">> Dump all events"
 
-  for X in "elel", "mumu", "elmu", "muel", "ellell":
+  for X in "elel", "mumu", "elmu", "muel": #, "ellell":
     getattr(process,"%sTree"% X).cut = cms.string("1")
 
   for X in "elel", "mumu", "elmu", "muel":
