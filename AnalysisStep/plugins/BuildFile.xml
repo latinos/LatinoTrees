@@ -29,9 +29,12 @@
 <!-- <use name="pharris/MVAMet"/> -->
 <!-- <use name="ZZMatrixElement/MEMCalculators"/> -->
 
-<library name="LatinoTreesAnalysisStepPlugins" file="*.cc">
-   <flags EDM_PLUGIN="1"/>
-</library>
+<flags EDM_PLUGIN="1"/>
 
-<export>
-</export>
+
+<!-- <library name="LatinoTreesAnalysisStepPlugins" file="*.cc"> -->
+<!--    <flags EDM_PLUGIN="1"/> -->
+<!-- </library> -->
+
+<!-- <export> -->
+<!-- </export> -->
