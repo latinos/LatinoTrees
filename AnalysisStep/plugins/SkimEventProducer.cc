@@ -19,8 +19,6 @@
 
 
 SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
-    // branchAlias_(cfg.getParameter<std::string>("branchAlias")),
-//     hypoType_(reco::SkimEvent::hypoTypeByName(cfg.getParameter<std::string>("hypoType"))),
     triggerTag_(cfg.getParameter<edm::InputTag>("triggerTag")),
     singleMuData_ ( cfg.getParameter<std::vector<std::string> >("singleMuDataPaths") ),
     singleElData_ ( cfg.getParameter<std::vector<std::string> >("singleElDataPaths") ),
