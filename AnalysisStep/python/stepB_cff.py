@@ -336,10 +336,10 @@ stepBTree = cms.EDFilter("ProbeTreeProducer",
         baseW = cms.string("REPLACE_ME"),
         fourW = cms.string("REPLACE_ME"),
         fermiW = cms.string("REPLACE_ME"),
-        #trpu = cms.InputTag("nPU:tr"),
-        #itpu = cms.InputTag("nPU:it"),
-        #ootpup1 = cms.InputTag("nPU:p1"),
-        #ootpum1 = cms.InputTag("nPU:m1"),
+        trpu = cms.InputTag("nPU:tr"),
+        itpu = cms.InputTag("nPU:it"),
+        ootpup1 = cms.InputTag("nPU:p1"),
+        ootpum1 = cms.InputTag("nPU:m1"),
         effAW = cms.string("1"),
         effBW = cms.string("1"),
         effW = cms.string("1"),
@@ -403,6 +403,11 @@ stepBTree = cms.EDFilter("ProbeTreeProducer",
     ),
     addRunLumiInfo = cms.bool(True)
 )
+
+nPU = cms.EDProducer("PileUpMultiplicityCounter",
+    puLabel = cms.InputTag("addPileupInfo")
+)
+
 
 # from WWAnalysis.AnalysisStep.pileupReweighting_cfi import reWeightVector
 #from WWAnalysis.AnalysisStep.pileupReweighting_cfi import *
