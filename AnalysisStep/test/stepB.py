@@ -471,6 +471,7 @@ if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "0
     getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
 
 
+
 # latino trees construction
 
 tree = process.stepBTree.clone(src = cms.InputTag("ww%s"% (label) ));
@@ -480,6 +481,21 @@ setattr(process, "Nvtx", process.nverticesModule.clone(probes = cms.InputTag("ww
 seq += getattr(process, "Nvtx")
 tree.variables.nvtx = cms.InputTag("Nvtx")
 if IsoStudy: addIsoStudyVariables(process,tree)
+
+#process.nPU = cms.EDProducer("PileUpMultiplicityCounter",
+    #puLabel = cms.InputTag("addPileupInfo")
+#)
+
+#if dataset[0] == 'MC':
+    #seq += getattr(process, "nPU")
+    #setattr(process, X+"NPU", process.nPU.clone(src = cms.InputTag("ww%s%s"% (X,label))))
+    #tree.variables.trpu = cms.InputTag("nPU:tr"),
+    #tree.variables.itpu = cms.InputTag("nPU:it"),
+    #tree.variables.ootpup1 = cms.InputTag("nPU:p1"),
+    #tree.variables.ootpum1 = cms.InputTag("nPU:m1"),
+
+
+
 
 # LHE information dumper
 if doLHE:
@@ -529,6 +545,15 @@ if options.doFatJet :
 
 
 if dataset[0] == 'MC':
+    setattr(process, "NPU", process.nPU.clone(src = cms.InputTag("ww%s"% (label))))
+    seq += getattr(process, "NPU")
+    tree.variables.trpu = cms.InputTag("NPU:tr")
+    tree.variables.itpu = cms.InputTag("NPU:it")
+    tree.variables.ootpup1 = cms.InputTag("NPU:p1")
+    tree.variables.ootpum1 = cms.InputTag("NPU:m1")
+
+
+    #seq += getattr(process, "nPU")
     #setattr(process, X+"NPU", process.nPU.clone(src = cms.InputTag("ww%s%s"% (X,label))))
     #if Summer11:
         #setattr(process, X+"PuWeight", process.puWeightS4AB.clone(src = cms.InputTag("ww%s%s"% (X,label))))
