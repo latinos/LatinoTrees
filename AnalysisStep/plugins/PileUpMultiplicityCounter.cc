@@ -20,37 +20,68 @@ class PileUpMultiplicityCounter : public edm::EDProducer {
     private:
         virtual void produce(edm::Event&, const edm::EventSetup&);
         edm::InputTag puTag_;
+        edm::InputTag src_;
 };
 
 PileUpMultiplicityCounter::PileUpMultiplicityCounter(const edm::ParameterSet& iConfig) :
-    puTag_(iConfig.getParameter<edm::InputTag>("puLabel"))
+    puTag_(iConfig.getParameter<edm::InputTag>("puLabel")),
+    src_  (iConfig.getParameter<edm::InputTag>("src"))
 {
-     produces<float> ("tr");
-     produces<float> ("it");
-     produces<float> ("m1");
-     produces<float> ("p1");
+ produces<edm::ValueMap<float> > ("tr");
+ produces<edm::ValueMap<float> > ("it");
+ produces<edm::ValueMap<float> > ("m1");
+ produces<edm::ValueMap<float> > ("p1");
 }
 
 
 void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
-    std::auto_ptr<float> tr(new float(0));
-    std::auto_ptr<float> it(new float(0));
-    std::auto_ptr<float> m1(new float(0));
-    std::auto_ptr<float> p1(new float(0));
+ std::auto_ptr<float> tr(new float(0));
+ std::auto_ptr<float> it(new float(0));
+ std::auto_ptr<float> m1(new float(0));
+ std::auto_ptr<float> p1(new float(0));
 
-    edm::Handle<std::vector<PileupSummaryInfo> > puInfoH;
-    iEvent.getByLabel(puTag_,puInfoH);
-    for(size_t i=0;i<puInfoH->size();++i) {
-        if( puInfoH->at(i).getBunchCrossing()==0 ) *tr = puInfoH->at(i).getTrueNumInteractions();
-        if( puInfoH->at(i).getBunchCrossing()==0 ) *it = puInfoH->at(i).getPU_NumInteractions();
-        if( puInfoH->at(i).getBunchCrossing()==-1) *m1 = puInfoH->at(i).getPU_NumInteractions();
-        if( puInfoH->at(i).getBunchCrossing()==1 ) *p1 = puInfoH->at(i).getPU_NumInteractions();
-    }
+ edm::Handle<std::vector<PileupSummaryInfo> > puInfoH;
+ iEvent.getByLabel(puTag_,puInfoH);
+ for(size_t i=0;i<puInfoH->size();++i) {
+  if( puInfoH->at(i).getBunchCrossing()==0 ) *tr = puInfoH->at(i).getTrueNumInteractions();
+  if( puInfoH->at(i).getBunchCrossing()==0 ) *it = puInfoH->at(i).getPU_NumInteractions();
+  if( puInfoH->at(i).getBunchCrossing()==-1) *m1 = puInfoH->at(i).getPU_NumInteractions();
+  if( puInfoH->at(i).getBunchCrossing()==1 ) *p1 = puInfoH->at(i).getPU_NumInteractions();
+ }
 
-    iEvent.put(tr,"tr");
-    iEvent.put(it,"it");
-    iEvent.put(p1,"p1");
-    iEvent.put(m1,"m1");
+ std::auto_ptr<edm::ValueMap<float> > trMap(new edm::ValueMap<float>);
+ std::auto_ptr<edm::ValueMap<float> > itMap(new edm::ValueMap<float>);
+ std::auto_ptr<edm::ValueMap<float> > m1Map(new edm::ValueMap<float>);
+ std::auto_ptr<edm::ValueMap<float> > p1Map(new edm::ValueMap<float>);
+
+ edm::ValueMap<float>::Filler trFill(*trMap);
+ edm::ValueMap<float>::Filler itFill(*itMap);
+ edm::ValueMap<float>::Filler m1Fill(*m1Map);
+ edm::ValueMap<float>::Filler p1Fill(*p1Map);
+
+ edm::Handle<edm::View<reco::Candidate> > srcH;
+ iEvent.getByLabel(src_ ,srcH);
+
+ std::vector<float> trVec(srcH->size(),*tr);
+ std::vector<float> itVec(srcH->size(),*it);
+ std::vector<float> m1Vec(srcH->size(),*m1);
+ std::vector<float> p1Vec(srcH->size(),*p1);
+
+ trFill.insert(srcH, trVec.begin(), trVec.end());
+ itFill.insert(srcH, itVec.begin(), itVec.end());
+ m1Fill.insert(srcH, m1Vec.begin(), m1Vec.end());
+ p1Fill.insert(srcH, p1Vec.begin(), p1Vec.end());
+
+ trFill.fill();
+ itFill.fill();
+ m1Fill.fill();
+ p1Fill.fill();
+
+ iEvent.put(trMap,"tr");
+ iEvent.put(itMap,"it");
+ iEvent.put(p1Map,"p1");
+ iEvent.put(m1Map,"m1");
+
 }
 
 PileUpMultiplicityCounter::~PileUpMultiplicityCounter() { }
