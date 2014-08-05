@@ -1,8 +1,8 @@
 <lcgdict>
-<!--   <class name="reco::SkimEvent"/> -->
-<!--   <class name="std::vector<reco::SkimEvent>"/> -->
-<!--   <class name="edm::Wrapper<reco::SkimEvent>"/> -->
-<!--   <class name="edm::Wrapper<std::vector<reco::SkimEvent> >"/> -->
+  <class name="reco::SkimEvent"/>
+  <class name="std::vector<reco::SkimEvent>"/>
+  <class name="edm::Wrapper<reco::SkimEvent>"/>
+  <class name="edm::Wrapper<std::vector<reco::SkimEvent> >"/>
 <!--  <class name="reco::SkimEvent4L"/>
   <class name="std::vector<reco::SkimEvent4L>"/>
   <class name="edm::Wrapper<reco::SkimEvent4L>"/>
