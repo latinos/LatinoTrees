@@ -136,7 +136,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     passBits.push_back( muEGMC_.check( iEvent,*triggerResults) );
     passBits.push_back( AllEmbed_.check( iEvent,*triggerResults) );
 
-
+    //---- RecoCandidate in order to be used by SKimEvent later in a template way
     edm::Handle<edm::View<reco::RecoCandidate> > muons;
     iEvent.getByLabel(muTag_,muons);
     edm::Handle<edm::View<reco::RecoCandidate> > softs;
@@ -167,6 +167,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     if (!(genJetTag_==edm::InputTag(""))) {
     iEvent.getByLabel(genJetTag_,genJetH);
     }
+
     // Needed for MVAMetsetJets
     // reco::VertexCollection lVertices = *vtxH;
     // reco::Vertex *lPV = 0;
@@ -195,7 +196,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setSoftMuon(softs,k);
     }
 
-    
+
     // Everything else
     skimEvent->back().setTriggerBits(passBits);
     skimEvent->back().setJets(jetH);
@@ -230,14 +231,12 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setGenJets(genJetH);
     }
 
-        // skimEvent->back().setupJEC(l2File_,l3File_,resFile_);
+    // skimEvent->back().setupJEC(l2File_,l3File_,resFile_);
 
 
 //     for (size_t jevent=0; jevent<skimEvent->size(); jevent++) {
-//
-//       reco::SkimEvent* event = &skimEvent->at(jevent);
-//
-//       addDYMVA(event);
+//      reco::SkimEvent* event = &skimEvent->at(jevent);
+//      addDYMVA(event);
 //     }
 
 
