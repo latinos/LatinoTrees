@@ -47,7 +47,7 @@ stepBTree = cms.EDFilter("ProbeTreeProducer",
     ),
     variables = cms.PSet(
         #hypo = cms.string("hypo()"),
-        #channel = cms.string("channel()"),
+        channel = cms.string("channel()"),
         mll = cms.string("mll()"),
         ptll = cms.string("pTll()"),
         yll = cms.string("yll()"), #fixed! returns (p4a+p4b).Rapidity()

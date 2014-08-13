@@ -146,7 +146,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const pat::Muon * getMuon(const refToCand&) const;
 
 //             const int hypo() const { return hypo_; }
-//             const int channel() const ;
+            const int channel() const ;
             const int nLep(float a = -1) const;
             const int nExtraLep(float a = -1) const;
             const int nSoftMu(float a = -1, float vetoJets=-1, float dRCut = 0.3) const;

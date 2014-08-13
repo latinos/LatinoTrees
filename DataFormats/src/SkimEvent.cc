@@ -19,6 +19,19 @@
 // return -1;
 // }
 
+const int reco::SkimEvent::channel() const {
+    if ((pdgIdByPt(0) != -9999) && (pdgIdByPt(1) != -9999)) {
+      if      (abs(pdgIdByPt(0)) == 13 && abs(pdgIdByPt(1)) == 13 ) return 0; //---- mm
+      else if (abs(pdgIdByPt(0)) == 11 && abs(pdgIdByPt(1)) == 11 ) return 1; //---- ee
+      else if (abs(pdgIdByPt(0)) == 11 && abs(pdgIdByPt(1)) == 13 ) return 2; //---- em
+      else if (abs(pdgIdByPt(0)) == 13 && abs(pdgIdByPt(1)) == 11 ) return 3; //---- me
+      else return -1;  //--> new c++ constraint! need all options return!
+    }
+    else {
+     return -1;
+    }
+}
+
 std::vector<std::string> reco::SkimEvent::jecFiles_;
 
 
@@ -2159,7 +2172,7 @@ const float reco::SkimEvent::allVeto(size_t i) const {
 
 const size_t reco::SkimEvent::indexByPt(size_t i) const {
 
-    if( i >= leps_.size() ) return 9999;
+    if( i >= leps_.size() ) return 9999; //--> big number then it will fail other tests later! good!
     std::vector<indexValueStruct> a;
 
     for(size_t j=0;j<leps_.size();++j) a.push_back(indexValueStruct(pt(j),j));
