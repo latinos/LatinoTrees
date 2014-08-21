@@ -29,6 +29,8 @@
 <use name="rootminuit2"/>
 <!-- <use name="DYMvaInCMSSW/GetDYMVA"/> -->
 <!-- <use name="pharris/MVAMet"/> -->
+<use name="CommonTools/Utils"/>
+<use name="CommonTools/UtilAlgos"/>
 <export>
   <lib name="1"/>
 </export>
