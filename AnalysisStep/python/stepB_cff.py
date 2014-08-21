@@ -32,12 +32,15 @@ DphiJetVetominEta="4.7"
 DzBVeto="999999.9"
 minPtBVeto="10.0"
 
-
-stepBTree = cms.EDFilter("ProbeTreeProducer",
+stepBTree = cms.EDFilter("GenericTreeProducer",
+#stepBTree = cms.EDFilter("ProbeTreeProducer",
 # cut = cms.string("q(0)*q(1) > 0 && !isSTA(0) && !isSTA(1) && "+
     #cut = cms.string("q(0)*q(1) < 0 && !isSTA(0) && !isSTA(1) && "+
-    cut = cms.string("!isSTA(0) && !isSTA(1) && "+
-                     "leptEtaCut(2.4,2.5) && ptMax > 17 && ptMin > 8"
+    cut = cms.string(
+                     "1"  
+                     #"!isSTA(0) && !isSTA(1) && "+
+                     #"leptEtaCut(2.4,2.5) && ptMax > 17 && ptMin > 8"
+                     
 # previously ...
 # "leptEtaCut(2.4,2.5) && ptMax > 20 && ptMin > 10"
 # " && triggerMatchingCut('DATASET')"
@@ -47,7 +50,10 @@ stepBTree = cms.EDFilter("ProbeTreeProducer",
     ),
     variables = cms.PSet(
         #hypo = cms.string("hypo()"),
+        lepton1_pt = cms.string("lepton(0).x()"),
         channel = cms.string("channel()"),
+        v_lepton1 = cms.string("lepton(0)"),
+        v_lepton2 = cms.string("lepton(1)"),
         mll = cms.string("mll()"),
         ptll = cms.string("pTll()"),
         yll = cms.string("yll()"), #fixed! returns (p4a+p4b).Rapidity()
