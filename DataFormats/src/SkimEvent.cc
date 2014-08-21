@@ -71,6 +71,8 @@ void reco::SkimEvent::addUserInt( const std::string &label, int data )
 
 const bool reco::SkimEvent::peaking() const {
 
+    if(leps_.size() < 2) return false;
+ 
     if (getMotherID(0).isNonnull() && getMotherID(1).isNonnull() && getMotherID(0) == getMotherID(1)) return true;
 
     return false;
@@ -82,6 +84,8 @@ const reco::GenParticle *reco::SkimEvent::genParticle(size_t i) const {
 
 const reco::GenParticleRef reco::SkimEvent::getMotherID(size_t i) const {
 
+    if( i < leps_.size()) return reco::GenParticleRef();
+ 
     const reco::GenParticle *match = isMuon(i) ? getMuon(i)->genLepton() : getElectron(i)->genLepton();
 
     if( !match ) return reco::GenParticleRef();
@@ -442,6 +446,12 @@ const float reco::SkimEvent::pt(size_t i) const {
   return leps_[i]->pt();
 }
 
+
+const math::XYZTLorentzVector reco::SkimEvent::lepton(size_t i) const {
+//  std::cout << " reco::SkimEvent::lepton :: accessing i = " << i << std::endl;
+ if(i >= leps_.size()) return math::XYZTLorentzVector(0,0,0,0);
+ return leps_[i]->p4();
+}
 
 const int reco::SkimEvent::passCustom(size_t i, const std::string &muStr, const std::string &elStr) const {
   if(i >= leps_.size()) return 0;
@@ -2712,6 +2722,7 @@ const float reco::SkimEvent::matchedJetPt(size_t i, float minDr, bool applyCorre
 
 // New emanuele gamma mr star thingy
 const float reco::SkimEvent::mRStar() const {
+ if(leps_.size() < 2) return -9999.;
   float A = leps_[0]->p();
   float B = leps_[1]->p();
   float az = leps_[0]->pz();
@@ -2727,6 +2738,7 @@ const float reco::SkimEvent::mRStar() const {
 }
 
 const float reco::SkimEvent::gamma() const {
+  if(leps_.size() < 2) return -9999.;
   float A = leps_[0]->p();
   float B = leps_[1]->p();
   float az = leps_[0]->pz();

@@ -379,7 +379,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float LHEMetPhi() const;
             const float LHEMetEta() const;
 
-       const float higgsLHEPt() const;
+            const float higgsLHEPt() const;
             
             const float leadingGenJetPartonPt(size_t a) const;
             const float leadingGenJetPartonPID(size_t a) const;
@@ -398,9 +398,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingGenJetPhi(size_t a) const;
 
             const float genMetPt() const;
-const float genMetPhi() const;
-const float genMetEta() const;
+            const float genMetPhi() const;
+            const float genMetEta() const;
             
+            const math::XYZTLorentzVector lepton(size_t a) const;
+
 //void setLepton(const pat::Electron& ele);
             //void setLepton(const pat::Muon& mu);
             //void setSoftMuon(const pat::Muon& mu);
