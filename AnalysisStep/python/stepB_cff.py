@@ -20,7 +20,8 @@ nverticesModule = cms.EDProducer("VertexMultiplicityCounter",
 # 5 MVA MEDIUM
 # 6 MVA TIGHT
 
-jetId_WP="4"
+#jetId_WP="4" ----> FIXME: to be used!
+jetId_WP="0"
 
 # JetCuts
 
@@ -54,6 +55,14 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         channel = cms.string("channel()"),
         v_lepton1 = cms.string("lepton(0)"),
         v_lepton2 = cms.string("lepton(1)"),
+        v_lepton3 = cms.string("lepton(2)"),
+        v_lepton4 = cms.string("lepton(3)"),
+
+        v_jet1 = cms.string("jet(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
+        v_jet2 = cms.string("jet(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
+        v_jet3 = cms.string("jet(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
+        v_jet4 = cms.string("jet(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
+
         mll = cms.string("mll()"),
         ptll = cms.string("pTll()"),
         yll = cms.string("yll()"), #fixed! returns (p4a+p4b).Rapidity()

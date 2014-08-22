@@ -182,8 +182,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const int passCustom(size_t a = 0,const std::string &muStr="1", const std::string &elStr="1" ) const;
             const float leptBdt(size_t a = 0) const;
             const float leptLH(size_t a = 0) const;
-            const float ptMax() const {return std::max(pt(0),pt(1));}
-            const float ptMin() const {return std::min(pt(0),pt(1));}
+            const float ptMax() const { return ptByPt(0); }
+            const float ptMin() const { return ptByPt(1); }
             const float eta(size_t a = 0) const;
             const float nBrem(size_t a = 0) const;
             const float etaSC(size_t a = 0) const; //returns isMuon ? eta : ele.sc.eta
@@ -195,6 +195,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const reco::GenParticleRef getMotherID(size_t a=0) const;
 
             //Jet variables
+            const size_t indexJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID) const;
+            const math::XYZTLorentzVector jet(size_t index, float minPt,float eta,int applyCorrection,int applyID) const;
             const int nJets(float pt , int applyCorrection , int applyID) const;
             const int nCentralJets(float pt , float eta,int applyCorrection=true, int applyID=0) const;
             const float leadingVBFJetPt(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
@@ -259,7 +261,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
             const float dPhiJetllInDegrees(size_t a,float pt ,float eta,int applyCorrection, int applyID) const;
             const float dPhiJetll(size_t a,float pt ,float eta,int applyCorrection, int applyID) const;
-            const int leadingJetIndex(size_t index,float minPt,float eta,int applyCorrection,int applyID) const;
+//             const int leadingJetIndex(size_t index,float minPt,float eta,int applyCorrection,int applyID) const;
             const float dPhilljetjet(float eta,int applyCorrection,int applyID) const;
             //Event variables
             const float mTHiggs(metType metToUse=TCMET) const;
