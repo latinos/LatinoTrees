@@ -139,6 +139,13 @@ options.register ('doFatJet',
                   opts.VarParsing.varType.bool,
                   'Turn on Fat (can be \'True\' or \'False\'')
 
+options.register ('puInformation',
+                  'addPileupInfo', # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.string, # string, int, or float
+                  'name of pile-up information collection: it may change for premixing samples in MC, addPileupInfo [default], mixData for premixinf')
+
+
 
 #-------------------------------------------------------------------------------
 # defaults
@@ -481,6 +488,8 @@ setattr(process, "Nvtx", process.nverticesModule.clone(probes = cms.InputTag("ww
 seq += getattr(process, "Nvtx")
 tree.variables.nvtx = cms.InputTag("Nvtx")
 if IsoStudy: addIsoStudyVariables(process,tree)
+
+process.nPU.puLabel = cms.InputTag(options.puInformation)
 
 #process.nPU = cms.EDProducer("PileUpMultiplicityCounter",
     #puLabel = cms.InputTag("addPileupInfo")

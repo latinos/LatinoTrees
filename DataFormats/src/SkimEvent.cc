@@ -2377,6 +2377,24 @@ fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) {
 
 }
 
+
+
+const bool reco::SkimEvent::isTightMuon(size_t i) const {
+ if(i < leps_.size()) return isTightMuon(leps_[i]);
+ return false;
+}
+
+
+const bool reco::SkimEvent::isTightMuon(const refToCand &c) const {
+ if( isMuon(c) ) {
+//   pat::Muon* muontemp = getMuon(c);
+//   return (muon::isTightMuon(*muontemp, highestPtVtx()));
+  return (muon::isTightMuon(*getMuon(c), highestPtVtx()));
+ } else {
+  return false;
+ }
+}
+
 const bool reco::SkimEvent::isSTA(size_t i) const {
  if(i < leps_.size()) return isSTA(leps_[i]);
  return false;

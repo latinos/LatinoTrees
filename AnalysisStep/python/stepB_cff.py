@@ -70,6 +70,12 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         pt2 = cms.string("ptMin"),
         pt3 = cms.string("ptByPt(2)"),
         pt4 = cms.string("ptByPt(3)"),
+        
+        isTightMuon1 = cms.string("isTightMuon(0)"),
+        isTightMuon2 = cms.string("isTightMuon(1)"),
+        isTightMuon3 = cms.string("isTightMuon(2)"),
+        isTightMuon4 = cms.string("isTightMuon(3)"),
+        
         isSTA1 = cms.string("isSTAByPt(0)"),
         isSTA2 = cms.string("isSTAByPt(1)"),
         isSTA3 = cms.string("isSTAByPt(2)"),
@@ -359,6 +365,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 
 nPU = cms.EDProducer("PileUpMultiplicityCounter",
     puLabel = cms.InputTag("addPileupInfo")
+    #puLabel = cms.InputTag("mixData") # --> for premixing MC samples
 )
 
 

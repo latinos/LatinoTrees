@@ -359,6 +359,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool passesConversion(size_t a=0) const;
             const bool isSTA(size_t a=0) const;
             const bool isSTA(const refToCand &c) const;
+            const bool isTightMuon(size_t a=0) const;
+            const bool isTightMuon(const refToCand &c) const;
             const bool isMuTriggered(size_t a=0) const;
 
             const int numberOfbQuarks() const;
