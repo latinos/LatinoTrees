@@ -180,6 +180,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
             const float pt(size_t a = 0) const;
             const int passCustom(size_t a = 0,const std::string &muStr="1", const std::string &elStr="1" ) const;
+            const float leptId(size_t i, std::string idele = "", std::string idmu = "") const;             
             const float leptBdt(size_t a = 0) const;
             const float leptLH(size_t a = 0) const;
             const float ptMax() const { return ptByPt(0); }
@@ -502,6 +503,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const int pdgIdByPt (size_t i = 0) const { return pdgId (indexByPt (i)); }
             const int pdgIdByIso (size_t i = 0) const { return pdgId (indexByIso(i)); }
             const float ptByPt (size_t i = 0) const { return pt (indexByPt (i)); }
+            const float leptIdByPt (size_t i = 0, std::string idele = "", std::string idmu = "") const { return leptId (indexByPt (i), idele, idmu); }
             const float leptBdtByPt (size_t i = 0) const { return leptBdt (indexByPt (i)); }
             const float leptLHByPt (size_t i = 0) const { return leptLH (indexByPt (i)); }
             const float nBremByPt (size_t i = 0) const { return nBrem (indexByPt (i)); }
@@ -529,6 +531,23 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool passesSmurfMuonID() const;
             const bool isHardMuID(size_t a) const;
 
+            
+            //---- electron id
+            const float deltaEtaSuperClusterTrackAtVtx(size_t i) const;           
+            const float deltaPhiSuperClusterTrackAtVtx(size_t i) const;          
+            const float sigmaIetaIeta(size_t i) const;
+            const float hadronicOverEm(size_t i) const;
+            const float numberOfHits(size_t i) const;
+            
+            const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx (indexByPt (i)); }          
+            const float deltaPhiSuperClusterTrackAtVtxByPt(size_t i) const { return deltaPhiSuperClusterTrackAtVtx (indexByPt (i)); }
+            const float sigmaIetaIetaByPt(size_t i) const { return sigmaIetaIeta (indexByPt (i)); }
+            const float hadronicOverEmByPt(size_t i) const { return hadronicOverEm (indexByPt (i)); }
+            const float numberOfHitsByPt(size_t i) const { return hadronicOverEm (indexByPt (i)); }
+            
+            
+            
+            
             //Matt's
             // const int nExtraLepMatt(float a = -1) const;
             // const int nSoftMuMatt(float a = -1) const;

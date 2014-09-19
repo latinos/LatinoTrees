@@ -456,8 +456,15 @@ const math::XYZTLorentzVector reco::SkimEvent::lepton(size_t i) const {
 const int reco::SkimEvent::passCustom(size_t i, const std::string &muStr, const std::string &elStr) const {
   if(i >= leps_.size()) return 0;
   else if( isElectron(i) ) return StringCutObjectSelector<pat::Electron>(elStr,true)( *getElectron(i) );
-  else if( isMuon(i) ) return StringCutObjectSelector<pat::Muon >(muStr,true)( *getMuon(i) );
+  else if( isMuon(i) )     return StringCutObjectSelector<pat::Muon >   (muStr,true)( *getMuon(i) );
   else return 0;
+}
+
+
+const float reco::SkimEvent::leptId(size_t i, std::string idele, std::string idmu) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->userFloat(idele); //---- "idele" is the name of the id for electrons
+ else return getMuon(i)->userFloat(idmu);
 }
 
 const float reco::SkimEvent::leptBdt(size_t i) const {
@@ -2587,6 +2594,43 @@ const float reco::SkimEvent::matchedJetPt(size_t i, float minDr, bool applyCorre
     }
     return pt;
 }
+
+
+
+/**
+ * ---- electron id ----
+ */
+
+const float reco::SkimEvent::deltaEtaSuperClusterTrackAtVtx(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->deltaEtaSuperClusterTrackAtVtx();
+ else return -999.0;
+}
+
+const float reco::SkimEvent::deltaPhiSuperClusterTrackAtVtx(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->deltaPhiSuperClusterTrackAtVtx();
+ else return -999.0;
+}
+
+const float reco::SkimEvent::sigmaIetaIeta(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->sigmaIetaIeta();
+ else return -999.0;
+}
+
+const float reco::SkimEvent::hadronicOverEm(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->hadronicOverEm();
+ else return -999.0;
+}
+
+const float reco::SkimEvent::numberOfHits(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->gsfTrack()->trackerExpectedHitsInner().numberOfHits();
+ else return -999.0;
+}
+
 
 
 
