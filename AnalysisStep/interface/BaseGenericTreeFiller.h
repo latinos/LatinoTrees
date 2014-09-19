@@ -74,27 +74,20 @@ class ProbeVariable {
             value_ = external_ ? (*handle_)[probe] : function_(*probe);
         }
 
-//         void fill4D(const reco::CandidateBaseRef &probe) const {
         void fill4D(float x, float y, float z, float t) const {
          value4D_x_ = x; // FIXME
          value4D_y_ = y; // FIXME
          value4D_z_ = z; // FIXME
          value4D_t_ = t; // FIXME
          value4D_.SetXYZT(x,y,z,t);
-//          value4D_x_ = function_(*probe); // FIXME
-//          value4D_y_ = function_(*probe); // FIXME
-//          value4D_z_ = function_(*probe); // FIXME
-//          value4D_t_ = function_(*probe); // FIXME
         }
         
         void fillStdVector(float x, int iPosition) const {
-//          std::cout << " std_vector_value_.size() = " << std_vector_value_.size() << " = " << (int) std_vector_value_.size() << std::endl;
          if (iPosition >= (int) std_vector_value_.size()) {
           for (int i = (int) std_vector_value_.size(); iPosition>=i; i++) {
            std_vector_value_.push_back(-9999.0);
           }
          }
-//          std::cout << " std_vector_value_.size() --->  = " << std_vector_value_.size() << " while iPosition = " << iPosition << std::endl;
          std_vector_value_.at(iPosition) = x;
         }
         

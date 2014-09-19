@@ -106,14 +106,13 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
          vars_.push_back(tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_y_", variables.getParameter<std::string>(*it)+".y()"));
          vars_.push_back(tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_z_", variables.getParameter<std::string>(*it)+".z()"));
          vars_.push_back(tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_t_", variables.getParameter<std::string>(*it)+".t()"));
-//          std::cout << " variables.getParameter<std::string>(*it) = " << variables.getParameter<std::string>(*it) << std::endl;
+
          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));
         }
         //---- std::vector <float>
         else if (std::strncmp((branchNamePrefix + *it).c_str(), "std_vector_", strlen("std_vector_")) == 0) {
          for (int i=0; i<10; i++) {
           vars_.push_back(tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", variables.getParameter<std::string>(*it)+"("+std::to_string(i)+")"));
-//           std::cout << " creating : " << "_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_" << std::endl;
          }
          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));
         }
@@ -153,19 +152,15 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
       //---- TLorentzVectors
       
       if (std::strncmp(it->name().c_str(), "v_", strlen("v_")) == 0) {
-//        std::cout << " " << it->name() << " -->   vector " << std::endl;
        tree->Branch(it->name().c_str(), "math::XYZTLorentzVector", it->address4D());
       }
       //---- std::vector <float>
       else if (std::strncmp(it->name().c_str(), "std_vector_", strlen("std_vector_")) == 0) {
-//        std::cout << " using address_std_vector " << std::endl;
        tree->Branch(it->name().c_str(), it->address_std_vector());
-//        tree->Branch(it->name().c_str(), "std::vector<float>", it->address_std_vector());
-       
+//        tree->Branch(it->name().c_str(), "std::vector<float>", it->address_std_vector());       
       }      
       //---- float
       else {
-//        std::cout << " " << it->name() << " -->   float " << std::endl;
        tree->Branch(it->name().c_str(), it->address(), (it->name()+"/F").c_str());
       }
      }
@@ -276,7 +271,6 @@ void tnp::BaseGenericTreeFiller::init(const edm::Event &iEvent) const {
 void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const {
  
  for (std::vector<tnp::ProbeVariable>::const_iterator it = vars_.begin(), ed = vars_.end(); it != ed; ++it) {
-  //   std::cout << " Filling :: " << it->name().c_str() << std::endl;
   if (std::strncmp(it->name().c_str(), "v_", strlen("v_")) != 0 &&
       std::strncmp(it->name().c_str(), "std_vector_", strlen("std_vector_")) != 0
   ) { //---- first normal variables  
@@ -285,13 +279,11 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const
  }
  
  for (std::vector<tnp::ProbeVariable>::const_iterator it = vars_.begin(), ed = vars_.end(); it != ed; ++it) {
-  //   std::cout << " Filling :: " << it->name().c_str() << std::endl;
   if (
    std::strncmp(it->name().c_str(), "_TEMP_", strlen("_TEMP_")) != 0 &&
    std::strncmp(it->name().c_str(), "_VECTORTEMP_", strlen("_VECTORTEMP_")) != 0
   ) { //---- only *not* temporary variables  
    if (std::strncmp(it->name().c_str(), "v_", strlen("v_")) == 0) { //---- now the vectors
-    //     std::cout << " Filling :: " << it->name().c_str() << std::endl;
     float x = 0;
     float y = 0;
     float z = 0;
@@ -299,7 +291,6 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const
     for (std::vector<tnp::ProbeVariable>::const_iterator it2 = vars_.begin(), ed2 = vars_.end(); it2 != ed2; ++it2) {
      if (std::strncmp(it2->name().c_str(), std::string("_TEMP_" + it->name() +"_x_").c_str(), strlen(it2->name().c_str())) == 0) {
       x = it2->internal_value();
-      //       std::cout << " it->name() =  " << it->name().c_str() << " =>> " << std::string(std::string("_TEMP_")+it->name().c_str()+"_x_").c_str() << " x = " << x << std::endl;
      }
      if (std::strncmp(it2->name().c_str(), std::string("_TEMP_" + it->name() +"_y_").c_str(), strlen(it2->name().c_str())) == 0) {
       y = it2->internal_value();
@@ -316,9 +307,7 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const
    else if (std::strncmp(it->name().c_str(), "std_vector_", strlen("std_vector_")) == 0) { //---- now the std::vector <float>
     for (std::vector<tnp::ProbeVariable>::const_iterator it2 = vars_.begin(), ed2 = vars_.end(); it2 != ed2; ++it2) {
      for (int i=0; i<10; i++) {
-//       std::cout << " looking for " <<  std::string("_VECTORTEMP_" + it->name() +"_"+std::to_string(i+1)+"_") << std::endl;
       if (std::strncmp(it2->name().c_str(), std::string("_VECTORTEMP_" + it->name() +"_"+std::to_string(i+1)+"_").c_str(), strlen(it2->name().c_str())) == 0) {
-//        std::cout << " FILLING!!! = " << it2->internal_value() << std::endl;
        it->fillStdVector(it2->internal_value(),i);
       }
      }
