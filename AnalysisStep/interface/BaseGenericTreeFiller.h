@@ -56,6 +56,8 @@ class ProbeVariable {
         float * address() const { return &value_; }
         math::XYZTLorentzVector * address4D() const { return &value4D_; }
         
+        std::vector<float> * address_std_vector() const { return &std_vector_value_; }
+        
         /// name
         const std::string & name() const { return name_; }
 
@@ -85,16 +87,34 @@ class ProbeVariable {
 //          value4D_t_ = function_(*probe); // FIXME
         }
         
+        void fillStdVector(float x, int iPosition) const {
+//          std::cout << " std_vector_value_.size() = " << std_vector_value_.size() << " = " << (int) std_vector_value_.size() << std::endl;
+         if (iPosition >= (int) std_vector_value_.size()) {
+          for (int i = (int) std_vector_value_.size(); iPosition>=i; i++) {
+           std_vector_value_.push_back(-9999.0);
+          }
+         }
+//          std::cout << " std_vector_value_.size() --->  = " << std_vector_value_.size() << " while iPosition = " << iPosition << std::endl;
+         std_vector_value_.at(iPosition) = x;
+        }
+        
+        
+        
     private:
         /// the name of the variable, which becomes the ROOT branch name
         std::string name_;
+        
         /// the place where we store the value, and that ROOT uses to fill the tree
         mutable float value_;
+        
         mutable math::XYZTLorentzVector value4D_;
         mutable float value4D_x_;
         mutable float value4D_y_;
         mutable float value4D_z_;
         mutable float value4D_t_;
+
+        mutable std::vector<float> std_vector_value_;
+
         
         /// true if it's an external ValueMap, false if it's a StringParser function
         bool external_;
