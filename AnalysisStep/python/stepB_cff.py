@@ -412,6 +412,17 @@ nPU = cms.EDProducer("PileUpMultiplicityCounter",
 #)
 
 
+def addEleIdIsoVariables():
+    if hasattr(pt,"variables"):      
+        pt.variables.std_v_deltaEtaIn    = cms.string("deltaEtaSuperClusterTrackAtVtxByPt"),
+        pt.variables.std_v_deltaPhiIn    = cms.string("deltaPhiSuperClusterTrackAtVtxByPt"),
+        pt.variables.std_v_sigmaIetaIeta = cms.string("sigmaIetaIetaByPt"),
+        pt.variables.std_v_HoE           = cms.string("hadronicOverEmByPt"),
+        pt.variables.std_v_numHits       = cms.string("numberOfHitsByPt"),      
+    else:
+        raise RuntimeError, "In addEleIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
+
+
 def addBTaggingVariables(pt,dzCut=99999):
     if hasattr(pt,"variables"):
         pt.variables.softtche = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'trackCountingHighEffBJetTags',"+jetId_WP+",%f)"%dzCut)
