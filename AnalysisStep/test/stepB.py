@@ -127,6 +127,13 @@ options.register ('doNoFilter',
                   opts.VarParsing.varType.bool,
                   'Turn on no filter requirement, not even requiring 2 leptons! Needed for unfolding at GEN (can be \'True\' or \'False\'')
 
+options.register ('doEleIsoId',
+                       False, # default value
+                       opts.VarParsing.multiplicity.singleton, # singleton or list
+                       opts.VarParsing.varType.bool,
+                       'Turn on electron id/iso sumper (can be \'True\' or \'False\'')
+
+
 options.register ('acceptDuplicates',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
@@ -296,6 +303,7 @@ from LatinoTrees.AnalysisStep.stepB_cff import * # get also functions
 
 #########################################
 
+doEleIsoId = options.doEleIsoId
 
 doLHE = options.doLHE
 doGen = options.doGen
@@ -387,6 +395,8 @@ process.stepBTree.variables.dataset = str(idn)
 # process.stepBTree.variables.dataset = str(id)
 
 # addMuVars(process.stepBTree)
+
+
 
 if dataset[0] == "MC":
 # process.stepBTree.eventWeight = cms.InputTag("mcWeight");
@@ -504,6 +514,10 @@ process.nPU.puLabel = cms.InputTag(options.puInformation)
     #tree.variables.ootpum1 = cms.InputTag("nPU:m1"),
 
 
+
+# electron id and iso variables
+if doEleIsoId:
+  addEleIdIsoVariables(process,tree)
 
 
 # LHE information dumper
