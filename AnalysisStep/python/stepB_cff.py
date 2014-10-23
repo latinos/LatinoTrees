@@ -33,7 +33,7 @@ DphiJetVetominEta="4.7"
 DzBVeto="999999.9"
 minPtBVeto="10.0"
 
-stepBTree = cms.EDFilter("GenericTreeProducer",
+stepBTree = cms.EDAnalyzer("GenericTreeProducer",
 #stepBTree = cms.EDFilter("ProbeTreeProducer",
 # cut = cms.string("q(0)*q(1) > 0 && !isSTA(0) && !isSTA(1) && "+
     #cut = cms.string("q(0)*q(1) < 0 && !isSTA(0) && !isSTA(1) && "+
