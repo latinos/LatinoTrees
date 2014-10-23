@@ -17,19 +17,13 @@
 
 #include "CommonTools/Utils/interface/StringCutObjectSelector.h"
 
-// BDT ElectronID
-// #include "HiggsAnalysis/HiggsToWW2Leptons/interface/ElectronIDMVA.h"
-
 // DYMVA
 #include "DataFormats/Math/interface/deltaR.h"
-// #include "DYMvaInCMSSW/GetDYMVA/interface/GetDYMVA.h"
 
 // MVAMet
 #include <TLorentzVector.h>
 #include "DataFormats/Math/interface/LorentzVector.h"
 #include "DataFormats/Math/interface/Vector.h"
-// #include "pharris/MVAMet/interface/MetUtilities.h"
-// #include "pharris/MVAMet/interface/MVAMet.h"
 
 //---- pat
 #include <DataFormats/PatCandidates/interface/MET.h>
@@ -58,11 +52,11 @@ double neutFrac;
         virtual void beginJob() ;
         virtual void produce(edm::Event&, const edm::EventSetup&);
         virtual void endJob() ;
-reco::MET doChMET(edm::Handle<reco::CandidateView> candsH,
-const reco::Candidate* cand1,const reco::Candidate* cand2);
+
+        reco::MET doChMET(edm::Handle<reco::CandidateView> candsH,
+        const reco::Candidate* cand1,const reco::Candidate* cand2);
  
         std::string branchAlias_;
-//      reco::SkimEvent::hypoType hypoType_;
 
         edm::InputTag triggerTag_;
         TriggerBitChecker singleMuData_;
@@ -93,43 +87,41 @@ const reco::Candidate* cand1,const reco::Candidate* cand2);
         edm::InputTag tcMetTag_;
         edm::InputTag chargedMetTag_;
         edm::InputTag vtxTag_;
-// edm::InputTag allCandsTag_; // Needed for MVAMet
         edm::InputTag chCandsTag_;
         edm::InputTag sptTag_;
         edm::InputTag spt2Tag_;
         edm::InputTag rhoTag_;
 
-// std::string l2File_;
-// std::string l3File_;
-// std::string resFile_;
-      
-// GetDYMVA *getDYMVA_v0;
-// GetDYMVA *getDYMVA_v1;
+	edm::EDGetTokenT<reco::GenParticleCollection> genParticlesT_;
+	edm::EDGetTokenT<pat::JetCollection> fatJetHT_ ;
+	edm::EDGetTokenT<pat::JetCollection> jetHT_ ;
+	edm::EDGetTokenT<double> rhoT_  ;
+	edm::EDGetTokenT<pat::JetCollection> tagJetHT_ ;
+	edm::EDGetTokenT<std::vector<pat::MET> > pfMetHT_;
+	edm::EDGetTokenT<reco::VertexCollection> vtxHT_;
+	edm::EDGetTokenT<reco::CandidateView> candsHT_;
+	edm::EDGetTokenT<edm::ValueMap<float> > sptHT_;
+	edm::EDGetTokenT<edm::ValueMap<float> > spt2HT_;
+	edm::EDGetTokenT<edm::TriggerResults> triggerResultsT_;
+	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > muonsT_;
+	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > softsT_;
+	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > electronsT_;
+	edm::EDGetTokenT<GenEventInfoProduct> GenInfoT_ ;
+	edm::EDGetTokenT<GenFilterInfo> mcGenWeightT_;
+	edm::EDGetTokenT<LHEEventProduct> productLHET_ ;
+	edm::EDGetTokenT<reco::GenMETCollection> genMetHT_;
+	edm::EDGetTokenT<reco::GenJetCollection> genJetHT_;
+	edm::EDGetTokenT<edm::TriggerResults> triggerT_;
 
-void addDYMVA(reco::SkimEvent* event);
+        void addDYMVA(reco::SkimEvent* event);
+        std::vector<std::pair<LorentzVector,double> > lPFInfo;
+        std::vector<Vector> lVtxInfo;
 
-// MVAMet *fMVAMet;
+        void makeJets       (const edm::Handle<pat::JetCollection> &jH, reco::VertexCollection &iVertices);
+        void makeCandidates (std::vector<std::pair<LorentzVector,double> > &iPFInfo, edm::Handle<reco::CandidateView> cH, reco::Vertex *iPV);
+        void makeVertices   (std::vector<Vector> &iPVInfo,reco::VertexCollection &iVertices);
+        reco::PFMET getMvaMet(const reco::Candidate *cand1,const reco::Candidate *cand2,reco::Vertex *iPV,reco::PFMETCollection thePfMet);
 
-std::vector<std::pair<LorentzVector,double> > lPFInfo;
-// std::vector<MetUtilities::JetInfo> lJetInfo;
-std::vector<Vector> lVtxInfo;
-
-void makeJets (
-//    std::vector<MetUtilities::JetInfo> &iJetInfo,
-   const edm::Handle<pat::JetCollection> &jH,
-   reco::VertexCollection &iVertices);
-
-void makeCandidates (std::vector<std::pair<LorentzVector,double> > &iPFInfo,
-edm::Handle<reco::CandidateView> cH,
-reco::Vertex *iPV);
-
-void makeVertices (std::vector<Vector> &iPVInfo,
-reco::VertexCollection &iVertices);
-
-reco::PFMET getMvaMet(const reco::Candidate *cand1,
-const reco::Candidate *cand2,
-reco::Vertex *iPV,
-reco::PFMETCollection thePfMet);
 };
 
 

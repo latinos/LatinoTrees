@@ -19,55 +19,70 @@
 
 
 SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
-    triggerTag_(cfg.getParameter<edm::InputTag>("triggerTag")),
+    triggerTag_   ( cfg.getParameter<edm::InputTag>("triggerTag")),
     singleMuData_ ( cfg.getParameter<std::vector<std::string> >("singleMuDataPaths") ),
     singleElData_ ( cfg.getParameter<std::vector<std::string> >("singleElDataPaths") ),
     doubleMuData_ ( cfg.getParameter<std::vector<std::string> >("doubleMuDataPaths") ),
     doubleElData_ ( cfg.getParameter<std::vector<std::string> >("doubleElDataPaths") ),
-    muEGData_ ( cfg.getParameter<std::vector<std::string> >("muEGDataPaths") ),
-    singleMuMC_ ( cfg.getParameter<std::vector<std::string> >("singleMuMCPaths") ),
-    singleElMC_ ( cfg.getParameter<std::vector<std::string> >("singleElMCPaths") ),
-    doubleMuMC_ ( cfg.getParameter<std::vector<std::string> >("doubleMuMCPaths") ),
-    doubleElMC_ ( cfg.getParameter<std::vector<std::string> >("doubleElMCPaths") ),
-    muEGMC_ ( cfg.getParameter<std::vector<std::string> >("muEGMCPaths") ),
-    AllEmbed_ ( cfg.getParameter<std::vector<std::string> >("AllEmbedPaths") )
+    muEGData_     ( cfg.getParameter<std::vector<std::string> >("muEGDataPaths") ),
+    singleMuMC_   ( cfg.getParameter<std::vector<std::string> >("singleMuMCPaths") ),
+    singleElMC_   ( cfg.getParameter<std::vector<std::string> >("singleElMCPaths") ),
+    doubleMuMC_   ( cfg.getParameter<std::vector<std::string> >("doubleMuMCPaths") ),
+    doubleElMC_   ( cfg.getParameter<std::vector<std::string> >("doubleElMCPaths") ),
+    muEGMC_       ( cfg.getParameter<std::vector<std::string> >("muEGMCPaths") ),
+    AllEmbed_     ( cfg.getParameter<std::vector<std::string> >("AllEmbedPaths") )
 {
     mcLHEEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcLHEEventInfoTag");
     mcGenEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcGenEventInfoTag");
-    mcGenWeightTag_ = cfg.getParameter<edm::InputTag>("mcGenWeightTag");
-    genParticlesTag_ = cfg.getParameter<edm::InputTag>("genParticlesTag");
-    genMetTag_ = cfg.getParameter<edm::InputTag>("genMetTag");
-    genJetTag_ = cfg.getParameter<edm::InputTag>("genJetTag");
-    muTag_ = cfg.getParameter<edm::InputTag>("muTag" );
-    elTag_ = cfg.getParameter<edm::InputTag>("elTag" );
-    softMuTag_ = cfg.getParameter<edm::InputTag>("softMuTag" );
-    jetTag_ = cfg.getParameter<edm::InputTag>("jetTag" );
-    tagJetTag_ = cfg.getParameter<edm::InputTag>("tagJetTag" );
-    fatJetTag_ = cfg.getParameter<edm::InputTag>("fatJetTag" );
-    pfMetTag_ = cfg.getParameter<edm::InputTag>("pfMetTag" );
-    tcMetTag_ = cfg.getParameter<edm::InputTag>("tcMetTag" );
-    chargedMetTag_ = cfg.getParameter<edm::InputTag>("chargedMetTag" );
-    vtxTag_ = cfg.getParameter<edm::InputTag>("vtxTag" );
-    // allCandsTag_ = cfg.getParameter<edm::InputTag>("allCandsTag" ); // Needed for MVAMet
-    chCandsTag_ = cfg.getParameter<edm::InputTag>("chCandsTag" );
-    rhoTag_ =  cfg.getParameter<edm::InputTag>("rhoTag" );
-    if (cfg.exists("sptTag" )) sptTag_ = cfg.getParameter<edm::InputTag>("sptTag" );
-    else sptTag_ = edm::InputTag("","","");
-    if (cfg.exists("spt2Tag" )) spt2Tag_ = cfg.getParameter<edm::InputTag>("spt2Tag" );
-    else spt2Tag_ = edm::InputTag("","","");
+    mcGenWeightTag_    = cfg.getParameter<edm::InputTag>("mcGenWeightTag");
+    genParticlesTag_   = cfg.getParameter<edm::InputTag>("genParticlesTag");
+    genMetTag_         = cfg.getParameter<edm::InputTag>("genMetTag");
+    genJetTag_         = cfg.getParameter<edm::InputTag>("genJetTag");
+    muTag_             = cfg.getParameter<edm::InputTag>("muTag" );
+    elTag_             = cfg.getParameter<edm::InputTag>("elTag" );
+    softMuTag_         = cfg.getParameter<edm::InputTag>("softMuTag" );
+    jetTag_            = cfg.getParameter<edm::InputTag>("jetTag" );
+    tagJetTag_         = cfg.getParameter<edm::InputTag>("tagJetTag" );
+    fatJetTag_         = cfg.getParameter<edm::InputTag>("fatJetTag" );
+    pfMetTag_          = cfg.getParameter<edm::InputTag>("pfMetTag" );
+    tcMetTag_          = cfg.getParameter<edm::InputTag>("tcMetTag" );
+    chargedMetTag_     = cfg.getParameter<edm::InputTag>("chargedMetTag" );
+    vtxTag_            = cfg.getParameter<edm::InputTag>("vtxTag" );
+    chCandsTag_        = cfg.getParameter<edm::InputTag>("chCandsTag" );
+    rhoTag_            = cfg.getParameter<edm::InputTag>("rhoTag" );
+
+    if (cfg.exists("sptTag" )) 
+     sptTag_ = cfg.getParameter<edm::InputTag>("sptTag" );
+    else 
+     sptTag_ = edm::InputTag("","","");
+    if (cfg.exists("spt2Tag" )) 
+     spt2Tag_ = cfg.getParameter<edm::InputTag>("spt2Tag" );
+    else 
+     spt2Tag_ = edm::InputTag("","","");
 
     produces<std::vector<reco::SkimEvent> >().setBranchAlias(cfg.getParameter<std::string>("@module_label"));
 
-//     getDYMVA_v0 = new GetDYMVA(0);
-//     getDYMVA_v1 = new GetDYMVA(1);
+    // consumes
+    genParticlesT_ = consumes<reco::GenParticleCollection>(genParticlesTag_);
+    fatJetHT_      = consumes<pat::JetCollection>(fatJetTag_);
+    jetHT_         = consumes<pat::JetCollection>(jetTag_);
+    rhoT_          = consumes<double>(rhoTag_);
+    tagJetHT_      = consumes<pat::JetCollection>(tagJetTag_);
+    pfMetHT_       = consumes<std::vector<pat::MET> >(pfMetTag_);
+    vtxHT_         = consumes<reco::VertexCollection>(vtxTag_);
+    candsHT_       = consumes<reco::CandidateView>(chCandsTag_);
+    if(!(sptTag_  == edm::InputTag(""))) sptHT_   = consumes<edm::ValueMap<float> >(sptTag_);
+    if(!(spt2Tag_ == edm::InputTag(""))) spt2HT_  = consumes<edm::ValueMap<float> >(spt2Tag_);
+    triggerT_      = consumes<edm::TriggerResults>(triggerTag_);
+    muonsT_        = consumes<edm::View<reco::RecoCandidate> > (muTag_);
+    softsT_        = consumes<edm::View<reco::RecoCandidate> > (softMuTag_);
+    electronsT_    = consumes<edm::View<reco::RecoCandidate> > (elTag_);
+    if (!(mcGenEventInfoTag_ == edm::InputTag(""))) GenInfoT_     = consumes<GenEventInfoProduct>(mcGenEventInfoTag_);
+    if (!(mcGenWeightTag_    == edm::InputTag(""))) mcGenWeightT_ = consumes<GenFilterInfo>(mcGenWeightTag_); 
+    if (!(mcLHEEventInfoTag_ == edm::InputTag(""))) productLHET_  = consumes<LHEEventProduct>(mcLHEEventInfoTag_);
+    if (!(genMetTag_ == edm::InputTag(""))) genMetHT_ = consumes<reco::GenMETCollection>(genMetTag_);
+    if (!(genJetTag_ == edm::InputTag(""))) genJetHT_ = consumes<reco::GenJetCollection>(genJetTag_);
 
-    // Needed for MVAMet
-    // fMVAMet = new MVAMet(0.1);
-    // fMVAMet->Initialize(cfg,
-    // TString((getenv("CMSSW_BASE") + std::string("/src/pharris/MVAMet/data/gbrmet_52.root"))),
-    // TString((getenv("CMSSW_BASE") + std::string("/src/pharris/MVAMet/data/gbrmetphi_52.root"))),
-    // TString((getenv("CMSSW_BASE") + std::string("/src/pharris/MVAMet/data/gbrmetu1cov_52.root"))),
-    // TString((getenv("CMSSW_BASE") + std::string("/src/pharris/MVAMet/data/gbrmetu2cov_52.root"))));
 }
 
 
@@ -75,53 +90,40 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     std::auto_ptr<std::vector<reco::SkimEvent> > skimEvent(new std::vector<reco::SkimEvent> );
 
-    //SkimEvent::hypoType type = SkimEvent::hypoTypeByName(hypoType_);
-
     edm::Handle<reco::GenParticleCollection> genParticles;
-    if(!(genParticlesTag_==edm::InputTag(""))) {
-     iEvent.getByLabel(genParticlesTag_,genParticles);
+    if(!(genParticlesTag_ == edm::InputTag(""))) {
+     iEvent.getByToken(genParticlesT_,genParticles);
     }
 
     edm::Handle<pat::JetCollection> fatJetH;
-    iEvent.getByLabel(fatJetTag_,fatJetH);
+    iEvent.getByToken(fatJetHT_,fatJetH);
 
     edm::Handle<pat::JetCollection> jetH;
-    iEvent.getByLabel(jetTag_,jetH);
+    iEvent.getByToken(jetHT_,jetH);
 
     edm::Handle<double> rhoJetIso;
-
-    edm::InputTag rho_src (rhoTag_); // miniAOD
-    iEvent.getByLabel(rho_src,rhoJetIso);
+    iEvent.getByToken(rhoT_,rhoJetIso);
 
     edm::Handle<pat::JetCollection> tagJetH;
-    if(!(tagJetTag_==edm::InputTag(""))) iEvent.getByLabel(tagJetTag_,tagJetH);
+    if(!(tagJetTag_==edm::InputTag(""))) iEvent.getByToken(tagJetHT_,tagJetH);
 
     edm::Handle< std::vector<pat::MET> > pfMetH;
-    iEvent.getByLabel(pfMetTag_,pfMetH);
-
-// edm::Handle<reco::METCollection> tcMetH;
-// iEvent.getByLabel(tcMetTag_,tcMetH);
-
-// edm::Handle<edm::ValueMap<reco::PFMET> > chargedMetH;
-// iEvent.getByLabel(chargedMetTag_,chargedMetH);
+    iEvent.getByToken(pfMetHT_,pfMetH);
 
     edm::Handle<reco::VertexCollection> vtxH;
-    iEvent.getByLabel(vtxTag_,vtxH);
+    iEvent.getByToken(vtxHT_,vtxH);
 
-    // Needed for MVAMet
-    // edm::Handle<reco::CandidateView> allCandsH;
-    // iEvent.getByLabel(allCandsTag_, allCandsH);
     edm::Handle<reco::CandidateView> candsH;
-    iEvent.getByLabel(chCandsTag_,candsH);
+    iEvent.getByToken(candsHT_,candsH);
 
     edm::Handle<edm::ValueMap<float> > sptH;
-    if(!(sptTag_==edm::InputTag(""))) iEvent.getByLabel(sptTag_,sptH);
+    if(!(sptTag_ == edm::InputTag(""))) iEvent.getByToken(sptHT_,sptH);
 
     edm::Handle<edm::ValueMap<float> > spt2H;
-    if(!(spt2Tag_==edm::InputTag(""))) iEvent.getByLabel(spt2Tag_,spt2H);
+    if(!(spt2Tag_ == edm::InputTag(""))) iEvent.getByToken(spt2HT_,spt2H);
 
     edm::Handle<edm::TriggerResults> triggerResults;
-    iEvent.getByLabel(triggerTag_,triggerResults);
+    iEvent.getByToken(triggerT_,triggerResults);
     // May God have mercy on my soul ...
     std::vector<bool> passBits;
     passBits.push_back( singleMuData_.check(iEvent,*triggerResults) );
@@ -138,56 +140,42 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     //---- RecoCandidate in order to be used by SKimEvent later in a template way
     edm::Handle<edm::View<reco::RecoCandidate> > muons;
-    iEvent.getByLabel(muTag_,muons);
+    iEvent.getByToken(muonsT_,muons);
     edm::Handle<edm::View<reco::RecoCandidate> > softs;
-    iEvent.getByLabel(softMuTag_,softs);
+    iEvent.getByToken(softsT_,softs);
     edm::Handle<edm::View<reco::RecoCandidate> > electrons;
-    iEvent.getByLabel(elTag_,electrons);
+    iEvent.getByToken(electronsT_,electrons);
 
     edm::Handle<GenFilterInfo> mcGenWeight;
-    if (!(mcGenWeightTag_==edm::InputTag(""))) {
-     iEvent.getByLabel(mcGenWeightTag_, mcGenWeight);
+    if (!(mcGenWeightTag_ == edm::InputTag(""))) {
+     iEvent.getByToken(mcGenWeightT_, mcGenWeight);
     }
 
     edm::Handle<GenEventInfoProduct> GenInfoHandle;
-    if (!(mcGenEventInfoTag_==edm::InputTag(""))) {
-     iEvent.getByLabel(mcGenEventInfoTag_, GenInfoHandle);
+    if (!(mcGenEventInfoTag_ == edm::InputTag(""))) {
+      iEvent.getByToken(GenInfoT_, GenInfoHandle);
     }
     edm::Handle<LHEEventProduct> productLHEHandle;
-    if (!(mcLHEEventInfoTag_==edm::InputTag(""))) {
-     iEvent.getByLabel(mcLHEEventInfoTag_, productLHEHandle);
+    if (!(mcLHEEventInfoTag_ == edm::InputTag(""))) {
+     iEvent.getByToken(productLHET_, productLHEHandle);
     }
 
     edm::Handle<reco::GenMETCollection> genMetH;
-    if (!(genMetTag_==edm::InputTag(""))) {
-    iEvent.getByLabel(genMetTag_,genMetH);
+    if (!(genMetTag_ == edm::InputTag(""))) {
+    iEvent.getByToken(genMetHT_,genMetH);
     }
 
     edm::Handle<reco::GenJetCollection> genJetH;
-    if (!(genJetTag_==edm::InputTag(""))) {
-    iEvent.getByLabel(genJetTag_,genJetH);
+    if (!(genJetTag_ == edm::InputTag(""))) {
+    iEvent.getByToken(genJetHT_,genJetH);
     }
-
-    // Needed for MVAMetsetJets
-    // reco::VertexCollection lVertices = *vtxH;
-    // reco::Vertex *lPV = 0;
-    // if (lVertices.size() > 0) lPV = &lVertices[0];
-    //
-    // // makeCandidates(lPFInfo, allCandsH, lPV); // Needed for MVAMet
-    // makeCandidates(lPFInfo, candsH, lPV); // For now, use candsH instead of allCandsH
-    // makeJets (lJetInfo, jetH, lVertices);
-    // makeVertices (lVtxInfo, lVertices);
-
 
     skimEvent->push_back( *(new reco::SkimEvent() ) );
 
     for(size_t i=0;i<electrons->size();++i) {
-     // Leptons
      skimEvent->back().setLepton(electrons,i);
-      //---> test already in miniAOD production / PAT ? ---> check, FIXME
-//          float deltall = ROOT::Math::VectorUtil::DeltaR(electrons->at(i).p4(),electrons->at(j).p4());
-//          if (deltall > 0.001) {
     }
+
     for(size_t k=0;k<muons->size();++k) {
      skimEvent->back().setLepton(muons,k);
     }
@@ -203,42 +191,30 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     skimEvent->back().setFatJets(fatJetH);
     skimEvent->back().setJetRhoIso(rhoJetIso);
     skimEvent->back().setPFMet(pfMetH);
-// skimEvent->back().setTCMet(tcMetH);
-// skimEvent->back().setChargedMet(chargedMetH->get(0));
     skimEvent->back().setVertex(vtxH);
     if(sptH.isValid() ) skimEvent->back().setVtxSumPts(sptH);
     if(spt2H.isValid() ) skimEvent->back().setVtxSumPt2s(spt2H);
     if(tagJetH.isValid()) skimEvent->back().setTagJets(tagJetH);
     else skimEvent->back().setTagJets(jetH);
-//     skimEvent->back().setChargedMetSmurf(doChMET(candsH,&electrons->at(i),&electrons->at(j)));
-    // skimEvent->back().setMvaMet(getMvaMet(&electrons->at(i), &electrons->at(j), lPV, *pfMetH));
+
     if(genParticles.isValid()) {
      skimEvent->back().setGenParticles(genParticles);
     }
-    if (!(mcGenWeightTag_==edm::InputTag(""))) {
+    if(!(mcGenWeightTag_ == edm::InputTag(""))) {
      skimEvent->back().setGenWeight(mcGenWeight);
     }
-    if (!(mcGenEventInfoTag_==edm::InputTag(""))) {
+    if(!(mcGenEventInfoTag_ == edm::InputTag(""))) {
      skimEvent->back().setGenInfo(GenInfoHandle);
     }
-    if (!(mcLHEEventInfoTag_==edm::InputTag(""))) {
+    if(!(mcLHEEventInfoTag_ == edm::InputTag(""))) {
      skimEvent->back().setLHEinfo(productLHEHandle);
     }
-    if (!(genMetTag_==edm::InputTag(""))) {
+    if(!(genMetTag_ == edm::InputTag(""))) {
      skimEvent->back().setGenMet(genMetH);
     }
-    if (!(genJetTag_==edm::InputTag(""))) {
+    if(!(genJetTag_==edm::InputTag(""))) {
      skimEvent->back().setGenJets(genJetH);
     }
-
-    // skimEvent->back().setupJEC(l2File_,l3File_,resFile_);
-
-
-//     for (size_t jevent=0; jevent<skimEvent->size(); jevent++) {
-//      reco::SkimEvent* event = &skimEvent->at(jevent);
-//      addDYMVA(event);
-//     }
-
 
     iEvent.put(skimEvent);
 }
@@ -262,8 +238,7 @@ reco::MET SkimEventProducer::doChMET(edm::Handle<reco::CandidateView> candsH,
 }
 
 
-void SkimEventProducer::addDYMVA(reco::SkimEvent* event)
-{
+void SkimEventProducer::addDYMVA(reco::SkimEvent* event){
   float dymva0 = -999;
   float dymva1 = -999;
 

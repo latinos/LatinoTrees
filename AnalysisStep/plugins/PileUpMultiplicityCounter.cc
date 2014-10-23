@@ -9,7 +9,7 @@
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "DataFormats/Common/interface/ValueMap.h"
 #include "DataFormats/RecoCandidate/interface/RecoCandidate.h"
-
+#include "FWCore/Framework/interface/ConsumesCollector.h"
 #include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h"
 
 class PileUpMultiplicityCounter : public edm::EDProducer {
@@ -21,27 +21,38 @@ class PileUpMultiplicityCounter : public edm::EDProducer {
         virtual void produce(edm::Event&, const edm::EventSetup&);
         edm::InputTag puTag_;
         edm::InputTag src_;
+        edm::EDGetTokenT<std::vector<PileupSummaryInfo> > puSummaryT_ ;
+        edm::EDGetTokenT<edm::View<reco::Candidate> > recoCandidateT_ ;
 };
 
 PileUpMultiplicityCounter::PileUpMultiplicityCounter(const edm::ParameterSet& iConfig) :
     puTag_(iConfig.getParameter<edm::InputTag>("puLabel")),
     src_  (iConfig.getParameter<edm::InputTag>("src"))
 {
- produces<edm::ValueMap<float> > ("tr");
- produces<edm::ValueMap<float> > ("it");
- produces<edm::ValueMap<float> > ("m1");
- produces<edm::ValueMap<float> > ("p1");
+
+  puSummaryT_     = consumes<std::vector<PileupSummaryInfo> >(puTag_);
+  recoCandidateT_ = consumes<edm::View<reco::Candidate> >(src_);  
+  
+  produces<edm::ValueMap<float> > ("tr");
+  produces<edm::ValueMap<float> > ("it");
+  produces<edm::ValueMap<float> > ("m1");
+  produces<edm::ValueMap<float> > ("p1");
 }
 
 
 void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
+
+ edm::Handle<std::vector<PileupSummaryInfo> > puInfoH;
+ iEvent.getByToken(puSummaryT_,puInfoH);
+
+ edm::Handle<edm::View<reco::Candidate> > srcH;
+ iEvent.getByToken(recoCandidateT_,srcH);
+
  std::auto_ptr<float> tr(new float(0));
  std::auto_ptr<float> it(new float(0));
  std::auto_ptr<float> m1(new float(0));
  std::auto_ptr<float> p1(new float(0));
 
- edm::Handle<std::vector<PileupSummaryInfo> > puInfoH;
- iEvent.getByLabel(puTag_,puInfoH);
  for(size_t i=0;i<puInfoH->size();++i) {
   if( puInfoH->at(i).getBunchCrossing()==0 ) *tr = puInfoH->at(i).getTrueNumInteractions();
   if( puInfoH->at(i).getBunchCrossing()==0 ) *it = puInfoH->at(i).getPU_NumInteractions();
@@ -58,9 +69,6 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  edm::ValueMap<float>::Filler itFill(*itMap);
  edm::ValueMap<float>::Filler m1Fill(*m1Map);
  edm::ValueMap<float>::Filler p1Fill(*p1Map);
-
- edm::Handle<edm::View<reco::Candidate> > srcH;
- iEvent.getByLabel(src_ ,srcH);
 
  std::vector<float> trVec(srcH->size(),*tr);
  std::vector<float> itVec(srcH->size(),*it);

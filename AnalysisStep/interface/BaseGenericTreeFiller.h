@@ -30,12 +30,6 @@
 #include "DataFormats/Math/interface/LorentzVector.h"
 
 
-/** Class that makes a TTree with:
-     - variables from a Probe
-     - flags saying if the Probe passed one or more selections
-     - MC flag saying if the Probe is to be used in MC efficiency
-*/
-
 namespace tnp {
 
 /// A variable for the probe: can be a string expression or an external ValueMap<float>
