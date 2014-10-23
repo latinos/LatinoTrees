@@ -15,25 +15,26 @@
 #include <ctype.h>
 #include "FWCore/Framework/interface/Frameworkfwd.h"
 #include "FWCore/Framework/interface/EDFilter.h"
+#include "FWCore/Framework/interface/EDAnalyzer.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/Utilities/interface/InputTag.h"
 #include "DataFormats/Candidate/interface/CandidateFwd.h"
 #include "DataFormats/Candidate/interface/Candidate.h"
-// #include "PhysicsTools/TagAndProbe/interface/BaseTreeFiller.h"
 #include "LatinoTrees/AnalysisStep/interface/BaseGenericTreeFiller.h"
 #include <set>
 #include "FWCore/ParameterSet/interface/Registry.h"
 
-class GenericTreeProducer : public edm::EDFilter {
+class GenericTreeProducer : public edm::EDAnalyzer {
   public:
     explicit GenericTreeProducer(const edm::ParameterSet&);
     ~GenericTreeProducer();
+    virtual void analyze(const edm::Event&, const edm::EventSetup&);
+    virtual void beginJob();
+    virtual void endJob();
 
   private:
-    virtual bool filter(edm::Event&, const edm::EventSetup&) override;
-    virtual void endJob() override;
 
     /// InputTag to the collection of all probes
     edm::EDGetTokenT<reco::CandidateView> probesToken_;
@@ -71,17 +72,14 @@ GenericTreeProducer::GenericTreeProducer(const edm::ParameterSet& iConfig) :
 GenericTreeProducer::~GenericTreeProducer(){
 }
 
-bool GenericTreeProducer::filter(edm::Event& iEvent, const edm::EventSetup& iSetup){
-  bool result = !filter_;
+void GenericTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup){
   edm::Handle<reco::CandidateView> probes;
   iEvent.getByToken(probesToken_, probes);
-  if(!probes.isValid()) return result;
+  if(!probes.isValid()) return ;
   probeFiller_->init(iEvent);
 
-//   std::cout << " GenericTreeProducer::filter --> init" << std::endl;
   std::vector<reco::CandidateBaseRef> selectedProbes;
   for (size_t i = 0; i < probes->size(); ++i){
-//    std::cout << " GenericTreeProducer::filter --> i = " << i << " :: " << probes->size() -1  << std::endl;
    const reco::CandidateBaseRef &probe = probes->refAt(i);
    if(cut_(*probe)){
     selectedProbes.push_back(probe);
@@ -89,32 +87,10 @@ bool GenericTreeProducer::filter(edm::Event& iEvent, const edm::EventSetup& iSet
   }
   
   
-  // select probes and calculate the sorting value
-  //   typedef std::pair<reco::CandidateBaseRef, double> Pair;
-  //   std::vector<Pair> selectedProbes;
-  //   for (size_t i = 0; i < probes->size(); ++i){
-  //     const reco::CandidateBaseRef &probe = probes->refAt(i);
-  //     if(cut_(*probe)){
-  //       selectedProbes.push_back(Pair(probe, sortFunction_(*probe)));
-  //     }
-  //   }
-  // sort only if a function was provided
-  //   if(sortDescendingBy_.size()>0) sort(selectedProbes.begin(), selectedProbes.end(), boost::bind(&Pair::second, _1) > boost::bind(&Pair::second, _2));
-  // fill the first maxProbes_ into the tree
-  //   for (size_t i = 0; i < (maxProbes_<0 ? selectedProbes.size() : std::min((size_t)maxProbes_, selectedProbes.size())); ++i){
-  //    probeFiller_->fill(selectedProbes[i].first);
-  //    result = true;
-  //   }
-  
-//   std::cout << " GenericTreeProducer::filter :: maxProbes_ = " << maxProbes_ << std::endl;
-//   std::cout << " GenericTreeProducer::filter :: selectedProbes.size() [after cuts] = " << selectedProbes.size() << std::endl;
   for (size_t i = 0; i < (maxProbes_<0 ? selectedProbes.size() : std::min((size_t)maxProbes_, selectedProbes.size())); ++i){
-//    std::cout << " GenericTreeProducer::filter --> i = " << i << " :: " << probes->size() -1 << " filling ... " << std::endl;
    probeFiller_->fill(selectedProbes[i]);
-//    std::cout << " GenericTreeProducer::filter --> i = " << i << " :: " << probes->size() -1 << " filled " << std::endl;
-   result = true;
   }
-  return result;
+  return ;
  
 }
 
@@ -122,6 +98,8 @@ void GenericTreeProducer::endJob(){
     // ask to write the current PSet info into the TTree header
     probeFiller_->writeProvenance(edm::getProcessParameterSet());
 }
+
+void GenericTreeProducer::beginJob(){}
 
 //define this as a plug-in
 DEFINE_FWK_MODULE(GenericTreeProducer);
