@@ -8,12 +8,12 @@ import FWCore.ParameterSet.Config as cms
 skimEventProducer = cms.EDProducer('SkimEventProducer',
     mcLHEEventInfoTag = cms.InputTag(""),
     mcGenEventInfoTag = cms.InputTag(""),
-    mcGenWeightTag = cms.InputTag(""),
-    genParticlesTag = cms.InputTag(""),
-    genMetTag = cms.InputTag(""),
-    genJetTag = cms.InputTag(""),
-    muTag = cms.InputTag("slimmedMuons"), # miniAOD
-    elTag = cms.InputTag("slimmedElectrons"), # miniAOD
+    mcGenWeightTag    = cms.InputTag(""),
+    genParticlesTag   = cms.InputTag(""),
+    genMetTag         = cms.InputTag(""),
+    genJetTag         = cms.InputTag(""),
+    muTag     = cms.InputTag("slimmedMuons"), # miniAOD
+    elTag     = cms.InputTag("slimmedElectrons"), # miniAOD
     softMuTag = cms.InputTag("slimmedMuons"), #miniAOD wwMuons4Veto
     # extraElTag = cms.InputTag("wwElectrons"),
     jetTag = cms.InputTag("slimmedJets"), # miniAOD slimPatJetsTriggerMatch
@@ -100,13 +100,13 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
 )
 
 
+def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons4Veto',preSequence=cms.Sequence(),isMiniAODProduction=False):
 
+    # isMiniAODProduction is a flag that when is true takes into account that latino tree are run in the same python of miniAOD production, so no cms.Path have
+    #  top be defined
 
-
-
-def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons4Veto',preSequence=cms.Sequence()):
-
-    process.peakingFilter = cms.EDFilter("GenFilterDiBosons")
+    if isMiniAODProduction == False:
+       process.peakingFilter = cms.EDFilter("GenFilterDiBosons")
 
     tempSkimEventFilter = cms.EDFilter("SkimEventSelector",
        src = cms.InputTag(""),
@@ -117,13 +117,23 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
 
     #create the only hypothesis (>= 1 lepton):
     setattr(process,'ww'+label,process.skimEventProducer.clone(muTag=thisMuTag,elTag=thisEleTag,softMuTag=thisSoftMuTag))
+
     #create SkimEventSelectors (asking for nLep >=2)
     setattr(process,'skim'+label,tempSkimEventFilter.clone(src='ww'+label))
     # create sequence
-    p = cms.Path(
+    if not isMiniAODProduction   :
+     p = cms.Path(
+        preSequence+ 
         getattr(process,'ww'+label) +
         getattr(process,'skim'+label)
-    )
+     )
+    else :
+     p = cms.Sequence(
+        preSequence+
+        getattr(process,'ww'+label) +
+        getattr(process,'skim'+label)
+     )
+
     setattr(process,'sel'+label,p)
     # add to scheduler
     if getattr(process,'schedule') != None: process.schedule.append( getattr(process,'sel'+label) )
