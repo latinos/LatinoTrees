@@ -257,11 +257,14 @@ if not options.stopAtMiniAOD:
     raise ValueError('selection must be either TightTight or LooseLoose')
 
  ### adding puppi
- process.load('LatinoTrees.AnalysisStep.puppiSequence_cff')
- preSeq += process.puppiSequence
+ from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence 
+ makePuppiAlgo(process) ## call puppi producer and puppi met
+ makePatPuppiJetSequence(process,0.5) ## call pat puppi jets
+
  process.MINIAODSIMoutput.outputCommands += cms.untracked.vstring('keep *_*puppi*_*_*',
-                                                                  'keep *_AK4PFJetsPuppi_*_*',
+                                                                  'keep *_*Puppi*_*_*',
                                                                   'keep *_AK5PFJetsPuppi_*_*',
+                                                                  'keep *_*slimmedJetsPuppi_*_*',
                                                                   'keep *_pfMetPuppi_*_*')
 
 

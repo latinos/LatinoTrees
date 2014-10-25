@@ -20,7 +20,7 @@ LatinoTrees
     scramv1 b -j 16
 
 =======================================================================
-To Run the miniAOD production starting from SLHC samples in 62X  ===
+To Run the miniAOD production starting from SLHC samples in 62X
 =======================================================================
 
     cd LatinosTrees/AnalysisStep/test/ 
