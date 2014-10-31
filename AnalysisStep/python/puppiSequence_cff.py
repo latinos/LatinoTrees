@@ -10,22 +10,22 @@ from RecoMET.METProducers.PFMET_cfi import pfMet
 
 def makePuppiAlgo(process):
 
- ### puppi met
+ ### puppi particles
  process.load('Dummy.Puppi.Puppi_cff')
  process.puppi.candName = cms.untracked.string('particleFlow')
  process.puppi.vertexName = cms.untracked.string('offlinePrimaryVertices')
 
  process.particleFlowPuppiPtrs = process.particleFlowPtrs.clone(src = cms.InputTag("puppi","Puppi"))
 
- process.pfPuppiPileUp = process.pfPileUp.clone( PFCandidates = cms.InputTag("particleFlowPuppiPtrs"))
+ process.pfPuppiPileUp         = process.pfPileUp.clone( PFCandidates = cms.InputTag("particleFlowPuppiPtrs"))
 
- process.pfPuppiPileUpJME = process.pfPileUpJME.clone( PFCandidates = cms.InputTag("particleFlowPuppiPtrs"))
+ process.pfPuppiPileUpJME      = process.pfPileUpJME.clone( PFCandidates = cms.InputTag("particleFlowPuppiPtrs"))
 
- process.pfPuppiNoPileUp = process.pfNoPileUp.clone( bottomCollection = cms.InputTag("particleFlowPuppiPtrs"),
-                                                     topCollection = cms.InputTag("pfPuppiPileUp"))
-
- process.pfPuppiNoPileUpJME = process.pfNoPileUpJME.clone( bottomCollection = cms.InputTag("particleFlowPuppiPtrs"),
+ process.pfPuppiNoPileUp       = process.pfNoPileUp.clone( bottomCollection = cms.InputTag("particleFlowPuppiPtrs"),
                                                            topCollection = cms.InputTag("pfPuppiPileUp"))
+
+ process.pfPuppiNoPileUpJME    = process.pfNoPileUpJME.clone( bottomCollection = cms.InputTag("particleFlowPuppiPtrs"),
+                                                              topCollection = cms.InputTag("pfPuppiPileUp"))
 
 
  ## packed puppi candidates 
@@ -33,10 +33,14 @@ def makePuppiAlgo(process):
                                                                     inputCollectionFromPVTight = cms.InputTag("pfPuppiNoPileUp"),
                                                                     inputCollectionFromPVLoose = cms.InputTag("pfPuppiNoPileUpJME"))
 
+ ## puppi met
  process.pfMetPuppi = pfMet.clone( src = cms.InputTag('puppi','Puppi'),
-                                   calculateSignificance = False # this can't be easily implemented on packed PF candidates at the moment                          
-                                   )          
+                                   calculateSignificance = False)          
 
+ process.patMetPuppi = process.patMETs.clone( metSource = cms.InputTag("pfMetPuppi"))
+
+ 
+ ## final sequence
  process.puppiSequence = cms.Sequence(process.puppi*
                                       process.particleFlowPuppiPtrs*
                                       process.pfPuppiPileUp*
@@ -44,7 +48,12 @@ def makePuppiAlgo(process):
                                       process.pfPuppiPileUpJME*
                                       process.pfPuppiNoPileUpJME*
                                       process.packedPFCandidatesPuppi*
-                                      process.pfMetPuppi)                                                                 
+                                      process.pfMetPuppi*
+                                      process.patMetPuppi)                                                                 
+
+#######################
+### make puppi jets ###
+#######################
 
 def makePatPuppiJetSequence( process, rParameter = 0.5):
 
@@ -55,6 +64,7 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
                                                                  jetPtMin = cms.double(10))
  )
 
+ 
  ####### btagging sequence for puppi jets
  ####### jet track association
  setattr(process, "AK"+jetRPrefix+"jetTracksAssociatorAtVertexPuppi",
@@ -63,30 +73,34 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
  ## impact parameter and track counting
  setattr(process,"AK"+jetRPrefix+"impactParameterTagInfosPuppi",
          process.impactParameterTagInfos.clone( jetTracks = cms.InputTag("AK"+jetRPrefix+"jetTracksAssociatorAtVertexPuppi")))  
- setattr(process,"AK"+jetRPrefix+"trackCountingHighEffbJetTagsPuppi",
+ setattr(process,"AK"+jetRPrefix+"trackCountingHighEffbPuppiJetTags",
          process.trackCountingHighEffBJetTags.clone( tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi")))) 
- setattr(process,"AK"+jetRPrefix+"trackCountingHighPurBjetTagsPuppi", 
+ setattr(process,"AK"+jetRPrefix+"trackCountingHighPurBPuppiJetTags", 
          process.trackCountingHighPurBJetTags.clone( tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"))))
- setattr(process,"AK"+jetRPrefix+"trackCountingHighPurBJetTagsPuppi", 
+ setattr(process,"AK"+jetRPrefix+"trackCountingHighPurBPuppiJetTags", 
          process.jetProbabilityBJetTags.clone( tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"))))
- setattr(process,"AK"+jetRPrefix+"jetBProbabilityBJetTagsPuppi",
+ setattr(process,"AK"+jetRPrefix+"jetBProbabilityBPuppiJetTags",
          process.jetBProbabilityBJetTags.clone( tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"))))
- setattr(process,"AK"+jetRPrefix+"jetProbabilityBJetTagsPuppi",
+ setattr(process,"AK"+jetRPrefix+"jetProbabilityBPuppiJetTags",
          process.jetProbabilityBJetTags.clone( tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"))))
  ## secondary vertex tags   
  setattr(process,"AK"+jetRPrefix+"secondaryVertexTagInfoPuppi", 
          process.secondaryVertexTagInfos.clone( trackIPTagInfos = cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi")))
- setattr(process,"AK"+jetRPrefix+"simpleSecondaryVertexHighEffBJetTagsPuppi",
+ setattr(process,"AK"+jetRPrefix+"inclusiveSecondaryVertexFinderTagInfosPuppi", 
+         process.inclusiveSecondaryVertexFinderTagInfos.clone( trackIPTagInfos = cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi")))
+
+ setattr(process,"AK"+jetRPrefix+"simpleSecondaryVertexHighEffBPuppiJetTags",
          process.simpleSecondaryVertexHighEffBJetTags.clone(tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"secondaryVertexTagInfoPuppi"))))
- setattr(process,"AK"+jetRPrefix+"simpleSecondaryVertexHighPurBJetTagsPuppi",
+ setattr(process,"AK"+jetRPrefix+"simpleSecondaryVertexHighPurBPuppiJetTags",
          process.simpleSecondaryVertexHighPurBJetTags.clone(tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"secondaryVertexTagInfoPuppi"))))
- setattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexBJetTagsPuppi",
+ setattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexBPuppiJetTags",
          process.combinedSecondaryVertexBJetTags.clone(tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"), cms.InputTag("AK"+jetRPrefix+"secondaryVertexTagInfoPuppi"))))
- setattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexMVABJetTagsPuppi",
+ setattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexMVABPuppiJetTags",
          process.combinedSecondaryVertexMVABJetTags.clone( tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"), cms.InputTag("AK"+jetRPrefix+"secondaryVertexTagInfoPuppi"))))
+ setattr(process,"AK"+jetRPrefix+"combinedInclusiveSecondaryVertexBPuppiJetTags",
+         process.combinedInclusiveSecondaryVertexBJetTags.clone( tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"), cms.InputTag("AK"+jetRPrefix+"inclusiveSecondaryVertexFinderTagInfosPuppi"))))
  
  ## soft leptons
- 
  setattr(process,"AK"+jetRPrefix+"ghostTrackVertexTagInfosPuppi",
          process.ghostTrackVertexTagInfos.clone( trackIPTagInfos = cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"))) 
  setattr(process,"AK"+jetRPrefix+"ghostTrackBJetTagsPuppi",
@@ -94,28 +108,26 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
  
  setattr(process,"AK"+jetRPrefix+"softPFMuonsTagInfosPuppi", 
          process.softPFMuonsTagInfos.clone( jets = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi")))
- 
  setattr(process,"AK"+jetRPrefix+"softPFMuonBJetTagsPuppi",
          process.softPFMuonBJetTags.clone(tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"softPFMuonsTagInfosPuppi"))))
-
  setattr(process,"AK"+jetRPrefix+"softPFElectronsTagInfosPuppi",
          process.softPFElectronsTagInfos.clone(jets = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi")))
-
  setattr(process,"AK"+jetRPrefix+"softPFElectronBJetTagsPuppi",
          process.softPFElectronBJetTags.clone(tagInfos= cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"softPFElectronsTagInfosPuppi"))))
  
  ## final sequence
  setattr(process,"AK"+jetRPrefix+"btaggingPuppi", cms.Sequence( getattr(process,"AK"+jetRPrefix+"jetTracksAssociatorAtVertexPuppi")*
                                                                 getattr(process,"AK"+jetRPrefix+"impactParameterTagInfosPuppi")*
-                                                                getattr(process,"AK"+jetRPrefix+"trackCountingHighEffbJetTagsPuppi")*
-                                                                getattr(process,"AK"+jetRPrefix+"trackCountingHighPurBjetTagsPuppi")*                                   
-                                                                getattr(process,"AK"+jetRPrefix+"jetProbabilityBJetTagsPuppi")*
-                                                                getattr(process,"AK"+jetRPrefix+"jetBProbabilityBJetTagsPuppi")*
+                                                                getattr(process,"AK"+jetRPrefix+"trackCountingHighEffbPuppiJetTags")*
+                                                                getattr(process,"AK"+jetRPrefix+"trackCountingHighPurBPuppiJetTags")*                                   
+                                                                getattr(process,"AK"+jetRPrefix+"jetProbabilityBPuppiJetTags")*
+                                                                getattr(process,"AK"+jetRPrefix+"jetBProbabilityBPuppiJetTags")*
                                                                 getattr(process,"AK"+jetRPrefix+"secondaryVertexTagInfoPuppi")*
-                                                                getattr(process,"AK"+jetRPrefix+"simpleSecondaryVertexHighEffBJetTagsPuppi")*
-                                                                getattr(process,"AK"+jetRPrefix+"simpleSecondaryVertexHighPurBJetTagsPuppi")*
-                                                                getattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexBJetTagsPuppi")*
-                                                                getattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexMVABJetTagsPuppi")*
+                                                                getattr(process,"AK"+jetRPrefix+"simpleSecondaryVertexHighEffBPuppiJetTags")*
+                                                                getattr(process,"AK"+jetRPrefix+"simpleSecondaryVertexHighPurBPuppiJetTags")*
+                                                                getattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexBPuppiJetTags")*
+                                                                getattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexMVABPuppiJetTags")*
+                                                                getattr(process,"AK"+jetRPrefix+"combinedInclusiveSecondaryVertexBPuppiJetTags")*
                                                                 getattr(process,"AK"+jetRPrefix+"ghostTrackVertexTagInfosPuppi")*
                                                                 getattr(process,"AK"+jetRPrefix+"ghostTrackBJetTagsPuppi")*
                                                                 getattr(process,"AK"+jetRPrefix+"softPFMuonsTagInfosPuppi")*
@@ -125,8 +137,8 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
                                                                 )
  )
 
+ 
  ## jet flavout association
-
  setattr(process,"AK"+jetRPrefix+"patJetPuppiPartonMatch",
          process.patJetPartonMatch.clone( src = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi")))
  setattr(process,"AK"+jetRPrefix+"patJetPuppiGenJetMatch",
@@ -146,7 +158,13 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
   )
 
  
- ### make puppi pat jets
+ ## pileup jet id
+ setattr(process,"AK"+jetRPrefix+"pileupJetIdPuppi",
+         process.pileupJetId.clone(jets = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi"),
+                                   applyJEC = cms.bool(False)))
+ 
+ 
+ ### make puppi pat jets 
  setattr(process,"AK"+jetRPrefix+"patJetsPuppi", process.patJets.clone( 
                                   jetSource  = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi"),
                                   genJetMatch        =  cms.InputTag("AK"+jetRPrefix+"patJetPuppiGenJetMatch"),
@@ -157,46 +175,40 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
                                   JetFlavourInfoSource   = cms.InputTag("AK"+jetRPrefix+"patJetPuppiFlavourAssociation"),
                                   trackAssociationSource = cms.InputTag("AK"+jetRPrefix+"jetTracksAssociatorAtVertexPuppi"),       
                                   tagInfoSources         = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"secondaryVertexTagInfoPuppi")),
-                                  discriminatorSources = cms.VInputTag(
-                                     cms.InputTag("AK"+jetRPrefix+"jetBProbabilityBJetTagsPuppi"), cms.InputTag("AK"+jetRPrefix+"jetProbabilityBJetTagsPuppi"), 
-                                     cms.InputTag("AK"+jetRPrefix+"trackCountingHighEffbJetTagsPuppi"), cms.InputTag("AK"+jetRPrefix+"trackCountingHighPurBjetTagsPuppi"), 
-                                     cms.InputTag("AK"+jetRPrefix+"simpleSecondaryVertexHighEffBJetTagsPuppi"),
-                                     cms.InputTag("AK"+jetRPrefix+"simpleSecondaryVertexHighPurBJetTagsPuppi"), 
-                                     cms.InputTag("AK"+jetRPrefix+"combinedSecondaryVertexBJetTagsPuppi"), 
-                                     cms.InputTag("AK"+jetRPrefix+"combinedSecondaryVertexMVABJetTagsPuppi")),
-                                  addGenJetMatch      = cms.bool(True),
-                                  embedGenJetMatch    = cms.bool(True),
-                                  addGenPartonMatch   = cms.bool(True),
-                                  embedGenPartonMatch = cms.bool(True),
-                                  addPartonJetMatch   = cms.bool(True),
-                                  addJetCharge        = cms.bool(True),
-                                  addAssociatedTracks = cms.bool(True),
-                                  addEfficiencies     = cms.bool(False),
-                                  addResolutions      = cms.bool(False),
-                                  addJetID            = cms.bool(False),
-                                  addJetCorrFactors   = cms.bool(False),
-                                  addDiscriminators   = cms.bool(True),
-                                  embedPFCandidates   = cms.bool(False),
-                                  addJetFlavourInfo   = cms.bool(True),
-                                  getJetMCFlavour     = cms.bool(True),
-                                  useLegacyJetMCFlavour = cms.bool(False),
-                                  addBTagInfo = cms.bool(True),
-                                  addTagInfos = cms.bool(True),
-  )
+                                  addJetCorrFactors      = cms.bool(False),
+                                  discriminatorSources  = cms.VInputTag(
+                                     cms.InputTag("AK"+jetRPrefix+"jetBProbabilityBPuppiJetTags"), cms.InputTag("AK"+jetRPrefix+"jetProbabilityBPuppiJetTags"), 
+                                     cms.InputTag("AK"+jetRPrefix+"trackCountingHighEffbPuppiJetTags"), cms.InputTag("AK"+jetRPrefix+"trackCountingHighPurBPuppiJetTags"), 
+                                     cms.InputTag("AK"+jetRPrefix+"simpleSecondaryVertexHighEffBPuppiJetTags"),
+                                     cms.InputTag("AK"+jetRPrefix+"simpleSecondaryVertexHighPurBPuppiJetTags"), 
+                                     cms.InputTag("AK"+jetRPrefix+"combinedSecondaryVertexBPuppiJetTags"), 
+                                     cms.InputTag("AK"+jetRPrefix+"combinedSecondaryVertexMVABPuppiJetTags"),
+                                     cms.InputTag("AK"+jetRPrefix+"combinedInclusiveSecondaryVertexBPuppiJetTags")),
+                                  userData = cms.PSet(
+                                       userCands  = cms.PSet( src = cms.VInputTag("")),
+                                       userInts   = cms.PSet( src = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"pileupJetIdPuppi","fullId"))),
+                                       userFloats = cms.PSet( src = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"pileupJetIdPuppi","fullDiscriminant"))),
+                                       userClasses = cms.PSet( src = cms.VInputTag("")),
+                                       userFunctionLabels = cms.vstring('vtxMass','vtxNtracks','vtx3DVal','vtx3DSig'),
+                                       userFunctions = cms.vstring('?(tagInfoSecondaryVertex().nVertices()>0)?(tagInfoSecondaryVertex().secondaryVertex(0).p4.M):(0)',
+                                                                   '?(tagInfoSecondaryVertex().nVertices()>0)?(tagInfoSecondaryVertex().secondaryVertex(0).nTracks):(0)',
+                                                                   '?(tagInfoSecondaryVertex().nVertices()>0)?(tagInfoSecondaryVertex().flightDistance(0).value):(0)',
+                                                                   '?(tagInfoSecondaryVertex().nVertices()>0)?(tagInfoSecondaryVertex().flightDistance(0).significance):(0)')
+                                       ),)
  )
 
-
+ 
  ## make selected puppi jets
  setattr(process,"AK"+jetRPrefix+"selectedPatJetsPuppi", process.selectedPatJets.clone(src = cms.InputTag("AK"+jetRPrefix+"patJetsPuppi")))
-
+ 
  ## make slimmed puppi jets
  setattr(process, "AK"+jetRPrefix+"slimmedJetsPuppi", process.slimmedJets.clone( src = cms.InputTag("AK"+jetRPrefix+"selectedPatJetsPuppi"),
                                                                                  packedPFCandidates = cms.InputTag("packedPFCandidatesPuppi")))
-
-
+ 
  setattr(process,"AK"+jetRPrefix+"makePatJetsPuppi", cms.Sequence( getattr(process,"AK"+jetRPrefix+"PFJetsPuppi")*
                                                                    getattr(process,"AK"+jetRPrefix+"btaggingPuppi")*
                                                                    getattr(process,"AK"+jetRPrefix+"patPuppiFlavour")*
+                                                                   getattr(process,"AK"+jetRPrefix+"pileupJetIdPuppi")*
                                                                    getattr(process,"AK"+jetRPrefix+"patJetsPuppi")*
                                                                    getattr(process,"AK"+jetRPrefix+"selectedPatJetsPuppi")*
                                                                    getattr(process,"AK"+jetRPrefix+"slimmedJetsPuppi"))

@@ -9,410 +9,30 @@
 #include <algorithm>
 #include <sstream>
 
-// const int reco::SkimEvent::channel() const {
-//     switch(hypo_) {
-//         case WWMUMU: return 0;
-//         case WWELEL: return 1;
-//         case WWELMU: return 2;
-//         case WWMUEL: return 3;
-//     }
-// return -1;
-// }
+// order the collection of lepton asaf of a value, typically pt
 
-const int reco::SkimEvent::channel() const {
-    if ((pdgIdByPt(0) != -9999) && (pdgIdByPt(1) != -9999)) {
-      if      (abs(pdgIdByPt(0)) == 13 && abs(pdgIdByPt(1)) == 13 ) return 0; //---- mm
-      else if (abs(pdgIdByPt(0)) == 11 && abs(pdgIdByPt(1)) == 11 ) return 1; //---- ee
-      else if (abs(pdgIdByPt(0)) == 11 && abs(pdgIdByPt(1)) == 13 ) return 2; //---- em
-      else if (abs(pdgIdByPt(0)) == 13 && abs(pdgIdByPt(1)) == 11 ) return 3; //---- me
-      else return -1;  //--> new c++ constraint! need all options return!
-    }
-    else {
-     return -1;
-    }
-}
-
-std::vector<std::string> reco::SkimEvent::jecFiles_;
-
-
-float reco::SkimEvent::userFloat( const std::string &key ) const
-{
-  std::vector<std::string>::const_iterator it = std::find(userFloatLabels_.begin(), userFloatLabels_.end(), key);
-  if (it != userFloatLabels_.end()) {
-      return userFloats_[it - userFloatLabels_.begin()];
-  }
-  return 0.0;
-}
-
-void reco::SkimEvent::addUserFloat( const std::string & label,
-                                          float data )
-{
-  userFloatLabels_.push_back(label);
-  userFloats_.push_back( data );
-}
-
-
-int reco::SkimEvent::userInt( const std::string & key ) const
-{
-  std::vector<std::string>::const_iterator it = std::find(userIntLabels_.begin(), userIntLabels_.end(), key);
-  if (it != userIntLabels_.end()) {
-      return userInts_[it - userIntLabels_.begin()];
-  }
-  return 0;
-}
-
-void reco::SkimEvent::addUserInt( const std::string &label, int data )
-{
-  userIntLabels_.push_back(label);
-  userInts_.push_back( data );
-}
-
-
-
-const bool reco::SkimEvent::peaking() const {
-
-    if(leps_.size() < 2) return false;
- 
-    if (getMotherID(0).isNonnull() && getMotherID(1).isNonnull() && getMotherID(0) == getMotherID(1)) return true;
-
-    return false;
-}
-
-const reco::GenParticle *reco::SkimEvent::genParticle(size_t i) const {
-    return isMuon(i) ? getMuon(i)->genLepton() : getElectron(i)->genLepton();
-}
-
-const reco::GenParticleRef reco::SkimEvent::getMotherID(size_t i) const {
-
-    if(i >= leps_.size()) return reco::GenParticleRef();   
- 
-    const reco::GenParticle *match = isMuon(i) ? getMuon(i)->genLepton() : getElectron(i)->genLepton();
-
-    if( !match ) return reco::GenParticleRef();
-    if( !match->numberOfMothers() ) return reco::GenParticleRef();
-
-    int pdgId = match->pdgId();
-
-    reco::GenParticleRef mother = match->motherRefVector()[0];
-    if( !mother.isNonnull() ) return reco::GenParticleRef();
-    if( !mother->numberOfMothers() ) return reco::GenParticleRef();
-    while(mother->pdgId() == pdgId) {
-        mother = mother->motherRefVector()[0];
-        if( !mother.isNonnull() ) return reco::GenParticleRef();
-        if( !mother->numberOfMothers() ) return reco::GenParticleRef();
-    }
-    return mother;
-}
-
-const bool reco::SkimEvent::isHardMuID(size_t i) const {
-
-    if( i >= std::min((uint) 2,(uint) leps_.size()) ) return false;
-
-    if( isElectron(i) ) return true;
-    if( isMuon(i) ) {
-        pat::Muon const * const mu = getMuon(i);
-        return (mu->isGlobalMuon() && mu->isTrackerMuon());
-    }
-    return false;
-
-}
-
-const bool reco::SkimEvent::passesSmurfMuonID() const {
-
-//     switch(hypo_) {
-//         case WWELMU: return isHardMuID(indexByPt(1)); break;
-//         case WWMUEL: return isHardMuID(indexByPt(0)); break;
-//         case WWMUMU: return (isHardMuID(indexByPt(0)) && isHardMuID(indexByPt(1))); break;
-//         case WWELEL: return true; break;
-//         default : return true; break;
-//     }
-    return true;
-
-}
-
-struct indexValueStruct {
-    indexValueStruct(const float &v, size_t i) : value(v), index(i) {}
+struct indexValueStruct { // independent struct with a float value (like pt) and a index (position in the original collection)
+    indexValueStruct(const float & v, const size_t & i) : value(v), index(i) {}
     float value;
     size_t index;
 };
 
-bool lowToHigh(const indexValueStruct &a, const indexValueStruct &b) {
+bool lowToHigh(const indexValueStruct & a, const indexValueStruct & b) { // order from lower to higher
     return a.value < b.value;
 }
 
-bool highToLow(const indexValueStruct &a, const indexValueStruct &b) {
+bool highToLow(const indexValueStruct &a, const indexValueStruct &b) { // reverse sort
     return a.value > b.value;
 }
 
-// To be kept in synch with the enumerator definitions in SkimEvent.h file
-// const std::string reco::SkimEvent::hypoTypeNames[] = { "undefined", "WELNU", "WMUNU", "WWELEL", "WWELMU", "WWMUEL", "WWMUMU"};
-
-
-// std::string reco::SkimEvent::hypoTypeName(reco::SkimEvent::hypoType a){
-//   if(int(a) < int(hypoTypeSize) && int(a)>0) return hypoTypeNames[int(a)];
-//   return "undefined";
-// }
-//
-//
-//
-// reco::SkimEvent::hypoType reco::SkimEvent::hypoTypeByName(const std::string &name){
-//   hypoType size = hypoTypeSize;
-//   int index = std::find(hypoTypeNames, hypoTypeNames+size, name)-hypoTypeNames;
-//   if(index == size) return undefined; // better this or throw() ?
-//
-//   // cast
-//   return hypoType(index);
-// }
-
-
-
-reco::SkimEvent::SkimEvent() :
-//         hypo_(-1),
-        sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{ }
-
-// reco::SkimEvent::SkimEvent(const reco::SkimEvent::hypoType &h) :
-//         hypo_(h), sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{ }
-
-
-
-// set GenParticles
-void reco::SkimEvent::setGenParticles(const edm::Handle<reco::GenParticleCollection> & h) {
-   genParticles_.clear();
-   for(size_t i=0; i<h->size(); ++i) {
-    genParticles_.push_back( reco::GenParticleRef(h,i) );
-   }
-}
-
-// set GenJets
-void reco::SkimEvent::setGenJets(const edm::Handle<reco::GenJetCollection> & h) {
-   genJets_.clear();
-   for(size_t i=0; i<h->size(); ++i) {
-    genJets_.push_back( reco::GenJetRef(h,i) );
-   }
-}
-
-// set LHEinfo
-void reco::SkimEvent::setLHEinfo(const edm::Handle<LHEEventProduct> & h) {
- LHEhepeup_ = (*(h.product())).hepeup();
-
- std::vector<std::string>::const_iterator it_end = (*(h.product())).comments_end();
- std::vector<std::string>::const_iterator it = (*(h.product())).comments_begin();
- for(; it != it_end; it++) {
-  comments_LHE_.push_back (*it);
- }
-
-// std::cout << " comments_LHE_.size() = " << comments_LHE_.size() << std::endl;
- for (unsigned int iComm = 0; iComm<comments_LHE_.size(); iComm++) {
-// std::cout << " i=" << iComm << " :: " << comments_LHE_.size() << " ==> " << comments_LHE_.at(iComm) << std::endl;
-  /// #new weight,renfact,facfact,pdf1,pdf2 32.2346904790193 1.00000000000000 1.00000000000000 11000 11000 lha
-  std::stringstream line( comments_LHE_.at(iComm) );
-  std::string dummy;
-  line >> dummy; // #new weight,renfact,facfact,pdf1,pdf2
-  float dummy_float;
-  line >> dummy_float; // 32.2346904790193
-  comments_LHE_weight_.push_back(dummy_float);
-// std::cout << dummy_float << std::endl;
-  line >> dummy_float; // 1.00000000000000
-  comments_LHE_rfac_.push_back(dummy_float);
-// std::cout << dummy_float << std::endl;
-  line >> dummy_float; // 1.00000000000000
-  comments_LHE_ffac_.push_back(dummy_float);
-// std::cout << dummy_float << std::endl;
- }
-
-}
-
-
-const float reco::SkimEvent::HEPMCweightScale(size_t i) const {
- if (i < comments_LHE_weight_.size()) return comments_LHE_weight_.at(i);
- else return -1;
-}
-
-const float reco::SkimEvent::HEPMCweightRen(size_t i) const {
- if (i < comments_LHE_rfac_.size()) return comments_LHE_rfac_.at(i);
- else return -1;
-}
-
-const float reco::SkimEvent::HEPMCweightFac(size_t i) const {
- if (i < comments_LHE_ffac_.size()) return comments_LHE_ffac_.at(i);
- else return -1;
-}
-
-
-//EDM RefToBase implementation
-void reco::SkimEvent::setLepton(const edm::Handle<edm::View<reco::RecoCandidate> > &h,size_t i){
-  //std::cout << "setting lepton with collection ID: " << h->ptrAt(i).id() << std::endl;
-  leps_.push_back( h->ptrAt(i) );
-}
-
-void reco::SkimEvent::setExtraLepton(const edm::Handle<edm::View<reco::RecoCandidate> > &h,size_t i){
-  extraLeps_.push_back( h->ptrAt(i) );
-//extraLeps_.push_back(refToCand(h,i));
-}
-
-void reco::SkimEvent::setSoftMuon(const edm::Handle<edm::View<reco::RecoCandidate> > &h,size_t i){
-  softMuons_.push_back(h->ptrAt(i) );
-//softMuons_.push_back(refToCand(h,i));
-}
-
-// Old implementation
-// void reco::SkimEvent::setLepton(const pat::Electron& ele){
-// leps_.push_back(ele);
-// }
-//
-// void reco::SkimEvent::setLepton(const pat::Muon& mu){
-// leps_.push_back(mu);
-// }
-//
-// void reco::SkimEvent::setExtraLepton(const pat::Electron& ele){
-// extraLeps_.push_back(ele);
-// }
-//
-// void reco::SkimEvent::setExtraLepton(const pat::Muon& mu){
-// extraLeps_.push_back(mu);
-// }
-//
-// void reco::SkimEvent::setSoftMuon(const pat::Muon& mu){
-// softMuons_.push_back(mu);
-// }
-
-
-void reco::SkimEvent::setJets(const edm::Handle<pat::JetCollection> & jH) {
-
-    jets_.clear();
-
-    for(size_t i=0;i<jH->size();++i)
-      jets_.push_back(pat::JetRef(jH,i));
-
-    //sortJetsByPt();
-
-}
-
-
-void reco::SkimEvent::setFatJets(const edm::Handle<pat::JetCollection> & jH) {
-
- fatJets_.clear();
-
- for(size_t i=0;i<jH->size();++i)
-  fatJets_.push_back(pat::JetRef(jH,i));
-
-    //sortJetsByPt();
-
-}
-
-
-void reco::SkimEvent::setTagJets(const edm::Handle<pat::JetCollection> & jH) {
-
-    tagJets_.clear();
-
-    for(size_t i=0;i<jH->size();++i)
-      tagJets_.push_back(pat::JetRef(jH,i));
-
-    //sortTagJetsByPt();
-
-}
-
-void reco::SkimEvent::setTCMet(const edm::Handle<reco::METCollection> & mH) {
-    tcMet_ = reco::METRef(mH,0);
-}
-
-void reco::SkimEvent::setPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
-    pfMet_ = pat::METRef(mH,0);
-}
-
-void reco::SkimEvent::setChargedMet(const reco::PFMET & chMET) {
-    chargedMet_ = chMET;
-}
-
-void reco::SkimEvent::setGenMet(const edm::Handle<reco::GenMETCollection> & mH) {
-    genMet_ = reco::GenMETRef(mH,0);
-}
-
-
-void reco::SkimEvent::setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s) {
-
-    for(size_t i=0;i<vtxs_.size();++i) sumPts_.push_back( (*s)[vtxs_[i]] );
-
-}
-
-void reco::SkimEvent::setVtxSumPt2s(const edm::Handle<edm::ValueMap<float> > &s) {
-
-    for(size_t i=0;i<vtxs_.size();++i) sumPt2s_.push_back( (*s)[vtxs_[i]] );
-
-}
-
-void reco::SkimEvent::setVertex(const edm::Handle<reco::VertexCollection> & vtxH) {
-
-    for(size_t i=0;i<vtxH->size();++i) vtxs_.push_back(reco::VertexRef(vtxH,i));
-}
-
-
-// void reco::SkimEvent::setGenWeight(const edm::Handle<double> &mcGenWeight) {
-void reco::SkimEvent::setGenWeight(const edm::Handle<GenFilterInfo> &mcGenWeight) {
-  mcGenWeight_ = *(mcGenWeight.product());
-}
-
-void reco::SkimEvent::setGenInfo(const edm::Handle<GenEventInfoProduct> &GenInfoHandle) {
-  GenInfoHandle_ = *(GenInfoHandle.product());
-}
-
-
-
-
-//Lepton variables
-
-const int reco::SkimEvent::nLep(float minPt) const {
-    int count = 0;
-    if(minPt < 0) count = leps_.size();
-    else for(size_t i=0;i<leps_.size();++i) if(leps_[i]->pt() > minPt) count++;
-    return count;
-}
-
-const int reco::SkimEvent::nExtraLep(float minPt) const {
-    int count = 0;
-     if(minPt < 0) count = extraLeps_.size();
-     else for(size_t i=0;i<extraLeps_.size();++i) if(extraLeps_[i]->pt() > minPt) count++;
-// for(size_t i=0;i<extraLeps_.size();++i) if(extraLeps_[i]->pt() > minPt && passesIP(extraLeps_[i]) ) count++;
-    return count;
-}
-
-
-// Doesn't veto soft muons around jets by default
-// i.e. vetoJets == -1
-// if vetoJets != -1 then vetoJets is taken as the jet pt threshold
-const int reco::SkimEvent::nSoftMu(float minPt, float vetoJets, float dRCut) const {
-    int count = 0;
-    if(minPt < 0 && vetoJets < 0) count = softMuons_.size();
-    else if(vetoJets < 0) {
-        for(size_t i=0;i<softMuons_.size();++i) if(softMuons_[i]->pt() > minPt) count++;
-    } else {
-        for(size_t i=0;i<softMuons_.size();++i) {
-            bool toCount = true;
-            for(size_t j=0; j<jets_.size();++j){
-                if( jetPt(j,true) <= vetoJets) continue;
-                double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[i]->p4(),jets_[j]->p4()) );
-                if(dR < dRCut) toCount = false;
-            }
-            if(toCount && softMuons_[i]->pt() > minPt) count++;
-        }
-    }
-    return count;
-}
-
-
-const int reco::SkimEvent::pdgId(size_t i) const {
-    if(i < leps_.size()) return leps_[i]->pdgId();
-    else return -9999;
-}
-
-
+// get method implementation
 const bool reco::SkimEvent::isMuon(size_t i) const {
-  if(i < leps_.size()) return isMuon(leps_[i]);
+  if(i < leps_.size()) return isMuon(leps_[i]); // refToCandidate
   else return false;
 }
 
 const bool reco::SkimEvent::isElectron(size_t i) const {
-  if(i < leps_.size()) return isElectron(leps_[i]);
+  if(i < leps_.size()) return isElectron(leps_[i]); // refToCandidate
   else return false;
 }
 
@@ -433,27 +53,350 @@ const pat::Electron * reco::SkimEvent::getElectron(size_t i) const {
 }
 
 const pat::Muon * reco::SkimEvent::getMuon(const refToCand &c) const {
-  return static_cast<const pat::Muon*>(c.get());
-    
+  if(isMuon(c)) return static_cast<const pat::Muon*>(c.get());
+  else return NULL;    
 }
 
 const pat::Electron * reco::SkimEvent::getElectron(const refToCand &c) const {
-  return static_cast<const pat::Electron*>(c.get());
+  if(isElectron(c)) return static_cast<const pat::Electron*>(c.get());
+  return NULL;
 }
 
-const float reco::SkimEvent::pt(size_t i) const {
+
+const float reco::SkimEvent::allLeptonIso(size_t i) const {    
+    if( i >= leps_.size() ) return -9999.0;
+    if( isElectron(i) ){
+      if(getElectron(i)->hasUserFloat("eleSmurfPF04"))
+        return getElectron(i)->userFloat("eleSmurfPF04");
+      else return 9999.0;
+    } 
+    else if( isMuon(i) ){
+      if(getMuon(i)->hasUserFloat("muSmurfPF"))
+      return getMuon(i)->userFloat("muSmurfPF");
+      else return 9999.0;
+    } 
+    else {
+        std::cout << " Do I ever friggin get here?" << std::endl;
+        return 9999.0;
+    }
+}
+
+const size_t reco::SkimEvent::indexLeptonByPt(size_t i) const { // size of the lepton collection
+   
+    if( i >= leps_.size() ) return 9999; //--> lepton index by pt
+    std::vector<indexValueStruct> a;
+    for(size_t j = 0;j < leps_.size(); ++j ) 
+      a.push_back(indexValueStruct(leps_.at(j)->pt(),j));
+
+    std::sort(a.begin(),a.end(),highToLow); // sort in case is not sorted and retun the index
+
+    return a[i].index; 
+}
+
+
+const size_t reco::SkimEvent::indexLeptonByIso(size_t i) const {
+    
+    if( i >= leps_.size() ) return 9999;
+    std::vector<indexValueStruct> a;
+
+    for(size_t j = 0; j < leps_.size(); ++j) 
+     a.push_back(indexValueStruct(allLeptonIso(j),j));
+    std::sort(a.begin(),a.end(),lowToHigh);
+    return a[i].index;
+}
+
+const int reco::SkimEvent::getPdgId(size_t i) const {
+    if(i < leps_.size()) return leps_[i]->pdgId();
+    else return -9999;
+}
+
+
+const int reco::SkimEvent::getChannel() const { // take the two leading lepton if they exisist and return a value asaf of their flavour
+
+      if ((pdgIdByPt(0) != -9999) && (pdgIdByPt(1) != -9999)) {
+      if      (abs(pdgIdByPt(0)) == 13 && abs(pdgIdByPt(1)) == 13 ) return 0; //---- mm
+      else if (abs(pdgIdByPt(0)) == 11 && abs(pdgIdByPt(1)) == 11 ) return 1; //---- ee
+      else if (abs(pdgIdByPt(0)) == 11 && abs(pdgIdByPt(1)) == 13 ) return 2; //---- em
+      else if (abs(pdgIdByPt(0)) == 13 && abs(pdgIdByPt(1)) == 11 ) return 3; //---- me
+      else return -1;  //--> new c++ constraint! need all options return!
+    }
+    else {
+     return -1;
+    }
+}
+
+std::vector<std::string> reco::SkimEvent::jecFiles_;
+
+
+float reco::SkimEvent::userFloat( const std::string &key ) const {
+  std::vector<std::string>::const_iterator it = std::find(userFloatLabels_.begin(), userFloatLabels_.end(), key);
+  if (it != userFloatLabels_.end()) { return userFloats_[it - userFloatLabels_.begin()]; }
+  return 0.0;
+}
+
+void reco::SkimEvent::addUserFloat( const std::string & label, float data ){
+  userFloatLabels_.push_back(label);
+  userFloats_.push_back( data );
+}
+
+
+int reco::SkimEvent::userInt( const std::string & key ) const{
+  std::vector<std::string>::const_iterator it = std::find(userIntLabels_.begin(), userIntLabels_.end(), key);
+  if (it != userIntLabels_.end()) {
+      return userInts_[it - userIntLabels_.begin()];
+  }
+  return 0;
+}
+
+void reco::SkimEvent::addUserInt( const std::string &label, int data ){
+  userIntLabels_.push_back(label);
+  userInts_.push_back( data );
+}
+
+
+const bool reco::SkimEvent::peaking() const {
+    if(leps_.size() < 2) return false;
+    if (getMotherID(0).isNonnull() && getMotherID(1).isNonnull() && getMotherID(0) == getMotherID(1)) return true;
+
+    return false;
+}
+
+const reco::GenParticle *reco::SkimEvent::genParticle(size_t i) const { // need to embed gen particles in pat objects
+    return isMuon(i) ? getMuon(i)->genLepton() : getElectron(i)->genLepton();
+}
+
+const reco::GenParticleRef reco::SkimEvent::getMotherID(size_t i) const { // get mother ref given a lepton
+
+  if(i >= leps_.size()) return reco::GenParticleRef();  // return empty ref  
+ 
+    const reco::GenParticle *match = isMuon(i) ? getMuon(i)->genLepton() : getElectron(i)->genLepton();
+
+    if( !match ) return reco::GenParticleRef(); // no reference to gen particle
+    if( !match->numberOfMothers() ) return reco::GenParticleRef(); // no mothers
+
+    int pdgId = match->pdgId();
+
+    reco::GenParticleRef mother = match->motherRefVector()[0]; // take all the mothers, zero position
+    if( !mother.isNonnull() ) return reco::GenParticleRef();
+    if( !mother->numberOfMothers() ) return reco::GenParticleRef();
+    while(mother->pdgId() == pdgId) {
+        mother = mother->motherRefVector()[0];
+        if( !mother.isNonnull() ) return reco::GenParticleRef();
+        if( !mother->numberOfMothers() ) return reco::GenParticleRef();
+    }
+    return mother;
+}
+
+// default constructor
+reco::SkimEvent::SkimEvent() : sumPts_(0) { }
+
+
+// set GenParticles
+void reco::SkimEvent::setGenParticles(const edm::Handle<reco::GenParticleCollection> & h) {
+   genParticles_.clear();
+   for(size_t i = 0; i < h->size(); ++i)
+    genParticles_.push_back( reco::GenParticleRef(h,i) );
+   
+}
+
+// set GenJets
+void reco::SkimEvent::setGenJets(const edm::Handle<reco::GenJetCollection> & h) {
+   genJets_.clear();
+   for(size_t i=0; i < h->size(); ++i)
+    genJets_.push_back( reco::GenJetRef(h,i) );
+   
+}
+
+// set LHEinfo
+void reco::SkimEvent::setLHEinfo(const edm::Handle<LHEEventProduct> & h) {
+
+ LHEhepeup_ = (*(h.product())).hepeup();
+ std::vector<std::string>::const_iterator it_end = (*(h.product())).comments_end();
+ std::vector<std::string>::const_iterator it = (*(h.product())).comments_begin();
+ for(; it != it_end; it++)
+  comments_LHE_.push_back (*it);
+ 
+
+ for (unsigned int iComm = 0; iComm < comments_LHE_.size(); iComm++) {
+  std::stringstream line( comments_LHE_.at(iComm));
+  std::string dummy;
+  line >> dummy; // #new weight,renfact,facfact,pdf1,pdf2
+  float dummy_float;
+  line >> dummy_float; // 32.2346904790193
+  comments_LHE_weight_.push_back(dummy_float);
+  line >> dummy_float; // 1.00000000000000
+  comments_LHE_rfac_.push_back(dummy_float);
+  line >> dummy_float; // 1.00000000000000
+  comments_LHE_ffac_.push_back(dummy_float);
+ }
+
+}
+
+
+const float reco::SkimEvent::getHEPMCweightScale(size_t i) const {
+ if (i < comments_LHE_weight_.size()) return comments_LHE_weight_.at(i);
+ else return -1;
+}
+
+const float reco::SkimEvent::getHEPMCweightRen(size_t i) const {
+ if (i < comments_LHE_rfac_.size()) return comments_LHE_rfac_.at(i);
+ else return -1;
+}
+
+const float reco::SkimEvent::getHEPMCweightFac(size_t i) const {
+ if (i < comments_LHE_ffac_.size()) return comments_LHE_ffac_.at(i);
+ else return -1;
+}
+
+
+//EDM RefToBase implementation
+void reco::SkimEvent::setLepton(const edm::Handle<edm::View<reco::RecoCandidate> > & h,size_t i){
+  leps_.push_back( h->ptrAt(i) );
+}
+
+void reco::SkimEvent::setExtraLepton(const edm::Handle<edm::View<reco::RecoCandidate> > & h,size_t i){
+  extraLeps_.push_back( h->ptrAt(i) );
+}
+
+void reco::SkimEvent::setSoftMuon(const edm::Handle<edm::View<reco::RecoCandidate> > & h,size_t i){
+  softMuons_.push_back(h->ptrAt(i) );
+}
+
+void reco::SkimEvent::setJets(const edm::Handle<pat::JetCollection> & jH) {
+    jets_.clear();
+    for(size_t i = 0; i < jH->size(); ++i)
+      jets_.push_back(pat::JetRef(jH,i));
+}
+
+void reco::SkimEvent::setPuppiJets(const edm::Handle<pat::JetCollection> & jH) {
+    puppiJets_.clear();
+    for(size_t i = 0; i < jH->size(); ++i)
+      puppiJets_.push_back(pat::JetRef(jH,i));
+}
+
+
+void reco::SkimEvent::setFatJets(const edm::Handle<pat::JetCollection> & jH) {
+ fatJets_.clear();
+ for(size_t i=0;i<jH->size();++i)
+  fatJets_.push_back(pat::JetRef(jH,i));
+}
+
+void reco::SkimEvent::setFatPuppiJets(const edm::Handle<pat::JetCollection> & jH) {
+ fatPuppiJets_.clear();
+ for(size_t i=0;i<jH->size();++i)
+  fatPuppiJets_.push_back(pat::JetRef(jH,i));
+}
+
+
+void reco::SkimEvent::setTagJets(const edm::Handle<pat::JetCollection> & jH) {
+
+    tagJets_.clear();
+    for(size_t i=0;i<jH->size();++i)
+      tagJets_.push_back(pat::JetRef(jH,i));
+}
+
+void reco::SkimEvent::setPuppiTagJets(const edm::Handle<pat::JetCollection> & jH) {
+    tagPuppiJets_.clear();
+    for(size_t i=0;i<jH->size();++i)
+      tagPuppiJets_.push_back(pat::JetRef(jH,i));
+}
+
+void reco::SkimEvent::setTCMet(const edm::Handle<reco::METCollection> & mH) {
+    tcMet_ = reco::METRef(mH,0);
+}
+
+void reco::SkimEvent::setPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
+    pfMet_ = pat::METRef(mH,0);
+}
+
+void reco::SkimEvent::setPuppiPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
+    puppiPFMet_ = pat::METRef(mH,0);
+}
+
+void reco::SkimEvent::setChargedMet(const reco::PFMET & chMET) {
+    chargedMet_ = chMET;
+}
+
+void reco::SkimEvent::setGenMet(const edm::Handle<reco::GenMETCollection> & mH) {
+    genMet_ = reco::GenMETRef(mH,0);
+}
+
+
+void reco::SkimEvent::setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s) {
+    for(size_t i=0 ; i < vtxs_.size();++i) 
+      sumPts_.push_back( (*s)[vtxs_[i]] );
+}
+
+void reco::SkimEvent::setVtxSumPt2s(const edm::Handle<edm::ValueMap<float> > &s) {
+    for(size_t i=0;i<vtxs_.size();++i) sumPt2s_.push_back( (*s)[vtxs_[i]] );
+}
+
+void reco::SkimEvent::setVertex(const edm::Handle<reco::VertexCollection> & vtxH) {
+    for(size_t i=0;i<vtxH->size();++i) vtxs_.push_back(reco::VertexRef(vtxH,i));
+}
+
+
+void reco::SkimEvent::setGenWeight(const edm::Handle<GenFilterInfo> &mcGenWeight) {
+  mcGenWeight_ = *(mcGenWeight.product());
+}
+
+void reco::SkimEvent::setGenInfo(const edm::Handle<GenEventInfoProduct> &GenInfoHandle) {
+  GenInfoHandle_ = *(GenInfoHandle.product());
+}
+
+//Lepton variables
+const float reco::SkimEvent::getPt(size_t i) const {
   if(i >= leps_.size()) return -9999.0;
   return leps_[i]->pt();
 }
 
-
-const math::XYZTLorentzVector reco::SkimEvent::lepton(size_t i) const {
-//  std::cout << " reco::SkimEvent::lepton :: accessing i = " << i << std::endl;
- if(indexByPt (i) >= leps_.size()) return math::XYZTLorentzVector(0,0,0,0);
- return leps_[indexByPt (i)]->p4();
+const int reco::SkimEvent::getNLep(float minPt) const { // simple count over a pt threshold
+    int count = 0;
+    if(minPt < 0) count = leps_.size();
+    else for(size_t i=0; i<leps_.size(); ++i) if(leps_[i]->pt() > minPt) count++;
+    return count;
 }
 
-const int reco::SkimEvent::passCustom(size_t i, const std::string &muStr, const std::string &elStr) const {
+const int reco::SkimEvent::getNExtraLep(float minPt) const { // extra lepton counting over a pt threshold
+    int count = 0;
+     if(minPt < 0) count = extraLeps_.size();
+     else for(size_t i=0;i<extraLeps_.size();++i) if(extraLeps_[i]->pt() > minPt) count++;
+    return count;
+}
+
+
+const int reco::SkimEvent::getNSoftMu(float minPt, float vetoJets, float dRCut) const { // number of softMuons
+    int count = 0;
+    if(minPt < 0 && vetoJets < 0) count = softMuons_.size();
+    else if(vetoJets < 0) {
+      for(size_t i=0; i < softMuons_.size();++i){
+        if(softMuons_[i]->pt() < minPt) continue;
+	if(!isSoftMuon(i)) continue ;
+        count++; //  minPt is the minimum pt threshold
+      }
+    } else {
+        for(size_t i=0;i < softMuons_.size();++i) {
+            bool toCount = true;
+            for(size_t j=0; j < jets_.size();++j){
+	      if(jetPt(jets_[j].get(),true) <= vetoJets) continue; // take all the jets over the miniimum veto threshold
+	      if(!isSoftMuon(i)) continue ;
+	       double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[i]->p4(),jets_[j]->p4()) ); // dR between soft muon and jet and apply a cut, if overlap not consider
+                if(dR < dRCut) toCount = false;
+            }
+            if(toCount && softMuons_[i]->pt() > minPt) count++;
+        }
+    }  
+    return count;
+}
+
+
+const math::XYZTLorentzVector reco::SkimEvent::lepton(size_t i) const {
+ if(indexLeptonByPt (i) >= leps_.size()) return math::XYZTLorentzVector(0,0,0,0); 
+ return leps_[indexLeptonByPt(i)]->p4();
+}
+
+// apply custom cuts
+const int reco::SkimEvent::getPassCustom(size_t i, const std::string & muStr, const std::string & elStr) const {
   if(i >= leps_.size()) return 0;
   else if( isElectron(i) ) return StringCutObjectSelector<pat::Electron>(elStr,true)( *getElectron(i) );
   else if( isMuon(i) )     return StringCutObjectSelector<pat::Muon >   (muStr,true)( *getMuon(i) );
@@ -461,77 +404,160 @@ const int reco::SkimEvent::passCustom(size_t i, const std::string &muStr, const 
 }
 
 
-const float reco::SkimEvent::leptId(size_t i, std::string idele, std::string idmu) const {
+const float reco::SkimEvent::getLeptId(size_t i, std::string idele, std::string idmu) const { // get lepton id as userfloat
  if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->userFloat(idele); //---- "idele" is the name of the id for electrons
- else return getMuon(i)->userFloat(idmu);
-}
 
-const float reco::SkimEvent::leptBdt(size_t i) const {
+ if( isElectron(i) ) 
+   if(getElectron(i)->hasUserFloat(idele)) return getElectron(i)->userFloat(idele); //---- "idele" is the name of the id for electrons
+   else return getElectron(i)->electronID(idele);
+ else{ 
+   if(getMuon(i)->hasUserFloat(idmu)) return getMuon(i)->userFloat(idmu);
+   else return getMuon(i)->muonID(idmu);
+  }
+}  
+
+
+const float reco::SkimEvent::getLeptBdt(size_t i) const {
   if(i >= leps_.size()) return -9999.0;
-  if( isElectron(i) ) return getElectron(i)->userFloat("bdttrig"); // changed from "bdt" to "bdttrig"
+  if( isElectron(i) ){
+    if(getElectron(i)->hasUserFloat("bdttrig")) return getElectron(i)->userFloat("bdttrig"); // 
+    else return 999999.;
+  }
   else return 999999.;
 }
 
-const float reco::SkimEvent::leptLH(size_t i) const {
-  if(i >= leps_.size()) return -9999.0;
-//   if( isElectron(i) ) return getElectron(i)->electronID("egammaIDLikelihood"); # FIXME
-  else return 999999.;
-}
-
-const float reco::SkimEvent::eta(size_t i) const {
+const float reco::SkimEvent::getEta(size_t i) const {
   if(i < leps_.size()) return leps_[i]->eta();
   else return -9999.0;
 }
 
-const float reco::SkimEvent::etaSC(size_t i) const {
+const float reco::SkimEvent::getEtaSC(size_t i) const {
   if(i >= leps_.size()) return -9999.0;
   if( isElectron(i) ) return getElectron(i)->superCluster()->eta();
   else return leps_[i]->eta();
 }
 
-const float reco::SkimEvent::nBrem(size_t i) const {
-// std::cout << " AH AH AH i= " << i << " while leps_.size() = " << leps_.size() << std::endl;
+const float reco::SkimEvent::getNBrem(size_t i) const {
   if(i >= leps_.size()) return -9999.0;
-// std::cout << " ma stai facendo quasto???" << std::endl;
   if( isElectron(i) ) return getElectron(i)->numberOfBrems();
   else return 0;
 }
 
-const float reco::SkimEvent::phi(size_t i) const {
+const float reco::SkimEvent::getPhi(size_t i) const {
   if(i < leps_.size()) return leps_[i]->phi();
   else return -9999.0;
 }
 
 
-const int reco::SkimEvent::q(size_t i) const{
+const int reco::SkimEvent::getQ(size_t i) const{
   if(i < leps_.size()) return leps_[i]->charge();
   else return -9999.0;
 }
 
+const float reco::SkimEvent::deltaEtaSuperClusterTrackAtVtx(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->deltaEtaSuperClusterTrackAtVtx();
+ else return -999.0;
+}
+
+const float reco::SkimEvent::deltaPhiSuperClusterTrackAtVtx(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->deltaPhiSuperClusterTrackAtVtx();
+ else return -999.0;
+}
+
+const float reco::SkimEvent::sigmaIetaIeta(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->sigmaIetaIeta();
+ else return -999.0;
+}
+
+const float reco::SkimEvent::hadronicOverEm(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->hadronicOverEm();
+ else return -999.0;
+}
+
+const float reco::SkimEvent::numberOfHits(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;
+ if( isElectron(i) ) return getElectron(i)->gsfTrack()->trackerExpectedHitsInner().numberOfHits();
+ else return -999.0;
+}
+
+
+// New emanuele gamma mr star thingy
+const float reco::SkimEvent::mRStar() const {
+
+  if(leps_.size() < 2) return -9999.;
+  float A  = leps_[indexLeptonByPt(0)]->p();
+  float B  = leps_[indexLeptonByPt(1)]->p();
+  float az = leps_[indexLeptonByPt(0)]->pz();
+  float bz = leps_[indexLeptonByPt(1)]->pz();
+  TVector3 jaT, jbT;
+  jaT.SetXYZ(leps_[indexLeptonByPt(0)]->px(),leps_[indexLeptonByPt(0)]->py(),0.0);
+  jbT.SetXYZ(leps_[indexLeptonByPt(1)]->px(),leps_[indexLeptonByPt(1)]->py(),0.0);
+
+  float temp = sqrt((A+B)*(A+B)-(az+bz)*(az+bz)-(jbT.Dot(jbT)-jaT.Dot(jaT))*(jbT.Dot(jbT)-jaT.Dot(jaT))/(jaT+jbT).Mag2());
+
+  return temp;
+}
+
+const float reco::SkimEvent::gamma() const {
+  if(leps_.size() < 2) return -9999.;
+  float A  = leps_[indexLeptonByPt(0)]->p();
+  float B  = leps_[indexLeptonByPt(1)]->p();
+  float az = leps_[indexLeptonByPt(0)]->pz();
+  float bz = leps_[indexLeptonByPt(1)]->pz();
+  TVector3 jaT, jbT;
+  jaT.SetXYZ(leps_[indexLeptonByPt(0)]->px(),leps_[indexLeptonByPt(0)]->py(),0.0);
+  jbT.SetXYZ(leps_[indexLeptonByPt(1)]->px(),leps_[indexLeptonByPt(1)]->py(),0.0);
+
+  float ATBT = (jaT+jbT).Mag2();
+  double mybeta = (jbT.Dot(jbT)-jaT.Dot(jaT))/sqrt(ATBT*((A+B)*(A+B)-(az+bz)*(az+bz)));
+
+  return 1./sqrt(1.-mybeta*mybeta);
+}
+
+const float reco::SkimEvent::gammaMRStar() const {
+    return gamma() * mRStar();
+}
+
+
 
 //Jet variables
 void reco::SkimEvent::setupJEC(const std::string &l2File, const std::string &l3File, const std::string &residualFile) {
-
     jecFiles_.clear();
     jecFiles_.push_back(l2File);
     jecFiles_.push_back(l3File);
     if(residualFile.compare("")) jecFiles_.push_back(residualFile);
+}
 
+const float reco::SkimEvent::jetPt(size_t i, int applyCorrection) const {
+    return jetPt(jets_[i].get(),applyCorrection);
+}
+
+const float reco::SkimEvent::puppiJetPt(size_t i, int applyCorrection) const {
+    return jetPt(puppiJets_[i].get(),applyCorrection);
+}
+
+const float reco::SkimEvent::jetPt(const pat::Jet *j, int applyCorrection) const {
+  if(applyCorrection) return j->pt();
+  else return j->correctedJet("Uncorrected","none").pt();
 }
 
 
-// void reco::SkimEvent::setupJEC(const JetCorrector *c) {
-// jec_ =
-
-const int reco::SkimEvent::nJets(float minPt, int applyCorrection,int applyID) const {
-  return nCentralJets(minPt,99.9, applyCorrection,applyID);
+const int reco::SkimEvent::nJets(float minPt, int applyCorrection, int applyJetID, int applyPileUpJetID) const {
+  return nCentralJets(minPt,99.9, applyCorrection,applyJetID,applyPileUpJetID);
 }
 
-const bool reco::SkimEvent::isThisJetALepton(pat::JetRef jet, float drCut) const {
+const int reco::SkimEvent::nPuppiJets(float minPt, int applyCorrection, int applyJetID, int applyPileUpJetID) const {
+  return nCentralPuppiJets(minPt,99.9, applyCorrection,applyJetID,applyPileUpJetID);
+}
+
+const bool reco::SkimEvent::isThisJetALepton(pat::JetRef jet, float drCut) const { // check if overlap with lepton
     bool thisJetIsLepton(false);
-    for(size_t j=0; j<std::min((uint) 2,(uint) leps_.size());++j){
-        double dR = fabs(ROOT::Math::VectorUtil::DeltaR(jet->p4(),leps_[j]->p4()) );
+    for(size_t j = 0; j < std::min((uint) 2,(uint) leps_.size());++j){
+        double dR = fabs(ROOT::Math::VectorUtil::DeltaR(jet->p4(),leps_[j]->p4()));
         if(dR < drCut){
             thisJetIsLepton = true;
             break;
@@ -541,38 +567,33 @@ const bool reco::SkimEvent::isThisJetALepton(pat::JetRef jet, float drCut) const
     return thisJetIsLepton;
 }
 
-const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
+const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{ // 0 noID, 1 is default cut based
   // no ID
-  if(applyID == 0) return true;
-  
+  if(applyID == 0) return true;  
   // old ID
   else if(applyID == 1) {
     unsigned int multiplicity = jet->neutralMultiplicity () + jet->chargedMultiplicity ();
-    if(jet->neutralEmEnergyFraction() >=0.99 ||
-     jet->neutralHadronEnergyFraction() >=0.99 ||
-     multiplicity==0 ) return false;
-   if(fabs(jet->eta())<2.4){
-    if(jet->chargedEmEnergyFraction() >=0.99 ||
-       jet->chargedHadronEnergyFraction() == 0 ||
-       jet->chargedMultiplicity()==0 ) return false;
+    if(jet->neutralEmEnergyFraction() >=0.99 || jet->neutralHadronEnergyFraction() >=0.99 || multiplicity==0 ) return false;
+    if(fabs(jet->eta())<2.4){
+    if(jet->chargedEmEnergyFraction() >=0.99 || jet->chargedHadronEnergyFraction() == 0 || jet->chargedMultiplicity()==0 ) return false;
    }
    return true;
- }
-  
+  }
+
   // MVA ID loose
-  else if(applyID == 4) {
+  else if(applyID == 4 and jet->hasUserInt("jetId")) {
     if(jet->userInt("jetId") >= 4) return true;
     else return false;
   }
   
   // MVA ID medium
-  else if(applyID == 5) {
+  else if(applyID == 5 and jet->hasUserInt("jetId"))  {
     if(jet->userInt("jetId") >= 6) return true;
     else return false;
   }
   
   // MVA ID tight
-  else if(applyID == 6) {
+  else if(applyID == 6 and jet->hasUserInt("jetId")) {
     if(jet->userInt("jetId") >= 7) return true;
     else return false;
   }
@@ -581,46 +602,31 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
 }
 
 
+const bool reco::SkimEvent::passPileUpJetID(pat::JetRef jet, int applyID) const{ // 0 noID, 1 loose WP, 2 medium WP, 3 tight
+
+  // no ID
+  if(applyID == 0 or applyID > 3) return true;  
+  // old ID
+  else if(jet->hasUserInt("pileupJetId:fullId")){
+    if(applyID == 1 and PileupJetIdentifier::passJetId(jet->userInt("pileupJetId:fullId"),PileupJetIdentifier::kLoose) == true ) return true ;
+    else if(applyID == 2 and PileupJetIdentifier::passJetId(jet->userInt("pileupJetId:fullId"),PileupJetIdentifier::kMedium) == true ) return true ;
+    else if(applyID == 3 and PileupJetIdentifier::passJetId(jet->userInt("pileupJetId:fullId"),PileupJetIdentifier::kTight) == true ) return true ;
+    else return false;
+  }
+  else return true ;
+}
+
+
 const bool reco::SkimEvent::passFatJetID(pat::JetRef jet, int applyID) const{
   // no ID
- if(applyID == 0) return true;
-  
+ if(applyID == 0) return true;  
   // old ID
  else if(applyID == 1) { ///----> AN 2013/139 Sec 3.1.3
-// muon energy fraction < 0.99
-// photon energy fraction < 0.99,
-// electromagnetic energy fraction < 0.99
-// number of jet constituent grater than one,
-// neutral and charged hadron energy fraction respectively < 0.99 and > 0
   unsigned int multiplicity = jet->neutralMultiplicity () + jet->chargedMultiplicity ();
-
-// if(
-// jet -> muonEnergyFraction() >= 0.99 ||
-// jet -> photonEnergyFraction() >= 0.99 ||
-// (jet -> chargedEmEnergy() + jet -> neutralEmEnergy() ) / jet -> energy() * jet -> userFloat("JEC") >= 0.99 || // energy is uncorrected!
-// multiplicity<=1 ||
-// jet->neutralHadronEnergyFraction() >=0.99 ||
-// jet->chargedHadronEnergyFraction() <=0.0
-// ) {
-// return false;
-// }
-// else {
-// return true;
-// }
-
   ///---- Loose from https://twiki.cern.ch/twiki/bin/view/CMS/JetID
-  if(
-     jet->neutralEmEnergyFraction() >=0.99 ||
-     jet->neutralHadronEnergyFraction() >=0.99 ||
-     multiplicity<=1
-    ) return false;
-
+  if( jet->neutralEmEnergyFraction() >=0.99 || jet->neutralHadronEnergyFraction() >=0.99 || multiplicity<=1 ) return false;
   if(fabs(jet->eta())<2.4){
-   if(
-      jet->chargedEmEnergyFraction() >=0.99 ||
-      jet->chargedHadronEnergyFraction() == 0 ||
-      jet->chargedMultiplicity()==0
-     ) return false;
+   if(jet->chargedEmEnergyFraction() >=0.99 || jet->chargedHadronEnergyFraction() == 0 || jet->chargedMultiplicity()==0) return false;
   }
   return true;
  }
@@ -628,84 +634,147 @@ const bool reco::SkimEvent::passFatJetID(pat::JetRef jet, int applyID) const{
 }
 
 
-const float reco::SkimEvent::dPhiJetllInDegrees(size_t leadingIndex,float minPt,float eta,int applyCorrection,int applyID) const {
-    return dPhiJetll(leadingIndex,minPt,eta,applyCorrection,applyID)/M_PI * 180.;
+const float reco::SkimEvent::dPhiJetllInDegrees(size_t leadingIndex,float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+  return dPhiJetll(leadingIndex,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID)/M_PI * 180.;
 }
 
-const float reco::SkimEvent::dPhiJetll(size_t leadingIndex,float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::dPhiPuppiJetllInDegrees(size_t leadingIndex,float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+  return dPhiPuppiJetll(leadingIndex,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID)/M_PI * 180.;
+}
+
+const float reco::SkimEvent::dPhiJetll(size_t leadingIndex,float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const { // phi jet ll
 
     if(leps_.size() < 2) return -9999.0;
  
     size_t count = 0, newIndex = 0;
-    for(size_t i=0;i<jets_.size();++i) {
-        if(!(passJetID(jets_[i],applyID)) ) continue;
-        if( std::fabs(jets_[i]->eta()) >= eta) continue;
-        if( jetPt(i,applyCorrection) <= minPt) continue;
+    for(size_t i = 0; i < jets_.size();++i) { // loop on jets
+      if(!(passJetID(jets_[i],applyJetID)) ) continue; // apply jet id
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue; // apply pile-up jet id
+      if( std::fabs(jets_[i]->eta()) >= eta) continue; //eta range
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue; // min pt for jet
 
-        if(isThisJetALepton(jets_[i])) continue;
-        // When count becomes higher than leadingIndex, we've found the leadingIndexth jet that passes all the cuts
-        if(++count > leadingIndex) {
+      if(isThisJetALepton(jets_[i])) continue; // cleaning with lepton
+      // When count becomes higher than leadingIndex, we've found the leadingIndexth jet that passes all the cuts
+      if(++count > leadingIndex) {
             newIndex = i;
             break;
         }
     }
     
-    return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4(), jets_[newIndex]->p4()) );
+    return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4() + leps_[indexLeptonByPt(1)]->p4(), jets_[newIndex]->p4()) ); // delta phi returned
+}
 
+
+const float reco::SkimEvent::dPhiPuppiJetll(size_t leadingIndex,float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const { // phi jet ll
+
+    if(leps_.size() < 2) return -9999.0;
+ 
+    size_t count = 0, newIndex = 0;
+    for(size_t i = 0; i < puppiJets_.size();++i) { // loop on jets
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue; // apply jet id
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue; // apply pile-up jet id
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue; //eta range
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue; // min pt for jet
+
+      if(isThisJetALepton(puppiJets_[i])) continue; // cleaning with lepton
+      // When count becomes higher than leadingIndex, we've found the leadingIndexth jet that passes all the cuts
+      if(++count > leadingIndex) {
+            newIndex = i;
+            break;
+        }
+    }
+    
+    return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4() + leps_[indexLeptonByPt(1)]->p4(), puppiJets_[newIndex]->p4()) ); // delta phi returned
 }
 
 
 
-const math::XYZTLorentzVector reco::SkimEvent::jet(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
- unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
-//  std::cout << " index_jet_ordered = " << index_jet_ordered << " :: " << jets_.size() << std::endl;
+const math::XYZTLorentzVector reco::SkimEvent::jet(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyJetID, applyPileUpJetID);
  if (index_jet_ordered >= jets_.size()) return math::XYZTLorentzVector(0,0,0,0);
  return jets_[index_jet_ordered]->p4();
- 
+}
+
+const math::XYZTLorentzVector reco::SkimEvent::puppiJet(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ unsigned int index_jet_ordered = indexPuppiJetByPt(index, minPt, eta, applyCorrection, applyJetID, applyPileUpJetID);
+ if (index_jet_ordered >= puppiJets_.size()) return math::XYZTLorentzVector(0,0,0,0);
+ return puppiJets_[index_jet_ordered]->p4();
 }
 
 
-
-
-
-const pat::Jet* reco::SkimEvent::leadingJet(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const pat::Jet* reco::SkimEvent::leadingJet(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
     size_t count = 0;
-    for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+    for(size_t i = 0; i < jets_.size();++i) {
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
-
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
       if(isThisJetALepton(jets_[i])) continue;
-      if(++count > index) return jets_[i].get();
+      if(++count > index) return jets_[i].get(); // return the pointer to the leading jet over the min pt, inside the eta acceptance (should be ordered in pT)
     }
     return new pat::Jet();
 }
 
-const float reco::SkimEvent::leadingJetBtag(size_t index, std::string discriminator, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
+const pat::Jet* reco::SkimEvent::leadingPuppiJet(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
     size_t count = 0;
-    for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
-      if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
-
-      if(isThisJetALepton(jets_[i])) continue;
-      if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-      if(++count > index) return jets_[i]->bDiscriminator(discriminator);
+    for(size_t i = 0; i < puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if(++count > index) return puppiJets_[i].get(); // return the pointer to the leading jet over the min pt, inside the eta acceptance (should be ordered in pT)
     }
-    return -9999.9;
-
+    return new pat::Jet();
 }
 
 
-const float reco::SkimEvent::leadingJetMass(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingJetBtag(size_t index, std::string discriminator, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, float dzCut) const {
+
+    size_t count = 0;
+    for(size_t i=0;i<jets_.size();++i) { // loop on jets 
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(jets_[i]->eta()) >= eta) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
+      if(isThisJetALepton(jets_[i])) continue;
+      if(jets_[i]->hasUserFloat("dz")){
+	if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+      }
+      if(++count > index) return jets_[i]->bDiscriminator(discriminator); // take the discriminator value
+    }
+    return -9999.9;
+}
+
+const float reco::SkimEvent::leadingPuppiJetBtag(size_t index, std::string discriminator, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, float dzCut) const {
+
+    size_t count = 0;
+
+    for(size_t i=0;i<puppiJets_.size();++i) { // loop on jets 
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if(puppiJets_[i]->hasUserFloat("dz")){
+	if(fabs(puppiJets_[i]->userFloat("dz")) > dzCut) continue;
+      }
+      if(++count > index) return puppiJets_[i]->bDiscriminator(discriminator); // take the discriminator value
+    }
+    return -9999.9;
+}
+
+
+const float reco::SkimEvent::leadingJetMass(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) return jets_[i]->mass();
@@ -714,14 +783,31 @@ const float reco::SkimEvent::leadingJetMass(size_t index, float minPt,float eta,
 
 }
 
+const float reco::SkimEvent::leadingPuppiJetMass(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
-const float reco::SkimEvent::leadingJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index) return puppiJets_[i]->mass();
+ }
+ return -9999.9;
+
+}
+
+
+const float reco::SkimEvent::leadingJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
     size_t count = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
       if(++count > index) return jets_[i]->phi();
@@ -730,13 +816,30 @@ const float reco::SkimEvent::leadingJetPhi(size_t index, float minPt,float eta,i
 
 }
 
-const float reco::SkimEvent::leadingJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingPuppiJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if(++count > index) return puppiJets_[i]->phi();
+    }
+    return -9999.9;
+
+}
+
+const float reco::SkimEvent::leadingJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
     size_t count = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
       if(++count > index) return jets_[i]->eta();
@@ -745,79 +848,237 @@ const float reco::SkimEvent::leadingJetEta(size_t index, float minPt,float eta,i
 
 }
 
-const int reco::SkimEvent::leadingJetId(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingPuppiJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if(++count > index) return puppiJets_[i]->eta();
+    }
+    return -9999.9;
+
+}
+
+const int reco::SkimEvent::leadingJetId(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
     size_t count = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
-      if(++count > index) return jets_[i]->userInt("jetId");
+      if(++count > index and jets_[i]->hasUserInt("jetId")) return jets_[i]->userInt("jetId");
     }
     return -9999.9;
 }
 
-const float reco::SkimEvent::leadingJetMva(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const int reco::SkimEvent::leadingPuppiJetId(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
     size_t count = 0;
-    for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
-      if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+    for(size_t i=0;i<puppiJets_.size();++i) {       
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
 
-      if(isThisJetALepton(jets_[i])) continue;
-      if(++count > index) return jets_[i]->userFloat("jetMva");
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if(++count > index and puppiJets_[i]->hasUserInt("jetId")) return puppiJets_[i]->userInt("jetId");
     }
     return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingPileUpJetIdValue(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
     size_t count = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
-      if(++count > index) return jetPt(i,applyCorrection);
+      if(++count > index and jets_[i]->hasUserFloat("pileupJetId:fullDiscriminant")) return jets_[i]->userFloat("pileupJetId:fullDiscriminant");
+    }
+    return -9999.9;
+}
+
+const int reco::SkimEvent::leadingPileUpJetIdFlag(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+    size_t count = 0;
+    for(size_t i=0;i<jets_.size();++i) {
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(jets_[i]->eta()) >= eta) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(jets_[i])) continue;
+      if(++count > index and jets_[i]->hasUserInt("pileupJetId:fullId")) return jets_[i]->userInt("pileupJetId:fullId");
+    }
+    return -9999.9;
+}
+
+const float reco::SkimEvent::leadingPuppiPileUpJetIdValue(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if(++count > index and puppiJets_[i]->hasUserFloat("AK5pileupJetIdPuppi:fullDiscriminant")) return puppiJets_[i]->userFloat("AK5pileupJetIdPuppi:fullDiscriminant");
+    }
+    return -9999.9;
+}
+
+const int reco::SkimEvent::leadingPuppiPileUpJetIdFlag(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if(++count > index and puppiJets_[i]->hasUserInt("AK5pileupJetIdPuppi:fullId")) return puppiJets_[i]->userInt("AK5pileupJetIdPuppi:fullId");
+    }
+    return -9999.9;
+}
+
+const float reco::SkimEvent::leadingJetMva(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+    size_t count = 0;
+    for(size_t i=0;i<jets_.size();++i) {
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(jets_[i]->eta()) >= eta) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
+      if(isThisJetALepton(jets_[i])) continue;
+      if(++count > index and jets_[i]->hasUserFloat("jetMva") ) return jets_[i]->userFloat("jetMva");
+    }
+    return -9999.9;
+}
+
+const float reco::SkimEvent::leadingPuppiJetMva(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if(++count > index and puppiJets_[i]->hasUserFloat("jetMva") ) return puppiJets_[i]->userFloat("jetMva");
     }
     return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingJetPtd(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+    size_t count = 0;
+    for(size_t i=0;i<jets_.size();++i) {
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(jets_[i]->eta()) >= eta) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(jets_[i])) continue;
+      if(++count > index) return jetPt(jets_[i].get(),applyCorrection);
+    }
+    return -9999.9;
+}
+
+const float reco::SkimEvent::leadingPuppiJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if(++count > index) return jetPt(puppiJets_[i].get(),applyCorrection);
+    }
+    return -9999.9;
+}
+
+
+const float reco::SkimEvent::leadingJetPtd(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
+  if(++count > index and jets_[i]->hasUserFloat("ptd")) {
    return jets_[i]->userFloat("ptd");
+  }
+ }
+ return -9999.9;
+}
+
+const float reco::SkimEvent::leadingPuppiJetPtd(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index and puppiJets_[i]->hasUserFloat("ptd")) {
+   return puppiJets_[i]->userFloat("ptd");
+  }
+ }
+ return -9999.9;
+}
+
+
+const float reco::SkimEvent::leadingPuppiJetNChgQC(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index and puppiJets_[i]->hasUserFloat("nChgQC")) {
+   return puppiJets_[i]->userFloat("nChgQC");
   }
  }
  return -9999.9;
 
 }
 
-
-
-const float reco::SkimEvent::leadingJetNChgQC(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingJetNChgQC(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
+  if(++count > index and jets_[i]->hasUserFloat("nChgQC")) {
    return jets_[i]->userFloat("nChgQC");
   }
  }
@@ -826,16 +1087,35 @@ const float reco::SkimEvent::leadingJetNChgQC(size_t index, float minPt,float et
 }
 
 
-const float reco::SkimEvent::leadingJetNChgptCut(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingPuppiJetNChgptCut(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index and puppiJets_[i]->hasUserFloat("nChgptCut")) {
+   return puppiJets_[i]->userFloat("nChgptCut");
+  }
+ }
+ return -9999.9;
+
+}
+
+const float reco::SkimEvent::leadingJetNChgptCut(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
+  if(++count > index and jets_[i]->hasUserFloat("nChgptCut")) {
    return jets_[i]->userFloat("nChgptCut");
   }
  }
@@ -844,16 +1124,17 @@ const float reco::SkimEvent::leadingJetNChgptCut(size_t index, float minPt,float
 }
 
 
-const float reco::SkimEvent::leadingJetNNeutralptCut(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingJetNNeutralptCut(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
+  if(++count > index and jets_[i]->hasUserFloat("nNeutralptCut")) {
    return jets_[i]->userFloat("nNeutralptCut");
   }
  }
@@ -861,19 +1142,18 @@ const float reco::SkimEvent::leadingJetNNeutralptCut(size_t index, float minPt,f
 
 }
 
-
-const float reco::SkimEvent::leadingJetPtD(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
+const float reco::SkimEvent::leadingPuppiJetNNeutralptCut(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
 
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QCptD");
-   else return jets_[i]->userFloat("ptD");
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index and puppiJets_[i]->hasUserFloat("nNeutralptCut")) {
+   return puppiJets_[i]->userFloat("nNeutralptCut");
   }
  }
  return -9999.9;
@@ -881,18 +1161,38 @@ const float reco::SkimEvent::leadingJetPtD(size_t index, float minPt,float eta,i
 }
 
 
-const float reco::SkimEvent::leadingJetQGRmax(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
+const float reco::SkimEvent::leadingPuppiJetPtD(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, int QualityCut) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index) {
+    if (QualityCut == 1 and puppiJets_[i]->hasUserFloat("QCptD")) return puppiJets_[i]->userFloat("QCptD");
+    else if(puppiJets_[i]->hasUserFloat("ptD")) return puppiJets_[i]->userFloat("ptD");
+  }
+ }
+ return -9999.9;
+
+}
+
+const float reco::SkimEvent::leadingJetPtD(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, int QualityCut) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QCRmax");
-   else return jets_[i]->userFloat("Rmax");
+    if (QualityCut == 1 and jets_[i]->hasUserFloat("QCptD")) return jets_[i]->userFloat("QCptD");
+    else if(jets_[i]->hasUserFloat("ptD")) return jets_[i]->userFloat("ptD");
   }
  }
  return -9999.9;
@@ -900,18 +1200,38 @@ const float reco::SkimEvent::leadingJetQGRmax(size_t index, float minPt,float et
 }
 
 
-const float reco::SkimEvent::leadingJetQGRMScand(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
+const float reco::SkimEvent::leadingJetQGRmax(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, int QualityCut) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QCRMScand");
-   else return jets_[i]->userFloat("RMScand");
+    if (QualityCut == 1 and jets_[i]->hasUserFloat("QCRmax")) return jets_[i]->userFloat("QCRmax");
+    else if(jets_[i]->hasUserFloat("Rmax")) return jets_[i]->userFloat("Rmax");
+  }
+ }
+ return -9999.9;
+
+}
+
+const float reco::SkimEvent::leadingPuppiJetQGRmax(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, int QualityCut) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index) {
+    if (QualityCut == 1 and puppiJets_[i]->hasUserFloat("QCRmax")) return puppiJets_[i]->userFloat("QCRmax");
+    else if(puppiJets_[i]->hasUserFloat("Rmax")) return puppiJets_[i]->userFloat("Rmax");
   }
  }
  return -9999.9;
@@ -919,18 +1239,38 @@ const float reco::SkimEvent::leadingJetQGRMScand(size_t index, float minPt,float
 }
 
 
-const float reco::SkimEvent::leadingJetQGaxis1(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
+const float reco::SkimEvent::leadingJetQGRMScand(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, int QualityCut) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QCaxis1");
-   else return jets_[i]->userFloat("axis1");
+    if (QualityCut == 1 and jets_[i]->hasUserFloat("QCRMScand")) return jets_[i]->userFloat("QCRMScand");
+    else if(jets_[i]->hasUserFloat("RMScand")) return jets_[i]->userFloat("RMScand");
+  }
+ }
+ return -9999.9;
+
+}
+
+const float reco::SkimEvent::leadingPuppiJetQGRMScand(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, int QualityCut) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index) {
+    if (QualityCut == 1 and puppiJets_[i]->hasUserFloat("QCRMScand")) return puppiJets_[i]->userFloat("QCRMScand");
+    else if(puppiJets_[i]->hasUserFloat("RMScand")) return puppiJets_[i]->userFloat("RMScand");
   }
  }
  return -9999.9;
@@ -938,18 +1278,38 @@ const float reco::SkimEvent::leadingJetQGaxis1(size_t index, float minPt,float e
 }
 
 
-const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
+const float reco::SkimEvent::leadingJetQGaxis1(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, int QualityCut) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QCaxis2");
-   else return jets_[i]->userFloat("axis2");
+    if (QualityCut == 1 and jets_[i]->hasUserFloat("QCaxis1"))   return jets_[i]->userFloat("QCaxis1");
+    else if(QualityCut == 1 and jets_[i]->hasUserFloat("axis1")) return jets_[i]->userFloat("axis1");
+  }
+ }
+ return -9999.9;
+
+}
+
+const float reco::SkimEvent::leadingPuppiJetQGaxis1(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, int QualityCut) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index) {
+    if (QualityCut == 1 and puppiJets_[i]->hasUserFloat("QCaxis1"))   return puppiJets_[i]->userFloat("QCaxis1");
+    else if(QualityCut == 1 and puppiJets_[i]->hasUserFloat("axis1")) return puppiJets_[i]->userFloat("axis1");
   }
  }
  return -9999.9;
@@ -957,90 +1317,53 @@ const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float e
 }
 
 
-
-
-// const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
-// double axis2 = -9999.9;
-//
-// size_t count = 0;
-// for(size_t i=0;i<jets_.size();++i) {
-// if(!(passJetID(jets_[i],applyID)) ) continue;
-// if( std::fabs(jets_[i]->eta()) >= eta) continue;
-// if( jetPt(i,applyCorrection) <= minPt) continue;
-//
-// if(isThisJetALepton(jets_[i])) continue;
-// if(++count > index) {
-// // std::vector<reco::PFCandidatePtr> constituents = jet->getPFConstituents();
-// std::vector<reco::PFCandidatePtr> constituents = jets_[i]->getPFConstituents();
-// // Jet::Constituents constituents = jets_[i]->getJetConstituents();
-// float sum_pt2 = 0.;
-// float sum_pt = 0.;
-// float sum_deta = 0.;
-// float sum_dphi = 0.;
-// float sum_deta2 = 0.;
-// float sum_dphi2 = 0.;
-// float sum_detadphi = 0.;
-// for( unsigned iConst=0; iConst<constituents.size(); ++iConst ) {
-// float pt = constituents[iConst]->p4().Pt();
-// float pt2 = pt*pt;
-// sum_pt += pt;
-// sum_pt2 += pt2;
-//
-// sum_deta += ((constituents[iConst]->eta() - jets_[i]->eta())*pt*pt);
-// sum_dphi += ((2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*pt*pt);
-//
-// sum_deta2 += ((constituents[iConst]->eta() - jets_[i]->eta())*(constituents[iConst]->eta() - jets_[i]->eta())*pt*pt);
-// sum_dphi2 += ((2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*(2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*pt*pt);
-//
-// sum_detadphi += ((2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*(constituents[iConst]->eta() - jets_[i]->eta())*pt*pt);
-//
-// }
-//
-// Float_t a = 0., b = 0., c = 0.;
-// Float_t ave_deta = 0., ave_dphi = 0., ave_deta2 = 0., ave_dphi2 = 0.;
-//
-//
-// if(sum_pt2 > 0){
-// // variables["ptD"] = sqrt(sum_weight)/sum_pt;
-// ave_deta = sum_deta/sum_pt2;
-// ave_dphi = sum_dphi/sum_pt2;
-// ave_deta2 = sum_deta2/sum_pt2;
-// ave_dphi2 = sum_dphi2/sum_pt2;
-// a = ave_deta2 - ave_deta*ave_deta;
-// b = ave_dphi2 - ave_dphi*ave_dphi;
-// c = -(sum_detadphi/sum_pt2 - ave_deta*ave_dphi);
-//
-// Float_t delta = sqrt(fabs((a-b)*(a-b)+4*c*c));
-// if(a+b-delta > 0) {
-// axis2 = sqrt(0.5*(a+b-delta));
-// }
-// else {
-// axis2 = 0.;
-// }
-// }
-// else {
-// axis2 = 0.;
-// }
-//
-// return axis2;
-// }
-// }
-// return -9999.9;
-//
-// }
-
-
-
-
-
-
-const float reco::SkimEvent::leadingJetChargedHadronMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, int QualityCut) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(jets_[i])) continue;
+  if(++count > index) {
+    if (QualityCut == 1 and jets_[i]->hasUserFloat("QCaxis2")) return jets_[i]->userFloat("QCaxis2");
+    else if(jets_[i]->userFloat("axis2")) return jets_[i]->userFloat("axis2");
+  }
+ }
+ return -9999.9;
+
+}
+
+const float reco::SkimEvent::leadingPuppiJetQGaxis2(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID, int QualityCut) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index) {
+    if (QualityCut == 1 and puppiJets_[i]->hasUserFloat("QCaxis2")) return puppiJets_[i]->userFloat("QCaxis2");
+    else if(puppiJets_[i]->userFloat("axis2")) return puppiJets_[i]->userFloat("axis2");
+  }
+ }
+ return -9999.9;
+
+}
+
+
+const float reco::SkimEvent::leadingJetChargedHadronMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) return jets_[i]->chargedHadronMultiplicity();
@@ -1049,13 +1372,46 @@ const float reco::SkimEvent::leadingJetChargedHadronMultiplicity(size_t index, f
 
 }
 
-const float reco::SkimEvent::leadingJetNeutralHadronMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingPuppiJetChargedHadronMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index) return puppiJets_[i]->chargedHadronMultiplicity();
+ }
+ return -9999.9;
+
+}
+
+const float reco::SkimEvent::leadingPuppiJetNeutralHadronMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index) return puppiJets_[i]->neutralHadronMultiplicity();
+ }
+ return -9999.9;
+
+}
+
+const float reco::SkimEvent::leadingJetNeutralHadronMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) return jets_[i]->neutralHadronMultiplicity();
@@ -1064,16 +1420,33 @@ const float reco::SkimEvent::leadingJetNeutralHadronMultiplicity(size_t index, f
 
 }
 
-const float reco::SkimEvent::leadingJetPhotonMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingJetPhotonMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if(!(passJetID(jets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) return jets_[i]->photonMultiplicity();
+ }
+ return -9999.9;
+
+}
+
+const float reco::SkimEvent::leadingPuppiJetPhotonMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<puppiJets_.size();++i) {
+  if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+  if(isThisJetALepton(puppiJets_[i])) continue;
+  if(++count > index) return puppiJets_[i]->photonMultiplicity();
  }
  return -9999.9;
 
@@ -1088,21 +1461,21 @@ void reco::SkimEvent::setJetRhoIso(const edm::Handle<double> & h) {
 const float reco::SkimEvent::getJetRhoIso() const {
  return rhoJetIso_;
 }
-//
 
 
-const float reco::SkimEvent::leadingVBFJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingVBFJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const { // two leading jet, not from PU
     if(jets_.size() < 2) return -9999.;
-    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyID);
-    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyID);
+    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
     float jetEtaMax = std::max(jetEta1,jetEta2);
     float jetEtaMin = std::min(jetEta1,jetEta2);
 
     size_t count = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
       if( jets_[i]->eta() >= jetEtaMax ) continue;
@@ -1112,18 +1485,41 @@ const float reco::SkimEvent::leadingVBFJetPhi(size_t index, float minPt,float et
     return -9999.9;
 }
 
-const float reco::SkimEvent::leadingVBFJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingVBFPuppiJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const { // two leading jet, not from PU
+    if(puppiJets_.size() < 2) return -9999.;
+    float jetEta1 = leadingPuppiJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingPuppiJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEtaMax = std::max(jetEta1,jetEta2);
+    float jetEtaMin = std::min(jetEta1,jetEta2);
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if( puppiJets_[i]->eta() >= jetEtaMax ) continue;
+      if( puppiJets_[i]->eta() <= jetEtaMin ) continue;
+      if(++count > index) return puppiJets_[i]->phi();
+    }
+    return -9999.9;
+}
+
+const float reco::SkimEvent::leadingVBFJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
     if(jets_.size() < 2) return -9999.;
-    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyID);
-    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyID);
+    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
     float jetEtaMax = std::max(jetEta1,jetEta2);
     float jetEtaMin = std::min(jetEta1,jetEta2);
 
     size_t count = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
       if( jets_[i]->eta() >= jetEtaMax ) continue;
@@ -1134,76 +1530,260 @@ const float reco::SkimEvent::leadingVBFJetEta(size_t index, float minPt,float et
 
 }
 
-const int reco::SkimEvent::leadingVBFJetId(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingVBFPuppiJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+    if(puppiJets_.size() < 2) return -9999.;
+    float jetEta1 = leadingPuppiJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingPuppiJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEtaMax = std::max(jetEta1,jetEta2);
+    float jetEtaMin = std::min(jetEta1,jetEta2);
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if( puppiJets_[i]->eta() >= jetEtaMax ) continue;
+      if( puppiJets_[i]->eta() <= jetEtaMin ) continue;
+      if(++count > index) return puppiJets_[i]->eta();
+    }
+    return -9999.9;
+
+}
+
+const int reco::SkimEvent::leadingVBFJetId(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
     if(jets_.size() < 2) return -9999.;
-    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyID);
-    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyID);
+    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
     float jetEtaMax = std::max(jetEta1,jetEta2);
     float jetEtaMin = std::min(jetEta1,jetEta2);
 
     size_t count = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
       if( jets_[i]->eta() >= jetEtaMax ) continue;
       if( jets_[i]->eta() <= jetEtaMin ) continue;
-      if(++count > index) return jets_[i]->userInt("jetId");
+      if(++count > index and jets_[i]->hasUserInt("jetId")) return jets_[i]->userInt("jetId");
     }
     return -9999.9;
 }
 
-const float reco::SkimEvent::leadingVBFJetMva(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const int reco::SkimEvent::leadingVBFPuppiJetId(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+    if(puppiJets_.size() < 2) return -9999.;
+    float jetEta1 = leadingPuppiJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingPuppiJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEtaMax = std::max(jetEta1,jetEta2);
+    float jetEtaMin = std::min(jetEta1,jetEta2);
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if( puppiJets_[i]->eta() >= jetEtaMax ) continue;
+      if( puppiJets_[i]->eta() <= jetEtaMin ) continue;
+      if(++count > index and puppiJets_[i]->hasUserInt("jetId")) return puppiJets_[i]->userInt("jetId");
+    }
+    return -9999.9;
+}
+
+
+const float reco::SkimEvent::leadingVBFPileUpJetIdValue(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
     if(jets_.size() < 2) return -9999.;
-    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyID);
-    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyID);
+    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
     float jetEtaMax = std::max(jetEta1,jetEta2);
     float jetEtaMin = std::min(jetEta1,jetEta2);
 
     size_t count = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
       if( jets_[i]->eta() >= jetEtaMax ) continue;
       if( jets_[i]->eta() <= jetEtaMin ) continue;
-      if(++count > index) return jets_[i]->userInt("jetMva");
+      if(++count > index and jets_[i]->hasUserFloat("pileupJetId:fullDiscriminant")) return jets_[i]->userFloat("pileupJetId:fullDiscriminant");
     }
     return -9999.9;
 }
 
-const float reco::SkimEvent::leadingVBFJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+
+const int reco::SkimEvent::leadingVBFPileUpJetIdFlag(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
     if(jets_.size() < 2) return -9999.;
-    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyID);
-    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyID);
+    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
     float jetEtaMax = std::max(jetEta1,jetEta2);
     float jetEtaMin = std::min(jetEta1,jetEta2);
 
     size_t count = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
       if( jets_[i]->eta() >= jetEtaMax ) continue;
       if( jets_[i]->eta() <= jetEtaMin ) continue;
-      if(++count > index) return jetPt(i,applyCorrection);
+      if(++count > index and jets_[i]->hasUserInt("pileupJetId:fullId")) return jets_[i]->userInt("pileupJetId:fullId");
     }
     return -9999.9;
 }
 
-const int reco::SkimEvent::nCentralJets(float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingVBFPuppiPileUpJetIdValue(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+    if(puppiJets_.size() < 2) return -9999.;
+    float jetEta1 = leadingPuppiJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingPuppiJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEtaMax = std::max(jetEta1,jetEta2);
+    float jetEtaMin = std::min(jetEta1,jetEta2);
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if( puppiJets_[i]->eta() >= jetEtaMax ) continue;
+      if( puppiJets_[i]->eta() <= jetEtaMin ) continue;
+      if(++count > index and puppiJets_[i]->hasUserFloat("AK5pileupJetIdPuppi:fullDiscriminant")) return puppiJets_[i]->userFloat("AK5pileupJetIdPuppi:fullDiscriminant");
+    }
+    return -9999.9;
+}
+
+const int reco::SkimEvent::leadingVBFPuppiPileUpJetIdFlag(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+    if(puppiJets_.size() < 2) return -9999.;
+    float jetEta1 = leadingPuppiJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingPuppiJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEtaMax = std::max(jetEta1,jetEta2);
+    float jetEtaMin = std::min(jetEta1,jetEta2);
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if( puppiJets_[i]->eta() >= jetEtaMax ) continue;
+      if( puppiJets_[i]->eta() <= jetEtaMin ) continue;
+      if(++count > index and puppiJets_[i]->hasUserInt("AK5pileupJetIdPuppi:fullId")) return puppiJets_[i]->userInt("AK5pileupJetIdPuppi:fullId");
+    }
+    return -9999.9;
+}
+
+const float reco::SkimEvent::leadingVBFJetMva(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+    if(jets_.size() < 2) return -9999.;
+    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEtaMax = std::max(jetEta1,jetEta2);
+    float jetEtaMin = std::min(jetEta1,jetEta2);
+
+    size_t count = 0;
+    for(size_t i=0;i<jets_.size();++i) {
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(jets_[i]->eta()) >= eta) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(jets_[i])) continue;
+      if( jets_[i]->eta() >= jetEtaMax ) continue;
+      if( jets_[i]->eta() <= jetEtaMin ) continue;
+      if(++count > index and jets_[i]->hasUserInt("jetMva")) return jets_[i]->userInt("jetMva");
+    }
+    return -9999.9;
+}
+
+
+const float reco::SkimEvent::leadingVBFPuppiJetMva(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+    if(puppiJets_.size() < 2) return -9999.;
+    float jetEta1 = leadingPuppiJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingPuppiJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEtaMax = std::max(jetEta1,jetEta2);
+    float jetEtaMin = std::min(jetEta1,jetEta2);
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if( puppiJets_[i]->eta() >= jetEtaMax ) continue;
+      if( puppiJets_[i]->eta() <= jetEtaMin ) continue;
+      if(++count > index and puppiJets_[i]->hasUserInt("jetMva")) return puppiJets_[i]->userInt("jetMva");
+    }
+    return -9999.9;
+}
+
+const float reco::SkimEvent::leadingVBFJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+    if(jets_.size() < 2) return -9999.;
+    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEtaMax = std::max(jetEta1,jetEta2);
+    float jetEtaMin = std::min(jetEta1,jetEta2);
+
+    size_t count = 0;
+    for(size_t i=0;i<jets_.size();++i) {
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(jets_[i]->eta()) >= eta) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(jets_[i])) continue;
+      if( jets_[i]->eta() >= jetEtaMax ) continue;
+      if( jets_[i]->eta() <= jetEtaMin ) continue;
+      if(++count > index) return jetPt(jets_[i].get(),applyCorrection);
+    }
+    return -9999.9;
+}
+
+const float reco::SkimEvent::leadingVBFPuppiJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+    if(puppiJets_.size() < 2) return -9999.;
+    float jetEta1 = leadingPuppiJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingPuppiJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEtaMax = std::max(jetEta1,jetEta2);
+    float jetEtaMin = std::min(jetEta1,jetEta2);
+
+    size_t count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if( puppiJets_[i]->eta() >= jetEtaMax ) continue;
+      if( puppiJets_[i]->eta() <= jetEtaMin ) continue;
+      if(++count > index) return jetPt(puppiJets_[i].get(),applyCorrection);
+    }
+    return -9999.9;
+}
+
+const int reco::SkimEvent::nCentralJets(float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
     int count = 0;
-    for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+    for(size_t i=0;i<jets_.size();++i) {    
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
       count++;
@@ -1211,291 +1791,887 @@ const int reco::SkimEvent::nCentralJets(float minPt,float eta,int applyCorrectio
     return count;
 }
 
-const bool reco::SkimEvent::passesDPhillJet(float ptMin, float eta,int applyCorrection,int applyID) const {
+const int reco::SkimEvent::nCentralPuppiJets(float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+    int count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      count++;
+    }
+    return count;
+}
+
+const bool reco::SkimEvent::passesDPhillJet(float ptMin, float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
     if(leps_.size() < 2) return -9999.0;   
     float dphi = 0, ptMax = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
-      float pt = jetPt(i,applyCorrection);
+      float pt = jetPt(jets_[i].get(),applyCorrection);
       if (pt > ptMax) {
         ptMax = pt;
-        dphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(), jets_[i]->p4()) );
+        dphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4()+leps_[indexLeptonByPt(1)]->p4(), jets_[i]->p4()) );
       }
     }
     return (ptMax <= ptMin || dphi / M_PI * 180. < 165.0);
 }
 
-const float reco::SkimEvent::dPhillLeadingJet(float eta,int applyCorrection,int applyID) const {
+const bool reco::SkimEvent::passesDPhillPuppiJet(float ptMin, float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+    if(leps_.size() < 2) return -9999.0;   
+    float dphi = 0, ptMax = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      float pt = jetPt(puppiJets_[i].get(),applyCorrection);
+      if (pt > ptMax) {
+        ptMax = pt;
+        dphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4()+leps_[indexLeptonByPt(1)]->p4(), puppiJets_[i]->p4()) );
+      }
+    }
+    return (ptMax <= ptMin || dphi / M_PI * 180. < 165.0);
+}
+
+const float reco::SkimEvent::dPhillLeadingJet(float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const { // no min pt
     if(leps_.size() < 2) return -9999.0;
     float dphi = 0, ptMax = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
-      float pt = jetPt(i,applyCorrection);
+      float pt = jetPt(jets_[i].get(),applyCorrection);
       if (pt > ptMax) {
         ptMax = pt;
-        dphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(), jets_[i]->p4()) );
+        dphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4()+leps_[indexLeptonByPt(1)]->p4(), jets_[i]->p4()) );
+      }
+    }
+    return dphi;
+}
+
+const float reco::SkimEvent::dPhillLeadingPuppiJet(float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const { // no min pt
+    if(leps_.size() < 2) return -9999.0;
+    float dphi = 0, ptMax = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      float pt = jetPt(puppiJets_[i].get(),applyCorrection);
+      if (pt > ptMax) {
+        ptMax = pt;
+        dphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4()+leps_[indexLeptonByPt(1)]->p4(), puppiJets_[i]->p4()) );
       }
     }
     return dphi;
 }
 
  
-// const int reco::SkimEvent::leadingJetIndex(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
-//   
-//     size_t count = 0;
-//     for(size_t i=0;i<jets_.size();++i) {
-//       if(!(passJetID(jets_[i],applyID)) ) continue;
-//       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-//       if( jetPt(i,applyCorrection) <= minPt) continue;
-// 
-//       if(isThisJetALepton(jets_[i])) continue;
-//       if(++count > index) return i;
-//     }
-//     return -1;
-// }
-
-const float reco::SkimEvent::dPhilljetjet(float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::dPhilljetjet(float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
     if(leps_.size() < 2) return -9999.0;
     float dphi = -1;
-    int jet1 = indexJetByPt(0,0,eta,applyCorrection,applyID);
-    int jet2 = indexJetByPt(1,0,eta,applyCorrection,applyID);
+    int jet1 = indexJetByPt(0,0,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    int jet2 = indexJetByPt(1,0,eta,applyCorrection,applyJetID,applyPileUpJetID);
 
-    if (jet1 != 9999 && jet2 != 9999) dphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(), jets_[jet1]->p4()+jets_[jet2]->p4()) );
+    if (jet1 != 9999 && jet2 != 9999 and jet1 < int(jets_.size()) and jet2 < int(jets_.size())) 
+      dphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4()+leps_[indexLeptonByPt(1)]->p4(), jets_[jet1]->p4()+jets_[jet2]->p4()) );
 
     return dphi;
 }
 
+const float reco::SkimEvent::dPhillPuppijetjet(float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+    if(leps_.size() < 2) return -9999.0;
+    float dphi = -1;
+    int jet1 = indexPuppiJetByPt(0,0,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    int jet2 = indexPuppiJetByPt(1,0,eta,applyCorrection,applyJetID,applyPileUpJetID);
 
+    if (jet1 != 9999 && jet2 != 9999 and jet1 < int(puppiJets_.size()) and jet2 < int(puppiJets_.size())) 
+      dphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4()+leps_[indexLeptonByPt(1)]->p4(), puppiJets_[jet1]->p4()+puppiJets_[jet2]->p4()) );
+
+    return dphi;
+}
+
+/// fat jet section 
 
 const float reco::SkimEvent::fatJetPt(size_t i, int applyCorrection) const {
  return jetPt(fatJets_[i].get(),applyCorrection);
 }
 
-const float reco::SkimEvent::jetPt(size_t i, int applyCorrection) const {
-    return jetPt(jets_[i].get(),applyCorrection);
+const float reco::SkimEvent::fatPuppiJetPt(size_t i, int applyCorrection) const {
+ return jetPt(fatPuppiJets_[i].get(),applyCorrection);
 }
 
-const float reco::SkimEvent::jetPt(const pat::Jet *j, int applyCorrection) const {
-// if(applyCorrection) return jets_[i]->correctedJet("L3Absolute","none").pt();
-  if(applyCorrection) return j->pt();
-  else return j->correctedJet("Uncorrected","none").pt();
-}
 
 const float reco::SkimEvent::tagJetPt(size_t i, int applyCorrection) const {
-// if(applyCorrection) return tagJets_[i]->correctedJet("L3Absolute","none").pt();
   if(applyCorrection) return tagJets_[i]->pt();
   else return tagJets_[i]->correctedJet("Uncorrected","none").pt();
 }
 
+const float reco::SkimEvent::tagPuppiJetPt(size_t i, int applyCorrection) const {
+  if(applyCorrection) return tagPuppiJets_[i]->pt();
+  else return tagPuppiJets_[i]->correctedJet("Uncorrected","none").pt();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Fat jet variables
-
-const float reco::SkimEvent::leadingFatJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passFatJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passFatJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJetPt(i,applyCorrection);
+  if(++count > index) return jetPt(i,applyCorrection);
  }
  return -9999.9;
 }
 
-const float reco::SkimEvent::leadingFatJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatPuppiJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passFatJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index) return jetPt(fatPuppiJets_[i].get(),applyCorrection);
+ }
+ return -9999.9;
+}
+
+const float reco::SkimEvent::leadingFatJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passFatJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passFatJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
   if(++count > index) return fatJets_[i]->eta();
  }
  return -9999.9;
 }
 
-const float reco::SkimEvent::leadingFatJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatPuppiJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passFatJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index) return fatPuppiJets_[i]->eta();
+ }
+ return -9999.9;
+}
 
+const float reco::SkimEvent::leadingFatJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passFatJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passFatJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
   if(++count > index) return fatJets_[i]->phi();
  }
  return -9999.9;
 }
 
-const float reco::SkimEvent::leadingFatJetTrimmedMass(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatPuppiJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passFatJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index) return fatPuppiJets_[i]->phi();
+ }
+ return -9999.9;
+}
 
+const float reco::SkimEvent::leadingFatJetTrimmedMass(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passFatJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passFatJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("TrimmedMass");
+  if(++count > index and fatJets_[i]->hasUserFloat("TrimmedMass")) return fatJets_[i]->userFloat("TrimmedMass");
+ }
+ return -9999.9;
+}
+
+const float reco::SkimEvent::leadingFatPuppiJetTrimmedMass(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passFatJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index and fatPuppiJets_[i]->hasUserFloat("TrimmedMass")) return fatPuppiJets_[i]->userFloat("TrimmedMass");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetFilteredMass(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
-
+const float reco::SkimEvent::leadingFatJetFilteredMass(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("FilteredMass");
+  if(++count > index and fatJets_[i]->hasUserFloat("FilteredMass")) return fatJets_[i]->userFloat("FilteredMass");
+ }
+ return -9999.9;
+}
+
+const float reco::SkimEvent::leadingFatPuppiJetFilteredMass(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index and fatPuppiJets_[i]->hasUserFloat("FilteredMass")) return fatPuppiJets_[i]->userFloat("FilteredMass");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedMass(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
-
+const float reco::SkimEvent::leadingFatJetPrunedMass(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("PrunedMass");
+  if(++count > index and fatJets_[i]->hasUserFloat("PrunedMass")) return fatJets_[i]->userFloat("PrunedMass");
+ }
+ return -9999.9;
+}
+
+const float reco::SkimEvent::leadingFatPuppiJetPrunedMass(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index and fatPuppiJets_[i]->hasUserFloat("PrunedMass")) return fatPuppiJets_[i]->userFloat("PrunedMass");
  }
  return -9999.9;
 }
 
 
 
-
-const float reco::SkimEvent::leadingFatJetMassDrop(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetMassDrop(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("massDrop");
+  if(++count > index and fatJets_[i]->hasUserFloat("massDrop")) return fatJets_[i]->userFloat("massDrop");
+ }
+ return -9999.9;
+}
+
+const float reco::SkimEvent::leadingFatPuppiJetMassDrop(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index and fatPuppiJets_[i]->hasUserFloat("massDrop")) return fatPuppiJets_[i]->userFloat("massDrop");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedTau2Tau1(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPrunedTau2Tau1(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("Prunedtau2tau1");
+  if(++count > index and fatJets_[i]->hasUserFloat("Prunedtau2tau1") ) return fatJets_[i]->userFloat("Prunedtau2tau1");
+ }
+ return -9999.9;
+}
+
+const float reco::SkimEvent::leadingFatPuppiJetPrunedTau2Tau1(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index and fatPuppiJets_[i]->hasUserFloat("Prunedtau2tau1") ) return fatPuppiJets_[i]->userFloat("Prunedtau2tau1");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedTau1(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
-
+const float reco::SkimEvent::leadingFatJetPrunedTau1(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("Prunedtau1");
+  if(++count > index and fatJets_[i]->hasUserFloat("Prunedtau1")) return fatJets_[i]->userFloat("Prunedtau1");
+ }
+ return -9999.9;
+}
+
+const float reco::SkimEvent::leadingFatPuppiJetPrunedTau1(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index and fatPuppiJets_[i]->hasUserFloat("Prunedtau1")) return fatPuppiJets_[i]->userFloat("Prunedtau1");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedTau2(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPrunedTau2(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("Prunedtau2");
+  if(++count > index and fatJets_[i]->hasUserFloat("Prunedtau2")) return fatJets_[i]->userFloat("Prunedtau2");
+ }
+ return -9999.9;
+}
+
+const float reco::SkimEvent::leadingFatPuppiJetPrunedTau2(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index and fatPuppiJets_[i]->hasUserFloat("Prunedtau2")) return fatPuppiJets_[i]->userFloat("Prunedtau2");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedTau3(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPrunedTau3(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("Prunedtau3");
+  if(++count > index and fatJets_[i]->hasUserFloat("Prunedtau3")) return fatJets_[i]->userFloat("Prunedtau3");
+ }
+ return -9999.9;
+}
+
+const float reco::SkimEvent::leadingFatPuppiJetPrunedTau3(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index and fatPuppiJets_[i]->hasUserFloat("Prunedtau3")) return fatPuppiJets_[i]->userFloat("Prunedtau3");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedTau4(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPrunedTau4(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
 
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
-  if(!(passJetID(fatJets_[i],applyID)) ) continue;
+  if(!(passJetID(fatJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatJets_[i],applyPileUpJetID)) ) continue;
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
-  if( fatJetPt(i,applyCorrection) <= minPt) continue;
+  if( jetPt(fatJets_[i].get(),applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("Prunedtau4");
+  if(++count > index and fatJets_[i]->hasUserFloat("Prunedtau4")) return fatJets_[i]->userFloat("Prunedtau4");
  }
  return -9999.9;
 }
 
+const float reco::SkimEvent::leadingFatPuppiJetPrunedTau4(size_t index, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+
+ size_t count = 0;
+ for(size_t i=0;i<fatPuppiJets_.size();++i) {
+  if(!(passJetID(fatPuppiJets_[i],applyJetID)) ) continue;
+  if(!(passPileUpJetID(fatPuppiJets_[i],applyPileUpJetID)) ) continue;
+  if( std::fabs(fatPuppiJets_[i]->eta()) >= eta) continue;
+  if( jetPt(fatPuppiJets_[i].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(fatPuppiJets_[i])) continue;
+  if(++count > index and fatPuppiJets_[i]->hasUserFloat("Prunedtau4")) return fatPuppiJets_[i]->userFloat("Prunedtau4");
+ }
+ return -9999.9;
+}
+
+
+const float reco::SkimEvent::highestHardBDisc(const float& maxPt, std::string discriminator, int applyJetID, int applyPileUpJetID, float dzCut) const {
+
+    float disc=-9999.9;
+
+    for(size_t i=0;i<tagJets_.size();++i) {
+        if( tagJetPt(i,true) < maxPt ) continue;
+        if(!(passJetID(tagJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagJets_[i],applyPileUpJetID)) ) continue;
+        if(isThisJetALepton(tagJets_[i])) continue;
+        if(jets_[i]->hasUserFloat("dz")){
+	  if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+	}
+        if( tagJets_[i]->bDiscriminator(discriminator) > disc ) disc = tagJets_[i]->bDiscriminator(discriminator);
+    }
+
+    return disc;
+
+}
+
+const float reco::SkimEvent::highestHardBPuppiDisc(const float& maxPt, std::string discriminator, int applyJetID, int applyPileUpJetID, float dzCut) const {
+
+    float disc=-9999.9;
+
+    for(size_t i=0;i<tagPuppiJets_.size();++i) {
+        if( tagPuppiJetPt(i,true) < maxPt ) continue;
+        if(!(passJetID(tagPuppiJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagPuppiJets_[i],applyPileUpJetID)) ) continue;
+        if(isThisJetALepton(tagPuppiJets_[i])) continue;
+        if(jets_[i]->hasUserFloat("dz")){
+	  if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+	}
+        if( tagPuppiJets_[i]->bDiscriminator(discriminator) > disc ) disc = tagPuppiJets_[i]->bDiscriminator(discriminator);
+    }
+
+    return disc;
+
+}
+
+
+const float reco::SkimEvent::highestBDiscRange(const float& minPt, const float& maxPt, std::string discriminator, int applyJetID, int applyPileUpJetID, float dzCut, int minPtApplyCorrection) const {
+
+    float disc=-9999.9;
+
+    for(size_t i=0;i<tagJets_.size();++i) {      
+        if( tagJetPt(i,true) > maxPt ) continue;
+        if( tagJetPt(i,true) <= minPt ) continue;        
+        if(!(passJetID(tagJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagJets_[i],applyPileUpJetID)) ) continue;
+        if(isThisJetALepton(tagJets_[i])) continue;
+        if(tagJets_[i]->hasUserFloat("dz")){
+	  if(fabs(tagJets_[i]->userFloat("dz")) > dzCut) continue;
+	}
+        if( tagJets_[i]->bDiscriminator(discriminator) > disc ) disc = tagJets_[i]->bDiscriminator(discriminator);
+      
+    }
+
+    return disc;
+
+}
+
+
+const float reco::SkimEvent::highestBPuppiDiscRange(const float& minPt, const float& maxPt, std::string discriminator, int applyJetID, int applyPileUpJetID, float dzCut, int minPtApplyCorrection) const {
+
+    float disc=-9999.9;
+
+    for(size_t i=0;i<tagPuppiJets_.size();++i) {
+        if( tagPuppiJetPt(i,true) > maxPt ) continue;
+        if( tagPuppiJetPt(i,minPtApplyCorrection) <= minPt ) continue;
+        if(!(passJetID(tagPuppiJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagPuppiJets_[i],applyPileUpJetID)) ) continue;
+        if(isThisJetALepton(tagPuppiJets_[i])) continue;
+        if(jets_[i]->hasUserFloat("dz")){
+	  if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+	}
+        if( tagPuppiJets_[i]->bDiscriminator(discriminator) > disc ) disc = tagPuppiJets_[i]->bDiscriminator(discriminator);
+    }
+
+    return disc;
+}
+
+const float reco::SkimEvent::highestSoftBDisc(const float& maxPt, std::string discriminator, int applyJetID, int applyPileUpJetID, float dzCut) const {
+
+    float disc=-9999.9;
+
+    for(size_t i=0;i<tagJets_.size();++i) {
+        if( tagJetPt(i,true) > maxPt ) continue;
+        if(!(passJetID(tagJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagJets_[i],applyPileUpJetID)) ) continue;
+        if(isThisJetALepton(tagJets_[i])) continue;
+        if(jets_[i]->hasUserFloat("dz")){
+	  if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+	}
+        if( tagJets_[i]->bDiscriminator(discriminator) > disc ) disc = tagJets_[i]->bDiscriminator(discriminator);
+    }
+
+    return disc;
+
+}
+
+const float reco::SkimEvent::highestSoftBPuppiDisc(const float& maxPt, std::string discriminator, int applyJetID, int applyPileUpJetID, float dzCut) const {
+
+    float disc=-9999.9;
+
+    for(size_t i=0;i<tagPuppiJets_.size();++i) {
+        if( tagPuppiJetPt(i,true) > maxPt ) continue;
+        if(!(passJetID(tagPuppiJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagPuppiJets_[i],applyPileUpJetID)) ) continue;
+        if(isThisJetALepton(tagPuppiJets_[i])) continue;
+        if(jets_[i]->hasUserFloat("dz")){
+	  if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+	}
+        if( tagPuppiJets_[i]->bDiscriminator(discriminator) > disc ) disc = tagPuppiJets_[i]->bDiscriminator(discriminator);
+    }
+
+    return disc;
+
+}
+
+const int reco::SkimEvent::bTaggedJetsBetween(const float& minPt, const float& maxPt, const float& cut, std::string discriminator, int applyJetID, int applyPileUpJetID , float dzCut) const {
+
+    int count=0;
+
+    for(size_t i=0;i<tagJets_.size();++i) {
+        if( tagJetPt(i,true) > maxPt ) continue;
+        if( tagJetPt(i,true) <= minPt ) continue;
+        if(!(passJetID(tagJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagJets_[i],applyPileUpJetID)) ) continue;
+        if(tagJets_[i]->bDiscriminator(discriminator) <= cut ) continue;   
+        if(jets_[i]->hasUserFloat("dz")){
+	  if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+	}    
+       if(isThisJetALepton(tagJets_[i])) continue;
+        count++;
+    }
+
+    return count;
+}
+
+const int reco::SkimEvent::bTaggedPuppiJetsBetween(const float& minPt, const float& maxPt, const float& cut, std::string discriminator, int applyJetID, int applyPileUpJetID , float dzCut) const {
+
+    int count=0;
+
+    for(size_t i=0;i<tagPuppiJets_.size();++i) {
+        if( tagPuppiJetPt(i,true) > maxPt ) continue;
+        if( tagPuppiJetPt(i,false) <= minPt ) continue;
+        if(!(passJetID(tagPuppiJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagPuppiJets_[i],applyPileUpJetID)) ) continue;
+        if( tagPuppiJets_[i]->bDiscriminator(discriminator) <= cut ) continue;   
+        if(jets_[i]->hasUserFloat("dz")){
+          if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+	}
+        if(isThisJetALepton(tagPuppiJets_[i])) continue;
+        count++;
+    }
+
+    return count;
+}
+
+const int reco::SkimEvent::bTaggedJetsUnder(const float& maxPt, const float& cut, std::string discriminator, int applyJetID, int applyPileUpJetID, float dzCut) const {
+
+    int count=0;
+
+    for(size_t i=0;i<tagJets_.size();++i) {
+        if( tagJetPt(i,true) > maxPt ) continue;
+        if(!(passJetID(tagJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagJets_[i],applyPileUpJetID)) ) continue;
+        if( tagJets_[i]->bDiscriminator(discriminator) <= cut ) continue;   
+        if(jets_[i]->hasUserFloat("dz")){
+          if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+        }
+        if(isThisJetALepton(tagJets_[i])) continue;
+        count++;
+    }
+
+    return count;
+}
+
+const int reco::SkimEvent::bTaggedPuppiJetsUnder(const float& maxPt, const float& cut, std::string discriminator, int applyJetID, int applyPileUpJetID, float dzCut) const {
+
+    int count=0;
+
+    for(size_t i=0;i<tagPuppiJets_.size();++i) {
+        if( tagPuppiJetPt(i,true) > maxPt ) continue;
+        if(!(passJetID(tagPuppiJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagPuppiJets_[i],applyPileUpJetID)) ) continue;
+        if( tagPuppiJets_[i]->bDiscriminator(discriminator) <= cut ) continue;   
+        if(jets_[i]->hasUserFloat("dz")){
+	  if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+	}
+        if(isThisJetALepton(tagPuppiJets_[i])) continue;
+        count++;
+    }
+
+    return count;
+}
+
+const int reco::SkimEvent::bTaggedJetsOver(const float& maxPt, const float& cut, std::string discriminator, int applyJetID, int applyPileUpJetID, float dzCut) const {
+
+    int count=0;
+
+    for(size_t i=0;i<tagJets_.size();++i) {
+        if( tagJetPt(i,true) <= maxPt ) continue;
+        if(!(passJetID(tagJets_[i],applyJetID)) ) continue;
+        if(!(passPileUpJetID(tagJets_[i],applyJetID)) ) continue;
+        if( tagJets_[i]->bDiscriminator(discriminator) <= cut ) continue;
+        if(tagJets_[i]->hasUserFloat("dz")){ 
+	  if(fabs(tagJets_[i]->userFloat("dz")) > dzCut) continue;
+	}
+        if(isThisJetALepton(tagJets_[i])) continue;
+        count++;
+    }
+
+    return count;
+}
+
+const int reco::SkimEvent::bTaggedPuppiJetsOver(const float& maxPt, const float& cut, std::string discriminator, int applyJetID, int applyPileUpJetID, float dzCut) const {
+
+    int count=0;
+
+    for(size_t i=0;i<tagPuppiJets_.size();++i) {
+        if( tagPuppiJetPt(i,true) <= maxPt ) continue;
+        if(!(passJetID(tagPuppiJets_[i],applyJetID)) ) continue;
+        if( tagPuppiJets_[i]->bDiscriminator(discriminator) <= cut ) continue;
+        if(jets_[i]->hasUserFloat("dz")){
+	  if(fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+	}
+        if(isThisJetALepton(tagPuppiJets_[i])) continue;
+        count++;
+    }
+
+    return count;
+}
+
+
+const float reco::SkimEvent::nearestJet(int i,float minPt, float eta, bool applyCorrection , int applyJetID, int applyPileUpJetID ) const { // nearest jet to one of the two lepton
+
+    if (i >= (int)std::min((uint) 2,(uint) leps_.size()) || i < -1) return -9999.9;
+
+    float dR = 9999;
+    for(size_t j=0;j<jets_.size();++j) {
+        if(!(passJetID(jets_[j],applyJetID)) ) continue;
+        if(!(passPileUpJetID(jets_[j],applyPileUpJetID)) ) continue;
+        if( std::fabs(jets_[j]->eta()) >= eta) continue;
+        if( jetPt(jets_[j].get(),applyCorrection) <= minPt) continue;
+        if(isThisJetALepton(jets_[j])) continue;
+    
+        float tempdR;
+        if(i != -1) {
+            tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(jets_[j]->p4(),leps_[i]->p4()) );
+            if( tempdR < dR ) dR = tempdR;
+        } else {
+            for(size_t k=0; k<std::min((uint) 2,(uint) leps_.size());++k){
+               tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(jets_[j]->p4(),leps_[k]->p4()) );
+               if( tempdR < dR ) dR = tempdR;
+            }
+        }
+    }
+    return dR;
+}
+
+const float reco::SkimEvent::nearestPuppiJet(int i,float minPt, float eta, bool applyCorrection , int applyJetID, int applyPileUpJetID ) const { // nearest jet to one of the two lepton
+
+    if (i >= (int)std::min((uint) 2,(uint) leps_.size()) || i < -1) return -9999.9;
+
+    float dR = 9999;
+    for(size_t j=0;j<puppiJets_.size();++j) {
+        if(!(passJetID(puppiJets_[j],applyJetID)) ) continue;
+        if(!(passPileUpJetID(puppiJets_[j],applyPileUpJetID)) ) continue;
+        if( std::fabs(puppiJets_[j]->eta()) >= eta) continue;
+        if( jetPt(puppiJets_[j].get(),applyCorrection) <= minPt) continue;
+        if(isThisJetALepton(puppiJets_[j])) continue;
+    
+        float tempdR;
+        if(i != -1) {
+            tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(puppiJets_[j]->p4(),leps_[i]->p4()) );
+            if( tempdR < dR ) dR = tempdR;
+        } else {
+            for(size_t k=0; k<std::min((uint) 2,(uint) leps_.size());++k){
+               tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(puppiJets_[j]->p4(),leps_[k]->p4()) );
+               if( tempdR < dR ) dR = tempdR;
+            }
+        }
+    }
+    return dR;
+}
+
+const pat::JetRef reco::SkimEvent::matchedJet(size_t i, float minDr) const {
+    pat::JetRef ret;
+    if (i >= std::min((uint) 2,(uint) leps_.size())) return ret;
+
+    float dR = minDr;
+    for(size_t j=0;j<jets_.size();++j) {
+        float tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(jets_[j]->p4(),leps_[i]->p4()) );
+        if( tempdR < dR ) {
+            dR = tempdR;
+            ret = jets_[j];
+        }
+    }
+    return ret;
+}
+
+const pat::JetRef reco::SkimEvent::matchedPuppiJet(size_t i, float minDr) const {
+    pat::JetRef ret;
+    if (i >= std::min((uint) 2,(uint) leps_.size())) return ret;
+
+    float dR = minDr;
+    for(size_t j=0;j<puppiJets_.size();++j) {
+        float tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(puppiJets_[j]->p4(),leps_[i]->p4()) );
+        if( tempdR < dR ) {
+            dR = tempdR;
+            ret = puppiJets_[j];
+        }
+    }
+    return ret;
+}
+
+const float reco::SkimEvent::matchedJetPt(size_t i, float minDr, bool applyCorrection) const {
+    if (i >= std::min((uint) 2,(uint) leps_.size())) return -9999.9;
+
+    float dR = minDr, pt = 0;
+    for(size_t j=0;j<jets_.size();++j) {
+        float tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(jets_[j]->p4(),leps_[i]->p4()) );
+        if( tempdR < dR ) {
+            dR = tempdR;
+            pt = jetPt(jets_[j].get(),applyCorrection);
+        }
+    }
+    return pt;
+}
+
+const float reco::SkimEvent::matchedPuppiJetPt(size_t i, float minDr, bool applyCorrection) const {
+    if (i >= std::min((uint) 2,(uint) leps_.size())) return -9999.9;
+
+    float dR = minDr, pt = 0;
+    for(size_t j=0;j<puppiJets_.size();++j) {
+        float tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(puppiJets_[j]->p4(),leps_[i]->p4()) );
+        if( tempdR < dR ) {
+            dR = tempdR;
+            pt = jetPt(puppiJets_[j].get(),applyCorrection);
+        }
+    }
+    return pt;
+}
+
+const size_t reco::SkimEvent::indexJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ 
+ if( i >= jets_.size() ) return 9999; //--> big number then it will fail other tests later! good!
+ std::vector<indexValueStruct> a;
+ for(size_t j=0;j<jets_.size();++j) {
+  if(!(passJetID(jets_[j],applyJetID)) ) continue;
+  if(!(passPileUpJetID(jets_[j],applyPileUpJetID)) ) continue;
+  if(std::fabs(jets_[j]->eta()) >= eta) continue;
+  if(jetPt(jets_[j].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(jets_[j])) continue;
+  a.push_back(indexValueStruct(jets_[j]->pt(),j));
+ }
+ 
+ std::sort(a.begin(),a.end(),highToLow);
+ 
+ if(i < a.size()) return a[i].index;
+ else  return 9999;
+}
+
+const size_t reco::SkimEvent::indexPuppiJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyJetID, int applyPileUpJetID) const {
+ 
+ if( i >= puppiJets_.size() ) return 9999; //--> big number then it will fail other tests later! good!
+ std::vector<indexValueStruct> a;
+ 
+ for(size_t j=0;j<puppiJets_.size();++j) {
+  if(!(passJetID(puppiJets_[j],applyJetID)) ) continue;
+  if(!(passPileUpJetID(puppiJets_[j],applyPileUpJetID)) ) continue;
+  if(std::fabs(puppiJets_[j]->eta()) >= eta) continue;
+  if(jetPt(puppiJets_[j].get(),applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(puppiJets_[j])) continue;
+  a.push_back(indexValueStruct(puppiJets_[j]->pt(),j));
+ }
+ 
+ std::sort(a.begin(),a.end(),highToLow);
+ 
+ if( i < a.size() ) return a[i].index;
+ else  return 9999;
+}
 
 
 //Event variables
-
 const float reco::SkimEvent::pfSumEt() const {
-
     if(pfMet_.isNonnull()) return pfMet_->sumEt();
     else return -9999.0;
 }
 
 const float reco::SkimEvent::pfMet() const {
-
     if(pfMet_.isNonnull()) return pfMet_->pt();
     else return -9999.0;
 }
 
 const float reco::SkimEvent::pfMetPhi() const {
-
     if(pfMet_.isNonnull()) return pfMet_->phi();
     else return -9999.0;
 }
 
+const float reco::SkimEvent::pfPuppiSumEt() const {
+    if(puppiPFMet_.isNonnull()) return puppiPFMet_->sumEt();
+    else return -9999.0;
+}
+
+const float reco::SkimEvent::pfPuppiMet() const {
+    if(puppiPFMet_.isNonnull()) return puppiPFMet_->pt();
+    else return -9999.0;
+}
+
+const float reco::SkimEvent::pfPuppiMetPhi() const {
+    if(puppiPFMet_.isNonnull()) return puppiPFMet_->phi();
+    else return -9999.0;
+}
 
 const float reco::SkimEvent::tcSumEt() const {
 
@@ -1545,17 +2721,6 @@ const float reco::SkimEvent::chargedMetSmurfSumEt() const {
 }
 
 
-/*
-const float reco::SkimEvent::minMet() const {
-return ((chargedMet() < pfMet()) ? chargedMet() : pfMet()) ;
-}
-
-const math::XYZTLorentzVector reco::SkimEvent::minMetP4() const {
-return ((chargedMet() < pfMet()) ? chargedMet_.p4() : pfMet_->p4()) ;
-}
-*/
-
-
 const float reco::SkimEvent::tcMetX() const {
 
     if(tcMet_.isNonnull()) return tcMet_->px();
@@ -1570,37 +2735,37 @@ const float reco::SkimEvent::tcMetY() const {
 
 const float reco::SkimEvent::mll() const {
   if(leps_.size() < 2) return -9999.0;
-  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).mass();
+  return (leps_[indexLeptonByPt(0)]->p4() + leps_[indexLeptonByPt(1)]->p4()).mass();
 }
 
 const float reco::SkimEvent::pTll() const {
   if(leps_.size() < 2) return -9999.0;
-  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).pt();
+  return (leps_[indexLeptonByPt(0)]->p4() + leps_[indexLeptonByPt(1)]->p4()).pt();
 }
 
 const float reco::SkimEvent::dPhill() const {
   if(leps_.size() < 2) return -9999.0;
-  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4(),leps_[indexByPt(1)]->p4()) );
+  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4(),leps_[indexLeptonByPt(1)]->p4()) );
 }
 
 const float reco::SkimEvent::dRll() const {
   if(leps_.size() < 2) return -9999.0;
-  return ROOT::Math::VectorUtil::DeltaR(leps_[indexByPt(0)]->p4(),leps_[indexByPt(1)]->p4());
+  return ROOT::Math::VectorUtil::DeltaR(leps_[indexLeptonByPt(0)]->p4(),leps_[indexLeptonByPt(1)]->p4());
 }
 
 const float reco::SkimEvent::dEtall() const {
   if(leps_.size() < 2) return -9999.0;
-  return fabs(leps_[indexByPt(0)]->eta() - leps_[indexByPt(1)]->eta());
+  return fabs(leps_[indexLeptonByPt(0)]->eta() - leps_[indexLeptonByPt(1)]->eta());
 }
 
 const float reco::SkimEvent::etall() const {
   if(leps_.size() < 2) return -9999.0;
-  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).eta();
+  return (leps_[indexLeptonByPt(0)]->p4() + leps_[indexLeptonByPt(1)]->p4()).eta();
 }
 
 const float reco::SkimEvent::yll() const {
   if(leps_.size() < 2) return -9999.0;
-  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).Rapidity();
+  return (leps_[indexLeptonByPt(0)]->p4() + leps_[indexLeptonByPt(1)]->p4()).Rapidity();
 }
 
 const float reco::SkimEvent::dPhillMet(metType metToUse) const {
@@ -1608,63 +2773,60 @@ const float reco::SkimEvent::dPhillMet(metType metToUse) const {
     case TCMET: return dPhillTcMet();
     case PFMET: return dPhillPfMet();
     case CHMET: return dPhillChargedMet();
-      //case MINMET: return dPhillMinMet();
+    case PUPPIMET:  return dPhillPuppiMet();
   }
 return 0;
 }
 
 const float reco::SkimEvent::dPhillPfMet() const {
   if(leps_.size() < 2 || pfMet_.isNull()) return -9999.0;
-  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(),pfMet_->p4()) );
+  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4()+leps_[indexLeptonByPt(1)]->p4(),pfMet_->p4()) );
 }
 
 const float reco::SkimEvent::dPhillTcMet() const {
   if(leps_.size() < 2 || tcMet_.isNull()) return -9999.0;
-  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(),tcMet_->p4()) );
+  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4()+leps_[indexLeptonByPt(1)]->p4(),tcMet_->p4()) );
 }
 
 const float reco::SkimEvent::dPhillChargedMet() const {
   if(leps_.size() < 2) return -9999.0;
-  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(),chargedMet_.p4()) );
+  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4()+leps_[indexLeptonByPt(1)]->p4(),chargedMet_.p4()) );
 }
 
-/*
-const float reco::SkimEvent::dPhillMinMet() const {
-if(leps_.size()!=2) return -9999.0;
-return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(),minMetP4()) );
+const float reco::SkimEvent::dPhillPuppiMet() const {
+  if(leps_.size() < 2) return -9999.0;
+  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexLeptonByPt(0)]->p4()+leps_[indexLeptonByPt(1)]->p4(),puppiPFMet_->p4()) );
 }
-*/
+
 
 const float reco::SkimEvent::mTHiggs(metType metToUse) const {
     // AN 2011/155, v2, p19
     return sqrt( 2 * pTll() * met(metToUse) * ( 1 - cos(dPhillMet(metToUse)) ) );
-    //version 2 from guillelmo's talk
-    /*
-return sqrt( mll()*mll() +
-2*( sqrt(pTll()*pTll()+mTll()*mTll()) * tcMet() -
-(pXll()+tcMetX())*(pXll()+tcMetX()) -
-(pYll()+tcMetY())*(pYll()+tcMetY()) ) );
-*/
 }
 
 const float reco::SkimEvent::pXll() const {
   if(leps_.size() < 2) return -9999.0;
-  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).px();
+  return (leps_[indexLeptonByPt(0)]->p4() + leps_[indexLeptonByPt(1)]->p4()).px();
 }
 
 const float reco::SkimEvent::pYll() const {
   if(leps_.size() < 2) return -9999.0;
-  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).py();
+  return (leps_[indexLeptonByPt(0)]->p4() + leps_[indexLeptonByPt(1)]->p4()).py();
+}
+
+const float reco::SkimEvent::pZll() const {
+  if(leps_.size() < 2) return -9999.0;
+  return (leps_[indexLeptonByPt(0)]->p4() + leps_[indexLeptonByPt(1)]->p4()).pz();
 }
 
 const float reco::SkimEvent::mTll() const {
   if(leps_.size() < 2) return -9999.0;
-  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).mt();
+  return (leps_[indexLeptonByPt(0)]->p4() + leps_[indexLeptonByPt(1)]->p4()).mt();
 }
 
 const float reco::SkimEvent::mT(size_t i, metType metToUse) const {
   if(i>=leps_.size()) return -9999.0;
-  return sqrt(2*pt(i)*met(metToUse)*(1 - cos(dPhilMet(i, metToUse))));
+  return sqrt(2*getPt(i)*met(metToUse)*(1 - cos(dPhilMet(i, metToUse))));
 }
 
 const float reco::SkimEvent::met(metType metToUse) const {
@@ -1672,6 +2834,7 @@ const float reco::SkimEvent::met(metType metToUse) const {
         case TCMET: return tcMet();
         case PFMET: return pfMet();
         case CHMET: return chargedMet();
+        case PUPPIMET: return pfPuppiMet();
 //case MINMET: return minMet();
     }
 return 0;
@@ -1687,6 +2850,12 @@ const float reco::SkimEvent::projPfMet() const {
     float dphi = dPhilPfMet();
     if(dphi < M_PI/2.) return pfMet()*sin(dphi);
     else return pfMet();
+}
+
+const float reco::SkimEvent::projPuppiPfMet() const {
+    float dphi = dPhilPuppiPfMet();
+    if(dphi < M_PI/2.) return pfPuppiMet()*sin(dphi);
+    else return pfPuppiMet();
 }
 
 const float reco::SkimEvent::projMvaMet() const {
@@ -1713,20 +2882,13 @@ const float reco::SkimEvent::projChargedMetSmurf() const {
     else return chargedMetSmurf();
 }
 
-/*
-const float reco::SkimEvent::projMinMet() const {
-float dphi = dPhilMinMet();
-if(dphi < M_PI/2.) return minMet()*sin(dphi);
-else return minMet();
-}
-*/
 
 const float reco::SkimEvent::dPhilMet(metType metToUse) const {
     switch (metToUse) {
         case TCMET: return dPhilTcMet();
         case PFMET: return dPhilPfMet();
         case CHMET: return dPhilChargedMet();
-//case MINMET: return dPhilMinMet();
+        case PUPPIMET: return dPhilPuppiPfMet();
     }
 return 0;
 }
@@ -1745,6 +2907,15 @@ const float reco::SkimEvent::dPhilPfMet() const {
     float smallestDphi = 9999.;
     for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
         float dphi = dPhilPfMet(l);
+        if( dphi < smallestDphi) smallestDphi = dphi;
+    }
+    return smallestDphi;
+}
+
+const float reco::SkimEvent::dPhilPuppiPfMet() const {
+    float smallestDphi = 9999.;
+    for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+        float dphi = dPhilPuppiPfMet(l);
         if( dphi < smallestDphi) smallestDphi = dphi;
     }
     return smallestDphi;
@@ -1777,16 +2948,6 @@ const float reco::SkimEvent::dPhilChargedMetSmurf() const {
     return smallestDphi;
 }
 
-/*
-const float reco::SkimEvent::dPhilMinMet() const {
-float smallestDphi = 9999.;
-for(size_t l=0; l<leps_.size();++l){
-float dphi = dPhilMinMet(l);
-if( dphi < smallestDphi) smallestDphi = dphi;
-}
-return smallestDphi;
-}
-*/
 
 const float reco::SkimEvent::dPhilMet(size_t i, metType metToUse) const {
    if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
@@ -1794,6 +2955,7 @@ const float reco::SkimEvent::dPhilMet(size_t i, metType metToUse) const {
         case TCMET: return dPhilTcMet(i);
         case PFMET: return dPhilPfMet(i);
         case CHMET: return dPhilChargedMet(i);
+        case PUPPIMET: return dPhilPuppiPfMet(i);
 //case MINMET: return dPhilMinMet(i);
     }
 return -9999.0;
@@ -1807,6 +2969,11 @@ const float reco::SkimEvent::dPhilTcMet(size_t i) const {
 const float reco::SkimEvent::dPhilPfMet(size_t i) const {
     if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
     return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->p4(),leps_[i]->p4()) );
+}
+
+const float reco::SkimEvent::dPhilPuppiPfMet(size_t i) const {
+    if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
+    return fabs(ROOT::Math::VectorUtil::DeltaPhi(puppiPFMet_->p4(),leps_[i]->p4()) );
 }
 
 const float reco::SkimEvent::dPhilMvaMet(size_t i) const {
@@ -1824,38 +2991,16 @@ const float reco::SkimEvent::dPhilChargedMetSmurf(size_t i) const {
     return fabs(ROOT::Math::VectorUtil::DeltaPhi(chargedMetSmurf_.p4(),leps_[i]->p4()) );
 }
 
-/*
-const float reco::SkimEvent::dPhilMinMet(size_t i) const {
-if( i >= leps_.size() ) return -9999.0;
-return fabs(ROOT::Math::VectorUtil::DeltaPhi(minMetP4(),leps_[i]->p4()) );
-}
-*/
-
 
 const float reco::SkimEvent::nTracks() const {
-
     return 0;
 }
 
-/*
-const float reco::SkimEvent::dPhiJetPfMet() const {
-
-return 0;
-}
-
-const float reco::SkimEvent::dPhiJetTcMet() const {
-
-return 0;
-}
-*/
-
 const float reco::SkimEvent::cosThetaStar(size_t i) const {
-
     return 0;
 }
 
 const float reco::SkimEvent::afb(size_t i) const {
-
     return 0;
 }
 
@@ -1865,7 +3010,6 @@ const bool reco::SkimEvent::leptEtaCut(float maxAbsEtaMu,float maxAbsEtaEl) cons
   bool check1(true);
 
   if(leps_.size() < 2) return true;
-  
   if(abs(leps_[0]->pdgId())==11 && fabs(leps_[0]->eta())>=maxAbsEtaEl) check0=false;
   if(abs(leps_[0]->pdgId())==13 && fabs(leps_[0]->eta())>=maxAbsEtaMu) check0=false;
   if(abs(leps_[1]->pdgId())==11 && fabs(leps_[1]->eta())>=maxAbsEtaEl) check1=false;
@@ -1875,6 +3019,7 @@ const bool reco::SkimEvent::leptEtaCut(float maxAbsEtaMu,float maxAbsEtaEl) cons
   
 }
 
+
 // ... in spite my egregious programming
 void reco::SkimEvent::setTriggerBits( const std::vector<bool> &bits) {
     
@@ -1882,35 +3027,19 @@ void reco::SkimEvent::setTriggerBits( const std::vector<bool> &bits) {
     passesSingleElData_ = bits[1];
     passesDoubleMuData_ = bits[2];
     passesDoubleElData_ = bits[3];
-    passesMuEGData_ = bits[4];
-    passesSingleMuMC_ = bits[5];
-    passesSingleElMC_ = bits[6];
-    passesDoubleMuMC_ = bits[7];
-    passesDoubleElMC_ = bits[8];
-    passesMuEGMC_ = bits[9];
-    passesAllEmbed_ = bits[10];
+    passesMuEGData_     = bits[4];
+    passesSingleMuMC_   = bits[5];
+    passesSingleElMC_   = bits[6];
+    passesDoubleMuMC_   = bits[7];
+    passesDoubleElMC_   = bits[8];
+    passesMuEGMC_       = bits[9];
+    passesAllEmbed_     = bits[10];
 
 }
 
 const bool reco::SkimEvent::triggerBitsCut( SkimEvent::primaryDatasetType pdType) const{
-
-    if (pdType == MC) return true;
-
-//     if( hypo() == WWMUMU ) {
-//         if ( pdType == DoubleMuon ) return ( passesDoubleMuData_ );
-//         else if ( pdType == SingleMuon ) return ( !passesDoubleMuData_ && passesSingleMuData_ );
-//         //else if ( pdType == MC ) return ( passesDoubleMuMC_ || passesSingleMuMC_ );
-//     } else if( hypo() == WWMUEL || hypo() == WWELMU ) {
-//         if ( pdType == SingleMuon ) return ( passesSingleMuData_ );
-//         else if ( pdType == MuEG ) return ( !passesSingleMuData_ && passesMuEGData_ );
-//         //else if ( pdType == MC ) return ( passesSingleMuMC_ || passesMuEGMC_ );
-//     } else if( hypo() == WWELEL ) {
-//         if ( pdType == DoubleElectron ) return ( passesDoubleElData_ );
-//         //else if ( pdType == MC ) return ( passesDoubleElMC_ );
-//     }
-
-    return false;
-
+  if (pdType == MC) return true; // no cut on the MC
+  return false;
 }
 
 const bool reco::SkimEvent::guillelmoTrigger( SkimEvent::primaryDatasetType pdType ) const {
@@ -1933,11 +3062,12 @@ bool reco::SkimEvent::passTriggerSingleMu(size_t i, bool isData) const{
   bool result(false);
 
   if( !isMuon(i) ) return false;
-  pat::Muon const * const mu = getMuon(i);
+  const pat::Muon * mu = getMuon(i);
 
   const pat::TriggerObjectStandAlone * match = mu->triggerObjectMatchByCollection("hltL3MuonCandidates");
   if(isData){
-    if(match) result= (match->hasPathName("HLT_Mu24_v*",false) || match->hasPathName("HLT_IsoMu17_v*",false) );}
+    if(match) result= (match->hasPathName("HLT_Mu24_v*",false) || match->hasPathName("HLT_IsoMu17_v*",false) );
+  }
   else{
     if(match) result=(match->hasPathName("HLT_Mu21_v*",false) && match->pt()>24.0);
   }
@@ -1950,7 +3080,7 @@ bool reco::SkimEvent::passTriggerDoubleMu(size_t i, bool isData) const{
   bool result(false);
   
   if( !isMuon(i) ) return false;
-  pat::Muon const * const mu = getMuon(i);
+  const pat::Muon *mu = getMuon(i);
 
   const pat::TriggerObjectStandAlone * match = mu->triggerObjectMatchByCollection("hltL3MuonCandidates");
   if(isData){
@@ -1961,11 +3091,12 @@ bool reco::SkimEvent::passTriggerDoubleMu(size_t i, bool isData) const{
   return result;
 }
 
+
 bool reco::SkimEvent::passTriggerDoubleEl(size_t i, bool isData) const{
   bool result(false);
   
   if( !isElectron(i) ) return false;
-  pat::Electron const * const el = getElectron(i);
+  const pat::Electron* el = getElectron(i);
     
   if(isData){
     if(el->triggerObjectMatchesByPath("HLT_Ele17_CaloIdL_CaloIsoVL_Ele8_CaloIdL_CaloIsoVL_v*").size() ||
@@ -1979,44 +3110,39 @@ bool reco::SkimEvent::passTriggerDoubleEl(size_t i, bool isData) const{
   return result;
 
 }
+
 bool reco::SkimEvent::passTriggerElMu(size_t i, bool isData) const{
-  /*
-vector< std::string > pathNames = match->pathNames(false);
-for(unsigned int i=0; i<pathNames.size();++i){
-cout << "match path name: " << pathNames[i] << endl;
-}
-*/
   bool result(false);
   using namespace std;
   if( isMuon(i) ) {
-    pat::Muon const * const mu = getMuon(i);
+    const pat::Muon* mu = getMuon(i);
     const pat::TriggerObjectStandAlone * match = mu->triggerObjectMatchByCollection("hltL3MuonCandidates");
     
     if(match){
       if(isData){
-bool res1 = match->hasPathName("HLT_Mu8_Ele17_CaloIdL_v*",false);
-bool res2 = match->hasPathName("HLT_Mu17_Ele8_CaloIdL_v*",false);
-result=( res1 || res2);}
+        bool res1 = match->hasPathName("HLT_Mu8_Ele17_CaloIdL_v*",false);
+        bool res2 = match->hasPathName("HLT_Mu17_Ele8_CaloIdL_v*",false);
+        result=( res1 || res2);
+      }
       else{
-bool res1 = (match->hasPathName("HLT_Mu5_Ele17_v*",false) && match->pt()>8.0);
-bool res2 = (match->hasPathName("HLT_Mu11_Ele8_v*",false) && match->pt()>17.0);
-result=( res1 || res2);
+        bool res1 = (match->hasPathName("HLT_Mu5_Ele17_v*",false) && match->pt()>8.0);
+        bool res2 = (match->hasPathName("HLT_Mu11_Ele8_v*",false) && match->pt()>17.0);
+        result=( res1 || res2);
       }
     }
     return result;
   }
 
   if( isElectron(i) ) {
-    pat::Electron const * const el = getElectron(i);
+    const pat::Electron* el = getElectron(i);
     if(isData){
       if(el->triggerObjectMatchesByPath("HLT_Mu8_Ele17_CaloIdL*").size() ||
-el->triggerObjectMatchesByPath("HLT_Mu17_Ele8_CaloIdL*").size() )
-result=true;}
+         el->triggerObjectMatchesByPath("HLT_Mu17_Ele8_CaloIdL*").size() )
+         result=true;
+    }
     else{
-      const pat::TriggerObjectStandAlone * match1=
-el->triggerObjectMatchByPath("HLT_Mu5_Ele17_v*",true);
-      const pat::TriggerObjectStandAlone * match2=
-el->triggerObjectMatchByPath("HLT_Mu11_Ele8_v*",true);
+      const pat::TriggerObjectStandAlone * match1 = el->triggerObjectMatchByPath("HLT_Mu5_Ele17_v*",true);
+      const pat::TriggerObjectStandAlone * match2 = el->triggerObjectMatchByPath("HLT_Mu11_Ele8_v*",true);
       result=( match1 || match2 );
     }
   }
@@ -2026,48 +3152,9 @@ el->triggerObjectMatchByPath("HLT_Mu11_Ele8_v*",true);
 }
 
 
-// TO BE FIXED: This guy should take the list of trigger from some
-// sort of configuration file.
 const bool reco::SkimEvent::triggerMatchingCut(SkimEvent::primaryDatasetType pdType) const{
   if( pdType == MC ) return true;
-
-//   using namespace std;
   bool result(false);
-
-//   if(hypo()==WWMUMU){
-//     if(pdType==DoubleMuon){ //configuration (1)
-//       result=(passTriggerDoubleMu(0) && passTriggerDoubleMu(1));}
-//     if(pdType==SingleMuon) {//configuration (2)
-//       result=( (passTriggerSingleMu(0) || passTriggerSingleMu(1)) &&
-// !(passTriggerDoubleMu(0) && passTriggerDoubleMu(1)) );
-//     }
-//     if(pdType==MC){
-//       result=( (passTriggerDoubleMu(0,false) && passTriggerDoubleMu(1,false)) ||
-// (passTriggerSingleMu(0,false) || passTriggerSingleMu(1,false)) );
-//     }
-//   }
-// 
-//   if(hypo()==WWMUEL || hypo()==WWELMU){
-//     if(pdType==SingleMuon) //configuration (3)
-//       result=( passTriggerSingleMu(0) || passTriggerSingleMu(1) );
-//     if(pdType==MuEG){ //configuration (4)
-//       result=( (passTriggerElMu(0) && passTriggerElMu(1)) &&
-// !(passTriggerSingleMu(0) || passTriggerSingleMu(1)) );
-//     }
-//     if(pdType==MC){
-//       result=( (passTriggerSingleMu(0,false) || passTriggerSingleMu(1,false)) ||
-// (passTriggerElMu(0,false) && passTriggerElMu(1,false)) );   
-//     }
-//   }
-// 
-// 
-//   if(hypo()==WWELEL){
-//     if(pdType==DoubleElectron)//configuration (5)
-//       result= (passTriggerDoubleEl(0) && passTriggerDoubleEl(1));
-//     if(pdType==MC)
-//       result= (passTriggerDoubleEl(0,false) && passTriggerDoubleEl(1,false));
-//   }
-
   return result;
 }
 
@@ -2076,7 +3163,6 @@ const bool reco::SkimEvent::triggerMatchingCut(SkimEvent::primaryDatasetType pdT
 const float reco::SkimEvent::tkIso(size_t i) const {
 
     if( i >= leps_.size() ) return -9999.0;
-
     if( isElectron(i) ) {
         return getElectron(i)->dr03TkSumPt();
     } else if ( isMuon(i) ) {
@@ -2103,8 +3189,9 @@ const float reco::SkimEvent::hcalIso(size_t i) const {
 
     if( i >= leps_.size() ) return -9999.0;
 
-    if( isElectron(i) ) {
-        return getElectron(i)->userFloat("hcalFull");
+    if( isElectron(i)){
+      if(getElectron(i)->hasUserFloat("hcalFull") ) return getElectron(i)->userFloat("hcalFull");
+      else return getElectron(i)->dr03HcalDepth1TowerSumEt()+getElectron(i)->dr03HcalDepth2TowerSumEt() ;
     } else if ( isMuon(i) ) {
         return getMuon(i)->isolationR03().hadEt;
     } else {
@@ -2116,42 +3203,23 @@ const float reco::SkimEvent::getRho(size_t i) const {
 
     if( i >= leps_.size() ) return -9999.0;
     
-    if( isElectron(i) ) {
-        return getElectron(i)->userFloat("rhoEl");
-    } else if ( isMuon(i) ) {
-        return getMuon(i)->userFloat("rhoMu");
+    if( isElectron(i)){
+      if(getElectron(i)->hasUserFloat("rhoEl")) return getElectron(i)->userFloat("rhoEl");
+      else return -9999.0;
+    } else if ( isMuon(i)) {
+      if(getMuon(i)->hasUserFloat("rhoMu")) return getMuon(i)->userFloat("rhoMu");
+      else return -9999.0;
     } else {
         return -9999.0;
     }
 }
 
-const float reco::SkimEvent::allIso(size_t i) const {
-    
-    if( i >= leps_.size() ) return -9999.0;
-
-    if( isElectron(i) ) {
-        return getElectron(i)->userFloat("eleSmurfPF04");
-    } else if( isMuon(i) ) {
-        return getMuon(i)->userFloat("muSmurfPF");
-    } else {
-        std::cout << " Do I ever friggin get here?" << std::endl;
-        return 9999.0;
-    }
-// if( isElectron(i) && isEB(i) ) {
-// return tkIso(i) + std::max((float)0,ecalIso(i)-1) + hcalIso(i) - getRho(i) * 3.14159265 * 0.3 * 0.3;
-// } else if( (isElectron(i) && !isEB(i)) || isMuon(i) ) {
-// return tkIso(i) + ecalIso(i) + hcalIso(i) - getRho(i) * 3.14159265 * 0.3 * 0.3;
-// } else {
-// std::cout << " Do I ever friggin get here?" << std::endl;
-// return 9999.0;
-// }
-}
 
 const float reco::SkimEvent::mvaIso(size_t i) const {
 
-    if( i >= leps_.size() ) return -9999.0;
-    if ( isElectron(i) ) return getElectron(i)->userFloat("pfCombRelIso04EACorr");
-    else if ( isMuon(i) ) return getMuon(i)->userFloat("bdtisonontrigDZ");
+    if ( i >= leps_.size() ) return -9999.0;
+    if ( isElectron(i) and getElectron(i)->hasUserFloat("pfCombRelIso04EACorr") ) return getElectron(i)->userFloat("pfCombRelIso04EACorr");
+    else if ( isMuon(i) and getMuon(i)->hasUserFloat("bdtisonontrigDZ")) return getMuon(i)->userFloat("bdtisonontrigDZ");
     else return -9999.0;
 }
 
@@ -2159,7 +3227,6 @@ const float reco::SkimEvent::mvaIso(size_t i) const {
 const float reco::SkimEvent::tkVeto(size_t i) const {
 
     if( i >= leps_.size() ) return -9999.0;
-
     if( isElectron(i) ) {
         return 0;
     } else if ( isMuon(i) ) {
@@ -2209,48 +3276,6 @@ const float reco::SkimEvent::allVeto(size_t i) const {
 }
 
 
-const size_t reco::SkimEvent::indexJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID) const {
- 
- if( i >= jets_.size() ) return 9999; //--> big number then it will fail other tests later! good!
- std::vector<indexValueStruct> a;
- 
- for(size_t j=0;j<jets_.size();++j) {
-  if(!(passJetID(jets_[j],applyID)) ) continue;
-  if( std::fabs(jets_[j]->eta()) >= eta) continue;
-  if( jetPt(j,applyCorrection) <= minPt) continue;
-  if(isThisJetALepton(jets_[j])) continue;
-  a.push_back(indexValueStruct(jets_[j]->pt(),j));
- }
- 
- std::sort(a.begin(),a.end(),highToLow);
- 
- if( i < a.size() ) return a[i].index;
- else  return 9999;
-}
-
-
-
-const size_t reco::SkimEvent::indexByPt(size_t i) const {
-
-    if( i >= leps_.size() ) return 9999; //--> big number then it will fail other tests later! good!
-    std::vector<indexValueStruct> a;
-
-    for(size_t j=0;j<leps_.size();++j) a.push_back(indexValueStruct(pt(j),j));
-    std::sort(a.begin(),a.end(),highToLow);
-
-    return a[i].index;
-}
-
-const size_t reco::SkimEvent::indexByIso(size_t i) const {
-    
-    if( i >= leps_.size() ) return 9999;
-    std::vector<indexValueStruct> a;
-
-    for(size_t j=0;j<leps_.size();++j) a.push_back(indexValueStruct(allIso(j),j));
-    std::sort(a.begin(),a.end(),lowToHigh);
-
-    return a[i].index;
-}
 
 const bool reco::SkimEvent::isEB(size_t i) const {
 
@@ -2271,7 +3296,6 @@ const bool reco::SkimEvent::isEE(size_t i) const {
 }
 
 const float reco::SkimEvent::tkPt(size_t i) const {
-
     if( isElectron(i) ) {
         return getElectron(i)->gsfTrack()->pt();
     } else if( isMuon(i) && !isSTA(i)) {
@@ -2279,17 +3303,14 @@ const float reco::SkimEvent::tkPt(size_t i) const {
     } else {
         return -9999.9;
     }
-
 }
 
 const bool reco::SkimEvent::passesVtxSel(size_t i) const {
     if(i >= vtxs_.size()) {
         return false;
     } else {
-        return ( vtxs_[i]->isValid() && !vtxs_[i]->isFake() &&
-                 vtxs_[i]->ndof() >= 4.0 &&
-            fabs(vtxs_[i]->position().Rho()) < 2.0 &&
-            fabs(vtxs_[i]->z()) < 24.0 );
+        return ( vtxs_[i]->isValid() && !vtxs_[i]->isFake() && vtxs_[i]->ndof() >= 4.0 &&
+                 fabs(vtxs_[i]->position().Rho()) < 2.0 && abs(vtxs_[i]->z()) < 24.0 );
     }
     return false;
 }
@@ -2297,8 +3318,7 @@ const bool reco::SkimEvent::passesVtxSel(size_t i) const {
 const int reco::SkimEvent::nGoodVertices() const {
 
     int count = 0;
-    for(size_t i=0;i<vtxs_.size();++i)
-        if( passesVtxSel(i) ) count++;
+    for(size_t i=0;i<vtxs_.size();++i) if( passesVtxSel(i) ) count++;
 
     return count;
 }
@@ -2308,9 +3328,9 @@ const bool reco::SkimEvent::hasGoodVertex() const {
     return (nGoodVertices() > 0);
 }
 
-const reco::Vertex reco::SkimEvent::highestPtVtx() const {
-    if(vtxs_.size() == 0) return reco::Vertex();
-    if(sumPts_.size() == 0) return *vtxs_[0];
+const reco::Vertex* reco::SkimEvent::highestPtVtx() const {
+    if(vtxs_.size() == 0)   return(new reco::Vertex()) ;
+    if(sumPts_.size() == 0) return vtxs_[0].get();
     double sum = 0;
     size_t high = 0;
     for(size_t i=0;i<vtxs_.size();++i) {
@@ -2319,37 +3339,39 @@ const reco::Vertex reco::SkimEvent::highestPtVtx() const {
             sum = sumPts_[i];
         }
     }
-    return *vtxs_[high];
+    return vtxs_[high].get();
 }
 
 const bool reco::SkimEvent::passesIP() const {
     if(leps_.size() < 2) return -9999.0;
-    return (passesIP(leps_[indexByPt(0)]) && passesIP(leps_[indexByPt(1)]));
+    return (passesIP(leps_[indexLeptonByPt(0)]) && passesIP(leps_[indexLeptonByPt(1)]));
 }
 
 const bool reco::SkimEvent::passesIP(const refToCand &c) const {
 
     if( isElectron(c) ) {
-
-        if( fabs(getElectron(c)->userFloat("ip2")) >= 0.03) return false;
-
+      if(getElectron(c)->hasUserFloat("ip2")){
+	if( fabs(getElectron(c)->userFloat("ip2")) >= 0.03) return false;
+      }
     } else if( isMuon(c) && !isSTA(c) ) {
 
+      if( getMuon(c)->hasUserFloat("tip2") and getMuon(c)->hasUserFloat("dzPV")){
         if( fabs(getMuon(c)->userFloat("tip2")) >= 0.01) return false;
         if( fabs(getMuon(c)->userFloat("dzPV")) >= 0.05) return false;
-
+      }
     }
     
     return true;
-
 }
 
 const double reco::SkimEvent::d0Reco(size_t i) const {
   double dxyPV = 9999;
   if( isElectron(i) ) {
-    dxyPV = getElectron(i)->userFloat("dxyPV");
+    if(getElectron(i)->hasUserFloat("dxyPV"))
+      dxyPV = getElectron(i)->userFloat("dxyPV");
   } else if( isMuon(i) && !isSTA(i) ) {
-    dxyPV = getMuon(i)->userFloat("dxyPV");
+    if(getMuon(i)->hasUserFloat("dxyPV"))
+     dxyPV = getMuon(i)->userFloat("dxyPV");
   }
   return dxyPV;
 }
@@ -2357,21 +3379,23 @@ const double reco::SkimEvent::d0Reco(size_t i) const {
 const double reco::SkimEvent::dZReco(size_t i) const {
   double dzPV = 9999;
   if( isElectron(i) ) {
-    dzPV = getElectron(i)->userFloat("dzPV");
+    if(getElectron(i)->hasUserFloat("dzPV"))
+     dzPV = getElectron(i)->userFloat("dzPV");
   } else if( isMuon(i) && !isSTA(i) ) {
-    dzPV = getMuon(i)->userFloat("dzPV");
+    if(getMuon(i)->hasUserFloat("dzPV"))  
+     dzPV = getMuon(i)->userFloat("dzPV");
   }
   return dzPV;
 }
-
+ 
 const bool reco::SkimEvent::passesConversion(size_t i) const {
   if( isElectron(i) ) {
-    pat::Electron const * const e = getElectron(i);
-    if( fabs(e->userFloat("convValueMapProd:dist")) < 0.02 &&
-fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) {
+    const pat::Electron *e = getElectron(i);
+    if(e->hasUserFloat("convValueMapProd:dist") and e->hasUserFloat("convValueMapProd:dcot")){
+     if( fabs(e->userFloat("convValueMapProd:dist")) < 0.02 && fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) 
       return false;
     }
-
+    
     if( e->gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0 ) {
       return false;
     }
@@ -2381,153 +3405,182 @@ fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) {
   } else {
     return false;
   }
-
 }
 
 
-
-const bool reco::SkimEvent::isTightMuon(size_t i) const {
- if(i < leps_.size()) return isTightMuon(leps_[i]);
- return false;
-}
-
-
-const bool reco::SkimEvent::isTightMuon(const refToCand &c) const {
- if( isMuon(c) ) {
-//   pat::Muon* muontemp = getMuon(c);
-//   return (muon::isTightMuon(*muontemp, highestPtVtx()));
-  return (muon::isTightMuon(*getMuon(c), highestPtVtx()));
- } else {
+// muon ID                                                                                                                                                                          
+const bool reco::SkimEvent::isSTA(size_t i ) const {
+  if(i < leps_.size()) return isSTA(leps_[i]);
   return false;
- }
-}
-
-const bool reco::SkimEvent::isSTA(size_t i) const {
- if(i < leps_.size()) return isSTA(leps_[i]);
- return false;
 }
 
 const bool reco::SkimEvent::isSTA(const refToCand &c) const {
-  if( isMuon(c) ) {
-    return (getMuon(c)->type() == 8);
-  } else {
-    return false;
+  if( isMuon(c) ) return (getMuon(c)->type() == 8);  
+  else return false;  
+}
+
+const bool reco::SkimEvent::isTightMuon(size_t i ) const {
+  if(i < leps_.size()) isTightMuon(leps_[i]);
+  return false;
+}
+
+const bool reco::SkimEvent::isTightMuon(const refToCand &c) const {
+  if( isMuon(c) and  highestPtVtx()){
+   return (muon::isTightMuon(*getMuon(c), *highestPtVtx()));
   }
+  else return false;
 }
 
-const float reco::SkimEvent::highestHardBDisc(const float& maxPt, std::string discriminator, int applyID, float dzCut) const {
+const bool reco::SkimEvent::isLooseMuon(size_t i ) const {
+  if(i < leps_.size()) isLooseMuon(leps_[i]);
+  return false;
+}
 
-    float disc=-9999.9;
+const bool reco::SkimEvent::isLooseMuon(const refToCand &c) const {
+  if( isMuon(c) ) return (muon::isLooseMuon(*getMuon(c)));
+  else return false;
+}
 
-    for(size_t i=0;i<tagJets_.size();++i) {
-        if( tagJetPt(i,true) < maxPt ) continue;
-        if(!(passJetID(tagJets_[i],applyID)) ) continue;
-        if(isThisJetALepton(tagJets_[i])) continue;
-        if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-        if( tagJets_[i]->bDiscriminator(discriminator) > disc ) disc = tagJets_[i]->bDiscriminator(discriminator);
-    }
+const bool reco::SkimEvent::isSoftMuon(size_t i ) const {
+  if(i < leps_.size()) isSoftMuon(leps_[i]);
+  return false;
+}
 
-    return disc;
+const bool reco::SkimEvent::isSoftMuon(const refToCand &c) const {
+  if( isMuon(c) and highestPtVtx()) return (muon::isSoftMuon(*getMuon(c),*highestPtVtx()));
+  else return false;
+}
+
+const bool reco::SkimEvent::isHighPtMuon(size_t i ) const {
+  if(i < leps_.size()) isHighPtMuon(leps_[i]);
+  return false;
+}
+
+const bool reco::SkimEvent::isHighPtMuon(const refToCand &c) const {
+  if( isMuon(c) and highestPtVtx()) return (muon::isHighPtMuon(*getMuon(c),*highestPtVtx()));
+  else return false;
+}
+
+// electron ID       
+const bool reco::SkimEvent::isTightElectron(size_t i ) const {
+  if(i < leps_.size()) isTightElectron(leps_[i]);
+  return false;
+}
+
+const bool reco::SkimEvent::isTightElectron(const refToCand &c) const {
+  if( isElectron(c) ){
+    if(getElectron(c)->isElectronIDAvailable("eidTight")) return getElectron(c)->electronID("eidTight");
+    else return false;
+  }
+  else return false;
+}
+
+const bool reco::SkimEvent::isLooseElectron(size_t i ) const {
+  if(i < leps_.size()) isLooseElectron(leps_[i]);
+  return false;
+}
+
+const bool reco::SkimEvent::isLooseElectron(const refToCand &c) const {
+  if( isElectron(c) ){
+    if(getElectron(c)->isElectronIDAvailable("eidLoose")) return getElectron(c)->electronID("eidLoose");
+    else return false;
+  }
+  else return false;
+}
+
+const bool reco::SkimEvent::isLooseRobustElectron(size_t i ) const {
+  if(i < leps_.size()) isLooseRobustElectron(leps_[i]);
+  return false;
+
+}
+const bool reco::SkimEvent::isLooseRobustElectron(const refToCand &c) const {
+  if( isElectron(c) ){
+    if(getElectron(c)->isElectronIDAvailable("eidRobustLoose")) return getElectron(c)->electronID("eidRobustLoose");
+    else return false;
+  }
+  else return false;
+}
+
+const bool reco::SkimEvent::isTightRobustElectron(size_t i ) const {
+  if(i < leps_.size()) isTightRobustElectron(leps_[i]);
+  return false;
+}
+
+const bool reco::SkimEvent::isTightRobustElectron(const refToCand &c) const {
+  if( isElectron(c) ){
+    if(getElectron(c)->isElectronIDAvailable("eidRobustTight")) return getElectron(c)->electronID("eidRobustTight");
+    else return false;
+  }
+  else return false;
+}
+
+const bool reco::SkimEvent::isRobustHighEnergyElectron(size_t i ) const {
+  if(i < leps_.size()) isRobustHighEnergyElectron(leps_[i]);
+  return false;
+}
+
+const bool reco::SkimEvent::isRobustHighEnergyElectron(const refToCand &c) const {
+  if( isElectron(c) ){
+    if(getElectron(c)->isElectronIDAvailable("eidRobustHighEnergy")) return getElectron(c)->electronID("eidRobustHighEnergy");
+    else return false;
+  }
+  else return false;
+}
+
+// muons and electron isolation                                                                                                                                                     
+const float reco::SkimEvent::pfNeutralHadronsIso  (size_t i) const {
+  if(i >= leps_.size()) return -9999 ;
+  if(isMuon(i)){
+    return getMuon(i)->neutralHadronIso();  
+  }
+  else if(isElectron(i)){
+    return getElectron(i)->neutralHadronIso();
+  }  
+  else  return -9999 ;
+}
+
+const float reco::SkimEvent::pfParticleAllIso  (size_t i) const {
+  if(i >= leps_.size()) return -9999 ;
+  if(isMuon(i)) return getMuon(i)->particleIso();  
+  else if(isElectron(i)) return getElectron(i)->particleIso();  
+  else  return -9999 ;
+}
+
+const float reco::SkimEvent::pfPUChargedHadronIso (size_t i) const {
+  if(i >= leps_.size()) return -9999 ;
+  if(isMuon(i)) return getMuon(i)->puChargedHadronIso();  
+  else if(isElectron(i)) return getElectron(i)->puChargedHadronIso();  
+  else  return -9999 ;
+
+}
+const float reco::SkimEvent::pfChargedHadronsIso  (size_t i) const {
+  if(i >= leps_.size()) return -9999 ;
+  if(isMuon(i)) return getMuon(i)->chargedHadronIso();  
+  else if(isElectron(i)) return getElectron(i)->chargedHadronIso();  
+  else  return -9999 ;
+
+}
+const float reco::SkimEvent::pfPhotonsIso         (size_t i) const {
+  if(i >= leps_.size()) return -9999 ;
+  if(isMuon(i)) return getMuon(i)->photonIso();  
+  else if(isElectron(i)) return getElectron(i)->photonIso();  
+  else  return -9999 ;
 
 }
 
-const float reco::SkimEvent::highestBDiscRange(const float& minPt, const float& maxPt, std::string discriminator, int applyID, float dzCut, int minPtApplyCorrection) const {
-
-    float disc=-9999.9;
-
-    for(size_t i=0;i<tagJets_.size();++i) {
-        if( tagJetPt(i,true) > maxPt ) continue;
-        if( tagJetPt(i,minPtApplyCorrection) <= minPt ) continue;
-        if(!(passJetID(tagJets_[i],applyID)) ) continue;
-        if(isThisJetALepton(tagJets_[i])) continue;
-        if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-        if( tagJets_[i]->bDiscriminator(discriminator) > disc ) disc = tagJets_[i]->bDiscriminator(discriminator);
-    }
-
-    return disc;
-
-}
-
-const float reco::SkimEvent::highestSoftBDisc(const float& maxPt, std::string discriminator, int applyID, float dzCut) const {
-
-    float disc=-9999.9;
-
-    for(size_t i=0;i<tagJets_.size();++i) {
-        if( tagJetPt(i,true) > maxPt ) continue;
-        if(!(passJetID(tagJets_[i],applyID)) ) continue;
-        if(isThisJetALepton(tagJets_[i])) continue;
-        if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-        if( tagJets_[i]->bDiscriminator(discriminator) > disc ) disc = tagJets_[i]->bDiscriminator(discriminator);
-    }
-
-    return disc;
-
-}
-
-const int reco::SkimEvent::bTaggedJetsBetween(const float& minPt, const float& maxPt, const float& cut, std::string discriminator, int applyID , float dzCut) const {
-
-    int count=0;
-
-    for(size_t i=0;i<tagJets_.size();++i) {
-        if( tagJetPt(i,true) > maxPt ) continue;
-        if( tagJetPt(i,false) <= minPt ) continue;
-        if(!(passJetID(tagJets_[i],applyID)) ) continue;
-        if( tagJets_[i]->bDiscriminator(discriminator) <= cut ) continue;   
-        if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-        if(isThisJetALepton(tagJets_[i])) continue;
-        count++;
-    }
-
-    return count;
-}
-
-const int reco::SkimEvent::bTaggedJetsUnder(const float& maxPt, const float& cut, std::string discriminator, int applyID, float dzCut) const {
-
-    int count=0;
-
-    for(size_t i=0;i<tagJets_.size();++i) {
-        if( tagJetPt(i,true) > maxPt ) continue;
-        if(!(passJetID(tagJets_[i],applyID)) ) continue;
-        if( tagJets_[i]->bDiscriminator(discriminator) <= cut ) continue;   
-        if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-        if(isThisJetALepton(tagJets_[i])) continue;
-        count++;
-    }
-
-    return count;
-}
-
-const int reco::SkimEvent::bTaggedJetsOver(const float& maxPt, const float& cut, std::string discriminator, int applyID, float dzCut) const {
-
-    int count=0;
-
-    for(size_t i=0;i<tagJets_.size();++i) {
-        if( tagJetPt(i,true) <= maxPt ) continue;
-        if(!(passJetID(tagJets_[i],applyID)) ) continue;
-        if( tagJets_[i]->bDiscriminator(discriminator) <= cut ) continue;
-        if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-        if(isThisJetALepton(tagJets_[i])) continue;
-        count++;
-    }
-
-    return count;
-}
+///////////
 
 const bool reco::SkimEvent::isMuTriggered(size_t i) const {
-
     if( isMuon(i) ) {
-        pat::Muon const * const mu = getMuon(i);
+        const pat::Muon* mu = getMuon(i);
         return ( !mu->triggerObjectMatchesByPath("HLT_Mu9").empty() || !mu->triggerObjectMatchesByPath("HLT_Mu15_v1").empty() );
     } else {
         return false;
     }
-
-
 }
 
 
 const int reco::SkimEvent::mitType() const {
-
     if( abs(pdgIdByPt(0)) == 11 ) {
         if( abs(pdgIdByPt(1)) == 11 ) return 11;
         if( abs(pdgIdByPt(1)) == 13 ) return 12;
@@ -2537,347 +3590,23 @@ const int reco::SkimEvent::mitType() const {
     } else {
         return -1;
     }
-return -1;
+  return -1;
 }
 
 
-const float reco::SkimEvent::nearestJet(int i,float minPt, float eta, bool applyCorrection , int applyID ) const {
-
-    if (i >= (int)std::min((uint) 2,(uint) leps_.size()) || i < -1) return -9999.9;
-
-    float dR = 9999;
-    for(size_t j=0;j<jets_.size();++j) {
-        if(!(passJetID(jets_[i],applyID)) ) continue;
-        if( std::fabs(jets_[j]->eta()) >= eta) continue;
-        if( jetPt(j,applyCorrection) <= minPt) continue;
-        if(isThisJetALepton(jets_[j])) continue;
-    
-        float tempdR;
-        if(i != -1) {
-            tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(jets_[j]->p4(),leps_[i]->p4()) );
-            if( tempdR < dR ) dR = tempdR;
-        } else {
-            for(size_t k=0; k<std::min((uint) 2,(uint) leps_.size());++k){
-               tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(jets_[j]->p4(),leps_[k]->p4()) );
-               if( tempdR < dR ) dR = tempdR;
-            }
-        }
-    }
-    return dR;
-}
-
-const pat::JetRef reco::SkimEvent::matchedJet(size_t i, float minDr) const {
-    pat::JetRef ret;
-    if (i >= std::min((uint) 2,(uint) leps_.size())) return ret;
-
-    float dR = minDr;
-    for(size_t j=0;j<jets_.size();++j) {
-        float tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(jets_[j]->p4(),leps_[i]->p4()) );
-        if( tempdR < dR ) {
-            dR = tempdR;
-            ret = jets_[j];
-        }
-    }
-    return ret;
-}
-
-const float reco::SkimEvent::matchedJetPt(size_t i, float minDr, bool applyCorrection) const {
-    if (i >= std::min((uint) 2,(uint) leps_.size())) return -9999.9;
-
-    float dR = minDr, pt = 0;
-    for(size_t j=0;j<jets_.size();++j) {
-        float tempdR = fabs(ROOT::Math::VectorUtil::DeltaR(jets_[j]->p4(),leps_[i]->p4()) );
-        if( tempdR < dR ) {
-            dR = tempdR;
-            pt = jetPt(j,applyCorrection);
-        }
-    }
-    return pt;
-}
-
-
-
-/**
- * ---- electron id ----
- */
-
-const float reco::SkimEvent::deltaEtaSuperClusterTrackAtVtx(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->deltaEtaSuperClusterTrackAtVtx();
- else return -999.0;
-}
-
-const float reco::SkimEvent::deltaPhiSuperClusterTrackAtVtx(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->deltaPhiSuperClusterTrackAtVtx();
- else return -999.0;
-}
-
-const float reco::SkimEvent::sigmaIetaIeta(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->sigmaIetaIeta();
- else return -999.0;
-}
-
-const float reco::SkimEvent::hadronicOverEm(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->hadronicOverEm();
- else return -999.0;
-}
-
-const float reco::SkimEvent::numberOfHits(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->gsfTrack()->trackerExpectedHitsInner().numberOfHits();
- else return -999.0;
-}
-
-
-
-
-// ============== Matt's methods ===============================
-// const int reco::SkimEvent::nExtraLepMatt(float minPt) const {
-// int count = 0;
-// for(size_t i=0;i<extraLeps_.size();++i) {
-// if( extraLeps_[i]->pt() <= minPt) continue;
-// if( fabs(extraLeps_[i]->pdgId()) == 11 ) {
-// pat::Electron e = static_cast<const pat::Electron&>(extraLeps_[i]);
-// if( fabs(e.eta()) >= 2.5 ) continue;
-// if( fabs(e.userFloat("dxyPV")) >= 0.020 ) continue;
-// if( fabs(e.userFloat("dzPV") ) >= 1.0 ) continue;
-// if( fabs(e.userFloat("convValueMapProd:dist")) < 0.2 &&
-// fabs(e.userFloat("convValueMapProd:dcot")) < 0.2 ) continue;
-// if( e.gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0 ) continue;
-// if(!(( e.isEB() && e.sigmaIetaIeta() < 0.01 &&
-// fabs(e.deltaPhiSuperClusterTrackAtVtx()) < 0.06 &&
-// fabs(e.deltaEtaSuperClusterTrackAtVtx()) < 0.004 &&
-// // e.hadronicOverEm() < 0.04 &&
-// (e.dr03TkSumPt() + std::max(e.dr03EcalRecHitSumEt()-1,(float)0) + e.dr03HcalTowerSumEt() - e.userFloat("rhoEl")*3.14159*0.3*0.3)/e.pt() < 0.1) ||
-// ( !e.isEB() && e.sigmaIetaIeta() < 0.03 &&
-// fabs(e.deltaPhiSuperClusterTrackAtVtx()) < 0.03 &&
-// fabs(e.deltaEtaSuperClusterTrackAtVtx()) < 0.007 &&
-// (e.dr03TkSumPt() + e.dr03EcalRecHitSumEt() + e.dr03HcalTowerSumEt() - e.userFloat("rhoEl")*3.14159265*0.3*0.3)/e.pt() < 0.1 //&&
-// /*e.hadronicOverEm() < 0.025 */))) continue;
-// } else if ( fabs(extraLeps_[i]->pdgId()) == 13 ) {
-// pat::Muon m = static_cast<const pat::Muon&>(extraLeps_[i]);
-// if( fabs(m.userFloat("dxyPV")) >= 0.020 ) continue;
-// if( fabs(m.userFloat("dzPV") ) >= 1.0 ) continue;
-// if( !(m.isGlobalMuon() && m.isTrackerMuon() &&
-// m.innerTrack()->found() > 10 &&
-// m.innerTrack()->hitPattern().numberOfValidPixelHits() > 0 &&
-// m.globalTrack()->normalizedChi2() < 10 &&
-// m.globalTrack()->hitPattern().numberOfValidMuonHits() > 0 &&
-// m.numberOfMatches() > 1 && fabs(m.track()->ptError() / m.pt()) < 0.10 )) continue;
-// if( (m.isolationR03().emEt + m.isolationR03().hadEt + m.isolationR03().sumPt - m.userFloat("rhoMu") * 3.14159265 * 0.3 * 0.3) / m.pt() >= 0.15 ) continue;
-// }
-// count++;
-// }
-// return count;
-// }
-// const int reco::SkimEvent::nSoftMuMatt(float minPt) const {
-// int count = 0;
-// for(size_t i=0;i<softMuons_.size();++i) {
-// if(softMuons_[i].pt() <= minPt ) continue;
-// if( (softMuons_[i].isolationR03().emEt +
-// softMuons_[i].isolationR03().hadEt +
-// softMuons_[i].isolationR03().sumPt ) / softMuons_[i].pt() < 0.1 &&
-// softMuons_[i].pt() > 20.) continue;
-// count++;
-// }
-// return count;
-// }
-// const bool reco::SkimEvent::passesIDV1(size_t i) const {
-//
-// if( fabs(leps_[i]->pdgId()) == 11 ) {
-// const pat::Electron & e = static_cast<const pat::Electron&>(leps_[i]);
-// return (( e.isEB() && e.sigmaIetaIeta() < 0.01 &&
-// fabs(e.deltaPhiSuperClusterTrackAtVtx()) < 0.06 &&
-// fabs(e.deltaEtaSuperClusterTrackAtVtx()) < 0.004 //&&
-// /*e.hadronicOverEm() < 0.04*/) ||
-// ( !e.isEB() && e.sigmaIetaIeta() < 0.03 &&
-// fabs(e.deltaPhiSuperClusterTrackAtVtx()) < 0.03 &&
-// fabs(e.deltaEtaSuperClusterTrackAtVtx()) < 0.007 //&&
-// /*e.hadronicOverEm() < 0.025*/ ));
-// } else if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon & m = static_cast<const pat::Muon&>(leps_[i]);
-// return (m.isGlobalMuon() && m.isTrackerMuon() &&
-// m.innerTrack()->found() > 10 &&
-// m.innerTrack()->hitPattern().numberOfValidPixelHits() > 0 &&
-// // ( (float)m.innerTrack()->hitPattern().trackerLayersWithMeasurement() / (float)(
-// // m.innerTrack()->hitPattern().trackerLayersWithoutMeasurement() +
-// // m.innerTrack()->hitPattern().trackerLayersWithMeasurement() +
-// // m.innerTrack()->trackerExpectedHitsInner().numberOfLostHits() +
-// // m.innerTrack()->trackerExpectedHitsOuter().numberOfLostHits() ) >= 0.75 ) &&
-// // ( (float)m.innerTrack()->hitPattern().numberOfValidHits() / (float)
-// // (m.innerTrack()->hitPattern().numberOfHits() -
-// // m.innerTrack()->hitPattern().numberOfInactiveHits()) > 0.92 ) &&
-// m.globalTrack()->normalizedChi2() < 10 &&
-// m.globalTrack()->hitPattern().numberOfValidMuonHits() > 0 &&
-// m.numberOfMatches() > 1 && fabs(m.track()->ptError() / m.pt()) < 0.10 );
-// } else {
-// return false;
-// }
-//
-// }
-
-
-
-// ============== Boris' shit ===============================
-// Sorry dude, commented out temporarily
-// const bool reco::SkimEvent::passMuID0() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.genParticleRef().isNonnull() && fabs(mu.genParticleRef()->pdgId())==13);
-// }
-// }
-// return answer;
-// }
-//
-//
-// const bool reco::SkimEvent::passMuID1() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.isGlobalMuon() || (mu.isTrackerMuon() && mu.muonID("TMLastStationTight")));
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID2() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.isTrackerMuon());
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID3() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.innerTrack()->found()>10);
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID4() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.innerTrack()->hitPattern().numberOfValidPixelHits()>0);
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID5() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// if(mu.isGlobalMuon())
-// answer = answer && (mu.globalTrack()->normalizedChi2()<10);
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID6() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// if(mu.isGlobalMuon())
-// answer = answer && (mu.globalTrack()->hitPattern().numberOfValidMuonHits()>0);
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID7() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// if(!mu.isGlobalMuon())
-// answer = answer && (mu.numberOfMatches()>1);
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID8() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.track()->ptError()/mu.pt()<0.10);
-// }
-// }
-// return answer;
-// }
-
-// New emanuele gamma mr star thingy
-const float reco::SkimEvent::mRStar() const {
-  if(leps_.size() < 2) return -9999.;
-  float A = leps_[indexByPt(0)]->p();
-  float B = leps_[indexByPt(1)]->p();
-  float az = leps_[indexByPt(0)]->pz();
-  float bz = leps_[indexByPt(1)]->pz();
-  TVector3 jaT, jbT;
-  jaT.SetXYZ(leps_[indexByPt(0)]->px(),leps_[indexByPt(0)]->py(),0.0);
-  jbT.SetXYZ(leps_[indexByPt(1)]->px(),leps_[indexByPt(1)]->py(),0.0);
-
-  float temp = sqrt((A+B)*(A+B)-(az+bz)*(az+bz)-
-                     (jbT.Dot(jbT)-jaT.Dot(jaT))*(jbT.Dot(jbT)-jaT.Dot(jaT))/(jaT+jbT).Mag2());
-
-  return temp;
-}
-
-const float reco::SkimEvent::gamma() const {
-  if(leps_.size() < 2) return -9999.;
-  float A = leps_[indexByPt(0)]->p();
-  float B = leps_[indexByPt(1)]->p();
-  float az = leps_[indexByPt(0)]->pz();
-  float bz = leps_[indexByPt(1)]->pz();
-  TVector3 jaT, jbT;
-  jaT.SetXYZ(leps_[indexByPt(0)]->px(),leps_[indexByPt(0)]->py(),0.0);
-  jbT.SetXYZ(leps_[indexByPt(1)]->px(),leps_[indexByPt(1)]->py(),0.0);
-
-  float ATBT = (jaT+jbT).Mag2();
-  double mybeta = (jbT.Dot(jbT)-jaT.Dot(jaT))/
-    sqrt(ATBT*((A+B)*(A+B)-(az+bz)*(az+bz)));
-
-  return 1./sqrt(1.-mybeta*mybeta);
-}
-
-const float reco::SkimEvent::gammaMRStar() const {
-
-    return gamma() * mRStar();
-
-}
-
-const int reco::SkimEvent::nJetVBF(float minPt,float eta,int applyCorrection, int applyID) const {
+const int reco::SkimEvent::nJetVBF(float minPt,float eta,int applyCorrection, int applyJetID, int applyPileUpJetID) const {
     if(jets_.size() < 2) return -9999.;
-    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyID);
-    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyID);
+    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
     float jetEtaMax = std::max(jetEta1,jetEta2);
     float jetEtaMin = std::min(jetEta1,jetEta2);
 
     int count = 0;
     for(size_t i=0;i<jets_.size();++i) {
-      if(!(passJetID(jets_[i],applyID)) ) continue;
+      if(!(passJetID(jets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(jets_[i],applyPileUpJetID)) ) continue;
       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-      if( jetPt(i,applyCorrection) <= minPt) continue;
+      if( jetPt(jets_[i].get(),applyCorrection) <= minPt) continue;
 
       if(isThisJetALepton(jets_[i])) continue;
       if( jets_[i]->eta() >= jetEtaMax ) continue;
@@ -2888,115 +3617,132 @@ const int reco::SkimEvent::nJetVBF(float minPt,float eta,int applyCorrection, in
 
 }
 
-const float reco::SkimEvent::mjj(float pt ,float eta,int applyCorrection, int applyID) const {
-    if(jets_.size() < 2) return -9999.;
-    return (leadingJet(0,pt,eta,applyCorrection,applyID)->p4() +
-            leadingJet(1,pt,eta,applyCorrection,applyID)->p4()).mass();
+const int reco::SkimEvent::nPuppiJetVBF(float minPt,float eta,int applyCorrection, int applyJetID, int applyPileUpJetID) const {
+    if(puppiJets_.size() < 2) return -9999.;
+    float jetEta1 = leadingJetEta(0,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEta2 = leadingJetEta(1,minPt,eta,applyCorrection,applyJetID,applyPileUpJetID);
+    float jetEtaMax = std::max(jetEta1,jetEta2);
+    float jetEtaMin = std::min(jetEta1,jetEta2);
+
+    int count = 0;
+    for(size_t i=0;i<puppiJets_.size();++i) {
+      if(!(passJetID(puppiJets_[i],applyJetID)) ) continue;
+      if(!(passPileUpJetID(puppiJets_[i],applyPileUpJetID)) ) continue;
+      if( std::fabs(puppiJets_[i]->eta()) >= eta) continue;
+      if( jetPt(puppiJets_[i].get(),applyCorrection) <= minPt) continue;
+
+      if(isThisJetALepton(puppiJets_[i])) continue;
+      if( puppiJets_[i]->eta() >= jetEtaMax ) continue;
+      if( puppiJets_[i]->eta() <= jetEtaMin ) continue;
+      count++;
+    }
+    return count;
 
 }
 
-const float reco::SkimEvent::dEtajj(float pt ,float eta,int applyCorrection, int applyID) const {
+const float reco::SkimEvent::mjj(float pt ,float eta,int applyCorrection, int applyJetID, int applyPileUpJetID) const {
     if(jets_.size() < 2) return -9999.;
-    return fabs(leadingJetEta(0,pt,eta,applyCorrection,applyID) -
-                leadingJetEta(1,pt,eta,applyCorrection,applyID));
+    return (leadingJet(0,pt,eta,applyCorrection,applyJetID,applyPileUpJetID)->p4() + leadingJet(1,pt,eta,applyCorrection,applyJetID,applyPileUpJetID)->p4()).mass();
 
 }
 
-const float reco::SkimEvent::zeppenfeld(size_t a,float pt ,float eta,int applyCorrection, int applyID) const {
+const float reco::SkimEvent::puppiMjj(float pt ,float eta,int applyCorrection, int applyJetID, int applyPileUpJetID) const {
+    if(puppiJets_.size() < 2) return -9999.;
+    return (leadingPuppiJet(0,pt,eta,applyCorrection,applyJetID,applyPileUpJetID)->p4() + leadingPuppiJet(1,pt,eta,applyCorrection,applyJetID,applyPileUpJetID)->p4()).mass();
+
+}
+
+const float reco::SkimEvent::dEtajj(float pt ,float eta,int applyCorrection, int applyJetID, int applyPileUpJetID) const {
     if(jets_.size() < 2) return -9999.;
+    return fabs(leadingJetEta(0,pt,eta,applyCorrection,applyJetID,applyPileUpJetID) -
+                leadingJetEta(1,pt,eta,applyCorrection,applyJetID,applyPileUpJetID));
+
+}
+
+const float reco::SkimEvent::puppidEtajj(float pt ,float eta,int applyCorrection, int applyJetID, int applyPileUpJetID) const {
+    if(puppiJets_.size() < 2) return -9999.;
+    return fabs(leadingPuppiJetEta(0,pt,eta,applyCorrection,applyJetID,applyPileUpJetID) -
+                leadingPuppiJetEta(1,pt,eta,applyCorrection,applyJetID,applyPileUpJetID));
+
+}
+
+const float reco::SkimEvent::zeppenfeld(size_t a,float pt ,float eta,int applyCorrection, int applyJetID, int applyPileUpJetID) const {
+    if(jets_.size() < 2) return -9999.;
+    return -9999.;
+
+}
+
+const float reco::SkimEvent::zeppenfeldPuppi(size_t a,float pt ,float eta,int applyCorrection, int applyJetID, int applyPileUpJetID) const {
+    if(puppiJets_.size() < 2) return -9999.;
     return -9999.;
 
 }
 
 
 
-void reco::SkimEvent::FindDaughterParticles(const reco::Candidate** pCurrent, std::vector<const reco::Candidate*>* pFinal) const {
+void reco::SkimEvent::FindDaughterParticles(const reco::Candidate ** pCurrent, std::vector<const reco::Candidate*>* pFinal) const {
   
   // Variable for decayed current particle
   const reco::Candidate* pCurrentNew = 0;
   
   for(unsigned int i = 0; i < (*pCurrent) -> numberOfDaughters(); ++i) {
-    if( (pFinal != 0) && ((*pCurrent) -> daughter(i) -> pdgId() != (*pCurrent) -> pdgId()) )
-      pFinal -> push_back((*pCurrent) -> daughter(i));
+    if( (pFinal != 0) && ((*pCurrent) -> daughter(i) -> pdgId() != (*pCurrent) -> pdgId()) ) pFinal -> push_back((*pCurrent) -> daughter(i));
     
-    if((*pCurrent) -> daughter(i) -> pdgId() == (*pCurrent) -> pdgId())
-      pCurrentNew = (*pCurrent) -> daughter(i);
-  }
-  
+    if((*pCurrent) -> daughter(i) -> pdgId() == (*pCurrent) -> pdgId()) pCurrentNew = (*pCurrent) -> daughter(i);
+  } 
   // Change the current particle into the decayed one
-  if(pCurrentNew)
-    (*pCurrent) = pCurrentNew;
+  if(pCurrentNew) (*pCurrent) = pCurrentNew;
 }
 
 
 
-
 //---- DY > ll : DY decay final state (mumu,ee,tautau)
-
 const float reco::SkimEvent::getFinalStateMC() const {
 
-// std::cout << " getFinalStateMC " << std::endl;
   float finalState = -1;
-  // 0 = mm
-  // 1 = ee
-  // 2 = tt
 
   const reco::Candidate* mcV = 0;
-  const reco::Candidate* mcF1_fromV;
-  const reco::Candidate* mcF2_fromV;
+  const reco::Candidate* mcF1_fromV; // fermion 1 from V
+  const reco::Candidate* mcF2_fromV; // fermion 2 from V
+
   // loop over gen particles
   for(size_t gp=0; gp<genParticles_.size();++gp){
-// const reco::Candidate* pMother = 0;
-// if(genParticles_[gp] -> mother()) {
-// pMother = genParticles_[gp] -> mother();
-// }
 
-    int pdgId = genParticles_[gp] -> pdgId();
+    int pdgId  = genParticles_[gp] -> pdgId();
     int status = genParticles_[gp] -> status();
-// int charge = genParticles_[gp] -> charge();
-// int motherPdgId = 0;
-// if(genParticles_[gp] -> mother()) {
-// motherPdgId = pMother -> pdgId();
-// }
 
-    // Z {23}
-    if( (pdgId == 23) && (status == 3) ) {
+    if((pdgId == 23) && (status == 3) ) { // take a vector boson of status3 and Z
       mcV = &(*(genParticles_[gp]));
     }
     
   } // loop over gen particles
     
   if (mcV != 0) {
-  // find fermions from vector boson decay
+
+   // find fermions from vector boson decay
    std::vector<const reco::Candidate*> fFromVBuffer;
    FindDaughterParticles(&mcV, &fFromVBuffer);
     
    if (fFromVBuffer.size() == 2) {
+
     mcF1_fromV = fFromVBuffer.at(0);
     mcF2_fromV = fFromVBuffer.at(1);
   
-   // If leptons, see if there is a photon emission
-    if(abs(mcF1_fromV -> pdgId()) >= 11) {
-     FindDaughterParticles(&mcF1_fromV);
-    }
-    if(abs(mcF2_fromV -> pdgId()) >= 11) {
-     FindDaughterParticles(&mcF2_fromV);
-    }
+    // If leptons, see if there is a photon emission
+    if(abs(mcF1_fromV -> pdgId()) >= 11) FindDaughterParticles(&mcF1_fromV);
+    
+    if(abs(mcF2_fromV -> pdgId()) >= 11) FindDaughterParticles(&mcF2_fromV);
+    
 
-   // mm
-    if ( abs(mcF1_fromV -> pdgId()) == 13 && abs(mcF2_fromV -> pdgId()) == 13 ) {
-     finalState = 0;
-    }
-   
-   // ee
-    if ( abs(mcF1_fromV -> pdgId()) == 11 && abs(mcF2_fromV -> pdgId()) == 11 ) {
-     finalState = 1;
-    }
- 
-   // tt
-    if ( abs(mcF1_fromV -> pdgId()) == 15 && abs(mcF2_fromV -> pdgId()) == 15 ) {
-     finalState = 2;
-    }
+    // mm from Z decay 
+    if ( abs(mcF1_fromV -> pdgId()) == 13 && abs(mcF2_fromV -> pdgId()) == 13 )  finalState = 0;
+       
+    // ee from Z ddecay 
+    if ( abs(mcF1_fromV -> pdgId()) == 11 && abs(mcF2_fromV -> pdgId()) == 11 )  finalState = 1;
+    
+    // tt
+    if ( abs(mcF1_fromV -> pdgId()) == 15 && abs(mcF2_fromV -> pdgId()) == 15 ) finalState = 2;
+    
    }
   }
 
@@ -3006,10 +3752,8 @@ const float reco::SkimEvent::getFinalStateMC() const {
 
 
 //---- H > WW > lvlv : WW decay final state
-
 const float reco::SkimEvent::getWWdecayMC() const {
 
-// std::cout << " getFinalStateMC " << std::endl;
   float finalState = -1;
   // 0 = mm
   // 1 = ee
@@ -3025,31 +3769,11 @@ const float reco::SkimEvent::getWWdecayMC() const {
 
   const reco::Candidate* mcH = 0;
 
-// const reco::Candidate* mcV1 = 0;
-// const reco::Candidate* mcF1_fromV1;
-// const reco::Candidate* mcF2_fromV1;
-// const reco::Candidate* mcV2 = 0;
-// const reco::Candidate* mcF1_fromV2;
-// const reco::Candidate* mcF2_fromV2;
-
   // loop over gen particles
   for(size_t gp=0; gp<genParticles_.size();++gp){
-// const reco::Candidate* pMother = 0;
-// if(genParticles_[gp] -> mother()) {
-// pMother = genParticles_[gp] -> mother();
-// }
 
-    int pdgId = genParticles_[gp] -> pdgId();
+    int pdgId  = genParticles_[gp] -> pdgId();
     int status = genParticles_[gp] -> status();
-// int charge = genParticles_[gp] -> charge();
-// int motherPdgId = 0;
-// if(genParticles_[gp] -> mother()) {
-// motherPdgId = pMother -> pdgId();
-// }
-
-// std::cout << " genParticles_[" << gp << "::" << genParticles_.size() << "] = " << pdgId << " @ " << status << std::endl;
-   
-    // H {25}
     if( (pdgId == 25) && (status == 3) ) {
       mcH = &(*(genParticles_[gp]));
     }
@@ -3057,12 +3781,12 @@ const float reco::SkimEvent::getWWdecayMC() const {
   
     
   // find vector bosons
-  if (mcH != 0) {
+  if (mcH != 0) { 
    std::vector<const reco::Candidate*> VfromHBuffer;
    FindDaughterParticles(&mcH,&VfromHBuffer);
 
    // H > VV
-   if(VfromHBuffer.size() == 2) {
+   if(VfromHBuffer.size() == 2) { // VV decay
     const reco::Candidate* mcV1;
     const reco::Candidate* mcV2;
 
@@ -3080,13 +3804,11 @@ const float reco::SkimEvent::getWWdecayMC() const {
     if(fFromV1Buffer.size() == 2) {
      mcF1_fromV1 = fFromV1Buffer.at(0);
      mcF2_fromV1 = fFromV1Buffer.at(1);
+
      // If leptons, see if there is a photon emission
-     if(abs(mcF1_fromV1 -> pdgId()) >= 11) {
-      FindDaughterParticles(&mcF1_fromV1);
-     }
-     if(abs(mcF2_fromV1 -> pdgId()) >= 11) {
-      FindDaughterParticles(&mcF2_fromV1);
-     }
+     if(abs(mcF1_fromV1 -> pdgId()) >= 11) FindDaughterParticles(&mcF1_fromV1);     
+     if(abs(mcF2_fromV1 -> pdgId()) >= 11) FindDaughterParticles(&mcF2_fromV1);
+     
     }
     else {
      isHWWok = false;
@@ -3098,133 +3820,84 @@ const float reco::SkimEvent::getWWdecayMC() const {
      mcF1_fromV2 = fFromV2Buffer.at(0);
      mcF2_fromV2 = fFromV2Buffer.at(1);
      // If leptons, see if there is a photon emission
-     if(abs(mcF1_fromV2 -> pdgId()) >= 11) {
-      FindDaughterParticles(&mcF1_fromV2);
-     }
-     if(abs(mcF2_fromV2 -> pdgId()) >= 11) {
-      FindDaughterParticles(&mcF2_fromV2);
-     }
+     if(abs(mcF1_fromV2 -> pdgId()) >= 11) FindDaughterParticles(&mcF1_fromV2);     
+     if(abs(mcF2_fromV2 -> pdgId()) >= 11) FindDaughterParticles(&mcF2_fromV2);     
     }
     else {
      isHWWok = false;
     }
-  
-  
+    
     if (isHWWok) {
 
      // mm
-     if ( (abs(mcF1_fromV1 -> pdgId()) == 13 || abs(mcF1_fromV1 -> pdgId()) == 14) && (abs(mcF1_fromV2 -> pdgId()) == 13 || abs(mcF1_fromV2 -> pdgId()) == 14) ) {
-      finalState = 0;
-     }
-
+     if ( (abs(mcF1_fromV1 -> pdgId()) == 13 || abs(mcF1_fromV1 -> pdgId()) == 14) && (abs(mcF1_fromV2 -> pdgId()) == 13 || abs(mcF1_fromV2 -> pdgId()) == 14) ) finalState = 0;
+     
      // ee
-     if ( (abs(mcF1_fromV1 -> pdgId()) == 11 || abs(mcF1_fromV1 -> pdgId()) == 12) && (abs(mcF1_fromV2 -> pdgId()) == 11 || abs(mcF1_fromV2 -> pdgId()) == 12) ) {
-      finalState = 1;
-     }
-
+     if ( (abs(mcF1_fromV1 -> pdgId()) == 11 || abs(mcF1_fromV1 -> pdgId()) == 12) && (abs(mcF1_fromV2 -> pdgId()) == 11 || abs(mcF1_fromV2 -> pdgId()) == 12) ) finalState = 1;
+     
      // tt
-     if ( (abs(mcF1_fromV1 -> pdgId()) == 15 || abs(mcF1_fromV1 -> pdgId()) == 16) && (abs(mcF1_fromV2 -> pdgId()) == 15 || abs(mcF1_fromV2 -> pdgId()) == 16) ) {
-      finalState = 2;
-     }
-
+     if ( (abs(mcF1_fromV1 -> pdgId()) == 15 || abs(mcF1_fromV1 -> pdgId()) == 16) && (abs(mcF1_fromV2 -> pdgId()) == 15 || abs(mcF1_fromV2 -> pdgId()) == 16) ) finalState = 2;
+     
      // em
      if ( ( (abs(mcF1_fromV1 -> pdgId()) == 11 || abs(mcF1_fromV1 -> pdgId()) == 12) && (abs(mcF1_fromV2 -> pdgId()) == 13 || abs(mcF1_fromV2 -> pdgId()) == 14) )
-      || ( (abs(mcF1_fromV1 -> pdgId()) == 13 || abs(mcF1_fromV1 -> pdgId()) == 14) && (abs(mcF1_fromV2 -> pdgId()) == 11 || abs(mcF1_fromV2 -> pdgId()) == 12) ) ) {
-      finalState = 3;
-     }
-
+      || ( (abs(mcF1_fromV1 -> pdgId()) == 13 || abs(mcF1_fromV1 -> pdgId()) == 14) && (abs(mcF1_fromV2 -> pdgId()) == 11 || abs(mcF1_fromV2 -> pdgId()) == 12) ) ) finalState = 3;
+     
      // et
      if ( ( (abs(mcF1_fromV1 -> pdgId()) == 11 || abs(mcF1_fromV1 -> pdgId()) == 12) && (abs(mcF1_fromV2 -> pdgId()) == 15 || abs(mcF1_fromV2 -> pdgId()) == 16) )
-      || ( (abs(mcF1_fromV1 -> pdgId()) == 15 || abs(mcF1_fromV1 -> pdgId()) == 16) && (abs(mcF1_fromV2 -> pdgId()) == 11 || abs(mcF1_fromV2 -> pdgId()) == 12) ) ) {
-      finalState = 4;
-     }
+      || ( (abs(mcF1_fromV1 -> pdgId()) == 15 || abs(mcF1_fromV1 -> pdgId()) == 16) && (abs(mcF1_fromV2 -> pdgId()) == 11 || abs(mcF1_fromV2 -> pdgId()) == 12) ) ) finalState = 4;
+     
 
      // mt
      if ( ( (abs(mcF1_fromV1 -> pdgId()) == 12 || abs(mcF1_fromV1 -> pdgId()) == 13) && (abs(mcF1_fromV2 -> pdgId()) == 15 || abs(mcF1_fromV2 -> pdgId()) == 16) )
-      || ( (abs(mcF1_fromV1 -> pdgId()) == 15 || abs(mcF1_fromV1 -> pdgId()) == 16) && (abs(mcF1_fromV2 -> pdgId()) == 12 || abs(mcF1_fromV2 -> pdgId()) == 13) ) ) {
-      finalState = 5;
-     }
+      || ( (abs(mcF1_fromV1 -> pdgId()) == 15 || abs(mcF1_fromV1 -> pdgId()) == 16) && (abs(mcF1_fromV2 -> pdgId()) == 12 || abs(mcF1_fromV2 -> pdgId()) == 13) ) ) finalState = 5;
+     
 
      // jj - ev
       if (( (abs(mcF1_fromV1 -> pdgId()) <= 6 ) && (abs(mcF1_fromV2 -> pdgId()) == 11 || abs(mcF1_fromV2 -> pdgId()) == 12) ) ||
           ( (abs(mcF1_fromV2 -> pdgId()) <= 6 ) && (abs(mcF1_fromV1 -> pdgId()) == 11 || abs(mcF1_fromV1 -> pdgId()) == 12) )
-         ){
-      finalState = 6;
-     }
+         ) finalState = 6;
+     
 
      // jj - mv
      if (( (abs(mcF1_fromV1 -> pdgId()) <= 6 ) && (abs(mcF1_fromV2 -> pdgId()) == 13 || abs(mcF1_fromV2 -> pdgId()) == 14) ) ||
          ( (abs(mcF1_fromV2 -> pdgId()) <= 6 ) && (abs(mcF1_fromV1 -> pdgId()) == 13 || abs(mcF1_fromV1 -> pdgId()) == 14) )
-        ){
-      finalState = 7;
-     }
+        ) finalState = 7;
+     
 
      // jj - tv
      if (( (abs(mcF1_fromV1 -> pdgId()) <= 6 ) && (abs(mcF1_fromV2 -> pdgId()) == 15 || abs(mcF1_fromV2 -> pdgId()) == 16) ) ||
          ( (abs(mcF1_fromV2 -> pdgId()) <= 6 ) && (abs(mcF1_fromV1 -> pdgId()) == 15 || abs(mcF1_fromV1 -> pdgId()) == 16) )
-        ){
-      finalState = 8;
-     }
+        ) finalState = 8;
+     
 
      // jj - jj
      if (( (abs(mcF1_fromV1 -> pdgId()) <= 6 ) && (abs(mcF1_fromV2 -> pdgId()) <= 6 ) ) ||
-         ( (abs(mcF1_fromV2 -> pdgId()) <= 6 ) && (abs(mcF1_fromV1 -> pdgId()) <= 6 ) )
-        ){
-      finalState = 9;
-     }
-
+         ( (abs(mcF1_fromV2 -> pdgId()) <= 6 ) && (abs(mcF1_fromV1 -> pdgId()) <= 6 ) )) finalState = 9;
+     
     }
     else {
      finalState = -2;
     }
-
    }
   }
     
-
   return finalState;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 //---- HEP MC information
 //---- http://cmssdt.cern.ch/SDT/doxygen/CMSSW_3_6_0/doc/html/d5/db1/GenEventInfoProduct_8h-source.html
-
 //---- HEPMC wieght. Used for minlo-powheg reweighting
 
-const float reco::SkimEvent::HEPMCweight() const {
+const float reco::SkimEvent::getHEPMCweight() const {
  float HEPMCweight = -1;
  HEPMCweight = GenInfoHandle_.weight();
  return HEPMCweight;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //---- H production mode: ggH, vbf, WH, ZH, ttH
 
-const float reco::SkimEvent::mcHiggsProd() const {
+const float reco::SkimEvent::getMCHiggsProd() const {
  
 // std::cout << " mcHiggsProd " << std::endl;
   float productionMechanism = -1;
@@ -3235,51 +3908,13 @@ const float reco::SkimEvent::mcHiggsProd() const {
   // 26 = WH
   // 121 = ttH
 
-// std::cout << " event flag = " << GenInfoHandle_.signalProcessID() << std::endl;
+  // std::cout << " event flag = " << GenInfoHandle_.signalProcessID() << std::endl;
   productionMechanism = GenInfoHandle_.signalProcessID() ;
-
-/*
-
-
-const reco::Candidate* mcH = 0;
-
-// loop over gen particles
-for(size_t gp=0; gp<genParticles_.size();++gp){
-
-int pdgId = genParticles_[gp] -> pdgId();
-int status = genParticles_[gp] -> status();
-// int charge = genParticles_[gp] -> charge();
-// int motherPdgId = 0;
-// if(genParticles_[gp] -> mother()) {
-// motherPdgId = pMother -> pdgId();
-// }
-
-// std::cout << " [" << gp << "::" << genParticles_.size() << "] id = " << pdgId << std::endl;
-
-// H {25}
-if( (pdgId == 25) ) {
-std::cout << "Higgs mother not status 3 : " << genParticles_[gp] -> mother() -> pdgId() << std::endl;
-}
-if( (pdgId == 25) && (status == 3) ) {
-mcH = &(*(genParticles_[gp]));
-std::cout << "Higgs mother : " << mcH -> mother() -> pdgId() << std::endl;
-}
-} // loop over gen particles
-
-*/
-
   return productionMechanism;
 }
 
 
-
-
-
-
-
-
 //---- Higgs masses
-
 const float reco::SkimEvent::getHiggsMass() const {
 
 // std::cout << " getSusyMass1 " << std::endl;
@@ -3290,7 +3925,7 @@ const float reco::SkimEvent::getHiggsMass() const {
   // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
 
-  int pdgId = genParticles_[gp] -> pdgId();
+  int pdgId  = genParticles_[gp] -> pdgId();
   int status = genParticles_[gp] -> status();
    
     // Stop {1000006}
@@ -3315,7 +3950,7 @@ const float reco::SkimEvent::getHiggsPt() const {
   // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
 
-  int pdgId = genParticles_[gp] -> pdgId();
+  int pdgId  = genParticles_[gp] -> pdgId();
   int status = genParticles_[gp] -> status();
    
     // Stop {1000006}
@@ -3334,21 +3969,15 @@ const float reco::SkimEvent::getHiggsPt() const {
 
 const float reco::SkimEvent::getSusyStopMass() const {
 
-// std::cout << " getSusyMass1 " << std::endl;
   float mass = -1;
-
   const reco::Candidate* mcStop = 0;
-
-// std::cout << " genParticles_.size() = " << genParticles_.size() << std::endl;
 
   // loop over gen particles
   for(size_t gp=0; gp<genParticles_.size();++gp){
 
     int pdgId = genParticles_[gp] -> pdgId();
     int status = genParticles_[gp] -> status();
-// std::cout << " pdgId = " << pdgId << " ~~ status = " << status << std::endl;
 
-    // Stop1 {1000006} Stop2 {2000006}
     if( (abs(pdgId) == 1000006 || abs(pdgId) == 2000006) && (status == 3) ) {
       mcStop = &(*(genParticles_[gp]));
       mass = mcStop->mass();
@@ -3361,12 +3990,11 @@ const float reco::SkimEvent::getSusyStopMass() const {
 
 const float reco::SkimEvent::getSusyLSPMass() const {
 
-// std::cout << " getSusyLSPMass " << std::endl;
  float mass = -1;
 
  const reco::Candidate* mcChi = 0;
 
-  // loop over gen particles
+ // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
 
   int pdgId = genParticles_[gp] -> pdgId();
@@ -3428,7 +4056,6 @@ const float reco::SkimEvent::getPDFx2PDF() const {
 
 
 ///---- save LHE information ----
-
 const float reco::SkimEvent::leadingLHEJetPt(size_t index) const {
  std::vector<float> v_jetsLHE_pt ;
  // loop over particles in the event
@@ -3450,7 +4077,6 @@ const float reco::SkimEvent::leadingLHEJetPt(size_t index) const {
  for(size_t i=0;i<v_jetsLHE_pt.size();++i) {
   if(++count > index) return v_jetsLHE_pt.at(i);
  }
-
  return -9999.9;
 }
 
@@ -3544,21 +4170,6 @@ const float reco::SkimEvent::leadingLHELeptonPID(size_t index) const {
   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
 
-/* for general debugging purposes
-float iPart_Pt1 = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
-LHEhepeup_.PUP.at (iPart) [1] * LHEhepeup_.PUP.at (iPart) [1]); // py
-TVector3 pt_ofIndex1(LHEhepeup_.PUP.at (iPart) [0], LHEhepeup_.PUP.at (iPart) [1], LHEhepeup_.PUP.at (iPart) [2] ); // pass px, py, pz
-float phi1 = pt_ofIndex1.Phi() ;
-float eta1 = pt_ofIndex1.PseudoRapidity() ;
-float mass1 = LHEhepeup_.PUP.at (iPart) [4] ;
-float energy1 = LHEhepeup_.PUP.at (iPart) [3] ;
-std::cout << iPart << " ISTUP " << LHEhepeup_.ISTUP.at (iPart)
-<< " ID " << LHEhepeup_.IDUP.at (iPart) << " MO1 "
-<< LHEhepeup_.MOTHUP.at (iPart).first << " MO2 " << LHEhepeup_.MOTHUP.at(iPart).second
-<< " pT " << iPart_Pt1 << " eta " << eta1 << " phi " << phi1 << " mass " << mass1 << " energy " << energy1
-<< " px " << LHEhepeup_.PUP.at (iPart) [0] << " py " << LHEhepeup_.PUP.at (iPart) [1] << " pz " << LHEhepeup_.PUP.at (iPart) [2]
-<< std::endl;
-*/
   if (type == 11 || type == 13 || type == 15) {
       float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
                                LHEhepeup_.PUP.at (iPart) [1] * LHEhepeup_.PUP.at (iPart) [1]); // py
@@ -3792,7 +4403,7 @@ const float reco::SkimEvent::leadingGenJetPartonPt(size_t index) const {
 
   // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
-  int type = abs( genParticles_[gp] -> pdgId() );
+  int type   = abs( genParticles_[gp] -> pdgId() );
   int status = genParticles_[gp] -> status();
 
    // Stop {1000006}
@@ -4131,3 +4742,4 @@ const int reco::SkimEvent::numberOftQuarks() const {
  }
  return numt;
 }
+

@@ -15,20 +15,22 @@
 class PileUpMultiplicityCounter : public edm::EDProducer {
     public:
         explicit PileUpMultiplicityCounter(const edm::ParameterSet&);
+        virtual void produce(edm::Event&, const edm::EventSetup&);
         ~PileUpMultiplicityCounter();
 
     private:
-        virtual void produce(edm::Event&, const edm::EventSetup&);
         edm::InputTag puTag_;
         edm::InputTag src_;
         edm::EDGetTokenT<std::vector<PileupSummaryInfo> > puSummaryT_ ;
         edm::EDGetTokenT<edm::View<reco::Candidate> > recoCandidateT_ ;
 };
 
-PileUpMultiplicityCounter::PileUpMultiplicityCounter(const edm::ParameterSet& iConfig) :
-    puTag_(iConfig.getParameter<edm::InputTag>("puLabel")),
-    src_  (iConfig.getParameter<edm::InputTag>("src"))
-{
+PileUpMultiplicityCounter::PileUpMultiplicityCounter(const edm::ParameterSet& iConfig){
+  
+  if(iConfig.exists("puLabel")) puTag_ = iConfig.getParameter<edm::InputTag>("puLabel");
+  else throw cms::Exception("puLabel missing tag ");
+  if(iConfig.exists("src"))     src_ = iConfig.getParameter<edm::InputTag>("src");
+  else throw cms::Exception("src missing tag ");
 
   puSummaryT_     = consumes<std::vector<PileupSummaryInfo> >(puTag_);
   recoCandidateT_ = consumes<edm::View<reco::Candidate> >(src_);  
@@ -44,16 +46,18 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
 
  edm::Handle<std::vector<PileupSummaryInfo> > puInfoH;
  iEvent.getByToken(puSummaryT_,puInfoH);
+ if(!puInfoH.isValid()) throw cms::Exception("bad puInfoH");
 
  edm::Handle<edm::View<reco::Candidate> > srcH;
  iEvent.getByToken(recoCandidateT_,srcH);
+ if(!puInfoH.isValid()) throw cms::Exception("bad recoCandidate inputs");
 
  std::auto_ptr<float> tr(new float(0));
  std::auto_ptr<float> it(new float(0));
  std::auto_ptr<float> m1(new float(0));
  std::auto_ptr<float> p1(new float(0));
 
- for(size_t i=0;i<puInfoH->size();++i) {
+ for(size_t i=0;i < puInfoH->size();++i) {
   if( puInfoH->at(i).getBunchCrossing()==0 ) *tr = puInfoH->at(i).getTrueNumInteractions();
   if( puInfoH->at(i).getBunchCrossing()==0 ) *it = puInfoH->at(i).getPU_NumInteractions();
   if( puInfoH->at(i).getBunchCrossing()==-1) *m1 = puInfoH->at(i).getPU_NumInteractions();

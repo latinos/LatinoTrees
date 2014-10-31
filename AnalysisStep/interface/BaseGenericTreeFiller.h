@@ -12,12 +12,12 @@
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 #include "DataFormats/BeamSpot/interface/BeamSpot.h"
-#include "DataFormats/METReco/interface/MET.h"
-#include "DataFormats/METReco/interface/METCollection.h"
-#include "DataFormats/METReco/interface/CaloMET.h"
-#include "DataFormats/METReco/interface/CaloMETCollection.h"
 #include "DataFormats/METReco/interface/PFMET.h"
 #include "DataFormats/METReco/interface/PFMETCollection.h"
+#include "DataFormats/PatCandidates/interface/MET.h"
+#include "DataFormats/METReco/interface/PFMET.h"
+#include "DataFormats/METReco/interface/METCollection.h"
+
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/ConsumesCollector.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
@@ -35,26 +35,32 @@ namespace tnp {
 /// A variable for the probe: can be a string expression or an external ValueMap<float>
 class ProbeVariable {
     public:
+
         /// Create a ProbeVariable to be evaluated on the fly from a string expression
-        ProbeVariable(const std::string &name, const std::string &expression) :
-            name_(name), external_(false), function_(expression) {}
+        ProbeVariable(const std::string & name, const std::string & expression):
+          function_(expression){
+          name_     = name;
+          external_ = false ;
+	}
 
         /// Create a ProbeVariable to be read from a ValueMap
-        ProbeVariable(const std::string &name, const edm::EDGetTokenT<edm::ValueMap<float> > &srcToken) :
-            name_(name), external_(true), function_("-1"), srcToken_(srcToken) {}
+        ProbeVariable(const std::string & name, const edm::EDGetTokenT<edm::ValueMap<float> > & srcToken):
+          function_("-1"){
+          name_ = name;
+          external_ = true;
+          srcToken_ = srcToken;
+	}
 
         /// Destructor (does nothing)
         ~ProbeVariable() ;
 
-        /// Addess for ROOT Branch
-        float * address() const { return &value_; }
-        math::XYZTLorentzVector * address4D() const { return &value4D_; }
-        
-        std::vector<float> * address_std_vector() const { return &std_vector_value_; }
-        
+        /// Addess for ROOT Branch for value, lorentz and vectors
+        float* address() const { return &value_; }
+        math::XYZTLorentzVector* address4D() const { return &value4D_; }       
+        std::vector<float> * address_std_vector() const { return &std_vector_value_; }        
+
         /// name
         const std::string & name() const { return name_; }
-
         /// name
         const float & internal_value() const { return value_; }
         
@@ -64,7 +70,7 @@ class ProbeVariable {
         }
 
         /// To be called for each item
-        void fill(const reco::CandidateBaseRef &probe) const {
+        void fill(const reco::CandidateBaseRef & probe) const {
             value_ = external_ ? (*handle_)[probe] : function_(*probe);
         }
 
@@ -78,7 +84,7 @@ class ProbeVariable {
         
         void fillStdVector(float x, int iPosition) const {
          if (iPosition >= (int) std_vector_value_.size()) {
-          for (int i = (int) std_vector_value_.size(); iPosition>=i; i++) {
+          for (int i = (int) std_vector_value_.size(); iPosition >= i; i++) {
            std_vector_value_.push_back(-9999.0);
           }
          }
@@ -89,29 +95,22 @@ class ProbeVariable {
         
     private:
         /// the name of the variable, which becomes the ROOT branch name
-        std::string name_;
-        
-        /// the place where we store the value, and that ROOT uses to fill the tree
+        std::string name_;        
+        /// the place where we store the value, and that ROOT uses to fill the tree --> branch value to fill
         mutable float value_;
         
-        mutable math::XYZTLorentzVector value4D_;
+        mutable math::XYZTLorentzVector value4D_; // lorentz vector to fill
         mutable float value4D_x_;
         mutable float value4D_y_;
         mutable float value4D_z_;
         mutable float value4D_t_;
 
-        mutable std::vector<float> std_vector_value_;
-
+        mutable std::vector<float> std_vector_value_; // standard vector
         
         /// true if it's an external ValueMap, false if it's a StringParser function
         bool external_;
-        // ---- this below is used if 'external_' is false
-        /// a lazy-parsed StringObjectFunction<reco::Candidate> that gets all the methods of daughter classes too
-        StringObjectFunction<reco::Candidate,true> function_;
-        // In releases older than 3.4.X, it can be parially emulated by PATStringObjectFunction (PhysicsTools/PatUtils/interface/StringParserTools.h)
-        // Or you can use StringObjectFunction<reco::Candidate> and get only reco::Candidate methods
 
-        // ---- this below is used if 'external_' is true
+        StringObjectFunction<reco::Candidate,true> function_;
         /// the external valuemap
         edm::EDGetTokenT<edm::ValueMap<float> > srcToken_;
         /// the handle to keep the ValueMap
@@ -121,12 +120,19 @@ class ProbeVariable {
 class ProbeFlag {
     public:
         /// Create a ProbeFlag to be evaluated on the fly from a string cut
-        ProbeFlag(const std::string &name, const std::string &cut) :
-            name_(name), external_(false), cut_(cut) {}
+        ProbeFlag(const std::string & name, const std::string & cut):
+        cut_(cut){
+	  name_ = name;
+          external_ = false;
+	}
 
         /// Create a ProbeFlag to be read from a ValueMap
-        ProbeFlag(const std::string &name, const edm::EDGetTokenT<edm::View<reco::Candidate> > &srcToken) :
-            name_(name), external_(true), cut_(""), srcToken_(srcToken) {}
+        ProbeFlag(const std::string &name, const edm::EDGetTokenT<edm::View<reco::Candidate> > &srcToken):
+        cut_(""){
+	  name_ = name;
+          external_ = true;
+          srcToken_ = srcToken;
+	}
 
         /// Destructor (does nothing)
         ~ProbeFlag() ;
@@ -141,67 +147,59 @@ class ProbeFlag {
         void init(const edm::Event &iEvent) const ;
 
         /// To be called for each item
-        void fill(const reco::CandidateBaseRef &probe) const ;
+        void fill(const reco::CandidateBaseRef & probe) const ;
 
     private:
         /// the name of the variable, which becomes the ROOT branch name
         std::string name_;
         /// the place where we store the value, and that ROOT uses to fill the tree
         mutable int32_t value_;
-
         /// true if it's an external Candidate View, false if it's a StringParser cut
         bool external_;
-        // ---- this below is used if 'external_' is false
-        /// implementation of the cut using a string selector
-        StringCutObjectSelector<reco::Candidate,true> cut_;
 
-        // ---- this below is used if 'external_' is true
-        /// the external collection
+        StringCutObjectSelector<reco::Candidate,true> cut_;
         edm::EDGetTokenT<edm::View<reco::Candidate> > srcToken_;
-        /// the handle to keep the refs to the passing probes
         mutable std::vector<reco::CandidateBaseRef> passingProbes_;
 };
 
 
 // This class inherits from boost::noncopyable, as copying it would break the addresses in the TTree
 class BaseGenericTreeFiller : boost::noncopyable {
+
     public:
-        /// specify the name of the TTree, and the configuration for it
-        BaseGenericTreeFiller(const char *name, const edm::ParameterSet& config, edm::ConsumesCollector && iC) : BaseGenericTreeFiller(name, config, iC) {};
-        BaseGenericTreeFiller(const char *name, const edm::ParameterSet& config, edm::ConsumesCollector & iC);
 
-        /// Add branches to an existing TTree managed by another BaseGenericTreeFiller
-        BaseGenericTreeFiller(BaseGenericTreeFiller &main, const edm::ParameterSet &iConfig, edm::ConsumesCollector && iC, const std::string &branchNamePrefix);
+     /// specify the name of the TTree, and the configuration for it
+     BaseGenericTreeFiller(const std::string & TreeName, const edm::ParameterSet & config, edm::ConsumesCollector && iC): BaseGenericTreeFiller( TreeName, config, iC) {};
+     BaseGenericTreeFiller(const std::string & TreeName, const edm::ParameterSet& config, edm::ConsumesCollector & iC);
+     /// Add branches to an existing TTree managed by another BaseGenericTreeFiller
+     BaseGenericTreeFiller(BaseGenericTreeFiller & main, const edm::ParameterSet & iConfig, edm::ConsumesCollector && iC, const std::string & branchNamePrefix);
 
-        /// Destructor, does nothing but it's out-of-line as we have complex data members
-        ~BaseGenericTreeFiller();
+     /// Destructor, does nothing but it's out-of-line as we have complex data members
+     ~BaseGenericTreeFiller();
 
-        //implementation notice: we declare 'const' the methods which don't change the configuration
-        //                       and that can't mess up the addresses in the TTree.
+     /// To be called once per event, to load possible external variables
+     void init(const edm::Event &iEvent) const ;
 
-        /// To be called once per event, to load possible external variables
-        void init(const edm::Event &iEvent) const ;
+     /// To be called once per probe, to fill the values for this probe
+     void fill(const reco::CandidateBaseRef &probe) const ;
 
-        /// To be called once per probe, to fill the values for this probe
-        void fill(const reco::CandidateBaseRef &probe) const ;
+     /// Write a string dump of this PSet into the TTree header.
+     // see macro in test directory for how to retrieve it from the output root file
+     void writeProvenance(const edm::ParameterSet &pset) const ;
 
-        /// Write a string dump of this PSet into the TTree header.
-        /// see macro in test directory for how to retrieve it from the output root file
-        void writeProvenance(const edm::ParameterSet &pset) const ;
     protected:
 
         std::vector<ProbeVariable> vars_;
         std::vector<ProbeFlag>     flags_;
-
         /// How event weights are defined: 'None' = no weights, 'Fixed' = one value specified in cfg file, 'External' = read weight from the event (as double)
         enum WeightMode { None, Fixed, External };
         WeightMode weightMode_;
-        edm::EDGetTokenT<double> weightSrcToken_;
-        edm::EDGetTokenT<reco::VertexCollection> recVtxsToken_;
-        edm::EDGetTokenT<reco::BeamSpot> beamSpotToken_;
-        edm::EDGetTokenT<reco::CaloMETCollection> metToken_;
-        edm::EDGetTokenT<reco::METCollection> tcmetToken_;
-        edm::EDGetTokenT<reco::PFMETCollection> pfmetToken_;
+        edm::EDGetTokenT<double>                  weightSrcToken_;
+        edm::EDGetTokenT<reco::VertexCollection>  recVtxsToken_;
+        edm::EDGetTokenT<reco::BeamSpot>          beamSpotToken_;
+        edm::EDGetTokenT<reco::METCollection>     tcmetToken_;
+        edm::EDGetTokenT<pat::METCollection>      pfMetToken_;
+        edm::EDGetTokenT<pat::METCollection>      pfPuppiMetToken_;
 
         /// Ignore exceptions when evaluating variables
         bool ignoreExceptions_;
@@ -212,19 +210,15 @@ class BaseGenericTreeFiller : boost::noncopyable {
         /// Add branches with event variables: met, sum ET, .. etc.
         bool addEventVariablesInfo_;
 
-        void addBranches_(TTree *tree, const edm::ParameterSet &iConfig, edm::ConsumesCollector & iC, const std::string &branchNamePrefix="") ;
+        void addBranches_(TTree *tree, const edm::ParameterSet &iConfig, edm::ConsumesCollector & iC, const std::string & branchNamePrefix="") ;
 
         //implementation notice: these two are 'mutable' because we will fill them from a 'const' method
         mutable TTree * tree_;
         mutable float weight_;
         mutable uint32_t run_, lumi_, event_, mNPV_;
-
         mutable float mPVx_,mPVy_,mPVz_,mBSx_,mBSy_,mBSz_;
-
-        mutable float mMET_,mSumET_,mMETSign_,mtcMET_,mtcSumET_,
-          mtcMETSign_,mpfMET_,mpfSumET_,mpfMETSign_;
+        mutable float mtcMET_,mtcSumET_,mtcMETSign_,mpfMET_,mpfSumET_,mpfMETSign_,mPuppiPFMET_,mPuppiPFSumET_,mPuppiPFMETSign_;
 };
-
 
 } //namespace
 

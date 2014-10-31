@@ -8,8 +8,9 @@
 
 class TriggerBitChecker {
  public:
+
   struct pathStruct {
-   pathStruct( const std::string &s ) : pathName(s), first(0),last(99999999) {}
+   pathStruct( const std::string & s ) : pathName(s), first(0), last(99999999) {}
    pathStruct() : pathName(), first(0),last(99999999) {}
    std::string pathName;
    unsigned int first;
@@ -25,7 +26,6 @@ class TriggerBitChecker {
  private:
   // list of path name prefixes
   std::vector<pathStruct> paths_;
-
   mutable unsigned int lastRun_;
   mutable std::vector<unsigned int> indices_;
 
