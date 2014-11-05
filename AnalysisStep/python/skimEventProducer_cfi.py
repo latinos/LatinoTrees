@@ -9,26 +9,26 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     mcLHEEventInfoTag = cms.InputTag(""),
     mcGenEventInfoTag = cms.InputTag("generator"),
     mcGenWeightTag    = cms.InputTag(""),
-    genParticlesTag   = cms.InputTag("packedGenParticles"),
+    genParticlesTag   = cms.InputTag("genParticles"),
     genMetTag         = cms.InputTag("genMetTrue"),
-    genJetTag         = cms.InputTag("slimmedGenJets"),
+    genJetTag         = cms.InputTag("ak5GenJets"),
 
-    muTag         = cms.InputTag("slimmedMuons"),  
-    softMuTag     = cms.InputTag("slimmedMuons"),  ## required to be softMuons
+    muTag         = cms.InputTag("selectedPatMuons"),  
+    softMuTag     = cms.InputTag("selectedPatMuons"),  ## required to be softMuons
 
-    elTag         = cms.InputTag("slimmedElectrons"),  ## electrons from miniAOD
+    elTag         = cms.InputTag("selectedPatElectrons"),  ## electrons from miniAOD
 
-    jetTag         = cms.InputTag("slimmedJets"), 
+    jetTag         = cms.InputTag("selectedPatJets"), 
     jetPuppiTag    = cms.InputTag(""), ## fixed by addEventHypothesis
-    tagJetTag      = cms.InputTag("slimmedJets"), 
+    tagJetTag      = cms.InputTag("selectedPatJets"), 
     tagJetPuppiTag = cms.InputTag(""), ## fixed by addEventHypothesis
 
-    fatJetTag     = cms.InputTag("slimmedJetsAK8"), 
-    pfMetTag      = cms.InputTag("slimmedMETs"), 
+    fatJetTag     = cms.InputTag(""), 
+    pfMetTag      = cms.InputTag("patMETs"), 
     pfPuppiMetTag = cms.InputTag(""), ## fixed by addEventHypothesis
 
-    vtxTag     = cms.InputTag("offlineSlimmedPrimaryVertices"), 
-    pfCandsTag = cms.InputTag("packedPFCandidates"), 
+    vtxTag     = cms.InputTag("offlinePrimaryVertices"), 
+    pfCandsTag = cms.InputTag("particleFlow"), 
 
     sptTag  = cms.InputTag("vertexMapProd","sumPt"),
     spt2Tag = cms.InputTag("vertexMapProd","sumPt2"),
@@ -106,12 +106,12 @@ def addEventHypothesis(process,skimEventProducer,label,thisMuTag,thisEleTag,this
     )
 
     #create the only hypothesis (>= 1 lepton):
-    setattr(process,'ww'+label,skimEventProducer.clone(muTag = thisMuTag, 
-                                                       elTag = thisEleTag, 
-                                                       softMuTag = thisSoftMuTag,
-                                                       jetPuppiTag = puppiJets, 
+    setattr(process,'ww'+label,skimEventProducer.clone(muTag          = thisMuTag, 
+                                                       elTag          = thisEleTag, 
+                                                       softMuTag      = thisSoftMuTag,
+                                                       jetPuppiTag    = puppiJets, 
                                                        tagJetPuppiTag = puppiJets, 
-                                                       pfPuppiMetTag = puppiMET))
+                                                       pfPuppiMetTag  = puppiMET))
 
     #create SkimEventSelectors (asking for nLep >=2)
     setattr(process,'skim'+label,tempSkimEventFilter.clone(src='ww'+label))

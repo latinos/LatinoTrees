@@ -15,39 +15,14 @@ def makePuppiAlgo(process):
  process.puppi.candName = cms.untracked.string('particleFlow')
  process.puppi.vertexName = cms.untracked.string('offlinePrimaryVertices')
 
- process.particleFlowPuppiPtrs = process.particleFlowPtrs.clone(src = cms.InputTag("puppi","Puppi"))
-
- process.pfPuppiPileUp         = process.pfPileUp.clone( PFCandidates = cms.InputTag("particleFlowPuppiPtrs"))
-
- process.pfPuppiPileUpJME      = process.pfPileUpJME.clone( PFCandidates = cms.InputTag("particleFlowPuppiPtrs"))
-
- process.pfPuppiNoPileUp       = process.pfNoPileUp.clone( bottomCollection = cms.InputTag("particleFlowPuppiPtrs"),
-                                                           topCollection = cms.InputTag("pfPuppiPileUp"))
-
- process.pfPuppiNoPileUpJME    = process.pfNoPileUpJME.clone( bottomCollection = cms.InputTag("particleFlowPuppiPtrs"),
-                                                              topCollection = cms.InputTag("pfPuppiPileUp"))
-
-
- ## packed puppi candidates 
- process.packedPFCandidatesPuppi = process.packedPFCandidates.clone(inputCollection = cms.InputTag("puppi","Puppi"),
-                                                                    inputCollectionFromPVTight = cms.InputTag("pfPuppiNoPileUp"),
-                                                                    inputCollectionFromPVLoose = cms.InputTag("pfPuppiNoPileUpJME"))
-
  ## puppi met
  process.pfMetPuppi = pfMet.clone( src = cms.InputTag('puppi','Puppi'),
                                    calculateSignificance = False)          
 
  process.patMetPuppi = process.patMETs.clone( metSource = cms.InputTag("pfMetPuppi"))
-
  
  ## final sequence
  process.puppiSequence = cms.Sequence(process.puppi*
-                                      process.particleFlowPuppiPtrs*
-                                      process.pfPuppiPileUp*
-                                      process.pfPuppiNoPileUp*
-                                      process.pfPuppiPileUpJME*
-                                      process.pfPuppiNoPileUpJME*
-                                      process.packedPFCandidatesPuppi*
                                       process.pfMetPuppi*
                                       process.patMetPuppi)                                                                 
 
@@ -97,8 +72,6 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
          process.combinedSecondaryVertexBJetTags.clone(tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"), cms.InputTag("AK"+jetRPrefix+"secondaryVertexTagInfoPuppi"))))
  setattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexMVABPuppiJetTags",
          process.combinedSecondaryVertexMVABJetTags.clone( tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"), cms.InputTag("AK"+jetRPrefix+"secondaryVertexTagInfoPuppi"))))
- setattr(process,"AK"+jetRPrefix+"combinedInclusiveSecondaryVertexBPuppiJetTags",
-         process.combinedInclusiveSecondaryVertexBJetTags.clone( tagInfos = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"impactParameterTagInfosPuppi"), cms.InputTag("AK"+jetRPrefix+"inclusiveSecondaryVertexFinderTagInfosPuppi"))))
  
  ## soft leptons
  setattr(process,"AK"+jetRPrefix+"ghostTrackVertexTagInfosPuppi",
@@ -127,7 +100,6 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
                                                                 getattr(process,"AK"+jetRPrefix+"simpleSecondaryVertexHighPurBPuppiJetTags")*
                                                                 getattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexBPuppiJetTags")*
                                                                 getattr(process,"AK"+jetRPrefix+"combinedSecondaryVertexMVABPuppiJetTags")*
-                                                                getattr(process,"AK"+jetRPrefix+"combinedInclusiveSecondaryVertexBPuppiJetTags")*
                                                                 getattr(process,"AK"+jetRPrefix+"ghostTrackVertexTagInfosPuppi")*
                                                                 getattr(process,"AK"+jetRPrefix+"ghostTrackBJetTagsPuppi")*
                                                                 getattr(process,"AK"+jetRPrefix+"softPFMuonsTagInfosPuppi")*
@@ -182,36 +154,27 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
                                      cms.InputTag("AK"+jetRPrefix+"simpleSecondaryVertexHighEffBPuppiJetTags"),
                                      cms.InputTag("AK"+jetRPrefix+"simpleSecondaryVertexHighPurBPuppiJetTags"), 
                                      cms.InputTag("AK"+jetRPrefix+"combinedSecondaryVertexBPuppiJetTags"), 
-                                     cms.InputTag("AK"+jetRPrefix+"combinedSecondaryVertexMVABPuppiJetTags"),
-                                     cms.InputTag("AK"+jetRPrefix+"combinedInclusiveSecondaryVertexBPuppiJetTags")),
+                                     cms.InputTag("AK"+jetRPrefix+"combinedSecondaryVertexMVABPuppiJetTags")),
                                   userData = cms.PSet(
                                        userCands  = cms.PSet( src = cms.VInputTag("")),
                                        userInts   = cms.PSet( src = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"pileupJetIdPuppi","fullId"))),
                                        userFloats = cms.PSet( src = cms.VInputTag(cms.InputTag("AK"+jetRPrefix+"pileupJetIdPuppi","fullDiscriminant"))),
                                        userClasses = cms.PSet( src = cms.VInputTag("")),
-                                       userFunctionLabels = cms.vstring('vtxMass','vtxNtracks','vtx3DVal','vtx3DSig'),
-                                       userFunctions = cms.vstring('?(tagInfoSecondaryVertex().nVertices()>0)?(tagInfoSecondaryVertex().secondaryVertex(0).p4.M):(0)',
-                                                                   '?(tagInfoSecondaryVertex().nVertices()>0)?(tagInfoSecondaryVertex().secondaryVertex(0).nTracks):(0)',
-                                                                   '?(tagInfoSecondaryVertex().nVertices()>0)?(tagInfoSecondaryVertex().flightDistance(0).value):(0)',
-                                                                   '?(tagInfoSecondaryVertex().nVertices()>0)?(tagInfoSecondaryVertex().flightDistance(0).significance):(0)')
+                                       userFunctionLabels = cms.vstring(),
+                                       userFunctions = cms.vstring()
                                        ),)
  )
 
  
  ## make selected puppi jets
  setattr(process,"AK"+jetRPrefix+"selectedPatJetsPuppi", process.selectedPatJets.clone(src = cms.InputTag("AK"+jetRPrefix+"patJetsPuppi")))
- 
- ## make slimmed puppi jets
- setattr(process, "AK"+jetRPrefix+"slimmedJetsPuppi", process.slimmedJets.clone( src = cms.InputTag("AK"+jetRPrefix+"selectedPatJetsPuppi"),
-                                                                                 packedPFCandidates = cms.InputTag("packedPFCandidatesPuppi")))
- 
+  
  setattr(process,"AK"+jetRPrefix+"makePatJetsPuppi", cms.Sequence( getattr(process,"AK"+jetRPrefix+"PFJetsPuppi")*
                                                                    getattr(process,"AK"+jetRPrefix+"btaggingPuppi")*
                                                                    getattr(process,"AK"+jetRPrefix+"patPuppiFlavour")*
                                                                    getattr(process,"AK"+jetRPrefix+"pileupJetIdPuppi")*
                                                                    getattr(process,"AK"+jetRPrefix+"patJetsPuppi")*
-                                                                   getattr(process,"AK"+jetRPrefix+"selectedPatJetsPuppi")*
-                                                                   getattr(process,"AK"+jetRPrefix+"slimmedJetsPuppi"))
+                                                                   getattr(process,"AK"+jetRPrefix+"selectedPatJetsPuppi"))
  )
  
                                
