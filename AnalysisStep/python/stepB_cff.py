@@ -775,6 +775,12 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "jetGenpt3" , cms.string("leadingGenJetPt(2)")),
         setattr(pt.variables, "jetGenphi3" , cms.string("leadingGenJetPhi(2)")),
         setattr(pt.variables, "jetGeneta3" , cms.string("leadingGenJetEta(2)")),
+        setattr(pt.variables, "jetGenpt4" , cms.string("leadingGenJetPt(3)")),
+        setattr(pt.variables, "jetGenphi4" , cms.string("leadingGenJetPhi(3)")),
+        setattr(pt.variables, "jetGeneta4" , cms.string("leadingGenJetEta(3)")),
+        setattr(pt.variables, "jetGenpt5" , cms.string("leadingGenJetPt(4)")),
+        setattr(pt.variables, "jetGenphi5" , cms.string("leadingGenJetPhi(4)")),
+        setattr(pt.variables, "jetGeneta5" , cms.string("leadingGenJetEta(4)")),
 
 
     else:
