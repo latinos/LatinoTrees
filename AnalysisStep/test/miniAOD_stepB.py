@@ -18,7 +18,7 @@ options.register ('scale',0,opts.VarParsing.multiplicity.singleton,opts.VarParsi
 options.register ('acceptDuplicates',False,opts.VarParsing.multiplicity.singleton,opts.VarParsing.varType.bool,
                   'accept duplicates. Suggested true for private production (can be \'True\' or \'False\'')
 options.register ('globalTag','POSTLS162_V4::All',opts.VarParsing.multiplicity.singleton,opts.VarParsing.varType.string,'give the global tag string to be used')
-options.register ('cmsGeometry','Extended2023',opts.VarParsing.multiplicity.singleton,opts.VarParsing.varType.string,'give a string related to the upgrade geometry to consider')
+options.register ('cmsGeometry','Extended2019',opts.VarParsing.multiplicity.singleton,opts.VarParsing.varType.string,'give a string related to the upgrade geometry to consider')
 
 ## kind of selection
 options.register ('selection','TightTight',opts.VarParsing.multiplicity.singleton,opts.VarParsing.varType.string,'Selection level [TightTight,LooseLoose]')
@@ -72,7 +72,7 @@ process = cms.Process('PAT')
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff') 
-process.load('Configuration.StandardSequences.MagneticField_38T_cff')
+process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
@@ -102,7 +102,9 @@ process.GlobalTag = GlobalTag(process.GlobalTag,options.globalTag,'')
 ## GEOMETRY LOAD ##
 ###################
 
-if options.cmsGeometry == "Extended2023" :
+if options.cmsGeometry == "Extended2019" :
+ process.load('Configuration.Geometry.GeometryExtended2019Reco_cff')
+elif options.cmsGeometry == "Extended2023" :
  process.load('Configuration.Geometry.GeometryExtended2023_cff')
 elif options.cmsGeometry == "Extended2023Pixel" :
  process.load('Configuration.Geometry.GeometryExtended2023Pixel_cff')
