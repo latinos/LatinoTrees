@@ -12,6 +12,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     genParticlesTag   = cms.InputTag(""),
     genMetTag         = cms.InputTag(""),
     genJetTag         = cms.InputTag(""),
+    phoTag = cms.InputTag("slimmedPhotons"), #miniAOD PHOTON
     muTag     = cms.InputTag("slimmedMuons"), # miniAOD
     elTag     = cms.InputTag("slimmedElectrons"), # miniAOD
     softMuTag = cms.InputTag("slimmedMuons"), #miniAOD wwMuons4Veto

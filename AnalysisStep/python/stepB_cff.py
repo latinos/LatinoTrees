@@ -754,3 +754,22 @@ def addExtraPUWeights(process,tree,X,seq):
             seq += getattr(process, newName)
             seq += getattr(process, newName+"OOT")
 
+
+########## PHOTON VARIABLES
+
+def addPhotonVariables(process,pt):
+    if hasattr(pt,"variables"):
+        setattr(pt.variables, "v_photon1" ,    cms.string("photon(0)")),
+        setattr(pt.variables, "v_photon1id" ,    cms.string("photon_id(0)")),
+        setattr(pt.variables, "nPhos" ,    cms.string("nPhos()")),
+        setattr(pt.variables, "Pho_n_id" ,    cms.string("Pho_n_ID()")),
+        setattr(pt.variables, "mllg" ,    cms.string("mllg()")),
+        setattr(pt.variables, "mllgid" ,    cms.string("mllg()")),
+
+        setattr(pt.variables, "pho_sietaieta" , cms.string("Pho_sigmaIetaIeta(0)")),
+        setattr(pt.variables, "pho_HoE" ,           cms.string("Pho_hadronicOverEm(0)")),
+        setattr(pt.variables, "pho_chIso" ,           cms.string("Pho_rhoChargedHadronIso(0)")),
+        setattr(pt.variables, "pho_nhIso" ,           cms.string("Pho_rhoNeutralHadronIso(0)")),
+        setattr(pt.variables, "pho_phIso" ,           cms.string("Pho_rhoPhotonIso(0)")),
+        setattr(pt.variables, "pho_passElecVeto" ,           cms.string("Pho_PassElectronVeto(0)")),
+

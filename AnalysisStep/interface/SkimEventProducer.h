@@ -91,6 +91,7 @@ double neutFrac;
         edm::InputTag sptTag_;
         edm::InputTag spt2Tag_;
         edm::InputTag rhoTag_;
+	edm::InputTag phoTag_; //PHOTON
 
 	edm::EDGetTokenT<reco::GenParticleCollection> genParticlesT_;
 	edm::EDGetTokenT<pat::JetCollection> fatJetHT_ ;
@@ -106,6 +107,7 @@ double neutFrac;
 	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > muonsT_;
 	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > softsT_;
 	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > electronsT_;
+	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > photonsT_; //PHOTON
 	edm::EDGetTokenT<GenEventInfoProduct> GenInfoT_ ;
 	edm::EDGetTokenT<GenFilterInfo> mcGenWeightT_;
 	edm::EDGetTokenT<LHEEventProduct> productLHET_ ;

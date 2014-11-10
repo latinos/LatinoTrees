@@ -152,6 +152,11 @@ options.register ('puInformation',
                   opts.VarParsing.varType.string, # string, int, or float
                   'name of pile-up information collection: it may change for premixing samples in MC, addPileupInfo [default], mixData for premixinf')
 
+options.register ('doPhoton',
+                       False, # default value
+                       opts.VarParsing.multiplicity.singleton, # singleton or list
+                       opts.VarParsing.varType.bool,
+                       'Turn on photon variables (can be \'True\' or \'False\'')
 
 
 #-------------------------------------------------------------------------------
@@ -519,6 +524,9 @@ process.nPU.puLabel = cms.InputTag(options.puInformation)
 if doEleIsoId:
   addEleIdIsoVariables(process,tree)
 
+# PHOTON VARIABLES
+if options.doPhoton:
+  addPhotonVariables(process,tree)
 
 # LHE information dumper
 if doLHE:

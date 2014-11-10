@@ -168,7 +168,9 @@ bool highToLow(const indexValueStruct &a, const indexValueStruct &b) {
 
 reco::SkimEvent::SkimEvent() :
 //         hypo_(-1),
-        sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{ }
+        sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{
+	InitEffectiveAreasPhoton();
+ }
 
 // reco::SkimEvent::SkimEvent(const reco::SkimEvent::hypoType &h) :
 //         hypo_(h), sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{ }
@@ -4131,3 +4133,312 @@ const int reco::SkimEvent::numberOftQuarks() const {
  }
  return numt;
 }
+
+
+//PHOTON ###################################################################
+void reco::SkimEvent::setPhoton(const edm::Handle<edm::View<reco::RecoCandidate> > &h,size_t i){
+  //std::cout << "setting lepton with collection ID: " << h->ptrAt(i).id() << std::endl;
+  phos_.push_back( h->ptrAt(i) );
+}
+const pat::Photon * reco::SkimEvent::getPhoton(size_t i) const {
+  return getPhoton(phos_[i]);
+}
+const pat::Photon * reco::SkimEvent::getPhoton(const refToCand &c) const {
+  return static_cast<const pat::Photon*>(c.get());
+}
+const math::XYZTLorentzVector reco::SkimEvent::photon(size_t i) const {
+//  std::cout << " reco::SkimEvent::lepton :: accessing i = " << i << std::endl;
+ if(indexByPtPho (i) >= phos_.size()) return math::XYZTLorentzVector(0,0,0,0);
+ return phos_[indexByPtPho (i)]->p4();
+}
+const size_t reco::SkimEvent::indexByPtPho(size_t i) const {
+
+    if( i >= phos_.size() ) return 9999; //--> big number then it will fail other tests later! good!
+    std::vector<indexValueStruct> a;
+
+    for(size_t j=0;j<phos_.size();++j) a.push_back(indexValueStruct(pt(j),j));
+    std::sort(a.begin(),a.end(),highToLow);
+
+    return a[i].index;
+}
+const int reco::SkimEvent::nPhos() const{
+	return (const int) phos_.size();
+}
+
+const float reco::SkimEvent::mllg() const{
+	if( phos_.size() < 1 || leps_.size() < 2 ) return 0;
+	else{
+	  math::XYZTLorentzVector pho = phos_[indexByPtPho (0)]->p4();
+	  math::XYZTLorentzVector lep1 = leps_[indexByPt (0)]->p4();
+	  math::XYZTLorentzVector lep2 = leps_[indexByPt (1)]->p4();
+	  math::XYZTLorentzVector HCand = pho + lep1 + lep2;
+	  return HCand.M();
+	}
+}
+
+const float reco::SkimEvent::mllgid(int WP) const{
+	if( Pho_n_ID(WP) < 1 || leps_.size() < 2 ) return 0;
+	else{
+	  math::XYZTLorentzVector pho = photon_id(0, WP);
+	  math::XYZTLorentzVector lep1 = leps_[indexByPt (0)]->p4();
+	  math::XYZTLorentzVector lep2 = leps_[indexByPt (1)]->p4();
+	  math::XYZTLorentzVector HCand = pho + lep1 + lep2;
+	  return HCand.M();
+	}
+}
+
+//Photon ID variables
+
+const float reco::SkimEvent::Pho_sigmaIetaIeta(size_t i) const {
+ if(i >= phos_.size()) return -9999.0;
+ return getPhoton(i)->sigmaIetaIeta();
+ //return -999.0;
+}
+
+const float reco::SkimEvent::Pho_hadronicOverEm(size_t i) const {
+ if(i >= phos_.size()) return -9999.0;
+ return getPhoton(i)->hadronicOverEm();
+ //else return -999.0;
+}
+
+const float reco::SkimEvent::Pho_ChargedHadronIso(size_t i) const {
+ if(i >= phos_.size()) return -9999.0;
+ return getPhoton(i)->chargedHadronIso();
+ //else return -999.0;
+}
+
+const float reco::SkimEvent::Pho_NeutralHadronIso(size_t i) const {
+ if(i >= phos_.size()) return -9999.0;
+ return getPhoton(i)->neutralHadronIso();
+ //else return -999.0;
+}
+
+const float reco::SkimEvent::Pho_PhotonIso(size_t i) const {
+ if(i >= phos_.size()) return -9999.0;
+ return getPhoton(i)->photonIso();
+ //else return -999.0;
+}
+
+const int reco::SkimEvent::Pho_PassElectronVeto(size_t i) const {
+ if(i >= phos_.size()) return -9999.0;
+ return getPhoton(i)->passElectronVeto();
+ //else return -999.0;
+}
+
+double reco::SkimEvent::ChoosePhotonEffectiveArea(int type, double phoEta) const {
+  if(type > 2) {
+	std::cout << "You chose the wrong type. Types are 0 (charged), 1 (neutral) and 2 (photon)" << std::endl;
+	return -1;
+  }
+  if( fabs(phoEta) < 1.0 ) return eaPhotonIso_[0][type];
+  else if( fabs(phoEta) > 1.000 && fabs(phoEta) < 1.479 ) return eaPhotonIso_[1][type];
+  else if( fabs(phoEta) > 1.479 && fabs(phoEta) < 2.000 ) return eaPhotonIso_[2][type];
+  else if( fabs(phoEta) > 2.000 && fabs(phoEta) < 2.200 ) return eaPhotonIso_[3][type];
+  else if( fabs(phoEta) > 2.200 && fabs(phoEta) < 2.300 ) return eaPhotonIso_[4][type];
+  else if( fabs(phoEta) > 2.300 && fabs(phoEta) < 2.400 ) return eaPhotonIso_[5][type];
+  else if( fabs(phoEta) > 2.400 ) return eaPhotonIso_[5][type];
+  std::cout << "Something weird has happened and I couldn't find the correct rho for you... :(" << std::endl;
+  return -1;
+  
+}
+
+void reco::SkimEvent::InitEffectiveAreasPhoton(){
+//double eaPhotonIso_[eta range][0: charged, 1: neutral, 2: photon] 
+//
+//abs(eta) < 1.0
+  eaPhotonIso_[0][0] = 0.0080; //ch
+  eaPhotonIso_[0][1] = 0.0126; //nh
+  eaPhotonIso_[0][2] = 0.0982; //ph
+  
+//1.0 < abs(eta) < 1.479
+  eaPhotonIso_[1][0] = 0.0079; //ch
+  eaPhotonIso_[1][1] = 0.0237; //nh
+  eaPhotonIso_[1][2] = 0.0857; //ph
+
+//1.479 < abs(eta) < 2.0
+  eaPhotonIso_[2][0] = 0.0080; //ch
+  eaPhotonIso_[2][1] = 0.0000; //nh
+  eaPhotonIso_[2][2] = 0.0484; //ph
+
+//2.0 < abs(eta) < 2.2
+  eaPhotonIso_[3][0] = 0.0048; //ch
+  eaPhotonIso_[3][1] = 0.0000; //nh
+  eaPhotonIso_[3][2] = 0.0668; //ph
+
+//2.2 < abs(eta) < 2.3
+  eaPhotonIso_[4][0] = 0.0029; //ch
+  eaPhotonIso_[4][1] = 0.0000; //nh
+  eaPhotonIso_[4][2] = 0.0868; //ph
+
+//2.3 < abs(eta) < 2.4
+  eaPhotonIso_[5][0] = 0.0036; //ch
+  eaPhotonIso_[5][1] = 0.0000; //nh
+  eaPhotonIso_[5][2] = 0.0982; //ph
+
+//2.4 < abs(eta)
+  eaPhotonIso_[6][0] = 0.0016; //ch
+  eaPhotonIso_[6][1] = 0.0769; //nh
+  eaPhotonIso_[6][2] = 0.1337; //ph
+
+} 
+
+const float reco::SkimEvent::Pho_rhoChargedHadronIso(size_t i) const {
+ if(i >= phos_.size()) return -9999.0;
+ math::XYZTLorentzVector pho = phos_[indexByPtPho (i)]->p4();
+ double thisEA = ChoosePhotonEffectiveArea(0, pho.Eta());
+ double thisRho = getJetRhoIso(); 
+ double ch = std::max(getPhoton(i)->chargedHadronIso() - thisRho*thisEA, 0.);
+ return ch;
+ //else return -999.0;
+}
+
+const float reco::SkimEvent::Pho_rhoNeutralHadronIso(size_t i) const {
+ if(i >= phos_.size()) return -9999.0;
+ math::XYZTLorentzVector pho = phos_[indexByPtPho (i)]->p4();
+ double thisEA = ChoosePhotonEffectiveArea(1, pho.Eta());
+ double thisRho = getJetRhoIso(); 
+ double nh = std::max(getPhoton(i)->neutralHadronIso() - thisRho*thisEA, 0.);
+ return nh;
+ //else return -999.0;
+}
+
+const float reco::SkimEvent::Pho_rhoPhotonIso(size_t i) const {
+ if(i >= phos_.size()) return -9999.0;
+ math::XYZTLorentzVector pho = phos_[indexByPtPho (i)]->p4();
+ double thisEA = ChoosePhotonEffectiveArea(2, pho.Eta());
+ double thisRho = getJetRhoIso(); 
+ double ph = std::max(getPhoton(i)->photonIso()- thisRho*thisEA, 0.);
+ return ph;
+ //else return -999.0;
+}
+
+
+void reco::SkimEvent::InitIDPhoton(){
+
+//Loose
+////Barrel
+/*hoe_cut*/		PhotonIDparams_[0][0][0] = 0.553;
+/*sietaieta_cut*/	PhotonIDparams_[0][0][1] = 0.0099;
+/*chiso_cut*/		PhotonIDparams_[0][0][2] = 2.49;
+///*nhiso_cut*/		PhotonIDparams_[0][0][3] = 15.43 + 0.007*pho.Pt();
+///*phiso_cut*/		PhotonIDparams_[0][0][4] = 9.42 + 0.0033*pho.Pt();
+////Endcap
+/*hoe_cut*/		PhotonIDparams_[0][1][0] = 0.062;
+/*sietaieta_cut*/	PhotonIDparams_[0][1][1] = 0.0284;
+/*chiso_cut*/		PhotonIDparams_[0][1][2] = 1.04;
+///*nhiso_cut*/		PhotonIDparams_[0][1][3] = 19.71 + 0.0129*pho.Pt();
+///*phiso_cut*/		PhotonIDparams_[0][1][4] = 11.88 + 0.0108*pho.Pt();
+
+//Medium
+////Barrel
+/*hoe_cut*/		PhotonIDparams_[1][0][0] = 0.058;
+/*sietaieta_cut*/	PhotonIDparams_[1][0][1] = 0.0099;
+/*chiso_cut*/		PhotonIDparams_[1][0][2] = 1.91;
+///*nhiso_cut*/		PhotonIDparams_[1][0][3] = 4.66 + 0.007*pho.Pt();
+///*phiso_cut*/		PhotonIDparams_[1][0][4] = 4.29 + 0.0033*pho.Pt();
+////Endcap
+/*hoe_cut*/		PhotonIDparams_[1][1][0] = 0.020;
+/*sietaieta_cut*/	PhotonIDparams_[1][1][1] = 0.0268;
+/*chiso_cut*/		PhotonIDparams_[1][1][2] = 0.82;
+///*nhiso_cut*/		PhotonIDparams_[1][1][3] = 14.65 + 0.0129*pho.Pt();
+///*phiso_cut*/		PhotonIDparams_[1][1][4] = 4.06 + 0.0108*pho.Pt();
+
+//Tight
+////Barrel
+/*hoe_cut*/		PhotonIDparams_[2][0][0] = 0.019;
+/*sietaieta_cut*/	PhotonIDparams_[2][0][1] = 0.0099;
+/*chiso_cut*/		PhotonIDparams_[2][0][2] = 1.61;
+///*nhiso_cut*/		PhotonIDparams_[2][0][3] = 3.98 + 0.007*pho.Pt();
+///*phiso_cut*/		PhotonIDparams_[2][0][4] = 3.01 + 0.0033*pho.Pt();
+////Endcap
+/*hoe_cut*/		PhotonIDparams_[2][1][0] = 0.016;
+/*sietaieta_cut*/	PhotonIDparams_[2][1][1] = 0.0263;
+/*chiso_cut*/		PhotonIDparams_[2][1][2] = 0.69;
+///*nhiso_cut*/		PhotonIDparams_[2][1][3] = 4.52 + 0.0129*pho.Pt();
+///*phiso_cut*/		PhotonIDparams_[2][1][4] = 3.61 + 0.0108*pho.Pt();
+
+}
+
+
+const math::XYZTLorentzVector reco::SkimEvent::photon_id(size_t i, int WP) const {
+//  std::cout << " reco::SkimEvent::lepton :: accessing i = " << i << std::endl;
+   if(indexByPtPho (i) >= phos_.size()) return math::XYZTLorentzVector(0,0,0,0);
+   if( Pho_n_ID(WP) < 1) return math::XYZTLorentzVector(0,0,0,0);
+
+   for( unsigned int a = 0; a < phos_.size(); a++){
+	if( Pho_IsIdIso(indexByPtPho(a), WP)) return phos_[indexByPtPho(a)]->p4();
+   }
+   return phos_[indexByPtPho (i)]->p4();
+}
+
+const int reco::SkimEvent::Pho_n_ID(int WP) const {
+  if( phos_.size() < 1) return 0;
+  int nphoid = 0;
+  for( unsigned int i = 0; i < phos_.size(); i++){
+    if( Pho_IsIdIso( i, WP) ) nphoid++;
+  }
+  return nphoid;
+}
+
+const bool reco::SkimEvent::Pho_IsIdIso(size_t i, int wp) const { //wp = 0 (loose), 1 (medium), 2 (tight)
+ if(i >= phos_.size()) return -9999.0;
+ math::XYZTLorentzVector pho = phos_[indexByPtPho (i)]->p4();
+ double hoe_cut[2];
+ double sietaieta_cut[2];
+ double chiso_cut[2];
+ double nhiso_cut[2];
+ double phiso_cut[2];
+ switch(wp){
+    case 0:
+	//Barrel
+	hoe_cut[0] = 0.553;
+	sietaieta_cut[0] = 0.0099;
+	chiso_cut[0] = 2.49;
+	nhiso_cut[0] = 15.43 + 0.007*pho.Pt();
+	phiso_cut[0] = 9.42 + 0.0033*pho.Pt();
+	//Endcap
+	hoe_cut[1] = 0.062;
+	sietaieta_cut[1] = 0.0284;
+	chiso_cut[1] = 1.04;
+	nhiso_cut[1] = 19.71 + 0.0129*pho.Pt();
+	phiso_cut[1] = 11.88 + 0.0108*pho.Pt();
+    case 1:
+	//Barrel
+	hoe_cut[0] = 0.058;
+	sietaieta_cut[0] = 0.0099;
+	chiso_cut[0] = 1.91;
+	nhiso_cut[0] = 4.66 + 0.007*pho.Pt();
+	phiso_cut[0] = 4.29 + 0.0033*pho.Pt();
+	//Endcap
+	hoe_cut[1] = 0.020;
+	sietaieta_cut[1] = 0.0268;
+	chiso_cut[1] = 0.82;
+	nhiso_cut[1] = 14.65 + 0.0129*pho.Pt();
+	phiso_cut[1] = 4.06 + 0.0108*pho.Pt();
+    case 2:
+	//Barrel
+	hoe_cut[0] = 0.019;
+	sietaieta_cut[0] = 0.0099;
+	chiso_cut[0] = 1.61;
+	nhiso_cut[0] = 3.98 + 0.007*pho.Pt();
+	phiso_cut[0] = 3.01 + 0.0033*pho.Pt();
+	//Endcap
+	hoe_cut[1] = 0.016;
+	sietaieta_cut[1] = 0.0263;
+	chiso_cut[1] = 0.69;
+	nhiso_cut[1] = 4.52 + 0.0129*pho.Pt();
+	phiso_cut[1] = 3.61 + 0.0108*pho.Pt();
+ }
+
+ int isEndCap = ( fabs(pho.Eta()) > 1.479 ) ? 1 : 0;
+
+ if( Pho_hadronicOverEm(i) > hoe_cut[isEndCap] ) return false;
+ if( Pho_sigmaIetaIeta(i) > sietaieta_cut[isEndCap] ) return false;
+ if( Pho_rhoChargedHadronIso(i) > chiso_cut[isEndCap] ) return false;
+ if( Pho_rhoNeutralHadronIso(i) > nhiso_cut[isEndCap] ) return false;
+ if( Pho_rhoPhotonIso(i) > phiso_cut[isEndCap] ) return false;
+// if( Pho_PassElectronVeto(i) == 0 ) return false;
+
+ return true;
+}
+//END photon -----------

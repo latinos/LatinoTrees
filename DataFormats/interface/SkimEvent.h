@@ -15,6 +15,7 @@
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/Muon.h"
 #include "DataFormats/PatCandidates/interface/Electron.h"
+#include "DataFormats/PatCandidates/interface/Photon.h" //PHOTON
 #include "DataFormats/Math/interface/Point3D.h"
 #include "DataFormats/METReco/interface/MET.h"
 #include "DataFormats/METReco/interface/METFwd.h"
@@ -559,8 +560,34 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float zeppenfeld(size_t a,float pt ,float eta,int applyCorrection, int applyID) const;
 
 
+	//PHOTON ---------------------------
+	    const math::XYZTLorentzVector photon(size_t a) const;
+	    void setPhoton (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
+	    const size_t indexByPtPho(size_t a = 0) const;
+	    const int nPhos() const;
+	    const float mllg() const;
+	    const float mllgid(int WP = 1) const;
+            const pat::Photon * getPhoton(size_t a) const;
+            const pat::Photon * getPhoton(const refToCand&) const;
+// Photon ID Variables
+            const float Pho_sigmaIetaIeta(size_t i) const;
+            const float Pho_hadronicOverEm(size_t i) const;
+	    const float Pho_ChargedHadronIso(size_t i) const;
+	    const float Pho_NeutralHadronIso(size_t i) const;
+	    const float Pho_PhotonIso(size_t i) const;
+	    const int Pho_PassElectronVeto(size_t i) const;
 
+	    void InitEffectiveAreasPhoton();
+	    void InitIDPhoton();
+	    double ChoosePhotonEffectiveArea(int type, double phoEta) const;
+	    const float Pho_rhoChargedHadronIso(size_t i) const;
+	    const float Pho_rhoNeutralHadronIso(size_t i) const;
+	    const float Pho_rhoPhotonIso(size_t i) const;
+	    const int Pho_n_ID(int WP = 1) const;
+            const math::XYZTLorentzVector photon_id(size_t a, int WP = 1) const;
 
+	    const bool Pho_IsIdIso(size_t i, int wp = 1) const;
+	//END PHOTON -------------------------------------------
         private:
             // User float values
             std::vector<std::string> userFloatLabels_;
@@ -624,6 +651,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             bool passesAllEmbed_ ;
 
             //JEC
+
+	    //PHOTON
+	    std::vector<refToCand> phos_;
+	    double eaPhotonIso_[7][3];
+	    double PhotonIDparams_[3][2][5];
 
 
     };

@@ -50,6 +50,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     vtxTag_            = cfg.getParameter<edm::InputTag>("vtxTag" );
     chCandsTag_        = cfg.getParameter<edm::InputTag>("chCandsTag" );
     rhoTag_            = cfg.getParameter<edm::InputTag>("rhoTag" );
+    phoTag_	       = cfg.getParameter<edm::InputTag>("phoTag"); //PHOTON
 
     if (cfg.exists("sptTag" )) 
      sptTag_ = cfg.getParameter<edm::InputTag>("sptTag" );
@@ -77,6 +78,8 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     muonsT_        = consumes<edm::View<reco::RecoCandidate> > (muTag_);
     softsT_        = consumes<edm::View<reco::RecoCandidate> > (softMuTag_);
     electronsT_    = consumes<edm::View<reco::RecoCandidate> > (elTag_);
+    photonsT_      = consumes<edm::View<reco::RecoCandidate> > (phoTag_); //PHOTON
+
     if (!(mcGenEventInfoTag_ == edm::InputTag(""))) GenInfoT_     = consumes<GenEventInfoProduct>(mcGenEventInfoTag_);
     if (!(mcGenWeightTag_    == edm::InputTag(""))) mcGenWeightT_ = consumes<GenFilterInfo>(mcGenWeightTag_); 
     if (!(mcLHEEventInfoTag_ == edm::InputTag(""))) productLHET_  = consumes<LHEEventProduct>(mcLHEEventInfoTag_);
@@ -145,6 +148,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     iEvent.getByToken(softsT_,softs);
     edm::Handle<edm::View<reco::RecoCandidate> > electrons;
     iEvent.getByToken(electronsT_,electrons);
+    edm::Handle<edm::View<reco::RecoCandidate> > photons; //PHOTON
+    iEvent.getByLabel(phoTag_, photons);
 
     edm::Handle<GenFilterInfo> mcGenWeight;
     if (!(mcGenWeightTag_ == edm::InputTag(""))) {
@@ -184,6 +189,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setSoftMuon(softs,k);
     }
 
+    for(size_t k=0; k<photons->size();++k){ //PHOTON
+     skimEvent->back().setPhoton(photons,k);
+    }
 
     // Everything else
     skimEvent->back().setTriggerBits(passBits);
