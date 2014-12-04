@@ -443,6 +443,7 @@ const pat::Electron * reco::SkimEvent::getElectron(const refToCand &c) const {
   return static_cast<const pat::Electron*>(c.get());
 }
 
+
 const float reco::SkimEvent::pt(size_t i) const {
   if(i >= leps_.size()) return -9999.0;
   return leps_[i]->pt();
@@ -2366,6 +2367,7 @@ const double reco::SkimEvent::dZReco(size_t i) const {
   return dzPV;
 }
 
+// In CMSSW_7_2_X there are no more three different hitPatterns stored, but the information is compacted in only one hit pattern and the methods now take a HitCategory argument.
 const bool reco::SkimEvent::passesConversion(size_t i) const {
   if( isElectron(i) ) {
     pat::Electron const * const e = getElectron(i);
@@ -2374,7 +2376,8 @@ fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) {
       return false;
     }
 
-    if( e->gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0 ) {
+//   if( e->gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0 ) {
+    if( e->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS) > 0 ) {    
       return false;
     }
     return true;
@@ -2627,9 +2630,11 @@ const float reco::SkimEvent::hadronicOverEm(size_t i) const {
  else return -999.0;
 }
 
+// In CMSSW_7_2_X there are no more three different hitPatterns stored, but the information is compacted in only one hit pattern and the methods now take a HitCategory argument.
 const float reco::SkimEvent::numberOfHits(size_t i) const {
  if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->gsfTrack()->trackerExpectedHitsInner().numberOfHits();
+// if( isElectron(i) ) return getElectron(i)->gsfTrack()->trackerExpectedHitsInner().numberOfHits();
+ if( isElectron(i) ) return getElectron(i)->gsfTrack()->hitPattern().numberOfTrackerHits(reco::HitPattern::MISSING_INNER_HITS);
  else return -999.0;
 }
 

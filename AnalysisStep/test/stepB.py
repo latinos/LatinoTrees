@@ -114,6 +114,13 @@ options.register ('doGen',
                        opts.VarParsing.varType.bool,
                        'Turn on gen Variables dumper (can be \'True\' or \'False\'')
 
+options.register ('doBTag',
+                       False, # default value
+                       opts.VarParsing.multiplicity.singleton, # singleton or list
+                       opts.VarParsing.varType.bool,
+                       'Turn on bTagging Variables dumper (can be \'True\' or \'False\'')
+
+
 options.register ('doGenVV',
                        False, # default value
                        opts.VarParsing.multiplicity.singleton, # singleton or list
@@ -319,7 +326,7 @@ doTauEmbed = options.doTauEmbed
 SameSign = options.doSameSign
 doNoFilter = options.doNoFilter
 typeLHEcomment = options.typeLHEcomment
-
+doBTag = options.doBTag
 
 id = 0
 json = None
@@ -503,6 +510,10 @@ setattr(process, "Nvtx", process.nverticesModule.clone(probes = cms.InputTag("ww
 seq += getattr(process, "Nvtx")
 tree.variables.nvtx = cms.InputTag("Nvtx")
 if IsoStudy: addIsoStudyVariables(process,tree)
+
+
+# bTagging variables
+if doBTag: addBTaggingVariables(tree, 99999)
 
 process.nPU.puLabel = cms.InputTag(options.puInformation)
 
