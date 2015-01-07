@@ -2367,24 +2367,27 @@ const double reco::SkimEvent::dZReco(size_t i) const {
 }
 
 const bool reco::SkimEvent::passesConversion(size_t i) const {
-  if( isElectron(i) ) {
-    pat::Electron const * const e = getElectron(i);
-    if( fabs(e->userFloat("convValueMapProd:dist")) < 0.02 &&
-fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) {
-      return false;
-    }
-
-    if( e->gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0 ) {
-      return false;
-    }
-    return true;
-  } else if( isMuon(i) ) {
-    return true;
-  } else {
-    return false;
+ if( isElectron(i) ) {
+  pat::Electron const * const e = getElectron(i);
+  if( fabs(e->userFloat("convValueMapProd:dist")) < 0.02 &&
+   fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) {
+   return false;
   }
 
+  //---- formerly:      if( e->gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0 ) {
+  if( e->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS) ) {
+   return false;
+  }
+  return true;
+ } else if( isMuon(i) ) {
+  return true;
+ } else {
+  return false;
+ }
+
 }
+
+
 
 
 
@@ -2611,25 +2614,26 @@ const float reco::SkimEvent::deltaEtaSuperClusterTrackAtVtx(size_t i) const {
 
 const float reco::SkimEvent::deltaPhiSuperClusterTrackAtVtx(size_t i) const {
  if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->deltaPhiSuperClusterTrackAtVtx();
+ else if( isElectron(i) ) return getElectron(i)->deltaPhiSuperClusterTrackAtVtx();
  else return -999.0;
 }
 
 const float reco::SkimEvent::sigmaIetaIeta(size_t i) const {
  if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->sigmaIetaIeta();
+ else if( isElectron(i) ) return getElectron(i)->sigmaIetaIeta();
  else return -999.0;
 }
 
 const float reco::SkimEvent::hadronicOverEm(size_t i) const {
  if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->hadronicOverEm();
+ else if( isElectron(i) ) return getElectron(i)->hadronicOverEm();
  else return -999.0;
 }
 
 const float reco::SkimEvent::numberOfHits(size_t i) const {
  if(i >= leps_.size()) return -9999.0;
- if( isElectron(i) ) return getElectron(i)->gsfTrack()->trackerExpectedHitsInner().numberOfHits();
+ //---- formerly:  else if( isElectron(i) ) return getElectron(i)->gsfTrack()->trackerExpectedHitsInner().numberOfHits();
+ else if( isElectron(i) ) return getElectron(i)->gsfTrack()->hitPattern().numberOfTrackerHits(reco::HitPattern::TRACK_HITS);
  else return -999.0;
 }
 
