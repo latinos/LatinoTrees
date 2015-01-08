@@ -26,3 +26,5 @@ Create final tree
     python cmssw2latino.py   /tmp/amassiro/stepB_latinosYieldSkim_MC_tt_normalmix.root
     python cmssw2latino.py   /tmp/amassiro/stepB_latinosYieldSkim_MC_tt_premix.root
 
+    python cmssw2latino.py   /tmp/amassiro/stepB_latinosYieldSkim_MC_ggHww.root
+

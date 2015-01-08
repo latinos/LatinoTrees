@@ -291,10 +291,11 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         #puBW = cms.InputTag("puWeightB"),  # miniAOD
         #puW = cms.InputTag("puWeight"),  # miniAOD
         puW = cms.string("1"),
-        kfW = cms.InputTag("ptWeight"),
+        kfW = cms.string("1"),
+        #kfW = cms.InputTag("ptWeight"),
         baseW = cms.string("REPLACE_ME"),
-        fourW = cms.string("REPLACE_ME"),
-        fermiW = cms.string("REPLACE_ME"),
+        #fourW = cms.string("REPLACE_ME"),
+        #fermiW = cms.string("REPLACE_ME"),
 
         trpu = cms.InputTag("nPU:tr"),
         itpu = cms.InputTag("nPU:it"),
