@@ -32,11 +32,15 @@ PileUpMultiplicityCounter::PileUpMultiplicityCounter(const edm::ParameterSet& iC
 
   puSummaryT_     = consumes<std::vector<PileupSummaryInfo> >(puTag_);
   recoCandidateT_ = consumes<edm::View<reco::Candidate> >(src_);  
-  
+
   produces<edm::ValueMap<float> > ("tr");
   produces<edm::ValueMap<float> > ("it");
-  produces<edm::ValueMap<float> > ("m1");
-  produces<edm::ValueMap<float> > ("p1");
+  produces<edm::ValueMap<float> > ("m1"); //-- -1 BX
+  produces<edm::ValueMap<float> > ("p1"); //-- +1 BX
+  produces<edm::ValueMap<float> > ("m2"); //-- -2 BX
+  produces<edm::ValueMap<float> > ("p2"); //-- +2 BX
+  produces<edm::ValueMap<float> > ("m3"); //-- -3 BX
+  produces<edm::ValueMap<float> > ("p3"); //-- +3 BX
 }
 
 
@@ -52,43 +56,75 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  std::auto_ptr<float> it(new float(0));
  std::auto_ptr<float> m1(new float(0));
  std::auto_ptr<float> p1(new float(0));
+ std::auto_ptr<float> m2(new float(0));
+ std::auto_ptr<float> p2(new float(0));
+ std::auto_ptr<float> m3(new float(0));
+ std::auto_ptr<float> p3(new float(0));
 
  for(size_t i=0;i<puInfoH->size();++i) {
   if( puInfoH->at(i).getBunchCrossing()==0 ) *tr = puInfoH->at(i).getTrueNumInteractions();
   if( puInfoH->at(i).getBunchCrossing()==0 ) *it = puInfoH->at(i).getPU_NumInteractions();
   if( puInfoH->at(i).getBunchCrossing()==-1) *m1 = puInfoH->at(i).getPU_NumInteractions();
   if( puInfoH->at(i).getBunchCrossing()==1 ) *p1 = puInfoH->at(i).getPU_NumInteractions();
+  if( puInfoH->at(i).getBunchCrossing()==-2) *m2 = puInfoH->at(i).getPU_NumInteractions();
+  if( puInfoH->at(i).getBunchCrossing()==2 ) *p2 = puInfoH->at(i).getPU_NumInteractions();
+  if( puInfoH->at(i).getBunchCrossing()==-3) *m3 = puInfoH->at(i).getPU_NumInteractions();
+  if( puInfoH->at(i).getBunchCrossing()==3 ) *p3 = puInfoH->at(i).getPU_NumInteractions();
  }
 
  std::auto_ptr<edm::ValueMap<float> > trMap(new edm::ValueMap<float>);
  std::auto_ptr<edm::ValueMap<float> > itMap(new edm::ValueMap<float>);
  std::auto_ptr<edm::ValueMap<float> > m1Map(new edm::ValueMap<float>);
  std::auto_ptr<edm::ValueMap<float> > p1Map(new edm::ValueMap<float>);
+ std::auto_ptr<edm::ValueMap<float> > m2Map(new edm::ValueMap<float>);
+ std::auto_ptr<edm::ValueMap<float> > p2Map(new edm::ValueMap<float>);
+ std::auto_ptr<edm::ValueMap<float> > m3Map(new edm::ValueMap<float>);
+ std::auto_ptr<edm::ValueMap<float> > p3Map(new edm::ValueMap<float>);
 
  edm::ValueMap<float>::Filler trFill(*trMap);
  edm::ValueMap<float>::Filler itFill(*itMap);
  edm::ValueMap<float>::Filler m1Fill(*m1Map);
  edm::ValueMap<float>::Filler p1Fill(*p1Map);
+ edm::ValueMap<float>::Filler m2Fill(*m2Map);
+ edm::ValueMap<float>::Filler p2Fill(*p2Map);
+ edm::ValueMap<float>::Filler m3Fill(*m3Map);
+ edm::ValueMap<float>::Filler p3Fill(*p3Map);
 
  std::vector<float> trVec(srcH->size(),*tr);
  std::vector<float> itVec(srcH->size(),*it);
  std::vector<float> m1Vec(srcH->size(),*m1);
  std::vector<float> p1Vec(srcH->size(),*p1);
+ std::vector<float> m2Vec(srcH->size(),*m2);
+ std::vector<float> p2Vec(srcH->size(),*p2);
+ std::vector<float> m3Vec(srcH->size(),*m3);
+ std::vector<float> p3Vec(srcH->size(),*p3);
 
  trFill.insert(srcH, trVec.begin(), trVec.end());
  itFill.insert(srcH, itVec.begin(), itVec.end());
  m1Fill.insert(srcH, m1Vec.begin(), m1Vec.end());
  p1Fill.insert(srcH, p1Vec.begin(), p1Vec.end());
+ m2Fill.insert(srcH, m2Vec.begin(), m2Vec.end());
+ p2Fill.insert(srcH, p2Vec.begin(), p2Vec.end());
+ m3Fill.insert(srcH, m3Vec.begin(), m3Vec.end());
+ p3Fill.insert(srcH, p3Vec.begin(), p3Vec.end());
 
  trFill.fill();
  itFill.fill();
  m1Fill.fill();
  p1Fill.fill();
+ m2Fill.fill();
+ p2Fill.fill();
+ m3Fill.fill();
+ p3Fill.fill();
 
  iEvent.put(trMap,"tr");
  iEvent.put(itMap,"it");
  iEvent.put(p1Map,"p1");
  iEvent.put(m1Map,"m1");
+ iEvent.put(p2Map,"p2");
+ iEvent.put(m2Map,"m2");
+ iEvent.put(p3Map,"p3");
+ iEvent.put(m3Map,"m3");
 
 }
 
