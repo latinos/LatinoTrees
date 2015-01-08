@@ -291,9 +291,9 @@ process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
 
 if options.selection == 'TightTight':
-    label = "Scenario6"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; preSeq = cms.Sequence();
+    labelSetup = "Scenario6"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; preSeq = cms.Sequence();
 elif options.selection == 'LooseLoose':
-    label = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; preSeq = cms.Sequence();
+    labelSetup = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; preSeq = cms.Sequence();
 else:
     raise ValueError('selection must be either TightTight or LooseLoose')
 
@@ -307,44 +307,45 @@ if doTauEmbed == True:
   process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","EmbeddedRECO")
   process.skimEventProducer.mcGenWeightTag = cms.InputTag("generator:minVisPtFilter")
 
-addEventHypothesis(process,label,muon,ele,softmu,preSeq)
+# this is where the "event" is built
+addEventHypothesis(process,labelSetup,muon,ele,softmu,preSeq)
 
 if (wztth == True) or (doPDFvar == True):
-    getattr(process,"ww%s"% (label)).mcGenEventInfoTag = "generator"
-    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
+    getattr(process,"ww%s"% (labelSetup)).mcGenEventInfoTag = "generator"
+    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
 
 if doSusy == True :
-    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
+    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
 
 if doHiggs == True :
-    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
+    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
 
 if doLHE == True :
-    getattr(process,"ww%s"% (label)).mcLHEEventInfoTag = "source"
-    getattr(process,"ww%s"% (label)).whichLHE = cms.untracked.int32(typeLHEcomment)
+    getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"
+    getattr(process,"ww%s"% (labelSetup)).whichLHE = cms.untracked.int32(typeLHEcomment)
 
 if doGen == True :
-    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
-    getattr(process,"ww%s"% (label)).genMetTag = "genMetTrue"
-    getattr(process,"ww%s"% (label)).genJetTag = cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
+    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
+    getattr(process,"ww%s"% (labelSetup)).genMetTag = "genMetTrue"
+    getattr(process,"ww%s"% (labelSetup)).genJetTag = cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
 
 if doGenVV == True :
-    getattr(process,"ww%s"% (label)).mcLHEEventInfoTag = "source"
-    getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
-    getattr(process,"ww%s"% (label)).genMetTag = "genMetTrue"
-    getattr(process,"ww%s"% (label)).genJetTag = cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
+    getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"
+    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
+    getattr(process,"ww%s"% (labelSetup)).genMetTag = "genMetTrue"
+    getattr(process,"ww%s"% (labelSetup)).genJetTag = cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
 
 #if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
-    #getattr(process,"ww%s"% (label)).genParticlesTag = "prunedGen"
+    #getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
 
 
 
 # latino trees construction
 
-tree = process.stepBTree.clone(src = cms.InputTag("ww%s"% (label) ));
+tree = process.stepBTree.clone(src = cms.InputTag("ww%s"% (labelSetup) ));
 seq = cms.Sequence()
 setattr(process, 'TreeSequence', seq)
-setattr(process, "Nvtx", process.nverticesModule.clone(probes = cms.InputTag("ww%s"% (label))))
+setattr(process, "Nvtx", process.nverticesModule.clone(probes = cms.InputTag("ww%s"% (labelSetup))))
 seq += getattr(process, "Nvtx")
 tree.variables.nvtx = cms.InputTag("Nvtx")
 if doIsoStudy: 
@@ -359,7 +360,7 @@ process.nPU = cms.EDProducer("PileUpMultiplicityCounter",
 )
 
 if dataset[0] == 'MC':
-    setattr(process, "NPU", process.nPU.clone(src = cms.InputTag("ww%s"% (label))))
+    setattr(process, "NPU", process.nPU.clone(src = cms.InputTag("ww%s"% (labelSetup))))
     seq += getattr(process, "NPU")
     tree.variables.trpu = cms.InputTag("NPU:tr")
     tree.variables.itpu = cms.InputTag("NPU:it")
@@ -466,9 +467,9 @@ setattr(process,"Tree", tree)
 seq += tree
 
 # path already set up
-p = getattr(process,'sel'+label)
+p = getattr(process,'sel'+labelSetup)
 p += seq
-setattr(process,'sel'+label,p)
+setattr(process,'sel'+labelSetup,p)
 
 
 
@@ -479,11 +480,11 @@ process.TFileService = cms.Service("TFileService",fileName = cms.string(options.
 
 
 #if IsoStudy:
-  ##getattr(process,"ww%s%s"% (X,label)).elTag = "wwEleIDMerge"
-  ##getattr(process,"ww%s%s"% (X,label)).muTag = "wwMuonsMergeID"
+  ##getattr(process,"ww%s%s"% (X,labelSetup)).elTag = "wwEleIDMerge"
+  ##getattr(process,"ww%s%s"% (X,labelSetup)).muTag = "wwMuonsMergeID"
   #getattr(process,"Tree").cut = cms.string("!isSTA(0) && !isSTA(1) && leptEtaCut(2.4,2.5) && ptMax > 20 && ptMin > 10 && passesIP && nExtraLep(10) == 0")
   ##prepend = process.isoStudySequence + process.wwEleIDMerge + process.wwMuonsMergeID
-  ##getattr(process,"sel%s%s"% (X,label))._seq = prepend + getattr(process,"sel%s%s"% (X,label))._seq
+  ##getattr(process,"sel%s%s"% (X,labelSetup))._seq = prepend + getattr(process,"sel%s%s"% (X,labelSetup))._seq
 
 
 if doSameSign:
@@ -494,7 +495,7 @@ if doSameSign:
 if doNoFilter:
     print ">> Dump all events"
     getattr(process,"Tree").cut = cms.string("1")
-    getattr(process,"skim%s"% (label)).cut = cms.string("nLep >= 0")
+    getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 0")
 
 
 
