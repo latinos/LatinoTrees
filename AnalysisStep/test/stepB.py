@@ -291,7 +291,8 @@ process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
 
 if options.selection == 'TightTight':
-    labelSetup = "Scenario6"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; preSeq = cms.Sequence();
+    #labelSetup = "Scenario1"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; preSeq = cms.Sequence();
+    labelSetup = "Scenario1"; muon = "slimmedMuons"; ele = "wwEleTight"; softmu = "slimmedMuons"; preSeq = cms.Sequence();
 elif options.selection == 'LooseLoose':
     labelSetup = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; preSeq = cms.Sequence();
 else:

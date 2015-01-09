@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-#from LatinoTrees.AnalysisStep.wwElectrons_cfi import *
+from LatinoTrees.AnalysisStep.wwElectrons_cfi import *
 #from LatinoTrees.AnalysisStep.wwMuons_cfi import *
 
 
@@ -110,6 +110,13 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
     # when it is true takes into account that latino tree are run in the same python of miniAOD production, so no cms.Path have to be defined, but only sequences to preserve order of execution
     # when it is false it assumes the miniAOD have already been produced
 
+    # prepare objects:
+    # - electrons
+    # - muons
+
+    preSequence += wwElectronSequence
+
+
     tempSkimEventFilter = cms.EDFilter("SkimEventSelector",
        src = cms.InputTag(""),
        filter = cms.bool(True),
@@ -125,7 +132,7 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
     # create sequence
     if not isMiniAODProduction :
      p = cms.Path(
-        preSequence+ 
+        preSequence+
         getattr(process,'ww'+label) +
         getattr(process,'skim'+label)
      )
