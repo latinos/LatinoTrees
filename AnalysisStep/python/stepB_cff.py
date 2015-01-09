@@ -763,12 +763,15 @@ def addExtraPUWeights(process,tree,X,seq):
 def addPhotonVariables(process,pt):
     if hasattr(pt,"variables"):
         setattr(pt.variables, "v_photon1" ,    cms.string("photon(0)")),
+        setattr(pt.variables, "v_photon2" ,    cms.string("photon(1)")),
+        setattr(pt.variables, "v_photon3" ,    cms.string("photon(2)")),
         setattr(pt.variables, "v_photon1id" ,    cms.string("photon_id(0)")),
         setattr(pt.variables, "nPhos" ,    cms.string("nPhos()")),
         setattr(pt.variables, "Pho_n_id" ,    cms.string("Pho_n_ID()")),
         setattr(pt.variables, "mllg" ,    cms.string("mllg()")),
         setattr(pt.variables, "mllgid" ,    cms.string("mllg()")),
 
+def addPhotonIDVariables(process,pt):
         setattr(pt.variables, "pho_sietaieta" , cms.string("Pho_sigmaIetaIeta(0)")),
         setattr(pt.variables, "pho_HoE" ,           cms.string("Pho_hadronicOverEm(0)")),
         setattr(pt.variables, "pho_chIso" ,           cms.string("Pho_rhoChargedHadronIso(0)")),
