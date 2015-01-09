@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 from LatinoTrees.AnalysisStep.wwElectrons_cfi import *
-#from LatinoTrees.AnalysisStep.wwMuons_cfi import *
+from LatinoTrees.AnalysisStep.wwMuons_cfi import *
 
 
 
@@ -115,6 +115,7 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
     # - muons
 
     preSequence += wwElectronSequence
+    preSequence += wwMuonSequence
 
 
     tempSkimEventFilter = cms.EDFilter("SkimEventSelector",

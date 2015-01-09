@@ -9,25 +9,8 @@ selectedElectronsBase = cms.EDFilter("PATElectronRefSelector",
 
 
 
-
-
-#cut = cms.string('''abs(eta)<2.5 && pt>20. &&
-    #gsfTrack.isAvailable() &&
-    #gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') < 2 &&
-    #(pfIsolationVariables().sumChargedHadronPt+
-    #max(0.,pfIsolationVariables().sumNeutralHadronEt+
-    #pfIsolationVariables().sumPhotonEt-
-    #0.5*pfIsolationVariables().sumPUPt))/pt < 0.15'''))
-
-
 ELE_BASE = "( pt > 8 && abs(eta)<2.5 )"
 wwEleBase = selectedElectronsBase.clone( cut = ELE_BASE )
-
-
-
-
-
-
 
 
 
@@ -65,21 +48,6 @@ ELE_ID_TIGHT = ("  (( isEB "+
 
 ELE_ID_ROBUSTTIGHT = (" electronID('eidRobustTight') ")
 
-
-
-# && (fbrem > 0.15 || ( abs(superCluster.eta) < 1. && eSuperClusterOverP > 0.95 )) ) ||" +
-#" ( (!isEB) && pt < 20 && sigmaIetaIeta < 0.03 &&" +
-#" deltaPhiSuperClusterTrackAtVtx > -0.02 && deltaPhiSuperClusterTrackAtVtx < 0.02 &&" +
-#" deltaEtaSuperClusterTrackAtVtx > -0.005 && deltaEtaSuperClusterTrackAtVtx < 0.005 &&" +
-#" hadronicOverEm < 0.1 && fbrem > 0.15) ||" +
-#" ( isEB && pt > 20 && sigmaIetaIeta < 0.01 &&" +
-#" deltaPhiSuperClusterTrackAtVtx > -0.06 && deltaPhiSuperClusterTrackAtVtx < 0.06 &&" +
-#" deltaEtaSuperClusterTrackAtVtx > -0.004 && deltaEtaSuperClusterTrackAtVtx < 0.004 &&" +
-#" hadronicOverEm < 0.04) ||" +
-#" ( (!isEB) && pt > 20 && sigmaIetaIeta < 0.03 && " +
-#" deltaPhiSuperClusterTrackAtVtx > -0.03 && deltaPhiSuperClusterTrackAtVtx < 0.03 &&" +
-#" deltaEtaSuperClusterTrackAtVtx > -0.007 && deltaEtaSuperClusterTrackAtVtx < 0.007 && " +
-#" hadronicOverEm < 0.1 ) ) ")
 
 
 wwEleTight       = selectedElectronsBase.clone( cut = ELE_BASE + " && " + ELE_ID_TIGHT )
