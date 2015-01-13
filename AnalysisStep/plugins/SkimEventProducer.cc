@@ -50,7 +50,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     vtxTag_            = cfg.getParameter<edm::InputTag>("vtxTag" );
     chCandsTag_        = cfg.getParameter<edm::InputTag>("chCandsTag" );
     rhoTag_            = cfg.getParameter<edm::InputTag>("rhoTag" );
-    phoTag_	       = cfg.getParameter<edm::InputTag>("phoTag"); //PHOTON
+    phoTag_	       = cfg.getParameter<edm::InputTag>("phoTag"); //Photon
 
     if (cfg.exists("sptTag" )) 
      sptTag_ = cfg.getParameter<edm::InputTag>("sptTag" );
@@ -189,7 +189,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setSoftMuon(softs,k);
     }
 
-    for(size_t k=0; k<photons->size();++k){ //PHOTON
+    for(size_t k=0; k<photons->size();++k){ //Photon
      skimEvent->back().setPhoton(photons,k);
     }
 

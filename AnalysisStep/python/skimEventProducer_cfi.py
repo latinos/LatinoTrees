@@ -12,7 +12,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     genParticlesTag   = cms.InputTag(""),
     genMetTag         = cms.InputTag(""),
     genJetTag         = cms.InputTag(""),
-    phoTag = cms.InputTag("slimmedPhotons"), #miniAOD PHOTON
+    phoTag = cms.InputTag("slimmedPhotons"), #miniAOD Photon
     muTag     = cms.InputTag("slimmedMuons"), # miniAOD
     elTag     = cms.InputTag("slimmedElectrons"), # miniAOD
     softMuTag = cms.InputTag("slimmedMuons"), #miniAOD wwMuons4Veto
@@ -104,7 +104,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
 
 
 
-def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons4Veto',preSequence=cms.Sequence(),isMiniAODProduction=False):
+def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons4Veto',thisPhotonTag='slimmedPhotons',preSequence=cms.Sequence(),isMiniAODProduction=False):
 
     # isMiniAODProduction is a flag that
     # when it is true takes into account that latino tree are run in the same python of miniAOD production, so no cms.Path have to be defined, but only sequences to preserve order of execution
@@ -126,7 +126,7 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
     )
 
     #create the only hypothesis (>= 1 lepton):
-    setattr(process,'ww'+label,process.skimEventProducer.clone( muTag=thisMuTag ,elTag=thisEleTag, softMuTag=thisSoftMuTag ))
+    setattr(process,'ww'+label,process.skimEventProducer.clone( muTag=thisMuTag ,elTag=thisEleTag, softMuTag=thisSoftMuTag, phoTag=thisPhotonTag ))
 
     #create SkimEventSelectors (asking for nLep >=2)
     setattr(process,'skim'+label,tempSkimEventFilter.clone(src='ww'+label))

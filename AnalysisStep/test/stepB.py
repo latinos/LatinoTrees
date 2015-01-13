@@ -292,9 +292,9 @@ process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
 if options.selection == 'TightTight':
     #labelSetup = "Scenario1"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; preSeq = cms.Sequence();
-    labelSetup = "Scenario1"; muon = "wwMuoTight"; ele = "wwEleTight"; softmu = "slimmedMuons"; preSeq = cms.Sequence();
+    labelSetup = "Scenario1"; muon = "wwMuoTight"; ele = "wwEleTight"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence();
 elif options.selection == 'LooseLoose':
-    labelSetup = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; preSeq = cms.Sequence();
+    labelSetup = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; pho = "wwPhoScenario1"; preSeq = cms.Sequence();
 else:
     raise ValueError('selection must be either TightTight or LooseLoose')
 
@@ -309,7 +309,7 @@ if doTauEmbed == True:
   process.skimEventProducer.mcGenWeightTag = cms.InputTag("generator:minVisPtFilter")
 
 # this is where the "event" is built
-addEventHypothesis(process,labelSetup,muon,ele,softmu,preSeq)
+addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq)
 
 if (wztth == True) or (doPDFvar == True):
     getattr(process,"ww%s"% (labelSetup)).mcGenEventInfoTag = "generator"
