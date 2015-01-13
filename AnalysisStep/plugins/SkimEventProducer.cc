@@ -177,10 +177,12 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     skimEvent->push_back( *(new reco::SkimEvent() ) );
 
+//     std::cout << " electrons->size() = " << electrons->size() << std::endl;
     for(size_t i=0;i<electrons->size();++i) {
      skimEvent->back().setLepton(electrons,i);
     }
 
+//     std::cout << " muons->size() = " << muons->size() << std::endl;
     for(size_t k=0;k<muons->size();++k) {
      skimEvent->back().setLepton(muons,k);
     }
