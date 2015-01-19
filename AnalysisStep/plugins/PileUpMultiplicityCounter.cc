@@ -41,6 +41,8 @@ PileUpMultiplicityCounter::PileUpMultiplicityCounter(const edm::ParameterSet& iC
   produces<edm::ValueMap<float> > ("p2"); //-- +2 BX
   produces<edm::ValueMap<float> > ("m3"); //-- -3 BX
   produces<edm::ValueMap<float> > ("p3"); //-- +3 BX
+  produces<edm::ValueMap<float> > ("m4"); //-- -4 BX
+  produces<edm::ValueMap<float> > ("m5"); //-- -5 BX
 }
 
 
@@ -60,7 +62,9 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  std::auto_ptr<float> p2(new float(0));
  std::auto_ptr<float> m3(new float(0));
  std::auto_ptr<float> p3(new float(0));
-
+ std::auto_ptr<float> m4(new float(0));
+ std::auto_ptr<float> m5(new float(0));
+ 
  for(size_t i=0;i<puInfoH->size();++i) {
   if( puInfoH->at(i).getBunchCrossing()==0 ) *tr = puInfoH->at(i).getTrueNumInteractions();
   if( puInfoH->at(i).getBunchCrossing()==0 ) *it = puInfoH->at(i).getPU_NumInteractions();
@@ -70,6 +74,8 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
   if( puInfoH->at(i).getBunchCrossing()==2 ) *p2 = puInfoH->at(i).getPU_NumInteractions();
   if( puInfoH->at(i).getBunchCrossing()==-3) *m3 = puInfoH->at(i).getPU_NumInteractions();
   if( puInfoH->at(i).getBunchCrossing()==3 ) *p3 = puInfoH->at(i).getPU_NumInteractions();
+  if( puInfoH->at(i).getBunchCrossing()==-4) *m4 = puInfoH->at(i).getPU_NumInteractions();
+  if( puInfoH->at(i).getBunchCrossing()==-5) *m5 = puInfoH->at(i).getPU_NumInteractions();
  }
 
  std::auto_ptr<edm::ValueMap<float> > trMap(new edm::ValueMap<float>);
@@ -80,7 +86,9 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  std::auto_ptr<edm::ValueMap<float> > p2Map(new edm::ValueMap<float>);
  std::auto_ptr<edm::ValueMap<float> > m3Map(new edm::ValueMap<float>);
  std::auto_ptr<edm::ValueMap<float> > p3Map(new edm::ValueMap<float>);
-
+ std::auto_ptr<edm::ValueMap<float> > m4Map(new edm::ValueMap<float>);
+ std::auto_ptr<edm::ValueMap<float> > m5Map(new edm::ValueMap<float>);
+ 
  edm::ValueMap<float>::Filler trFill(*trMap);
  edm::ValueMap<float>::Filler itFill(*itMap);
  edm::ValueMap<float>::Filler m1Fill(*m1Map);
@@ -89,7 +97,9 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  edm::ValueMap<float>::Filler p2Fill(*p2Map);
  edm::ValueMap<float>::Filler m3Fill(*m3Map);
  edm::ValueMap<float>::Filler p3Fill(*p3Map);
-
+ edm::ValueMap<float>::Filler m4Fill(*m4Map);
+ edm::ValueMap<float>::Filler m5Fill(*m5Map);
+ 
  std::vector<float> trVec(srcH->size(),*tr);
  std::vector<float> itVec(srcH->size(),*it);
  std::vector<float> m1Vec(srcH->size(),*m1);
@@ -98,7 +108,9 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  std::vector<float> p2Vec(srcH->size(),*p2);
  std::vector<float> m3Vec(srcH->size(),*m3);
  std::vector<float> p3Vec(srcH->size(),*p3);
-
+ std::vector<float> m4Vec(srcH->size(),*m4);
+ std::vector<float> m5Vec(srcH->size(),*m5);
+ 
  trFill.insert(srcH, trVec.begin(), trVec.end());
  itFill.insert(srcH, itVec.begin(), itVec.end());
  m1Fill.insert(srcH, m1Vec.begin(), m1Vec.end());
@@ -107,7 +119,9 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  p2Fill.insert(srcH, p2Vec.begin(), p2Vec.end());
  m3Fill.insert(srcH, m3Vec.begin(), m3Vec.end());
  p3Fill.insert(srcH, p3Vec.begin(), p3Vec.end());
-
+ m4Fill.insert(srcH, m4Vec.begin(), m4Vec.end());
+ m5Fill.insert(srcH, m5Vec.begin(), m5Vec.end());
+ 
  trFill.fill();
  itFill.fill();
  m1Fill.fill();
@@ -116,7 +130,9 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  p2Fill.fill();
  m3Fill.fill();
  p3Fill.fill();
-
+ m4Fill.fill();
+ m5Fill.fill();
+ 
  iEvent.put(trMap,"tr");
  iEvent.put(itMap,"it");
  iEvent.put(p1Map,"p1");
@@ -125,7 +141,9 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  iEvent.put(m2Map,"m2");
  iEvent.put(p3Map,"p3");
  iEvent.put(m3Map,"m3");
-
+ iEvent.put(m4Map,"m4");
+ iEvent.put(m5Map,"m5");
+ 
 }
 
 PileUpMultiplicityCounter::~PileUpMultiplicityCounter() { }

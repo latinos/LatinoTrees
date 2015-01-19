@@ -371,6 +371,8 @@ if dataset[0] == 'MC':
     tree.variables.ootpum2 = cms.InputTag("NPU:m2")
     tree.variables.ootpup3 = cms.InputTag("NPU:p3")
     tree.variables.ootpum3 = cms.InputTag("NPU:m3")
+    tree.variables.ootpum4 = cms.InputTag("NPU:m4")
+    tree.variables.ootpum5 = cms.InputTag("NPU:m5")
 
 
 
