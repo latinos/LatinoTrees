@@ -17,7 +17,15 @@ check if I have writing permissions:
 run
 
     crab submit -c crab_example.py
+    crab status
     
+then:
+
+    python ../cmssw2latino.py   /tmp/amassiro/stepB_MC_ggHww_1.root
 
 
+details:
+
+    it will save in something like:
+    /eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/test/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/crab_MCtest/150116_163732/0000/stepB_MC_ggHww_1.root
 
