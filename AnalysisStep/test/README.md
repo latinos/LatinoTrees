@@ -1,6 +1,5 @@
-
- Everything begins here
-~~~~~~~~~~~~~~~~~~~~~~~~
+Everything begins here
+====
 
 ssh -Y lxplus.cern.ch
 
@@ -13,16 +12,16 @@ cd CMSSW_7_2_2/src/
 cmsenv
 
 
- Get the material
-~~~~~~~~~~~~~~~~~~~~~~~~
+Get the material
+====
 
 git clone --branch 13TeV git@github.com:latinos/setup.git LatinosSetup
 
 source LatinosSetup/Setup.sh
 
 
- Get a MINIAOD test file
-~~~~~~~~~~~~~~~~~~~~~~~~
+Get a MINIAOD test file
+====
 
 source /afs/cern.ch/cms/cmsset_default.sh
 
@@ -31,8 +30,8 @@ voms-proxy-init
 xrdcp root://xrootd.unl.edu//store/mc/Phys14DR/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/MINIAODSIM/PU20bx25_tsg_PHYS14_25_V1-v1/00000/08CFEF83-586C-E411-8D7C-002590A2CCF2.root LatinoTrees/AnalysisStep/test/.
 
 
- Run step B
-~~~~~~~~~~~~~~~~~~~~~~~~
+Run step B
+====
 
 scram b -j 10
 
@@ -47,7 +46,7 @@ cmsRun stepB.py print \
                 doNoFilter=True
 
 
- Create the final tree
-~~~~~~~~~~~~~~~~~~~~~~~~
+Create the final tree
+====
 
 python cmssw2latino.py stepB_latinosYieldSkim_MC_ggHww.root
