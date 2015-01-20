@@ -1,30 +1,53 @@
-How to run step B (a.k.a. 2+3)
-====
 
-For MC
+ Everything begins here
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-    cd src/LatinoTrees/AnalysisStep/test/
-    cmsRun stepB.py print inputFiles=file:/tmp/amassiro/40F65A6C-2209-E411-9E44-003048CDCEC2.root        label=WW id=123456789  scale=1 outputFile=/tmp/amassiro/stepB_latinosYieldSkim_MC_vbfhww.root
-    cmsRun stepB.py print inputFiles=file:/tmp/amassiro/40F65A6C-2209-E411-9E44-003048CDCEC2.root        label=WW id=123456789  scale=1 outputFile=/tmp/amassiro/stepB_latinosYieldSkim_MC_vbfhww.root               doNoFilter=True
-    cmsRun stepB.py print inputFiles=file:/tmp/amassiro/40F65A6C-2209-E411-9E44-003048CDCEC2.root        label=WW id=123456789  scale=1 outputFile=/tmp/amassiro/stepB_latinosYieldSkim_MC_vbfhww.root               doNoFilter=True   doEleIsoId=True
+ssh -Y lxplus.cern.ch
 
-    cmsRun stepB.py print inputFiles=file:/tmp/amassiro/00CAA728-D626-E411-9112-00215AD4D6E2.root        label=WW id=123456789  scale=1 outputFile=/tmp/amassiro/stepB_latinosYieldSkim_MC_tt_normalmix.root       doNoFilter=True
-    cmsRun stepB.py print inputFiles=file:/tmp/amassiro/00800BE3-E826-E411-AD01-20CF3019DEE9.root        label=WW id=123456789  scale=1 outputFile=/tmp/amassiro/stepB_latinosYieldSkim_MC_tt_premix.root          doNoFilter=True
+bash -l  # You need to do this if your shell is tcsh
 
-    Phys14
-    cmsRun stepB.py print inputFiles=file:/tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root        label=WW id=123456789  scale=1 outputFile=/tmp/amassiro/stepB_latinosYieldSkim_MC_ggHww.root          doNoFilter=True
+export SCRAM_ARCH=slc6_amd64_gcc481
+
+cmsrel CMSSW_7_2_2
+cd CMSSW_7_2_2/src/
+cmsenv
 
 
+ Get the material
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+git clone --branch 13TeV git@github.com:latinos/setup.git LatinosSetup
+
+source LatinosSetup/Setup.sh
 
 
+ Get a MINIAOD test file
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-Create final tree
-====
+source /afs/cern.ch/cms/cmsset_default.sh
 
-    python cmssw2latino.py   /tmp/amassiro/stepB_latinosYieldSkim_MC_vbfhww.root
+voms-proxy-init
 
-    python cmssw2latino.py   /tmp/amassiro/stepB_latinosYieldSkim_MC_tt_normalmix.root
-    python cmssw2latino.py   /tmp/amassiro/stepB_latinosYieldSkim_MC_tt_premix.root
+xrdcp root://xrootd.unl.edu//store/mc/Phys14DR/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/MINIAODSIM/PU20bx25_tsg_PHYS14_25_V1-v1/00000/08CFEF83-586C-E411-8D7C-002590A2CCF2.root LatinoTrees/AnalysisStep/test/.
 
-    python cmssw2latino.py   /tmp/amassiro/stepB_latinosYieldSkim_MC_ggHww.root
 
+ Run step B
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+scram b -j 10
+
+cd LatinoTrees/AnalysisStep/test/
+
+cmsRun stepB.py print \
+                inputFiles=file:08CFEF83-586C-E411-8D7C-002590A2CCF2.root \
+                label=WW \
+                id=123456789 \
+                scale=1 \
+                outputFile=stepB_latinosYieldSkim_MC_ggHww.root \
+                doNoFilter=True
+
+
+ Create the final tree
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+python cmssw2latino.py stepB_latinosYieldSkim_MC_ggHww.root
