@@ -156,6 +156,11 @@ options.register ('doIsoStudy',
                   opts.VarParsing.varType.bool,
                   'Turn on isolation studies, additional variables, ... (can be \'True\' or \'False\'')
 
+options.register ('runPUPPISequence',
+                  False,
+                  opts.VarParsing.multiplicity.singleton,
+                  opts.VarParsing.varType.bool,
+                  'Turn on PUPPI jets (can be \'True\' or \'False\'')
 
 
 
@@ -477,6 +482,22 @@ p += seq
 setattr(process,'sel'+labelSetup,p)
 
 
+if options.runPUPPISequence:
+    from CommonTools.PileupAlgos.Puppi_cff import puppi
+    from RecoJets.JetProducers.ak4PFJetsPuppi_cfi import ak4PFJetsPuppi    
+    puppi.candName = cms.InputTag('packedPFCandidates')
+    puppi.vertexName = cms.InputTag('offlineSlimmedPrimaryVertices')
+    #puppi_onMiniAOD = cms.Sequence(puppi + ak4PFJetsPuppi)
+    puppi_onMiniAOD = cms.Path(puppi + ak4PFJetsPuppi)
+
+    #process.puppiSequence = cms.Sequence(puppi*
+                             #AK5PFJetsPuppi*
+                             #pfMetPuppi)
+
+    #from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence
+    #jetPuppiR = 0.5
+    #makePuppiAlgo(process) ## call puppi producer and puppi met
+    #makePatPuppiJetSequence(process,jetPuppiR) ## call pat puppi jets
 
 
 

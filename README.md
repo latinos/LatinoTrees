@@ -6,6 +6,28 @@ LatinoTrees
 
 
 
+    
+    
+    
+Additional packages (temporary solutions, then they will appear in cmssw release):
+
+puppi
+~
+
+From
+    https://twiki.cern.ch/twiki/bin/view/CMS/Phys14JMERecipies#PUPPI_example_for_AK8_jets
+    
+cmssw release needed:
+
+    >= CMSSW_7_3_0
+
+install:
+
+    git cms-addpkg CommonTools/PileupAlgos
+    git remote add nhan-remote https://github.com/nhanvtran/cmssw.git
+    git fetch nhan-remote puppi-bugfix-for-miniaod
+    git cherry-pick 0585bf21ae098f14f144b9a3d361178e6cc830e6
+    scram b
 
 
 backup
