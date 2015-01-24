@@ -11,7 +11,15 @@ Everything begins here
     cd CMSSW_7_2_2/src/
     cmsenv
 
+Setup cms git connection
+====
 
+It's needed in case we need to checkout some cmssw code.
+See  https://hypernews.cern.ch/HyperNews/CMS/get/git/200.html
+
+    git cms-init
+
+    
 Get the material
 ====
 
