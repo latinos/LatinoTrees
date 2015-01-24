@@ -11,8 +11,9 @@ LatinoTrees
     
 Additional packages (temporary solutions, then they will appear in cmssw release):
 
+~~~
 puppi
-~
+~~~
 
 From
     https://twiki.cern.ch/twiki/bin/view/CMS/Phys14JMERecipies#PUPPI_example_for_AK8_jets
@@ -43,6 +44,7 @@ backup
 Phys14:
 
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_2_0/src
+    /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_3_0/src
     scp amassiro@cmsneu:/data/amassiro/CMSSWRoot/Phys14/miniAOD/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/C667E84D-9D18-E411-99D8-02163E00ECE6.root  /tmp/amassiro/
 
 

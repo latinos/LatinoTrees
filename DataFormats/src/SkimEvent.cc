@@ -1285,14 +1285,33 @@ const float reco::SkimEvent::jetPt(size_t i, int applyCorrection) const {
 
 const float reco::SkimEvent::jetPt(const pat::Jet *j, int applyCorrection) const {
 // if(applyCorrection) return jets_[i]->correctedJet("L3Absolute","none").pt();
-  if(applyCorrection) return j->pt();
-  else return j->correctedJet("Uncorrected","none").pt();
+  if (applyCorrection) return j->pt();
+  else {
+   if (j->currentJECLevel() != "ERROR") {
+    return j->correctedJet("Uncorrected","none").pt();
+   }
+   else {
+    return j->pt(); //---- the jet is already "uncorrected"
+   }
+  }
 }
 
 const float reco::SkimEvent::tagJetPt(size_t i, int applyCorrection) const {
 // if(applyCorrection) return tagJets_[i]->correctedJet("L3Absolute","none").pt();
-  if(applyCorrection) return tagJets_[i]->pt();
-  else return tagJets_[i]->correctedJet("Uncorrected","none").pt();
+  if (applyCorrection) return tagJets_[i]->pt();
+  else {
+//    std::cout << " level = " ;
+//    std::cout << tagJets_[i]->currentJECLevel() << std::endl;
+//    std::cout << " lenght is = ";
+//    std::cout << tagJets_[i]->availableJECLevels().size() << std::endl;
+//    if (tagJets_[i]->availableJECLevels().size() != 0) {
+   if (tagJets_[i]->currentJECLevel() != "ERROR") {
+     return tagJets_[i]->correctedJet("Uncorrected","none").pt();
+   }
+   else {
+    return tagJets_[i]->pt(); //---- the jet is already "uncorrected"
+   }
+  }
 }
 
 
@@ -2445,6 +2464,8 @@ const float reco::SkimEvent::highestBDiscRange(const float& minPt, const float& 
         if( tagJetPt(i,minPtApplyCorrection) <= minPt ) continue;
         if(!(passJetID(tagJets_[i],applyID)) ) continue;
         if(isThisJetALepton(tagJets_[i])) continue;
+//         std::cout << " HELLO! " << std::endl;
+//         std::cout << " has float = " << jets_[i]->hasUserFloat("dz") << std::endl;        
         if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
         if( tagJets_[i]->bDiscriminator(discriminator) > disc ) disc = tagJets_[i]->bDiscriminator(discriminator);
     }

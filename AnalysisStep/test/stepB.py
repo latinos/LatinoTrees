@@ -303,6 +303,48 @@ elif options.selection == 'LooseLoose':
 else:
     raise ValueError('selection must be either TightTight or LooseLoose')
 
+
+
+# add puppi calculated from miniAOD
+#   since puppi must be run as first
+#   we include puppi in the "preSequence"
+#   it's not possible to add it afterwards, 
+#   unless we transform everything into a sequence
+#   and let cmssw do the rest ...
+
+if options.runPUPPISequence:
+    #process.load("CommonTools.PileupAlgos.Puppi_cff")
+    #process.load("RecoJets.JetProducers.ak4PFJetsPuppi_cfi")
+    #process.puppi.candName = cms.InputTag('packedPFCandidates')
+    #process.puppi.vertexName = cms.InputTag('offlineSlimmedPrimaryVertices')
+    #puppi_onMiniAOD = cms.Sequence(process.puppi + process.ak4PFJetsPuppi)
+
+    #from CommonTools.PileupAlgos.Puppi_cff import puppi
+    #from RecoJets.JetProducers.ak4PFJetsPuppi_cfi import ak4PFJetsPuppi    
+    #process.myak4PFJetsPuppi = ak4PFJetsPuppi.clone( rParam = 0.4 )
+    #process.myak4PFJetsPuppi.src = cms.InputTag('mypuppi')
+    #process.mypuppi = puppi.clone()
+    #process.mypuppi.candName = cms.InputTag('packedPFCandidates')
+    #process.mypuppi.vertexName = cms.InputTag('offlineSlimmedPrimaryVertices')
+    #puppi_onMiniAOD = cms.Sequence(process.mypuppi + process.myak4PFJetsPuppi) #ak4PFJetsPuppi)
+
+    #puppi_onMiniAOD = cms.Path(puppi + ak4PFJetsPuppi)
+    #preSeq += puppi_onMiniAOD
+
+
+    from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence
+    jetPuppiR = 0.4
+    makePuppiAlgo(process) ## call puppi producer and puppi met
+    makePatPuppiJetSequence(process,jetPuppiR) ## call pat puppi jets
+
+    # now add to the preSequence
+    preSeq += process.puppi_onMiniAOD
+    preSeq += process.makePatPuppi
+    # FIXME met puppi to be added
+
+
+
+
 # create the EventHypothesis
 # and tweaks for special MC/data samples
 
@@ -345,6 +387,11 @@ if doGenVV == True :
     #getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
 
 
+
+# if puppi, change the input jet collection
+if options.runPUPPISequence:
+    getattr(process,"ww%s"% (labelSetup)).jetTag    = "patJetsAK4selectedPatJetsPuppi"
+    getattr(process,"ww%s"% (labelSetup)).tagJetTag = "patJetsAK4selectedPatJetsPuppi"
 
 # latino trees construction
 
@@ -476,30 +523,11 @@ if doPDFvar == True :
 setattr(process,"Tree", tree)
 seq += tree
 
+
 # path already set up
 p = getattr(process,'sel'+labelSetup)
 p += seq
 setattr(process,'sel'+labelSetup,p)
-
-
-if options.runPUPPISequence:
-    from CommonTools.PileupAlgos.Puppi_cff import puppi
-    from RecoJets.JetProducers.ak4PFJetsPuppi_cfi import ak4PFJetsPuppi    
-    puppi.candName = cms.InputTag('packedPFCandidates')
-    puppi.vertexName = cms.InputTag('offlineSlimmedPrimaryVertices')
-    #puppi_onMiniAOD = cms.Sequence(puppi + ak4PFJetsPuppi)
-    puppi_onMiniAOD = cms.Path(puppi + ak4PFJetsPuppi)
-
-    #process.puppiSequence = cms.Sequence(puppi*
-                             #AK5PFJetsPuppi*
-                             #pfMetPuppi)
-
-    #from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence
-    #jetPuppiR = 0.5
-    #makePuppiAlgo(process) ## call puppi producer and puppi met
-    #makePatPuppiJetSequence(process,jetPuppiR) ## call pat puppi jets
-
-
 
 # define output
 process.TFileService = cms.Service("TFileService",fileName = cms.string(options.outputFile))

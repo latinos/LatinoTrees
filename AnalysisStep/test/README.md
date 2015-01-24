@@ -42,8 +42,13 @@ Run step B
                     label=WW \
                     id=123456789 \
                     scale=1 \
-                    outputFile=stepB_latinosYieldSkim_MC_ggHww.root \
+                    outputFile=stepB_latinosYieldSkim_MC_ggHww.root
                     doNoFilter=True
+
+                    
+to activate Puppi jets:
+                    
+                    runPUPPISequence=True
 
 
 Create the final tree
