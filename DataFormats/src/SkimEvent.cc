@@ -302,16 +302,27 @@ void reco::SkimEvent::setFatJets(const edm::Handle<pat::JetCollection> & jH) {
 
 }
 
+void reco::SkimEvent::setSecondJets(const edm::Handle<pat::JetCollection> & jH) {
+ 
+ secondJets_.clear();
+ 
+ for(size_t i=0;i<jH->size();++i)
+  secondJets_.push_back(pat::JetRef(jH,i));
+ 
+ //sortJetsByPt();
+ 
+}
+
 
 void reco::SkimEvent::setTagJets(const edm::Handle<pat::JetCollection> & jH) {
-
-    tagJets_.clear();
-
-    for(size_t i=0;i<jH->size();++i)
-      tagJets_.push_back(pat::JetRef(jH,i));
-
-    //sortTagJetsByPt();
-
+ 
+ tagJets_.clear();
+ 
+ for(size_t i=0;i<jH->size();++i)
+  tagJets_.push_back(pat::JetRef(jH,i));
+ 
+ //sortTagJetsByPt();
+ 
 }
 
 void reco::SkimEvent::setTCMet(const edm::Handle<reco::METCollection> & mH) {
@@ -774,6 +785,24 @@ const float reco::SkimEvent::leadingJetMva(size_t index, float minPt,float eta,i
     }
     return -9999.9;
 }
+
+
+
+const float reco::SkimEvent::leadingSecondJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<secondJets_.size();++i) {
+//   if(!(passJetID(secondJets_[i],applyID)) ) continue;
+  if( std::fabs(secondJets_[i]->eta()) >= eta) continue;
+  if( secondJetPt(i,applyCorrection) <= minPt) continue;
+  
+  if(isThisJetALepton(secondJets_[i])) continue;
+  if(++count > index) return secondJetPt(i,applyCorrection);
+ }
+ return -9999.9;
+}
+
+
 
 
 const float reco::SkimEvent::leadingJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
@@ -1282,6 +1311,11 @@ const float reco::SkimEvent::fatJetPt(size_t i, int applyCorrection) const {
 const float reco::SkimEvent::jetPt(size_t i, int applyCorrection) const {
     return jetPt(jets_[i].get(),applyCorrection);
 }
+
+const float reco::SkimEvent::secondJetPt(size_t i, int applyCorrection) const {
+ return jetPt(secondJets_[i].get(),applyCorrection);
+}
+
 
 const float reco::SkimEvent::jetPt(const pat::Jet *j, int applyCorrection) const {
 // if(applyCorrection) return jets_[i]->correctedJet("L3Absolute","none").pt();

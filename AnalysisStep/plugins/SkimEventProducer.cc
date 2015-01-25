@@ -213,6 +213,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     if(tagJetH.isValid()) skimEvent->back().setTagJets(tagJetH);
     else skimEvent->back().setTagJets(jetH);
 
+    if(secondTagJetH.isValid()) skimEvent->back().setSecondJets(secondTagJetH);
+    
     if(genParticles.isValid()) {
      skimEvent->back().setGenParticles(genParticles);
     }

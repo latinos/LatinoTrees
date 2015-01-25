@@ -390,8 +390,9 @@ if doGenVV == True :
 
 # if puppi, change the input jet collection
 if options.runPUPPISequence:
-    getattr(process,"ww%s"% (labelSetup)).jetTag    = "patJetsAK4selectedPatJetsPuppi"
-    getattr(process,"ww%s"% (labelSetup)).tagJetTag = "patJetsAK4selectedPatJetsPuppi"
+    getattr(process,"ww%s"% (labelSetup)).secondJetTag    = "patJetsAK4selectedPatJetsPuppi"
+    #getattr(process,"ww%s"% (labelSetup)).jetTag    = "patJetsAK4selectedPatJetsPuppi"
+    #getattr(process,"ww%s"% (labelSetup)).tagJetTag = "patJetsAK4selectedPatJetsPuppi"
 
 # latino trees construction
 

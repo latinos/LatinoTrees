@@ -212,6 +212,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingJetMass(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingJetPhi(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
 
+            const float leadingSecondJetPt(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
+            
             const float leadingFatJetPt(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingFatJetEta(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingFatJetPhi(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
@@ -247,7 +249,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingJetMva(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float dPhillLeadingJet(float eta,int applyCorrection, int applyID) const;
             const bool passesDPhillJet(float pt,float eta,int applyCorrection, int applyID) const;
+
             const float jetPt(size_t a = 0,int = 0) const;
+            const float secondJetPt(size_t a = 0,int = 0) const;
             const float fatJetPt(size_t a = 0,int = 0) const;
 
             const float jetPt(const pat::Jet *j,int = 0) const;
@@ -424,6 +428,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setJets(const edm::Handle<pat::JetCollection> &);
             void setFatJets(const edm::Handle<pat::JetCollection> &);
             void setTagJets(const edm::Handle<pat::JetCollection> &);
+            void setSecondJets(const edm::Handle<pat::JetCollection> &);
             void setTCMet(const edm::Handle<reco::METCollection> &);
             void setPFMet(const edm::Handle< std::vector<pat::MET> > &);
             void setMvaMet(const reco::PFMET &met) {mvaMet_ = met;}
@@ -619,6 +624,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             pat::JetRefVector jets_;
             pat::JetRefVector fatJets_;
             pat::JetRefVector tagJets_;
+            pat::JetRefVector secondJets_;
             reco::GenParticleRefVector genParticles_;
             reco::GenMETRef genMet_;
             reco::GenJetRefVector genJets_;
