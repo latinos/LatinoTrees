@@ -43,6 +43,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     softMuTag_         = cfg.getParameter<edm::InputTag>("softMuTag" );
     jetTag_            = cfg.getParameter<edm::InputTag>("jetTag" );
     tagJetTag_         = cfg.getParameter<edm::InputTag>("tagJetTag" );
+    secondJetTag_      = cfg.getParameter<edm::InputTag>("secondJetTag" );
     fatJetTag_         = cfg.getParameter<edm::InputTag>("fatJetTag" );
     pfMetTag_          = cfg.getParameter<edm::InputTag>("pfMetTag" );
     tcMetTag_          = cfg.getParameter<edm::InputTag>("tcMetTag" );
@@ -69,6 +70,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     jetHT_         = consumes<pat::JetCollection>(jetTag_);
     rhoT_          = consumes<double>(rhoTag_);
     tagJetHT_      = consumes<pat::JetCollection>(tagJetTag_);
+    secondTagJetHT_= consumes<pat::JetCollection>(secondJetTag_);
     pfMetHT_       = consumes<std::vector<pat::MET> >(pfMetTag_);
     vtxHT_         = consumes<reco::VertexCollection>(vtxTag_);
     candsHT_       = consumes<reco::CandidateView>(chCandsTag_);
@@ -110,6 +112,10 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     edm::Handle<pat::JetCollection> tagJetH;
     if(!(tagJetTag_==edm::InputTag(""))) iEvent.getByToken(tagJetHT_,tagJetH);
 
+    edm::Handle<pat::JetCollection> secondTagJetH;
+    if(!(secondJetTag_==edm::InputTag(""))) iEvent.getByToken(secondTagJetHT_,secondTagJetH);
+    
+    
     edm::Handle< std::vector<pat::MET> > pfMetH;
     iEvent.getByToken(pfMetHT_,pfMetH);
 

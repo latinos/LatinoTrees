@@ -19,6 +19,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     # extraElTag = cms.InputTag("wwElectrons"),
     jetTag = cms.InputTag("slimmedJets"), # miniAOD slimPatJetsTriggerMatch
     tagJetTag = cms.InputTag("slimmedJets"), # miniAOD slimPatJetsTriggerMatch
+    secondJetTag = cms.InputTag("slimmedJets"), # miniAOD  slimPatFatJetsTriggerMatch -> alternative jet collection
     fatJetTag = cms.InputTag("slimmedJets"), # miniAOD  slimPatFatJetsTriggerMatch
     pfMetTag = cms.InputTag("slimmedMETs"), # miniAOD pfMet
     tcMetTag = cms.InputTag("slimmedMETs"), # miniAOD tcMet

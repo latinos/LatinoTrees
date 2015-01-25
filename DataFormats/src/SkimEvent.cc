@@ -532,7 +532,7 @@ const int reco::SkimEvent::nJets(float minPt, int applyCorrection,int applyID) c
 
 const bool reco::SkimEvent::isThisJetALepton(pat::JetRef jet, float drCut) const {
     bool thisJetIsLepton(false);
-    for(size_t j=0; j<std::min((uint) 2,(uint) leps_.size());++j){
+    for(size_t j=0; j<std::min((uint) 2,(uint) leps_.size());++j){ //---- check only with the first 2 leptons -> miniAOD/PAT should already have filtered?
         double dR = fabs(ROOT::Math::VectorUtil::DeltaR(jet->p4(),leps_[j]->p4()) );
         if(dR < drCut){
             thisJetIsLepton = true;
