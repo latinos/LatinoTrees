@@ -15,7 +15,7 @@ Everything begins here
 Setup CMS git connection
 ====
 
-Needed in case we need to checkout some CMSSW code. See https://hypernews.cern.ch/HyperNews/CMS/get/git/200.html.
+It is necessary to checkout CMSSW code (https://hypernews.cern.ch/HyperNews/CMS/get/git/200.html).
 
     git cms-init
 
