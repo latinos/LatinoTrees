@@ -1,7 +1,7 @@
 Everything begins here
 ====
 
-    ssh -Y lxplus.cern.ch
+    ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
 
     bash -l  # Needed only if the shell is not bash
 
@@ -11,11 +11,11 @@ Everything begins here
     cd CMSSW_7_2_2/src/
     cmsenv
 
-Setup cms git connection
+
+Setup CMS git connection
 ====
 
-It's needed in case we need to checkout some cmssw code.
-See  https://hypernews.cern.ch/HyperNews/CMS/get/git/200.html
+Needed in case we need to checkout some CMSSW code. See https://hypernews.cern.ch/HyperNews/CMS/get/git/200.html.
 
     git cms-init
 
@@ -54,7 +54,7 @@ Run step B
                     doNoFilter=True
 
                     
-to activate Puppi jets:
+If you want to activate PUPPI jets.
                     
                     runPUPPISequence=True
 
@@ -63,8 +63,4 @@ Create the final tree
 ====
 
     python cmssw2latino.py stepB_latinosYieldSkim_MC_ggHww.root
-
-
-
-
 
