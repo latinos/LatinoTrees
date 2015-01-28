@@ -2692,6 +2692,12 @@ const float reco::SkimEvent::numberOfHits(size_t i) const {
  else return -999.0;
 }
 
+const float reco::SkimEvent::chargedHadronIso(size_t i) const {
+  if      (i >= leps_.size()) return -9999.0;
+  else if (isElectron(i))     return getElectron(i)->chargedHadronIso();
+  else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumChargedHadronPt;
+  else                        return -999.0;
+}
 
 
 
@@ -4281,12 +4287,6 @@ const float reco::SkimEvent::Pho_PhotonIso(size_t i) const {
 const int reco::SkimEvent::Pho_PassElectronVeto(size_t i) const {
  if(i >= phos_.size()) return -9999.0;
  return getPhoton(i)->passElectronVeto();
- //else return -999.0;
-}
-
-const int reco::SkimEvent::Pho_HasPixelSeed(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
- return getPhoton(i)->hasPixelSeed();
  //else return -999.0;
 }
 

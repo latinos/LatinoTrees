@@ -551,7 +551,3 @@ if doNoFilter:
     print ">> Dump all events"
     getattr(process,"Tree").cut = cms.string("1")
     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 0")
-
-
-
-

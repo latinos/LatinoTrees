@@ -190,7 +190,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float nBrem(size_t a = 0) const;
             const float etaSC(size_t a = 0) const; //returns isMuon ? eta : ele.sc.eta
             const float phi(size_t a = 0) const;
-            const int q(size_t a = 0) const;
+            const int   q(size_t a = 0) const;
 
             const bool peaking() const;
             const reco::GenParticle *genParticle(size_t i) const;
@@ -551,7 +551,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float hadronicOverEmByPt(size_t i) const { return hadronicOverEm (indexByPt (i)); }
             const float numberOfHitsByPt(size_t i) const { return hadronicOverEm (indexByPt (i)); }
             
-            
+
+            // Muons
+	    const float chargedHadronIso    (size_t i = 0) const;
+            const float chargedHadronIsoByPt(size_t i = 0) const { return chargedHadronIso(indexByPt(i)); }
             
             
             //Matt's
@@ -581,7 +584,6 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float Pho_NeutralHadronIso(size_t i) const;
 	    const float Pho_PhotonIso(size_t i) const;
 	    const int Pho_PassElectronVeto(size_t i) const;
-	    const int Pho_HasPixelSeed(size_t i) const;
 
 	    void InitEffectiveAreasPhoton();
 	    void InitIDPhoton();

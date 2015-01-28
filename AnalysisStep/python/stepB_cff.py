@@ -69,6 +69,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_eta = cms.string("etaByPt"),
         std_vector_lepton_phi = cms.string("phiByPt"),
         std_vector_lepton_id  = cms.string("pdgIdByPt"),
+        std_vector_lepton_chargedHadronIso = cms.string("chargedHadronIsoByPt"),
 
 
         mll = cms.string("mll()"),
@@ -782,5 +783,4 @@ def addPhotonIDVariables(process,pt):
         setattr(pt.variables, "pho_nhIso" ,           cms.string("Pho_rhoNeutralHadronIso(0)")),
         setattr(pt.variables, "pho_phIso" ,           cms.string("Pho_rhoPhotonIso(0)")),
         setattr(pt.variables, "pho_passElecVeto" ,           cms.string("Pho_PassElectronVeto(0)")),
-	setattr(pt.variables, "pho_hasPixelSeed", cms.string("Pho_HasPixelSeed(0)")),
 
