@@ -50,12 +50,8 @@ Run step B
                     label=WW \
                     id=123456789 \
                     scale=1 \
-                    outputFile=stepB_latinosYieldSkim_MC_ggHww.root
-                    doNoFilter=True
-
-                    
-If you want to activate PUPPI jets.
-                    
+                    outputFile=stepB_latinosYieldSkim_MC_ggHww.root \
+                    doNoFilter=True \
                     runPUPPISequence=True
 
 
