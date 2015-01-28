@@ -4284,6 +4284,12 @@ const int reco::SkimEvent::Pho_PassElectronVeto(size_t i) const {
  //else return -999.0;
 }
 
+const int reco::SkimEvent::Pho_HasPixelSeed(size_t i) const {
+ if(i >= phos_.size()) return -9999.0;
+ return getPhoton(i)->hasPixelSeed();
+ //else return -999.0;
+}
+
 double reco::SkimEvent::ChoosePhotonEffectiveArea(int type, double phoEta) const {
   if(type > 2) {
 	std::cout << "You chose the wrong type. Types are 0 (charged), 1 (neutral) and 2 (photon)" << std::endl;
