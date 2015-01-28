@@ -583,7 +583,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float Pho_ChargedHadronIso(size_t i) const;
 	    const float Pho_NeutralHadronIso(size_t i) const;
 	    const float Pho_PhotonIso(size_t i) const;
-	    const int Pho_PassElectronVeto(size_t i) const;
+	    const int   Pho_PassElectronVeto(size_t i) const;
+	    const int   Pho_HasPixelSeed(size_t i) const;
 
 	    void InitEffectiveAreasPhoton();
 	    void InitIDPhoton();

@@ -777,10 +777,10 @@ def addPhotonVariables(process,pt):
         setattr(pt.variables, "mllgid" ,    cms.string("mllg()")),
 
 def addPhotonIDVariables(process,pt):
-        setattr(pt.variables, "pho_sietaieta" , cms.string("Pho_sigmaIetaIeta(0)")),
-        setattr(pt.variables, "pho_HoE" ,           cms.string("Pho_hadronicOverEm(0)")),
-        setattr(pt.variables, "pho_chIso" ,           cms.string("Pho_rhoChargedHadronIso(0)")),
-        setattr(pt.variables, "pho_nhIso" ,           cms.string("Pho_rhoNeutralHadronIso(0)")),
-        setattr(pt.variables, "pho_phIso" ,           cms.string("Pho_rhoPhotonIso(0)")),
-        setattr(pt.variables, "pho_passElecVeto" ,           cms.string("Pho_PassElectronVeto(0)")),
-
+        setattr(pt.variables, "pho_sietaieta" ,    cms.string("Pho_sigmaIetaIeta(0)")),
+        setattr(pt.variables, "pho_HoE" ,          cms.string("Pho_hadronicOverEm(0)")),
+        setattr(pt.variables, "pho_chIso" ,        cms.string("Pho_rhoChargedHadronIso(0)")),
+        setattr(pt.variables, "pho_nhIso" ,        cms.string("Pho_rhoNeutralHadronIso(0)")),
+        setattr(pt.variables, "pho_phIso" ,        cms.string("Pho_rhoPhotonIso(0)")),
+        setattr(pt.variables, "pho_passElecVeto" , cms.string("Pho_PassElectronVeto(0)")),
+        setattr(pt.variables, "pho_hasPixelSeed",  cms.string("Pho_HasPixelSeed(0)")),
