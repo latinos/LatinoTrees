@@ -782,4 +782,5 @@ def addPhotonIDVariables(process,pt):
         setattr(pt.variables, "pho_nhIso" ,           cms.string("Pho_rhoNeutralHadronIso(0)")),
         setattr(pt.variables, "pho_phIso" ,           cms.string("Pho_rhoPhotonIso(0)")),
         setattr(pt.variables, "pho_passElecVeto" ,           cms.string("Pho_PassElectronVeto(0)")),
+	setattr(pt.variables, "pho_hasPixelSeed", cms.string("Pho_HasPixelSeed(0)")),
 
