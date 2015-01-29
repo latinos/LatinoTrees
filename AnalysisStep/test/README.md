@@ -32,7 +32,7 @@ Get the material
 Get a MiniAOD test file
 ====
 
-Useful for a faster code test/development.
+Useful for a faster code test.
 
     source /afs/cern.ch/cms/cmsset_default.sh
 
