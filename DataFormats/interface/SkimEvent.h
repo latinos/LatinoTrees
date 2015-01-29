@@ -30,6 +30,9 @@
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 #include "DataFormats/Common/interface/ValueMap.h"
+#include "DataFormats/TrackReco/interface/Track.h"
+#include "DataFormats/VertexReco/interface/Vertex.h"
+
 
 //---- pat
 #include <DataFormats/PatCandidates/interface/MET.h>
@@ -537,7 +540,31 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool passesSmurfMuonID() const;
             const bool isHardMuID(size_t a) const;
 
-            
+
+	    //---- muon id
+	    const int   muNValidHitsInTrk(size_t i) const;
+	    const float muNormChi2GTrk(size_t i) const;
+            const int   muNValidHitsSATrk(size_t i) const;
+            const int   muNumOfMatchedStations(size_t i) const;
+            const float muBestTrackdz(size_t i) const;
+            const float muBestTrackdxy(size_t i) const;
+            const int   muNValidPixelHitsInTrk(size_t i) const;
+            const int   muNTkLayers(size_t i) const;
+            const float muTrkKink(size_t  i) const;
+
+
+	    const int   muNValidHitsInTrkByPt(size_t i) const {return muNValidHitsInTrk(indexByPt (i)); }    
+            const float muNormChi2GTrkByPt(size_t i) const { return muNormChi2GTrk(indexByPt (i)); }
+            const int   muNValidHitsSATrkByPt(size_t i) const { return muNValidHitsSATrk(indexByPt (i)); }
+            const int   muNumOfMatchedStationsByPt(size_t i) const { return muNumOfMatchedStations(indexByPt (i)); }
+            const float muBestTrackdzByPt(size_t i) const {return muBestTrackdz(indexByPt (i)); }
+            const float muBestTrackdxyByPt(size_t i) const {return muBestTrackdxy(indexByPt (i)); }
+            const int   muNValidPixelHitsInTrkByPt(size_t i) const {return muNValidPixelHitsInTrk(indexByPt (i)); }
+            const int   muNTkLayersByPt(size_t i) const {return muNTkLayers(indexByPt (i)); }
+	    const float muTrkKinkByPt(size_t  i) const {return muTrkKink(indexByPt (i)); }
+
+
+
             //---- electron id
             const float deltaEtaSuperClusterTrackAtVtx(size_t i) const;           
             const float deltaPhiSuperClusterTrackAtVtx(size_t i) const;          
