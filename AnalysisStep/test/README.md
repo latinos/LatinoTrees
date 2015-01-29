@@ -8,8 +8,8 @@ The command `bash -l` is needed only if the shell is not bash.
     bash -l
 
     export SCRAM_ARCH=slc6_amd64_gcc481
-    cmsrel CMSSW_7_2_2
-    cd CMSSW_7_2_2/src/
+    cmsrel CMSSW_7_3_0
+    cd CMSSW_7_3_0/src/
     cmsenv
 
 
@@ -31,6 +31,8 @@ Get the material
 
 Get a MiniAOD test file
 ====
+
+Useful for a faster code test/development.
 
     source /afs/cern.ch/cms/cmsset_default.sh
 
