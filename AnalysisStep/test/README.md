@@ -1,7 +1,7 @@
 Everything begins here
 ====
 
-The command `bash -l` is needed only if the shell is not bash
+The command `bash -l` is needed only if the shell is not bash.
 
     ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
 
