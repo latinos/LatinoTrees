@@ -1,12 +1,13 @@
 Everything begins here
 ====
 
+The command `bash -l` is needed only if the shell is not bash
+
     ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
 
-    bash -l  # Needed only if the shell is not bash
+    bash -l
 
     export SCRAM_ARCH=slc6_amd64_gcc481
-
     cmsrel CMSSW_7_2_2
     cd CMSSW_7_2_2/src/
     cmsenv
@@ -59,4 +60,3 @@ Create the final tree
 ====
 
     python cmssw2latino.py stepB_latinosYieldSkim_MC_ggHww.root
-
