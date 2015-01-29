@@ -16,7 +16,7 @@ The command `bash -l` is needed only if the shell is not bash.
 Setup CMS git connection
 ====
 
-It is necessary to checkout CMSSW code (https://hypernews.cern.ch/HyperNews/CMS/get/git/200.html).
+Necessary to checkout CMSSW code (https://hypernews.cern.ch/HyperNews/CMS/get/git/200.html).
 
     git cms-init
 
@@ -32,7 +32,7 @@ Get the material
 Get a MiniAOD test file
 ====
 
-Useful for a faster code test.
+Useful for faster code test.
 
     source /afs/cern.ch/cms/cmsset_default.sh
 
@@ -54,7 +54,10 @@ Run step B
                     id=123456789 \
                     scale=1 \
                     outputFile=stepB_latinosYieldSkim_MC_ggHww.root \
-                    doNoFilter=True \
+                    doNoFilter=True
+
+If the `puppi` package has been compiled.
+
                     runPUPPISequence=True
 
 
