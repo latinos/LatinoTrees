@@ -69,9 +69,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_eta = cms.string("etaByPt"),
         std_vector_lepton_phi = cms.string("phiByPt"),
         std_vector_lepton_id  = cms.string("pdgIdByPt"),
-        std_vector_lepton_chargedHadronIso = cms.string("chargedHadronIsoByPt"),
-
-     
 
         mll = cms.string("mll()"),
         ptll = cms.string("pTll()"),
@@ -427,26 +424,28 @@ nPU = cms.EDProducer("PileUpMultiplicityCounter",
 
 def addMuonIdIsoVariables(process,pt):
     if hasattr(pt,"variables"):      
-        setattr(pt.variables, "std_vector_lepton_NValidHitsInTrk",       cms.string("muNValidHitsInTrkByPt")),
-        setattr(pt.variables, "std_vector_lepton_NormChi2GTrk",          cms.string("muNormChi2GTrkByPt")),
-        setattr(pt.variables, "std_vector_lepton_NValidHitsSATrk",       cms.string("muNValidHitsSATrkByPt")),
-        setattr(pt.variables, "std_vector_lepton_NumOfMatchedStations",  cms.string("muNumOfMatchedStationsByPt")),
-        setattr(pt.variables, "std_vector_lepton_BestTrackdz",           cms.string("muBestTrackdzByPt")),
-        setattr(pt.variables, "std_vector_lepton_BestTrackdxy",          cms.string("muBestTrackdxyByPt")),
-        setattr(pt.variables, "std_vector_lepton_NValidPixelHitsInTrk",  cms.string("muNValidPixelHitsInTrkByPt")),
-        setattr(pt.variables, "std_vector_lepton_NTkLayers",             cms.string("muNTkLayersByPt")),
-        setattr(pt.variables, "std_vector_lepton_TrkKink",               cms.string("muTrkKinkByPt")),        
+        setattr(pt.variables, "std_vector_lepton_NValidHitsInTrk",      cms.string("muNValidHitsInTrkByPt")),
+        setattr(pt.variables, "std_vector_lepton_NormChi2GTrk",         cms.string("muNormChi2GTrkByPt")),
+        setattr(pt.variables, "std_vector_lepton_NValidHitsSATrk",      cms.string("muNValidHitsSATrkByPt")),
+        setattr(pt.variables, "std_vector_lepton_NumOfMatchedStations", cms.string("muNumOfMatchedStationsByPt")),
+        setattr(pt.variables, "std_vector_lepton_BestTrackdz",          cms.string("muBestTrackdzByPt")),
+        setattr(pt.variables, "std_vector_lepton_BestTrackdxy",         cms.string("muBestTrackdxyByPt")),
+        setattr(pt.variables, "std_vector_lepton_NValidPixelHitsInTrk", cms.string("muNValidPixelHitsInTrkByPt")),
+        setattr(pt.variables, "std_vector_lepton_NTkLayers",            cms.string("muNTkLayersByPt")),
+        setattr(pt.variables, "std_vector_lepton_TrkKink",              cms.string("muTrkKinkByPt")),
+        setattr(pt.variables, "std_vector_lepton_chargedHadronIso",     cms.string("chargedHadronIsoByPt")),
+
     else:
         raise RuntimeError, "In addMuonIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 
 
 def addEleIdIsoVariables(process,pt):
     if hasattr(pt,"variables"):      
-        setattr(pt.variables, "std_vector_deltaEtaIn" ,    cms.string("deltaEtaSuperClusterTrackAtVtxByPt")),
-        setattr(pt.variables, "std_vector_deltaPhiIn" ,    cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
-        setattr(pt.variables, "std_vector_sigmaIetaIeta" , cms.string("sigmaIetaIetaByPt")),
-        setattr(pt.variables, "std_vector_HoE" ,           cms.string("hadronicOverEmByPt")),
-        setattr(pt.variables, "std_vector_numHits" ,       cms.string("numberOfHitsByPt")),
+        setattr(pt.variables, "std_vector_deltaEtaIn" ,   cms.string("deltaEtaSuperClusterTrackAtVtxByPt")),
+        setattr(pt.variables, "std_vector_deltaPhiIn" ,   cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
+        setattr(pt.variables, "std_vector_sigmaIetaIeta", cms.string("sigmaIetaIetaByPt")),
+        setattr(pt.variables, "std_vector_HoE" ,          cms.string("hadronicOverEmByPt")),
+        setattr(pt.variables, "std_vector_numHits",       cms.string("numberOfHitsByPt")),
     else:
         raise RuntimeError, "In addEleIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 

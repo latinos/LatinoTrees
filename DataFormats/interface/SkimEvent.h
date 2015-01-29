@@ -541,7 +541,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool isHardMuID(size_t a) const;
 
 
-	    //---- muon id
+	    // Muon ID
 	    const int   muNValidHitsInTrk(size_t i) const;
 	    const float muNormChi2GTrk(size_t i) const;
             const int   muNValidHitsSATrk(size_t i) const;
@@ -551,7 +551,6 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const int   muNValidPixelHitsInTrk(size_t i) const;
             const int   muNTkLayers(size_t i) const;
             const float muTrkKink(size_t  i) const;
-
 
 	    const int   muNValidHitsInTrkByPt(size_t i) const {return muNValidHitsInTrk(indexByPt (i)); }    
             const float muNormChi2GTrkByPt(size_t i) const { return muNormChi2GTrk(indexByPt (i)); }
@@ -564,8 +563,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float muTrkKinkByPt(size_t  i) const {return muTrkKink(indexByPt (i)); }
 
 
-
-            //---- electron id
+            // Electron ID
             const float deltaEtaSuperClusterTrackAtVtx(size_t i) const;           
             const float deltaPhiSuperClusterTrackAtVtx(size_t i) const;          
             const float sigmaIetaIeta(size_t i) const;
@@ -577,14 +575,15 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float sigmaIetaIetaByPt(size_t i) const { return sigmaIetaIeta (indexByPt (i)); }
             const float hadronicOverEmByPt(size_t i) const { return hadronicOverEm (indexByPt (i)); }
             const float numberOfHitsByPt(size_t i) const { return hadronicOverEm (indexByPt (i)); }
-            
 
-            // Muons
-	    const float chargedHadronIso    (size_t i = 0) const;
+
+            // Muon and electron isolation
+	    const float chargedHadronIso(size_t i = 0) const;
+
             const float chargedHadronIsoByPt(size_t i = 0) const { return chargedHadronIso(indexByPt(i)); }
-            
-            
-            //Matt's
+
+
+	    //Matt's
             // const int nExtraLepMatt(float a = -1) const;
             // const int nSoftMuMatt(float a = -1) const;
 
