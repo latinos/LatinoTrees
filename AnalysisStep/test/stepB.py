@@ -16,6 +16,7 @@ del options._singletons['totalSections']
 del options._singletons['section']
 del options._singletons['secondaryOutputFile']
 del options._register['secondaryInputFiles']
+
 del options._lists['secondaryInputFiles']
 #-------------------------------------------------------------------------------
 options.register ( 'summary',
@@ -120,6 +121,12 @@ options.register ('doNoFilter',
                   opts.VarParsing.varType.bool,
                   'Turn on no filter requirement, not even requiring 2 leptons! Needed for unfolding at GEN (can be \'True\' or \'False\'')
 
+options.register ('doMuonIsoId',
+                  True, # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.bool,
+                  'Turn on muon id/iso dumper (can be \'True\' or \'False\'')
+
 options.register ('doEleIsoId',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
@@ -167,7 +174,7 @@ options.register ('runPUPPISequence',
 #-------------------------------------------------------------------------------
 # defaults
 options.outputFile = 'stepB.root'
-options.maxEvents = -1 #all events ---> already the default
+options.maxEvents = 1000 #all events ---> already the default
 #print " options.maxEvents = ",options.maxEvents
 #-------------------------------------------------------------------------------
 
@@ -207,6 +214,7 @@ from LatinoTrees.AnalysisStep.stepB_cff import * # get also functions
 
 
 # load configurations
+doMuonIsoId = options.doMuonIsoId
 doEleIsoId = options.doEleIsoId
 doLHE = options.doLHE
 doGen = options.doGen
@@ -428,6 +436,9 @@ if dataset[0] == 'MC':
     tree.variables.ootpum5 = cms.InputTag("NPU:m5")
 
 
+# muon id and iso variables
+if doMuonIsoId:
+  addMuonIdIsoVariables(process,tree)
 
 # electron id and iso variables
 if doEleIsoId:
