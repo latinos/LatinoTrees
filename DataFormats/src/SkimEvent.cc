@@ -2656,6 +2656,101 @@ const float reco::SkimEvent::matchedJetPt(size_t i, float minDr, bool applyCorre
 }
 
 
+/**
+ * ---- muon  id ----
+ */
+
+
+const int reco::SkimEvent::muNValidHitsInTrk(size_t i) const {
+  if(i >= leps_.size()) return -9999.0;
+  if( isMuon(i) ) {
+    reco::TrackRef tr_innertrack = getMuon(i)->innerTrack(); 
+    if (!tr_innertrack.isNull()) {
+      return tr_innertrack->hitPattern().numberOfValidTrackerHits();
+    } else return -999.0;
+  } else return -999.0; 
+}
+
+
+const float reco::SkimEvent::muNormChi2GTrk(size_t i) const {
+  if(i >= leps_.size()) return -9999.0;
+  if( isMuon(i) ) {
+    reco::TrackRef tr_globaltrack =getMuon(i)->globalTrack(); 
+    if (!tr_globaltrack.isNull()) {
+    return tr_globaltrack->normalizedChi2();
+    } else return -999.0;
+  } else return -999.0;
+}
+
+const int reco::SkimEvent::muNValidHitsSATrk(size_t i) const {
+  if(i >= leps_.size()) return -9999.0;
+  if( isMuon(i) ) {
+    reco::TrackRef tr_outtrack = getMuon(i)->standAloneMuon(); 
+    if (!tr_outtrack.isNull()) {
+      return tr_outtrack->hitPattern().numberOfValidMuonHits();
+    } else return -999.0;
+  } else return -999.0;
+}
+
+
+
+const int  reco::SkimEvent::muNumOfMatchedStations(size_t i) const {
+  if(i >= leps_.size()) return -9999.0;
+  if( isMuon(i) ) {
+    return getMuon(i)->numberOfMatchedStations();
+  } else return -999.0;
+}
+
+
+const float reco::SkimEvent::muBestTrackdz(size_t i) const {
+  if(i >= leps_.size()) return -9999.0;
+  const reco::Vertex primaryVtx = highestPtVtx();
+  if( isMuon(i) ) {
+    return getMuon(i)->muonBestTrack()->dz(primaryVtx.position());
+  } else return -999.0;
+}
+
+
+const float reco::SkimEvent::muBestTrackdxy(size_t i) const {
+  if(i >= leps_.size()) return -9999.0;
+  const reco::Vertex primaryVtx = highestPtVtx();
+  if( isMuon(i) ) {
+    return getMuon(i)->muonBestTrack()->dxy(primaryVtx.position());
+  } else return -999.0;
+}
+
+
+const int  reco::SkimEvent::muNValidPixelHitsInTrk(size_t i) const {
+  if(i >= leps_.size()) return -9999.0;
+  if( isMuon(i) ) { 
+    reco::TrackRef tr_innertrack = getMuon(i)->innerTrack();     
+    if (!tr_innertrack.isNull()) {
+      return tr_innertrack->hitPattern().numberOfValidPixelHits(); 
+    } else return -999.0;
+  } else return -999.0;
+}
+
+
+const int  reco::SkimEvent::muNTkLayers(size_t i) const {
+  if(i >= leps_.size()) return -9999.0;
+  if( isMuon(i) ) { 
+    reco::TrackRef tr_innertrack = getMuon(i)->innerTrack(); 
+    if (!tr_innertrack.isNull()) {
+      return tr_innertrack->hitPattern().trackerLayersWithMeasurement();
+    } else return -999.0;
+  } else return -999.0;
+}
+
+
+const float  reco::SkimEvent::muTrkKink(size_t  i) const {
+  if(i >= leps_.size()) return -9999.0;  
+  if( isMuon(i) ) {
+    return  getMuon(i)->combinedQuality().trkKink;
+  } else return -999.0;
+}
+
+
+
 
 /**
  * ---- electron id ----
