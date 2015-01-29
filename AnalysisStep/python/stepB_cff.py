@@ -71,6 +71,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_id  = cms.string("pdgIdByPt"),
         std_vector_lepton_chargedHadronIso = cms.string("chargedHadronIsoByPt"),
 
+     
 
         mll = cms.string("mll()"),
         ptll = cms.string("pTll()"),
@@ -422,6 +423,21 @@ nPU = cms.EDProducer("PileUpMultiplicityCounter",
     #weightFile = cms.string('WWAnalysis/Misc/data/fewz_powheg_weights_stepwise_2011_fine7.root'),
     #src = cms.InputTag("REPLACE_ME"),
 #)
+
+
+def addMuonIdIsoVariables(process,pt):
+    if hasattr(pt,"variables"):      
+        setattr(pt.variables, "std_vector_lepton_NValidHitsInTrk",       cms.string("muNValidHitsInTrkByPt")),
+        setattr(pt.variables, "std_vector_lepton_NormChi2GTrk",          cms.string("muNormChi2GTrkByPt")),
+        setattr(pt.variables, "std_vector_lepton_NValidHitsSATrk",       cms.string("muNValidHitsSATrkByPt")),
+        setattr(pt.variables, "std_vector_lepton_NumOfMatchedStations",  cms.string("muNumOfMatchedStationsByPt")),
+        setattr(pt.variables, "std_vector_lepton_BestTrackdz",           cms.string("muBestTrackdzByPt")),
+        setattr(pt.variables, "std_vector_lepton_BestTrackdxy",          cms.string("muBestTrackdxyByPt")),
+        setattr(pt.variables, "std_vector_lepton_NValidPixelHitsInTrk",  cms.string("muNValidPixelHitsInTrkByPt")),
+        setattr(pt.variables, "std_vector_lepton_NTkLayers",             cms.string("muNTkLayersByPt")),
+        setattr(pt.variables, "std_vector_lepton_TrkKink",               cms.string("muTrkKinkByPt")),        
+    else:
+        raise RuntimeError, "In addMuonIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 
 
 def addEleIdIsoVariables(process,pt):
