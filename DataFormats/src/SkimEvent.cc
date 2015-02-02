@@ -2750,6 +2750,12 @@ const float  reco::SkimEvent::muTrkKink(size_t  i) const {
 }
 
 
+const float reco::SkimEvent::muStaRelChi2(size_t i) const  {
+  if(i >= leps_.size()) return -9999.0;  
+  if( isMuon(i) ) {
+    return getMuon(i)->combinedQuality().staRelChi2;
+  } else return -999.0;
+}
 
 
 /**
