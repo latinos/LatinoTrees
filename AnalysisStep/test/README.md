@@ -7,7 +7,7 @@ The command `bash -l` is needed only if the shell is not bash.
 
     bash -l
 
-    export SCRAM_ARCH=slc6_amd64_gcc481
+    export SCRAM_ARCH=slc6_amd64_gcc491
     cmsrel CMSSW_7_3_0
     cd CMSSW_7_3_0/src/
     cmsenv
@@ -54,7 +54,9 @@ Run step B
                     id=123456789 \
                     scale=1 \
                     outputFile=stepB_latinosYieldSkim_MC_ggHww.root \
-                    doNoFilter=True
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    maxEvents=200
 
 If the `puppi` package has been compiled.
 
@@ -64,4 +66,5 @@ If the `puppi` package has been compiled.
 Create the final tree
 ====
 
-    python cmssw2latino.py stepB_latinosYieldSkim_MC_ggHww.root
+    python cmssw2latino.py stepB_latinosYieldSkim_MC_ggHww_numEvent200.root
+

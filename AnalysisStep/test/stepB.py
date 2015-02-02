@@ -174,7 +174,7 @@ options.register ('runPUPPISequence',
 #-------------------------------------------------------------------------------
 # defaults
 options.outputFile = 'stepB.root'
-options.maxEvents = 1000 #all events ---> already the default
+options.maxEvents = -1 #all events ---> already the default
 #print " options.maxEvents = ",options.maxEvents
 #-------------------------------------------------------------------------------
 
