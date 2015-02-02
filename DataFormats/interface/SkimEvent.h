@@ -551,6 +551,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const int   muNValidPixelHitsInTrk(size_t i) const;
             const int   muNTkLayers(size_t i) const;
             const float muTrkKink(size_t  i) const;
+	    const float muStaRelChi2(size_t i) const;
 
 	    const int   muNValidHitsInTrkByPt(size_t i) const {return muNValidHitsInTrk(indexByPt (i)); }    
             const float muNormChi2GTrkByPt(size_t i) const { return muNormChi2GTrk(indexByPt (i)); }
@@ -561,6 +562,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const int   muNValidPixelHitsInTrkByPt(size_t i) const {return muNValidPixelHitsInTrk(indexByPt (i)); }
             const int   muNTkLayersByPt(size_t i) const {return muNTkLayers(indexByPt (i)); }
 	    const float muTrkKinkByPt(size_t  i) const {return muTrkKink(indexByPt (i)); }
+	    const float muStaRelChi2ByPt(size_t i) const {return muStaRelChi2(indexByPt (i)); }
 
 
             // Electron ID
