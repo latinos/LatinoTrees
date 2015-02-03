@@ -2793,6 +2793,8 @@ const float reco::SkimEvent::numberOfHits(size_t i) const {
  else return -999.0;
 }
 
+
+// Muon and electron isolation
 const float reco::SkimEvent::chargedHadronIso(size_t i) const {
   if      (i >= leps_.size()) return -9999.0;
   else if (isElectron(i))     return getElectron(i)->chargedHadronIso();
@@ -2800,6 +2802,33 @@ const float reco::SkimEvent::chargedHadronIso(size_t i) const {
   else                        return -999.0;
 }
 
+const float reco::SkimEvent::chargedParticleIso(size_t i) const {
+  if      (i >= leps_.size()) return -9999.0;
+  else if (isElectron(i))     return -99.0;
+  else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumChargedParticlePt;
+  else                        return -999.0;
+}
+
+const float reco::SkimEvent::neutralHadronIso(size_t i) const {
+  if      (i >= leps_.size()) return -9999.0;
+  else if (isElectron(i))     return getElectron(i)->neutralHadronIso();
+  else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumNeutralHadronEt;
+  else                        return -999.0;
+}
+
+const float reco::SkimEvent::photonIso(size_t i) const {
+  if      (i >= leps_.size()) return -9999.0;
+  else if (isElectron(i))     return getElectron(i)->photonIso();
+  else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumPhotonEt;
+  else                        return -999.0;
+}
+
+const float reco::SkimEvent::sumPUPt(size_t i) const {
+  if      (i >= leps_.size()) return -9999.0;
+  else if (isElectron(i))     return -99.0;
+  else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumPUPt;
+  else                        return -999.0;
+}
 
 
 // ============== Matt's methods ===============================

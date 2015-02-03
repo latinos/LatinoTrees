@@ -580,9 +580,17 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
 
             // Muon and electron isolation
-	    const float chargedHadronIso(size_t i = 0) const;
+	    const float chargedHadronIso  (size_t i = 0) const;
+	    const float chargedParticleIso(size_t i = 0) const;
+	    const float neutralHadronIso  (size_t i = 0) const;
+	    const float photonIso         (size_t i = 0) const;
+	    const float sumPUPt           (size_t i = 0) const;
 
-            const float chargedHadronIsoByPt(size_t i = 0) const { return chargedHadronIso(indexByPt(i)); }
+            const float chargedHadronIsoByPt  (size_t i = 0) const { return chargedHadronIso  (indexByPt(i)); }
+	    const float chargedParticleIsoByPt(size_t i = 0) const { return chargedParticleIso(indexByPt(i)); }
+	    const float neutralHadronIsoByPt  (size_t i = 0) const { return neutralHadronIso  (indexByPt(i)); }
+	    const float photonIsoByPt         (size_t i = 0) const { return photonIso         (indexByPt(i)); }
+	    const float sumPUPtByPt           (size_t i = 0) const { return sumPUPt           (indexByPt(i)); }
 
 
 	    //Matt's

@@ -433,8 +433,12 @@ def addMuonIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_lepton_NValidPixelHitsInTrk", cms.string("muNValidPixelHitsInTrkByPt")),
         setattr(pt.variables, "std_vector_lepton_NTkLayers",            cms.string("muNTkLayersByPt")),
         setattr(pt.variables, "std_vector_lepton_TrkKink",              cms.string("muTrkKinkByPt")),
-        setattr(pt.variables, "std_vector_lepton_chargedHadronIso",     cms.string("chargedHadronIsoByPt")),
         setattr(pt.variables, "std_vector_lepton_StaRelChi2",           cms.string("muStaRelChi2ByPt")),
+        setattr(pt.variables, "std_vector_lepton_chargedHadronIso",     cms.string("chargedHadronIsoByPt")),
+        setattr(pt.variables, "std_vector_lepton_chargedParticleIso",   cms.string("chargedParticleIsoByPt")),
+        setattr(pt.variables, "std_vector_lepton_neutralHadronIso",     cms.string("neutralHadronIsoByPt")),
+        setattr(pt.variables, "std_vector_lepton_photonIso",            cms.string("photonIsoByPt")),
+        setattr(pt.variables, "std_vector_lepton_sumPUPt",              cms.string("sumPUPtByPt")),
  
     else:
         raise RuntimeError, "In addMuonIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
