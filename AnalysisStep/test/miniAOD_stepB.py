@@ -720,22 +720,7 @@ else :
     process.stepBTree.variables.puAW = cms.string("1")
     process.stepBTree.variables.puBW = cms.string("1")
  
- if (wztth == True) or (doPDFvar == True):
-    getattr(process,"ww%s"% (label)).mcGenEventInfoTag = "generator"
-    getattr(process,"ww%s"% (label)).genParticlesTag   = "packedGenParticles"
- if doSusy == True :
-    getattr(process,"ww%s"% (label)).genParticlesTag   = "packedGenParticles"
- if doHiggs == True :
-    getattr(process,"ww%s"% (label)).genParticlesTag   = "packedGenParticles"
- if doLHE == True :
-    getattr(process,"ww%s"% (label)).mcLHEEventInfoTag = "source"
-    getattr(process,"ww%s"% (label)).whichLHE = cms.untracked.int32(typeLHEcomment)
- if doGen == True :
-    getattr(process,"ww%s"% (label)).genParticlesTag = "packedGenParticles"
-    getattr(process,"ww%s"% (label)).genMetTag = "genMetTrue"
-    getattr(process,"ww%s"% (label)).genJetTag = cms.InputTag("slimmedGenJets")
- if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample    
-    getattr(process,"ww%s"% (label)).genParticlesTag = "packedGenParticles"
+
 
 
  ## add more isolation variables
