@@ -804,6 +804,40 @@ const float reco::SkimEvent::leadingSecondJetPt(size_t index, float minPt,float 
 
 
 
+const float reco::SkimEvent::leadingSecondJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<secondJets_.size();++i) {
+  //   if(!(passJetID(secondJets_[i],applyID)) ) continue;
+  if( std::fabs(secondJets_[i]->eta()) >= eta) continue;
+  if( secondJetPt(i,applyCorrection) <= minPt) continue;
+  
+  if(isThisJetALepton(secondJets_[i])) continue;
+  if(++count > index) return secondJets_[i]->eta();
+ }
+ return -9999.9;
+}
+
+
+const float reco::SkimEvent::leadingSecondJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<secondJets_.size();++i) {
+  //   if(!(passJetID(secondJets_[i],applyID)) ) continue;
+  if( std::fabs(secondJets_[i]->eta()) >= eta) continue;
+  if( secondJetPt(i,applyCorrection) <= minPt) continue;
+  
+  if(isThisJetALepton(secondJets_[i])) continue;
+  if(++count > index) return secondJets_[i]->phi();
+ }
+ return -9999.9;
+}
+
+
+
+
+
+
 
 const float reco::SkimEvent::leadingJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
 

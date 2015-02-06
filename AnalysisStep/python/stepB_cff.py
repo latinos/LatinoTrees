@@ -70,6 +70,12 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_phi = cms.string("phiByPt"),
         std_vector_lepton_id  = cms.string("pdgIdByPt"),
 
+
+        #std_vector_puppijet_pt  = cms.string("leadingSecondJetPt"),
+        #std_vector_puppijet_eta = cms.string("leadingSecondJetEta"),
+        #std_vector_puppijet_phi = cms.string("leadingSecondJetPhi"),
+
+
         mll = cms.string("mll()"),
         ptll = cms.string("pTll()"),
         yll = cms.string("yll()"), #fixed! returns (p4a+p4b).Rapidity()
@@ -783,6 +789,7 @@ def addExtraPUWeights(process,tree,X,seq):
             seq += getattr(process, newName+"OOT")
 
 
+
 ########## PHOTON VARIABLES
 
 def addPhotonVariables(process,pt):
@@ -790,11 +797,11 @@ def addPhotonVariables(process,pt):
         setattr(pt.variables, "v_photon1" ,    cms.string("photon(0)")),
         setattr(pt.variables, "v_photon2" ,    cms.string("photon(1)")),
         setattr(pt.variables, "v_photon3" ,    cms.string("photon(2)")),
-        setattr(pt.variables, "v_photon1id" ,    cms.string("photon_id(0)")),
-        setattr(pt.variables, "nPhos" ,    cms.string("nPhos()")),
-        setattr(pt.variables, "Pho_n_id" ,    cms.string("Pho_n_ID()")),
-        setattr(pt.variables, "mllg" ,    cms.string("mllg()")),
-        setattr(pt.variables, "mllgid" ,    cms.string("mllg()")),
+        setattr(pt.variables, "v_photon1id" ,  cms.string("photon_id(0)")),
+        setattr(pt.variables, "nPhos" ,        cms.string("nPhos()")),
+        setattr(pt.variables, "pho_n_id" ,     cms.string("Pho_n_ID()")),
+        setattr(pt.variables, "mllg" ,         cms.string("mllg()")),
+        setattr(pt.variables, "mllgid" ,       cms.string("mllg()")),
 
 def addPhotonIDVariables(process,pt):
         setattr(pt.variables, "pho_sietaieta" ,    cms.string("Pho_sigmaIetaIeta(0)")),
@@ -804,3 +811,6 @@ def addPhotonIDVariables(process,pt):
         setattr(pt.variables, "pho_phIso" ,        cms.string("Pho_rhoPhotonIso(0)")),
         setattr(pt.variables, "pho_passElecVeto" , cms.string("Pho_PassElectronVeto(0)")),
         setattr(pt.variables, "pho_hasPixelSeed",  cms.string("Pho_HasPixelSeed(0)")),
+
+
+
