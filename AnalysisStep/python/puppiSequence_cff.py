@@ -38,7 +38,6 @@ import FWCore.ParameterSet.Config as cms
 
 from RecoJets.JetProducers.ak5PFJets_cfi  import ak5PFJets
 
-from RecoMET.METProducers.PFMET_cfi import pfMet
 
 
 from CommonTools.PileupAlgos.Puppi_cff import puppi
@@ -54,8 +53,8 @@ def makePuppiAlgo(process):
   puppi.vertexName = cms.InputTag('offlineSlimmedPrimaryVertices')
  
   process.puppi = puppi.clone()
-  process.puppi_onMiniAOD = cms.Sequence(process.puppi)
 
+  process.puppi_onMiniAOD = cms.Sequence(process.puppi)
 
 
  #### puppi particles
@@ -284,4 +283,24 @@ def makePatPuppiJetSequence( process, rParameter = 0.4):
   #process.makePatPuppi = cms.Sequence()
   #setattr(process,"makePatPuppi"+"","AK"+jetRPrefix+"makePatJetsPuppi.clone()") 
   
-  
+from RecoMET.METProducers.PFMET_cfi import pfMet
+from PhysicsTools.PatAlgos.producersLayer1.metProducer_cfi import patMETs
+ 
+def makePatPuppiMetSequence( process ):
+ # puppi met
+  setattr(process,"pfMetPuppi", pfMet.clone( src = cms.InputTag('puppi'),
+                                   calculateSignificance = False))          
+
+  setattr(process,"patMetPuppi",patMETs.clone( 
+                                         metSource = cms.InputTag("pfMetPuppi"),
+					 addGenMET = cms.bool(False)
+					 #getMETSource = cms.InputTag("slimmedGenMetTrue")
+					   )
+					 )
+  #process.patMetPuppi = process.patMETs.clone( metSource = cms.InputTag("pfMetPuppi"))
+
+  process.makePatMetPuppi = cms.Sequence()
+  setattr(process, "makePatMetPuppi", cms.Sequence( getattr(process,"pfMetPuppi")*
+                                                    getattr(process,"patMetPuppi")
+						    )
+						    )
