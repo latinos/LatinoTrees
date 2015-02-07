@@ -16,7 +16,7 @@ puppi
 ~~~
 
 From
-    https://twiki.cern.ch/twiki/bin/view/CMS/Phys14JMERecipies#PUPPI_example_for_AK8_jets
+    https://twiki.cern.ch/twiki/bin/view/CMS/Phys14JMERecipes#PUPPI_example_for_AK8_jets
     
 cmssw release needed:
 

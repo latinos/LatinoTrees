@@ -70,10 +70,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_phi = cms.string("phiByPt"),
         std_vector_lepton_id  = cms.string("pdgIdByPt"),
 
-
-        #std_vector_puppijet_pt  = cms.string("leadingSecondJetPt"),
-        #std_vector_puppijet_eta = cms.string("leadingSecondJetEta"),
-        #std_vector_puppijet_phi = cms.string("leadingSecondJetPhi"),
+        std_vector_puppijet_pt  = cms.string("leadingSecondJetPt"),
+        std_vector_puppijet_eta = cms.string("leadingSecondJetEta"),
+        std_vector_puppijet_phi = cms.string("leadingSecondJetPhi"),
 
 
         mll = cms.string("mll()"),

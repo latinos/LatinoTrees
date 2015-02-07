@@ -345,13 +345,12 @@ if options.runPUPPISequence:
     jetPuppiR = 0.4
     makePuppiAlgo(process) ## call puppi producer and puppi met
     makePatPuppiJetSequence(process,jetPuppiR) ## call pat puppi jets
-    makePatPuppiMetSequence(process) ## call pat puppi jets
+    makePatPuppiMetSequence(process) ## call pat puppi met
 
     # now add to the preSequence
     preSeq += process.puppi_onMiniAOD
     preSeq += process.makePatPuppi
     preSeq += process.makePatMetPuppi
-    # FIXME met puppi to be added
 
 
 

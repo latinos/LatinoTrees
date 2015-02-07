@@ -334,7 +334,7 @@ void reco::SkimEvent::setPFMet(const edm::Handle< std::vector<pat::MET> > & mH) 
 }
 
 void reco::SkimEvent::setPUpMet(const edm::Handle< std::vector<pat::MET> > & mH) {
-    pupMet_ = pat::METRef(mH,0);
+ pupMet_ = pat::METRef(mH,0);
 }
 
 void reco::SkimEvent::setChargedMet(const reco::PFMET & chMET) {
@@ -837,6 +837,23 @@ const float reco::SkimEvent::leadingSecondJetPhi(size_t index, float minPt,float
  return -9999.9;
 }
 
+
+
+
+const float reco::SkimEvent::leadingSecondJetPt(size_t index) const {
+ return leadingSecondJetPt(index,0,4.7,1,0); //---- FIXME check default values
+}
+
+
+
+const float reco::SkimEvent::leadingSecondJetEta(size_t index) const {
+ return leadingSecondJetPt(index,0,4.7,1,0); //---- FIXME check default values
+}
+
+
+const float reco::SkimEvent::leadingSecondJetPhi(size_t index) const {
+ return leadingSecondJetPt(index,0,4.7,1,0); //---- FIXME check default values
+}
 
 
 
@@ -1582,12 +1599,13 @@ const float reco::SkimEvent::pfMet() const {
     if(pfMet_.isNonnull()) return pfMet_->pt();
     else return -9999.0;
 }
+
 const float reco::SkimEvent::pupMet() const {
 
-    if(pupMet_.isNonnull()) return pupMet_->pt();
-    else return -9999.0;
+ if(pupMet_.isNonnull()) return pupMet_->pt();
+ else return -9999.0;
 }
-
+ 
 const float reco::SkimEvent::pfMetPhi() const {
 
     if(pfMet_.isNonnull()) return pfMet_->phi();
