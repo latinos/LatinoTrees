@@ -4040,6 +4040,61 @@ const float reco::SkimEvent::higgsLHEPt() const {
  return -9999.9; //if no Higgs was found
 }
 
+
+//---- FIXME if there is more than one Higgs, you need to fix this to create an order
+//----       possibility: add "pt ordered" Higgs, as done for leptons
+const float reco::SkimEvent::higgsLHEEta() const {
+ std::vector<float> v_particleLHE_eta ;
+ // loop over particles in the event
+ for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
+  if (type ==25) { //---- Higgs
+   TVector3 temp_vector(LHEhepeup_.PUP.at (iPart) [0], LHEhepeup_.PUP.at (iPart) [1], LHEhepeup_.PUP.at (iPart) [2] ); // pass px, py, pz
+   v_particleLHE_eta.push_back(temp_vector.Eta());
+  }
+ }
+ //---- now return ----
+ if ( 0 < v_particleLHE_eta.size() ) return v_particleLHE_eta.at(0);
+ return -9999.9; //if no Higgs was found
+}
+
+
+const float reco::SkimEvent::higgsLHEPhi() const {
+ std::vector<float> v_particleLHE_phi ;
+ // loop over particles in the event
+ for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
+  if (type ==25) { //---- Higgs
+   TVector3 temp_vector(LHEhepeup_.PUP.at (iPart) [0], LHEhepeup_.PUP.at (iPart) [1], LHEhepeup_.PUP.at (iPart) [2] ); // pass px, py, pz
+   v_particleLHE_phi.push_back(temp_vector.Phi());
+  }
+ }
+ //---- now return ----
+ if ( 0 < v_particleLHE_phi.size() ) return v_particleLHE_phi.at(0);
+ return -9999.9; //if no Higgs was found
+}
+
+
+const float reco::SkimEvent::higgsLHEmass() const {
+ std::vector<float> v_particleLHE_mass ;
+ // loop over particles in the event
+ for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
+  if (type ==25) { //---- Higgs
+   v_particleLHE_mass.push_back(LHEhepeup_.PUP.at (iPart) [4]); //---- mass
+   //---- see http://home.thep.lu.se/~leif/LHEF/classLHEF_1_1HEPEUP.html
+  }
+ }
+ //---- now return ----
+ if ( 0 < v_particleLHE_mass.size() ) return v_particleLHE_mass.at(0);
+ return -9999.9; //if no Higgs was found
+}
+
+
+
 const float reco::SkimEvent::leadingGenJetPartonPt(size_t index) const {
  std::vector<float> v_jets_pt ;
 

@@ -400,6 +400,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float LHEMetEta() const;
 
             const float higgsLHEPt() const;
+            const float higgsLHEEta() const;
+            const float higgsLHEPhi() const;
+            const float higgsLHEmass() const;
             
             const float leadingGenJetPartonPt(size_t a) const;
             const float leadingGenJetPartonPID(size_t a) const;

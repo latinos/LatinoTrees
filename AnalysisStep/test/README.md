@@ -62,7 +62,12 @@ If the `puppi` package has been compiled.
 
                     runPUPPISequence=True
 
+to add LHE information:
 
+                    doLHE=True
+
+                    
+                    
 Create the final tree
 ====
 
