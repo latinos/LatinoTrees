@@ -352,6 +352,8 @@ if options.runPUPPISequence:
     preSeq += process.makePatPuppi
     preSeq += process.makePatMetPuppi
 
+    process.skimEventProducer.pupMetTag = cms.InputTag("patMetPuppi")
+
 
 
 

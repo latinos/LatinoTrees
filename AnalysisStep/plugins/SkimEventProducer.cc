@@ -46,7 +46,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     secondJetTag_      = cfg.getParameter<edm::InputTag>("secondJetTag" );
     fatJetTag_         = cfg.getParameter<edm::InputTag>("fatJetTag" );
     pfMetTag_          = cfg.getParameter<edm::InputTag>("pfMetTag" );
-    pupMetTag_          = cfg.getParameter<edm::InputTag>("pupMetTag" );
+    pupMetTag_         = cfg.getParameter<edm::InputTag>("pupMetTag" );
     tcMetTag_          = cfg.getParameter<edm::InputTag>("tcMetTag" );
     chargedMetTag_     = cfg.getParameter<edm::InputTag>("chargedMetTag" );
     vtxTag_            = cfg.getParameter<edm::InputTag>("vtxTag" );
@@ -73,7 +73,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     tagJetHT_      = consumes<pat::JetCollection>(tagJetTag_);
     secondTagJetHT_= consumes<pat::JetCollection>(secondJetTag_);
     pfMetHT_       = consumes<std::vector<pat::MET> >(pfMetTag_);
-    pupMetHT_       = consumes<std::vector<pat::MET> >(pupMetTag_);
+    if(!(pupMetTag_ == edm::InputTag(""))) pupMetHT_       = consumes<std::vector<pat::MET> >(pupMetTag_);
     vtxHT_         = consumes<reco::VertexCollection>(vtxTag_);
     candsHT_       = consumes<reco::CandidateView>(chCandsTag_);
     if(!(sptTag_  == edm::InputTag(""))) sptHT_   = consumes<edm::ValueMap<float> >(sptTag_);
@@ -122,7 +122,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     iEvent.getByToken(pfMetHT_,pfMetH);
 
     edm::Handle< std::vector<pat::MET> > pupMetH;
-    iEvent.getByToken(pupMetHT_,pupMetH);
+    if(!(pupMetTag_ == edm::InputTag(""))) iEvent.getByToken(pupMetHT_,pupMetH);
 
     edm::Handle<reco::VertexCollection> vtxH;
     iEvent.getByToken(vtxHT_,vtxH);
@@ -212,7 +212,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     skimEvent->back().setFatJets(fatJetH);
     skimEvent->back().setJetRhoIso(rhoJetIso);
     skimEvent->back().setPFMet(pfMetH);
-    skimEvent->back().setPUpMet(pupMetH);
+    if(pupMetH.isValid() )skimEvent->back().setPUpMet(pupMetH);
     skimEvent->back().setVertex(vtxH);
     if(sptH.isValid() ) skimEvent->back().setVtxSumPts(sptH);
     if(spt2H.isValid() ) skimEvent->back().setVtxSumPt2s(spt2H);
