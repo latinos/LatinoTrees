@@ -58,11 +58,11 @@ Run step B
                     doMuonIsoId=True \
                     maxEvents=200
 
-To add LHE information:
+To add LHE information.
 
                     doLHE=True
 
-To add GEN information like `genjets` or `genleptons`:
+To add GEN information like `genjets` or `genleptons`.
 
                     doGen=True
                     
