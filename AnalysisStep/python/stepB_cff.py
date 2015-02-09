@@ -587,15 +587,19 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "metGeneta" , cms.string("genMetEta()")),
         setattr(pt.variables, "metGenphi" , cms.string("genMetPhi()")),
 
-        setattr(pt.variables, "jetGenpt1" , cms.string("leadingGenJetPt(0)")),
-        setattr(pt.variables, "jetGenphi1" , cms.string("leadingGenJetPhi(0)")),
-        setattr(pt.variables, "jetGeneta1" , cms.string("leadingGenJetEta(0)")),
-        setattr(pt.variables, "jetGenpt2" , cms.string("leadingGenJetPt(1)")),
-        setattr(pt.variables, "jetGenphi2" , cms.string("leadingGenJetPhi(1)")),
-        setattr(pt.variables, "jetGeneta2" , cms.string("leadingGenJetEta(1)")),
-        setattr(pt.variables, "jetGenpt3" , cms.string("leadingGenJetPt(2)")),
-        setattr(pt.variables, "jetGenphi3" , cms.string("leadingGenJetPhi(2)")),
-        setattr(pt.variables, "jetGeneta3" , cms.string("leadingGenJetEta(2)")),
+        setattr(pt.variables, "std_vector_jetGen_pt"  , cms.string("leadingGenJetPt")),
+        setattr(pt.variables, "std_vector_jetGen_phi" , cms.string("leadingGenJetPhi")),
+        setattr(pt.variables, "std_vector_jetGen_eta" , cms.string("leadingGenJetEta")),
+
+        #setattr(pt.variables, "jetGenpt1" , cms.string("leadingGenJetPt(0)")),
+        #setattr(pt.variables, "jetGenphi1" , cms.string("leadingGenJetPhi(0)")),
+        #setattr(pt.variables, "jetGeneta1" , cms.string("leadingGenJetEta(0)")),
+        #setattr(pt.variables, "jetGenpt2" , cms.string("leadingGenJetPt(1)")),
+        #setattr(pt.variables, "jetGenphi2" , cms.string("leadingGenJetPhi(1)")),
+        #setattr(pt.variables, "jetGeneta2" , cms.string("leadingGenJetEta(1)")),
+        #setattr(pt.variables, "jetGenpt3" , cms.string("leadingGenJetPt(2)")),
+        #setattr(pt.variables, "jetGenphi3" , cms.string("leadingGenJetPhi(2)")),
+        #setattr(pt.variables, "jetGeneta3" , cms.string("leadingGenJetEta(2)")),
 
 
     else:
