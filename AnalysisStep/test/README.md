@@ -58,15 +58,11 @@ Run step B
                     doMuonIsoId=True \
                     maxEvents=200
 
-If the `puppi` package has been compiled.
-
-                    runPUPPISequence=True
-
-to add LHE information:
+To add LHE information:
 
                     doLHE=True
 
-to add GEN information (e.g. genjets, genleptons, ...)
+To add GEN information like `genjets` or `genleptons`:
 
                     doGen=True
                     
