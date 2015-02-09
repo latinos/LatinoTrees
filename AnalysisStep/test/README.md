@@ -66,6 +66,9 @@ to add LHE information:
 
                     doLHE=True
 
+to add GEN information (e.g. genjets, genleptons, ...)
+
+                    doGen=True
                     
                     
 Create the final tree

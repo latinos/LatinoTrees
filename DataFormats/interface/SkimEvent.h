@@ -458,8 +458,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setGenWeight(const edm::Handle<GenFilterInfo> &s);
 
             void setGenInfo(const edm::Handle<GenEventInfoProduct> &s);
+            void setGenMet(const edm::Handle< std::vector<pat::MET> > &); //---- new interface to GenMET with miniAOD
             void setGenMet(const edm::Handle<reco::GenMETCollection> &);
-            void setGenJets(const edm::Handle<reco::GenJetCollection> &h );
+            void setGenJets(const edm::Handle<reco::GenJetCollection> &);
         
             //void sortJetsByPt() { std::sort(jets_.begin(), jets_.end(), sortPatJetByPt); }
             //void sortTagJetsByPt() { std::sort(tagJets_.begin(), tagJets_.end(), sortPatJetByPt); }
@@ -678,7 +679,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             pat::JetRefVector tagJets_;
             pat::JetRefVector secondJets_;
             reco::GenParticleRefVector genParticles_;
-            reco::GenMETRef genMet_;
+            reco::GenMETRef genMetRef_;
+            reco::GenMET genMet_;
             reco::GenJetRefVector genJets_;
 // float mcGenWeight_;
             GenFilterInfo mcGenWeight_;

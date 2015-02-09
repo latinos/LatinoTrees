@@ -326,11 +326,11 @@ void reco::SkimEvent::setTagJets(const edm::Handle<pat::JetCollection> & jH) {
 }
 
 void reco::SkimEvent::setTCMet(const edm::Handle<reco::METCollection> & mH) {
-    tcMet_ = reco::METRef(mH,0);
+ tcMet_ = reco::METRef(mH,0);
 }
 
 void reco::SkimEvent::setPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
-    pfMet_ = pat::METRef(mH,0);
+ pfMet_ = pat::METRef(mH,0);
 }
 
 void reco::SkimEvent::setPUpMet(const edm::Handle< std::vector<pat::MET> > & mH) {
@@ -338,29 +338,45 @@ void reco::SkimEvent::setPUpMet(const edm::Handle< std::vector<pat::MET> > & mH)
 }
 
 void reco::SkimEvent::setChargedMet(const reco::PFMET & chMET) {
-    chargedMet_ = chMET;
+ chargedMet_ = chMET;
+}
+
+void reco::SkimEvent::setGenMet(const edm::Handle< std::vector<pat::MET> > & mH) {
+//  genMet_ = &(mH.product()->front().genMET());
+//  genMet_ = mH.product()->front().genMET();
+//  genMet_ =  reco::GenMETRef((mH.product()->front()).genMET(),0);
+//  genMet_ =  reco::GenMETRef( pat::MET((pat::METRef(mH,0))).genMET());
+//  genMet_ =  reco::GenMETRef( (mH.product()->front()).genMET());
+//  genMet_ =  (mH.product()->front()).genMET();
+//  genMet_ =  reco::GenMETRef(std::vector<GenMET>::push_back((mH.product()->front()).genMET()), 0);
+ 
+ 
+ genMet_ = *((mH.product()->front()).genMET());
+ 
+//  std::vector<reco::GenMET> temp_vector_genmet;
+//  reco::GenMET temp_genmet = *((mH.product()->front()).genMET());
+//  temp_vector_genmet.push_back(temp_genmet);
+//  genMet_ =  reco::GenMETRef(temp_vector_genmet,0);
 }
 
 void reco::SkimEvent::setGenMet(const edm::Handle<reco::GenMETCollection> & mH) {
-    genMet_ = reco::GenMETRef(mH,0);
+ genMetRef_ = reco::GenMETRef(mH,0);
 }
 
 
 void reco::SkimEvent::setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s) {
 
-    for(size_t i=0;i<vtxs_.size();++i) sumPts_.push_back( (*s)[vtxs_[i]] );
-
+ for(size_t i=0;i<vtxs_.size();++i) sumPts_.push_back( (*s)[vtxs_[i]] );
 }
 
 void reco::SkimEvent::setVtxSumPt2s(const edm::Handle<edm::ValueMap<float> > &s) {
 
-    for(size_t i=0;i<vtxs_.size();++i) sumPt2s_.push_back( (*s)[vtxs_[i]] );
-
+ for(size_t i=0;i<vtxs_.size();++i) sumPt2s_.push_back( (*s)[vtxs_[i]] );
 }
 
 void reco::SkimEvent::setVertex(const edm::Handle<reco::VertexCollection> & vtxH) {
 
-    for(size_t i=0;i<vtxH->size();++i) vtxs_.push_back(reco::VertexRef(vtxH,i));
+ for(size_t i=0;i<vtxH->size();++i) vtxs_.push_back(reco::VertexRef(vtxH,i));
 }
 
 
@@ -4347,19 +4363,19 @@ const float reco::SkimEvent::leadingGenNeutrinoPhi(size_t index) const {
 
 const float reco::SkimEvent::genMetPt() const {
   float pT = -9999.9;
-  if(genMet_.isNonnull()) pT = genMet_->pt();
+  if(genMetRef_.isNonnull()) pT = genMetRef_->pt();
   return pT;
 }
 
 const float reco::SkimEvent::genMetEta() const {
   float eta = -9999.9;
-  if(genMet_.isNonnull()) eta = genMet_->eta();
+  if(genMetRef_.isNonnull()) eta = genMetRef_->eta();
   return eta;
 }
 
 const float reco::SkimEvent::genMetPhi() const {
   float phi = -9999.9;
-  if(genMet_.isNonnull()) phi = genMet_->phi();
+  if(genMetRef_.isNonnull()) phi = genMetRef_->phi();
   return phi;
 }
 

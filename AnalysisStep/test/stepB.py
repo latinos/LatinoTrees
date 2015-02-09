@@ -383,9 +383,11 @@ if doLHE == True :
     getattr(process,"ww%s"% (labelSetup)).whichLHE = cms.untracked.int32(typeLHEcomment)
 
 if doGen == True :
-    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
-    getattr(process,"ww%s"% (labelSetup)).genMetTag = "genMetTrue"
-    getattr(process,"ww%s"% (labelSetup)).genJetTag = cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
+    # Difference between "prunedGenParticles" and "packedGenParticles": https://twiki.cern.ch/twiki/bin/viewauth/CMS/MiniAOD#PackedGenParticles
+    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGenParticles"
+    getattr(process,"ww%s"% (labelSetup)).genMetTag = "slimmedMET" # "genMetTrue"
+    getattr(process,"ww%s"% (labelSetup)).genJetTag = "slimmedGenJets"
+    #cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
 
 if doGenVV == True :
     getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"
