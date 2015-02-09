@@ -385,7 +385,7 @@ if doLHE == True :
 if doGen == True :
     # Difference between "prunedGenParticles" and "packedGenParticles": https://twiki.cern.ch/twiki/bin/viewauth/CMS/MiniAOD#PackedGenParticles
     getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGenParticles"
-    getattr(process,"ww%s"% (labelSetup)).genMetTag = "slimmedMET" # "genMetTrue"
+    #getattr(process,"ww%s"% (labelSetup)).genMetTag = "slimmedMETs" # "genMetTrue"
     getattr(process,"ww%s"% (labelSetup)).genJetTag = "slimmedGenJets"
     #cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
 

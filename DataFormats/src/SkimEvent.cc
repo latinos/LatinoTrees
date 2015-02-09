@@ -341,22 +341,8 @@ void reco::SkimEvent::setChargedMet(const reco::PFMET & chMET) {
  chargedMet_ = chMET;
 }
 
-void reco::SkimEvent::setGenMet(const edm::Handle< std::vector<pat::MET> > & mH) {
-//  genMet_ = &(mH.product()->front().genMET());
-//  genMet_ = mH.product()->front().genMET();
-//  genMet_ =  reco::GenMETRef((mH.product()->front()).genMET(),0);
-//  genMet_ =  reco::GenMETRef( pat::MET((pat::METRef(mH,0))).genMET());
-//  genMet_ =  reco::GenMETRef( (mH.product()->front()).genMET());
-//  genMet_ =  (mH.product()->front()).genMET();
-//  genMet_ =  reco::GenMETRef(std::vector<GenMET>::push_back((mH.product()->front()).genMET()), 0);
- 
- 
+void reco::SkimEvent::setGenMet(const edm::Handle< std::vector<pat::MET> > & mH) { 
  genMet_ = *((mH.product()->front()).genMET());
- 
-//  std::vector<reco::GenMET> temp_vector_genmet;
-//  reco::GenMET temp_genmet = *((mH.product()->front()).genMET());
-//  temp_vector_genmet.push_back(temp_genmet);
-//  genMet_ =  reco::GenMETRef(temp_vector_genmet,0);
 }
 
 void reco::SkimEvent::setGenMet(const edm::Handle<reco::GenMETCollection> & mH) {
@@ -4364,18 +4350,21 @@ const float reco::SkimEvent::leadingGenNeutrinoPhi(size_t index) const {
 const float reco::SkimEvent::genMetPt() const {
   float pT = -9999.9;
   if(genMetRef_.isNonnull()) pT = genMetRef_->pt();
+  else pT = genMet_.pt(); //---- FIXME
   return pT;
 }
 
 const float reco::SkimEvent::genMetEta() const {
   float eta = -9999.9;
   if(genMetRef_.isNonnull()) eta = genMetRef_->eta();
+  else eta = genMet_.eta(); //---- FIXME
   return eta;
 }
 
 const float reco::SkimEvent::genMetPhi() const {
   float phi = -9999.9;
   if(genMetRef_.isNonnull()) phi = genMetRef_->phi();
+  else phi = genMet_.phi(); //---- FIXME
   return phi;
 }
 

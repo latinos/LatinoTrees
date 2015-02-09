@@ -233,9 +233,14 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     if(!(mcLHEEventInfoTag_ == edm::InputTag(""))) {
      skimEvent->back().setLHEinfo(productLHEHandle);
     }
+    
     if(!(genMetTag_ == edm::InputTag(""))) {
      skimEvent->back().setGenMet(genMetH);
+    } 
+    else {
+     skimEvent->back().setGenMet(pfMetH); //---- in miniAOD met and genmet are linked
     }
+    
     if(!(genJetTag_==edm::InputTag(""))) {
      skimEvent->back().setGenJets(genJetH);
     }
