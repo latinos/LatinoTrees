@@ -846,20 +846,27 @@ const float reco::SkimEvent::leadingSecondJetPt(size_t index) const {
  return leadingSecondJetPt(index,0,4.7,1,0); //---- FIXME check default values
 }
 
-
-
 const float reco::SkimEvent::leadingSecondJetEta(size_t index) const {
- return leadingSecondJetPt(index,0,4.7,1,0); //---- FIXME check default values
+ return leadingSecondJetEta(index,0,4.7,1,0); //---- FIXME check default values
 }
-
 
 const float reco::SkimEvent::leadingSecondJetPhi(size_t index) const {
- return leadingSecondJetPt(index,0,4.7,1,0); //---- FIXME check default values
+ return leadingSecondJetPhi(index,0,4.7,1,0); //---- FIXME check default values
 }
 
 
 
+const float reco::SkimEvent::leadingJetPt(size_t index) const { 
+ return leadingJetPt(index,0,4.7,1,0);
+}
 
+const float reco::SkimEvent::leadingJetEta(size_t index) const { 
+ return leadingJetEta(index,0,4.7,1,0);
+}
+
+const float reco::SkimEvent::leadingJetPhi(size_t index) const { 
+ return leadingJetPhi(index,0,4.7,1,0);
+}
 
 
 const float reco::SkimEvent::leadingJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {

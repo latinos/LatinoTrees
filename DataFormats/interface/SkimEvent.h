@@ -210,6 +210,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const int leadingVBFJetId(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingVBFJetMva(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const pat::Jet* leadingJet(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
+
+            const float leadingJetPt (size_t a) const;
+            const float leadingJetEta(size_t a) const;
+            const float leadingJetPhi(size_t a) const;
+            
             const float leadingJetPt(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingJetEta(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingJetMass(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
