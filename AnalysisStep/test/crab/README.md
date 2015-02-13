@@ -9,8 +9,8 @@ See details in:
 
 check if I have writing permissions:
 
-    source /afs/cern.ch/cms/LCG/LCG-2/UI/cms_ui_env.sh
     source /cvmfs/cms.cern.ch/crab3/crab.sh
+    
     crab checkwrite --site=T2_CH_CERN
     crab checkwrite --site=T2_CH_CERN  --lfn=/store/group/phys_higgs/cmshww/amassiro/RunII/test/
 
@@ -28,4 +28,9 @@ details:
 
     it will save in something like:
     /eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/test/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/crab_MCtest/150116_163732/0000/stepB_MC_ggHww_1.root
+
+
+    
+Multicrab
+====
 
