@@ -3,7 +3,8 @@ from WMCore.Configuration import Configuration
 config = Configuration()
 config.section_('General')
 config.General.transferOutputs = True
-config.General.requestName = 'MCtest_11Feb2015'
+#config.General.requestName = 'MCtest_11Feb2015'
+config.General.requestName = 'MCtest_13Feb2015'
 
 config.section_('JobType')
 config.JobType.psetName = '../stepB.py'
