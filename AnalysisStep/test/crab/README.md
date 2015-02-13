@@ -36,4 +36,7 @@ Multicrab
 
     python multicrab.py
 
+    crab status
     
+    crab status folder_name
+
