@@ -2,4 +2,9 @@
 <use name="FWCore/PluginManager"/>
 <use name="FWCore/ParameterSet"/>
 <use name="DataFormats/PatCandidates"/>
+
+<use   name="JetMETCorrections/Objects"/>
+<use   name="JetMETCorrections/Algorithms"/>
+<use   name="JetMETCorrections/JetCorrector"/>
+
 <flags EDM_PLUGIN="1"/>

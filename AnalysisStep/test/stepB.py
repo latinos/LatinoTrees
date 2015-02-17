@@ -169,6 +169,11 @@ options.register ('runPUPPISequence',
                   opts.VarParsing.varType.bool,
                   'Turn on PUPPI jets (can be \'True\' or \'False\'')
 
+options.register ('globalTag',
+                  'PHYS14_25_V2',
+                   opts.VarParsing.multiplicity.singleton,
+                   opts.VarParsing.varType.string,
+                  'GlobalTag')
 
 
 #-------------------------------------------------------------------------------
@@ -207,6 +212,13 @@ process.source.inputCommands = cms.untracked.vstring( "keep *", "drop *_conditio
 
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(options.summary))
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(options.maxEvents) )
+
+
+
+globalTag = options.globalTag + "::All"
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+process.GlobalTag.globaltag = globalTag
+
 
 # load configuration file with the variables list
 process.load("LatinoTrees.AnalysisStep.stepB_cff")
@@ -310,6 +322,31 @@ elif options.selection == 'LooseLoose':
     labelSetup = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; pho = "wwPhoScenario1"; preSeq = cms.Sequence();
 else:
     raise ValueError('selection must be either TightTight or LooseLoose')
+
+
+
+# add L1+L2+L3 jet energy corrections in MC
+# first create the "raw" jets
+process.load("LatinoTrees.JetUncorrector.JetUncorrector_cff")
+preSeq += process.rawJets
+# then apply the new corrections
+process.load("JetMETCorrections.Configuration.JetCorrectionServices_cff")
+process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff")
+
+# load jet corrections 
+process.prefer("ak4PFCHSL1FastL2L3") 
+
+process.corJets = cms.EDProducer("PatJetCorrectionProducer",
+    src = cms.InputTag('rawJets'),
+    correctors = cms.vstring('ak4PFCHSL1FastL2L3')
+)
+
+#preSeq += process.ak4PFCHSL1FastL2L3
+preSeq += process.corJets
+
+
+process.skimEventProducer.jetTag    = cms.InputTag("corJets")
+process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
 
 
 
