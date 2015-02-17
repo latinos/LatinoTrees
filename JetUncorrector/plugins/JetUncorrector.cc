@@ -58,11 +58,6 @@ class JetUncorrector : public edm::EDProducer {
       virtual void produce(edm::Event&, const edm::EventSetup&) override;
       virtual void endJob() override;
       
-      //virtual void beginRun(edm::Run const&, edm::EventSetup const&) override;
-      //virtual void endRun(edm::Run const&, edm::EventSetup const&) override;
-      //virtual void beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&) override;
-      //virtual void endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&) override;
-
       // ----------member data ---------------------------
       edm::EDGetTokenT<JetCollection> mInput;
       bool mVerbose;
@@ -118,9 +113,6 @@ void JetUncorrector::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) 
  std::auto_ptr<JetCollection> result (new JetCollection); //Corrected jets --> actually the "uncorrected" ones
  typename JetCollection::const_iterator jet;
  for (jet = jets->begin(); jet != jets->end(); jet++) {
-//   const pat::Jet* referenceJet = &*jet;
-//   int index = jet-jets->begin();
-//   edm::RefToBase<reco::Jet> jetRef(edm::Ref<JetCollection>(jets,index));
   if (mVerbose) std::cout<<"JetCorrectionProducer::produce-> original jet: "<<jet->print()<<std::endl;
 
   //---- get the "raw" jet
