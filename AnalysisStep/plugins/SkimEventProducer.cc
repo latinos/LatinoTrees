@@ -51,6 +51,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     chargedMetTag_     = cfg.getParameter<edm::InputTag>("chargedMetTag" );
     vtxTag_            = cfg.getParameter<edm::InputTag>("vtxTag" );
     chCandsTag_        = cfg.getParameter<edm::InputTag>("chCandsTag" );
+    pfCandsTag_        = cfg.getParameter<edm::InputTag>("pfCandsTag" );
     rhoTag_            = cfg.getParameter<edm::InputTag>("rhoTag" );
     phoTag_	       = cfg.getParameter<edm::InputTag>("phoTag"); //Photon
 
@@ -76,6 +77,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     if(!(pupMetTag_ == edm::InputTag(""))) pupMetHT_       = consumes<std::vector<pat::MET> >(pupMetTag_);
     vtxHT_         = consumes<reco::VertexCollection>(vtxTag_);
     candsHT_       = consumes<reco::CandidateView>(chCandsTag_);
+    pfCandsHT_     = consumes<pat::PackedCandidateCollection>(pfCandsTag_);
     if(!(sptTag_  == edm::InputTag(""))) sptHT_   = consumes<edm::ValueMap<float> >(sptTag_);
     if(!(spt2Tag_ == edm::InputTag(""))) spt2HT_  = consumes<edm::ValueMap<float> >(spt2Tag_);
     triggerT_      = consumes<edm::TriggerResults>(triggerTag_);
@@ -129,6 +131,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     edm::Handle<reco::CandidateView> candsH;
     iEvent.getByToken(candsHT_,candsH);
+    edm::Handle<pat::PackedCandidateCollection> pfCandsH;
+    iEvent.getByToken(pfCandsHT_,pfCandsH);
 
     edm::Handle<edm::ValueMap<float> > sptH;
     if(!(sptTag_ == edm::InputTag(""))) iEvent.getByToken(sptHT_,sptH);
@@ -240,6 +244,11 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     else {
      skimEvent->back().setGenMet(pfMetH); //---- in miniAOD met and genmet are linked
     }
+    const reco::VertexCollection *pvCol = vtxH.product();
+    const reco::Vertex* pv = &(*pvCol->begin());
+    reco::MET trkMet = computeTrkMet(*pv, pfCandsH);
+    //std::cout<<"trkMetOut: "<<trkMet.pt()<<std::endl;
+    skimEvent->back().setTrkMet(trkMet);
     
     if(!(genJetTag_==edm::InputTag(""))) {
      skimEvent->back().setGenJets(genJetH);
@@ -247,7 +256,25 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     iEvent.put(skimEvent);
 }
-
+    //edm::Handle<reco::PFCandidateCollection> pfCandsH;
+reco::MET SkimEventProducer::computeTrkMet(const reco::Vertex &pv,
+                      edm::Handle<pat::PackedCandidateCollection> candsH
+        ){
+    using namespace std;
+    //cout<<"pv.x:"<<pv.x()<<endl;
+    reco::Candidate::LorentzVector totalP4;
+    for(pat::PackedCandidateCollection::const_iterator it= candsH->begin(), ed =candsH->end(); it != ed; ++it){
+        if( it->charge() == 0 ) continue;
+	//cout<<"it.dz: "<<it->dz()<<endl;
+	//if( it->trackRef().isNonnull() && pv.trackWeight(it->trackRef())>0)
+	if( fabs(it->dz()) <0.1){
+          totalP4 += it->p4();
+	}
+    }
+    reco::Candidate::LorentzVector invertedP4(-totalP4);
+    reco::MET met(invertedP4,reco::Candidate::Point(0,0,0));
+    return met;
+}
 
 reco::MET SkimEventProducer::doChMET(edm::Handle<reco::CandidateView> candsH,
         const reco::Candidate* cand1,const reco::Candidate* cand2){

@@ -28,6 +28,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     vtxTag = cms.InputTag("offlineSlimmedPrimaryVertices"), # miniAOD goodPrimaryVertices
 ### allCandsTag = cms.InputTag("allReducedPFCands"), ### Needed for MVAMet
     chCandsTag = cms.InputTag("packedPFCandidates"), # miniAOD reducedPFCands
+    pfCandsTag = cms.InputTag("packedPFCandidates"), # miniAOD reducedPFCands
     sptTag = cms.InputTag("vertexMapProd","sumPt"),
     spt2Tag = cms.InputTag("vertexMapProd","sumPt2"),
     rhoTag = cms.InputTag("fixedGridRhoFastjetAll"), # miniAOD

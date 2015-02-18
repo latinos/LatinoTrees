@@ -336,6 +336,10 @@ void reco::SkimEvent::setPFMet(const edm::Handle< std::vector<pat::MET> > & mH) 
 void reco::SkimEvent::setPUpMet(const edm::Handle< std::vector<pat::MET> > & mH) {
  pupMet_ = pat::METRef(mH,0);
 }
+void reco::SkimEvent::setTrkMet(const reco::MET & trkMET) {
+  //std::cout<<"TrkMet at setTrkMet: "<<trkMET.pt()<<std::endl;
+ trkMet_ = trkMET;
+}
 
 void reco::SkimEvent::setChargedMet(const reco::PFMET & chMET) {
  chargedMet_ = chMET;
@@ -1613,6 +1617,9 @@ const float reco::SkimEvent::pupMet() const {
 
  if(pupMet_.isNonnull()) return pupMet_->pt();
  else return -9999.0;
+}
+const float reco::SkimEvent::trkMet() const {
+ return trkMet_.pt();
 }
  
 const float reco::SkimEvent::pfMetPhi() const {
