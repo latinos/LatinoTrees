@@ -35,8 +35,8 @@ Get a MiniAOD test file
 Useful for faster code test.
 
     source /afs/cern.ch/cms/cmsset_default.sh
-
-    voms-proxy-init
+    source /afs/cern.ch/cms/LCG/LCG-2/UI/cms_ui_env.sh
+    voms-proxy-init -voms cms
 
     xrdcp root://xrootd.unl.edu//store/mc/Phys14DR/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/MINIAODSIM/PU20bx25_tsg_PHYS14_25_V1-v1/00000/08CFEF83-586C-E411-8D7C-002590A2CCF2.root LatinoTrees/AnalysisStep/test/.
 
