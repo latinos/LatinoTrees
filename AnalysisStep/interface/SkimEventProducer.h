@@ -55,6 +55,9 @@ double neutFrac;
 
         reco::MET doChMET(edm::Handle<reco::CandidateView> candsH,
         const reco::Candidate* cand1,const reco::Candidate* cand2);
+
+        reco::MET computeTrkMet(const reco::Vertex &pv,
+	    edm::Handle<pat::PackedCandidateCollection> pfCandsH);
  
         std::string branchAlias_;
 
@@ -89,6 +92,7 @@ double neutFrac;
         edm::InputTag tcMetTag_;
         edm::InputTag chargedMetTag_;
         edm::InputTag vtxTag_;
+        edm::InputTag pfCandsTag_;
         edm::InputTag chCandsTag_;
         edm::InputTag sptTag_;
         edm::InputTag spt2Tag_;
@@ -105,6 +109,7 @@ double neutFrac;
 	edm::EDGetTokenT<std::vector<pat::MET> > pupMetHT_;
 	edm::EDGetTokenT<reco::VertexCollection> vtxHT_;
 	edm::EDGetTokenT<reco::CandidateView> candsHT_;
+	edm::EDGetTokenT<pat::PackedCandidateCollection> pfCandsHT_;
 	edm::EDGetTokenT<edm::ValueMap<float> > sptHT_;
 	edm::EDGetTokenT<edm::ValueMap<float> > spt2HT_;
 	edm::EDGetTokenT<edm::TriggerResults> triggerResultsT_;
