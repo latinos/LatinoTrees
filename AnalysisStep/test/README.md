@@ -65,13 +65,8 @@ To add LHE information.
 To add GEN information like `genjets` or `genleptons`.
 
                     doGen=True
-                    
 
-If the `puppi` package has been compiled (NB: puppi is already `True` by default)
 
-                    runPUPPISequence=True
-
-                    
 Create the final tree
 ====
 
