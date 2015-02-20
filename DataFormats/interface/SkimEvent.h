@@ -487,6 +487,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float highestHardBDisc(const float& maxPt, std::string discriminator="trackCountingHighEffBJetTags", int applyID=0, float dzCut=9999.) const;
             const float highestSoftBDisc(const float& maxPt, std::string discriminator="trackCountingHighEffBJetTags", int applyID=0, float dzCut=9999.) const;
 
+            //---- jet and MC
+            const float leadingJetPartonFlavour(size_t a, std::string discriminator="trackCountingHighEffBJetTags",float pt=30.0 ,float eta=5.0,int applyCorrection=true, int applyID=0, float dzCut=9999.) const;
+             
             //Iso Functions
             const bool isEB(size_t a = 0) const;
             const bool isEE(size_t a = 0) const;
