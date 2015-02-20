@@ -706,10 +706,7 @@ const pat::Jet* reco::SkimEvent::leadingJet(size_t index, float minPt,float eta,
 }
 
 
-
-
-
-const float reco::SkimEvent::leadingJetPartonFlavour(size_t index, std::string discriminator, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
+const float reco::SkimEvent::leadingJetPartonFlavour(size_t index, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
  
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
@@ -723,6 +720,11 @@ const float reco::SkimEvent::leadingJetPartonFlavour(size_t index, std::string d
  }
  return -9999.9;
  
+}
+
+
+const float reco::SkimEvent::leadingJetPartonFlavour(size_t index) const { 
+ return leadingJetPartonFlavour(index,0,4.7,1,0);
 }
 
 
