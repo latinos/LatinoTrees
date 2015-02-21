@@ -597,6 +597,10 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_jetGen_phi" , cms.string("leadingGenJetPhi")),
         setattr(pt.variables, "std_vector_jetGen_eta" , cms.string("leadingGenJetEta")),
 
+        setattr(pt.variables, "std_vector_jet_HadronFlavour" , cms.string("leadingJetHadronFlavour")),
+        setattr(pt.variables, "std_vector_jet_PartonFlavour" , cms.string("leadingJetPartonFlavour")),
+
+
         #setattr(pt.variables, "jetGenpt1" , cms.string("leadingGenJetPt(0)")),
         #setattr(pt.variables, "jetGenphi1" , cms.string("leadingGenJetPhi(0)")),
         #setattr(pt.variables, "jetGeneta1" , cms.string("leadingGenJetEta(0)")),

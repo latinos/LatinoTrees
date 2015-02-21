@@ -728,6 +728,29 @@ const float reco::SkimEvent::leadingJetPartonFlavour(size_t index) const {
 }
 
 
+const float reco::SkimEvent::leadingJetHadronFlavour(size_t index, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;
+  
+  if(isThisJetALepton(jets_[i])) continue;
+  if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
+  if(++count > index) return jets_[i]->hadronFlavour();
+ }
+ return -9999.9;
+ 
+}
+
+
+const float reco::SkimEvent::leadingJetHadronFlavour(size_t index) const { 
+ return leadingJetHadronFlavour(index,0,4.7,1,0);
+}
+
+
+
 const float reco::SkimEvent::leadingJetBtag(size_t index, std::string discriminator, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
 
     size_t count = 0;

@@ -490,6 +490,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             //---- jet and MC
             const float leadingJetPartonFlavour(size_t a, float pt , float eta=5.0,int applyCorrection=true, int applyID=0, float dzCut=9999.) const;
             const float leadingJetPartonFlavour(size_t a) const;
+            const float leadingJetHadronFlavour(size_t a, float pt , float eta=5.0,int applyCorrection=true, int applyID=0, float dzCut=9999.) const;
+            const float leadingJetHadronFlavour(size_t a) const;
+            
+            
+            
             
             //Iso Functions
             const bool isEB(size_t a = 0) const;
