@@ -175,6 +175,13 @@ options.register ('globalTag',
                    opts.VarParsing.varType.string,
                   'GlobalTag')
 
+options.register ('doBTag',
+                  False, # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.bool,
+                  'Turn on bTagging variables dumper (can be \'True\' or \'False\'')
+
+
 
 #-------------------------------------------------------------------------------
 # defaults
@@ -239,6 +246,7 @@ doNoFilter = options.doNoFilter
 doIsoStudy = options.doIsoStudy
 typeLHEcomment = options.typeLHEcomment
 label = options.label
+doBTag = options.doBTag
 ###
 
 id = 0
@@ -574,6 +582,9 @@ if doPDFvar == True :
     tree.variables.pdfid2 = cms.string("getPDFid2()")
     tree.variables.pdfx1PDF = cms.string("getPDFx1PDF()")
     tree.variables.pdfx2PDF = cms.string("getPDFx2PDF()")
+
+# bTagging variables
+if doBTag: addBTaggingVariables(tree, 99999)
 
 setattr(process,"Tree", tree)
 seq += tree

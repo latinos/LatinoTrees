@@ -632,6 +632,17 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float zeppenfeld(size_t a,float pt ,float eta,int applyCorrection, int applyID) const;
 
 
+	//bTagging variables ----------------
+            const float jettcheByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"trackCountingHighEffBJetTags",0,5,1,0,99999); }
+            const float jettchpByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"trackCountingHighPurBJetTags",0,5,1,0,99999); }
+            const float jetbjpbByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"jetBProbabilityBJetTags",0,5,1,0,99999); }
+            const float jetcsvv2ivfByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"combinedInclusiveSecondaryVertexV2BJetTags",0,5,1,0,99999); }
+            const float jetssvheByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"simpleSecondaryVertexHighEffBJetTags",0,5,1,0,99999); }
+            const float jetssvhbByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"simpleSecondaryVertexHighPurBJetTags",0,5,1,0,99999); }
+            const float jetpfcsvByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"pfCombinedSecondaryVertexBJetTags",0,5,1,0,99999); }
+            const float jetcmvaByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"combinedMVABJetTags",0,5,1,0,99999); }
+
+
 	//PHOTON ---------------------------
 	    const math::XYZTLorentzVector photon(size_t a) const;
 	    void setPhoton (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
