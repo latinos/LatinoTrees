@@ -170,10 +170,20 @@ reco::SkimEvent::SkimEvent() :
 //         hypo_(-1),
         sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{
 	InitEffectiveAreasPhoton();
+        
+        //---- default value
+        maxEtaForJets_ = 4.7;
  }
 
 // reco::SkimEvent::SkimEvent(const reco::SkimEvent::hypoType &h) :
 //         hypo_(h), sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{ }
+
+
+
+void reco::SkimEvent::setMaxEtaForJets(double value) {
+ maxEtaForJets_ = value;
+}
+
 
 
 
@@ -724,7 +734,7 @@ const float reco::SkimEvent::leadingJetPartonFlavour(size_t index, float minPt,f
 
 
 const float reco::SkimEvent::leadingJetPartonFlavour(size_t index) const { 
- return leadingJetPartonFlavour(index,0,4.7,1,0);
+ return leadingJetPartonFlavour(index,maxEtaForJets_,1,0);
 }
 
 
@@ -746,7 +756,7 @@ const float reco::SkimEvent::leadingJetHadronFlavour(size_t index, float minPt,f
 
 
 const float reco::SkimEvent::leadingJetHadronFlavour(size_t index) const { 
- return leadingJetHadronFlavour(index,0,4.7,1,0);
+ return leadingJetHadronFlavour(index,0,maxEtaForJets_,1,0);
 }
 
 
@@ -893,29 +903,29 @@ const float reco::SkimEvent::leadingSecondJetPhi(size_t index, float minPt,float
 
 
 const float reco::SkimEvent::leadingSecondJetPt(size_t index) const {
- return leadingSecondJetPt(index,0,4.7,1,0); //---- FIXME check default values
+ return leadingSecondJetPt(index,0,maxEtaForJets_,1,0); //---- FIXME check default values
 }
 
 const float reco::SkimEvent::leadingSecondJetEta(size_t index) const {
- return leadingSecondJetEta(index,0,4.7,1,0); //---- FIXME check default values
+ return leadingSecondJetEta(index,0,maxEtaForJets_,1,0); //---- FIXME check default values
 }
 
 const float reco::SkimEvent::leadingSecondJetPhi(size_t index) const {
- return leadingSecondJetPhi(index,0,4.7,1,0); //---- FIXME check default values
+ return leadingSecondJetPhi(index,0,maxEtaForJets_,1,0); //---- FIXME check default values
 }
 
 
 
 const float reco::SkimEvent::leadingJetPt(size_t index) const { 
- return leadingJetPt(index,0,4.7,1,0);
+ return leadingJetPt(index,0,maxEtaForJets_,1,0);
 }
 
 const float reco::SkimEvent::leadingJetEta(size_t index) const { 
- return leadingJetEta(index,0,4.7,1,0);
+ return leadingJetEta(index,0,maxEtaForJets_,1,0);
 }
 
 const float reco::SkimEvent::leadingJetPhi(size_t index) const { 
- return leadingJetPhi(index,0,4.7,1,0);
+ return leadingJetPhi(index,0,maxEtaForJets_,1,0);
 }
 
 
@@ -4432,7 +4442,7 @@ const float reco::SkimEvent::leadingGenJetPt(size_t index) const {
  std::vector<float> v_jets_pt ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < genJets_.size (); ++iPart) {
-  if ( abs(genJets_[iPart]->eta()) > 4.7) continue ;
+  if ( abs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
    v_jets_pt.push_back ( genJets_[iPart]->pt());
  }
  if (v_jets_pt.size () > 0) {
@@ -4452,7 +4462,7 @@ const float reco::SkimEvent::leadingGenJetPhi(size_t index) const {
  float phi=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < genJets_.size (); ++iPart) {
-  if ( abs(genJets_[iPart]->eta()) > 4.7) continue ;
+  if ( abs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
       if((genJets_[iPart]->pt())!=pt_ofIndex) continue;
       phi = genJets_[iPart]->phi() ;
  }
@@ -4467,7 +4477,7 @@ const float reco::SkimEvent::leadingGenJetEta(size_t index) const {
  // loop over particles in the event
  
  for (unsigned int iPart = 0 ; iPart < genJets_.size (); ++iPart) {
-  if ( abs(genJets_[iPart]->eta()) > 4.7) continue ;
+  if ( abs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
       if((genJets_[iPart]->pt())!=pt_ofIndex) continue;
       eta = genJets_[iPart]->eta() ;
  }

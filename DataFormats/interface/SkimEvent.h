@@ -469,6 +469,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setGenMet(const edm::Handle<reco::GenMETCollection> &);
             void setGenJets(const edm::Handle<reco::GenJetCollection> &);
         
+            
+            void setMaxEtaForJets(double value);
+            
+            
+            
             //void sortJetsByPt() { std::sort(jets_.begin(), jets_.end(), sortPatJetByPt); }
             //void sortTagJetsByPt() { std::sort(tagJets_.begin(), tagJets_.end(), sortPatJetByPt); }
 
@@ -673,6 +678,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const bool Pho_IsIdIso(size_t i, int wp = 1) const;
 	//END PHOTON -------------------------------------------
         private:
+         
+            double maxEtaForJets_;
+         
             // User float values
             std::vector<std::string> userFloatLabels_;
             std::vector<float> userFloats_;

@@ -66,6 +66,10 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
 
     produces<std::vector<reco::SkimEvent> >().setBranchAlias(cfg.getParameter<std::string>("@module_label"));
 
+    
+    maxEtaForJets_          = cfg.getParameter<double>("maxEtaForJets" );
+    
+    
     // consumes
     genParticlesT_ = consumes<reco::GenParticleCollection>(genParticlesTag_);
     fatJetHT_      = consumes<pat::JetCollection>(fatJetTag_);
@@ -254,6 +258,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setGenJets(genJetH);
     }
 
+    //---- maximum eta for jets for default values
+    skimEvent->back().setMaxEtaForJets(maxEtaForJets_);
+    
     iEvent.put(skimEvent);
 }
     //edm::Handle<reco::PFCandidateCollection> pfCandsH;

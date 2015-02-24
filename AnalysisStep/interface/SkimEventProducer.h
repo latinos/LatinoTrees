@@ -59,6 +59,8 @@ double neutFrac;
         reco::MET computeTrkMet(const reco::Vertex &pv,
 	    edm::Handle<pat::PackedCandidateCollection> pfCandsH);
  
+        double maxEtaForJets_;
+        
         std::string branchAlias_;
 
         edm::InputTag triggerTag_;

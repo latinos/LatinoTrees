@@ -6,6 +6,7 @@ from LatinoTrees.AnalysisStep.wwMuons_cfi import *
 
 
 skimEventProducer = cms.EDProducer('SkimEventProducer',
+    maxEtaForJets     = cms.double(4.7),                                   
     mcLHEEventInfoTag = cms.InputTag(""),
     mcGenEventInfoTag = cms.InputTag(""),
     mcGenWeightTag    = cms.InputTag(""),
