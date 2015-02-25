@@ -67,9 +67,12 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     produces<std::vector<reco::SkimEvent> >().setBranchAlias(cfg.getParameter<std::string>("@module_label"));
 
     
-    maxEtaForJets_          = cfg.getParameter<double>("maxEtaForJets" );
-    
-    
+    maxEtaForJets_          = cfg.getParameter<double>("maxEtaForJets");
+    minPtForJets_	    = cfg.getParameter<double>("minPtForJets"); 
+    dzCutForBtagJets_	    = cfg.getParameter<double>("dzCutForBtagJets");
+    applyCorrectionForJets_ = cfg.getParameter<bool>("applyCorrectionForJets");
+    applyIDForJets_	    = cfg.getParameter<bool>("applyIDForJets");
+ 
     // consumes
     genParticlesT_ = consumes<reco::GenParticleCollection>(genParticlesTag_);
     fatJetHT_      = consumes<pat::JetCollection>(fatJetTag_);
@@ -260,7 +263,16 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     //---- maximum eta for jets for default values
     skimEvent->back().setMaxEtaForJets(maxEtaForJets_);
-    
+    //---- maximum eta for jets for default values
+    skimEvent->back().setMinPtForJets(minPtForJets_);
+    //---- dz cut for btag jets for default values
+    skimEvent->back().setDzCutForBtagJets(dzCutForBtagJets_);
+    //---- apply correction for jets for default values
+    skimEvent->back().setApplyCorrectionForJets(applyCorrectionForJets_);
+    //---- apply ID for jets for default values
+    skimEvent->back().setApplyIDForJets(applyIDForJets_);
+   
+ 
     iEvent.put(skimEvent);
 }
     //edm::Handle<reco::PFCandidateCollection> pfCandsH;

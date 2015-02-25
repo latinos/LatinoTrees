@@ -173,6 +173,10 @@ reco::SkimEvent::SkimEvent() :
         
         //---- default value
         maxEtaForJets_ = 4.7;
+        minPtForJets_ = 0;
+	applyCorrectionForJets_ = 1;
+	applyIDForJets_ = 0;
+	dzCutForBtagJets_ = 99999;
  }
 
 // reco::SkimEvent::SkimEvent(const reco::SkimEvent::hypoType &h) :
@@ -181,11 +185,20 @@ reco::SkimEvent::SkimEvent() :
 
 
 void reco::SkimEvent::setMaxEtaForJets(double value) {
- maxEtaForJets_ = value;
+  maxEtaForJets_ = value;
 }
-
-
-
+void reco::SkimEvent::setMinPtForJets(double value) {
+  minPtForJets_ = value;
+}
+void reco::SkimEvent::setApplyCorrectionForJets(bool flag) {
+  applyCorrectionForJets_ = flag;
+}
+void reco::SkimEvent::setApplyIDForJets(bool flag) {
+  applyIDForJets_ = flag;
+}
+void reco::SkimEvent::setDzCutForBtagJets(double value) {
+  dzCutForBtagJets_ = value;
+}
 
 // set GenParticles
 void reco::SkimEvent::setGenParticles(const edm::Handle<reco::GenParticleCollection> & h) {
@@ -734,7 +747,7 @@ const float reco::SkimEvent::leadingJetPartonFlavour(size_t index, float minPt,f
 
 
 const float reco::SkimEvent::leadingJetPartonFlavour(size_t index) const { 
- return leadingJetPartonFlavour(index,maxEtaForJets_,1,0);
+ return leadingJetPartonFlavour(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
 }
 
 
@@ -756,7 +769,7 @@ const float reco::SkimEvent::leadingJetHadronFlavour(size_t index, float minPt,f
 
 
 const float reco::SkimEvent::leadingJetHadronFlavour(size_t index) const { 
- return leadingJetHadronFlavour(index,0,maxEtaForJets_,1,0);
+ return leadingJetHadronFlavour(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
 }
 
 
@@ -903,29 +916,29 @@ const float reco::SkimEvent::leadingSecondJetPhi(size_t index, float minPt,float
 
 
 const float reco::SkimEvent::leadingSecondJetPt(size_t index) const {
- return leadingSecondJetPt(index,0,maxEtaForJets_,1,0); //---- FIXME check default values
+ return leadingSecondJetPt(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_); //---- FIXME check default values
 }
 
 const float reco::SkimEvent::leadingSecondJetEta(size_t index) const {
- return leadingSecondJetEta(index,0,maxEtaForJets_,1,0); //---- FIXME check default values
+ return leadingSecondJetEta(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_); //---- FIXME check default values
 }
 
 const float reco::SkimEvent::leadingSecondJetPhi(size_t index) const {
- return leadingSecondJetPhi(index,0,maxEtaForJets_,1,0); //---- FIXME check default values
+ return leadingSecondJetPhi(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_); //---- FIXME check default values
 }
 
 
 
 const float reco::SkimEvent::leadingJetPt(size_t index) const { 
- return leadingJetPt(index,0,maxEtaForJets_,1,0);
+ return leadingJetPt(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
 }
 
 const float reco::SkimEvent::leadingJetEta(size_t index) const { 
- return leadingJetEta(index,0,maxEtaForJets_,1,0);
+ return leadingJetEta(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
 }
 
 const float reco::SkimEvent::leadingJetPhi(size_t index) const { 
- return leadingJetPhi(index,0,maxEtaForJets_,1,0);
+ return leadingJetPhi(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
 }
 
 
@@ -4520,6 +4533,31 @@ const int reco::SkimEvent::numberOftQuarks() const {
  return numt;
 }
 
+//BTAGGING ################################################################
+const float reco::SkimEvent::jettcheByPt(size_t i = 0) const {
+  return leadingJetBtag(indexByPt(i),"trackCountingHighEffBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
+const float reco::SkimEvent::jettchpByPt(size_t i = 0) const {
+  return leadingJetBtag(indexByPt(i),"trackCountingHighPurBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
+const float reco::SkimEvent::jetbjpbByPt(size_t i = 0) const {
+  return leadingJetBtag(indexByPt(i),"jetBProbabilityBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
+const float reco::SkimEvent::jetcsvv2ivfByPt(size_t i = 0) const {
+  return leadingJetBtag(indexByPt(i),"combinedInclusiveSecondaryVertexV2BJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
+const float reco::SkimEvent::jetssvheByPt(size_t i = 0) const {
+  return leadingJetBtag(indexByPt(i),"simpleSecondaryVertexHighEffBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
+const float reco::SkimEvent::jetssvhbByPt(size_t i = 0) const {
+  return leadingJetBtag(indexByPt(i),"simpleSecondaryVertexHighPurBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
+const float reco::SkimEvent::jetpfcsvByPt(size_t i = 0) const {
+  return leadingJetBtag(indexByPt(i),"pfCombinedSecondaryVertexBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
+const float reco::SkimEvent::jetcmvaByPt(size_t i = 0) const {
+  return leadingJetBtag(indexByPt(i),"combinedMVABJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_); 
+}
 
 //PHOTON ###################################################################
 void reco::SkimEvent::setPhoton(const edm::Handle<edm::View<reco::RecoCandidate> > &h,size_t i){

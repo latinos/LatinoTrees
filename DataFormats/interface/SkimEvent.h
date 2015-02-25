@@ -471,8 +471,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
         
             
             void setMaxEtaForJets(double value);
-            
-            
+	    void setMinPtForJets(double value);            
+            void setDzCutForBtagJets(double value);
+	    void setApplyCorrectionForJets(bool flag);
+	    void setApplyIDForJets(bool flag); 
             
             //void sortJetsByPt() { std::sort(jets_.begin(), jets_.end(), sortPatJetByPt); }
             //void sortTagJetsByPt() { std::sort(tagJets_.begin(), tagJets_.end(), sortPatJetByPt); }
@@ -638,14 +640,14 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
 
 	//bTagging variables ----------------
-            const float jettcheByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"trackCountingHighEffBJetTags",0,5,1,0,99999); }
-            const float jettchpByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"trackCountingHighPurBJetTags",0,5,1,0,99999); }
-            const float jetbjpbByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"jetBProbabilityBJetTags",0,5,1,0,99999); }
-            const float jetcsvv2ivfByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"combinedInclusiveSecondaryVertexV2BJetTags",0,5,1,0,99999); }
-            const float jetssvheByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"simpleSecondaryVertexHighEffBJetTags",0,5,1,0,99999); }
-            const float jetssvhbByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"simpleSecondaryVertexHighPurBJetTags",0,5,1,0,99999); }
-            const float jetpfcsvByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"pfCombinedSecondaryVertexBJetTags",0,5,1,0,99999); }
-            const float jetcmvaByPt(size_t i = 0) const { return leadingJetBtag(indexByPt(i),"combinedMVABJetTags",0,5,1,0,99999); }
+            const float jettcheByPt(size_t i) const;
+            const float jettchpByPt(size_t i) const;
+            const float jetbjpbByPt(size_t i) const;
+            const float jetcsvv2ivfByPt(size_t i) const;
+            const float jetssvheByPt(size_t i) const;
+            const float jetssvhbByPt(size_t i) const;
+            const float jetpfcsvByPt(size_t i) const;
+            const float jetcmvaByPt(size_t i) const;
 
 
 	//PHOTON ---------------------------
@@ -680,7 +682,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
         private:
          
             double maxEtaForJets_;
-         
+            double minPtForJets_;
+	    double dzCutForBtagJets_;
+	    bool applyCorrectionForJets_;
+	    bool applyIDForJets_;
+ 
             // User float values
             std::vector<std::string> userFloatLabels_;
             std::vector<float> userFloats_;

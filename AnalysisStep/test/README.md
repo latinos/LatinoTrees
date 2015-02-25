@@ -68,7 +68,7 @@ To add GEN information like `genjets` or `genleptons`.
 
 To add alternative bTagging variables like `jetcsvv2ivf`.
 		   
-		   doBTag=True
+                    doBTag=True
 
 
 Create the final tree

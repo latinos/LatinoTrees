@@ -323,6 +323,14 @@ else:
 process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
 
+# Default parameters for jets
+process.skimEventProducer.maxEtaForJets = cms.double(4.7)
+process.skimEventProducer.minPtForJets = cms.double(0)
+process.skimEventProducer.applyCorrectionForJets = cms.bool(True) 
+process.skimEventProducer.applyIDForJets = cms.bool(False)
+process.skimEventProducer.dzCutForBtagJets = cms.double(0)
+
+
 if options.selection == 'TightTight':
     labelSetup = "Scenario1"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence();
     #labelSetup = "Scenario1"; muon = "wwMuoTight"; ele = "wwEleTight"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence();  # --> fix ele/mu tag and un-comment this line and comment the previous one

@@ -60,6 +60,10 @@ double neutFrac;
 	    edm::Handle<pat::PackedCandidateCollection> pfCandsH);
  
         double maxEtaForJets_;
+	double minPtForJets_;
+	double dzCutForBtagJets_;
+	bool applyCorrectionForJets_;
+	bool applyIDForJets_;
         
         std::string branchAlias_;
 
