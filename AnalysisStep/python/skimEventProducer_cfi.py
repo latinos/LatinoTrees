@@ -6,11 +6,14 @@ from LatinoTrees.AnalysisStep.wwMuons_cfi import *
 
 
 skimEventProducer = cms.EDProducer('SkimEventProducer',
+    # general definition of variables,
+    # needed for "std::vectors" definition
     maxEtaForJets     = cms.double(4.7),                                   
     minPtForJets      = cms.double(0),
     dzCutForBtagJets  = cms.double(99999),
     applyCorrectionForJets = cms.bool(True),
     applyIDForJets    = cms.bool(False),
+    #
     mcLHEEventInfoTag = cms.InputTag(""),
     mcGenEventInfoTag = cms.InputTag(""),
     mcGenWeightTag    = cms.InputTag(""),
