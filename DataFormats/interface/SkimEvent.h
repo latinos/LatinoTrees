@@ -386,6 +386,13 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool isTightMuon(const refToCand &c) const;
             const bool isMuTriggered(size_t a=0) const;
 
+            
+            const float leadingTauPt(size_t a) const;
+            const float leadingTauEta(size_t a) const;
+            const float leadingTauPhi(size_t a) const;
+            
+             
+             
             const int numberOfbQuarks() const;
             const int numberOftQuarks() const;
 

@@ -579,6 +579,48 @@ void reco::SkimEvent::setupJEC(const std::string &l2File, const std::string &l3F
 }
 
 
+
+
+
+const float reco::SkimEvent::leadingTauPt(size_t index) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<taus_.size();++i) {
+  if(++count > index) return taus_[i].pt();
+ }
+ return -9999.9;
+
+}
+
+
+
+const float reco::SkimEvent::leadingTauEta(size_t index) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<taus_.size();++i) {
+  if(++count > index) return taus_[i].eta();
+ }
+ return -9999.9;
+ 
+}
+
+
+
+const float reco::SkimEvent::leadingTauPhi(size_t index) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<taus_.size();++i) {
+  if(++count > index) return taus_[i].phi();
+ }
+ return -9999.9;
+ 
+}
+
+
+
+
+
+
 // void reco::SkimEvent::setupJEC(const JetCorrector *c) {
 // jec_ =
 

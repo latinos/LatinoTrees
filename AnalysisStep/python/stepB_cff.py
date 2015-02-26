@@ -631,7 +631,9 @@ def addGenVariables(process,pt):
 def addTau(process,pt):
 
         if hasattr(pt,"variables"):
-          pt.variables.std_vector_tau_pt = cms.string("tauPtByPt")
+          pt.variables.std_vector_tau_pt  = cms.string("leadingTauPt")
+          pt.variables.std_vector_tau_eta = cms.string("leadingTauEta")
+          pt.variables.std_vector_tau_phi = cms.string("leadingTauPhi")
 
 
 def addFatJets(process,pt):
