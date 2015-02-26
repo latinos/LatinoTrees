@@ -628,6 +628,12 @@ def addGenVariables(process,pt):
 
 
 
+def addTau(process,pt):
+
+        if hasattr(pt,"variables"):
+          pt.variables.std_vector_tau_pt = cms.string("tauPtByPt")
+
+
 def addFatJets(process,pt):
 
         fatjetId_WP = "1"
