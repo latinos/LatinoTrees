@@ -24,16 +24,19 @@ cmssw release needed:
 
 install:
 
+(for jettoolbox)
+
+    git cms-merge-topic alefisico:jetToolbox_73X
+    scram b -j 16
+
+(for puppi)
+    
     git cms-addpkg CommonTools/PileupAlgos
     git remote add nhan-remote https://github.com/nhanvtran/cmssw.git
     git fetch nhan-remote puppi-bugfix-for-miniaod
     git cherry-pick 0585bf21ae098f14f144b9a3d361178e6cc830e6
     scram b
 
-(for jettoolbox)
-
-    git cms-merge-topic alefisico:jetToolbox_73X
-    scram b -j 16
     
     
 backup
@@ -51,6 +54,7 @@ Phys14:
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_2_0/src
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_3_0/src
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_3_1/src
+    /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_3_2/src
     scp amassiro@cmsneu:/data/amassiro/CMSSWRoot/Phys14/miniAOD/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/C667E84D-9D18-E411-99D8-02163E00ECE6.root  /tmp/amassiro/
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    08CFEF83-586C-E411-8D7C-002590A2CCF2.root
 
