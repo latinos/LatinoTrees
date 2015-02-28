@@ -365,6 +365,9 @@ process.skimEventProducer.jetTag    = cms.InputTag("corJets")
 process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
 
 
+#from RecoJets.JetProducers.jetToolbox_cff import addEventHypothesis
+
+
 
 # add puppi calculated from miniAOD
 #   since puppi must be run as first
