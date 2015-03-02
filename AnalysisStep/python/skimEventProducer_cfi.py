@@ -11,7 +11,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     mcGenWeightTag    = cms.InputTag(""),
     genParticlesTag   = cms.InputTag("genParticles"),
     genMetTag         = cms.InputTag("genMetTrue"),
-    genJetTag         = cms.InputTag("ak5GenJets"),
+    genJetTag         = cms.InputTag("ak4GenJets"),
 
     muTag         = cms.InputTag("selectedPatMuons"),  
     softMuTag     = cms.InputTag("selectedPatMuons"),  ## required to be softMuons

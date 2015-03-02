@@ -364,8 +364,8 @@ if str(os.getenv('CMSSW_VERSION')).find('SLHC') :
  ## build jet energy corrections
  process.makePatJets = cms.Sequence()
  process.load('PhysicsTools.PatAlgos.recoLayer0.jetCorrections_cff')
- process.patJetCorrFactors.payload          = cms.string('AK5PFchs')
- process.patJetCorrFactors.src              = cms.InputTag("ak5PFJetsCHS")
+ process.patJetCorrFactors.payload          = cms.string('AK4PFchs')
+ process.patJetCorrFactors.src              = cms.InputTag("ak4PFJetsCHS")
  process.patJetCorrFactors.rho              = cms.InputTag("fixedGridRhoFastjetAll")
  process.makePatJets += process.patJetCorrFactors
 
@@ -381,16 +381,16 @@ if str(os.getenv('CMSSW_VERSION')).find('SLHC') :
  
  ## parton and gen jet match
  process.load('PhysicsTools.PatAlgos.mcMatchLayer0.jetMatch_cfi')
- process.patJetPartonMatch.src = cms.InputTag("ak5PFJetsCHS")
- process.patJetGenJetMatch.src = cms.InputTag("ak5PFJetsCHS")
+ process.patJetPartonMatch.src = cms.InputTag("ak4PFJetsCHS")
+ process.patJetGenJetMatch.src = cms.InputTag("ak4PFJetsCHS")
  process.makePatJets += process.patJetPartonMatch
  process.makePatJets += process.patJetGenJetMatch
 
 
  ## jet flavour
  process.load('PhysicsTools.PatAlgos.mcMatchLayer0.jetFlavourId_cff')
- process.patJetPartonAssociationLegacy.src  = cms.InputTag("ak5PFJetsCHS")
- process.patJetFlavourAssociation.jets      = cms.InputTag("ak5PFJetsCHS")
+ process.patJetPartonAssociationLegacy.src  = cms.InputTag("ak4PFJetsCHS")
+ process.patJetFlavourAssociation.jets      = cms.InputTag("ak4PFJetsCHS")
  process.makePatJets += process.patJetFlavourId 
  process.makePatJets += process.patJetFlavourAssociation
  
@@ -404,7 +404,7 @@ if str(os.getenv('CMSSW_VERSION')).find('SLHC') :
 
  from RecoJets.JetProducers.PileupJetID_cfi import pileupJetIdProducerChs
  process.pileupJetId = pileupJetIdProducerChs.clone( rho = cms.InputTag("fixedGridRhoFastjetAll"),
-                                                     jets = cms.InputTag("ak5PFJetsCHS"),
+                                                     jets = cms.InputTag("ak4PFJetsCHS"),
                                                      residualsTxt = cms.FileInPath('LatinoTrees/AnalysisStep/data/download.url'))
                
  process.makePatJets += process.pileupJetId
@@ -442,7 +442,7 @@ if str(os.getenv('CMSSW_VERSION')).find('SLHC') :
         userFunctions = cms.vstring()
  )
 
- process.patJets.jetSource = cms.InputTag("ak5PFJetsCHS")
+ process.patJets.jetSource = cms.InputTag("ak4PFJetsCHS")
  process.patJets.discriminatorSources = cms.VInputTag(cms.InputTag("jetBProbabilityBJetTags"), 
                                                       cms.InputTag("jetProbabilityBJetTags"), 
                                                       cms.InputTag("trackCountingHighPurBJetTags"), 
@@ -460,8 +460,8 @@ if str(os.getenv('CMSSW_VERSION')).find('SLHC') :
 
  ## met corrections for ak5 PF jets  with CHS
  process.load('JetMETCorrections.Type1MET.pfMETCorrections_cff')
- process.ak5PFJetsPtrs.src = cms.InputTag("ak5PFJetsCHS")
- process.pfJetMETcorr.src  = cms.InputTag('ak5PFJetsCHS')
+ process.ak5PFJetsPtrs.src = cms.InputTag("ak4PFJetsCHS")
+ process.pfJetMETcorr.src  = cms.InputTag('ak4PFJetsCHS')
  process.makePatMETs += process.producePFMETCorrections
  
  
@@ -500,7 +500,7 @@ process.miniAODPAT = cms.Path()
 if options.runPUPPISequence:
 
   from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence 
-  jetPuppiR = 0.5
+  jetPuppiR = 0.4
   makePuppiAlgo(process) ## call puppi producer and puppi met
   makePatPuppiJetSequence(process,jetPuppiR)  ## call pat puppi jets
 
@@ -572,7 +572,7 @@ else :
 
   if options.runPUPPISequence:
    process.miniAODPAT += process.puppiSequence ## add puppi particle sequence to the path
-   process.miniAODPAT += process.AK5makePatJetsPuppi
+   process.miniAODPAT += process.AK4makePatJetsPuppi
  
  else:
   sys.exit("Problem with the CMSSW BASE VERSION --> not recongnized");
