@@ -135,6 +135,26 @@ elif options.cmsGeometry == "Extended2023CFCal4Eta":
 else:
  sys.exit("Problem with CMSSW BASE GEOMETRY --> not known --> exit");
 
+#################################
+### Jec from db files in case ###
+#################################
+from CondCore.DBCommon.CondDBCommon_cfi import *
+from CondCore.DBCommon.CondDBSetup_cfi import *
+
+if options.cmsGeometry == "Extended2023SHCalNoTaper" :
+
+    process.jecFromDB = cms.ESSource("PoolDBESSource",
+                                  CondDBSetup,
+                                  connect = cms.string('sqlite_file:PhaseII_Shashlik140PU.db'),
+                                  toGet = cms.VPSet(
+            cms.PSet(record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_PhaseII_Shashlik140PU_AK4PFchs'),
+                     label  = cms.untracked.string('AK4PFchs'))
+            ))
+
+## add an es_prefer statement to resolve a possible conflict from simultaneous connection to a global tag                                                                    
+process.ESPreferJEC = cms.ESPrefer('PoolDBESSource','jecFromDB')
+
 
 ###########################
 ### MET FILTER SEQUENCE ###
@@ -359,30 +379,46 @@ if str(os.getenv('CMSSW_VERSION')).find('SLHC') :
 
  
  ##### fix for patJets
- process.load('RecoBTag.Configuration.RecoBTag_cff')
+ process.load('RecoBTag.Configuration.RecoBTag_cff');
  
  ## build jet energy corrections
- process.makePatJets = cms.Sequence()
- process.load('PhysicsTools.PatAlgos.recoLayer0.jetCorrections_cff')
- process.patJetCorrFactors.payload          = cms.string('AK4PFchs')
- process.patJetCorrFactors.src              = cms.InputTag("ak4PFJetsCHS")
- process.patJetCorrFactors.rho              = cms.InputTag("fixedGridRhoFastjetAll")
+ process.makePatJets = cms.Sequence();
+ process.load('PhysicsTools.PatAlgos.recoLayer0.jetCorrections_cff');
+
+ process.patJetCorrFactors.payload          = cms.string('AK4PFchs');
+ process.patJetCorrFactors.src              = cms.InputTag("ak4PFJetsCHS");
+ process.patJetCorrFactors.rho              = cms.InputTag("fixedGridRhoFastjetAll");
+ process.patJetCorrFactors.levels = cms.vstring('L1FastJet',
+                                                'L2Relative',
+                                                'L3Absolute');
+ process.patJetCorrFactors.extraJPTOffset = cms.string('L1FastJet');
+ process.patJetCorrFactors.useRho = cms.bool(True);
+
  process.makePatJets += process.patJetCorrFactors
 
  ## jet track association 
  from RecoJets.JetAssociationProducers.ak5JTA_cff import ak5JetTracksAssociatorAtVertexPF
- process.jetTracksAssociatorAtVertex = ak5JetTracksAssociatorAtVertexPF.clone()
- process.makePatJets += process.jetTracksAssociatorAtVertex
+ process.ak4JetTracksAssociatorAtVertexPF = ak5JetTracksAssociatorAtVertexPF.clone()
+ process.ak4JetTracksAssociatorAtVertexPF.jets = cms.InputTag("ak4PFJetsCHS")
+ process.makePatJets += process.ak4JetTracksAssociatorAtVertexPF
  
  ## jet charge 
  process.load('PhysicsTools.PatAlgos.recoLayer0.jetTracksCharge_cff')
- process.patJetCharge.src      = cms.InputTag("jetTracksAssociatorAtVertex")
+ process.patJetCharge.src      = cms.InputTag("ak4JetTracksAssociatorAtVertexPF")
  process.makePatJets += process.patJetCharge
  
  ## parton and gen jet match
- process.load('PhysicsTools.PatAlgos.mcMatchLayer0.jetMatch_cfi')
+ from RecoJets.Configuration.GenJetParticles_cff import genParticlesForJets 
+ process.genParticlesForJets  = genParticlesForJets.clone();
+
+ from RecoJets.JetProducers.ak5GenJets_cfi import ak5GenJets 
+ process.ak4GenJets = ak5GenJets.clone(rParam       = cms.double(0.4))
+ process.makePatJets += process.ak4GenJets 
+
+ process.load('PhysicsTools.PatAlgos.mcMatchLayer0.jetMatch_cfi') 
  process.patJetPartonMatch.src = cms.InputTag("ak4PFJetsCHS")
  process.patJetGenJetMatch.src = cms.InputTag("ak4PFJetsCHS")
+ process.patJetGenJetMatch.matched = cms.InputTag("ak4GenJets")
  process.makePatJets += process.patJetPartonMatch
  process.makePatJets += process.patJetGenJetMatch
 
@@ -390,21 +426,28 @@ if str(os.getenv('CMSSW_VERSION')).find('SLHC') :
  ## jet flavour
  process.load('PhysicsTools.PatAlgos.mcMatchLayer0.jetFlavourId_cff')
  process.patJetPartonAssociationLegacy.src  = cms.InputTag("ak4PFJetsCHS")
+ process.patJetPartonAssociationLegacy.jets = cms.InputTag("ak4CaloJets")   
  process.patJetFlavourAssociation.jets      = cms.InputTag("ak4PFJetsCHS")
+ process.patJetFlavourAssociation.rParam    = cms.double(0.4)
+
  process.makePatJets += process.patJetFlavourId 
  process.makePatJets += process.patJetFlavourAssociation
  
   
  ## load btagging dictionary
  process.load('PhysicsTools.PatAlgos.recoLayer0.bTagging_cff')
+ process.impactParameterTagInfos.jetTracks = cms.InputTag("ak4JetTracksAssociatorAtVertexPF")
+ process.softPFMuonsTagInfos.jets = cms.InputTag("ak4PFJetsCHS")
+ process.softPFElectronsTagInfos.jets = cms.InputTag("ak4PFJetsCHS")
 
  ## build pile-up jet ID
  from RecoJets.JetProducers.PileupJetIDParams_cfi import full_5x_chs
  full_5x_chs.tmvaWeights =  cms.string("LatinoTrees/AnalysisStep/data/TMVAClassification_5x_BDT_chsFullPlusRMS.weights.xml")
 
  from RecoJets.JetProducers.PileupJetID_cfi import pileupJetIdProducerChs
- process.pileupJetId = pileupJetIdProducerChs.clone( rho = cms.InputTag("fixedGridRhoFastjetAll"),
+ process.pileupJetId = pileupJetIdProducerChs.clone( rho  = cms.InputTag("fixedGridRhoFastjetAll"),
                                                      jets = cms.InputTag("ak4PFJetsCHS"),
+                                                     jec  = cms.string('AK4PFchs'),
                                                      residualsTxt = cms.FileInPath('LatinoTrees/AnalysisStep/data/download.url'))
                
  process.makePatJets += process.pileupJetId
@@ -451,7 +494,7 @@ if str(os.getenv('CMSSW_VERSION')).find('SLHC') :
                                                       cms.InputTag("simpleSecondaryVertexHighPurBJetTags"), 
                                                       cms.InputTag("combinedSecondaryVertexBJetTags"),
                                                       cms.InputTag("combinedSecondaryVertexMVABJetTags"))
- process.patJets.trackAssociationSource = cms.InputTag("jetTracksAssociatorAtVertex")
+ process.patJets.trackAssociationSource = cms.InputTag("ak4JetTracksAssociatorAtVertexPF")
  process.makePatJets += process.patJets
 
  
@@ -543,7 +586,7 @@ if options.producePATObjects:
 
   if options.runPUPPISequence:
    process.miniAODPAT += process.puppiSequence ## add puppi particle sequence to the path
-   process.miniAODPAT += process.AK5makePatJetsPuppi
+   process.miniAODPAT += process.AK4makePatJetsPuppi
   
 
  else:

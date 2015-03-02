@@ -43,7 +43,7 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
  ####### btagging sequence for puppi jets
  ####### jet track association
  setattr(process, "AK"+jetRPrefix+"jetTracksAssociatorAtVertexPuppi",
-         process.jetTracksAssociatorAtVertex.clone( jets = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi")))
+         process.ak4JetTracksAssociatorAtVertexPF.clone( jets = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi")))
  
  ## impact parameter and track counting
  setattr(process,"AK"+jetRPrefix+"impactParameterTagInfosPuppi",
@@ -119,6 +119,7 @@ def makePatPuppiJetSequence( process, rParameter = 0.5):
          process.patJetPartonAssociationLegacy.clone( jets = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi")))
  setattr(process,"AK"+jetRPrefix+"patJetPuppiFlavourAssociation",
          process.patJetFlavourAssociation.clone(  jets = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi")))
+         
  setattr(process,"AK"+jetRPrefix+"patPuppiJetCharge",
          process.patJetCharge.clone(src = cms.InputTag("AK"+jetRPrefix+"jetTracksAssociatorAtVertexPuppi")))
 
