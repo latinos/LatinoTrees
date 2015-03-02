@@ -2,8 +2,8 @@
 LatinoTrees
 =============
 
-    cmsrel CMSSW_7_X_Y 
-    cd  CMSSW_7_X_Y
+    cmsrel CMSSW_6_2_0_SLHC23_patch1 
+    cd  CMSSW_6_2_0_SLHC23_patch1
     cmsenv
 
     git clone https://github.com/latinos/LatinoTrees.git
@@ -12,10 +12,10 @@ LatinoTrees
     cd ..
 
     // special fixes to egamma object to run the miniAOD outside 7XY reco
-    cp -r /afs/cern.ch/user/r/rgerosa/public/xTP/CMSSW_7_1_0/src/RecoEgamma
+    cp -r /afs/cern.ch/user/r/rgerosa/public/xTP/CMSSW_6_2_0_SLHC20/src/RecoEgamma
   
     // for making puppi jets (tmp recipe since puppi is not in release, will be there for 73X, added for consumes wrt to Phill code)
-    cp -r /afs/cern.ch/user/r/rgerosa/public/xTP/CMSSW_7_1_0/src/Dummy
+    cp -r /afs/cern.ch/user/r/rgerosa/public/xTP/CMSSW_6_2_0_SLHC20/src/Dummy
 
     scramv1 b -j 16
 
