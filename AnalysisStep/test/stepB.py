@@ -325,10 +325,10 @@ process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
 # Default parameters for jets
 process.skimEventProducer.maxEtaForJets = cms.double(4.7)
-process.skimEventProducer.minPtForJets = cms.double(0)
+process.skimEventProducer.minPtForJets = cms.double(50)
 process.skimEventProducer.applyCorrectionForJets = cms.bool(True) 
 process.skimEventProducer.applyIDForJets = cms.bool(False)
-process.skimEventProducer.dzCutForBtagJets = cms.double(0)
+process.skimEventProducer.dzCutForBtagJets = cms.double(99999)
 
 
 if options.selection == 'TightTight':
