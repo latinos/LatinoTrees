@@ -152,8 +152,22 @@ if options.cmsGeometry == "Extended2023SHCalNoTaper" :
                      label  = cms.untracked.string('AK4PFchs'))
             ))
 
+elif options.cmsGeometry == "Extended2019" :
+
+    process.jecFromDB = cms.ESSource("PoolDBESSource",
+                                  CondDBSetup,
+                                  connect = cms.string('sqlite_file:PhaseI_140PU_V2.db'),
+                                  toGet = cms.VPSet(
+            cms.PSet(record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_PhaseI_140PU_V2_AK4PFchs'),
+                     label  = cms.untracked.string('AK4PFchs'))
+            ))
+
+
 ## add an es_prefer statement to resolve a possible conflict from simultaneous connection to a global tag                                                                    
 process.ESPreferJEC = cms.ESPrefer('PoolDBESSource','jecFromDB')
+
+
 
 
 ###########################
