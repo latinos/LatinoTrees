@@ -86,6 +86,7 @@ double neutFrac;
         edm::InputTag genParticlesTag_;
         edm::InputTag genMetTag_;
         edm::InputTag genJetTag_;
+        edm::InputTag tauTag_;
         edm::InputTag muTag_;
         edm::InputTag elTag_;
         edm::InputTag softMuTag_;
@@ -105,7 +106,9 @@ double neutFrac;
         edm::InputTag rhoTag_;
 	edm::InputTag phoTag_; //PHOTON
 
-	edm::EDGetTokenT<reco::GenParticleCollection> genParticlesT_;
+	
+	edm::EDGetTokenT<pat::TauCollection> tausT_;
+        edm::EDGetTokenT<reco::GenParticleCollection> genParticlesT_;
 	edm::EDGetTokenT<pat::JetCollection> fatJetHT_ ;
 	edm::EDGetTokenT<pat::JetCollection> jetHT_ ;
 	edm::EDGetTokenT<double> rhoT_  ;

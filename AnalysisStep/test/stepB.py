@@ -26,7 +26,7 @@ options.register ( 'summary',
                   'Print run summary')
 
 options.register ('skipEvents',
-                  0, # default value
+                  0, # default vaaddTaulue
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.int, # string, int, or float
                   'Number of events to skip')
@@ -365,6 +365,9 @@ process.skimEventProducer.jetTag    = cms.InputTag("corJets")
 process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
 
 
+#from RecoJets.JetProducers.jetToolbox_cff import addEventHypothesis
+
+
 
 # add puppi calculated from miniAOD
 #   since puppi must be run as first
@@ -557,6 +560,7 @@ if options.doFatJet :
     addFatJets(process,tree)
 
 
+addTau(process,tree)
 
 if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
     tree.variables.mctruth = cms.string("getFinalStateMC()")

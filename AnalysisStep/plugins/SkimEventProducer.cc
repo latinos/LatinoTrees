@@ -38,6 +38,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     genParticlesTag_   = cfg.getParameter<edm::InputTag>("genParticlesTag");
     genMetTag_         = cfg.getParameter<edm::InputTag>("genMetTag");
     genJetTag_         = cfg.getParameter<edm::InputTag>("genJetTag");
+    tauTag_            = cfg.getParameter<edm::InputTag>("tauTag");
     muTag_             = cfg.getParameter<edm::InputTag>("muTag" );
     elTag_             = cfg.getParameter<edm::InputTag>("elTag" );
     softMuTag_         = cfg.getParameter<edm::InputTag>("softMuTag" );
@@ -74,6 +75,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     applyIDForJets_	    = cfg.getParameter<bool>("applyIDForJets");
  
     // consumes
+    tausT_         = consumes<pat::TauCollection>(tauTag_);
     genParticlesT_ = consumes<reco::GenParticleCollection>(genParticlesTag_);
     fatJetHT_      = consumes<pat::JetCollection>(fatJetTag_);
     jetHT_         = consumes<pat::JetCollection>(jetTag_);
@@ -111,6 +113,10 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      iEvent.getByToken(genParticlesT_,genParticles);
     }
 
+    
+    edm::Handle<pat::TauCollection> tausH;
+    iEvent.getByToken(tausT_,tausH);
+    
     edm::Handle<pat::JetCollection> fatJetH;
     iEvent.getByToken(fatJetHT_,fatJetH);
 
@@ -218,6 +224,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     }
 
     // Everything else
+    skimEvent->back().setTaus(tausH);
+    
     skimEvent->back().setTriggerBits(passBits);
     skimEvent->back().setJets(jetH);
     skimEvent->back().setFatJets(fatJetH);

@@ -12,6 +12,7 @@
 #include "DataFormats/Common/interface/RefToBase.h"
 #include "DataFormats/Common/interface/Ref.h"
 #include <DataFormats/Common/interface/Ptr.h>
+#include "DataFormats/PatCandidates/interface/Tau.h"
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/Muon.h"
 #include "DataFormats/PatCandidates/interface/Electron.h"
@@ -385,6 +386,13 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool isTightMuon(const refToCand &c) const;
             const bool isMuTriggered(size_t a=0) const;
 
+            
+            const float leadingTauPt(size_t a) const;
+            const float leadingTauEta(size_t a) const;
+            const float leadingTauPhi(size_t a) const;
+            
+             
+             
             const int numberOfbQuarks() const;
             const int numberOftQuarks() const;
 
@@ -442,8 +450,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setSoftMuon (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
             void setExtraLepton(const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
 
+            void setTaus(const edm::Handle<pat::TauCollection> &);
+            
             void setJetRhoIso(const edm::Handle<double> & h);
-
+            
             void setJets(const edm::Handle<pat::JetCollection> &);
             void setFatJets(const edm::Handle<pat::JetCollection> &);
             void setTagJets(const edm::Handle<pat::JetCollection> &);
@@ -716,6 +726,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             //edm::RefToBaseVector<reco::RecoCandidate> leps_;
             //edm::RefToBaseVector<reco::RecoCandidate> extraLeps_;
             //edm::RefToBaseVector<reco::RecoCandidate> softMuons_;
+
+            pat::TauCollection taus_;
+            
             pat::JetRefVector jets_;
             pat::JetRefVector fatJets_;
             pat::JetRefVector tagJets_;

@@ -302,6 +302,18 @@ void reco::SkimEvent::setSoftMuon(const edm::Handle<edm::View<reco::RecoCandidat
 // }
 
 
+void reco::SkimEvent::setTaus(const edm::Handle<pat::TauCollection> & jH) {
+ 
+ for(size_t i=0;i<jH->size();++i)
+//   taus_.push_back(pat::TauRef(jH,i));
+  taus_.push_back(jH->at(i));
+ 
+ //sortJetsByPt();
+ 
+}
+
+
+
 void reco::SkimEvent::setJets(const edm::Handle<pat::JetCollection> & jH) {
 
     jets_.clear();
@@ -565,6 +577,48 @@ void reco::SkimEvent::setupJEC(const std::string &l2File, const std::string &l3F
     if(residualFile.compare("")) jecFiles_.push_back(residualFile);
 
 }
+
+
+
+
+
+const float reco::SkimEvent::leadingTauPt(size_t index) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<taus_.size();++i) {
+  if(++count > index) return taus_[i].pt();
+ }
+ return -9999.9;
+
+}
+
+
+
+const float reco::SkimEvent::leadingTauEta(size_t index) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<taus_.size();++i) {
+  if(++count > index) return taus_[i].eta();
+ }
+ return -9999.9;
+ 
+}
+
+
+
+const float reco::SkimEvent::leadingTauPhi(size_t index) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<taus_.size();++i) {
+  if(++count > index) return taus_[i].phi();
+ }
+ return -9999.9;
+ 
+}
+
+
+
+
 
 
 // void reco::SkimEvent::setupJEC(const JetCorrector *c) {
@@ -4559,7 +4613,7 @@ const float reco::SkimEvent::jetcmvaByPt(size_t i = 0) const {
   return leadingJetBtag(indexByPt(i),"combinedMVABJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_); 
 }
 
-//PHOTON ###################################################################
+//---- Photon
 void reco::SkimEvent::setPhoton(const edm::Handle<edm::View<reco::RecoCandidate> > &h,size_t i){
   //std::cout << "setting lepton with collection ID: " << h->ptrAt(i).id() << std::endl;
   phos_.push_back( h->ptrAt(i) );

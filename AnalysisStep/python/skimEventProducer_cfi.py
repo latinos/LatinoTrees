@@ -24,6 +24,8 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     muTag     = cms.InputTag("slimmedMuons"), # miniAOD
     elTag     = cms.InputTag("slimmedElectrons"), # miniAOD
     softMuTag = cms.InputTag("slimmedMuons"), #miniAOD wwMuons4Veto
+    #
+    tauTag    = cms.InputTag("slimmedTaus"), #miniAOD
     # extraElTag = cms.InputTag("wwElectrons"),
     jetTag = cms.InputTag("slimmedJets"), # miniAOD slimPatJetsTriggerMatch
     tagJetTag = cms.InputTag("slimmedJets"), # miniAOD slimPatJetsTriggerMatch
