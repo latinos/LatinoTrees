@@ -437,6 +437,7 @@ nPU = cms.EDProducer("PileUpMultiplicityCounter",
 def addMuonIdIsoVariables(process,pt):
     if hasattr(pt,"variables"):      
         setattr(pt.variables, "std_vector_lepton_NValidHitsInTrk",      cms.string("muNValidHitsInTrkByPt")),
+        setattr(pt.variables, "std_vector_lepton_NValidFractInTrk",     cms.string("muNValidFractInTrkByPt")),
         setattr(pt.variables, "std_vector_lepton_NormChi2GTrk",         cms.string("muNormChi2GTrkByPt")),
         setattr(pt.variables, "std_vector_lepton_NValidHitsSATrk",      cms.string("muNValidHitsSATrkByPt")),
         setattr(pt.variables, "std_vector_lepton_NumOfMatchedStations", cms.string("muNumOfMatchedStationsByPt")),
@@ -445,7 +446,8 @@ def addMuonIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_lepton_NValidPixelHitsInTrk", cms.string("muNValidPixelHitsInTrkByPt")),
         setattr(pt.variables, "std_vector_lepton_NTkLayers",            cms.string("muNTkLayersByPt")),
         setattr(pt.variables, "std_vector_lepton_TrkKink",              cms.string("muTrkKinkByPt")),
-        setattr(pt.variables, "std_vector_lepton_StaRelChi2",           cms.string("muStaRelChi2ByPt")),
+        setattr(pt.variables, "std_vector_lepton_Chi2LocalPos",         cms.string("muChi2LocalPosByPt")), 
+        setattr(pt.variables, "std_vector_lepton_SegCompatibilty",      cms.string("muSegCompatibiltyByPt")),
         setattr(pt.variables, "std_vector_lepton_chargedHadronIso",     cms.string("chargedHadronIsoByPt")),
         setattr(pt.variables, "std_vector_lepton_chargedParticleIso",   cms.string("chargedParticleIsoByPt")),
         setattr(pt.variables, "std_vector_lepton_neutralHadronIso",     cms.string("neutralHadronIsoByPt")),
