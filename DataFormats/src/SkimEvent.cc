@@ -2871,6 +2871,17 @@ const int reco::SkimEvent::muNValidHitsInTrk(size_t i) const {
   } else return -999.0; 
 }
 
+const float reco::SkimEvent::muNValidFractInTrk(size_t i) const {
+  if(i >= leps_.size()) return -9999.0;
+  if( isMuon(i) ) {
+    reco::TrackRef tr_innertrack = getMuon(i)->innerTrack(); 
+    if (!tr_innertrack.isNull()) {
+      return tr_innertrack->validFraction();
+    } else return -999.0;
+  } else return -999.0; 
+}
+
+
 
 const float reco::SkimEvent::muNormChi2GTrk(size_t i) const {
   if(i >= leps_.size()) return -9999.0;
@@ -2949,13 +2960,23 @@ const float  reco::SkimEvent::muTrkKink(size_t  i) const {
   } else return -999.0;
 }
 
-
-const float reco::SkimEvent::muStaRelChi2(size_t i) const  {
+const float reco::SkimEvent::muChi2LocalPos(size_t i) const  {
   if(i >= leps_.size()) return -9999.0;  
   if( isMuon(i) ) {
-    return getMuon(i)->combinedQuality().staRelChi2;
+    return getMuon(i)->combinedQuality().chi2LocalPosition;
   } else return -999.0;
 }
+
+const float reco::SkimEvent::muSegCompatibilty(size_t i) const  {
+  if(i >= leps_.size()) return -9999.0;  
+  if( isMuon(i) ) {
+    return getMuon(i)->segmentCompatibility();
+  } else return -999.0;
+}
+
+
+
+
 
 
 /**
