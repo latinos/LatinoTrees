@@ -382,8 +382,6 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool passesConversion(size_t a=0) const;
             const bool isSTA(size_t a=0) const;
             const bool isSTA(const refToCand &c) const;
-            const bool isTightMuon(size_t a=0) const;
-            const bool isTightMuon(const refToCand &c) const;
             const bool isMuTriggered(size_t a=0) const;
 
             
@@ -612,6 +610,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float muTrkKinkByPt(size_t  i) const {return muTrkKink(indexByPt (i)); }
 	    const float muChi2LocalPosByPt(size_t i) const {return muChi2LocalPos(indexByPt (i)); }
 	    const float muSegCompatibiltyByPt(size_t i) const {return muSegCompatibilty(indexByPt (i)); }
+
+
+	    const bool isTightMuon(size_t i) const;
+	    const bool isTightMuonByPt(size_t i) const {return isTightMuon(indexByPt (i)); }
+
 
 
             // Electron ID
