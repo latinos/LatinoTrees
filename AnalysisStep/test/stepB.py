@@ -373,11 +373,11 @@ process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
 
 
 # QG tagger
-#process.load('RecoJets.JetProducers.QGTagger_cfi')
-#process.QGTagger.srcJets          = cms.InputTag('corJets')        # Could be reco::PFJetCollection or pat::JetCollection (both AOD and miniAOD)
-#process.QGTagger.jetsLabel        = cms.string('QGL_AK4PFchs')     # Other options (might need to add an ESSource for it): see https://twiki.cern.ch/twiki/bin/viewauth/CMS/QGDataBaseVersion
-##process.QGTagger.jec              = cms.string(<jet corrector>)       # Provide the jet correction service if your jets are uncorrected, otherwise keep empty
-##process.QGTagger.systematicsLabel = cms.string('')     # Produce systematic smearings (not yet available, keep empty)
+process.load('RecoJets.JetProducers.QGTagger_cfi')
+process.QGTagger.srcJets          = cms.InputTag('corJets')        # Could be reco::PFJetCollection or pat::JetCollection (both AOD and miniAOD)
+process.QGTagger.jetsLabel        = cms.string('QGL_AK4PFchs')     # Other options (might need to add an ESSource for it): see https://twiki.cern.ch/twiki/bin/viewauth/CMS/QGDataBaseVersion
+#process.QGTagger.jec              = cms.string(<jet corrector>)       # Provide the jet correction service if your jets are uncorrected, otherwise keep empty
+#process.QGTagger.systematicsLabel = cms.string('')     # Produce systematic smearings (not yet available, keep empty)
 
 #process.patJets.userData.userFloats.src += ['QGTagger:qgLikelihood']
 
