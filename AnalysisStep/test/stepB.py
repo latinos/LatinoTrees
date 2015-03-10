@@ -360,12 +360,27 @@ process.corJets = cms.EDProducer("PatJetCorrectionProducer",
 #preSeq += process.ak4PFCHSL1FastL2L3
 preSeq += process.corJets
 
-
 process.skimEventProducer.jetTag    = cms.InputTag("corJets")
 process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
 
 
-#from RecoJets.JetProducers.jetToolbox_cff import addEventHypothesis
+#from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
+#from RecoJets.JetProducers.jetToolbox_cff import *
+#process.myJetSequence = cms.Sequence()
+
+#jetToolbox( process, 'ak5', 'corJets', 'out', addSubjets=True, addNsub=True, maxTau=6, addPruning=True, addTrimming=True, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
+#jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',             miniAOD=True,      addNsub=False,          addPruning=True, addTrimming=False, addCMSTopTagger=False, addHEPTopTagger=False, addMassDrop=False, addSoftDrop=False ) #, addPrunedSubjets=True )
+
+
+# QG tagger
+#process.load('RecoJets.JetProducers.QGTagger_cfi')
+#process.QGTagger.srcJets          = cms.InputTag('corJets')        # Could be reco::PFJetCollection or pat::JetCollection (both AOD and miniAOD)
+#process.QGTagger.jetsLabel        = cms.string('QGL_AK4PFchs')     # Other options (might need to add an ESSource for it): see https://twiki.cern.ch/twiki/bin/viewauth/CMS/QGDataBaseVersion
+##process.QGTagger.jec              = cms.string(<jet corrector>)       # Provide the jet correction service if your jets are uncorrected, otherwise keep empty
+##process.QGTagger.systematicsLabel = cms.string('')     # Produce systematic smearings (not yet available, keep empty)
+
+#process.patJets.userData.userFloats.src += ['QGTagger:qgLikelihood']
+
 
 
 
@@ -377,24 +392,6 @@ process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
 #   and let cmssw do the rest ...
 
 if options.runPUPPISequence:
-    #process.load("CommonTools.PileupAlgos.Puppi_cff")
-    #process.load("RecoJets.JetProducers.ak4PFJetsPuppi_cfi")
-    #process.puppi.candName = cms.InputTag('packedPFCandidates')
-    #process.puppi.vertexName = cms.InputTag('offlineSlimmedPrimaryVertices')
-    #puppi_onMiniAOD = cms.Sequence(process.puppi + process.ak4PFJetsPuppi)
-
-    #from CommonTools.PileupAlgos.Puppi_cff import puppi
-    #from RecoJets.JetProducers.ak4PFJetsPuppi_cfi import ak4PFJetsPuppi    
-    #process.myak4PFJetsPuppi = ak4PFJetsPuppi.clone( rParam = 0.4 )
-    #process.myak4PFJetsPuppi.src = cms.InputTag('mypuppi')
-    #process.mypuppi = puppi.clone()
-    #process.mypuppi.candName = cms.InputTag('packedPFCandidates')
-    #process.mypuppi.vertexName = cms.InputTag('offlineSlimmedPrimaryVertices')
-    #puppi_onMiniAOD = cms.Sequence(process.mypuppi + process.myak4PFJetsPuppi) #ak4PFJetsPuppi)
-
-    #puppi_onMiniAOD = cms.Path(puppi + ak4PFJetsPuppi)
-    #preSeq += puppi_onMiniAOD
-
 
     from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence, makePatPuppiMetSequence
 
@@ -628,3 +625,12 @@ if doNoFilter:
     print ">> Dump all events"
     getattr(process,"Tree").cut = cms.string("1")
     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 0")
+
+
+#
+# dump cfg file: 
+# to do it do: python stepB.py
+#
+#processDumpFile = open('processDump.py', 'w')
+#print >> processDumpFile, process.dumpPython()
+
