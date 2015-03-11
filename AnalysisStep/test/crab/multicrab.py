@@ -50,6 +50,17 @@ if __name__ == '__main__':
     #print " config.JobType.pyCfgParams = ", config.JobType.pyCfgParams
     submit(config)
 
+    config.General.requestName = 'DYll50ns'
+    config.Data.inputDataset = '/DYJetsToLL_M-50_13TeV-madgraph-pythia8/Phys14DR-PU4bx50_PHYS14_25_V1-v1/MINIAODSIM'
+    config.JobType.pyCfgParams = list(pyCfgParams)
+    config.JobType.pyCfgParams.extend(['label=DYll50ns', 'id=12345', 'scale=2.13'])
+    #print " pyCfgParams = ", pyCfgParams
+    #print " config.JobType.pyCfgParams = ", config.JobType.pyCfgParams
+    submit(config)
+
+
+
+
     config.General.requestName = 'ggHwwlvlv'
     config.Data.inputDataset = '/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/Phys14DR-AVE30BX50_tsg_PHYS14_ST_V1-v1/MINIAODSIM'
     config.JobType.pyCfgParams = list(pyCfgParams)
