@@ -295,7 +295,7 @@ else:
 
 
 process.stepBTree.variables.trigger = process.stepBTree.variables.trigger.value().replace("DATASET",dataset[0])
-idn = re.sub('[^0-9]','',id)
+idn = re.sub('[^0-9]','',str(id))
 process.stepBTree.variables.dataset = str(idn)
 
 
@@ -364,18 +364,38 @@ process.skimEventProducer.jetTag    = cms.InputTag("corJets")
 process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
 
 
-#from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
+from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
 #from RecoJets.JetProducers.jetToolbox_cff import *
-#process.myJetSequence = cms.Sequence()
+process.myJetSequence = cms.Sequence()
 
-#jetToolbox( process, 'ak5', 'corJets', 'out', addSubjets=True, addNsub=True, maxTau=6, addPruning=True, addTrimming=True, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
-#jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',             miniAOD=True,      addNsub=False,          addPruning=True, addTrimming=False, addCMSTopTagger=False, addHEPTopTagger=False, addMassDrop=False, addSoftDrop=False ) #, addPrunedSubjets=True )
+#                          the new sequence ,  temporary output file
+jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',    
+             #JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1Fastjet','L2Relative','L3Absolute'], 
+             JETCorrPayload='AK4PFchs', JETCorrLevels = ['L2Relative','L3Absolute'], 
+             miniAOD=True,      addNsub=True,          addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
+
+# add patjet into the sequence
+# by default it's not added
+#process.myJetSequence += process.patJetPartons # --> no, otherwise definition override
+#process.myJetSequence += process.patJetFlavourId
+#process.myJetSequence += process.patJetFlavourAssociationAK4PFCHS
+#process.myJetSequence += process.patJetCorrFactorsAK4PFCHS
+#process.myJetSequence += process.patJetsAK4PFCHS
+
+preSeq += process.myJetSequence
+
+# no need to recorrect the jets, since they are reclustered on the fly
+# the name patJetsAK4PFCHS found looking at the "processDump.py" and looking for patjetproducer
+#process.skimEventProducer.jetTag    = cms.InputTag("patJetsAK4PFCHS")
+#process.skimEventProducer.tagJetTag = cms.InputTag("patJetsAK4PFCHS")
+
 
 
 # QG tagger
-process.load('RecoJets.JetProducers.QGTagger_cfi')
-process.QGTagger.srcJets          = cms.InputTag('corJets')        # Could be reco::PFJetCollection or pat::JetCollection (both AOD and miniAOD)
-process.QGTagger.jetsLabel        = cms.string('QGL_AK4PFchs')     # Other options (might need to add an ESSource for it): see https://twiki.cern.ch/twiki/bin/viewauth/CMS/QGDataBaseVersion
+# it will be soon included in jettoolbox
+#process.load('RecoJets.JetProducers.QGTagger_cfi')
+#process.QGTagger.srcJets          = cms.InputTag('corJets')        # Could be reco::PFJetCollection or pat::JetCollection (both AOD and miniAOD)
+#process.QGTagger.jetsLabel        = cms.string('QGL_AK4PFchs')     # Other options (might need to add an ESSource for it): see https://twiki.cern.ch/twiki/bin/viewauth/CMS/QGDataBaseVersion
 #process.QGTagger.jec              = cms.string(<jet corrector>)       # Provide the jet correction service if your jets are uncorrected, otherwise keep empty
 #process.QGTagger.systematicsLabel = cms.string('')     # Produce systematic smearings (not yet available, keep empty)
 
@@ -631,6 +651,6 @@ if doNoFilter:
 # dump cfg file: 
 # to do it do: python stepB.py
 #
-#processDumpFile = open('processDump.py', 'w')
-#print >> processDumpFile, process.dumpPython()
+processDumpFile = open('processDump.py', 'w')
+print >> processDumpFile, process.dumpPython()
 
