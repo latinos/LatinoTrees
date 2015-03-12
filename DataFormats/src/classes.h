@@ -20,6 +20,9 @@ namespace
   edm::Wrapper<reco::SkimEvent> dummy3;
   edm::Wrapper<std::vector<reco::SkimEvent> > dummy4;
 
+  edm::Ptr<reco::RecoCandidate> dummyRandom1;
+  std::vector<edm::Ptr<reco::RecoCandidate> > dummyRandom2;
+  
 //   edm::ValueMap<reco::PFMET> mwlDummy01;
 //   edm::Wrapper<edm::ValueMap<reco::PFMET> > mwlDummy02;
 //   edm::RefVector<std::vector<reco::Vertex> > mwlDummy03;

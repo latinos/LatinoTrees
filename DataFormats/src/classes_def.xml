@@ -3,7 +3,11 @@
   <class name="std::vector<reco::SkimEvent>"/>
   <class name="edm::Wrapper<reco::SkimEvent>"/>
   <class name="edm::Wrapper<std::vector<reco::SkimEvent> >"/>
-<!--  <class name="reco::SkimEvent4L"/>
+  <class name="edm::Ptr<reco::RecoCandidate>"/>
+  <class name="std::vector<edm::Ptr<reco::RecoCandidate> >"/>
+     
+   
+   <!--  <class name="reco::SkimEvent4L"/>
   <class name="std::vector<reco::SkimEvent4L>"/>
   <class name="edm::Wrapper<reco::SkimEvent4L>"/>
   <class name="edm::Wrapper<std::vector<reco::SkimEvent4L> >"/>

@@ -156,6 +156,12 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
         getattr(process,'ww'+label) +
         getattr(process,'skim'+label)
      )
+     #p = cms.Sequence(
+        #preSequence
+     #)
+     #process.p2 = cms.Path(
+      #getattr(process,'ww'+label)+
+      #getattr(process,'skim'+label))
 
     setattr(process,'sel'+label,p)  # --> process."'sel'+label" = p
     # add to scheduler
