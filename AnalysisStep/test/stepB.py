@@ -232,7 +232,7 @@ process.GlobalTag.globaltag = globalTag
 #from LatinoTrees.AnalysisStep.stepB_cff import * # get also functions
 
 from LatinoTrees.AnalysisStep.stepB_cff import *
-from LatinoTrees.AnalysisStep.stepB_Functions_cff import * # get the functions
+#from LatinoTrees.AnalysisStep.stepB_Functions_cff import * # get the functions
 
 
 
@@ -356,18 +356,6 @@ process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff"
 # load jet corrections 
 process.prefer("ak4PFCHSL1FastL2L3") 
 
-#process.corJets = cms.EDProducer("PatJetCorrectionProducer",
-    #src = cms.InputTag('rawJets'),
-    #correctors = cms.vstring('ak4PFCHSL1FastL2L3')
-#)
-
-#preSeq += process.ak4PFCHSL1FastL2L3
-#preSeq += process.corJets
-
-#process.skimEventProducer.jetTag    = cms.InputTag("corJets")
-#process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
-
-
 process.load('Configuration.StandardSequences.Geometry_cff')
 process.load('Configuration.StandardSequences.MagneticField_38T_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
@@ -375,7 +363,6 @@ process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
 
 
 from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
-#from RecoJets.JetProducers.jetToolbox_cff import *
 process.myJetSequence = cms.Sequence()
 
 #                          the new sequence ,  temporary output file
@@ -384,33 +371,11 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              JETCorrPayload='AK4PFchs', JETCorrLevels = ['L2Relative','L3Absolute'], 
              miniAOD=True,      addNsub=True,          addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
 
-# add patjet into the sequence
-# by default it's not added
-process.myJetSequence += process.patJetPartons  # --> no, otherwise definition override
-#process.myJetSequence += process.patJetFlavourId 
-
-#process.myJetSequence += process.TransientTrackBuilderESProducer # do not add ESProducer
-
-process.myJetSequence += process.btagging
-
-
-#process.myJetSequence += process.pfImpactParameterTagInfosAK4PFCHS
-#process.myJetSequence += process.pfImpactParameterTagInfos
-#process.myJetSequence += process.pfTrackCountingHighEffBJetTagsAK4PFCHS
-#process.myJetSequence += process.patJetGenJetMatchAK4PFCHS
-#process.myJetSequence += process.patJetPartonMatchAK4PFCHS
-#process.myJetSequence += process.patJetFlavourAssociationAK4PFCHS
-#process.myJetSequence += process.patJetCorrFactorsAK4PFCHS
-#process.myJetSequence += process.patJetsAK4PFCHS
-#process.myJetSequence += process.selectedPatJetsAK4PFCHS
-
 
 preSeq += process.myJetSequence
 
 # no need to recorrect the jets, since they are reclustered on the fly
 # the name patJetsAK4PFCHS found looking at the "processDump.py" and looking for patjetproducer
-#process.skimEventProducer.jetTag    = cms.InputTag("patJetsAK4PFCHS")
-#process.skimEventProducer.tagJetTag = cms.InputTag("patJetsAK4PFCHS")
 process.skimEventProducer.jetTag    = cms.InputTag("selectedPatJetsAK4PFCHS")
 process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
 
@@ -425,11 +390,6 @@ process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
 #process.QGTagger.systematicsLabel = cms.string('')     # Produce systematic smearings (not yet available, keep empty)
 
 #process.patJets.userData.userFloats.src += ['QGTagger:qgLikelihood']
-
-
-# test
-#process.outTemp.outputCommands = cms.untracked.vstring('keep *_*_*_*')
-
 
 
 # add puppi calculated from miniAOD
@@ -457,14 +417,10 @@ if options.runPUPPISequence:
     makePatPuppiMetSequence(process) ## call pat puppi met
 
     # now add to the preSequence
-    #preSeq += process.puppi_onMiniAOD
-    #preSeq += process.makePatPuppi
     preSeq += process.makePatMetPuppi
 
     process.skimEventProducer.pupMetTag = cms.InputTag("patMetPuppi")
-
     process.skimEventProducer.secondJetTag = cms.InputTag("patJetsAK4selectedPatJetsPuppi")
-
 
 
 
@@ -694,15 +650,13 @@ if doNoFilter:
 # needed otherwise the "unschedule" approach does not work
 #process.myoutputstep = cms.EndPath(process.outTemp+process.Tree)
 process.myoutputstep = cms.EndPath(process.Tree)
-
-
-
-#process.lastpath = cms.EndPath(process.TFileService)
+#################
 
 #
 # dump cfg file: 
 # to do it do: python stepB.py
+# decomment *if* needed
 #
-processDumpFile = open('processDump.py', 'w')
-print >> processDumpFile, process.dumpPython()
+#processDumpFile = open('processDump.py', 'w')
+#print >> processDumpFile, process.dumpPython()
 
