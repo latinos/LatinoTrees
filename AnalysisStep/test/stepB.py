@@ -182,7 +182,6 @@ options.register ('doBTag',
                   'Turn on bTagging variables dumper (can be \'True\' or \'False\'')
 
 
-
 #-------------------------------------------------------------------------------
 # defaults
 options.outputFile = 'stepB.root'
