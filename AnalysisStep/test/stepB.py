@@ -367,8 +367,7 @@ process.myJetSequence = cms.Sequence()
 
 #                          the new sequence ,  temporary output file
 jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',    
-             #JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1Fastjet','L2Relative','L3Absolute'], 
-             JETCorrPayload='AK4PFchs', JETCorrLevels = ['L2Relative','L3Absolute'], 
+             JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
              miniAOD=True,      addNsub=True,          addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
 
 
@@ -408,7 +407,7 @@ if options.runPUPPISequence:
     #makePuppiAlgo(process) ## call puppi producer and puppi met
     
     jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',    
-             #JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1Fastjet','L2Relative','L3Absolute'], 
+             #JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
              PUMethod='Puppi',
              miniAOD=True,      addNsub=True,          addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
 
