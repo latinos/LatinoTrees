@@ -56,7 +56,10 @@ Run step B
                     outputFile=stepB_latinosYieldSkim_MC_ggHww.root \
                     doNoFilter=True \
                     doMuonIsoId=True \
-                    maxEvents=200
+                    maxEvents=200 \
+                    doLHE=True \
+                    doGen=True \
+                    doBTag=True
 
 To add LHE information.
 
