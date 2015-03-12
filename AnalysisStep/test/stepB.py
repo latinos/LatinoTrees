@@ -228,8 +228,12 @@ process.GlobalTag.globaltag = globalTag
 
 
 # load configuration file with the variables list
-process.load("LatinoTrees.AnalysisStep.stepB_cff")
-from LatinoTrees.AnalysisStep.stepB_cff import * # get also functions
+#process.load("LatinoTrees.AnalysisStep.stepB_cff")
+#from LatinoTrees.AnalysisStep.stepB_cff import * # get also functions
+
+from LatinoTrees.AnalysisStep.stepB_cff import *
+from LatinoTrees.AnalysisStep.stepB_Functions_cff import * # get the functions
+
 
 
 # load configurations
@@ -294,14 +298,14 @@ else:
     doPDFvar = True
 
 
-process.stepBTree.variables.trigger = process.stepBTree.variables.trigger.value().replace("DATASET",dataset[0])
+stepBTree.variables.trigger = stepBTree.variables.trigger.value().replace("DATASET",dataset[0])
 idn = re.sub('[^0-9]','',str(id))
-process.stepBTree.variables.dataset = str(idn)
+stepBTree.variables.dataset = str(idn)
 
 
 # mc
 if dataset[0] == "MC":
-    process.stepBTree.variables.baseW = "%.12f" % scalef
+    stepBTree.variables.baseW = "%.12f" % scalef
 # data
 else:
     from FWCore.PythonUtilities.LumiList import LumiList
@@ -309,14 +313,14 @@ else:
     lumis = LumiList(filename = os.getenv('CMSSW_BASE')+'/src/LatinoTrees/Misc/Jsons/%s.json'%json)
     process.source.lumisToProcess = cms.untracked.VLuminosityBlockRange()
     process.source.lumisToProcess = lumis.getCMSSWString().split(',')
-    process.stepBTree.variables.baseW = "1"
-    process.stepBTree.variables.trpu = cms.string("1")
-    process.stepBTree.variables.itpu = cms.string("1")
-    process.stepBTree.variables.ootpup1 = cms.string("1")
-    process.stepBTree.variables.ootpum1 = cms.string("1")
-    process.stepBTree.variables.puW = cms.string("1")
-    process.stepBTree.variables.puAW = cms.string("1")
-    process.stepBTree.variables.puBW = cms.string("1")
+    stepBTree.variables.baseW = "1"
+    stepBTree.variables.trpu = cms.string("1")
+    stepBTree.variables.itpu = cms.string("1")
+    stepBTree.variables.ootpup1 = cms.string("1")
+    stepBTree.variables.ootpum1 = cms.string("1")
+    stepBTree.variables.puW = cms.string("1")
+    stepBTree.variables.puAW = cms.string("1")
+    stepBTree.variables.puBW = cms.string("1")
 
 
 # SkimEventProducer is where the objects are defined
@@ -343,8 +347,8 @@ else:
 
 # add L1+L2+L3 jet energy corrections in MC
 # first create the "raw" jets
-process.load("LatinoTrees.JetUncorrector.JetUncorrector_cff")
-preSeq += process.rawJets
+#process.load("LatinoTrees.JetUncorrector.JetUncorrector_cff")
+#preSeq += process.rawJets
 # then apply the new corrections
 process.load("JetMETCorrections.Configuration.JetCorrectionServices_cff")
 process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff")
@@ -352,16 +356,22 @@ process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff"
 # load jet corrections 
 process.prefer("ak4PFCHSL1FastL2L3") 
 
-process.corJets = cms.EDProducer("PatJetCorrectionProducer",
-    src = cms.InputTag('rawJets'),
-    correctors = cms.vstring('ak4PFCHSL1FastL2L3')
-)
+#process.corJets = cms.EDProducer("PatJetCorrectionProducer",
+    #src = cms.InputTag('rawJets'),
+    #correctors = cms.vstring('ak4PFCHSL1FastL2L3')
+#)
 
 #preSeq += process.ak4PFCHSL1FastL2L3
-preSeq += process.corJets
+#preSeq += process.corJets
 
-process.skimEventProducer.jetTag    = cms.InputTag("corJets")
-process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
+#process.skimEventProducer.jetTag    = cms.InputTag("corJets")
+#process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
+
+
+process.load('Configuration.StandardSequences.Geometry_cff')
+process.load('Configuration.StandardSequences.MagneticField_38T_cff')
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
 
 
 from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
@@ -376,11 +386,24 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
 
 # add patjet into the sequence
 # by default it's not added
-#process.myJetSequence += process.patJetPartons # --> no, otherwise definition override
-#process.myJetSequence += process.patJetFlavourId
+process.myJetSequence += process.patJetPartons  # --> no, otherwise definition override
+#process.myJetSequence += process.patJetFlavourId 
+
+#process.myJetSequence += process.TransientTrackBuilderESProducer # do not add ESProducer
+
+process.myJetSequence += process.btagging
+
+
+#process.myJetSequence += process.pfImpactParameterTagInfosAK4PFCHS
+#process.myJetSequence += process.pfImpactParameterTagInfos
+#process.myJetSequence += process.pfTrackCountingHighEffBJetTagsAK4PFCHS
+#process.myJetSequence += process.patJetGenJetMatchAK4PFCHS
+#process.myJetSequence += process.patJetPartonMatchAK4PFCHS
 #process.myJetSequence += process.patJetFlavourAssociationAK4PFCHS
 #process.myJetSequence += process.patJetCorrFactorsAK4PFCHS
 #process.myJetSequence += process.patJetsAK4PFCHS
+#process.myJetSequence += process.selectedPatJetsAK4PFCHS
+
 
 preSeq += process.myJetSequence
 
@@ -388,6 +411,8 @@ preSeq += process.myJetSequence
 # the name patJetsAK4PFCHS found looking at the "processDump.py" and looking for patjetproducer
 #process.skimEventProducer.jetTag    = cms.InputTag("patJetsAK4PFCHS")
 #process.skimEventProducer.tagJetTag = cms.InputTag("patJetsAK4PFCHS")
+process.skimEventProducer.jetTag    = cms.InputTag("selectedPatJetsAK4PFCHS")
+process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
 
 
 
@@ -402,6 +427,9 @@ preSeq += process.myJetSequence
 #process.patJets.userData.userFloats.src += ['QGTagger:qgLikelihood']
 
 
+# test
+#process.outTemp.outputCommands = cms.untracked.vstring('keep *_*_*_*')
+
 
 
 # add puppi calculated from miniAOD
@@ -414,18 +442,28 @@ preSeq += process.myJetSequence
 if options.runPUPPISequence:
 
     from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence, makePatPuppiMetSequence
+    #from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiMetSequence
 
     jetPuppiR = 0.4
-    makePuppiAlgo(process) ## call puppi producer and puppi met
-    makePatPuppiJetSequence(process,jetPuppiR) ## call pat puppi jets
+    #makePuppiAlgo(process) ## call puppi producer and puppi met
+    
+    jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',    
+             #JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1Fastjet','L2Relative','L3Absolute'], 
+             PUMethod='Puppi',
+             miniAOD=True,      addNsub=True,          addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
+
+
+    #makePatPuppiJetSequence(process,jetPuppiR) ## call pat puppi jets
     makePatPuppiMetSequence(process) ## call pat puppi met
 
     # now add to the preSequence
-    preSeq += process.puppi_onMiniAOD
-    preSeq += process.makePatPuppi
+    #preSeq += process.puppi_onMiniAOD
+    #preSeq += process.makePatPuppi
     preSeq += process.makePatMetPuppi
 
     process.skimEventProducer.pupMetTag = cms.InputTag("patMetPuppi")
+
+    process.skimEventProducer.secondJetTag = cms.InputTag("patJetsAK4selectedPatJetsPuppi")
 
 
 
@@ -441,7 +479,11 @@ if doTauEmbed == True:
   process.skimEventProducer.mcGenWeightTag = cms.InputTag("generator:minVisPtFilter")
 
 # this is where the "event" is built
-addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq)
+#                                                                sequence and no path
+#addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,False)
+addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True)
+
+process.options = cms.untracked.PSet( allowUnscheduled = cms.untracked.bool(True) )
 
 if (wztth == True) or (doPDFvar == True):
     getattr(process,"ww%s"% (labelSetup)).mcGenEventInfoTag = "generator"
@@ -476,32 +518,33 @@ if doGenVV == True :
 
 
 # if puppi, change the input jet collection
-if options.runPUPPISequence:
-    getattr(process,"ww%s"% (labelSetup)).secondJetTag    = "patJetsAK4selectedPatJetsPuppi"
-    #getattr(process,"ww%s"% (labelSetup)).jetTag    = "patJetsAK4selectedPatJetsPuppi"
-    #getattr(process,"ww%s"% (labelSetup)).tagJetTag = "patJetsAK4selectedPatJetsPuppi"
+#if options.runPUPPISequence:
+    #getattr(process,"ww%s"% (labelSetup)).secondJetTag    = "patJetsAK4selectedPatJetsPuppi"
 
 # latino trees construction
 
-tree = process.stepBTree.clone(src = cms.InputTag("ww%s"% (labelSetup) ));
+tree = stepBTree.clone(src = cms.InputTag("ww%s"% (labelSetup) ));
 seq = cms.Sequence()
 setattr(process, 'TreeSequence', seq)
-setattr(process, "Nvtx", process.nverticesModule.clone(probes = cms.InputTag("ww%s"% (labelSetup))))
+setattr(process, "Nvtx", nverticesModule.clone(probes = cms.InputTag("ww%s"% (labelSetup))))
 seq += getattr(process, "Nvtx")
 tree.variables.nvtx = cms.InputTag("Nvtx")
 if doIsoStudy: 
     addIsoStudyVariables(process,tree)
 
 
-# pile-up information
-process.nPU.puLabel = cms.InputTag(options.puInformation)
-
-process.nPU = cms.EDProducer("PileUpMultiplicityCounter",
-    puLabel = cms.InputTag("addPileupInfo")
+# pile-up
+nPU = cms.EDProducer("PileUpMultiplicityCounter",
+    puLabel = cms.InputTag("addPileupInfo"),
+    src = cms.InputTag("")
 )
 
+# pile-up information
+nPU.puLabel = cms.InputTag(options.puInformation)
+
+
 if dataset[0] == 'MC':
-    setattr(process, "NPU", process.nPU.clone(src = cms.InputTag("ww%s"% (labelSetup))))
+    setattr(process, "NPU", nPU.clone(src = cms.InputTag("ww%s"% (labelSetup))))
     seq += getattr(process, "NPU")
     tree.variables.trpu = cms.InputTag("NPU:tr")
     tree.variables.itpu = cms.InputTag("NPU:it")
@@ -646,6 +689,15 @@ if doNoFilter:
     getattr(process,"Tree").cut = cms.string("1")
     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 0")
 
+#################
+# very important!
+# needed otherwise the "unschedule" approach does not work
+#process.myoutputstep = cms.EndPath(process.outTemp+process.Tree)
+process.myoutputstep = cms.EndPath(process.Tree)
+
+
+
+#process.lastpath = cms.EndPath(process.TFileService)
 
 #
 # dump cfg file: 
