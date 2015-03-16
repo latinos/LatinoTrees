@@ -49,7 +49,7 @@ Run step B
     cd LatinoTrees/AnalysisStep/test/
 
     cmsRun stepB.py print \
-                    inputFiles=file:08CFEF83-586C-E411-8D7C-002590A2CCF2.root \
+                    inputFiles=root://xrootd.unl.edu//store/mc/Phys14DR/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/MINIAODSIM/PU20bx25_tsg_PHYS14_25_V1-v1/00000/08CFEF83-586C-E411-8D7C-002590A2CCF2.root \
                     label=WW \
                     id=123456789 \
                     scale=1 \
@@ -61,6 +61,10 @@ Run step B
                     doGen=True \
                     doBTag=True
 
+If the input file is local.
+
+                    inputFiles=file:08CFEF83-586C-E411-8D7C-002590A2CCF2.root
+
 To add LHE information.
 
                     doLHE=True
@@ -69,7 +73,7 @@ To add GEN information like `genjets` or `genleptons`.
 
                     doGen=True
 
-To add alternative bTagging variables like `jetcsvv2ivf`.
+To add alternative b-tagging variables like `jetcsvv2ivf`.
 		   
                     doBTag=True
 
