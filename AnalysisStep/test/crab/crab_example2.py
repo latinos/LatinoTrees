@@ -15,7 +15,7 @@ config.JobType.pyCfgParams = ['label=HWW', 'id=12345', 'scale=1', 'outputFile=st
 config.section_('Data')
 config.Data.inputDataset    = '/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/Phys14DR-AVE30BX50_tsg_PHYS14_ST_V1-v1/MINIAODSIM'
 config.Data.splitting       = 'FileBased'
-config.Data.unitsPerJob     = 1
+config.Data.unitsPerJob     = 10
 config.Data.publishDataName = 'NoFilter'
 config.Data.ignoreLocality  = True
 
