@@ -9,6 +9,7 @@ See details here:
 Check if you have writing permissions:
 
     source /cvmfs/cms.cern.ch/crab3/crab.sh
+    source /cvmfs/cms.cern.ch/crab3/crab.csh
     
     crab checkwrite --site=T2_CH_CERN
     crab checkwrite --site=T2_CH_CERN --lfn=/store/group/phys_higgs/cmshww/amassiro/RunII/test/
