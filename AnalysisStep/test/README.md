@@ -66,10 +66,37 @@ Run step B
 If the input file is local.
 
                     inputFiles=file:440AA9AF-9988-E411-9786-00266CFFA038.root
-
+                    
 
 Create the final tree
 ====
 
     python cmssw2latino.py stepB_MC_numEvent200.root
 
+
+    
+    
+Details
+====
+
+To add LHE information.
+
+    doLHE=True
+
+To add GEN information like `genjets` or `genleptons`.
+
+    doGen=True
+
+To add alternative b-tagging variables like `jetcsvv2ivf`.
+
+    doBTag=True
+    
+To apply a cut at tree creation step:
+
+    doCut=ptMin\>20
+    
+    NB: doNoFilter overrides this cut 
+
+
+
+    

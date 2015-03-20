@@ -256,7 +256,19 @@ doIsoStudy = options.doIsoStudy
 typeLHEcomment = options.typeLHEcomment
 label = options.label
 doBTag = options.doBTag
+doCut = options.doCut
 ###
+
+
+print "doCut = ",doCut
+
+print "      __          __  _                ______              "
+print "     / /   ____ _/ /_(_)___  ____     /_  __/_______  ___  "
+print "    / /   / __ `/ __/ / __ \/ __ \     / / / ___/ _ \/ _ \ "
+print "   / /___/ /_/ / /_/ / / / / /_/ /    / / / /  /  __/  __/ "
+print "  /_____/\__,_/\__/_/_/ /_/\____/    /_/ /_/   \___/\___/  "
+print "                                                           "
+
 
 id = 0
 json = None
@@ -443,7 +455,7 @@ if doTauEmbed == True:
 #addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,False)
 #addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True)
 #addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True,"1")
-addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True,"ptMin>20")
+addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True,doCut)
 
 process.options = cms.untracked.PSet( allowUnscheduled = cms.untracked.bool(True) )
 
