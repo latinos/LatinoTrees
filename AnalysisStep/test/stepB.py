@@ -121,6 +121,12 @@ options.register ('doNoFilter',
                   opts.VarParsing.varType.bool,
                   'Turn on no filter requirement, not even requiring 2 leptons! Needed for unfolding at GEN (can be \'True\' or \'False\'')
 
+options.register ('doCut',
+                  '1',
+                  opts.VarParsing.multiplicity.singleton,
+                  opts.VarParsing.varType.string,
+                  'Apply cut. String. Default = \'1\', meaning accept all events. NB: flag doNoFilter overrides this cut!')
+
 options.register ('doMuonIsoId',
                   True, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
@@ -435,7 +441,9 @@ if doTauEmbed == True:
 # this is where the "event" is built
 #                                                                sequence and no path
 #addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,False)
-addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True)
+#addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True)
+#addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True,"1")
+addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True,"ptMin>20")
 
 process.options = cms.untracked.PSet( allowUnscheduled = cms.untracked.bool(True) )
 
@@ -477,10 +485,14 @@ if doGenVV == True :
 
 # latino trees construction
 
-tree = stepBTree.clone(src = cms.InputTag("ww%s"% (labelSetup) ));
+#tree = stepBTree.clone(src = cms.InputTag("ww%s"% (labelSetup) ));
+tree = stepBTree.clone(src = cms.InputTag("skim%s"% (labelSetup) )); # --> source is "skimmed" events!
+
+
 seq = cms.Sequence()
 setattr(process, 'TreeSequence', seq)
-setattr(process, "Nvtx", nverticesModule.clone(probes = cms.InputTag("ww%s"% (labelSetup))))
+#setattr(process, "Nvtx", nverticesModule.clone(probes = cms.InputTag("ww%s"% (labelSetup))))
+setattr(process, "Nvtx", nverticesModule.clone(probes = cms.InputTag("skim%s"% (labelSetup))))
 seq += getattr(process, "Nvtx")
 tree.variables.nvtx = cms.InputTag("Nvtx")
 if doIsoStudy: 
@@ -498,7 +510,8 @@ nPU.puLabel = cms.InputTag(options.puInformation)
 
 
 if dataset[0] == 'MC':
-    setattr(process, "NPU", nPU.clone(src = cms.InputTag("ww%s"% (labelSetup))))
+    #setattr(process, "NPU", nPU.clone(src = cms.InputTag("ww%s"% (labelSetup))))
+    setattr(process, "NPU", nPU.clone(src = cms.InputTag("skim%s"% (labelSetup))))
     seq += getattr(process, "NPU")
     tree.variables.trpu = cms.InputTag("NPU:tr")
     tree.variables.itpu = cms.InputTag("NPU:it")
@@ -640,8 +653,12 @@ if doSameSign:
 # save all events
 if doNoFilter:
     print ">> Dump all events"
-    getattr(process,"Tree").cut = cms.string("1")
     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 0")
+
+# TTree producer ends up in the endPath, then it's NOT a filter anymore
+# then applying a cut here has no effect
+# then I leave "1" by default, not to create confusion
+getattr(process,"Tree").cut = cms.string("1")
 
 #################
 # very important!

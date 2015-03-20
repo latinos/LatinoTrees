@@ -117,7 +117,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
 
 
 
-def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons4Veto',thisPhotonTag='slimmedPhotons',preSequence=cms.Sequence(),isMiniAODProduction=False):
+def addEventHypothesis(process, label, thisMuTag, thisEleTag, thisSoftMuTag='wwMuons4Veto', thisPhotonTag='slimmedPhotons', preSequence=cms.Sequence(), isMiniAODProduction=False, cut = "1"):
 
     # isMiniAODProduction is a flag that
     # when it is true takes into account that latino tree are run in the same python of miniAOD production, so no cms.Path have to be defined, but only sequences to preserve order of execution
@@ -130,11 +130,13 @@ def addEventHypothesis(process,label,thisMuTag,thisEleTag,thisSoftMuTag='wwMuons
     preSequence += wwElectronSequence
     preSequence += wwMuonSequence
 
+    cutstring = cms.string(cut)
 
     tempSkimEventFilter = cms.EDFilter("SkimEventSelector",
        src = cms.InputTag(""),
        filter = cms.bool(True),
-       cut = cms.string("1"),
+       cut = cutstring,
+       #cut = cms.string("1"),
        #cut = cms.string("nLep >=2 "),
     )
 
