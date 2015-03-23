@@ -247,11 +247,18 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingJetPtd(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
             const float leadingJetPtD(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
 
+            const float leadingJetQGaxis1(size_t index) const ;
+            const float leadingJetQGaxis2(size_t index) const ;
+            const float leadingJetQGRMScand(size_t index) const ;
+            const float leadingJetQGRmax(size_t index) const ;
+            const float leadingJetQGlikelihood(size_t index) const ;
+            
             const float leadingJetQGaxis1(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
             const float leadingJetQGaxis2(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
             const float leadingJetQGRMScand(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
             const float leadingJetQGRmax(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
-
+            const float leadingJetQGlikelihood(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
+             
             const float leadingJetNChgQC(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
             const float leadingJetNChgptCut(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
             const float leadingJetNNeutralptCut(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;

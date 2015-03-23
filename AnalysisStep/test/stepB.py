@@ -595,6 +595,10 @@ if doGenVV: addGenVVVariables(process,tree)
 # add 5th and 6th, ... jets variables
 addAdditionalJets(process,tree)
 
+# add QG likelihood
+addQGJets(process,tree)
+
+# add fatjets
 if options.doFatJet :
     addFatJets(process,tree)
 

@@ -1103,6 +1103,38 @@ const float reco::SkimEvent::leadingJetPtD(size_t index, float minPt,float eta,i
 }
 
 
+
+
+
+const float reco::SkimEvent::leadingJetQGaxis1(size_t index) const {
+ return leadingJetQGaxis1(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,1);
+ //  FIXME QualityCut == 1 hardcoded
+}
+
+const float reco::SkimEvent::leadingJetQGaxis2(size_t index) const {
+ return leadingJetQGaxis2(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,1);
+ //  FIXME QualityCut == 1 hardcoded 
+}
+
+const float reco::SkimEvent::leadingJetQGRMScand(size_t index) const {
+ return leadingJetQGRMScand(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,1);
+ //  FIXME QualityCut == 1 hardcoded
+}
+
+const float reco::SkimEvent::leadingJetQGRmax(size_t index) const {
+ return leadingJetQGRmax(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,1);
+ //  FIXME QualityCut == 1 hardcoded
+}
+
+const float reco::SkimEvent::leadingJetQGlikelihood(size_t index) const {
+ return leadingJetQGlikelihood(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+}
+
+
+
+
+
+
 const float reco::SkimEvent::leadingJetQGRmax(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
 
  size_t count = 0;
@@ -1180,76 +1212,22 @@ const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float e
 
 
 
-
-// const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
-// double axis2 = -9999.9;
-//
-// size_t count = 0;
-// for(size_t i=0;i<jets_.size();++i) {
-// if(!(passJetID(jets_[i],applyID)) ) continue;
-// if( std::fabs(jets_[i]->eta()) >= eta) continue;
-// if( jetPt(i,applyCorrection) <= minPt) continue;
-//
-// if(isThisJetALepton(jets_[i])) continue;
-// if(++count > index) {
-// // std::vector<reco::PFCandidatePtr> constituents = jet->getPFConstituents();
-// std::vector<reco::PFCandidatePtr> constituents = jets_[i]->getPFConstituents();
-// // Jet::Constituents constituents = jets_[i]->getJetConstituents();
-// float sum_pt2 = 0.;
-// float sum_pt = 0.;
-// float sum_deta = 0.;
-// float sum_dphi = 0.;
-// float sum_deta2 = 0.;
-// float sum_dphi2 = 0.;
-// float sum_detadphi = 0.;
-// for( unsigned iConst=0; iConst<constituents.size(); ++iConst ) {
-// float pt = constituents[iConst]->p4().Pt();
-// float pt2 = pt*pt;
-// sum_pt += pt;
-// sum_pt2 += pt2;
-//
-// sum_deta += ((constituents[iConst]->eta() - jets_[i]->eta())*pt*pt);
-// sum_dphi += ((2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*pt*pt);
-//
-// sum_deta2 += ((constituents[iConst]->eta() - jets_[i]->eta())*(constituents[iConst]->eta() - jets_[i]->eta())*pt*pt);
-// sum_dphi2 += ((2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*(2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*pt*pt);
-//
-// sum_detadphi += ((2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*(constituents[iConst]->eta() - jets_[i]->eta())*pt*pt);
-//
-// }
-//
-// Float_t a = 0., b = 0., c = 0.;
-// Float_t ave_deta = 0., ave_dphi = 0., ave_deta2 = 0., ave_dphi2 = 0.;
-//
-//
-// if(sum_pt2 > 0){
-// // variables["ptD"] = sqrt(sum_weight)/sum_pt;
-// ave_deta = sum_deta/sum_pt2;
-// ave_dphi = sum_dphi/sum_pt2;
-// ave_deta2 = sum_deta2/sum_pt2;
-// ave_dphi2 = sum_dphi2/sum_pt2;
-// a = ave_deta2 - ave_deta*ave_deta;
-// b = ave_dphi2 - ave_dphi*ave_dphi;
-// c = -(sum_detadphi/sum_pt2 - ave_deta*ave_dphi);
-//
-// Float_t delta = sqrt(fabs((a-b)*(a-b)+4*c*c));
-// if(a+b-delta > 0) {
-// axis2 = sqrt(0.5*(a+b-delta));
-// }
-// else {
-// axis2 = 0.;
-// }
-// }
-// else {
-// axis2 = 0.;
-// }
-//
-// return axis2;
-// }
-// }
-// return -9999.9;
-//
-// }
+const float reco::SkimEvent::leadingJetQGlikelihood(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;
+  
+  if(isThisJetALepton(jets_[i])) continue;
+  if(++count > index) {
+   return jets_[i]->userFloat("QGTagger:qgLikelihood");
+  }
+ }
+ return -9999.9;
+ 
+}
 
 
 
