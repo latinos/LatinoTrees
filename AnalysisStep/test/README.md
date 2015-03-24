@@ -66,17 +66,9 @@ Run step B
 If the input file is local.
 
                     inputFiles=file:440AA9AF-9988-E411-9786-00266CFFA038.root
-                    
-
-Create the final tree
-====
-
-    python cmssw2latino.py stepB_MC_numEvent200.root
 
 
-    
-    
-Details
+Parameter details
 ====
 
 To add LHE information.
@@ -91,12 +83,14 @@ To add alternative b-tagging variables like `jetcsvv2ivf`.
 
     doBTag=True
     
-To apply a cut at tree creation step:
+To apply a cut.
 
+    doNoFilter=False \
     doCut=ptMin\>20
-    
-    NB: doNoFilter overrides this cut 
 
 
+Create the final latino tree
+====
 
-    
+    python cmssw2latino.py stepB_MC_numEvent200.root
+
