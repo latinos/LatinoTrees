@@ -62,10 +62,10 @@ options.register ('doTauEmbed',
                   'Turn on DY embedding mode (can be \'True\' or \'False\'')
 
 options.register ('selection',
-                  'TightTight',
+                  'Tight',
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.string, # string, int, or float
-                  'Selection level [TightTight,LooseLoose]')
+                  'Selection level [Tight,Loose]')
 
 options.register ('doSameSign',
                   False, # default value
@@ -352,13 +352,13 @@ process.skimEventProducer.applyIDForJets = cms.bool(False)
 process.skimEventProducer.dzCutForBtagJets = cms.double(99999)
 
 
-if options.selection == 'TightTight':
+if options.selection == 'Tight':
     labelSetup = "Scenario1"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence();
     #labelSetup = "Scenario1"; muon = "wwMuoTight"; ele = "wwEleTight"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence();  # --> fix ele/mu tag and un-comment this line and comment the previous one
-elif options.selection == 'LooseLoose':
+elif options.selection == 'Loose':
     labelSetup = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; pho = "wwPhoScenario1"; preSeq = cms.Sequence();
 else:
-    raise ValueError('selection must be either TightTight or LooseLoose')
+    raise ValueError('selection must be either Tight or Loose')
 
 
 
