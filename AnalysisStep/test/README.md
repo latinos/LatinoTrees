@@ -88,7 +88,12 @@ To apply a cut.
     doNoFilter=False \
     doCut=ptMin\>20
 
+To activate the dumping of MC weights. It requires GEN/LHE information directly from edm products. Default is `False`
+    
+    doMCweights=True
 
+    
+    
 Create the final latino tree
 ====
 

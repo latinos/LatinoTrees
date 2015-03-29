@@ -553,6 +553,15 @@ def addGenVariables(process,pt):
 
 
 
+def addMCweights(process,pt):
+
+        if hasattr(pt,"variables"):
+          pt.variables.std_vector_LHE_weight  = cms.string("LHEMCweight")
+          pt.variables.std_vector_GEN_weight  = cms.string("GENMCweight")
+          pt.variables.LHE_weight_SM  = cms.string("LHEMCweight(-1)")
+          pt.variables.GEN_weight_SM  = cms.string("GENMCweight(-1)")
+
+
 def addTau(process,pt):
 
         if hasattr(pt,"variables"):

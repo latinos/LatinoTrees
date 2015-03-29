@@ -216,36 +216,37 @@ void reco::SkimEvent::setGenJets(const edm::Handle<reco::GenJetCollection> & h) 
    }
 }
 
-// set LHEinfo
-void reco::SkimEvent::setLHEinfo(const edm::Handle<LHEEventProduct> & h) {
- LHEhepeup_ = (*(h.product())).hepeup();
 
- std::vector<std::string>::const_iterator it_end = (*(h.product())).comments_end();
- std::vector<std::string>::const_iterator it = (*(h.product())).comments_begin();
- for(; it != it_end; it++) {
-  comments_LHE_.push_back (*it);
+
+const float reco::SkimEvent::LHEMCweight(int i) const {
+ 
+ if (i == -1) return LHEInfoHandle_->originalXWGTUP();
+ 
+ int num_whichWeight = LHEInfoHandle_->weights().size();
+ if (i<num_whichWeight) {
+//   return (LHEInfoHandle_->weights()[i].wgt/LHEInfoHandle_->originalXWGTUP());
+  return LHEInfoHandle_->weights()[i].wgt;
  }
-
-// std::cout << " comments_LHE_.size() = " << comments_LHE_.size() << std::endl;
- for (unsigned int iComm = 0; iComm<comments_LHE_.size(); iComm++) {
-// std::cout << " i=" << iComm << " :: " << comments_LHE_.size() << " ==> " << comments_LHE_.at(iComm) << std::endl;
-  /// #new weight,renfact,facfact,pdf1,pdf2 32.2346904790193 1.00000000000000 1.00000000000000 11000 11000 lha
-  std::stringstream line( comments_LHE_.at(iComm) );
-  std::string dummy;
-  line >> dummy; // #new weight,renfact,facfact,pdf1,pdf2
-  float dummy_float;
-  line >> dummy_float; // 32.2346904790193
-  comments_LHE_weight_.push_back(dummy_float);
-// std::cout << dummy_float << std::endl;
-  line >> dummy_float; // 1.00000000000000
-  comments_LHE_rfac_.push_back(dummy_float);
-// std::cout << dummy_float << std::endl;
-  line >> dummy_float; // 1.00000000000000
-  comments_LHE_ffac_.push_back(dummy_float);
-// std::cout << dummy_float << std::endl;
+ else {
+  return -999;
  }
-
 }
+
+
+const float reco::SkimEvent::GENMCweight(int i) const {
+ 
+ if (i == -1) return GenInfoHandle_.weight();
+ 
+ int num_whichWeight = GenInfoHandle_.weights().size();
+ if (i<num_whichWeight) {
+  return GenInfoHandle_.weights()[i];
+ }
+ else {
+  return -999;
+ }
+}
+
+
 
 
 const float reco::SkimEvent::HEPMCweightScale(size_t i) const {
@@ -410,6 +411,43 @@ void reco::SkimEvent::setGenWeight(const edm::Handle<GenFilterInfo> &mcGenWeight
   mcGenWeight_ = *(mcGenWeight.product());
 }
 
+
+// set LHEinfo
+void reco::SkimEvent::setLHEinfo(const edm::Handle<LHEEventProduct> &h) {
+ 
+ LHEInfoHandle_ = (h.product());
+ 
+ LHEhepeup_ = (*(h.product())).hepeup();
+ 
+ std::vector<std::string>::const_iterator it_end = (*(h.product())).comments_end();
+ std::vector<std::string>::const_iterator it = (*(h.product())).comments_begin();
+ for(; it != it_end; it++) {
+  comments_LHE_.push_back (*it);
+ }
+ 
+ // std::cout << " comments_LHE_.size() = " << comments_LHE_.size() << std::endl;
+ for (unsigned int iComm = 0; iComm<comments_LHE_.size(); iComm++) {
+  // std::cout << " i=" << iComm << " :: " << comments_LHE_.size() << " ==> " << comments_LHE_.at(iComm) << std::endl;
+  /// #new weight,renfact,facfact,pdf1,pdf2 32.2346904790193 1.00000000000000 1.00000000000000 11000 11000 lha
+  std::stringstream line( comments_LHE_.at(iComm) );
+  std::string dummy;
+  line >> dummy; // #new weight,renfact,facfact,pdf1,pdf2
+  float dummy_float;
+  line >> dummy_float; // 32.2346904790193
+  comments_LHE_weight_.push_back(dummy_float);
+  // std::cout << dummy_float << std::endl;
+  line >> dummy_float; // 1.00000000000000
+  comments_LHE_rfac_.push_back(dummy_float);
+  // std::cout << dummy_float << std::endl;
+  line >> dummy_float; // 1.00000000000000
+  comments_LHE_ffac_.push_back(dummy_float);
+  // std::cout << dummy_float << std::endl;
+ }
+ 
+}
+
+
+//---- set GEN info
 void reco::SkimEvent::setGenInfo(const edm::Handle<GenEventInfoProduct> &GenInfoHandle) {
   GenInfoHandle_ = *(GenInfoHandle.product());
 }

@@ -162,6 +162,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float getWWdecayMC() const;
             const float mcHiggsProd() const;
 
+            //---- MC weights: -1 for SM; 0,1,2,... for parameters variation
+            const float LHEMCweight(int i) const ;
+            const float GENMCweight(int i) const ;
+            
             const float HEPMCweight() const ;
             const float HEPMCweightScale(size_t i) const ;
             const float HEPMCweightRen(size_t i) const ;
@@ -474,11 +478,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s);
             void setVtxSumPt2s(const edm::Handle<edm::ValueMap<float> > &s);
             void setGenParticles(const edm::Handle<reco::GenParticleCollection> &h);
-            void setLHEinfo(const edm::Handle<LHEEventProduct> & h);
 
 // void setGenWeight(const edm::Handle<double> &s);
             void setGenWeight(const edm::Handle<GenFilterInfo> &s);
 
+            void setLHEinfo(const edm::Handle<LHEEventProduct> &h);
             void setGenInfo(const edm::Handle<GenEventInfoProduct> &s);
             void setGenMet(const edm::Handle< std::vector<pat::MET> > &); //---- new interface to GenMET with miniAOD
             void setGenMet(const edm::Handle<reco::GenMETCollection> &);
@@ -756,6 +760,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             GenEventInfoProduct GenInfoHandle_;
             lhef::HEPEUP LHEhepeup_;
 
+            const LHEEventProduct* LHEInfoHandle_;
+            
+            
             std::vector< std::string > comments_LHE_;
             std::vector< float > comments_LHE_weight_;
             std::vector< float > comments_LHE_rfac_;

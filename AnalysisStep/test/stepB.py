@@ -187,6 +187,13 @@ options.register ('doBTag',
                   opts.VarParsing.varType.bool,
                   'Turn on bTagging variables dumper (can be \'True\' or \'False\'')
 
+options.register ('doMCweights',
+                  False, # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.bool,
+                  'Turn on MC weights dumper (can be \'True\' or \'False\'')
+
+
 
 #-------------------------------------------------------------------------------
 # defaults
@@ -257,6 +264,7 @@ typeLHEcomment = options.typeLHEcomment
 label = options.label
 doBTag = options.doBTag
 doCut = options.doCut
+doMCweights = options.doMCweights
 ###
 
 
@@ -604,6 +612,10 @@ if options.doFatJet :
 
 
 addTau(process,tree)
+
+if doMCweights:
+  addMCweights(process,tree)
+
 
 if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
     tree.variables.mctruth = cms.string("getFinalStateMC()")
