@@ -1773,6 +1773,16 @@ const float reco::SkimEvent::pfMet() const {
     if(pfMet_.isNonnull()) return pfMet_->pt();
     else return -9999.0;
 }
+const float reco::SkimEvent::pfMetUp() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnUp);
+    else return -9999.0;
+}
+const float reco::SkimEvent::pfMetDn() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnDown);
+    else return -9999.0;
+}
 
 const float reco::SkimEvent::pupMet() const {
 

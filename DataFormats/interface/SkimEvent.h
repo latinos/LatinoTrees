@@ -317,6 +317,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float met(metType metToUse=TCMET) const;
             const float pfSumEt() const;
             const float pfMet() const;
+            const float pfMetUp() const;
+            const float pfMetDn() const;
             const float pupMet() const;
             const float trkMet() const;
             const float pfMetPhi() const;

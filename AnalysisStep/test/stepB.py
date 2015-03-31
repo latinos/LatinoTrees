@@ -387,7 +387,8 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
 
 
-from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
+from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
+#from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
 process.myJetSequence = cms.Sequence()
 
 #                          the new sequence ,  temporary output file
