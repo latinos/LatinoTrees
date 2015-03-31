@@ -413,6 +413,28 @@ void reco::SkimEvent::setGenWeight(const edm::Handle<GenFilterInfo> &mcGenWeight
 
 
 // set LHEinfo
+void reco::SkimEvent::setLHEinfo(const edm::Handle<LHEEventProduct> &h,const edm::Handle<LHERunInfoProduct> &productLHERunInfoHandle) {
+ 
+ setLHEinfo(h);
+ 
+ typedef std::vector<LHERunInfoProduct::Header>::const_iterator headers_const_iterator; 
+ LHERunInfoProduct myLHERunInfoProduct = *(productLHERunInfoHandle.product());
+ 
+ for (headers_const_iterator iter=myLHERunInfoProduct.headers_begin(); iter!=myLHERunInfoProduct.headers_end(); iter++){
+  std::cout << iter->tag() << std::endl;
+  std::vector<std::string> lines = iter->lines();
+  for (unsigned int iLine = 0; iLine<lines.size(); iLine++) {
+   std::cout << lines.at(iLine);
+  }
+ }
+ 
+//  <weight id="1001"> muR=0.10000E+01 muF=0.10000E+01 </weight>
+//  <weight id="2007"> pdfset=292207 </weight>
+ 
+}
+
+
+
 void reco::SkimEvent::setLHEinfo(const edm::Handle<LHEEventProduct> &h) {
  
  LHEInfoHandle_ = (h.product());

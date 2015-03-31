@@ -97,7 +97,10 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
 
     if (!(mcGenEventInfoTag_ == edm::InputTag(""))) GenInfoT_     = consumes<GenEventInfoProduct>(mcGenEventInfoTag_);
     if (!(mcGenWeightTag_    == edm::InputTag(""))) mcGenWeightT_ = consumes<GenFilterInfo>(mcGenWeightTag_); 
-    if (!(mcLHEEventInfoTag_ == edm::InputTag(""))) productLHET_  = consumes<LHEEventProduct>(mcLHEEventInfoTag_);
+    if (!(mcLHEEventInfoTag_ == edm::InputTag(""))) {
+     productLHET_         = consumes<LHEEventProduct>(mcLHEEventInfoTag_);
+//      productLHERunInfoT_  = consumes<LHERunInfoProduct>(mcLHEEventInfoTag_);
+    }
     if (!(genMetTag_ == edm::InputTag(""))) genMetHT_ = consumes<reco::GenMETCollection>(genMetTag_);
     if (!(genJetTag_ == edm::InputTag(""))) genJetHT_ = consumes<reco::GenJetCollection>(genJetTag_);
 
@@ -188,9 +191,13 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     if (!(mcGenEventInfoTag_ == edm::InputTag(""))) {
       iEvent.getByToken(GenInfoT_, GenInfoHandle);
     }
-    edm::Handle<LHEEventProduct> productLHEHandle;
+    edm::Handle<LHEEventProduct>   productLHEHandle;
+    edm::Handle<LHERunInfoProduct> productLHERunInfoHandle;
     if (!(mcLHEEventInfoTag_ == edm::InputTag(""))) {
      iEvent.getByToken(productLHET_, productLHEHandle);
+//      iEvent.getByToken(productLHERunInfoT_, productLHERunInfoHandle);
+//      iEvent.getByLabel(mcLHEEventInfoTag_, productLHERunInfoHandle);
+//      iEvent.getByLabel("source", productLHERunInfoHandle);
     }
 
     edm::Handle<reco::GenMETCollection> genMetH;
@@ -251,6 +258,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     }
     if(!(mcLHEEventInfoTag_ == edm::InputTag(""))) {
      skimEvent->back().setLHEinfo(productLHEHandle);
+     //      skimEvent->back().setLHEinfo(productLHEHandle,productLHERunInfoHandle);
     }
     
     if(!(genMetTag_ == edm::InputTag(""))) {

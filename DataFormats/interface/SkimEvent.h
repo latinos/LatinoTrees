@@ -46,6 +46,8 @@
 #include "SimDataFormats/GeneratorProducts/interface/GenFilterInfo.h"
 #include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
 #include "SimDataFormats/GeneratorProducts/interface/LHEEventProduct.h"
+#include "SimDataFormats/GeneratorProducts/interface/LHERunInfoProduct.h"
+
 
 #include <vector>
 #include <utility>
@@ -483,6 +485,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setGenWeight(const edm::Handle<GenFilterInfo> &s);
 
             void setLHEinfo(const edm::Handle<LHEEventProduct> &h);
+            void setLHEinfo(const edm::Handle<LHEEventProduct> &h,const edm::Handle<LHERunInfoProduct> &productLHERunInfoHandle);
             void setGenInfo(const edm::Handle<GenEventInfoProduct> &s);
             void setGenMet(const edm::Handle< std::vector<pat::MET> > &); //---- new interface to GenMET with miniAOD
             void setGenMet(const edm::Handle<reco::GenMETCollection> &);

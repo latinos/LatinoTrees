@@ -30,6 +30,8 @@
 
 // MC information Gen level
 #include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
+#include "SimDataFormats/GeneratorProducts/interface/LHERunInfoProduct.h"
+
 
 class SkimEventProducer : public edm::EDProducer {
     public:
@@ -129,7 +131,8 @@ double neutFrac;
 	edm::EDGetTokenT<GenEventInfoProduct> GenInfoT_ ;
 	edm::EDGetTokenT<GenFilterInfo> mcGenWeightT_;
 	edm::EDGetTokenT<LHEEventProduct> productLHET_ ;
-	edm::EDGetTokenT<reco::GenMETCollection> genMetHT_;
+        edm::EDGetTokenT<LHERunInfoProduct> productLHERunInfoT_ ;
+        edm::EDGetTokenT<reco::GenMETCollection> genMetHT_;
 	edm::EDGetTokenT<reco::GenJetCollection> genJetHT_;
 	edm::EDGetTokenT<edm::TriggerResults> triggerT_;
 
