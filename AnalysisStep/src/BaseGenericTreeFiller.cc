@@ -30,7 +30,10 @@ void tnp::ProbeFlag::fill(const reco::CandidateBaseRef &probe) const {
     }
 }
 
-tnp::BaseGenericTreeFiller::BaseGenericTreeFiller(const char *name, const edm::ParameterSet& iConfig, edm::ConsumesCollector & iC) {
+tnp::BaseGenericTreeFiller::BaseGenericTreeFiller(const char *name, const edm::ParameterSet& iConfig, edm::ConsumesCollector & iC, int maxStdVector) {
+ 
+    _maxStdVector = maxStdVector;
+    
     // make trees as requested
     edm::Service<TFileService> fs;
     tree_ = fs->make<TTree>(name,name);
@@ -111,7 +114,7 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
         }
         //---- std::vector <float>
         else if (std::strncmp((branchNamePrefix + *it).c_str(), "std_vector_", strlen("std_vector_")) == 0) {
-         for (int i=0; i<10; i++) {
+         for (int i=0; i<_maxStdVector; i++) {
           vars_.push_back(tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", variables.getParameter<std::string>(*it)+"("+std::to_string(i)+")"));
          }
          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));

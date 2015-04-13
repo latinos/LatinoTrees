@@ -166,9 +166,9 @@ class ProbeFlag {
 // This class inherits from boost::noncopyable, as copying it would break the addresses in the TTree
 class BaseGenericTreeFiller : boost::noncopyable {
     public:
-        /// specify the name of the TTree, and the configuration for it
-        BaseGenericTreeFiller(const char *name, const edm::ParameterSet& config, edm::ConsumesCollector && iC) : BaseGenericTreeFiller(name, config, iC) {};
-        BaseGenericTreeFiller(const char *name, const edm::ParameterSet& config, edm::ConsumesCollector & iC);
+        /// specify the name of the TTree, and the configuration for it     
+        BaseGenericTreeFiller(const char *name, const edm::ParameterSet& config, edm::ConsumesCollector && iC, int maxStdVector=10) : BaseGenericTreeFiller(name, config, iC, maxStdVector) {};
+        BaseGenericTreeFiller(const char *name, const edm::ParameterSet& config, edm::ConsumesCollector & iC, int maxStdVector=10);
 
         /// Add branches to an existing TTree managed by another BaseGenericTreeFiller
         BaseGenericTreeFiller(BaseGenericTreeFiller &main, const edm::ParameterSet &iConfig, edm::ConsumesCollector && iC, const std::string &branchNamePrefix);
@@ -210,8 +210,8 @@ class BaseGenericTreeFiller : boost::noncopyable {
         bool addRunLumiInfo_;
 
         /// Add branches with event variables: met, sum ET, .. etc.
-        bool addEventVariablesInfo_;
-
+        bool addEventVariablesInfo_;     
+        
         void addBranches_(TTree *tree, const edm::ParameterSet &iConfig, edm::ConsumesCollector & iC, const std::string &branchNamePrefix="") ;
 
         //implementation notice: these two are 'mutable' because we will fill them from a 'const' method
@@ -223,6 +223,10 @@ class BaseGenericTreeFiller : boost::noncopyable {
 
         mutable float mMET_,mSumET_,mMETSign_,mtcMET_,mtcSumET_,
           mtcMETSign_,mpfMET_,mpfSumET_,mpfMETSign_;
+          
+        /// maximum length for std::vectors
+        int _maxStdVector;
+          
 };
 
 

@@ -38,6 +38,7 @@ minPtBVeto="10.0"
 
 stepBTree = cms.EDFilter("GenericTreeProducer",
     src = cms.InputTag(""),
+    maxVectorsLength = cms.int32(10),
 #stepBTree = cms.EDFilter("ProbeTreeProducer",
 # cut = cms.string("q(0)*q(1) > 0 && !isSTA(0) && !isSTA(1) && "+
     #cut = cms.string("q(0)*q(1) < 0 && !isSTA(0) && !isSTA(1) && "+
