@@ -315,13 +315,16 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             bool passTriggerDoubleEl(size_t i, bool isData=true) const;
 
             const float met(metType metToUse=TCMET) const;
-            const float pfSumEt() const;
-            const float pfMet() const;
-            const float pfMetUp() const;
-            const float pfMetDn() const;
+            const float pfType1SumEt() const;
+            const float pfType1Met() const;
+            const float pfType1MetUp() const;
+            const float pfType1MetDn() const;
+            const float pfType1MetPhi() const;
+            const float pfRawSumEt() const;
+            const float pfRawMet() const;
+            const float pfRawMetPhi() const;
             const float pupMet() const;
             const float trkMet() const;
-            const float pfMetPhi() const;
             const float mvaMet() const{return mvaMet_.pt();}
             const float mvaMetPhi() const{return mvaMet_.phi();}
             const float tcSumEt() const;

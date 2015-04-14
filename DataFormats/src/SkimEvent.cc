@@ -1762,25 +1762,46 @@ const float reco::SkimEvent::leadingFatJetPrunedTau4(size_t index, float minPt,f
 
 //Event variables
 
-const float reco::SkimEvent::pfSumEt() const {
-
-    if(pfMet_.isNonnull()) return pfMet_->sumEt();
-    else return -9999.0;
-}
-
-const float reco::SkimEvent::pfMet() const {
+const float reco::SkimEvent::pfType1Met() const {
 
     if(pfMet_.isNonnull()) return pfMet_->pt();
     else return -9999.0;
 }
-const float reco::SkimEvent::pfMetUp() const {
+const float reco::SkimEvent::pfType1SumEt() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->sumEt();
+    else return -9999.0;
+}
+const float reco::SkimEvent::pfType1MetUp() const {
 
     if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnUp);
     else return -9999.0;
 }
-const float reco::SkimEvent::pfMetDn() const {
+const float reco::SkimEvent::pfType1MetDn() const {
 
     if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnDown);
+    else return -9999.0;
+}
+const float reco::SkimEvent::pfType1MetPhi() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->phi();
+    else return -9999.0;
+}
+
+const float reco::SkimEvent::pfRawSumEt() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->shiftedSumEt(pat::MET::NoShift, pat::MET::Raw);
+    else return -9999.0;
+}
+
+const float reco::SkimEvent::pfRawMet() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::NoShift, pat::MET::Raw);
+    else return -9999.0;
+}
+const float reco::SkimEvent::pfRawMetPhi() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::NoShift, pat::MET::Raw);
     else return -9999.0;
 }
 
@@ -1793,11 +1814,6 @@ const float reco::SkimEvent::trkMet() const {
  return trkMet_.pt();
 }
  
-const float reco::SkimEvent::pfMetPhi() const {
-
-    if(pfMet_.isNonnull()) return pfMet_->phi();
-    else return -9999.0;
-}
 
 
 const float reco::SkimEvent::tcSumEt() const {
@@ -1973,7 +1989,7 @@ const float reco::SkimEvent::mT(size_t i, metType metToUse) const {
 const float reco::SkimEvent::met(metType metToUse) const {
     switch (metToUse) {
         case TCMET: return tcMet();
-        case PFMET: return pfMet();
+        case PFMET: return pfRawMet();
         case CHMET: return chargedMet();
 //case MINMET: return minMet();
     }
@@ -1988,8 +2004,8 @@ const float reco::SkimEvent::projMet(metType metToUse) const {
 
 const float reco::SkimEvent::projPfMet() const {
     float dphi = dPhilPfMet();
-    if(dphi < M_PI/2.) return pfMet()*sin(dphi);
-    else return pfMet();
+    if(dphi < M_PI/2.) return pfRawMet()*sin(dphi);
+    else return pfRawMet();
 }
 
 const float reco::SkimEvent::projMvaMet() const {
@@ -2109,7 +2125,7 @@ const float reco::SkimEvent::dPhilTcMet(size_t i) const {
 
 const float reco::SkimEvent::dPhilPfMet(size_t i) const {
     if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
-    return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->p4(),leps_[i]->p4()) );
+    return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::NoShift, pat::MET::Raw),leps_[i]->p4()) );
 }
 
 const float reco::SkimEvent::dPhilMvaMet(size_t i) const {
