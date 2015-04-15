@@ -18,29 +18,30 @@ wwEleBase = selectedElectronsBase.clone( cut = ELE_BASE )
 ########################
 # Phys14 recipe
 # https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
+# https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2#PHYS14_selection_all_conditions
 
-
+# TIGHT
 ELE_ID_TIGHT = ("  (( isEB "+ 
-                           " && sigmaIetaIeta < 0.0106" +
-                           " && hadronicOverEm < 0.025" +
-                           " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.031  " +
-                           " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.0091 " +
-                           " && abs(dB('PV2D')) < 0.0126  " +
-                           " && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.0116  " +
-                           " && abs(1./energy - 1/p) < 0.0609 " +
-                           " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.1649 " +
+                           " && sigmaIetaIeta < 0.010181" +
+                           " && hadronicOverEm < 0.037553" +
+                           " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.022868  " +
+                           " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.006574 " +
+                           " && abs(dB('PV2D')) < 0.009924  " +
+                           " && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.015310  " +
+                           " && abs(1./energy - 1/p) < 0.131191 " +
+                           " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.074355 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
                            " && userFloat('convValueMapProd:passVtxConvert') != 0 " +
                            " ) || " +
                    "( (!isEB) " +
-                           " && sigmaIetaIeta < 0.0305" +
-                           " && hadronicOverEm < 0.0835" +
-                           " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.0359  " +
-                           " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.0106  " +
-                           " && abs(dB('PV2D')) < 0.0163  " +
-                           " && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.5999  " +
-                           " && abs(1./energy - 1/p) < 0.1126 " +
-                           " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.2075 " +
+                           " && sigmaIetaIeta < 0.028766" +
+                           " && hadronicOverEm < 0.081902" +
+                           " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.032046  " +
+                           " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.005681  " +
+                           " && abs(dB('PV2D')) < 0.027261  " +
+                           " && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.147154  " +
+                           " && abs(1./energy - 1/p) < 0.106055 " +
+                           " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.090185 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
                            " && userFloat('convValueMapProd:passVtxConvert') != 0 " +
                            " ) " +
