@@ -3036,6 +3036,32 @@ const bool reco::SkimEvent::isTightMuon(size_t i) const {
 
 
 
+const float reco::SkimEvent::muSIP3D(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;  
+ if( isMuon(i) ) {
+  double ip = fabs(getMuon(i)->dB(pat::Muon::PV3D));
+  double ipError = getMuon(i)->edB(pat::Muon::PV3D);
+  double sip = ip/ipError;
+  return sip;
+ } else {
+  return -9999.0;
+ }
+}
+
+
+const float reco::SkimEvent::elSIP3D(size_t i) const {
+ if(i >= leps_.size()) return -9999.0;  
+ if( isElectron(i) ) {
+  double ip = fabs(getElectron(i)->dB(pat::Electron::PV3D));
+  double ipError = getElectron(i)->edB(pat::Electron::PV3D);
+  double sip = ip/ipError;
+  return sip;
+ } else {
+  return -9999.0;
+ }
+}
+
+
 
 /**
  * ---- electron id ----
