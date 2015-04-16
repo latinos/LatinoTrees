@@ -64,7 +64,7 @@ GenericTreeProducer::GenericTreeProducer(const edm::ParameterSet& iConfig) :
   sortDescendingBy_(iConfig.existsAs<std::string>("sortDescendingBy") ? iConfig.getParameter<std::string>("sortDescendingBy") : ""),
   sortFunction_(sortDescendingBy_.size()>0 ? sortDescendingBy_ : "pt"), //need to pass a valid default
   maxProbes_(iConfig.existsAs<int32_t>("maxProbes") ? iConfig.getParameter<int32_t>("maxProbes") : -1),
-  probeFiller_(new tnp::BaseGenericTreeFiller("probe_tree", iConfig, consumesCollector()))
+  probeFiller_(new tnp::BaseGenericTreeFiller("probe_tree", iConfig, consumesCollector(), (int32_t) (iConfig.existsAs<int32_t>("maxVectorsLength") ? iConfig.getParameter<int32_t>("maxVectorsLength") : 10)  ))
 {
 }
 

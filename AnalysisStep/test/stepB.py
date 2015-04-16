@@ -62,10 +62,10 @@ options.register ('doTauEmbed',
                   'Turn on DY embedding mode (can be \'True\' or \'False\'')
 
 options.register ('selection',
-                  'TightTight',
+                  'Tight',
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.string, # string, int, or float
-                  'Selection level [TightTight,LooseLoose]')
+                  'Selection level [Tight,Loose]')
 
 options.register ('doSameSign',
                   False, # default value
@@ -120,6 +120,12 @@ options.register ('doNoFilter',
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
                   'Turn on no filter requirement, not even requiring 2 leptons! Needed for unfolding at GEN (can be \'True\' or \'False\'')
+
+options.register ('doCut',
+                  '1',
+                  opts.VarParsing.multiplicity.singleton,
+                  opts.VarParsing.varType.string,
+                  'Apply cut. String. Default = \'1\', meaning accept all events. NB: flag doNoFilter overrides this cut!')
 
 options.register ('doMuonIsoId',
                   True, # default value
@@ -181,6 +187,12 @@ options.register ('doBTag',
                   opts.VarParsing.varType.bool,
                   'Turn on bTagging variables dumper (can be \'True\' or \'False\'')
 
+options.register ('doMCweights',
+                  False, # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.bool,
+                  'Turn on MC weights dumper (can be \'True\' or \'False\'')
+
 
 
 #-------------------------------------------------------------------------------
@@ -228,8 +240,12 @@ process.GlobalTag.globaltag = globalTag
 
 
 # load configuration file with the variables list
-process.load("LatinoTrees.AnalysisStep.stepB_cff")
-from LatinoTrees.AnalysisStep.stepB_cff import * # get also functions
+#process.load("LatinoTrees.AnalysisStep.stepB_cff")
+#from LatinoTrees.AnalysisStep.stepB_cff import * # get also functions
+
+from LatinoTrees.AnalysisStep.stepB_cff import *
+#from LatinoTrees.AnalysisStep.stepB_Functions_cff import * # get the functions
+
 
 
 # load configurations
@@ -247,7 +263,20 @@ doIsoStudy = options.doIsoStudy
 typeLHEcomment = options.typeLHEcomment
 label = options.label
 doBTag = options.doBTag
+doCut = options.doCut
+doMCweights = options.doMCweights
 ###
+
+
+print "doCut = ",doCut
+
+print "      __          __  _                ______              "
+print "     / /   ____ _/ /_(_)___  ____     /_  __/_______  ___  "
+print "    / /   / __ `/ __/ / __ \/ __ \     / / / ___/ _ \/ _ \ "
+print "   / /___/ /_/ / /_/ / / / / /_/ /    / / / /  /  __/  __/ "
+print "  /_____/\__,_/\__/_/_/ /_/\____/    /_/ /_/   \___/\___/  "
+print "                                                           "
+
 
 id = 0
 json = None
@@ -294,14 +323,14 @@ else:
     doPDFvar = True
 
 
-process.stepBTree.variables.trigger = process.stepBTree.variables.trigger.value().replace("DATASET",dataset[0])
-idn = re.sub('[^0-9]','',id)
-process.stepBTree.variables.dataset = str(idn)
+stepBTree.variables.trigger = stepBTree.variables.trigger.value().replace("DATASET",dataset[0])
+idn = re.sub('[^0-9]','',str(id))
+stepBTree.variables.dataset = str(idn)
 
 
 # mc
 if dataset[0] == "MC":
-    process.stepBTree.variables.baseW = "%.12f" % scalef
+    stepBTree.variables.baseW = "%.12f" % scalef
 # data
 else:
     from FWCore.PythonUtilities.LumiList import LumiList
@@ -309,14 +338,14 @@ else:
     lumis = LumiList(filename = os.getenv('CMSSW_BASE')+'/src/LatinoTrees/Misc/Jsons/%s.json'%json)
     process.source.lumisToProcess = cms.untracked.VLuminosityBlockRange()
     process.source.lumisToProcess = lumis.getCMSSWString().split(',')
-    process.stepBTree.variables.baseW = "1"
-    process.stepBTree.variables.trpu = cms.string("1")
-    process.stepBTree.variables.itpu = cms.string("1")
-    process.stepBTree.variables.ootpup1 = cms.string("1")
-    process.stepBTree.variables.ootpum1 = cms.string("1")
-    process.stepBTree.variables.puW = cms.string("1")
-    process.stepBTree.variables.puAW = cms.string("1")
-    process.stepBTree.variables.puBW = cms.string("1")
+    stepBTree.variables.baseW = "1"
+    stepBTree.variables.trpu = cms.string("1")
+    stepBTree.variables.itpu = cms.string("1")
+    stepBTree.variables.ootpup1 = cms.string("1")
+    stepBTree.variables.ootpum1 = cms.string("1")
+    stepBTree.variables.puW = cms.string("1")
+    stepBTree.variables.puAW = cms.string("1")
+    stepBTree.variables.puBW = cms.string("1")
 
 
 # SkimEventProducer is where the objects are defined
@@ -331,20 +360,20 @@ process.skimEventProducer.applyIDForJets = cms.bool(False)
 process.skimEventProducer.dzCutForBtagJets = cms.double(99999)
 
 
-if options.selection == 'TightTight':
+if options.selection == 'Tight':
     labelSetup = "Scenario1"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence();
     #labelSetup = "Scenario1"; muon = "wwMuoTight"; ele = "wwEleTight"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence();  # --> fix ele/mu tag and un-comment this line and comment the previous one
-elif options.selection == 'LooseLoose':
+elif options.selection == 'Loose':
     labelSetup = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; pho = "wwPhoScenario1"; preSeq = cms.Sequence();
 else:
-    raise ValueError('selection must be either TightTight or LooseLoose')
+    raise ValueError('selection must be either Tight or Loose')
 
 
 
 # add L1+L2+L3 jet energy corrections in MC
 # first create the "raw" jets
-process.load("LatinoTrees.JetUncorrector.JetUncorrector_cff")
-preSeq += process.rawJets
+#process.load("LatinoTrees.JetUncorrector.JetUncorrector_cff")
+#preSeq += process.rawJets
 # then apply the new corrections
 process.load("JetMETCorrections.Configuration.JetCorrectionServices_cff")
 process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff")
@@ -352,21 +381,40 @@ process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff"
 # load jet corrections 
 process.prefer("ak4PFCHSL1FastL2L3") 
 
-process.corJets = cms.EDProducer("PatJetCorrectionProducer",
-    src = cms.InputTag('rawJets'),
-    correctors = cms.vstring('ak4PFCHSL1FastL2L3')
-)
-
-#preSeq += process.ak4PFCHSL1FastL2L3
-preSeq += process.corJets
+process.load('Configuration.StandardSequences.Geometry_cff')
+process.load('Configuration.StandardSequences.MagneticField_38T_cff')
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
 
 
-process.skimEventProducer.jetTag    = cms.InputTag("corJets")
-process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
+from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
+#from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
+process.myJetSequence = cms.Sequence()
+
+#                          the new sequence ,  temporary output file
+jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',    
+             JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
+             miniAOD=True,      addNsub=True,          addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
 
 
-#from RecoJets.JetProducers.jetToolbox_cff import addEventHypothesis
+preSeq += process.myJetSequence
 
+# no need to recorrect the jets, since they are reclustered on the fly
+# the name patJetsAK4PFCHS found looking at the "processDump.py" and looking for patjetproducer
+process.skimEventProducer.jetTag    = cms.InputTag("selectedPatJetsAK4PFCHS")
+process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
+
+
+
+# QG tagger
+# it will be soon included in jettoolbox
+#process.load('RecoJets.JetProducers.QGTagger_cfi')
+#process.QGTagger.srcJets          = cms.InputTag('corJets')        # Could be reco::PFJetCollection or pat::JetCollection (both AOD and miniAOD)
+#process.QGTagger.jetsLabel        = cms.string('QGL_AK4PFchs')     # Other options (might need to add an ESSource for it): see https://twiki.cern.ch/twiki/bin/viewauth/CMS/QGDataBaseVersion
+#process.QGTagger.jec              = cms.string(<jet corrector>)       # Provide the jet correction service if your jets are uncorrected, otherwise keep empty
+#process.QGTagger.systematicsLabel = cms.string('')     # Produce systematic smearings (not yet available, keep empty)
+
+#process.patJets.userData.userFloats.src += ['QGTagger:qgLikelihood']
 
 
 # add puppi calculated from miniAOD
@@ -377,39 +425,27 @@ process.skimEventProducer.tagJetTag = cms.InputTag("corJets")
 #   and let cmssw do the rest ...
 
 if options.runPUPPISequence:
-    #process.load("CommonTools.PileupAlgos.Puppi_cff")
-    #process.load("RecoJets.JetProducers.ak4PFJetsPuppi_cfi")
-    #process.puppi.candName = cms.InputTag('packedPFCandidates')
-    #process.puppi.vertexName = cms.InputTag('offlineSlimmedPrimaryVertices')
-    #puppi_onMiniAOD = cms.Sequence(process.puppi + process.ak4PFJetsPuppi)
-
-    #from CommonTools.PileupAlgos.Puppi_cff import puppi
-    #from RecoJets.JetProducers.ak4PFJetsPuppi_cfi import ak4PFJetsPuppi    
-    #process.myak4PFJetsPuppi = ak4PFJetsPuppi.clone( rParam = 0.4 )
-    #process.myak4PFJetsPuppi.src = cms.InputTag('mypuppi')
-    #process.mypuppi = puppi.clone()
-    #process.mypuppi.candName = cms.InputTag('packedPFCandidates')
-    #process.mypuppi.vertexName = cms.InputTag('offlineSlimmedPrimaryVertices')
-    #puppi_onMiniAOD = cms.Sequence(process.mypuppi + process.myak4PFJetsPuppi) #ak4PFJetsPuppi)
-
-    #puppi_onMiniAOD = cms.Path(puppi + ak4PFJetsPuppi)
-    #preSeq += puppi_onMiniAOD
-
 
     from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence, makePatPuppiMetSequence
+    #from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiMetSequence
 
     jetPuppiR = 0.4
-    makePuppiAlgo(process) ## call puppi producer and puppi met
-    makePatPuppiJetSequence(process,jetPuppiR) ## call pat puppi jets
+    #makePuppiAlgo(process) ## call puppi producer and puppi met
+    
+    jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',    
+             #JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
+             PUMethod='Puppi',
+             miniAOD=True,      addNsub=True,          addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
+
+
+    #makePatPuppiJetSequence(process,jetPuppiR) ## call pat puppi jets
     makePatPuppiMetSequence(process) ## call pat puppi met
 
     # now add to the preSequence
-    preSeq += process.puppi_onMiniAOD
-    preSeq += process.makePatPuppi
     preSeq += process.makePatMetPuppi
 
     process.skimEventProducer.pupMetTag = cms.InputTag("patMetPuppi")
-
+    process.skimEventProducer.secondJetTag = cms.InputTag("patJetsAK4selectedPatJetsPuppi")
 
 
 
@@ -424,7 +460,13 @@ if doTauEmbed == True:
   process.skimEventProducer.mcGenWeightTag = cms.InputTag("generator:minVisPtFilter")
 
 # this is where the "event" is built
-addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq)
+#                                                                sequence and no path
+#addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,False)
+#addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True)
+#addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True,"1")
+addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True,doCut)
+
+process.options = cms.untracked.PSet( allowUnscheduled = cms.untracked.bool(True) )
 
 if (wztth == True) or (doPDFvar == True):
     getattr(process,"ww%s"% (labelSetup)).mcGenEventInfoTag = "generator"
@@ -459,32 +501,38 @@ if doGenVV == True :
 
 
 # if puppi, change the input jet collection
-if options.runPUPPISequence:
-    getattr(process,"ww%s"% (labelSetup)).secondJetTag    = "patJetsAK4selectedPatJetsPuppi"
-    #getattr(process,"ww%s"% (labelSetup)).jetTag    = "patJetsAK4selectedPatJetsPuppi"
-    #getattr(process,"ww%s"% (labelSetup)).tagJetTag = "patJetsAK4selectedPatJetsPuppi"
+#if options.runPUPPISequence:
+    #getattr(process,"ww%s"% (labelSetup)).secondJetTag    = "patJetsAK4selectedPatJetsPuppi"
 
 # latino trees construction
 
-tree = process.stepBTree.clone(src = cms.InputTag("ww%s"% (labelSetup) ));
+#tree = stepBTree.clone(src = cms.InputTag("ww%s"% (labelSetup) ));
+tree = stepBTree.clone(src = cms.InputTag("skim%s"% (labelSetup) )); # --> source is "skimmed" events!
+
+
 seq = cms.Sequence()
 setattr(process, 'TreeSequence', seq)
-setattr(process, "Nvtx", process.nverticesModule.clone(probes = cms.InputTag("ww%s"% (labelSetup))))
+#setattr(process, "Nvtx", nverticesModule.clone(probes = cms.InputTag("ww%s"% (labelSetup))))
+setattr(process, "Nvtx", nverticesModule.clone(probes = cms.InputTag("skim%s"% (labelSetup))))
 seq += getattr(process, "Nvtx")
 tree.variables.nvtx = cms.InputTag("Nvtx")
 if doIsoStudy: 
     addIsoStudyVariables(process,tree)
 
 
-# pile-up information
-process.nPU.puLabel = cms.InputTag(options.puInformation)
-
-process.nPU = cms.EDProducer("PileUpMultiplicityCounter",
-    puLabel = cms.InputTag("addPileupInfo")
+# pile-up
+nPU = cms.EDProducer("PileUpMultiplicityCounter",
+    puLabel = cms.InputTag("addPileupInfo"),
+    src = cms.InputTag("")
 )
 
+# pile-up information
+nPU.puLabel = cms.InputTag(options.puInformation)
+
+
 if dataset[0] == 'MC':
-    setattr(process, "NPU", process.nPU.clone(src = cms.InputTag("ww%s"% (labelSetup))))
+    #setattr(process, "NPU", nPU.clone(src = cms.InputTag("ww%s"% (labelSetup))))
+    setattr(process, "NPU", nPU.clone(src = cms.InputTag("skim%s"% (labelSetup))))
     seq += getattr(process, "NPU")
     tree.variables.trpu = cms.InputTag("NPU:tr")
     tree.variables.itpu = cms.InputTag("NPU:it")
@@ -556,11 +604,19 @@ if doGenVV: addGenVVVariables(process,tree)
 # add 5th and 6th, ... jets variables
 addAdditionalJets(process,tree)
 
+# add QG likelihood
+addQGJets(process,tree)
+
+# add fatjets
 if options.doFatJet :
     addFatJets(process,tree)
 
 
 addTau(process,tree)
+
+if doMCweights:
+  addMCweights(process,tree)
+
 
 if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
     tree.variables.mctruth = cms.string("getFinalStateMC()")
@@ -626,5 +682,25 @@ if doSameSign:
 # save all events
 if doNoFilter:
     print ">> Dump all events"
-    getattr(process,"Tree").cut = cms.string("1")
     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 0")
+
+# TTree producer ends up in the endPath, then it's NOT a filter anymore
+# then applying a cut here has no effect
+# then I leave "1" by default, not to create confusion
+getattr(process,"Tree").cut = cms.string("1")
+
+#################
+# very important!
+# needed otherwise the "unschedule" approach does not work
+#process.myoutputstep = cms.EndPath(process.outTemp+process.Tree)
+process.myoutputstep = cms.EndPath(process.Tree)
+#################
+
+#
+# dump cfg file: 
+# to do it do: python stepB.py
+# decomment *if* needed
+#
+#processDumpFile = open('processDump.py', 'w')
+#print >> processDumpFile, process.dumpPython()
+

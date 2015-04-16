@@ -37,6 +37,8 @@ minPtBVeto="10.0"
 
 
 stepBTree = cms.EDFilter("GenericTreeProducer",
+    src = cms.InputTag(""),
+    maxVectorsLength = cms.int32(10),
 #stepBTree = cms.EDFilter("ProbeTreeProducer",
 # cut = cms.string("q(0)*q(1) > 0 && !isSTA(0) && !isSTA(1) && "+
     #cut = cms.string("q(0)*q(1) < 0 && !isSTA(0) && !isSTA(1) && "+
@@ -105,12 +107,17 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         peaking = cms.string("peaking"),
         trigger = cms.string("guillelmoTrigger('DATASET')"),
         nextra = cms.string("nExtraLep(10)"),
-        pfSumEt = cms.string("pfSumEt"),
-        pfmet = cms.string("pfMet"),
-        pfmetphi = cms.string("pfMetPhi"),
-        ppfmet = cms.string("projPfMet"),
-        pupmet = cms.string("pupMet"),
-        trkmet = cms.string("trkMet"),
+        pfRawMet = cms.string("pfRawMet"),
+        pfRawSumEt = cms.string("pfRawSumEt"),
+        pfRawMetPhi = cms.string("pfRawMetPhi"),
+        pfType1Met = cms.string("pfType1Met"),
+        pfType1SumEt = cms.string("pfType1SumEt"),
+        pfType1Metup = cms.string("pfType1MetUp"),
+        pfType1Metdn = cms.string("pfType1MetDn"),
+        pfType1Metphi = cms.string("pfType1MetPhi"),
+        ppfMet = cms.string("projPfMet"),
+        pupMet = cms.string("pupMet"),
+        trkMet = cms.string("trkMet"),
 # mvamet = cms.string("mvaMet"),
 # mvamethi = cms.string("mvaMetPhi"),
 # pmvamet = cms.string("projMvaMet"),
@@ -125,7 +132,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         redmet = cms.string("-9999"),
         predmet = cms.string("-9999"),
         mpmet = cms.string("min(projPfMet,projChargedMetSmurf)"), ##note: min of proj and proj of min are not the same
-        imet = cms.string("min(projPfMet,projChargedMetSmurf)*cos(pfMetPhi-chargedMetSmurfPhi)"),
+        imet = cms.string("min(projPfMet,projChargedMetSmurf)*cos(pfRawMetPhi-chargedMetSmurfPhi)"),
         dphill = cms.string("dPhill()"),
         drll = cms.string("dRll()"),
         dphilljet = cms.string("dPhillLeadingJet("+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -160,16 +167,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         jetCHM1 = cms.string("leadingJetChargedHadronMultiplicity(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNHM1 = cms.string("leadingJetNeutralHadronMultiplicity(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetPhM1 = cms.string("leadingJetPhotonMultiplicity(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jetQCptD1 = cms.string("leadingJetPtD(0,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCaxis11 = cms.string("leadingJetQGaxis1(0,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCaxis21 = cms.string("leadingJetQGaxis2(0,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCRMScand1 = cms.string("leadingJetQGRMScand(0,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCRmax1 = cms.string("leadingJetQGRmax(0,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetptD1 = cms.string("leadingJetPtD(0,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetaxis11 = cms.string("leadingJetQGaxis1(0,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetaxis21 = cms.string("leadingJetQGaxis2(0,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetRMScand1 = cms.string("leadingJetQGRMScand(0,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetRmax1 = cms.string("leadingJetQGRmax(0,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
         jetNChgQC1 = cms.string("leadingJetNChgQC(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNChgptCut1 = cms.string("leadingJetNChgptCut(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNNeutralptCut1 = cms.string("leadingJetNNeutralptCut(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -187,16 +184,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         jetCHM2 = cms.string("leadingJetChargedHadronMultiplicity(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNHM2 = cms.string("leadingJetNeutralHadronMultiplicity(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetPhM2 = cms.string("leadingJetPhotonMultiplicity(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jetQCptD2 = cms.string("leadingJetPtD(1,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCaxis12 = cms.string("leadingJetQGaxis1(1,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCaxis22 = cms.string("leadingJetQGaxis2(1,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCRMScand2 = cms.string("leadingJetQGRMScand(1,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCRmax2 = cms.string("leadingJetQGRmax(1,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetptD2 = cms.string("leadingJetPtD(1,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetaxis12 = cms.string("leadingJetQGaxis1(1,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetaxis22 = cms.string("leadingJetQGaxis2(1,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetRMScand2 = cms.string("leadingJetQGRMScand(1,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetRmax2 = cms.string("leadingJetQGRmax(1,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
         jetNChgQC2 = cms.string("leadingJetNChgQC(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNChgptCut2 = cms.string("leadingJetNChgptCut(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNNeutralptCut2 = cms.string("leadingJetNNeutralptCut(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -214,16 +201,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         jetCHM3 = cms.string("leadingJetChargedHadronMultiplicity(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNHM3 = cms.string("leadingJetNeutralHadronMultiplicity(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetPhM3 = cms.string("leadingJetPhotonMultiplicity(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jetQCptD3 = cms.string("leadingJetPtD(2,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCaxis13 = cms.string("leadingJetQGaxis1(2,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCaxis23 = cms.string("leadingJetQGaxis2(2,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCRMScand3 = cms.string("leadingJetQGRMScand(2,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCRmax3 = cms.string("leadingJetQGRmax(2,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetptD3 = cms.string("leadingJetPtD(2,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetaxis13 = cms.string("leadingJetQGaxis1(2,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetaxis23 = cms.string("leadingJetQGaxis2(2,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetRMScand3 = cms.string("leadingJetQGRMScand(2,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetRmax3 = cms.string("leadingJetQGRmax(2,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
         jetNChgQC3 = cms.string("leadingJetNChgQC(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNChgptCut3 = cms.string("leadingJetNChgptCut(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNNeutralptCut3 = cms.string("leadingJetNNeutralptCut(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -241,16 +218,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         jetCHM4 = cms.string("leadingJetChargedHadronMultiplicity(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNHM4 = cms.string("leadingJetNeutralHadronMultiplicity(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetPhM4 = cms.string("leadingJetPhotonMultiplicity(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jetQCptD4 = cms.string("leadingJetPtD(3,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCaxis14 = cms.string("leadingJetQGaxis1(3,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCaxis24 = cms.string("leadingJetQGaxis2(3,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCRMScand4 = cms.string("leadingJetQGRMScand(3,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetQCRmax4 = cms.string("leadingJetQGRmax(3,0,"+CJVmaxEta+",1,"+jetId_WP+",1)"),
-        jetptD4 = cms.string("leadingJetPtD(3,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetaxis14 = cms.string("leadingJetQGaxis1(3,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetaxis24 = cms.string("leadingJetQGaxis2(3,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetRMScand4 = cms.string("leadingJetQGRMScand(3,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
-        jetRmax4 = cms.string("leadingJetQGRmax(3,0,"+CJVmaxEta+",1,"+jetId_WP+",0)"),
         jetNChgQC4 = cms.string("leadingJetNChgQC(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNChgptCut4 = cms.string("leadingJetNChgptCut(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNNeutralptCut4 = cms.string("leadingJetNNeutralptCut(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -389,53 +356,11 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 )
 
 
-nPU = cms.EDProducer("PileUpMultiplicityCounter",
-    puLabel = cms.InputTag("addPileupInfo")
-    #puLabel = cms.InputTag("mixData") # --> for premixing MC samples
-)
 
 
-# from WWAnalysis.AnalysisStep.pileupReweighting_cfi import reWeightVector
-#from WWAnalysis.AnalysisStep.pileupReweighting_cfi import *
-#nPU = cms.EDProducer("PileUpMultiplicityCounter",
-    #puLabel = cms.InputTag("addPileupInfo"),
-    #src = cms.InputTag("REPLACE_ME"),
-#)
-#puWeightS4AB = cms.EDProducer("CombinedWeightProducer",
-    #baseWeight = cms.double(1.0),
-    #puWeight = cms.vdouble(s42011AB[:]),
-    #puLabel = cms.InputTag("addPileupInfo"),
-## s4Dist = cms.vdouble(puS4fromMC[:]),
-## dataDist = cms.vdouble(pu2011AB[:]),
-## useOOT = cms.bool(False),
-    #src = cms.InputTag("REPLACE_ME"),
-    #nTrueInt = cms.bool(False),
-#)
-#puWeightS4A = puWeightS4AB.clone(puWeight = s42011A[:])
-#puWeightS4B = puWeightS4AB.clone(puWeight = s42011B[:])
-#puWeightS6AB = puWeightS4AB.clone(puWeight = s62011AB[:])
-#puWeightS6A = puWeightS4AB.clone(puWeight = s62011A[:])
-#puWeightS6B = puWeightS4AB.clone(puWeight = s62011B[:])
-#puWeightS7AB = puWeightS4AB.clone(puWeight = s72012AB[:])
-#puWeightS7A = puWeightS4AB.clone(puWeight = s72012A[:])
-#puWeightS7B = puWeightS4AB.clone(puWeight = s72012B[:])
-# puWeightA = puWeight.clone(dataDist = pu2011A[:])
-# puWeightB = puWeight.clone(dataDist = pu2011B[:])
-#higgsPt = cms.EDProducer("HWWKFactorProducer",
-    #genParticlesTag = cms.InputTag("prunedGen"),
-    #inputFilename = cms.untracked.string("REPLACE_ME"),
-    #ProcessID = cms.untracked.int32(10010),
-    #Debug =cms.untracked.bool(False)
-#)
-#ptWeight = cms.EDProducer("CombinedWeightProducer",
-    #baseWeight = cms.double(1.0),
-    #ptWeight = cms.InputTag("higgsPt"),
-    #src = cms.InputTag("REPLACE_ME"),
-#)
-#dyWeight = cms.EDProducer("DYFactorProducer",
-    #weightFile = cms.string('WWAnalysis/Misc/data/fewz_powheg_weights_stepwise_2011_fine7.root'),
-    #src = cms.InputTag("REPLACE_ME"),
-#)
+
+
+
 
 
 def addMuonIdIsoVariables(process,pt):
@@ -634,6 +559,15 @@ def addGenVariables(process,pt):
 
 
 
+def addMCweights(process,pt):
+
+        if hasattr(pt,"variables"):
+          pt.variables.std_vector_LHE_weight  = cms.string("LHEMCweight")
+          pt.variables.std_vector_GEN_weight  = cms.string("GENMCweight")
+          pt.variables.LHE_weight_SM  = cms.string("LHEMCweight(-1)")
+          pt.variables.GEN_weight_SM  = cms.string("GENMCweight(-1)")
+
+
 def addTau(process,pt):
 
         if hasattr(pt,"variables"):
@@ -692,6 +626,16 @@ def addFatJets(process,pt):
 
 
 
+def addQGJets(process,pt):
+
+        if hasattr(pt,"variables"):
+         
+            pt.variables.std_vector_jet_QGaxis1    = cms.string("leadingJetQGaxis1")
+            pt.variables.std_vector_jet_QGaxis2    = cms.string("leadingJetQGaxis2")
+            pt.variables.std_vector_jet_QGRMScand  = cms.string("leadingJetQGRMScand")
+            pt.variables.std_vector_jet_QGRmax     = cms.string("leadingJetQGRmax")
+            pt.variables.std_vector_jet_QGlikelihood  = cms.string("leadingJetQGlikelihood")
+
 
 def addAdditionalJets(process,pt):
 
@@ -710,16 +654,6 @@ def addAdditionalJets(process,pt):
             setattr(pt.variables, "jetCHM5", cms.string("leadingJetChargedHadronMultiplicity(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNHM5", cms.string("leadingJetNeutralHadronMultiplicity(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetPhM5", cms.string("leadingJetPhotonMultiplicity(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            setattr(pt.variables, "jetQCptD5", cms.string("leadingJetPtD(4,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCaxis15", cms.string("leadingJetQGaxis1(4,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCaxis25", cms.string("leadingJetQGaxis2(4,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCRMScand5", cms.string("leadingJetQGRMScand(4,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCRmax5", cms.string("leadingJetQGRmax(4,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetptD5", cms.string("leadingJetPtD(4,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetaxis15", cms.string("leadingJetQGaxis1(4,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetaxis25", cms.string("leadingJetQGaxis2(4,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetRMScand5", cms.string("leadingJetQGRMScand(4,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetRmax5", cms.string("leadingJetQGRmax(4,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
             setattr(pt.variables, "jetNChgQC5", cms.string("leadingJetNChgQC(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNChgptCut5", cms.string("leadingJetNChgptCut(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNNeutralptCut5", cms.string("leadingJetNNeutralptCut(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
@@ -737,16 +671,6 @@ def addAdditionalJets(process,pt):
             setattr(pt.variables, "jetCHM6", cms.string("leadingJetChargedHadronMultiplicity(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNHM6", cms.string("leadingJetNeutralHadronMultiplicity(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetPhM6", cms.string("leadingJetPhotonMultiplicity(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            setattr(pt.variables, "jetQCptD6", cms.string("leadingJetPtD(5,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCaxis16", cms.string("leadingJetQGaxis1(5,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCaxis26", cms.string("leadingJetQGaxis2(5,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCRMScand6", cms.string("leadingJetQGRMScand(5,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCRmax6", cms.string("leadingJetQGRmax(5,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetptD6", cms.string("leadingJetPtD(5,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetaxis16", cms.string("leadingJetQGaxis1(5,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetaxis26", cms.string("leadingJetQGaxis2(5,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetRMScand6", cms.string("leadingJetQGRMScand(5,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetRmax6", cms.string("leadingJetQGRmax(5,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
             setattr(pt.variables, "jetNChgQC6", cms.string("leadingJetNChgQC(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNChgptCut6", cms.string("leadingJetNChgptCut(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNNeutralptCut6", cms.string("leadingJetNNeutralptCut(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
@@ -764,16 +688,6 @@ def addAdditionalJets(process,pt):
             setattr(pt.variables, "jetCHM7", cms.string("leadingJetChargedHadronMultiplicity(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNHM7", cms.string("leadingJetNeutralHadronMultiplicity(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetPhM7", cms.string("leadingJetPhotonMultiplicity(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            setattr(pt.variables, "jetQCptD7", cms.string("leadingJetPtD(6,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCaxis17", cms.string("leadingJetQGaxis1(6,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCaxis27", cms.string("leadingJetQGaxis2(6,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCRMScand7", cms.string("leadingJetQGRMScand(6,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetQCRmax7", cms.string("leadingJetQGRmax(6,0,"+CJVmaxEta+",1,"+jetId_WP+",1)")),
-            setattr(pt.variables, "jetptD7", cms.string("leadingJetPtD(6,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetaxis17", cms.string("leadingJetQGaxis1(6,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetaxis27", cms.string("leadingJetQGaxis2(6,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetRMScand7", cms.string("leadingJetQGRMScand(6,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
-            setattr(pt.variables, "jetRmax7", cms.string("leadingJetQGRmax(6,0,"+CJVmaxEta+",1,"+jetId_WP+",0)")),
             setattr(pt.variables, "jetNChgQC7", cms.string("leadingJetNChgQC(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNChgptCut7", cms.string("leadingJetNChgptCut(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNNeutralptCut7", cms.string("leadingJetNNeutralptCut(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),

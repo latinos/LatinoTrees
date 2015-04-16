@@ -96,37 +96,37 @@ def makePatPuppiJetSequence( process, rParameter = 0.4):
   
   ####### make clustering in AKxxx puppi jets
   jetRPrefix = str(int(rParameter*10));
-  setattr(process,"AK"+jetRPrefix+"PFJetsPuppi", ak5PFJets.clone( 
-                                           src      = cms.InputTag('puppi'),
-                                           #src      = cms.InputTag('puppi','Puppi'),
-                                           rParam   = cms.double(rParameter),
-                                           jetPtMin = cms.double(10))
-  )
+  ###########################################################setattr(process,"AK"+jetRPrefix+"PFJetsPuppi", ak5PFJets.clone( 
+                                           ###########################################################src      = cms.InputTag('puppi'),
+                                           ############################################################src      = cms.InputTag('puppi','Puppi'),
+                                           ###########################################################rParam   = cms.double(rParameter),
+                                           ###########################################################jetPtMin = cms.double(10))
+  ###########################################################)
 
-  addJetCollection(
-    process,
-    postfix   = "Puppi",
-    labelName = "AK"+jetRPrefix+"selectedPatJets",
-    jetSource = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi"),
-    trackSource = cms.InputTag('unpackedTracksAndVertices'), 
-    pfCandidates = cms.InputTag('packedPFCandidates'), 
-    pvSource = cms.InputTag('unpackedTracksAndVertices'), 
-    #jetCorrections = ("AK4PF", cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute']), 'Type-2'),
-    #jetCorrections = ("AK"+jetRPrefix+"selectedPatJetsPF", cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute']), 'Type-2'),
-    #btagDiscriminators = [      'pfCombinedSecondaryVertexBJetTags'     ],
-    genJetCollection=cms.InputTag('ak4GenJets')
-    )
+  ###########################################################addJetCollection(
+    ###########################################################process,
+    ###########################################################postfix   = "", # Puppi removed
+    ###########################################################labelName = "AK"+jetRPrefix+"selectedPatJetsPuppi",  # need puppi otherwise I cannot use jettoolbox later
+    ###########################################################jetSource = cms.InputTag("AK"+jetRPrefix+"PFJetsPuppi"),
+    ###########################################################trackSource = cms.InputTag('unpackedTracksAndVertices'), 
+    ###########################################################pfCandidates = cms.InputTag('packedPFCandidates'), 
+    ###########################################################pvSource = cms.InputTag('unpackedTracksAndVertices'), 
+    ############################################################jetCorrections = ("AK4PF", cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute']), 'Type-2'),
+    ############################################################jetCorrections = ("AK"+jetRPrefix+"selectedPatJetsPF", cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute']), 'Type-2'),
+    ############################################################btagDiscriminators = [      'pfCombinedSecondaryVertexBJetTags'     ],
+    ###########################################################genJetCollection=cms.InputTag('ak4GenJets')
+    ###########################################################)
 
-  #setattr(process,"patJetGenJetMatchAK"+jetRPrefix+"selectedPatJetsPuppi.matched","slimmedGenJets")
-  #setattr(process,"patJetPartonMatchAK"+jetRPrefix+"selectedPatJetsPuppi.matched","prunedGenParticles")
-  process.patJetGenJetMatchAK4selectedPatJetsPuppi.matched = "slimmedGenJets" # FIXME R=0.4
-  process.patJetPartonMatchAK4selectedPatJetsPuppi.matched = "prunedGenParticles" # FIXME R=0.4
+  ############################################################setattr(process,"patJetGenJetMatchAK"+jetRPrefix+"selectedPatJetsPuppi.matched","slimmedGenJets")
+  ############################################################setattr(process,"patJetPartonMatchAK"+jetRPrefix+"selectedPatJetsPuppi.matched","prunedGenParticles")
+  ###########################################################process.patJetGenJetMatchAK4selectedPatJetsPuppi.matched = "slimmedGenJets" # FIXME R=0.4
+  ###########################################################process.patJetPartonMatchAK4selectedPatJetsPuppi.matched = "prunedGenParticles" # FIXME R=0.4
 
-  process.load("PhysicsTools.PatAlgos.mcMatchLayer0.jetFlavourId_cff")
-  process.patJetPartonsPuppi.particles = "prunedGenParticles"
-  process.patJetPartonsLegacyPuppi.src = "prunedGenParticles" # if using legacy jet flavour (not used by default)
-  process.patJetPartonsLegacyPuppi.skipFirstN = cms.uint32(0) # do not skip first 6 particles, we already pruned some!
-  process.patJetPartonsLegacyPuppi.acceptNoDaughters = cms.bool(True) # as we drop intermediate stuff, we need to accept quarks with no siblings
+  ###########################################################process.load("PhysicsTools.PatAlgos.mcMatchLayer0.jetFlavourId_cff")
+  ###########################################################process.patJetPartonsPuppi.particles = "prunedGenParticles"
+  ###########################################################process.patJetPartonsLegacyPuppi.src = "prunedGenParticles" # if using legacy jet flavour (not used by default)
+  ###########################################################process.patJetPartonsLegacyPuppi.skipFirstN = cms.uint32(0) # do not skip first 6 particles, we already pruned some!
+  ###########################################################process.patJetPartonsLegacyPuppi.acceptNoDaughters = cms.bool(True) # as we drop intermediate stuff, we need to accept quarks with no siblings
     
   #adjust PV
   #process.patJetCorrFactorsAK4selectedPatJetsPuppi.primaryVertices = "offlineSlimmedPrimaryVertices" # FIXME R=0.4

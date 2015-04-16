@@ -216,36 +216,37 @@ void reco::SkimEvent::setGenJets(const edm::Handle<reco::GenJetCollection> & h) 
    }
 }
 
-// set LHEinfo
-void reco::SkimEvent::setLHEinfo(const edm::Handle<LHEEventProduct> & h) {
- LHEhepeup_ = (*(h.product())).hepeup();
 
- std::vector<std::string>::const_iterator it_end = (*(h.product())).comments_end();
- std::vector<std::string>::const_iterator it = (*(h.product())).comments_begin();
- for(; it != it_end; it++) {
-  comments_LHE_.push_back (*it);
+
+const float reco::SkimEvent::LHEMCweight(int i) const {
+ 
+ if (i == -1) return LHEInfoHandle_->originalXWGTUP();
+ 
+ int num_whichWeight = LHEInfoHandle_->weights().size();
+ if (i<num_whichWeight) {
+//   return (LHEInfoHandle_->weights()[i].wgt/LHEInfoHandle_->originalXWGTUP());
+  return LHEInfoHandle_->weights()[i].wgt;
  }
-
-// std::cout << " comments_LHE_.size() = " << comments_LHE_.size() << std::endl;
- for (unsigned int iComm = 0; iComm<comments_LHE_.size(); iComm++) {
-// std::cout << " i=" << iComm << " :: " << comments_LHE_.size() << " ==> " << comments_LHE_.at(iComm) << std::endl;
-  /// #new weight,renfact,facfact,pdf1,pdf2 32.2346904790193 1.00000000000000 1.00000000000000 11000 11000 lha
-  std::stringstream line( comments_LHE_.at(iComm) );
-  std::string dummy;
-  line >> dummy; // #new weight,renfact,facfact,pdf1,pdf2
-  float dummy_float;
-  line >> dummy_float; // 32.2346904790193
-  comments_LHE_weight_.push_back(dummy_float);
-// std::cout << dummy_float << std::endl;
-  line >> dummy_float; // 1.00000000000000
-  comments_LHE_rfac_.push_back(dummy_float);
-// std::cout << dummy_float << std::endl;
-  line >> dummy_float; // 1.00000000000000
-  comments_LHE_ffac_.push_back(dummy_float);
-// std::cout << dummy_float << std::endl;
+ else {
+  return -999;
  }
-
 }
+
+
+const float reco::SkimEvent::GENMCweight(int i) const {
+ 
+ if (i == -1) return GenInfoHandle_.weight();
+ 
+ int num_whichWeight = GenInfoHandle_.weights().size();
+ if (i<num_whichWeight) {
+  return GenInfoHandle_.weights()[i];
+ }
+ else {
+  return -999;
+ }
+}
+
+
 
 
 const float reco::SkimEvent::HEPMCweightScale(size_t i) const {
@@ -410,6 +411,65 @@ void reco::SkimEvent::setGenWeight(const edm::Handle<GenFilterInfo> &mcGenWeight
   mcGenWeight_ = *(mcGenWeight.product());
 }
 
+
+// set LHEinfo
+void reco::SkimEvent::setLHEinfo(const edm::Handle<LHEEventProduct> &h,const edm::Handle<LHERunInfoProduct> &productLHERunInfoHandle) {
+ 
+ setLHEinfo(h);
+ 
+ typedef std::vector<LHERunInfoProduct::Header>::const_iterator headers_const_iterator; 
+ LHERunInfoProduct myLHERunInfoProduct = *(productLHERunInfoHandle.product());
+ 
+ for (headers_const_iterator iter=myLHERunInfoProduct.headers_begin(); iter!=myLHERunInfoProduct.headers_end(); iter++){
+  std::cout << iter->tag() << std::endl;
+  std::vector<std::string> lines = iter->lines();
+  for (unsigned int iLine = 0; iLine<lines.size(); iLine++) {
+   std::cout << lines.at(iLine);
+  }
+ }
+ 
+//  <weight id="1001"> muR=0.10000E+01 muF=0.10000E+01 </weight>
+//  <weight id="2007"> pdfset=292207 </weight>
+ 
+}
+
+
+
+void reco::SkimEvent::setLHEinfo(const edm::Handle<LHEEventProduct> &h) {
+ 
+ LHEInfoHandle_ = (h.product());
+ 
+ LHEhepeup_ = (*(h.product())).hepeup();
+ 
+ std::vector<std::string>::const_iterator it_end = (*(h.product())).comments_end();
+ std::vector<std::string>::const_iterator it = (*(h.product())).comments_begin();
+ for(; it != it_end; it++) {
+  comments_LHE_.push_back (*it);
+ }
+ 
+ // std::cout << " comments_LHE_.size() = " << comments_LHE_.size() << std::endl;
+ for (unsigned int iComm = 0; iComm<comments_LHE_.size(); iComm++) {
+  // std::cout << " i=" << iComm << " :: " << comments_LHE_.size() << " ==> " << comments_LHE_.at(iComm) << std::endl;
+  /// #new weight,renfact,facfact,pdf1,pdf2 32.2346904790193 1.00000000000000 1.00000000000000 11000 11000 lha
+  std::stringstream line( comments_LHE_.at(iComm) );
+  std::string dummy;
+  line >> dummy; // #new weight,renfact,facfact,pdf1,pdf2
+  float dummy_float;
+  line >> dummy_float; // 32.2346904790193
+  comments_LHE_weight_.push_back(dummy_float);
+  // std::cout << dummy_float << std::endl;
+  line >> dummy_float; // 1.00000000000000
+  comments_LHE_rfac_.push_back(dummy_float);
+  // std::cout << dummy_float << std::endl;
+  line >> dummy_float; // 1.00000000000000
+  comments_LHE_ffac_.push_back(dummy_float);
+  // std::cout << dummy_float << std::endl;
+ }
+ 
+}
+
+
+//---- set GEN info
 void reco::SkimEvent::setGenInfo(const edm::Handle<GenEventInfoProduct> &GenInfoHandle) {
   GenInfoHandle_ = *(GenInfoHandle.product());
 }
@@ -1103,6 +1163,38 @@ const float reco::SkimEvent::leadingJetPtD(size_t index, float minPt,float eta,i
 }
 
 
+
+
+
+const float reco::SkimEvent::leadingJetQGaxis1(size_t index) const {
+ return leadingJetQGaxis1(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,1);
+ //  FIXME QualityCut == 1 hardcoded
+}
+
+const float reco::SkimEvent::leadingJetQGaxis2(size_t index) const {
+ return leadingJetQGaxis2(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,1);
+ //  FIXME QualityCut == 1 hardcoded 
+}
+
+const float reco::SkimEvent::leadingJetQGRMScand(size_t index) const {
+ return leadingJetQGRMScand(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,1);
+ //  FIXME QualityCut == 1 hardcoded
+}
+
+const float reco::SkimEvent::leadingJetQGRmax(size_t index) const {
+ return leadingJetQGRmax(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,1);
+ //  FIXME QualityCut == 1 hardcoded
+}
+
+const float reco::SkimEvent::leadingJetQGlikelihood(size_t index) const {
+ return leadingJetQGlikelihood(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+}
+
+
+
+
+
+
 const float reco::SkimEvent::leadingJetQGRmax(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
 
  size_t count = 0;
@@ -1180,76 +1272,22 @@ const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float e
 
 
 
-
-// const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
-// double axis2 = -9999.9;
-//
-// size_t count = 0;
-// for(size_t i=0;i<jets_.size();++i) {
-// if(!(passJetID(jets_[i],applyID)) ) continue;
-// if( std::fabs(jets_[i]->eta()) >= eta) continue;
-// if( jetPt(i,applyCorrection) <= minPt) continue;
-//
-// if(isThisJetALepton(jets_[i])) continue;
-// if(++count > index) {
-// // std::vector<reco::PFCandidatePtr> constituents = jet->getPFConstituents();
-// std::vector<reco::PFCandidatePtr> constituents = jets_[i]->getPFConstituents();
-// // Jet::Constituents constituents = jets_[i]->getJetConstituents();
-// float sum_pt2 = 0.;
-// float sum_pt = 0.;
-// float sum_deta = 0.;
-// float sum_dphi = 0.;
-// float sum_deta2 = 0.;
-// float sum_dphi2 = 0.;
-// float sum_detadphi = 0.;
-// for( unsigned iConst=0; iConst<constituents.size(); ++iConst ) {
-// float pt = constituents[iConst]->p4().Pt();
-// float pt2 = pt*pt;
-// sum_pt += pt;
-// sum_pt2 += pt2;
-//
-// sum_deta += ((constituents[iConst]->eta() - jets_[i]->eta())*pt*pt);
-// sum_dphi += ((2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*pt*pt);
-//
-// sum_deta2 += ((constituents[iConst]->eta() - jets_[i]->eta())*(constituents[iConst]->eta() - jets_[i]->eta())*pt*pt);
-// sum_dphi2 += ((2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*(2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*pt*pt);
-//
-// sum_detadphi += ((2*atan(tan(((constituents[iConst]->phi()-jets_[i]->phi()))/2)))*(constituents[iConst]->eta() - jets_[i]->eta())*pt*pt);
-//
-// }
-//
-// Float_t a = 0., b = 0., c = 0.;
-// Float_t ave_deta = 0., ave_dphi = 0., ave_deta2 = 0., ave_dphi2 = 0.;
-//
-//
-// if(sum_pt2 > 0){
-// // variables["ptD"] = sqrt(sum_weight)/sum_pt;
-// ave_deta = sum_deta/sum_pt2;
-// ave_dphi = sum_dphi/sum_pt2;
-// ave_deta2 = sum_deta2/sum_pt2;
-// ave_dphi2 = sum_dphi2/sum_pt2;
-// a = ave_deta2 - ave_deta*ave_deta;
-// b = ave_dphi2 - ave_dphi*ave_dphi;
-// c = -(sum_detadphi/sum_pt2 - ave_deta*ave_dphi);
-//
-// Float_t delta = sqrt(fabs((a-b)*(a-b)+4*c*c));
-// if(a+b-delta > 0) {
-// axis2 = sqrt(0.5*(a+b-delta));
-// }
-// else {
-// axis2 = 0.;
-// }
-// }
-// else {
-// axis2 = 0.;
-// }
-//
-// return axis2;
-// }
-// }
-// return -9999.9;
-//
-// }
+const float reco::SkimEvent::leadingJetQGlikelihood(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;
+  
+  if(isThisJetALepton(jets_[i])) continue;
+  if(++count > index) {
+   return jets_[i]->userFloat("QGTagger:qgLikelihood");
+  }
+ }
+ return -9999.9;
+ 
+}
 
 
 
@@ -1724,15 +1762,46 @@ const float reco::SkimEvent::leadingFatJetPrunedTau4(size_t index, float minPt,f
 
 //Event variables
 
-const float reco::SkimEvent::pfSumEt() const {
+const float reco::SkimEvent::pfType1Met() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->pt();
+    else return -9999.0;
+}
+const float reco::SkimEvent::pfType1SumEt() const {
 
     if(pfMet_.isNonnull()) return pfMet_->sumEt();
     else return -9999.0;
 }
+const float reco::SkimEvent::pfType1MetUp() const {
 
-const float reco::SkimEvent::pfMet() const {
+    if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnUp);
+    else return -9999.0;
+}
+const float reco::SkimEvent::pfType1MetDn() const {
 
-    if(pfMet_.isNonnull()) return pfMet_->pt();
+    if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnDown);
+    else return -9999.0;
+}
+const float reco::SkimEvent::pfType1MetPhi() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->phi();
+    else return -9999.0;
+}
+
+const float reco::SkimEvent::pfRawSumEt() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->shiftedSumEt(pat::MET::NoShift, pat::MET::Raw);
+    else return -9999.0;
+}
+
+const float reco::SkimEvent::pfRawMet() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::NoShift, pat::MET::Raw);
+    else return -9999.0;
+}
+const float reco::SkimEvent::pfRawMetPhi() const {
+
+    if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::NoShift, pat::MET::Raw);
     else return -9999.0;
 }
 
@@ -1745,11 +1814,6 @@ const float reco::SkimEvent::trkMet() const {
  return trkMet_.pt();
 }
  
-const float reco::SkimEvent::pfMetPhi() const {
-
-    if(pfMet_.isNonnull()) return pfMet_->phi();
-    else return -9999.0;
-}
 
 
 const float reco::SkimEvent::tcSumEt() const {
@@ -1925,7 +1989,7 @@ const float reco::SkimEvent::mT(size_t i, metType metToUse) const {
 const float reco::SkimEvent::met(metType metToUse) const {
     switch (metToUse) {
         case TCMET: return tcMet();
-        case PFMET: return pfMet();
+        case PFMET: return pfRawMet();
         case CHMET: return chargedMet();
 //case MINMET: return minMet();
     }
@@ -1940,8 +2004,8 @@ const float reco::SkimEvent::projMet(metType metToUse) const {
 
 const float reco::SkimEvent::projPfMet() const {
     float dphi = dPhilPfMet();
-    if(dphi < M_PI/2.) return pfMet()*sin(dphi);
-    else return pfMet();
+    if(dphi < M_PI/2.) return pfRawMet()*sin(dphi);
+    else return pfRawMet();
 }
 
 const float reco::SkimEvent::projMvaMet() const {
@@ -2061,7 +2125,7 @@ const float reco::SkimEvent::dPhilTcMet(size_t i) const {
 
 const float reco::SkimEvent::dPhilPfMet(size_t i) const {
     if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
-    return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->p4(),leps_[i]->p4()) );
+    return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::NoShift, pat::MET::Raw),leps_[i]->p4()) );
 }
 
 const float reco::SkimEvent::dPhilMvaMet(size_t i) const {

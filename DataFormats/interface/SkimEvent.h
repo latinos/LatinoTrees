@@ -46,6 +46,8 @@
 #include "SimDataFormats/GeneratorProducts/interface/GenFilterInfo.h"
 #include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
 #include "SimDataFormats/GeneratorProducts/interface/LHEEventProduct.h"
+#include "SimDataFormats/GeneratorProducts/interface/LHERunInfoProduct.h"
+
 
 #include <vector>
 #include <utility>
@@ -162,6 +164,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float getWWdecayMC() const;
             const float mcHiggsProd() const;
 
+            //---- MC weights: -1 for SM; 0,1,2,... for parameters variation
+            const float LHEMCweight(int i) const ;
+            const float GENMCweight(int i) const ;
+            
             const float HEPMCweight() const ;
             const float HEPMCweightScale(size_t i) const ;
             const float HEPMCweightRen(size_t i) const ;
@@ -247,11 +253,18 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingJetPtd(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
             const float leadingJetPtD(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
 
+            const float leadingJetQGaxis1(size_t index) const ;
+            const float leadingJetQGaxis2(size_t index) const ;
+            const float leadingJetQGRMScand(size_t index) const ;
+            const float leadingJetQGRmax(size_t index) const ;
+            const float leadingJetQGlikelihood(size_t index) const ;
+            
             const float leadingJetQGaxis1(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
             const float leadingJetQGaxis2(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
             const float leadingJetQGRMScand(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
             const float leadingJetQGRmax(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
-
+            const float leadingJetQGlikelihood(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
+             
             const float leadingJetNChgQC(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
             const float leadingJetNChgptCut(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
             const float leadingJetNNeutralptCut(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
@@ -302,11 +315,16 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             bool passTriggerDoubleEl(size_t i, bool isData=true) const;
 
             const float met(metType metToUse=TCMET) const;
-            const float pfSumEt() const;
-            const float pfMet() const;
+            const float pfType1SumEt() const;
+            const float pfType1Met() const;
+            const float pfType1MetUp() const;
+            const float pfType1MetDn() const;
+            const float pfType1MetPhi() const;
+            const float pfRawSumEt() const;
+            const float pfRawMet() const;
+            const float pfRawMetPhi() const;
             const float pupMet() const;
             const float trkMet() const;
-            const float pfMetPhi() const;
             const float mvaMet() const{return mvaMet_.pt();}
             const float mvaMetPhi() const{return mvaMet_.phi();}
             const float tcSumEt() const;
@@ -467,11 +485,12 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s);
             void setVtxSumPt2s(const edm::Handle<edm::ValueMap<float> > &s);
             void setGenParticles(const edm::Handle<reco::GenParticleCollection> &h);
-            void setLHEinfo(const edm::Handle<LHEEventProduct> & h);
 
 // void setGenWeight(const edm::Handle<double> &s);
             void setGenWeight(const edm::Handle<GenFilterInfo> &s);
 
+            void setLHEinfo(const edm::Handle<LHEEventProduct> &h);
+            void setLHEinfo(const edm::Handle<LHEEventProduct> &h,const edm::Handle<LHERunInfoProduct> &productLHERunInfoHandle);
             void setGenInfo(const edm::Handle<GenEventInfoProduct> &s);
             void setGenMet(const edm::Handle< std::vector<pat::MET> > &); //---- new interface to GenMET with miniAOD
             void setGenMet(const edm::Handle<reco::GenMETCollection> &);
@@ -754,6 +773,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             GenEventInfoProduct GenInfoHandle_;
             lhef::HEPEUP LHEhepeup_;
 
+            const LHEEventProduct* LHEInfoHandle_;
+            
+            
             std::vector< std::string > comments_LHE_;
             std::vector< float > comments_LHE_weight_;
             std::vector< float > comments_LHE_rfac_;
