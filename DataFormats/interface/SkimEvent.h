@@ -633,7 +633,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const bool isTightMuon(size_t i) const;
 	    const bool isTightMuonByPt(size_t i) const {return isTightMuon(indexByPt (i)); }
 
-	    const float muSIP3D(size_t i) const;
+	    const float muSIP3D(size_t i) const { return -1;}; //---- FIXME
 	    const float muSIP3DByPt(size_t i) const {return muSIP3D(indexByPt (i)); };
 
 
@@ -651,7 +651,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float hadronicOverEmByPt(size_t i) const { return hadronicOverEm (indexByPt (i)); }
             const float numberOfHitsByPt(size_t i) const { return hadronicOverEm (indexByPt (i)); }
 
-	    const float elSIP3D(size_t i) const;
+	    const float elSIP3D(size_t i) const { return -1;}; //---- FIXME
 	    const float elSIP3DByPt(size_t i) const {return elSIP3D(indexByPt (i)); };
 
 
