@@ -70,10 +70,11 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_eta = cms.string("etaByPt"),
         std_vector_lepton_phi = cms.string("phiByPt"),
         std_vector_lepton_id  = cms.string("pdgIdByPt"),
-
+        
         std_vector_lepton_isTightMuon = cms.string("isTightMuonByPt"),
 
-
+        std_vector_lepton_muSIP3D = cms.string("muSIP3DByPt"),
+        std_vector_lepton_elSIP3D= cms.string("elSIP3DByPt"),
 
         std_vector_puppijet_pt  = cms.string("leadingSecondJetPt"),
         std_vector_puppijet_eta = cms.string("leadingSecondJetEta"),
@@ -84,7 +85,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_jet_phi = cms.string("leadingJetPhi"),
 
 
-
         mll = cms.string("mll()"),
         ptll = cms.string("pTll()"),
         yll = cms.string("yll()"), #fixed! returns (p4a+p4b).Rapidity()
@@ -93,15 +93,15 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         pt3 = cms.string("ptByPt(2)"),
         pt4 = cms.string("ptByPt(3)"),
         
-        isTightMuon1 = cms.string("isTightMuon(0)"),
-        isTightMuon2 = cms.string("isTightMuon(1)"),
-        isTightMuon3 = cms.string("isTightMuon(2)"),
-        isTightMuon4 = cms.string("isTightMuon(3)"),
+        #isTightMuon1 = cms.string("isTightMuon(0)"),
+        #isTightMuon2 = cms.string("isTightMuon(1)"),
+        #isTightMuon3 = cms.string("isTightMuon(2)"),
+        #isTightMuon4 = cms.string("isTightMuon(3)"),
         
-        isSTA1 = cms.string("isSTAByPt(0)"),
-        isSTA2 = cms.string("isSTAByPt(1)"),
-        isSTA3 = cms.string("isSTAByPt(2)"),
-        isSTA4 = cms.string("isSTAByPt(3)"),
+        #isSTA1 = cms.string("isSTAByPt(0)"),
+        #isSTA2 = cms.string("isSTAByPt(1)"),
+        #isSTA3 = cms.string("isSTAByPt(2)"),
+        #isSTA4 = cms.string("isSTAByPt(3)"),
         peaking = cms.string("peaking"),
         trigger = cms.string("guillelmoTrigger('DATASET')"),
         nextra = cms.string("nExtraLep(10)"),
