@@ -504,18 +504,10 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "jetGenPartonphi3" , cms.string("leadingGenJetPartonPhi(2)")),
         setattr(pt.variables, "jetGenPartoneta3" , cms.string("leadingGenJetPartonEta(2)")),
 
-        setattr(pt.variables, "leptonGenpt1" , cms.string("leadingGenLeptonPt(0)")),
-        setattr(pt.variables, "leptonGenpid1" , cms.string("leadingGenLeptonPID(0)")),
-        setattr(pt.variables, "leptonGenphi1" , cms.string("leadingGenLeptonPhi(0)")),
-        setattr(pt.variables, "leptonGeneta1" , cms.string("leadingGenLeptonEta(0)")),
-        setattr(pt.variables, "leptonGenpt2" , cms.string("leadingGenLeptonPt(1)")),
-        setattr(pt.variables, "leptonGenpid2" , cms.string("leadingGenLeptonPID(1)")),
-        setattr(pt.variables, "leptonGenphi2" , cms.string("leadingGenLeptonPhi(1)")),
-        setattr(pt.variables, "leptonGeneta2" , cms.string("leadingGenLeptonEta(1)")),
-        setattr(pt.variables, "leptonGenpt3" , cms.string("leadingGenLeptonPt(2)")),
-        setattr(pt.variables, "leptonGenpid3" , cms.string("leadingGenLeptonPID(2)")),
-        setattr(pt.variables, "leptonGenphi3" , cms.string("leadingGenLeptonPhi(2)")),
-        setattr(pt.variables, "leptonGeneta3" , cms.string("leadingGenLeptonEta(2)")),
+        setattr(pt.variables, "std_vector_leptonGen_pt",   cms.string("leadingGenLeptonPt")),
+        setattr(pt.variables, "std_vector_leptonGen_pid",  cms.string("leadingGenLeptonPID")),
+        setattr(pt.variables, "std_vector_leptonGen_phi",  cms.string("leadingGenLeptonPhi")),
+        setattr(pt.variables, "std_vector_leptonGen_eta" , cms.string("leadingGenLeptonEta")),
 
         setattr(pt.variables, "neutrinoGenpt1" , cms.string("leadingGenNeutrinoPt(0)")),
         setattr(pt.variables, "neutrinoGenpid1" , cms.string("leadingGenNeutrinoPID(0)")),
@@ -542,18 +534,6 @@ def addGenVariables(process,pt):
 
         setattr(pt.variables, "std_vector_jet_HadronFlavour" , cms.string("leadingJetHadronFlavour")),
         setattr(pt.variables, "std_vector_jet_PartonFlavour" , cms.string("leadingJetPartonFlavour")),
-
-
-        #setattr(pt.variables, "jetGenpt1" , cms.string("leadingGenJetPt(0)")),
-        #setattr(pt.variables, "jetGenphi1" , cms.string("leadingGenJetPhi(0)")),
-        #setattr(pt.variables, "jetGeneta1" , cms.string("leadingGenJetEta(0)")),
-        #setattr(pt.variables, "jetGenpt2" , cms.string("leadingGenJetPt(1)")),
-        #setattr(pt.variables, "jetGenphi2" , cms.string("leadingGenJetPhi(1)")),
-        #setattr(pt.variables, "jetGeneta2" , cms.string("leadingGenJetEta(1)")),
-        #setattr(pt.variables, "jetGenpt3" , cms.string("leadingGenJetPt(2)")),
-        #setattr(pt.variables, "jetGenphi3" , cms.string("leadingGenJetPhi(2)")),
-        #setattr(pt.variables, "jetGeneta3" , cms.string("leadingGenJetEta(2)")),
-
 
     else:
         raise addGenVariables, "In addGenVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
