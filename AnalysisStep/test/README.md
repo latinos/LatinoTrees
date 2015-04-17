@@ -40,7 +40,7 @@ Useful for faster code test.
     source /afs/cern.ch/cms/LCG/LCG-2/UI/cms_ui_env.sh
     voms-proxy-init -voms cms
 
-    xrdcp root://xrootd.unl.edu//store/mc/Phys14DR/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/MINIAODSIM/AVE30BX50_tsg_PHYS14_ST_V1-v1/10000/440AA9AF-9988-E411-9786-00266CFFA038.root .
+    xrdcp root://xrootd.unl.edu//store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/00C90EFC-3074-E411-A845-002590DB9262.root .
 
 
 Run step B
@@ -51,21 +51,21 @@ Run step B
     cd LatinoTrees/AnalysisStep/test/
 
     cmsRun stepB.py print \
-                    label=WW \
+                    label=Top \
                     id=123456789 \
                     scale=1 \
                     outputFile=stepB_MC.root \
                     doNoFilter=True \
                     doMuonIsoId=True \
                     maxEvents=200 \
-                    doLHE=True \
+                    doLHE=False \
                     doGen=True \
                     doBTag=True \
-                    inputFiles=root://xrootd.unl.edu//store/mc/Phys14DR/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/MINIAODSIM/AVE30BX50_tsg_PHYS14_ST_V1-v1/10000/440AA9AF-9988-E411-9786-00266CFFA038.root
+		    inputFiles=root://xrootd.unl.edu//store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/00C90EFC-3074-E411-A845-002590DB9262.root
 
 If the input file is local.
 
-                    inputFiles=file:440AA9AF-9988-E411-9786-00266CFFA038.root
+                    inputFiles=file:/afs/cern.ch/user/p/piedra/work/store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/00C90EFC-3074-E411-A845-002590DB9262.root
 
 
 Parameter details
