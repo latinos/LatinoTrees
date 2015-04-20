@@ -4456,7 +4456,7 @@ const float reco::SkimEvent::leadingGenLeptonPt(size_t index) const {
       pMother = genParticles_[gp]->mother();
       motherPdgId = abs(pMother->pdgId());
     }
-  
+
     if (motherPdgId != 22 && motherPdgId != 23 && motherPdgId != 24)  continue;
     if (originalStatus(pMother) < 21 || originalStatus(pMother) > 29) continue;
 
