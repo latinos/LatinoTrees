@@ -4455,7 +4455,6 @@ const float reco::SkimEvent::leadingGenLeptonPt(size_t index) const {
     if (genParticles_[gp]->mother()) {
       pMother = genParticles_[gp]->mother();
       motherPdgId = abs(pMother->pdgId());
-
     }
   
     if (motherPdgId != 22 && motherPdgId != 23 && motherPdgId != 24)  continue;
@@ -4488,15 +4487,15 @@ const float reco::SkimEvent::leadingGenLeptonPID(size_t index) const {
 
   // Loop over gen particles
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp] -> pdgId());
+    int type = abs(genParticles_[gp]->pdgId());
 
     if (type != 11 && type != 13 && type != 15) continue;
 
     int motherPdgId = 0;
     const reco::Candidate* pMother = 0;
     if (genParticles_[gp] -> mother()) {
-      pMother = genParticles_[gp] -> mother();
-      motherPdgId = abs(pMother ->pdgId());
+      pMother = genParticles_[gp]->mother();
+      motherPdgId = abs(pMother->pdgId());
     }
   
     if (motherPdgId != 22 && motherPdgId != 23 && motherPdgId != 24)  continue;
@@ -4521,15 +4520,15 @@ const float reco::SkimEvent::leadingGenLeptonEta(size_t index) const {
 
   // Loop over gen particles
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs( genParticles_[gp] -> pdgId() );
+    int type = abs(genParticles_[gp]->pdgId());
 
     if (type != 11 && type != 13 && type != 15) continue;
 
     int motherPdgId = 0;
     const reco::Candidate* pMother = 0;
     if (genParticles_[gp] -> mother()) {
-      pMother = genParticles_[gp] -> mother();
-      motherPdgId = abs(pMother ->pdgId());
+      pMother = genParticles_[gp]->mother();
+      motherPdgId = abs(pMother->pdgId());
     }
   
     if (motherPdgId != 22 && motherPdgId != 23 && motherPdgId != 24)  continue;
@@ -4554,15 +4553,15 @@ const float reco::SkimEvent::leadingGenLeptonPhi(size_t index) const {
 
   // Loop over gen particles
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs( genParticles_[gp] -> pdgId() );
+    int type = abs(genParticles_[gp]->pdgId());
 
     if (type != 11 && type != 13 && type != 15) continue;
 
     int motherPdgId = 0;
     const reco::Candidate* pMother = 0;
     if (genParticles_[gp] -> mother()) {
-      pMother = genParticles_[gp] -> mother();
-      motherPdgId = abs(pMother ->pdgId());
+      pMother = genParticles_[gp]->mother();
+      motherPdgId = abs(pMother->pdgId());
     }
   
     if (motherPdgId != 22 && motherPdgId != 23 && motherPdgId != 24)  continue;
