@@ -16,7 +16,7 @@
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/Muon.h"
 #include "DataFormats/PatCandidates/interface/Electron.h"
-#include "DataFormats/PatCandidates/interface/Photon.h" //PHOTON
+#include "DataFormats/PatCandidates/interface/Photon.h"
 #include "DataFormats/Math/interface/Point3D.h"
 #include "DataFormats/METReco/interface/MET.h"
 #include "DataFormats/METReco/interface/METFwd.h"
@@ -438,10 +438,13 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingGenJetPartonPID(size_t a) const;
             const float leadingGenJetPartonEta(size_t a) const;
             const float leadingGenJetPartonPhi(size_t a) const;
-            const float leadingGenLeptonPt(size_t a) const;
+
+	    const int   originalStatus(const reco::Candidate* p) const;
+            const float leadingGenLeptonPt (size_t a) const;
             const float leadingGenLeptonPID(size_t a) const;
             const float leadingGenLeptonEta(size_t a) const;
             const float leadingGenLeptonPhi(size_t a) const;
+
             const float leadingGenNeutrinoPt(size_t a) const;
             const float leadingGenNeutrinoPID(size_t a) const;
             const float leadingGenNeutrinoEta(size_t a) const;
@@ -462,8 +465,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             //void setExtraLepton(const pat::Electron& ele);
             //void setExtraLepton(const pat::Muon& mu);
 //             void setEventInfo (const edm::Event &e) { run_ = e.id().run(); lumi_ = e.id().luminosityBlock(); evt_ = e.id().event(); }
-            void setLepton (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
-            void setSoftMuon (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
+            void setLepton     (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
+            void setSoftMuon   (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
             void setExtraLepton(const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
 
             void setTaus(const edm::Handle<pat::TauCollection> &);

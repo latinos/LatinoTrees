@@ -4414,6 +4414,27 @@ const float reco::SkimEvent::leadingGenJetPartonPhi(size_t index) const {
 }
 
 
+// This method traces carbon copies of the particle up to its top mother. If
+// there are no such carbon copies, the status of the particle itself will be
+// returned. A carbon copy is when the "same" particle appears several times in
+// the event record, but with changed momentum owing to recoil effects.
+const int reco::SkimEvent::originalStatus(const reco::Candidate* p) const
+{
+  const reco::Candidate* pMother = 0;
+
+  if (p->mother()) {
+    pMother = p->mother();
+
+    if (pMother->pdgId() == p->pdgId())
+      return originalStatus(pMother);
+    else
+      return p->status();
+  }
+  else
+    return p->status();
+}
+
+
 // Compatible with PYTHIA8
 const float reco::SkimEvent::leadingGenLeptonPt(size_t index) const {
 
@@ -4425,19 +4446,23 @@ const float reco::SkimEvent::leadingGenLeptonPt(size_t index) const {
  
   // Loop over gen particles
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp] -> pdgId());
+    int type = abs(genParticles_[gp]->pdgId());
+
+    if (type != 11 && type != 13 && type != 15) continue;
 
     int motherPdgId = 0;
     const reco::Candidate* pMother = 0;
-    if (genParticles_[gp] -> mother()) {
-      pMother = genParticles_[gp] -> mother();
-      motherPdgId = abs(pMother ->pdgId());
+    if (genParticles_[gp]->mother()) {
+      pMother = genParticles_[gp]->mother();
+      motherPdgId = abs(pMother->pdgId());
+
     }
   
-    if ((type == 11 || type == 13 || type == 15) && (motherPdgId == 22 || motherPdgId == 23 || motherPdgId == 24)) {
-      mcH = &(*(genParticles_[gp]));
-      v_leptons_pt.push_back(mcH->pt());
-    }
+    if (motherPdgId != 22 && motherPdgId != 23 && motherPdgId != 24)  continue;
+    if (originalStatus(pMother) < 21 || originalStatus(pMother) > 29) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    v_leptons_pt.push_back(mcH->pt());
   }
  
   if (v_leptons_pt.size () > 0) {
@@ -4465,6 +4490,8 @@ const float reco::SkimEvent::leadingGenLeptonPID(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
     int type = abs(genParticles_[gp] -> pdgId());
 
+    if (type != 11 && type != 13 && type != 15) continue;
+
     int motherPdgId = 0;
     const reco::Candidate* pMother = 0;
     if (genParticles_[gp] -> mother()) {
@@ -4472,11 +4499,12 @@ const float reco::SkimEvent::leadingGenLeptonPID(size_t index) const {
       motherPdgId = abs(pMother ->pdgId());
     }
   
-    if ((type == 11 || type == 13 || type == 15) && (motherPdgId == 22 || motherPdgId == 23 || motherPdgId == 24)) {
-      mcH = &(*(genParticles_[gp]));
-      if (mcH->pt() != pt_ofIndex) continue;
-      particleID = (float) type;
-  }
+    if (motherPdgId != 22 && motherPdgId != 23 && motherPdgId != 24)  continue;
+    if (originalStatus(pMother) < 21 || originalStatus(pMother) > 29) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if (mcH->pt() != pt_ofIndex) continue;
+    particleID = (float) type;
  }
 
  return particleID;
@@ -4495,6 +4523,8 @@ const float reco::SkimEvent::leadingGenLeptonEta(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
     int type = abs( genParticles_[gp] -> pdgId() );
 
+    if (type != 11 && type != 13 && type != 15) continue;
+
     int motherPdgId = 0;
     const reco::Candidate* pMother = 0;
     if (genParticles_[gp] -> mother()) {
@@ -4502,11 +4532,12 @@ const float reco::SkimEvent::leadingGenLeptonEta(size_t index) const {
       motherPdgId = abs(pMother ->pdgId());
     }
   
-    if ((type == 11 || type == 13 || type == 15) && (motherPdgId == 22 || motherPdgId == 23 || motherPdgId == 24)) {
-      mcH = &(*(genParticles_[gp]));
-      if (mcH->pt() != pt_ofIndex) continue;
-      particleEta = (float) mcH->eta();
-    }
+    if (motherPdgId != 22 && motherPdgId != 23 && motherPdgId != 24)  continue;
+    if (originalStatus(pMother) < 21 || originalStatus(pMother) > 29) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if (mcH->pt() != pt_ofIndex) continue;
+    particleEta = (float) mcH->eta();
   }
 
   return particleEta;
@@ -4525,6 +4556,8 @@ const float reco::SkimEvent::leadingGenLeptonPhi(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
     int type = abs( genParticles_[gp] -> pdgId() );
 
+    if (type != 11 && type != 13 && type != 15) continue;
+
     int motherPdgId = 0;
     const reco::Candidate* pMother = 0;
     if (genParticles_[gp] -> mother()) {
@@ -4532,11 +4565,12 @@ const float reco::SkimEvent::leadingGenLeptonPhi(size_t index) const {
       motherPdgId = abs(pMother ->pdgId());
     }
   
-    if ((type == 11 || type == 13 || type == 15) && (motherPdgId == 22 || motherPdgId == 23 || motherPdgId == 24)) {
-      mcH = &(*(genParticles_[gp]));
-      if (mcH->pt() != pt_ofIndex) continue;
-      particlePhi = (float) mcH->phi();
-    }
+    if (motherPdgId != 22 && motherPdgId != 23 && motherPdgId != 24)  continue;
+    if (originalStatus(pMother) < 21 || originalStatus(pMother) > 29) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if (mcH->pt() != pt_ofIndex) continue;
+    particlePhi = (float) mcH->phi();
  }
 
  return particlePhi;
