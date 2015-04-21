@@ -439,11 +439,15 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingGenJetPartonEta(size_t a) const;
             const float leadingGenJetPartonPhi(size_t a) const;
 
+	    // Compatible with PYTHIA8
 	    const int   originalStatus(const reco::Candidate* p) const;
-            const float leadingGenLeptonPt (size_t a) const;
-            const float leadingGenLeptonPID(size_t a) const;
-            const float leadingGenLeptonEta(size_t a) const;
-            const float leadingGenLeptonPhi(size_t a) const;
+            const float genLeptonPt          (size_t a) const;
+            const float genLeptonPID         (size_t a) const;
+            const float genLeptonEta         (size_t a) const;
+            const float genLeptonPhi         (size_t a) const;
+            const float genLeptonStatus      (size_t a) const;
+            const float genLeptonMotherPID   (size_t a) const;
+            const float genLeptonMotherStatus(size_t a) const;
 
             const float leadingGenNeutrinoPt(size_t a) const;
             const float leadingGenNeutrinoPID(size_t a) const;
