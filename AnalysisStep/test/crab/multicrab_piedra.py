@@ -89,22 +89,22 @@ if __name__ == '__main__':
     config.JobType.pyCfgParams.extend(['label=TToLeptons_t', 'id=12345', 'scale=0.27204'])
     submit(config)
 
-    config.General.requestName = 'HWW125'
+    config.General.requestName = 'gg_HWW'
     config.Data.inputDataset   = '/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/Phys14DR-PU20bx25_tsg_PHYS14_25_V1-v1/MINIAODSIM'
     config.JobType.pyCfgParams = list(pyCfgParams)
-    config.JobType.pyCfgParams.extend(['label=HWW125', 'id=12345', 'scale=0.00996'])
+    config.JobType.pyCfgParams.extend(['label=gg_HWW', 'id=12345', 'scale=0.00996'])
     submit(config)
 
-    config.General.requestName = 'VBF125'
+    config.General.requestName = 'VBF_HWW'
     config.Data.inputDataset   = '/VBF_HToWWToLAndTauNuQQ_M-125_13TeV-powheg-pythia6/Phys14DR-PU20bx25_tsg_PHYS14_25_V1-v1/MINIAODSIM'
     config.JobType.pyCfgParams = list(pyCfgParams)
-    config.JobType.pyCfgParams.extend(['label=VBF125', 'id=12345', 'scale=0.00089'])
+    config.JobType.pyCfgParams.extend(['label=VBF_HWW', 'id=12345', 'scale=0.00089'])
     submit(config)
 
-    config.General.requestName = 'VH125'
+    config.General.requestName = 'VH_HWW'
     config.Data.inputDataset   = '/WH_ZH_HToWW_2Or3WToLNuAndTau_M-125_13TeV_pythia6/Spring14miniaod-PU20bx25_POSTLS170_V5-v1/MINIAODSIM'
     config.JobType.pyCfgParams = list(pyCfgParams)
-    config.JobType.pyCfgParams.extend(['label=VH125', 'id=12345', 'scale=0.00030'])
+    config.JobType.pyCfgParams.extend(['label=VH_HWW', 'id=12345', 'scale=0.00030'])
     submit(config)
 
     ####################### Private samples to be analysed #####################
