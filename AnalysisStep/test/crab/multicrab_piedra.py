@@ -109,26 +109,23 @@ if __name__ == '__main__':
 
     ####################### Private samples to be analysed #####################
 
-    config.General.requestName = 'Higgs_hzpzp_ww_1GeV'
-    config.Data.inputDataset   = '/CRAB_UserFiles/dburns-Higgs_hzpzp_ww_1GeV_13TeV_RECO_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
     config.Data.inputDBS       = 'phys03'
     config.Data.ignoreLocality = False
+
+    config.General.requestName = 'Higgs_hzpzp_ww_1GeV'
+    config.Data.inputDataset   = '/CRAB_UserFiles/dburns-Higgs_hzpzp_ww_1GeV_13TeV_RECO_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
     config.JobType.pyCfgParams = list(pyCfgParams)
     config.JobType.pyCfgParams.extend(['label=Higgs_hzpzp_ww_1GeV', 'id=12345', 'scale=0.00031'])
     submit(config)
 
     config.General.requestName = 'Higgs_hzpzp_ww_100GeV'
     config.Data.inputDataset   = '/CRAB_UserFiles/dburns-Higgs_hzpzp_ww_100GeV_13TeV_RECO_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
-    config.Data.inputDBS       = 'phys03'
-    config.Data.ignoreLocality = False
     config.JobType.pyCfgParams = list(pyCfgParams)
     config.JobType.pyCfgParams.extend(['label=Higgs_hzpzp_ww_100GeV', 'id=12345', 'scale=0.00031'])
     submit(config)
 
     config.General.requestName = 'ppTOzh_zTO2v_hTOwwTO2l2v'
     config.Data.inputDataset   = '/CRAB_UserFiles/dburns-ppTOzh_zTO2v_hTOwwTO2l2v_13TeV_AODSIM_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
-    config.Data.inputDBS       = 'phys03'
-    config.Data.ignoreLocality = False
     config.JobType.pyCfgParams = list(pyCfgParams)
     config.JobType.pyCfgParams.extend(['label=ppTOzh_zTO2v_hTOwwTO2l2v', 'id=12345', 'scale=0.00393'])
     submit(config)
