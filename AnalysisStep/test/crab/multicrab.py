@@ -68,20 +68,3 @@ if __name__ == '__main__':
     #print " pyCfgParams = ", pyCfgParams
     #print " config.JobType.pyCfgParams = ", config.JobType.pyCfgParams
     submit(config)
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
