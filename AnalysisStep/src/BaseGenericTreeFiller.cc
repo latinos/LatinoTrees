@@ -309,7 +309,7 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const
    }
    else if (std::strncmp(it->name().c_str(), "std_vector_", strlen("std_vector_")) == 0) { //---- now the std::vector <float>
     for (std::vector<tnp::ProbeVariable>::const_iterator it2 = vars_.begin(), ed2 = vars_.end(); it2 != ed2; ++it2) {
-     for (int i=0; i<10; i++) {
+     for (int i=0; i<_maxStdVector; i++) {
       if (std::strncmp(it2->name().c_str(), std::string("_VECTORTEMP_" + it->name() +"_"+std::to_string(i+1)+"_").c_str(), strlen(it2->name().c_str())) == 0) {
        it->fillStdVector(it2->internal_value(),i);
       }
