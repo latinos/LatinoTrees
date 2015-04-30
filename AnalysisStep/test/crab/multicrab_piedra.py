@@ -28,7 +28,7 @@ if __name__ == '__main__':
     from CRABAPI.RawCommand import crabCommand
 
     # Make sure you set this parameter (here or above in the config, it does not matter)
-    config.General.workArea = 'crab_projects_28Apr'
+    config.General.workArea = 'crab_dustin_30Apr'
 
     def submit(config):
         res = crabCommand('submit', config = config)
@@ -112,20 +112,38 @@ if __name__ == '__main__':
     config.Data.inputDBS       = 'phys03'
     config.Data.ignoreLocality = False
 
-    config.General.requestName = 'Higgs_hzpzp_ww_1GeV'
-    config.Data.inputDataset   = '/CRAB_UserFiles/dburns-Higgs_hzpzp_ww_1GeV_13TeV_RECO_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
-    config.JobType.pyCfgParams = list(pyCfgParams)
-    config.JobType.pyCfgParams.extend(['label=Higgs_hzpzp_ww_1GeV', 'id=12345', 'scale=0.00031'])
-    submit(config)
-
-    config.General.requestName = 'Higgs_hzpzp_ww_100GeV'
-    config.Data.inputDataset   = '/CRAB_UserFiles/dburns-Higgs_hzpzp_ww_100GeV_13TeV_RECO_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
-    config.JobType.pyCfgParams = list(pyCfgParams)
-    config.JobType.pyCfgParams.extend(['label=Higgs_hzpzp_ww_100GeV', 'id=12345', 'scale=0.00031'])
-    submit(config)
-
     config.General.requestName = 'ppTOzh_zTO2v_hTOwwTO2l2v'
     config.Data.inputDataset   = '/CRAB_UserFiles/dburns-ppTOzh_zTO2v_hTOwwTO2l2v_13TeV_AODSIM_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
     config.JobType.pyCfgParams = list(pyCfgParams)
-    config.JobType.pyCfgParams.extend(['label=ppTOzh_zTO2v_hTOwwTO2l2v', 'id=12345', 'scale=0.00393'])
+    config.JobType.pyCfgParams.extend(['label=ppTOzh_zTO2v_hTOwwTO2l2v', 'id=12345', 'scale=5.03e-5'])
+    submit(config)
+
+    config.General.requestName = 'hzpzp_ww_1GeV'
+    config.Data.inputDataset   = '/CRAB_UserFiles/dburns-Higgs_hzpzp_nohdecay_ww_1GeV_13TeV_AODSIM_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
+    config.JobType.pyCfgParams = list(pyCfgParams)
+    config.JobType.pyCfgParams.extend(['label=hzpzp_ww_1GeV', 'id=12345', 'scale=3.19e-5'])
+    submit(config)
+
+    config.General.requestName = 'hzpzp_ww_10GeV'
+    config.Data.inputDataset   = '/CRAB_UserFiles/dburns-Higgs_hzpzp_nohdecay_ww_10GeV_13TeV_AODSIM_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
+    config.JobType.pyCfgParams = list(pyCfgParams)
+    config.JobType.pyCfgParams.extend(['label=hzpzp_ww_10GeV', 'id=12345', 'scale=3.09e-5'])
+    submit(config)
+
+    config.General.requestName = 'hzpzp_ww_100GeV'
+    config.Data.inputDataset   = '/CRAB_UserFiles/dburns-Higgs_hzpzp_nohdecay_ww_100GeV_13TeV_AODSIM_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
+    config.JobType.pyCfgParams = list(pyCfgParams)
+    config.JobType.pyCfgParams.extend(['label=hzpzp_ww_100GeV', 'id=12345', 'scale=3.12e-5'])
+    submit(config)
+
+    config.General.requestName = 'hzpzp_ww_500GeV'
+    config.Data.inputDataset   = '/CRAB_UserFiles/dburns-Higgs_hzpzp_nohdecay_ww_500GeV_13TeV_AODSIM_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
+    config.JobType.pyCfgParams = list(pyCfgParams)
+    config.JobType.pyCfgParams.extend(['label=hzpzp_ww_500GeV', 'id=12345', 'scale=2.02e-6'])
+    submit(config)
+
+    config.General.requestName = 'hzpzp_ww_1000GeV'
+    config.Data.inputDataset   = '/CRAB_UserFiles/dburns-Higgs_hzpzp_nohdecay_ww_1000GeV_13TeV_AODSIM_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
+    config.JobType.pyCfgParams = list(pyCfgParams)
+    config.JobType.pyCfgParams.extend(['label=hzpzp_ww_1000GeV', 'id=12345', 'scale=1.69e-10'])
     submit(config)
