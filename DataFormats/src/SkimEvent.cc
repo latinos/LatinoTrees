@@ -4529,6 +4529,7 @@ const int reco::SkimEvent::genLeptonPID(size_t index) const {
 
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
+
     particleID = type;
  }
 
