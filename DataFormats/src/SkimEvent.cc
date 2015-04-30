@@ -4440,7 +4440,7 @@ const float reco::SkimEvent::genLeptonPt(size_t index) const {
 
   std::vector<float> v_leptons_pt;
 
-  float particlePt = -9999.9;
+  float particlePt = -9999;
  
   const reco::Candidate* mcH = 0;
  
@@ -4468,10 +4468,10 @@ const float reco::SkimEvent::genLeptonPt(size_t index) const {
 
 
 // Compatible with PYTHIA8
-const float reco::SkimEvent::genLeptonStatus(size_t index) const {
+const int reco::SkimEvent::genLeptonStatus(size_t index) const {
 
   float pt_ofIndex     = genLeptonPt(index);
-  float particleStatus = -9999.9;
+  int   particleStatus = 0;
 
   const reco::Candidate* mcH = 0;
 
@@ -4483,7 +4483,7 @@ const float reco::SkimEvent::genLeptonStatus(size_t index) const {
 
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
-    particleStatus = (float) genParticles_[gp]->status();
+    particleStatus = genParticles_[gp]->status();
  }
 
  return particleStatus;
@@ -4491,10 +4491,10 @@ const float reco::SkimEvent::genLeptonStatus(size_t index) const {
 
 
 // Compatible with PYTHIA8
-const float reco::SkimEvent::genLeptonPID(size_t index) const {
+const int reco::SkimEvent::genLeptonIndex(size_t index) const {
 
-  float pt_ofIndex = genLeptonPt(index);
-  float particleID = -9999.9;
+  float pt_ofIndex    = genLeptonPt(index);
+  int   particleIndex = -1;
 
   const reco::Candidate* mcH = 0;
 
@@ -4506,7 +4506,30 @@ const float reco::SkimEvent::genLeptonPID(size_t index) const {
 
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
-    particleID = (float) type;
+    particleIndex = (int) gp;
+ }
+
+ return particleIndex;
+}
+
+
+// Compatible with PYTHIA8
+const int reco::SkimEvent::genLeptonPID(size_t index) const {
+
+  float pt_ofIndex = genLeptonPt(index);
+  float particleID = 0;
+
+  const reco::Candidate* mcH = 0;
+
+  // Loop over gen particles
+  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+    int type = abs(genParticles_[gp]->pdgId());
+
+    if (type != 11 && type != 13 && type != 15) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if (mcH->pt() != pt_ofIndex) continue;
+    particleID = type;
  }
 
  return particleID;
@@ -4517,7 +4540,7 @@ const float reco::SkimEvent::genLeptonPID(size_t index) const {
 const float reco::SkimEvent::genLeptonEta(size_t index) const {
 
   float pt_ofIndex  = genLeptonPt(index);
-  float particleEta = -9999.9;
+  float particleEta = -9999;
 
   const reco::Candidate* mcH = 0;
 
@@ -4560,10 +4583,10 @@ const float reco::SkimEvent::genLeptonPhi(size_t index) const {
 
 
 // Compatible with PYTHIA8
-const float reco::SkimEvent::genLeptonMotherPID(size_t index) const {
+const int reco::SkimEvent::genLeptonMotherPID(size_t index) const {
 
   float pt_ofIndex = genLeptonPt(index);
-  float motherPID  = -9999.9;
+  int   motherPID  = 0;
 
   const reco::Candidate* mcH = 0;
 
@@ -4582,7 +4605,7 @@ const float reco::SkimEvent::genLeptonMotherPID(size_t index) const {
   
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
-    motherPID = (float) motherPdgId;
+    motherPID = motherPdgId;
   }
   
   return motherPID;
@@ -4590,10 +4613,10 @@ const float reco::SkimEvent::genLeptonMotherPID(size_t index) const {
 
 
 // Compatible with PYTHIA8
-const float reco::SkimEvent::genLeptonMotherStatus(size_t index) const {
+const int reco::SkimEvent::genLeptonMotherStatus(size_t index) const {
 
   float pt_ofIndex   = genLeptonPt(index);
-  float motherStatus = -9999.9;
+  int   motherStatus = 0;
 
   const reco::Candidate* mcH = 0;
 
@@ -4612,7 +4635,7 @@ const float reco::SkimEvent::genLeptonMotherStatus(size_t index) const {
   
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
-    motherStatus = (float) motherOriginalStatus;
+    motherStatus = motherOriginalStatus;
   }
 
   return motherStatus;
