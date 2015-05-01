@@ -38,6 +38,12 @@ class ProbeVariable {
         /// Create a ProbeVariable to be evaluated on the fly from a string expression
         ProbeVariable(const std::string &name, const std::string &expression) :
             name_(name), external_(false), function_(expression) {}
+//         ProbeVariable(const std::string &name, const std::string &expression, int isVector=0) :
+//             name_(name), external_(false), function_(expression) {
+//              if (isVector) {
+//               function_std_vector_(expression);
+//              }
+//             }
 
         /// Create a ProbeVariable to be read from a ValueMap
         ProbeVariable(const std::string &name, const edm::EDGetTokenT<edm::ValueMap<float> > &srcToken) :
@@ -52,6 +58,9 @@ class ProbeVariable {
         
         std::vector<float> * address_std_vector() const { return &std_vector_value_; }
         
+        std::vector<float> * address_std_vector_variable_length() const { return &std_vector_variable_length_value_; }
+        
+        
         /// name
         const std::string & name() const { return name_; }
 
@@ -60,7 +69,10 @@ class ProbeVariable {
         
         /// To be called at the beginning of the event (will fetch ValueMap if needed)
         void init(const edm::Event &iEvent) const {
-            if (external_) iEvent.getByToken(srcToken_, handle_);
+            if (external_) iEvent.getByToken(srcToken_, handle_);       
+            //---- clear the std::vectors
+            std_vector_value_.clear();
+            std_vector_variable_length_value_.clear();
         }
 
         /// To be called for each item
@@ -85,6 +97,24 @@ class ProbeVariable {
          std_vector_value_.at(iPosition) = x;
         }
         
+//         void fillStdVectorVariableLength(const reco::CandidateBaseRef &probe) const {
+//          std::vector < float > value;
+//          value = function_std_vector_(*probe);
+//          for (unsigned int i=0; i<value.size(); i++) {
+//           std_vector_variable_length_value_.push_back(value.at(i));
+//          }
+//         }
+        
+        
+        void fillStdVectorVariableLength(float x, int iPosition) const {
+         if (iPosition >= (int) std_vector_variable_length_value_.size()) {
+          for (int i = (int) std_vector_variable_length_value_.size(); iPosition>=i; i++) {
+           std_vector_variable_length_value_.push_back(-9999.0);
+          }
+         }
+         std_vector_variable_length_value_.at(iPosition) = x;
+//          std_vector_variable_length_value_.push_back(x);
+        }
         
         
     private:
@@ -101,7 +131,8 @@ class ProbeVariable {
         mutable float value4D_t_;
 
         mutable std::vector<float> std_vector_value_;
-
+        mutable std::vector<float> std_vector_variable_length_value_;
+        
         
         /// true if it's an external ValueMap, false if it's a StringParser function
         bool external_;
@@ -110,7 +141,8 @@ class ProbeVariable {
         StringObjectFunction<reco::Candidate,true> function_;
         // In releases older than 3.4.X, it can be parially emulated by PATStringObjectFunction (PhysicsTools/PatUtils/interface/StringParserTools.h)
         // Or you can use StringObjectFunction<reco::Candidate> and get only reco::Candidate methods
-
+//         StringObjectFunctionVector<reco::Candidate,true> function_std_vector_;
+        
         // ---- this below is used if 'external_' is true
         /// the external valuemap
         edm::EDGetTokenT<edm::ValueMap<float> > srcToken_;

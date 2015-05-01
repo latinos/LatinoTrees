@@ -119,6 +119,13 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
          }
          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));
         }
+        //---- std::vector <float> with variable length
+        else if (std::strncmp((branchNamePrefix + *it).c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) {
+         for (int i=0; i<_maxStdVector; i++) {
+          vars_.push_back(tnp::ProbeVariable("_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", variables.getParameter<std::string>(*it)+"("+std::to_string(i)+")"));
+         }
+         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));
+        }
         //---- simple variable
         else {
          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));
@@ -151,6 +158,7 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
     for (std::vector<tnp::ProbeVariable>::iterator it = vars_.begin(), ed = vars_.end(); it != ed; ++it) {
      if (std::strncmp(it->name().c_str(), "_TEMP_", strlen("_TEMP_")) != 0
       && std::strncmp(it->name().c_str(), "_VECTORTEMP_", strlen("_VECTORTEMP_")) != 0         
+      && std::strncmp(it->name().c_str(), "_VECTORVARIABLETEMP_", strlen("_VECTORVARIABLETEMP_")) != 0         
      ) { //---- only *not* temporary variables  
       //---- TLorentzVectors
       
@@ -161,7 +169,12 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
       else if (std::strncmp(it->name().c_str(), "std_vector_", strlen("std_vector_")) == 0) {
        tree->Branch(it->name().c_str(), it->address_std_vector());
 //        tree->Branch(it->name().c_str(), "std::vector<float>", it->address_std_vector());       
-      }      
+      }     
+      //---- std::vector <float>  with variable length
+      else if (std::strncmp(it->name().c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) {
+       tree->Branch(it->name().c_str(), it->address_std_vector_variable_length());
+       //        tree->Branch(it->name().c_str(), "std::vector<float>", it->address_std_vector_variable_length());       
+      } 
       //---- float
       else {
        tree->Branch(it->name().c_str(), it->address(), (it->name()+"/F").c_str());
@@ -275,7 +288,8 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const
  
  for (std::vector<tnp::ProbeVariable>::const_iterator it = vars_.begin(), ed = vars_.end(); it != ed; ++it) {
   if (std::strncmp(it->name().c_str(), "v_", strlen("v_")) != 0 &&
-      std::strncmp(it->name().c_str(), "std_vector_", strlen("std_vector_")) != 0
+      std::strncmp(it->name().c_str(), "std_vector_", strlen("std_vector_")) != 0 &&
+      std::strncmp(it->name().c_str(), "std_variable_vector_", strlen("std_variable_vector_")) != 0
   ) { //---- first normal variables  
     it->fill(probe);
   }
@@ -284,7 +298,8 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const
  for (std::vector<tnp::ProbeVariable>::const_iterator it = vars_.begin(), ed = vars_.end(); it != ed; ++it) {
   if (
    std::strncmp(it->name().c_str(), "_TEMP_", strlen("_TEMP_")) != 0 &&
-   std::strncmp(it->name().c_str(), "_VECTORTEMP_", strlen("_VECTORTEMP_")) != 0
+   std::strncmp(it->name().c_str(), "_VECTORTEMP_", strlen("_VECTORTEMP_")) != 0 &&
+   std::strncmp(it->name().c_str(), "_VECTORVARIABLETEMP_", strlen("_VECTORVARIABLETEMP_")) != 0
   ) { //---- only *not* temporary variables  
    if (std::strncmp(it->name().c_str(), "v_", strlen("v_")) == 0) { //---- now the vectors
     float x = 0;
@@ -315,8 +330,25 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const
       }
      }
     }
-    
    }
+   else if (std::strncmp(it->name().c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) { //---- now the std::vector <float> with variable length
+    for (std::vector<tnp::ProbeVariable>::const_iterator it2 = vars_.begin(), ed2 = vars_.end(); it2 != ed2; ++it2) {
+     for (int i=0; i<_maxStdVector; i++) {
+      if (std::strncmp(it2->name().c_str(), std::string("_VECTORVARIABLETEMP_" + it->name() +"_"+std::to_string(i+1)+"_").c_str(), strlen(it2->name().c_str())) == 0) {
+       float value_to_be_put = it2->internal_value();
+       if (value_to_be_put != -9999.0) {
+        //---- if it reaches the "default value" the saving of the std::vector STOPS! By doing this we save space and time!    
+        //----                but it is important that the default value is set to -9999.0 !
+        it->fillStdVectorVariableLength(value_to_be_put,i);
+       }
+       else {
+        break;
+       }
+      }
+     }
+    }
+   }   
+   
   }
  }
  

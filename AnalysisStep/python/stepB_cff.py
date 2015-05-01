@@ -69,6 +69,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         v_jet3 = cms.string("jet(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         v_jet4 = cms.string("jet(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
 
+
+        std_variable_vector_lepton_pt  = cms.string("ptByPt"),
+        
         std_vector_lepton_pt  = cms.string("ptByPt"),
         std_vector_lepton_eta = cms.string("etaByPt"),
         std_vector_lepton_phi = cms.string("phiByPt"),
