@@ -224,7 +224,7 @@ class BaseGenericTreeFiller : boost::noncopyable {
 
         std::vector<ProbeVariable> vars_;
         std::vector<ProbeFlag>     flags_;
-
+                
         /// How event weights are defined: 'None' = no weights, 'Fixed' = one value specified in cfg file, 'External' = read weight from the event (as double)
         enum WeightMode { None, Fixed, External };
         WeightMode weightMode_;
@@ -258,7 +258,11 @@ class BaseGenericTreeFiller : boost::noncopyable {
           
         /// maximum length for std::vectors
         int _maxStdVector;
-          
+        
+//  private:
+        /// maximum length for std::vectors for specific/explicit variables
+        std::map<std::string, int> _map_variables_vectorLength;
+        
 };
 
 

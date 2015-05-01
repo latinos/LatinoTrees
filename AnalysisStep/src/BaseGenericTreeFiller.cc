@@ -121,11 +121,27 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
         }
         //---- std::vector <float> with variable length
         else if (std::strncmp((branchNamePrefix + *it).c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) {
-         for (int i=0; i<_maxStdVector; i++) {
-          vars_.push_back(tnp::ProbeVariable("_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", variables.getParameter<std::string>(*it)+"("+std::to_string(i)+")"));
+         std::string nameVariable = variables.getParameter<std::string>(*it);
+//          std::cout << " nameVariable = " << nameVariable << " ( " << branchNamePrefix + *it << " )" << std::endl;
+         int lenghtVector_nameVariable_int;
+         lenghtVector_nameVariable_int = _maxStdVector;
+         //---- check if explicit vector length, if not, default will be used
+         if (nameVariable.find("/") != std::string::npos) {
+          std::size_t position = nameVariable.find("/");  //---- position of "/" in str
+          std::string lenghtVector_nameVariable = nameVariable.substr (position+1);
+          lenghtVector_nameVariable_int = atoi(lenghtVector_nameVariable.c_str());
+//           std::cout << " lenghtVector_nameVariable = " << lenghtVector_nameVariable << " -- lenghtVector_nameVariable_int = " << lenghtVector_nameVariable_int << std::endl;
+          nameVariable =  nameVariable.substr(0,position);
+//           std::cout << " new nameVariable = " << nameVariable << std::endl;
+          _map_variables_vectorLength[branchNamePrefix + *it] = lenghtVector_nameVariable_int;
          }
-         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));
+
+         for (int i=0; i<lenghtVector_nameVariable_int; i++) {
+          vars_.push_back(tnp::ProbeVariable("_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+"("+std::to_string(i)+")"));
+         }
+         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, nameVariable));
         }
+        
         //---- simple variable
         else {
          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));
@@ -333,7 +349,15 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const
    }
    else if (std::strncmp(it->name().c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) { //---- now the std::vector <float> with variable length
     for (std::vector<tnp::ProbeVariable>::const_iterator it2 = vars_.begin(), ed2 = vars_.end(); it2 != ed2; ++it2) {
-     for (int i=0; i<_maxStdVector; i++) {
+     
+     //---- get max length for this vector
+     int lenghtVector_nameVariable_int;
+     lenghtVector_nameVariable_int = _maxStdVector;     
+     if (_map_variables_vectorLength.find( it->name() )  != _map_variables_vectorLength.end()) {
+      lenghtVector_nameVariable_int = _map_variables_vectorLength.at(it->name());
+     }
+     
+     for (int i=0; i<lenghtVector_nameVariable_int; i++) {
       if (std::strncmp(it2->name().c_str(), std::string("_VECTORVARIABLETEMP_" + it->name() +"_"+std::to_string(i+1)+"_").c_str(), strlen(it2->name().c_str())) == 0) {
        float value_to_be_put = it2->internal_value();
        if (value_to_be_put != -9999.0) {
@@ -351,7 +375,6 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const
    
   }
  }
- 
  
  
  for (std::vector<tnp::ProbeFlag>::const_iterator it = flags_.begin(), ed = flags_.end(); it != ed; ++it) {

@@ -60,4 +60,16 @@ Phys14:
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    08CFEF83-586C-E411-8D7C-002590A2CCF2.root
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    440AA9AF-9988-E411-9786-00266CFFA038.root
 
+    cmsRun stepB.py print \
+                    label=Top \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    maxEvents=200 \
+                    doLHE=False \
+                    doGen=True \
+                    doBTag=True \
+                    inputFiles=file:/tmp/amassiro/003B6371-8D81-E411-8467-003048F0E826.root
 
