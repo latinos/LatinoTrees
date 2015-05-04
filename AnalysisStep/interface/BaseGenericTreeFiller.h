@@ -30,6 +30,9 @@
 #include "DataFormats/Math/interface/LorentzVector.h"
 
 
+//---- latino default value
+#include "LatinoTrees/DataFormats/interface/DefaultValues.h"
+
 namespace tnp {
 
 /// A variable for the probe: can be a string expression or an external ValueMap<float>
@@ -262,6 +265,7 @@ class BaseGenericTreeFiller : boost::noncopyable {
 //  private:
         /// maximum length for std::vectors for specific/explicit variables
         std::map<std::string, int> _map_variables_vectorLength;
+        std::map<std::string, int> _map_vectorLength;
         
 };
 

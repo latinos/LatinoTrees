@@ -48,6 +48,10 @@
 #include "SimDataFormats/GeneratorProducts/interface/LHEEventProduct.h"
 #include "SimDataFormats/GeneratorProducts/interface/LHERunInfoProduct.h"
 
+//---- latino default value
+#include "LatinoTrees/DataFormats/interface/DefaultValues.h"
+
+
 
 #include <vector>
 #include <utility>

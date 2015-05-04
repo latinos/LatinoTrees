@@ -558,7 +558,7 @@ const pat::Electron * reco::SkimEvent::getElectron(const refToCand &c) const {
 }
 
 const float reco::SkimEvent::pt(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat; //---- -9999.0
  return leps_[i]->pt();
 }
 
@@ -578,37 +578,37 @@ const int reco::SkimEvent::passCustom(size_t i, const std::string &muStr, const 
 
 
 const float reco::SkimEvent::leptId(size_t i, std::string idele, std::string idmu) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isElectron(i) ) return getElectron(i)->userFloat(idele); //---- "idele" is the name of the id for electrons
  else return getMuon(i)->userFloat(idmu);
 }
 
 const float reco::SkimEvent::leptBdt(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isElectron(i) ) return getElectron(i)->userFloat("bdttrig"); // changed from "bdt" to "bdttrig"
  else return 999999.;
 }
 
 const float reco::SkimEvent::leptLH(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  //   if( isElectron(i) ) return getElectron(i)->electronID("egammaIDLikelihood"); # FIXME
  else return 999999.;
 }
 
 const float reco::SkimEvent::eta(size_t i) const {
  if(i < leps_.size()) return leps_[i]->eta();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::etaSC(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isElectron(i) ) return getElectron(i)->superCluster()->eta();
  else return leps_[i]->eta();
 }
 
 const float reco::SkimEvent::nBrem(size_t i) const {
  // std::cout << " AH AH AH i= " << i << " while leps_.size() = " << leps_.size() << std::endl;
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  // std::cout << " ma stai facendo quasto???" << std::endl;
  if( isElectron(i) ) return getElectron(i)->numberOfBrems();
  else return 0;
@@ -616,13 +616,13 @@ const float reco::SkimEvent::nBrem(size_t i) const {
 
 const float reco::SkimEvent::phi(size_t i) const {
  if(i < leps_.size()) return leps_[i]->phi();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 
 const int reco::SkimEvent::q(size_t i) const{
  if(i < leps_.size()) return leps_[i]->charge();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 
@@ -792,7 +792,7 @@ const float reco::SkimEvent::dPhiJetllInDegrees(size_t leadingIndex,float minPt,
 
 const float reco::SkimEvent::dPhiJetll(size_t leadingIndex,float minPt,float eta,int applyCorrection,int applyID) const {
  
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  
  size_t count = 0, newIndex = 0;
  for(size_t i=0;i<jets_.size();++i) {
@@ -1470,7 +1470,7 @@ const int reco::SkimEvent::nCentralJets(float minPt,float eta,int applyCorrectio
 }
 
 const bool reco::SkimEvent::passesDPhillJet(float ptMin, float eta,int applyCorrection,int applyID) const {
- if(leps_.size() < 2) return -9999.0;   
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;   
  float dphi = 0, ptMax = 0;
  for(size_t i=0;i<jets_.size();++i) {
   if(!(passJetID(jets_[i],applyID)) ) continue;
@@ -1487,7 +1487,7 @@ const bool reco::SkimEvent::passesDPhillJet(float ptMin, float eta,int applyCorr
 }
 
 const float reco::SkimEvent::dPhillLeadingJet(float eta,int applyCorrection,int applyID) const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  float dphi = 0, ptMax = 0;
  for(size_t i=0;i<jets_.size();++i) {
   if(!(passJetID(jets_[i],applyID)) ) continue;
@@ -1519,7 +1519,7 @@ const float reco::SkimEvent::dPhillLeadingJet(float eta,int applyCorrection,int 
 // }
 
 const float reco::SkimEvent::dPhilljetjet(float eta,int applyCorrection,int applyID) const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  float dphi = -1;
  int jet1 = indexJetByPt(0,0,eta,applyCorrection,applyID);
  int jet2 = indexJetByPt(1,0,eta,applyCorrection,applyID);
@@ -1763,50 +1763,50 @@ const float reco::SkimEvent::leadingFatJetPrunedTau4(size_t index, float minPt,f
 const float reco::SkimEvent::pfType1Met() const {
  
  if(pfMet_.isNonnull()) return pfMet_->pt();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 const float reco::SkimEvent::pfType1SumEt() const {
  
  if(pfMet_.isNonnull()) return pfMet_->sumEt();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 const float reco::SkimEvent::pfType1MetUp() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnUp);
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 const float reco::SkimEvent::pfType1MetDn() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnDown);
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 const float reco::SkimEvent::pfType1MetPhi() const {
  
  if(pfMet_.isNonnull()) return pfMet_->phi();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::pfRawSumEt() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedSumEt(pat::MET::NoShift, pat::MET::Raw);
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::pfRawMet() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::NoShift, pat::MET::Raw);
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 const float reco::SkimEvent::pfRawMetPhi() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::NoShift, pat::MET::Raw);
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::pupMet() const {
  
  if(pupMet_.isNonnull()) return pupMet_->pt();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 const float reco::SkimEvent::trkMet() const {
  return trkMet_.pt();
@@ -1817,19 +1817,19 @@ const float reco::SkimEvent::trkMet() const {
 const float reco::SkimEvent::tcSumEt() const {
  
  if(pfMet_.isNonnull()) return tcMet_->sumEt();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::tcMet() const {
  
  if(tcMet_.isNonnull()) return tcMet_->pt();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::tcMetPhi() const {
  
  if(tcMet_.isNonnull()) return tcMet_->phi();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 
@@ -1845,13 +1845,13 @@ const float reco::SkimEvent::chargedMet() const {
 const float reco::SkimEvent::pfMetSignificance() const {
  
  if(pfMet_.isNonnull()) return pfMet_->significance();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::pfMetMEtSig() const {
  
  if(pfMet_.isNonnull()) return pfMet_->mEtSig();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 
@@ -1876,47 +1876,47 @@ const float reco::SkimEvent::chargedMetSmurfSumEt() const {
 const float reco::SkimEvent::tcMetX() const {
  
  if(tcMet_.isNonnull()) return tcMet_->px();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::tcMetY() const {
  
  if(tcMet_.isNonnull()) return tcMet_->py();
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::mll() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).mass();
 }
 
 const float reco::SkimEvent::pTll() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).pt();
 }
 
 const float reco::SkimEvent::dPhill() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4(),leps_[indexByPt(1)]->p4()) );
 }
 
 const float reco::SkimEvent::dRll() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return ROOT::Math::VectorUtil::DeltaR(leps_[indexByPt(0)]->p4(),leps_[indexByPt(1)]->p4());
 }
 
 const float reco::SkimEvent::dEtall() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return fabs(leps_[indexByPt(0)]->eta() - leps_[indexByPt(1)]->eta());
 }
 
 const float reco::SkimEvent::etall() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).eta();
 }
 
 const float reco::SkimEvent::yll() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).Rapidity();
 }
 
@@ -1931,23 +1931,23 @@ const float reco::SkimEvent::dPhillMet(metType metToUse) const {
 }
 
 const float reco::SkimEvent::dPhillPfMet() const {
- if(leps_.size() < 2 || pfMet_.isNull()) return -9999.0;
+ if(leps_.size() < 2 || pfMet_.isNull()) return defaultvalues::defaultFloat;
  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(),pfMet_->p4()) );
 }
 
 const float reco::SkimEvent::dPhillTcMet() const {
- if(leps_.size() < 2 || tcMet_.isNull()) return -9999.0;
+ if(leps_.size() < 2 || tcMet_.isNull()) return defaultvalues::defaultFloat;
  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(),tcMet_->p4()) );
 }
 
 const float reco::SkimEvent::dPhillChargedMet() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(),chargedMet_.p4()) );
 }
 
 /*
  * const float reco::SkimEvent::dPhillMinMet() const {
- * if(leps_.size()!=2) return -9999.0;
+ * if(leps_.size()!=2) return defaultvalues::defaultFloat;
  * return fabs(ROOT::Math::VectorUtil::DeltaPhi(leps_[indexByPt(0)]->p4()+leps_[indexByPt(1)]->p4(),minMetP4()) );
  * }
  */
@@ -1965,22 +1965,22 @@ const float reco::SkimEvent::mTHiggs(metType metToUse) const {
 }
 
 const float reco::SkimEvent::pXll() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).px();
 }
 
 const float reco::SkimEvent::pYll() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).py();
 }
 
 const float reco::SkimEvent::mTll() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return (leps_[indexByPt(0)]->p4() + leps_[indexByPt(1)]->p4()).mt();
 }
 
 const float reco::SkimEvent::mT(size_t i, metType metToUse) const {
- if(i>=leps_.size()) return -9999.0;
+ if(i>=leps_.size()) return defaultvalues::defaultFloat;
  return sqrt(2*pt(i)*met(metToUse)*(1 - cos(dPhilMet(i, metToUse))));
 }
 
@@ -2106,44 +2106,44 @@ const float reco::SkimEvent::dPhilChargedMetSmurf() const {
  */
 
 const float reco::SkimEvent::dPhilMet(size_t i, metType metToUse) const {
- if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
  switch (metToUse) {
   case TCMET: return dPhilTcMet(i);
   case PFMET: return dPhilPfMet(i);
   case CHMET: return dPhilChargedMet(i);
   //case MINMET: return dPhilMinMet(i);
  }
- return -9999.0;
+ return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::dPhilTcMet(size_t i) const {
- if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
  return fabs(ROOT::Math::VectorUtil::DeltaPhi(tcMet_->p4(),leps_[i]->p4()) );
 }
 
 const float reco::SkimEvent::dPhilPfMet(size_t i) const {
- if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
  return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::NoShift, pat::MET::Raw),leps_[i]->p4()) );
 }
 
 const float reco::SkimEvent::dPhilMvaMet(size_t i) const {
- if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
  return fabs(ROOT::Math::VectorUtil::DeltaPhi(mvaMet_.p4(),leps_[i]->p4()) );
 }
 
 const float reco::SkimEvent::dPhilChargedMet(size_t i) const {
- if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
  return fabs(ROOT::Math::VectorUtil::DeltaPhi(chargedMet_.p4(),leps_[i]->p4()) );
 }
 
 const float reco::SkimEvent::dPhilChargedMetSmurf(size_t i) const {
- if( i >= std::min((uint) 2,(uint) leps_.size()) ) return -9999.0;
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
  return fabs(ROOT::Math::VectorUtil::DeltaPhi(chargedMetSmurf_.p4(),leps_[i]->p4()) );
 }
 
 /*
  * const float reco::SkimEvent::dPhilMinMet(size_t i) const {
- * if( i >= leps_.size() ) return -9999.0;
+ * if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  * return fabs(ROOT::Math::VectorUtil::DeltaPhi(minMetP4(),leps_[i]->p4()) );
  * }
  */
@@ -2392,59 +2392,59 @@ const bool reco::SkimEvent::triggerMatchingCut(SkimEvent::primaryDatasetType pdT
 //Iso Functions
 const float reco::SkimEvent::tkIso(size_t i) const {
  
- if( i >= leps_.size() ) return -9999.0;
+ if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  
  if( isElectron(i) ) {
   return getElectron(i)->dr03TkSumPt();
  } else if ( isMuon(i) ) {
   return getMuon(i)->isolationR03().sumPt;
  } else {
-  return -9999.0;
+  return defaultvalues::defaultFloat;
  }
 }
 
 const float reco::SkimEvent::ecalIso(size_t i) const {
  
- if( i >= leps_.size() ) return -9999.0;
+ if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  
  if( isElectron(i) ) {
   return getElectron(i)->dr03EcalRecHitSumEt();
  } else if ( isMuon(i) ) {
   return getMuon(i)->isolationR03().emEt;
  } else {
-  return -9999.0;
+  return defaultvalues::defaultFloat;
  }
 }
 
 const float reco::SkimEvent::hcalIso(size_t i) const {
  
- if( i >= leps_.size() ) return -9999.0;
+ if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  
  if( isElectron(i) ) {
   return getElectron(i)->userFloat("hcalFull");
  } else if ( isMuon(i) ) {
   return getMuon(i)->isolationR03().hadEt;
  } else {
-  return -9999.0;
+  return defaultvalues::defaultFloat;
  }
 }
 
 const float reco::SkimEvent::getRho(size_t i) const {
  
- if( i >= leps_.size() ) return -9999.0;
+ if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  
  if( isElectron(i) ) {
   return getElectron(i)->userFloat("rhoEl");
  } else if ( isMuon(i) ) {
   return getMuon(i)->userFloat("rhoMu");
  } else {
-  return -9999.0;
+  return defaultvalues::defaultFloat;
  }
 }
 
 const float reco::SkimEvent::allIso(size_t i) const {
  
- if( i >= leps_.size() ) return -9999.0;
+ if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  
  if( isElectron(i) ) {
   return getElectron(i)->userFloat("eleSmurfPF04");
@@ -2466,62 +2466,62 @@ const float reco::SkimEvent::allIso(size_t i) const {
 
 const float reco::SkimEvent::mvaIso(size_t i) const {
  
- if( i >= leps_.size() ) return -9999.0;
+ if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  if ( isElectron(i) ) return getElectron(i)->userFloat("pfCombRelIso04EACorr");
  else if ( isMuon(i) ) return getMuon(i)->userFloat("bdtisonontrigDZ");
- else return -9999.0;
+ else return defaultvalues::defaultFloat;
 }
 
 
 const float reco::SkimEvent::tkVeto(size_t i) const {
  
- if( i >= leps_.size() ) return -9999.0;
+ if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  
  if( isElectron(i) ) {
   return 0;
  } else if ( isMuon(i) ) {
   return getMuon(i)->isolationR03().trackerVetoPt;
  } else {
-  return -9999.0;
+  return defaultvalues::defaultFloat;
  }
 }
 
 const float reco::SkimEvent::ecalVeto(size_t i) const {
  
- if( i >= leps_.size() ) return -9999.0;
+ if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  
  if( isElectron(i) ) {
   return 0;
  } else if ( isMuon(i) ) {
   return getMuon(i)->isolationR03().emVetoEt;
  } else {
-  return -9999.0;
+  return defaultvalues::defaultFloat;
  }
 }
 
 const float reco::SkimEvent::hcalVeto(size_t i) const {
  
- if( i >= leps_.size() ) return -9999.0;
+ if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  
  if( isElectron(i) ) {
   return 0;
  } else if ( isMuon(i) ) {
   return getMuon(i)->isolationR03().hadVetoEt;
  } else {
-  return -9999.0;
+  return defaultvalues::defaultFloat;
  }
 }
 
 const float reco::SkimEvent::allVeto(size_t i) const {
  
- if( i >= leps_.size() ) return -9999.0;
+ if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  
  if( isElectron(i) ) {
   return 0;
  } else if( isMuon(i) ) {
   return tkVeto(i) + ecalVeto(i) + hcalVeto(i);
  } else {
-  return -9999.0;
+  return defaultvalues::defaultFloat;
  }
 }
 
@@ -2640,7 +2640,7 @@ const reco::Vertex reco::SkimEvent::highestPtVtx() const {
 }
 
 const bool reco::SkimEvent::passesIP() const {
- if(leps_.size() < 2) return -9999.0;
+ if(leps_.size() < 2) return defaultvalues::defaultFloat;
  return (passesIP(leps_[indexByPt(0)]) && passesIP(leps_[indexByPt(1)]));
 }
 
@@ -2909,7 +2909,7 @@ const float reco::SkimEvent::matchedJetPt(size_t i, float minDr, bool applyCorre
 
 
 const int reco::SkimEvent::muNValidHitsInTrk(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isMuon(i) ) {
   reco::TrackRef tr_innertrack = getMuon(i)->innerTrack(); 
   if (!tr_innertrack.isNull()) {
@@ -2919,7 +2919,7 @@ const int reco::SkimEvent::muNValidHitsInTrk(size_t i) const {
 }
 
 const float reco::SkimEvent::muNValidFractInTrk(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isMuon(i) ) {
   reco::TrackRef tr_innertrack = getMuon(i)->innerTrack(); 
   if (!tr_innertrack.isNull()) {
@@ -2931,7 +2931,7 @@ const float reco::SkimEvent::muNValidFractInTrk(size_t i) const {
 
 
 const float reco::SkimEvent::muNormChi2GTrk(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isMuon(i) ) {
   reco::TrackRef tr_globaltrack =getMuon(i)->globalTrack(); 
   if (!tr_globaltrack.isNull()) {
@@ -2941,7 +2941,7 @@ const float reco::SkimEvent::muNormChi2GTrk(size_t i) const {
 }
 
 const int reco::SkimEvent::muNValidHitsSATrk(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isMuon(i) ) {
   reco::TrackRef tr_outtrack = getMuon(i)->standAloneMuon(); 
   if (!tr_outtrack.isNull()) {
@@ -2953,7 +2953,7 @@ const int reco::SkimEvent::muNValidHitsSATrk(size_t i) const {
 
 
 const int  reco::SkimEvent::muNumOfMatchedStations(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isMuon(i) ) {
   return getMuon(i)->numberOfMatchedStations();
  } else return -999.0;
@@ -2961,7 +2961,7 @@ const int  reco::SkimEvent::muNumOfMatchedStations(size_t i) const {
 
 
 const float reco::SkimEvent::muBestTrackdz(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  const reco::Vertex primaryVtx = highestPtVtx();
  if( isMuon(i) ) {
   return getMuon(i)->muonBestTrack()->dz(primaryVtx.position());
@@ -2970,7 +2970,7 @@ const float reco::SkimEvent::muBestTrackdz(size_t i) const {
 
 
 const float reco::SkimEvent::muBestTrackdxy(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  const reco::Vertex primaryVtx = highestPtVtx();
  if( isMuon(i) ) {
   return getMuon(i)->muonBestTrack()->dxy(primaryVtx.position());
@@ -2979,7 +2979,7 @@ const float reco::SkimEvent::muBestTrackdxy(size_t i) const {
 
 
 const int  reco::SkimEvent::muNValidPixelHitsInTrk(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isMuon(i) ) { 
   reco::TrackRef tr_innertrack = getMuon(i)->innerTrack();     
   if (!tr_innertrack.isNull()) {
@@ -2990,7 +2990,7 @@ const int  reco::SkimEvent::muNValidPixelHitsInTrk(size_t i) const {
 
 
 const int  reco::SkimEvent::muNTkLayers(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isMuon(i) ) { 
   reco::TrackRef tr_innertrack = getMuon(i)->innerTrack(); 
   if (!tr_innertrack.isNull()) {
@@ -3001,21 +3001,21 @@ const int  reco::SkimEvent::muNTkLayers(size_t i) const {
 
 
 const float  reco::SkimEvent::muTrkKink(size_t  i) const {
- if(i >= leps_.size()) return -9999.0;  
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isMuon(i) ) {
   return  getMuon(i)->combinedQuality().trkKink;
  } else return -999.0;
 }
 
 const float reco::SkimEvent::muChi2LocalPos(size_t i) const  {
- if(i >= leps_.size()) return -9999.0;  
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isMuon(i) ) {
   return getMuon(i)->combinedQuality().chi2LocalPosition;
  } else return -999.0;
 }
 
 const float reco::SkimEvent::muSegCompatibilty(size_t i) const  {
- if(i >= leps_.size()) return -9999.0;  
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isMuon(i) ) {
   return getMuon(i)->segmentCompatibility();
  } else return -999.0;
@@ -3023,7 +3023,7 @@ const float reco::SkimEvent::muSegCompatibilty(size_t i) const  {
 
 
 const bool reco::SkimEvent::isTightMuon(size_t i) const {
- if(i >= leps_.size()) return -9999.0;  
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isMuon(i) ) {
   return (muon::isTightMuon(*getMuon(i), highestPtVtx()));
  } else {
@@ -3035,27 +3035,27 @@ const bool reco::SkimEvent::isTightMuon(size_t i) const {
 
 
 const float reco::SkimEvent::muSIP3D(size_t i) const {
- if(i >= leps_.size()) return -9999.0;  
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isMuon(i) ) {
   double ip = fabs(getMuon(i)->dB(pat::Muon::PV3D));
   double ipError = getMuon(i)->edB(pat::Muon::PV3D);
   double sip = ip/ipError;
   return sip;
  } else {
-  return -9999.0;
+  return defaultvalues::defaultFloat;
  }
 }
 
 
 const float reco::SkimEvent::elSIP3D(size_t i) const {
- if(i >= leps_.size()) return -9999.0;  
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isElectron(i) ) {
   double ip = fabs(getElectron(i)->dB(pat::Electron::PV3D));
   double ipError = getElectron(i)->edB(pat::Electron::PV3D);
   double sip = ip/ipError;
   return sip;
  } else {
-  return -9999.0;
+  return defaultvalues::defaultFloat;
  }
 }
 
@@ -3066,31 +3066,31 @@ const float reco::SkimEvent::elSIP3D(size_t i) const {
  */
 
 const float reco::SkimEvent::deltaEtaSuperClusterTrackAtVtx(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isElectron(i) ) return getElectron(i)->deltaEtaSuperClusterTrackAtVtx();
  else return -999.0;
 }
 
 const float reco::SkimEvent::deltaPhiSuperClusterTrackAtVtx(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  else if( isElectron(i) ) return getElectron(i)->deltaPhiSuperClusterTrackAtVtx();
  else return -999.0;
 }
 
 const float reco::SkimEvent::sigmaIetaIeta(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  else if( isElectron(i) ) return getElectron(i)->sigmaIetaIeta();
  else return -999.0;
 }
 
 const float reco::SkimEvent::hadronicOverEm(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  else if( isElectron(i) ) return getElectron(i)->hadronicOverEm();
  else return -999.0;
 }
 
 const float reco::SkimEvent::numberOfHits(size_t i) const {
- if(i >= leps_.size()) return -9999.0;
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
  //---- formerly:  else if( isElectron(i) ) return getElectron(i)->gsfTrack()->trackerExpectedHitsInner().numberOfHits();
  else if( isElectron(i) ) return getElectron(i)->gsfTrack()->hitPattern().numberOfTrackerHits(reco::HitPattern::TRACK_HITS);
  else return -999.0;
@@ -3099,35 +3099,35 @@ const float reco::SkimEvent::numberOfHits(size_t i) const {
 
 // Muon and electron isolation
 const float reco::SkimEvent::chargedHadronIso(size_t i) const {
- if      (i >= leps_.size()) return -9999.0;
+ if      (i >= leps_.size()) return defaultvalues::defaultFloat;
  else if (isElectron(i))     return getElectron(i)->pfIsolationVariables().sumChargedHadronPt;
  else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumChargedHadronPt;
  else                        return -999.0;
 }
 
 const float reco::SkimEvent::chargedParticleIso(size_t i) const {
- if      (i >= leps_.size()) return -9999.0;
+ if      (i >= leps_.size()) return defaultvalues::defaultFloat;
  else if (isElectron(i))     return -99.0;
  else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumChargedParticlePt;
  else                        return -999.0;
 }
 
 const float reco::SkimEvent::neutralHadronIso(size_t i) const {
- if      (i >= leps_.size()) return -9999.0;
+ if      (i >= leps_.size()) return defaultvalues::defaultFloat;
  else if (isElectron(i))     return getElectron(i)->pfIsolationVariables().sumNeutralHadronEt;
  else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumNeutralHadronEt;
  else                        return -999.0;
 }
 
 const float reco::SkimEvent::photonIso(size_t i) const {
- if      (i >= leps_.size()) return -9999.0;
+ if      (i >= leps_.size()) return defaultvalues::defaultFloat;
  else if (isElectron(i))     return getElectron(i)->pfIsolationVariables().sumPhotonEt;
  else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumPhotonEt;
  else                        return -999.0;
 }
 
 const float reco::SkimEvent::sumPUPt(size_t i) const {
- if      (i >= leps_.size()) return -9999.0;
+ if      (i >= leps_.size()) return defaultvalues::defaultFloat;
  else if (isElectron(i))     return getElectron(i)->pfIsolationVariables().sumPUPt;
  else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumPUPt;
  else                        return -999.0;
@@ -4909,43 +4909,43 @@ const float reco::SkimEvent::mllgid(int WP) const{
 //Photon ID variables
 
 const float reco::SkimEvent::Pho_sigmaIetaIeta(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  return getPhoton(i)->sigmaIetaIeta();
  //return -999.0;
 }
 
 const float reco::SkimEvent::Pho_hadronicOverEm(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  return getPhoton(i)->hadronicOverEm();
  //else return -999.0;
 }
 
 const float reco::SkimEvent::Pho_ChargedHadronIso(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  return getPhoton(i)->chargedHadronIso();
  //else return -999.0;
 }
 
 const float reco::SkimEvent::Pho_NeutralHadronIso(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  return getPhoton(i)->neutralHadronIso();
  //else return -999.0;
 }
 
 const float reco::SkimEvent::Pho_PhotonIso(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  return getPhoton(i)->photonIso();
  //else return -999.0;
 }
 
 const int reco::SkimEvent::Pho_PassElectronVeto(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  return getPhoton(i)->passElectronVeto();
  //else return -999.0;
 }
 
 const int reco::SkimEvent::Pho_HasPixelSeed(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  return getPhoton(i)->hasPixelSeed();
  //else return -999.0;
 }
@@ -5008,7 +5008,7 @@ void reco::SkimEvent::InitEffectiveAreasPhoton(){
 } 
 
 const float reco::SkimEvent::Pho_rhoChargedHadronIso(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  math::XYZTLorentzVector pho = phos_[indexByPtPho (i)]->p4();
  double thisEA = ChoosePhotonEffectiveArea(0, pho.Eta());
  double thisRho = getJetRhoIso(); 
@@ -5018,7 +5018,7 @@ const float reco::SkimEvent::Pho_rhoChargedHadronIso(size_t i) const {
 }
 
 const float reco::SkimEvent::Pho_rhoNeutralHadronIso(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  math::XYZTLorentzVector pho = phos_[indexByPtPho (i)]->p4();
  double thisEA = ChoosePhotonEffectiveArea(1, pho.Eta());
  double thisRho = getJetRhoIso(); 
@@ -5028,7 +5028,7 @@ const float reco::SkimEvent::Pho_rhoNeutralHadronIso(size_t i) const {
 }
 
 const float reco::SkimEvent::Pho_rhoPhotonIso(size_t i) const {
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  math::XYZTLorentzVector pho = phos_[indexByPtPho (i)]->p4();
  double thisEA = ChoosePhotonEffectiveArea(2, pho.Eta());
  double thisRho = getJetRhoIso(); 
@@ -5106,7 +5106,7 @@ const int reco::SkimEvent::Pho_n_ID(int WP) const {
 }
 
 const bool reco::SkimEvent::Pho_IsIdIso(size_t i, int wp) const { //wp = 0 (loose), 1 (medium), 2 (tight)
- if(i >= phos_.size()) return -9999.0;
+ if(i >= phos_.size()) return defaultvalues::defaultFloat;
  math::XYZTLorentzVector pho = phos_[indexByPtPho (i)]->p4();
  double hoe_cut[2];
  double sietaieta_cut[2];
