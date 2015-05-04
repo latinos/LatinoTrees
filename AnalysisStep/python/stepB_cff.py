@@ -73,6 +73,8 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_variable_vector_lepton_pt_max3  = cms.string("ptByPt/3"),
         std_variable_vector_lepton_pt       = cms.string("ptByPt"),
         
+        std_vector_lepton_pt_max3  = cms.string("ptByPt/3"),
+
         std_vector_lepton_pt  = cms.string("ptByPt"),
         std_vector_lepton_eta = cms.string("etaByPt"),
         std_vector_lepton_phi = cms.string("phiByPt"),
