@@ -128,9 +128,9 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
          }
          
          for (int i=0; i<lenghtVector_nameVariable_int; i++) {
-          vars_.push_back(tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", variables.getParameter<std::string>(*it)+"("+std::to_string(i)+")"));
+          vars_.push_back(tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+"("+std::to_string(i)+")"));
          }
-         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));        
+         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, nameVariable));        
          }
         //---- std::vector <float> with variable length
         else if (std::strncmp((branchNamePrefix + *it).c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) {
