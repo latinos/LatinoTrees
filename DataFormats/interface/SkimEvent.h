@@ -651,6 +651,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
 
             // Electron ID
+            void InitEffectiveAreasElectrons();
+            const float GetElectronEffectiveArea(size_t i) const;
+            const float GetElectronEffectiveAreaByPt(size_t i) const { return GetElectronEffectiveArea (indexByPt (i)); }
+            
+             
             const float deltaEtaSuperClusterTrackAtVtx(size_t i) const;           
             const float deltaPhiSuperClusterTrackAtVtx(size_t i) const;          
             const float sigmaIetaIeta(size_t i) const;
@@ -692,7 +697,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float zeppenfeld(size_t a,float pt ,float eta,int applyCorrection, int applyID) const;
 
 
-	//bTagging variables ----------------
+	    //bTagging variables ----------------
             const float jettcheByPt(size_t i) const;
             const float jettchpByPt(size_t i) const;
             const float jetbjpbByPt(size_t i) const;
@@ -703,7 +708,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float jetcmvaByPt(size_t i) const;
 
 
-	//PHOTON ---------------------------
+
+	    //---- photon
 	    const math::XYZTLorentzVector photon(size_t a) const;
 	    void setPhoton (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
 	    const size_t indexByPtPho(size_t a = 0) const;
@@ -712,7 +718,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float mllgid(int WP = 1) const;
             const pat::Photon * getPhoton(size_t a) const;
             const pat::Photon * getPhoton(const refToCand&) const;
-// Photon ID Variables
+            // Photon ID Variables
             const float Pho_sigmaIetaIeta(size_t i) const;
             const float Pho_hadronicOverEm(size_t i) const;
 	    const float Pho_ChargedHadronIso(size_t i) const;
@@ -811,9 +817,12 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             bool passesMuEGMC_ ;
             bool passesAllEmbed_ ;
 
+            //---- electrons
+            float _eaElectronIso[5];
+            
             //JEC
 
-	    //PHOTON
+	    //---- photons
 	    std::vector<refToCand> phos_;
 	    double eaPhotonIso_[7][3];
 	    double PhotonIDparams_[3][2][5];

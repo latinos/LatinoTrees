@@ -168,8 +168,10 @@ bool highToLow(const indexValueStruct &a, const indexValueStruct &b) {
 
 reco::SkimEvent::SkimEvent() :
 //         hypo_(-1),
-sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{
+           sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{
+ 
  InitEffectiveAreasPhoton();
+ InitEffectiveAreasElectrons();
  
  //---- default value
  maxEtaForJets_ = 4.7;
@@ -4906,7 +4908,49 @@ const float reco::SkimEvent::mllgid(int WP) const{
  }
 }
 
-//Photon ID variables
+
+//--- electrons
+
+void reco::SkimEvent::InitEffectiveAreasElectrons(){
+ //---- see https://github.com/ikrav/cmssw/blob/work_in_progress_v2/EgammaAnalysis/ElectronTools/data/PHYS14/effAreaElectrons_cone03_pfNeuHadronsAndPhotons.txt
+ 
+//  # |eta| min   |eta| max   effective area
+//  0.0000         0.8000        0.1013
+//  0.8000         1.3000        0.0988
+//  1.3000         2.0000        0.0572
+//  2.0000         2.2000        0.0842
+//  2.2000         5.0000        0.1530
+ 
+ //double _eaElectronIso[eta range]
+ //
+ _eaElectronIso[0] = 0.1013;
+ _eaElectronIso[1] = 0.0988;
+ _eaElectronIso[2] = 0.0572;
+ _eaElectronIso[3] = 0.0842;
+ _eaElectronIso[4] = 0.1530;
+ 
+} 
+
+
+const float reco::SkimEvent::GetElectronEffectiveArea(size_t i) const {
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
+ if( isElectron(i) ) {
+  float eta = leps_.at(i)->eta();
+  if( fabs(eta) < 0.8000 ) return _eaElectronIso[0];
+  else if( fabs(eta) > 0.8000 && fabs(eta) < 1.3000 ) return _eaElectronIso[1];
+  else if( fabs(eta) > 1.3000 && fabs(eta) < 2.0000 ) return _eaElectronIso[2];
+  else if( fabs(eta) > 2.0000 && fabs(eta) < 2.2000 ) return _eaElectronIso[3];
+  else if( fabs(eta) > 2.2000)                        return _eaElectronIso[4];
+  //  else if( fabs(eta) > 2.2000 && fabs(eta) < 5.0000 ) return _eaElectronIso[1]; 
+  else return defaultvalues::defaultFloat; 
+ }
+ else return defaultvalues::defaultFloat; 
+}
+
+
+
+
+//--- Photon ID variables
 
 const float reco::SkimEvent::Pho_sigmaIetaIeta(size_t i) const {
  if(i >= phos_.size()) return defaultvalues::defaultFloat;
