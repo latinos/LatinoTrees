@@ -448,11 +448,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float genLeptonPt          (size_t a) const;
             const float genLeptonEta         (size_t a) const;
             const float genLeptonPhi         (size_t a) const;
-            const int   genLeptonPID         (size_t a) const;
-            const int   genLeptonStatus      (size_t a) const;
-            const int   genLeptonIndex       (size_t a) const;
-            const int   genLeptonMotherPID   (size_t a) const;
-            const int   genLeptonMotherStatus(size_t a) const;
+            const float genLeptonPID         (size_t a) const;
+            const float genLeptonStatus      (size_t a) const;
+            const float genLeptonIndex       (size_t a) const;
+            const float genLeptonMotherPID   (size_t a) const;
+            const float genLeptonMotherStatus(size_t a) const;
 
             const float leadingGenNeutrinoPt(size_t a) const;
             const float leadingGenNeutrinoPID(size_t a) const;
