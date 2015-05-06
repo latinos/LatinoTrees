@@ -69,21 +69,16 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         v_jet3 = cms.string("jet(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         v_jet4 = cms.string("jet(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
 
+        #std_variable_vector_lepton_pt_max3 = cms.string("ptByPt/3"),
+        #std_vector_lepton_pt_max3          = cms.string("ptByPt/3"),
 
-        std_variable_vector_lepton_pt_max3  = cms.string("ptByPt/3"),
-        std_variable_vector_lepton_pt       = cms.string("ptByPt"),
-        
-        std_vector_lepton_pt_max3  = cms.string("ptByPt/3"),
-
-        std_vector_lepton_pt  = cms.string("ptByPt"),
-        std_vector_lepton_eta = cms.string("etaByPt"),
-        std_vector_lepton_phi = cms.string("phiByPt"),
-        std_vector_lepton_id  = cms.string("pdgIdByPt"),
-        
-        std_vector_lepton_isTightMuon = cms.string("isTightMuonByPt"),
-
-        std_vector_lepton_muSIP3D = cms.string("muSIP3DByPt"),
-        std_vector_lepton_elSIP3D= cms.string("elSIP3DByPt"),
+        std_variable_vector_lepton_pt          = cms.string("ptByPt/20"),
+        std_variable_vector_lepton_eta         = cms.string("etaByPt/20"),
+        std_variable_vector_lepton_phi         = cms.string("phiByPt/20"),
+        std_variable_vector_lepton_id          = cms.string("pdgIdByPt/20"),
+        std_variable_vector_lepton_isTightMuon = cms.string("isTightMuonByPt/20"),
+        std_variable_vector_lepton_muSIP3D     = cms.string("muSIP3DByPt/20"),
+        std_variable_vector_lepton_elSIP3D     = cms.string("elSIP3DByPt/20"),
 
         std_vector_puppijet_pt  = cms.string("leadingSecondJetPt"),
         std_vector_puppijet_eta = cms.string("leadingSecondJetEta"),
@@ -92,7 +87,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_jet_pt  = cms.string("leadingJetPt"),
         std_vector_jet_eta = cms.string("leadingJetEta"),
         std_vector_jet_phi = cms.string("leadingJetPhi"),
-
 
         mll = cms.string("mll()"),
         ptll = cms.string("pTll()"),
@@ -372,23 +366,23 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 
 def addMuonIdIsoVariables(process,pt):
     if hasattr(pt,"variables"):      
-        setattr(pt.variables, "std_vector_lepton_NValidHitsInTrk",      cms.string("muNValidHitsInTrkByPt")),
-        setattr(pt.variables, "std_vector_lepton_NValidFractInTrk",     cms.string("muNValidFractInTrkByPt")),
-        setattr(pt.variables, "std_vector_lepton_NormChi2GTrk",         cms.string("muNormChi2GTrkByPt")),
-        setattr(pt.variables, "std_vector_lepton_NValidHitsSATrk",      cms.string("muNValidHitsSATrkByPt")),
-        setattr(pt.variables, "std_vector_lepton_NumOfMatchedStations", cms.string("muNumOfMatchedStationsByPt")),
-        setattr(pt.variables, "std_vector_lepton_BestTrackdz",          cms.string("muBestTrackdzByPt")),
-        setattr(pt.variables, "std_vector_lepton_BestTrackdxy",         cms.string("muBestTrackdxyByPt")),
-        setattr(pt.variables, "std_vector_lepton_NValidPixelHitsInTrk", cms.string("muNValidPixelHitsInTrkByPt")),
-        setattr(pt.variables, "std_vector_lepton_NTkLayers",            cms.string("muNTkLayersByPt")),
-        setattr(pt.variables, "std_vector_lepton_TrkKink",              cms.string("muTrkKinkByPt")),
-        setattr(pt.variables, "std_vector_lepton_Chi2LocalPos",         cms.string("muChi2LocalPosByPt")), 
-        setattr(pt.variables, "std_vector_lepton_SegCompatibilty",      cms.string("muSegCompatibiltyByPt")),
-        setattr(pt.variables, "std_vector_lepton_chargedHadronIso",     cms.string("chargedHadronIsoByPt")),
-        setattr(pt.variables, "std_vector_lepton_chargedParticleIso",   cms.string("chargedParticleIsoByPt")),
-        setattr(pt.variables, "std_vector_lepton_neutralHadronIso",     cms.string("neutralHadronIsoByPt")),
-        setattr(pt.variables, "std_vector_lepton_photonIso",            cms.string("photonIsoByPt")),
-        setattr(pt.variables, "std_vector_lepton_sumPUPt",              cms.string("sumPUPtByPt")),
+        setattr(pt.variables, "std_variable_vector_lepton_NValidHitsInTrk",      cms.string("muNValidHitsInTrkByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_NValidFractInTrk",     cms.string("muNValidFractInTrkByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_NormChi2GTrk",         cms.string("muNormChi2GTrkByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_NValidHitsSATrk",      cms.string("muNValidHitsSATrkByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_NumOfMatchedStations", cms.string("muNumOfMatchedStationsByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_BestTrackdz",          cms.string("muBestTrackdzByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_BestTrackdxy",         cms.string("muBestTrackdxyByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_NValidPixelHitsInTrk", cms.string("muNValidPixelHitsInTrkByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_NTkLayers",            cms.string("muNTkLayersByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_TrkKink",              cms.string("muTrkKinkByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_Chi2LocalPos",         cms.string("muChi2LocalPosByPt/20")), 
+        setattr(pt.variables, "std_variable_vector_lepton_SegCompatibilty",      cms.string("muSegCompatibiltyByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_chargedHadronIso",     cms.string("chargedHadronIsoByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_chargedParticleIso",   cms.string("chargedParticleIsoByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_neutralHadronIso",     cms.string("neutralHadronIsoByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_photonIso",            cms.string("photonIsoByPt/20")),
+        setattr(pt.variables, "std_variable_vector_lepton_sumPUPt",              cms.string("sumPUPtByPt/20")),
  
     else:
         raise RuntimeError, "In addMuonIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
@@ -396,12 +390,12 @@ def addMuonIdIsoVariables(process,pt):
 
 def addEleIdIsoVariables(process,pt):
     if hasattr(pt,"variables"):      
-        setattr(pt.variables, "std_vector_deltaEtaIn" ,   cms.string("deltaEtaSuperClusterTrackAtVtxByPt")),
-        setattr(pt.variables, "std_vector_deltaPhiIn" ,   cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
-        setattr(pt.variables, "std_vector_sigmaIetaIeta", cms.string("sigmaIetaIetaByPt")),
-        setattr(pt.variables, "std_vector_HoE" ,          cms.string("hadronicOverEmByPt")),
-        setattr(pt.variables, "std_vector_numHits",       cms.string("numberOfHitsByPt")),
-        setattr(pt.variables, "std_vector_effectiveArea", cms.string("GetElectronEffectiveAreaByPt")),
+        setattr(pt.variables, "std_variable_vector_deltaEtaIn" ,   cms.string("deltaEtaSuperClusterTrackAtVtxByPt/20")),
+        setattr(pt.variables, "std_variable_vector_deltaPhiIn" ,   cms.string("deltaPhiSuperClusterTrackAtVtxByPt/20")),
+        setattr(pt.variables, "std_variable_vector_sigmaIetaIeta", cms.string("sigmaIetaIetaByPt/20")),
+        setattr(pt.variables, "std_variable_vector_HoE" ,          cms.string("hadronicOverEmByPt/20")),
+        setattr(pt.variables, "std_variable_vector_numHits",       cms.string("numberOfHitsByPt/20")),
+        setattr(pt.variables, "std_variable_vector_effectiveArea", cms.string("GetElectronEffectiveAreaByPt/20")),
     else:
         raise RuntimeError, "In addEleIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 
@@ -411,23 +405,23 @@ def addBTaggingVariables(pt,dzCut=99999):
 
         pt.variables.softcsvv2ivf = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'combinedInclusiveSecondaryVertexV2BJetTags',"+jetId_WP+",%f)"%dzCut)
         pt.variables.hardcsvv2ivf = cms.string("highestBDiscRange("+CJVminPt+",999999.,'combinedInclusiveSecondaryVertexV2BJetTags',"+jetId_WP+",%f,1)"%dzCut)
-        pt.variables.softssvhe = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'simpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f)"%dzCut)
-        pt.variables.hardssvhe = cms.string("highestBDiscRange("+CJVminPt+",999999.,'simpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f,1)"%dzCut)
-        pt.variables.softssvhb = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'simpleSecondaryVertexHighPurBJetTags',"+jetId_WP+",%f)"%dzCut)
-        pt.variables.hardssvhb = cms.string("highestBDiscRange("+CJVminPt+",999999.,'simpleSecondaryVertexHighPurBJetTags',"+jetId_WP+",%f,1)"%dzCut)
-        pt.variables.softpfcsv = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'pfCombinedSecondaryVertexBJetTags',"+jetId_WP+",%f)"%dzCut)
-        pt.variables.hardpfcsv = cms.string("highestBDiscRange("+CJVminPt+",999999.,'simpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f,1)"%dzCut)
-        pt.variables.softcmva = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'combinedMVABJetTags',"+jetId_WP+",%f)"%dzCut)
-        pt.variables.hardcmva = cms.string("highestBDiscRange("+CJVminPt+",999999.,'combinedMVABJetTags',"+jetId_WP+",%f,1)"%dzCut)
+        pt.variables.softssvhe    = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'simpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f)"%dzCut)
+        pt.variables.hardssvhe    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'simpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f,1)"%dzCut)
+        pt.variables.softssvhb    = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'simpleSecondaryVertexHighPurBJetTags',"+jetId_WP+",%f)"%dzCut)
+        pt.variables.hardssvhb    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'simpleSecondaryVertexHighPurBJetTags',"+jetId_WP+",%f,1)"%dzCut)
+        pt.variables.softpfcsv    = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'pfCombinedSecondaryVertexBJetTags',"+jetId_WP+",%f)"%dzCut)
+        pt.variables.hardpfcsv    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'simpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f,1)"%dzCut)
+        pt.variables.softcmva     = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'combinedMVABJetTags',"+jetId_WP+",%f)"%dzCut)
+        pt.variables.hardcmva     = cms.string("highestBDiscRange("+CJVminPt+",999999.,'combinedMVABJetTags',"+jetId_WP+",%f,1)"%dzCut)
 
         pt.variables.std_vector_jet_csvv2ivf = cms.string("jetcsvv2ivfByPt")
-        pt.variables.std_vector_jet_ssvhe = cms.string("jetssvheByPt")
-        pt.variables.std_vector_jet_ssvhb = cms.string("jetssvhbByPt")
-        pt.variables.std_vector_jet_pfcsv = cms.string("jetpfcsvByPt")
-        pt.variables.std_vector_jet_cmva = cms.string("jetcmvaByPt")
-        pt.variables.std_vector_jet_tche = cms.string("jettcheByPt")
-        pt.variables.std_vector_jet_tchp = cms.string("jettchpByPt")
-        pt.variables.std_vector_jet_bjpb = cms.string("jetbjpbByPt")
+        pt.variables.std_vector_jet_ssvhe    = cms.string("jetssvheByPt")
+        pt.variables.std_vector_jet_ssvhb    = cms.string("jetssvhbByPt")
+        pt.variables.std_vector_jet_pfcsv    = cms.string("jetpfcsvByPt")
+        pt.variables.std_vector_jet_cmva     = cms.string("jetcmvaByPt")
+        pt.variables.std_vector_jet_tche     = cms.string("jettcheByPt")
+        pt.variables.std_vector_jet_tchp     = cms.string("jettchpByPt")
+        pt.variables.std_vector_jet_bjpb     = cms.string("jetbjpbByPt")
 
         pt.variables.jetcsvv2ivf1 = cms.string("leadingJetBtag(0,'combinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
         pt.variables.jetcsvv2ivf2 = cms.string("leadingJetBtag(1,'combinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
@@ -511,14 +505,14 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "jetGenPartonphi3", cms.string("leadingGenJetPartonPhi(2)")),
         setattr(pt.variables, "jetGenPartoneta3", cms.string("leadingGenJetPartonEta(2)")),
 
-        setattr(pt.variables, "std_vector_leptonGen_pt",      cms.string("genLeptonPt")),
-        setattr(pt.variables, "std_vector_leptonGen_eta" ,    cms.string("genLeptonEta")),
-        setattr(pt.variables, "std_vector_leptonGen_phi",     cms.string("genLeptonPhi")),
-        setattr(pt.variables, "std_vector_leptonGen_pid",     cms.string("genLeptonPID")),
-        setattr(pt.variables, "std_vector_leptonGen_status",  cms.string("genLeptonStatus")),
-        setattr(pt.variables, "std_vector_leptonGen_index",   cms.string("genLeptonIndex")),
-        setattr(pt.variables, "std_vector_leptonGen_mpid" ,   cms.string("genLeptonMotherPID")),
-        setattr(pt.variables, "std_vector_leptonGen_mstatus", cms.string("genLeptonMotherStatus")),
+        setattr(pt.variables, "std_variable_vector_leptonGen_pt",      cms.string("genLeptonPt/20")),
+        setattr(pt.variables, "std_variable_vector_leptonGen_eta" ,    cms.string("genLeptonEta/20")),
+        setattr(pt.variables, "std_variable_vector_leptonGen_phi",     cms.string("genLeptonPhi/20")),
+        setattr(pt.variables, "std_variable_vector_leptonGen_pid",     cms.string("genLeptonPID/20")),
+        setattr(pt.variables, "std_variable_vector_leptonGen_status",  cms.string("genLeptonStatus/20")),
+        setattr(pt.variables, "std_variable_vector_leptonGen_index",   cms.string("genLeptonIndex/20")),
+        setattr(pt.variables, "std_variable_vector_leptonGen_mpid" ,   cms.string("genLeptonMotherPID/20")),
+        setattr(pt.variables, "std_variable_vector_leptonGen_mstatus", cms.string("genLeptonMotherStatus/20")),
 
         setattr(pt.variables, "neutrinoGenpt1" , cms.string("leadingGenNeutrinoPt(0)")),
         setattr(pt.variables, "neutrinoGenpid1" , cms.string("leadingGenNeutrinoPID(0)")),
@@ -536,15 +530,15 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "higggsGenpt" , cms.string("getHiggsPt()")),
 
         setattr(pt.variables, "metGenpt" , cms.string("genMetPt()")),
-        setattr(pt.variables, "metGeneta" , cms.string("genMetEta()")),
-        setattr(pt.variables, "metGenphi" , cms.string("genMetPhi()")),
+        setattr(pt.variables, "metGeneta", cms.string("genMetEta()")),
+        setattr(pt.variables, "metGenphi", cms.string("genMetPhi()")),
 
-        setattr(pt.variables, "std_vector_jetGen_pt"  , cms.string("leadingGenJetPt")),
-        setattr(pt.variables, "std_vector_jetGen_phi" , cms.string("leadingGenJetPhi")),
-        setattr(pt.variables, "std_vector_jetGen_eta" , cms.string("leadingGenJetEta")),
+        setattr(pt.variables, "std_vector_jetGen_pt" , cms.string("leadingGenJetPt")),
+        setattr(pt.variables, "std_vector_jetGen_phi", cms.string("leadingGenJetPhi")),
+        setattr(pt.variables, "std_vector_jetGen_eta", cms.string("leadingGenJetEta")),
 
-        setattr(pt.variables, "std_vector_jet_HadronFlavour" , cms.string("leadingJetHadronFlavour")),
-        setattr(pt.variables, "std_vector_jet_PartonFlavour" , cms.string("leadingJetPartonFlavour")),
+        setattr(pt.variables, "std_vector_jet_HadronFlavour", cms.string("leadingJetHadronFlavour")),
+        setattr(pt.variables, "std_vector_jet_PartonFlavour", cms.string("leadingJetPartonFlavour")),
 
     else:
         raise addGenVariables, "In addGenVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
@@ -554,10 +548,10 @@ def addGenVariables(process,pt):
 def addMCweights(process,pt):
 
         if hasattr(pt,"variables"):
-          pt.variables.std_vector_LHE_weight  = cms.string("LHEMCweight")
-          pt.variables.std_vector_GEN_weight  = cms.string("GENMCweight")
-          pt.variables.LHE_weight_SM  = cms.string("LHEMCweight(-1)")
-          pt.variables.GEN_weight_SM  = cms.string("GENMCweight(-1)")
+          pt.variables.std_vector_LHE_weight = cms.string("LHEMCweight")
+          pt.variables.std_vector_GEN_weight = cms.string("GENMCweight")
+          pt.variables.LHE_weight_SM = cms.string("LHEMCweight(-1)")
+          pt.variables.GEN_weight_SM = cms.string("GENMCweight(-1)")
 
 
 def addTau(process,pt):
@@ -622,11 +616,11 @@ def addQGJets(process,pt):
 
         if hasattr(pt,"variables"):
          
-            pt.variables.std_vector_jet_QGaxis1    = cms.string("leadingJetQGaxis1")
-            pt.variables.std_vector_jet_QGaxis2    = cms.string("leadingJetQGaxis2")
-            pt.variables.std_vector_jet_QGRMScand  = cms.string("leadingJetQGRMScand")
-            pt.variables.std_vector_jet_QGRmax     = cms.string("leadingJetQGRmax")
-            pt.variables.std_vector_jet_QGlikelihood  = cms.string("leadingJetQGlikelihood")
+            pt.variables.std_vector_jet_QGaxis1      = cms.string("leadingJetQGaxis1")
+            pt.variables.std_vector_jet_QGaxis2      = cms.string("leadingJetQGaxis2")
+            pt.variables.std_vector_jet_QGRMScand    = cms.string("leadingJetQGRMScand")
+            pt.variables.std_vector_jet_QGRmax       = cms.string("leadingJetQGRmax")
+            pt.variables.std_vector_jet_QGlikelihood = cms.string("leadingJetQGlikelihood")
 
 
 def addAdditionalJets(process,pt):
