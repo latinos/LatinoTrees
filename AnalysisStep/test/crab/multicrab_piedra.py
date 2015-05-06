@@ -28,7 +28,7 @@ if __name__ == '__main__':
     from CRABAPI.RawCommand import crabCommand
 
     # Make sure you set this parameter (here or above in the config, it does not matter)
-    config.General.workArea = 'crab_dustin_30Apr'
+    config.General.workArea = 'crab_30Apr_PHYS14'
 
     def submit(config):
         res = crabCommand('submit', config = config)
