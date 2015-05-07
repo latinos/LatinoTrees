@@ -688,15 +688,28 @@ const int reco::SkimEvent::nJets(float minPt, int applyCorrection,int applyID) c
  return nCentralJets(minPt,99.9, applyCorrection,applyID);
 }
 
-const bool reco::SkimEvent::isThisJetALepton(pat::JetRef jet, float drCut) const {
+const bool reco::SkimEvent::isThisJetALepton(pat::JetRef jet, float drCut, float minLeptonPt) const {
  bool thisJetIsLepton(false);
- for(size_t j=0; j<std::min((uint) 2,(uint) leps_.size());++j){ //---- check only with the first 2 leptons -> miniAOD/PAT should already have filtered?
-  double dR = fabs(ROOT::Math::VectorUtil::DeltaR(jet->p4(),leps_[j]->p4()) );
-  if(dR < drCut){
-   thisJetIsLepton = true;
+//  for(size_t j=0; j<std::min((uint) 2,(uint) leps_.size());++j){ //---- check only with the first 2 leptons -> miniAOD/PAT should already have filtered?
+//   double dR = fabs(ROOT::Math::VectorUtil::DeltaR(jet->p4(),leps_[j]->p4()) );
+//   if(dR < drCut){
+//    thisJetIsLepton = true;
+//    break;
+//   }
+
+ for(size_t j=0; j<leps_.size();j++){ //---- check all leptons up to "minimum pt" (default 10 GeV, minLeptonPt)
+  if (leps_[indexByPt(j)]->pt() > minLeptonPt) {
+   double dR = fabs(ROOT::Math::VectorUtil::DeltaR(jet->p4(),leps_[indexByPt(j)]->p4()) );
+   if(dR < drCut){
+    thisJetIsLepton = true;
+    break;
+   }
+  }
+  else {
    break;
   }
  }
+ 
  
  return thisJetIsLepton;
 }

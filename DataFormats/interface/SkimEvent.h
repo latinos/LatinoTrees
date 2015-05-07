@@ -292,7 +292,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float nearestJet(int i=0,float minPt=25, float eta=5.0,bool applyCorrection=1, int applyID=0 ) const;
             const pat::JetRef matchedJet(size_t alepton, float minDr=0.4) const;
             const float matchedJetPt(size_t alepton, float minDr=0.4, bool applyCorrection=1) const;
-            const bool isThisJetALepton(pat::JetRef jet, float drCut=0.3) const ;
+            const bool isThisJetALepton(pat::JetRef jet, float drCut=0.3, float minLeptonPt = 10.0) const ;
 
             const bool passJetID (pat::JetRef jet,int) const ;
             const bool passFatJetID (pat::JetRef jet,int) const ;
