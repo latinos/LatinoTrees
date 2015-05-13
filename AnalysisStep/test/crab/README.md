@@ -36,3 +36,7 @@ MultiCRAB
     crab status
     
     crab status folder_name
+
+    
+    python multicrab_template.py samples/multicrab_samples_phys14.py
+
