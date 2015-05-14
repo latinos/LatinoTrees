@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     def submit(config):
         print " to do: ",config
-        #res = crabCommand('submit', config = config)
+        res = crabCommand('submit', config = config)
 
     #########    From now on that's what users should modify: this is the a-la-CRAB2 configuration part.
    
