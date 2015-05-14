@@ -2,7 +2,7 @@ import os
 from WMCore.Configuration import Configuration
 config = Configuration()
 
-pyCfgParams = ['outputFile=stepB_MC.root', 'doNoFilter=True', 'doMuonIsoId=True', 'doEleIsoId=True', 'doGen=True', 'doLHE=False', 'runPUPPISequence=False']
+pyCfgParams = ['outputFile=stepB_MC.root', 'doNoFilter=True', 'doMuonIsoId=True', 'doEleIsoId=True', 'doGen=True', 'doBTag=True', 'doLHE=False', 'runPUPPISequence=False']
 
 config.section_('General')
 config.General.transferLogs = True
@@ -17,7 +17,7 @@ config.Data.inputDBS        = 'global'
 config.Data.splitting       = 'FileBased'
 config.Data.unitsPerJob     = 1
 config.Data.publishDataName = 'NoFilter'
-config.Data.ignoreLocality  = True
+config.Data.ignoreLocality  = False
 
 config.section_('Site')
 config.Site.storageSite = 'T2_ES_IFCA'
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     from CRABAPI.RawCommand import crabCommand
 
     # Make sure you set this parameter (here or above in the config, it does not matter)
-    config.General.workArea = 'crab_30Apr_PHYS14'
+    config.General.workArea = 'crab_8May_PHYS14'
 
     def submit(config):
         res = crabCommand('submit', config = config)
@@ -109,8 +109,7 @@ if __name__ == '__main__':
 
     ####################### Private samples to be analysed #####################
 
-    config.Data.inputDBS       = 'phys03'
-    config.Data.ignoreLocality = False
+    config.Data.inputDBS = 'phys03'
 
     config.General.requestName = 'ppTOzh_zTO2v_hTOwwTO2l2v'
     config.Data.inputDataset   = '/CRAB_UserFiles/dburns-ppTOzh_zTO2v_hTOwwTO2l2v_13TeV_AODSIM_v1-7d492cb64f2cdaff326f939f96e45c96/USER'
