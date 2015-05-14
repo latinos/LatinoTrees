@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     def submit(config):
         print " to do: ",config
-        res = crabCommand('submit', config = config)
+        #res = crabCommand('submit', config = config)
 
     #########    From now on that's what users should modify: this is the a-la-CRAB2 configuration part.
    
@@ -47,6 +47,8 @@ if __name__ == '__main__':
        print "Usage: python multicrab_template.py  test.py"
        exit()
        
+
+    samples = {}
     SamplesFile = sys.argv[1]
     print " SamplesFile = ", SamplesFile
     
@@ -54,7 +56,19 @@ if __name__ == '__main__':
        handle = open(SamplesFile,'r')
        exec(handle)
        handle.close()
-            
+                
     # samples to be analysed
                    
+    for key, value in samples.iteritems():
+        print key, ' -> ', value
+        
+        config.General.requestName = key
+        config.Data.inputDataset = value[0]
+        config.JobType.pyCfgParams = list(pyCfgParams)
+        config.JobType.pyCfgParams.extend(value[1])
+        submit(config)
+
+    
+    
+   
    
