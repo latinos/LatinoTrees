@@ -149,8 +149,8 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         njet = cms.string("nCentralJets("+CJVminPt+","+CJVmaxEta+",1,"+jetId_WP+")"),
         njetid = cms.string("nCentralJets("+CJVminPt+","+CJVmaxEta+",1,0)"),
         # here we do apply a dz cut cause we are actually counting bjets
-        nbjettche = cms.string("bTaggedJetsOver("+CJVminPt+",2.1,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+")"),
-        nbjet     = cms.string("bTaggedJetsOver("+CJVminPt+",1.05,'jetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+")"),
+        nbjettche = cms.string("bTaggedJetsOver("+CJVminPt+",2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+")"),
+        nbjet     = cms.string("bTaggedJetsOver("+CJVminPt+",1.05,'pfJetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+")"),
         # here we don't apply the dz cut, cause we just use the b-tag value of highest pt jets
 
         puppijetpt1 = cms.string("leadingSecondJetPt(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -161,9 +161,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         jetmass1 = cms.string("leadingJetMass(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetid1 = cms.string("leadingJetId(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetmva1 = cms.string("leadingJetMva(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jetbjpb1 = cms.string("leadingJetBtag(0,'jetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        jettche1 = cms.string("leadingJetBtag(0,'trackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        jettchp1 = cms.string("leadingJetBtag(0,'trackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jetbjpb1 = cms.string("leadingJetBtag(0,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jettche1 = cms.string("leadingJetBtag(0,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jettchp1 = cms.string("leadingJetBtag(0,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
         jetptd1 = cms.string("leadingJetPtd(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetCHM1 = cms.string("leadingJetChargedHadronMultiplicity(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNHM1 = cms.string("leadingJetNeutralHadronMultiplicity(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -178,9 +178,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         jetmass2 = cms.string("leadingJetMass(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetid2 = cms.string("leadingJetId(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetmva2 = cms.string("leadingJetMva(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jettche2 = cms.string("leadingJetBtag(1,'trackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        jetbjpb2 = cms.string("leadingJetBtag(1,'jetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        jettchp2 = cms.string("leadingJetBtag(1,'trackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jettche2 = cms.string("leadingJetBtag(1,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jetbjpb2 = cms.string("leadingJetBtag(1,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jettchp2 = cms.string("leadingJetBtag(1,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
         jetptd2 = cms.string("leadingJetPtd(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetCHM2 = cms.string("leadingJetChargedHadronMultiplicity(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNHM2 = cms.string("leadingJetNeutralHadronMultiplicity(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -195,9 +195,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         jetmass3 = cms.string("leadingJetMass(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetid3 = cms.string("leadingJetId(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetmva3 = cms.string("leadingJetMva(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jettche3 = cms.string("leadingJetBtag(2,'trackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        jetbjpb3 = cms.string("leadingJetBtag(2,'jetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        jettchp3 = cms.string("leadingJetBtag(2,'trackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jettche3 = cms.string("leadingJetBtag(2,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jetbjpb3 = cms.string("leadingJetBtag(2,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jettchp3 = cms.string("leadingJetBtag(2,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
         jetptd3 = cms.string("leadingJetPtd(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetCHM3 = cms.string("leadingJetChargedHadronMultiplicity(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNHM3 = cms.string("leadingJetNeutralHadronMultiplicity(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -212,9 +212,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         jetmass4 = cms.string("leadingJetMass(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetid4 = cms.string("leadingJetId(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetmva4 = cms.string("leadingJetMva(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jettche4 = cms.string("leadingJetBtag(3,'trackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        jetbjpb4 = cms.string("leadingJetBtag(3,'jetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        jettchp4 = cms.string("leadingJetBtag(3,'trackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jettche4 = cms.string("leadingJetBtag(3,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jetbjpb4 = cms.string("leadingJetBtag(3,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
+        jettchp4 = cms.string("leadingJetBtag(3,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
         jetptd4 = cms.string("leadingJetPtd(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetCHM4 = cms.string("leadingJetChargedHadronMultiplicity(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNHM4 = cms.string("leadingJetNeutralHadronMultiplicity(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -268,12 +268,12 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         isomva3 = cms.string("mvaIsoByPt(2)"),
         isomva4 = cms.string("mvaIsoByPt(3)"),
         # in the 2012 selection, 2 BJet algorithms are used: softtche and hardbjpb !
-        # softbdisc = cms.string("highestBDiscRange(10.0,30.0,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+")"),
-        # hardbdisc = cms.string("highestBDiscRange(30.0,999999.,'jetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+",1)"),
-        softtche = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+")"),
-        hardtche = cms.string("highestBDiscRange("+CJVminPt+",999999.,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+",1)"),
-        softbjpb = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'jetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+")"),
-        hardbjpb = cms.string("highestBDiscRange("+CJVminPt+",999999.,'jetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+",1)"),
+        # softbdisc = cms.string("highestBDiscRange(10.0,30.0,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+")"),
+        # hardbdisc = cms.string("highestBDiscRange(30.0,999999.,'pfJetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+",1)"),
+        softtche = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+")"),
+        hardtche = cms.string("highestBDiscRange("+CJVminPt+",999999.,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+",1)"),
+        softbjpb = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'pfJetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+")"),
+        hardbjpb = cms.string("highestBDiscRange("+CJVminPt+",999999.,'pfJetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+",1)"),
         tightmu = cms.string("passesSmurfMuonID"),
         worstJetLepPt = cms.string("max(matchedJetPt(0, 0.5)/pt(0), matchedJetPt(1, 0.5)/pt(1))"),
         dataset = cms.string("REPLACE_ME"),
@@ -324,12 +324,12 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         #sameflav = cms.string("hypo == 3 || hypo == 6"),
         #zveto = cms.string("abs(mll-91.1876)>15. || hypo == 4 || hypo == 5"),
         # here we do apply a dz cut cause we are actually counting bjets
-        bveto_ip       = cms.string("bTaggedJetsBetween(10,30,2.1,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0"),
-        bveto          = cms.string("bTaggedJetsBetween(10,30,2.1,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3) == 0"),
-        bveto_nj       = cms.string("bTaggedJetsBetween(10,30,2.1,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3,1) == 0"),
-        bveto_nj30     = cms.string("bTaggedJetsBetween(10,30,2.1,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3,30) == 0"),
-        bveto_nj05     = cms.string("bTaggedJetsBetween(10,30,2.1,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3,1,0.5) == 0"),
-        bveto_nj3005   = cms.string("bTaggedJetsBetween(10,30,2.1,'trackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3,30,0.5) == 0"),
+        bveto_ip       = cms.string("bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0"),
+        bveto          = cms.string("bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3) == 0"),
+        bveto_nj       = cms.string("bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3,1) == 0"),
+        bveto_nj30     = cms.string("bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3,30) == 0"),
+        bveto_nj05     = cms.string("bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3,1,0.5) == 0"),
+        bveto_nj3005   = cms.string("bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3,30,0.5) == 0"),
         bveto_mu       = cms.string("nSoftMu(3) == 0"),
         bveto_munj     = cms.string("nSoftMu(3,1) == 0"),
         bveto_munj30   = cms.string("nSoftMu(3,30) == 0"),
@@ -350,7 +350,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 # passCBOld1 = cms.string('passCustomByPt(0,"'+Scenario1_LP_MUONS +'","'+Scenario1_LP_ELECTRONS+ '")'),
 # passCBOld2 = cms.string('passCustomByPt(1,"'+Scenario1_LP_MUONS +'","'+Scenario1_LP_ELECTRONS+ '")'),
 # WRONG FOR 2012 SELECTION
-# passWW = cms.string("guillelmoTrigger('DATASET') && pfMet > 20 && mll()>20 && (abs(mll-91.1876)>15 || hypo == 4 || hypo == 5) && min(projPfMet,projChargedMetSmurf) && nCentralJets(30,4.7) && (passesDPhillJet||!sameflav) && bTaggedJetsBetween(10,30,2.1,'trackCountingHighEffBJetTags',2.0) == 0 && nSoftMu(3) == 0 && nExtraLep(10)"),
+# passWW = cms.string("guillelmoTrigger('DATASET') && pfMet > 20 && mll()>20 && (abs(mll-91.1876)>15 || hypo == 4 || hypo == 5) && min(projPfMet,projChargedMetSmurf) && nCentralJets(30,4.7) && (passesDPhillJet||!sameflav) && bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',2.0) == 0 && nSoftMu(3) == 0 && nExtraLep(10)"),
 
     ),
     addRunLumiInfo = cms.bool(True)
@@ -403,14 +403,14 @@ def addEleIdIsoVariables(process,pt):
 def addBTaggingVariables(pt,dzCut=99999):
     if hasattr(pt,"variables"):
 
-        pt.variables.softcsvv2ivf = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'combinedInclusiveSecondaryVertexV2BJetTags',"+jetId_WP+",%f)"%dzCut)
-        pt.variables.hardcsvv2ivf = cms.string("highestBDiscRange("+CJVminPt+",999999.,'combinedInclusiveSecondaryVertexV2BJetTags',"+jetId_WP+",%f,1)"%dzCut)
-        pt.variables.softssvhe    = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'simpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f)"%dzCut)
-        pt.variables.hardssvhe    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'simpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f,1)"%dzCut)
-        pt.variables.softssvhb    = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'simpleSecondaryVertexHighPurBJetTags',"+jetId_WP+",%f)"%dzCut)
-        pt.variables.hardssvhb    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'simpleSecondaryVertexHighPurBJetTags',"+jetId_WP+",%f,1)"%dzCut)
+        pt.variables.softcsvv2ivf = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'pfCombinedInclusiveSecondaryVertexV2BJetTags',"+jetId_WP+",%f)"%dzCut)
+        pt.variables.hardcsvv2ivf = cms.string("highestBDiscRange("+CJVminPt+",999999.,'pfCombinedInclusiveSecondaryVertexV2BJetTags',"+jetId_WP+",%f,1)"%dzCut)
+        pt.variables.softssvhe    = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'pfSimpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f)"%dzCut)
+        pt.variables.hardssvhe    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'pfSimpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f,1)"%dzCut)
+        pt.variables.softssvhb    = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'pfSimpleSecondaryVertexHighPurBJetTags',"+jetId_WP+",%f)"%dzCut)
+        pt.variables.hardssvhb    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'pfSimpleSecondaryVertexHighPurBJetTags',"+jetId_WP+",%f,1)"%dzCut)
         pt.variables.softpfcsv    = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'pfCombinedSecondaryVertexBJetTags',"+jetId_WP+",%f)"%dzCut)
-        pt.variables.hardpfcsv    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'simpleSecondaryVertexHighEffBJetTags',"+jetId_WP+",%f,1)"%dzCut)
+        pt.variables.hardpfcsv    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'pfCombinedSecondaryVertexBJetTags',"+jetId_WP+",%f,1)"%dzCut)
         pt.variables.softcmva     = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'combinedMVABJetTags',"+jetId_WP+",%f)"%dzCut)
         pt.variables.hardcmva     = cms.string("highestBDiscRange("+CJVminPt+",999999.,'combinedMVABJetTags',"+jetId_WP+",%f,1)"%dzCut)
 
@@ -423,12 +423,12 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.std_vector_jet_tchp     = cms.string("jettchpByPt")
         pt.variables.std_vector_jet_bjpb     = cms.string("jetbjpbByPt")
 
-        pt.variables.jetcsvv2ivf1 = cms.string("leadingJetBtag(0,'combinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
-        pt.variables.jetcsvv2ivf2 = cms.string("leadingJetBtag(1,'combinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
-        pt.variables.jetssvhe1 = cms.string("leadingJetBtag(0,'simpleSecondaryVertexHighEffBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
-        pt.variables.jetssvhe2 = cms.string("leadingJetBtag(1,'simpleSecondaryVertexHighEffBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
-        pt.variables.jetssvhb1 = cms.string("leadingJetBtag(0,'simpleSecondaryVertexHighPurBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
-        pt.variables.jetssvhb2 = cms.string("leadingJetBtag(1,'simpleSecondaryVertexHighPurBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
+        pt.variables.jetcsvv2ivf1 = cms.string("leadingJetBtag(0,'pfCombinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
+        pt.variables.jetcsvv2ivf2 = cms.string("leadingJetBtag(1,'pfCombinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
+        pt.variables.jetssvhe1 = cms.string("leadingJetBtag(0,'pfSimpleSecondaryVertexHighEffBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
+        pt.variables.jetssvhe2 = cms.string("leadingJetBtag(1,'pfSimpleSecondaryVertexHighEffBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
+        pt.variables.jetssvhb1 = cms.string("leadingJetBtag(0,'pfSimpleSecondaryVertexHighPurBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
+        pt.variables.jetssvhb2 = cms.string("leadingJetBtag(1,'pfSimpleSecondaryVertexHighPurBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
         pt.variables.jetpfcsv1 = cms.string("leadingJetBtag(0,'pfCombinedSecondaryVertexBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
         pt.variables.jetpfcsv2 = cms.string("leadingJetBtag(1,'pfCombinedSecondaryVertexBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
         pt.variables.jetcmva1 = cms.string("leadingJetBtag(0,'combinedMVABJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
@@ -633,9 +633,9 @@ def addAdditionalJets(process,pt):
             setattr(pt.variables, "jetmass5", cms.string("leadingJetMass(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetid5", cms.string("leadingJetId(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetmva5", cms.string("leadingJetMva(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            setattr(pt.variables, "jettche5", cms.string("leadingJetBtag(4,'trackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            setattr(pt.variables, "jetbjpb5", cms.string("leadingJetBtag(4,'jetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            setattr(pt.variables, "jettchp5", cms.string("leadingJetBtag(4,'trackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
+            setattr(pt.variables, "jettche5", cms.string("leadingJetBtag(4,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
+            setattr(pt.variables, "jetbjpb5", cms.string("leadingJetBtag(4,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
+            setattr(pt.variables, "jettchp5", cms.string("leadingJetBtag(4,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
             setattr(pt.variables, "jetptd5", cms.string("leadingJetPtd(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetCHM5", cms.string("leadingJetChargedHadronMultiplicity(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNHM5", cms.string("leadingJetNeutralHadronMultiplicity(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
@@ -650,9 +650,9 @@ def addAdditionalJets(process,pt):
             setattr(pt.variables, "jetmass6", cms.string("leadingJetMass(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetid6", cms.string("leadingJetId(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetmva6", cms.string("leadingJetMva(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            setattr(pt.variables, "jettche6", cms.string("leadingJetBtag(5,'trackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            setattr(pt.variables, "jetbjpb6", cms.string("leadingJetBtag(5,'jetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            setattr(pt.variables, "jettchp6", cms.string("leadingJetBtag(5,'trackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
+            setattr(pt.variables, "jettche6", cms.string("leadingJetBtag(5,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
+            setattr(pt.variables, "jetbjpb6", cms.string("leadingJetBtag(5,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
+            setattr(pt.variables, "jettchp6", cms.string("leadingJetBtag(5,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
             setattr(pt.variables, "jetptd6", cms.string("leadingJetPtd(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetCHM6", cms.string("leadingJetChargedHadronMultiplicity(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNHM6", cms.string("leadingJetNeutralHadronMultiplicity(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
@@ -667,9 +667,9 @@ def addAdditionalJets(process,pt):
             setattr(pt.variables, "jetmass7", cms.string("leadingJetMass(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetid7", cms.string("leadingJetId(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetmva7", cms.string("leadingJetMva(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            setattr(pt.variables, "jettche7", cms.string("leadingJetBtag(6,'trackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            setattr(pt.variables, "jetbjpb7", cms.string("leadingJetBtag(6,'jetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            setattr(pt.variables, "jettchp7", cms.string("leadingJetBtag(6,'trackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
+            setattr(pt.variables, "jettche7", cms.string("leadingJetBtag(6,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
+            setattr(pt.variables, "jetbjpb7", cms.string("leadingJetBtag(6,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
+            setattr(pt.variables, "jettchp7", cms.string("leadingJetBtag(6,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
             setattr(pt.variables, "jetptd7", cms.string("leadingJetPtd(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetCHM7", cms.string("leadingJetChargedHadronMultiplicity(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNHM7", cms.string("leadingJetNeutralHadronMultiplicity(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),

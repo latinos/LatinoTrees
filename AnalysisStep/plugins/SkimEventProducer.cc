@@ -71,8 +71,8 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     maxEtaForJets_          = cfg.getParameter<double>("maxEtaForJets");
     minPtForJets_	    = cfg.getParameter<double>("minPtForJets"); 
     dzCutForBtagJets_	    = cfg.getParameter<double>("dzCutForBtagJets");
-    applyCorrectionForJets_ = cfg.getParameter<bool>("applyCorrectionForJets");
-    applyIDForJets_	    = cfg.getParameter<bool>("applyIDForJets");
+    applyCorrectionForJets_ = cfg.getParameter<int>("applyCorrectionForJets");
+    applyIDForJets_	    = cfg.getParameter<int>("applyIDForJets");
  
     // consumes
     tausT_         = consumes<pat::TauCollection>(tauTag_);

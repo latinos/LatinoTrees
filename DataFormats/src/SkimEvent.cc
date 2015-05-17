@@ -178,7 +178,7 @@ reco::SkimEvent::SkimEvent() :
  minPtForJets_ = 0;
  applyCorrectionForJets_ = 1;
  applyIDForJets_ = 0;
- dzCutForBtagJets_ = 99999;
+ dzCutForBtagJets_ = 999999.9;
 }
 
 // reco::SkimEvent::SkimEvent(const reco::SkimEvent::hypoType &h) :
@@ -902,7 +902,7 @@ const float reco::SkimEvent::leadingJetHadronFlavour(size_t index) const {
 
 
 const float reco::SkimEvent::leadingJetBtag(size_t index, std::string discriminator, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
- 
+
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
   if(!(passJetID(jets_[i],applyID)) ) continue;
@@ -912,6 +912,7 @@ const float reco::SkimEvent::leadingJetBtag(size_t index, std::string discrimina
   if(isThisJetALepton(jets_[i])) continue;
   if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
   if(++count > index) return jets_[i]->bDiscriminator(discriminator);
+  
  }
  return -9999.9;
  
@@ -4845,28 +4846,28 @@ const int reco::SkimEvent::numberOftQuarks() const {
 
 //BTAGGING ################################################################
 const float reco::SkimEvent::jettcheByPt(size_t i = 0) const {
- return leadingJetBtag(indexByPt(i),"trackCountingHighEffBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+ return leadingJetBtag(i,"pfTrackCountingHighEffBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
 const float reco::SkimEvent::jettchpByPt(size_t i = 0) const {
- return leadingJetBtag(indexByPt(i),"trackCountingHighPurBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+ return leadingJetBtag(i,"pfTrackCountingHighPurBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
 const float reco::SkimEvent::jetbjpbByPt(size_t i = 0) const {
- return leadingJetBtag(indexByPt(i),"jetBProbabilityBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+ return leadingJetBtag(i,"pfJetBProbabilityBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
 const float reco::SkimEvent::jetcsvv2ivfByPt(size_t i = 0) const {
- return leadingJetBtag(indexByPt(i),"combinedInclusiveSecondaryVertexV2BJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+ return leadingJetBtag(i,"pfCombinedInclusiveSecondaryVertexV2BJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
 const float reco::SkimEvent::jetssvheByPt(size_t i = 0) const {
- return leadingJetBtag(indexByPt(i),"simpleSecondaryVertexHighEffBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+ return leadingJetBtag(i,"pfSimpleSecondaryVertexHighEffBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
 const float reco::SkimEvent::jetssvhbByPt(size_t i = 0) const {
- return leadingJetBtag(indexByPt(i),"simpleSecondaryVertexHighPurBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+ return leadingJetBtag(i,"pfSimpleSecondaryVertexHighPurBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
 const float reco::SkimEvent::jetpfcsvByPt(size_t i = 0) const {
- return leadingJetBtag(indexByPt(i),"pfCombinedSecondaryVertexBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+ return leadingJetBtag(i,"pfCombinedSecondaryVertexBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
 const float reco::SkimEvent::jetcmvaByPt(size_t i = 0) const {
- return leadingJetBtag(indexByPt(i),"combinedMVABJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_); 
+ return leadingJetBtag(i,"combinedMVABJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_); 
 }
 
 //---- Photon
