@@ -2,49 +2,45 @@ import os
 from WMCore.Configuration import Configuration
 config = Configuration()
 
-pyCfgParams = ['outputFile=stepB_MC.root', 'doNoFilter=True',  'doMuonIsoId=True',  'doGen=True',   'doLHE=True',  'runPUPPISequence=True', 'doBTag=True' ]
+pyCfgParams = ['outputFile=stepB_MC.root', 'doNoFilter=True', 'doMuonIsoId=True', 'doEleIsoId=True', 'doGen=True', 'doBTag=True', 'doLHE=False', 'runPUPPISequence=False']
 
 config.section_('General')
-config.General.transferOutputs = True
-config.General.requestName = 'MCtest_13May2015'
+config.General.transferLogs = True
+config.General.workArea     = 'crab_projects_13May'  # Make sure you set this parameter
+
 
 config.section_('JobType')
-config.JobType.psetName = '../stepB.py'
-config.JobType.pluginName = 'Analysis'
+config.JobType.pluginName  = 'Analysis'
+config.JobType.psetName    = '../stepB.py'
 config.JobType.outputFiles = ['stepB_MC.root']
-
-# to fix cmssw releases
 config.JobType.allowUndistributedCMSSW = True
 
 config.section_('Data')    
-config.Data.unitsPerJob = 10   # since files based, 10 files per job
-config.Data.inputDBS = 'https://cmsweb.cern.ch/dbs/prod/global/DBSReader/'
-config.Data.splitting = 'FileBased'    #'LumiBased'
+config.Data.inputDBS      = 'global'
+config.Data.splitting     = 'FileBased'
+config.Data.unitsPerJob   = 1
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/test/'
 
 config.section_('Site')
 config.Site.storageSite = 'T2_CH_CERN'
 
-import sys
 
+import sys
 
 if __name__ == '__main__':
 
     from CRABAPI.RawCommand import crabCommand
 
-    # Make sure you set this parameter (here or above in the config it does not matter)
-    config.General.workArea = 'crab_projects_13May'
-
     def submit(config):
         print " to do: ",config
         res = crabCommand('submit', config = config)
 
-    #########    From now on that's what users should modify: this is the a-la-CRAB2 configuration part.
+    ######### From now on this is what users should modify. It is the a-la-CRAB2 configuration part.
    
     print sys.argv
     if len(sys.argv) <= 1 :
        print "no arguments?"
-       print "Usage: python multicrab_template.py  test.py"
+       print "Usage: python multicrab_template.py test.py"
        exit()
        
 
@@ -68,7 +64,3 @@ if __name__ == '__main__':
         config.JobType.pyCfgParams.extend(value[1])
         submit(config)
 
-    
-    
-   
-   

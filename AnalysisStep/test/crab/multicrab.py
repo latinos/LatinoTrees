@@ -2,25 +2,22 @@ import os
 from WMCore.Configuration import Configuration
 config = Configuration()
 
-pyCfgParams = ['outputFile=stepB_MC.root', 'doNoFilter=True',  'doMuonIsoId=True',  'doGen=True',   'doLHE=True',  'runPUPPISequence=True', 'doBTag=True' ]
+pyCfgParams = ['outputFile=stepB_MC.root', 'doNoFilter=True', 'doMuonIsoId=True', 'doEleIsoId=True', 'doGen=True', 'doBTag=True', 'doLHE=False', 'runPUPPISequence=False']
 
 config.section_('General')
-config.General.transferOutputs = True
-config.General.requestName = 'MCtest_13Feb2015'
+config.General.transferLogs = True
 
 config.section_('JobType')
-config.JobType.psetName = '../stepB.py'
-config.JobType.pluginName = 'Analysis'
+config.JobType.pluginName  = 'Analysis'
+config.JobType.psetName    = '../stepB.py'
 config.JobType.outputFiles = ['stepB_MC.root']
-
-# to fix cmssw releases
 config.JobType.allowNonProductionCMSSW = True
 
 config.section_('Data')    
-config.Data.unitsPerJob = 10   # since files based, 10 files per job
-config.Data.inputDBS = 'https://cmsweb.cern.ch/dbs/prod/global/DBSReader/'
-config.Data.splitting = 'FileBased'    #'LumiBased'
-config.Data.outLFN = '/store/group/phys_higgs/cmshww/amassiro/RunII/test/'
+config.Data.inputDBS    = 'global'
+config.Data.splitting   = 'FileBased'  #'LumiBased'
+config.Data.unitsPerJob = 1
+config.Data.outLFN      = '/store/group/phys_higgs/cmshww/amassiro/RunII/test/'
 
 config.section_('Site')
 config.Site.storageSite = 'T2_CH_CERN'
