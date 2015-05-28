@@ -443,10 +443,9 @@ if options.runPUPPISequence:
 
     # now add to the preSequence
     preSeq += process.makePatMetPuppi
-
+    preSeq += process.myPuppiJetSequence
+    process.skimEventProducer.secondJetTag = cms.InputTag("selectedPatJetsAK4PFPuppi")
     process.skimEventProducer.pupMetTag = cms.InputTag("patMetPuppi")
-    process.skimEventProducer.secondJetTag = cms.InputTag("patJetsAK4selectedPatJetsPuppi")
-
 
 
 # create the EventHypothesis
