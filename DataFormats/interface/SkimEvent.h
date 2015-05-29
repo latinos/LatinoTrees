@@ -533,6 +533,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float highestHardBDisc(const float& maxPt, std::string discriminator="trackCountingHighEffBJetTags", int applyID=0, float dzCut=9999.) const;
             const float highestSoftBDisc(const float& maxPt, std::string discriminator="trackCountingHighEffBJetTags", int applyID=0, float dzCut=9999.) const;
 
+            const float leadingJetPUid(size_t a, float pt , float eta=5.0,int applyCorrection=true, int applyID=0, float dzCut=9999.) const;
+            const float leadingJetPUid(size_t a) const;
+            
             //---- jet and MC
             const float leadingJetPartonFlavour(size_t a, float pt , float eta=5.0,int applyCorrection=true, int applyID=0, float dzCut=9999.) const;
             const float leadingJetPartonFlavour(size_t a) const;

@@ -667,6 +667,10 @@ if doPDFvar == True :
 # bTagging variables
 if doBTag: addBTaggingVariables(tree, 99999)
 
+# jet additional variables: e.g. pu-jetid
+addJetsVariables(tree, 99999)
+
+
 setattr(process,"Tree", tree)
 seq += tree
 

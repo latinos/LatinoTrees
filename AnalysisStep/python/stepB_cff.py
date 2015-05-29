@@ -408,6 +408,15 @@ def addEleIdIsoVariables(process,pt):
         raise RuntimeError, "In addEleIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 
 
+
+def addJetsVariables(pt,dzCut=99999):
+    if hasattr(pt,"variables"):
+
+        pt.variables.std_vector_jet_puid = cms.string("leadingJetPUid")
+
+
+
+
 def addBTaggingVariables(pt,dzCut=99999):
     if hasattr(pt,"variables"):
 
