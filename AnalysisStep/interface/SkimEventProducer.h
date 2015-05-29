@@ -65,7 +65,7 @@ double neutFrac;
 	double minPtForJets_;
 	double dzCutForBtagJets_;
 	bool applyCorrectionForJets_;
-	bool applyIDForJets_;
+	int applyIDForJets_;
         
         std::string branchAlias_;
 

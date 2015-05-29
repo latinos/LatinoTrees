@@ -513,7 +513,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    void setMinPtForJets(double value);            
             void setDzCutForBtagJets(double value);
 	    void setApplyCorrectionForJets(bool flag);
-	    void setApplyIDForJets(bool flag); 
+            void setApplyIDForJets(int jetidvalue); 
             
             //void sortJetsByPt() { std::sort(jets_.begin(), jets_.end(), sortPatJetByPt); }
             //void sortTagJetsByPt() { std::sort(tagJets_.begin(), tagJets_.end(), sortPatJetByPt); }
@@ -744,7 +744,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             double minPtForJets_;
 	    double dzCutForBtagJets_;
 	    bool applyCorrectionForJets_;
-	    bool applyIDForJets_;
+	    int applyIDForJets_;
  
             // User float values
             std::vector<std::string> userFloatLabels_;

@@ -195,8 +195,9 @@ void reco::SkimEvent::setMinPtForJets(double value) {
 void reco::SkimEvent::setApplyCorrectionForJets(bool flag) {
  applyCorrectionForJets_ = flag;
 }
-void reco::SkimEvent::setApplyIDForJets(bool flag) {
- applyIDForJets_ = flag;
+void reco::SkimEvent::setApplyIDForJets(int jetidvalue) {
+ applyIDForJets_ = jetidvalue;
+ //---- "0" is no ID
 }
 void reco::SkimEvent::setDzCutForBtagJets(double value) {
  dzCutForBtagJets_ = value;
@@ -749,6 +750,43 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
   if(jet->userInt("jetId") >= 7) return true;
   else return false;
  }
+ 
+ else if(applyID == 7) { //---- first Run II jet ID: LOOSE
+  //---- see https://twiki.cern.ch/twiki/bin/view/CMS/JetID
+  if (jet->neutralHadronEnergyFraction() >=0.99) return false;
+  if (jet->neutralEmEnergyFraction() >=0.99) return false;
+  
+  unsigned int multiplicity = jet->chargedMultiplicity() + jet->neutralMultiplicity();
+  if ( multiplicity <= 1) return false;
+  if ( jet->muonEnergyFraction() >= 0.8) return false;
+  
+  if(fabs(jet->eta())<=2.4) {
+   if ( jet->chargedHadronEnergyFraction() <= 0 ) return false;
+   if ( jet->chargedMultiplicity() <= 0 ) return false;
+   if ( jet->chargedEmEnergyFraction() >= 0.99 ) return false;
+  }
+  
+  return true;  
+ }
+ 
+ else if(applyID == 8) { //---- first Run II jet ID: TIGHT
+  //---- see https://twiki.cern.ch/twiki/bin/view/CMS/JetID
+  if (jet->neutralHadronEnergyFraction() >=0.90) return false;
+  if (jet->neutralEmEnergyFraction() >=0.90) return false;
+  
+  unsigned int multiplicity = jet->chargedMultiplicity() + jet->neutralMultiplicity();
+  if ( multiplicity <= 1) return false;
+  if ( jet->muonEnergyFraction() >= 0.8) return false;
+  
+  if(fabs(jet->eta())<=2.4) {
+   if ( jet->chargedHadronEnergyFraction() <= 0 ) return false;
+   if ( jet->chargedMultiplicity() <= 0 ) return false;
+   if ( jet->chargedEmEnergyFraction() >= 0.90 ) return false;
+  }
+  
+  return true;  
+ }
+ 
  
  return false;
 }

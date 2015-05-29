@@ -239,12 +239,6 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.GlobalTag.globaltag = globalTag
 
 
-# load configuration file with the variables list
-#process.load("LatinoTrees.AnalysisStep.stepB_cff")
-#from LatinoTrees.AnalysisStep.stepB_cff import * # get also functions
-
-from LatinoTrees.AnalysisStep.stepB_cff import *
-#from LatinoTrees.AnalysisStep.stepB_Functions_cff import * # get the functions
 
 
 
@@ -287,6 +281,34 @@ dy = False
 #puStudy = False ## set to true to add 16, yes 16 different PU possibilities
 #IsoStudy = False ## Set to True to get isolation variables (and a tree build only after ID+CONV+IP, without isolation)
                  ## Note: works only if running also the step2
+
+
+
+import LatinoTrees.AnalysisStep.globalVariables as globalVariables
+
+
+# SkimEventProducer is where the objects are defined
+#  and all configurations and parameters are defined too
+process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
+
+# Default parameters for jets
+process.skimEventProducer.maxEtaForJets = cms.double(4.7)
+process.skimEventProducer.minPtForJets = cms.double(50)
+process.skimEventProducer.applyCorrectionForJets = cms.bool(True) 
+
+process.skimEventProducer.applyIDForJets = cms.int32(int(globalVariables.jetId_WP))
+# 7 Run II jetID LOOSE
+# 8 Run II jetID TIGHT
+
+process.skimEventProducer.dzCutForBtagJets = cms.double(99999)
+
+
+# load configuration file with the variables list
+from LatinoTrees.AnalysisStep.stepB_cff import *
+
+
+
+
 
 
 if '2011' in label: label = label[:label.find('2011')]
@@ -348,16 +370,7 @@ else:
     stepBTree.variables.puBW = cms.string("1")
 
 
-# SkimEventProducer is where the objects are defined
-process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
-
-# Default parameters for jets
-process.skimEventProducer.maxEtaForJets = cms.double(4.7)
-process.skimEventProducer.minPtForJets = cms.double(0)
-process.skimEventProducer.applyCorrectionForJets = cms.int32(1) 
-process.skimEventProducer.applyIDForJets = cms.int32(0)
-process.skimEventProducer.dzCutForBtagJets = cms.double(999999.9)
 
 
 if options.selection == 'Tight':
@@ -387,8 +400,8 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
 
 
-from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
-#from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
+#from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
+from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
 process.myJetSequence = cms.Sequence()
 
 #                          the new sequence ,  temporary output file
@@ -443,9 +456,10 @@ if options.runPUPPISequence:
 
     # now add to the preSequence
     preSeq += process.makePatMetPuppi
-    preSeq += process.myPuppiJetSequence
-    process.skimEventProducer.secondJetTag = cms.InputTag("selectedPatJetsAK4PFPuppi")
+
     process.skimEventProducer.pupMetTag = cms.InputTag("patMetPuppi")
+    process.skimEventProducer.secondJetTag = cms.InputTag("patJetsAK4selectedPatJetsPuppi")
+
 
 
 # create the EventHypothesis

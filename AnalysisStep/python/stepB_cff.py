@@ -22,16 +22,24 @@ nverticesModule = cms.EDProducer("VertexMultiplicityCounter",
 # 4 MVA LOOSE
 # 5 MVA MEDIUM
 # 6 MVA TIGHT
+# 7 Run II jetID LOOSE
+# 8 Run II jetID TIGHT
 
 #jetId_WP="4" ----> FIXME: to be used!
-jetId_WP="0"
+#jetId_WP="0"
+#jetId_WP = "7"
+# -> DON'T define this here, since it is defined in "stepB.py"
+
+import LatinoTrees.AnalysisStep.globalVariables as globalVariables
+jetId_WP = globalVariables.jetId_WP
+
 
 # JetCuts
 
-CJVminPt="30."
-CJVmaxEta="4.7"
-DphiJetVetominPt="15."
-DphiJetVetominEta="4.7"
+CJVminPt = "30."
+CJVmaxEta = "4.7"
+DphiJetVetominPt = "15."
+DphiJetVetominEta = "4.7"
 
 DzBVeto="999999.9"
 minPtBVeto="10.0"
