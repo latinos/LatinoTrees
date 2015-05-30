@@ -82,7 +82,6 @@ Phys14:
                     id=123456789 \
                     scale=1 \
                     outputFile=stepB_MC.root \
-                    globalTag=MCRUN2_74_V7 \
                     doNoFilter=True \
                     doMuonIsoId=True \
                     maxEvents=200 \
