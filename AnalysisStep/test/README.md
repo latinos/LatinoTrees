@@ -13,6 +13,12 @@ The command `bash -l` is needed only if the shell is not bash.
     cmsenv
 
 
+Last release tested and supported:
+
+    CMSSW_7_4_2
+
+    
+    
 Setup CMS git connection
 ====
 

@@ -234,9 +234,23 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(options.maxE
 
 
 
-globalTag = options.globalTag + "::All"
-process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+#globalTag = options.globalTag + "::All"
+globalTag = options.globalTag
+#process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+
+#process.load('Configuration.StandardSequences.Geometry_cff')
+process.load('Configuration.StandardSequences.MagneticField_38T_cff')
+#process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+#process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi") ---> not working in 74???
+
+
+#process.load("Configuration.EventContent.EventContent_cff")
+process.load("Configuration.StandardSequences.GeometryRecoDB_cff")
+#process.load('Configuration.StandardSequences.Services_cff')
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
+
 process.GlobalTag.globaltag = globalTag
+
 
 
 
@@ -394,28 +408,24 @@ process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff"
 # load jet corrections 
 process.prefer("ak4PFCHSL1FastL2L3") 
 
-process.load('Configuration.StandardSequences.Geometry_cff')
-process.load('Configuration.StandardSequences.MagneticField_38T_cff')
-process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
-process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
-
-
-#from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
-from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
+from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
+#from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
 process.myJetSequence = cms.Sequence()
 
 #                          the new sequence ,  temporary output file
 jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',    
              JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
-             miniAOD=True,      addNsub=True,          addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
+             miniAOD=True,      addNsub=True,     
+             addPUJetID=False,
+             addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
 
 
 preSeq += process.myJetSequence
 
 # no need to recorrect the jets, since they are reclustered on the fly
 # the name patJetsAK4PFCHS found looking at the "processDump.py" and looking for patjetproducer
-#process.skimEventProducer.jetTag    = cms.InputTag("selectedPatJetsAK4PFCHS")
-#process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
+process.skimEventProducer.jetTag    = cms.InputTag("selectedPatJetsAK4PFCHS")
+process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
 
 
 
@@ -448,7 +458,9 @@ if options.runPUPPISequence:
     jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',    
              #JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
              PUMethod='Puppi',
-             miniAOD=True,      addNsub=True,          addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
+             miniAOD=True,      addNsub=True,      
+             addPUJetID=False,
+             addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
 
 
     #makePatPuppiJetSequence(process,jetPuppiR) ## call pat puppi jets
