@@ -416,7 +416,8 @@ process.myJetSequence = cms.Sequence()
 jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',    
              JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
              miniAOD=True,      addNsub=True,     
-             addPUJetID=False,
+             #addPUJetID=False,
+             addPUJetID=True,
              addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
 
 
@@ -460,6 +461,7 @@ if options.runPUPPISequence:
              PUMethod='Puppi',
              miniAOD=True,      addNsub=True,      
              addPUJetID=False,
+             #addPUJetID=True, ----> can't be puppi AND pujetid
              addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
 
 
