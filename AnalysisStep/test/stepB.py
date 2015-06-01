@@ -417,8 +417,10 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
              miniAOD=True,      addNsub=True,     
              #addPUJetID=False,
-             addPUJetID=True,
-             addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
+             #addPUJetID=True,
+             addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True,
+             addSoftDrop=False  # addSoftDrop=True  
+             ) #, addPrunedSubjets=True )
 
 
 preSeq += process.myJetSequence
@@ -460,9 +462,11 @@ if options.runPUPPISequence:
              #JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
              PUMethod='Puppi',
              miniAOD=True,      addNsub=True,      
-             addPUJetID=False,
+             #addPUJetID=False,
              #addPUJetID=True, ----> can't be puppi AND pujetid
-             addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True, addSoftDrop=True ) #, addPrunedSubjets=True )
+             addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True,
+             addSoftDrop=False   #addSoftDrop=True
+             ) #, addPrunedSubjets=True )
 
 
     #makePatPuppiJetSequence(process,jetPuppiR) ## call pat puppi jets

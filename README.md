@@ -63,6 +63,7 @@ Phys14:
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    440AA9AF-9988-E411-9786-00266CFFA038.root
 
     xrdcp root://xrootd.unl.edu//store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU30bx50_PHYS14_25_V1-v1/00000/003B6371-8D81-E411-8467-003048F0E826.root /tmp/amassiro/
+    scp amassiro@cmsneu:/media/data/CMSSWRoot/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/003B6371-8D81-E411-8467-003048F0E826.root  /tmp/amassiro/003B6371-8D81-E411-8467-003048F0E826.root
     cmsRun stepB.py print \
                     label=Top \
                     id=123456789 \
@@ -77,6 +78,7 @@ Phys14:
                     inputFiles=file:/tmp/amassiro/003B6371-8D81-E411-8467-003048F0E826.root
 
     xrdcp root://xrootd.unl.edu//store/mc/RunIISpring15DR74/WWTo2L2Nu_13TeV-powheg/MINIAODSIM/Asympt50ns_MCRUN2_74_V9A-v1/60000/0AA28275-5001-E511-8A45-0CC47A4DEDE0.root  /tmp/amassiro/
+    scp amassiro@cmsneu:/media/data/CMSSWRoot/RunIISpring15DR74/WWTo2L2Nu_13TeV-powheg/MINIAODSIM/0AA28275-5001-E511-8A45-0CC47A4DEDE0.root /tmp/amassiro/
     cmsRun stepB.py print \
                     label=Top \
                     id=123456789 \
@@ -88,11 +90,12 @@ Phys14:
                     doLHE=False \
                     doGen=True \
                     doBTag=True \
+                    globalTag=MCRUN2_72_V3A \
                     inputFiles=file:/tmp/amassiro/0AA28275-5001-E511-8A45-0CC47A4DEDE0.root
                     
                     
-
-                    
+                    MCRUN2_74_V9A
+                    MCRUN2_72_V3A
 
     
     

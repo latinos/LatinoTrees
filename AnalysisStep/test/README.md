@@ -16,6 +16,7 @@ The command `bash -l` is needed only if the shell is not bash.
 Last release tested and supported:
 
     CMSSW_7_4_2   (--> problems while running)
+       -> addPUJetID flag to false must be un-commented!
 
     
     
