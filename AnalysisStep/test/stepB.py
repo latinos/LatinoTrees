@@ -470,9 +470,12 @@ if options.runPUPPISequence:
 
     # now add to the preSequence
     preSeq += process.makePatMetPuppi
+    preSeq += process.myPuppiJetSequence
 
     process.skimEventProducer.pupMetTag = cms.InputTag("patMetPuppi")
-    process.skimEventProducer.secondJetTag = cms.InputTag("patJetsAK4selectedPatJetsPuppi")
+    # the name selectedPatJetsAK4PFPuppi found looking at the "processDump.py" and looking for patjetproducer
+    process.skimEventProducer.secondJetTag = cms.InputTag("selectedPatJetsAK4PFPuppi")
+    
 
 
 
