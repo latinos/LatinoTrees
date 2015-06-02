@@ -233,21 +233,34 @@ process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(options.su
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(options.maxEvents) )
 
 
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+#process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
-#globalTag = options.globalTag + "::All"
-globalTag = options.globalTag
+globalTag = options.globalTag + "::All"
+#globalTag = options.globalTag
 #process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
+#
+# load ES producers
+#
 #process.load('Configuration.StandardSequences.Geometry_cff')
-process.load('Configuration.StandardSequences.MagneticField_38T_cff')
-#process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
-#process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi") ---> not working in 74???
+#process.load("Geometry.TrackerGeometryBuilder.trackerGeometryDB_cfi")
+ 
+#process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff')
+process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
 
+#process.load('Configuration.StandardSequences.MagneticField_38T_cff')
+#process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
 
+#process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi") #---> not working in 74???
+ 
+#process.load("Configuration.StandardSequences.GeometryDB_cff")
+#process.load("Configuration.Geometry.GeometryRecoDB_cff")
+process.load("Configuration.StandardSequences.GeometryRecoDB_cff")  
+process.load("Geometry.TrackerGeometryBuilder.trackerGeometryDB_cfi")
+ 
 #process.load("Configuration.EventContent.EventContent_cff")
-process.load("Configuration.StandardSequences.GeometryRecoDB_cff")
-#process.load('Configuration.StandardSequences.Services_cff')
-process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
+process.load('Configuration.StandardSequences.Services_cff')
 
 process.GlobalTag.globaltag = globalTag
 
@@ -417,7 +430,7 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
              miniAOD=True,      addNsub=True,     
              #addPUJetID=False,
-             #addPUJetID=True,
+             addPUJetID=True,
              addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True,
              addSoftDrop=False  # addSoftDrop=True  
              ) #, addPrunedSubjets=True )
@@ -462,7 +475,7 @@ if options.runPUPPISequence:
              #JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
              PUMethod='Puppi',
              miniAOD=True,      addNsub=True,      
-             #addPUJetID=False,
+             addPUJetID=False,
              #addPUJetID=True, ----> can't be puppi AND pujetid
              addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True,
              addSoftDrop=False   #addSoftDrop=True
@@ -479,6 +492,7 @@ if options.runPUPPISequence:
     process.skimEventProducer.pupMetTag = cms.InputTag("patMetPuppi")
     # the name selectedPatJetsAK4PFPuppi found looking at the "processDump.py" and looking for patjetproducer
     process.skimEventProducer.secondJetTag = cms.InputTag("selectedPatJetsAK4PFPuppi")
+    #process.skimEventProducer.secondJetTag = cms.InputTag("patJetsAK4selectedPatJetsPuppi")
     
 
 

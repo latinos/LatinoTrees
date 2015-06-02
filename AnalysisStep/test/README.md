@@ -15,9 +15,9 @@ The command `bash -l` is needed only if the shell is not bash.
 
 Last release tested and supported:
 
-    CMSSW_7_4_2   (--> problems while running)
-       -> addPUJetID flag to false must be un-commented!
-
+    CMSSW_7_4_4
+       -> wwElectrons_cfi.py need to be fixed for "dB" method, now de-activated
+       -> back-compatibility with <74X releases is not granted
     
     
 Setup CMS git connection
@@ -68,6 +68,7 @@ Run step B
                     doLHE=False \
                     doGen=True \
                     doBTag=True \
+                    globalTag=MCRUN2_74_V9A \
                     inputFiles=root://xrootd.unl.edu//store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/00C90EFC-3074-E411-A845-002590DB9262.root
 
 If the input file is local.

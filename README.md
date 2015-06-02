@@ -75,6 +75,7 @@ Phys14:
                     doLHE=False \
                     doGen=True \
                     doBTag=True \
+                    globalTag=MCRUN2_74_V9A \
                     inputFiles=file:/tmp/amassiro/003B6371-8D81-E411-8467-003048F0E826.root
 
     xrdcp root://xrootd.unl.edu//store/mc/RunIISpring15DR74/WWTo2L2Nu_13TeV-powheg/MINIAODSIM/Asympt50ns_MCRUN2_74_V9A-v1/60000/0AA28275-5001-E511-8A45-0CC47A4DEDE0.root  /tmp/amassiro/
@@ -90,12 +91,13 @@ Phys14:
                     doLHE=False \
                     doGen=True \
                     doBTag=True \
-                    globalTag=MCRUN2_72_V3A \
+                    globalTag=PHYS14_25_V2 \
                     inputFiles=file:/tmp/amassiro/0AA28275-5001-E511-8A45-0CC47A4DEDE0.root
                     
                     
                     MCRUN2_74_V9A
                     MCRUN2_72_V3A
+                    PHYS14_25_V2
 
     
     

@@ -26,8 +26,8 @@ ELE_ID_TIGHT = ("  (( isEB "+
                            " && hadronicOverEm < 0.037553" +
                            " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.022868  " +
                            " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.006574 " +
-                           " && abs(dB('PV2D')) < 0.009924  " +
-                           " && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.015310  " +
+                           #" && abs(dB('PV2D')) < 0.009924  " +
+                           #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.015310  " +
                            " && abs(1./energy - 1/p) < 0.131191 " +
                            " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.074355 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
@@ -38,8 +38,8 @@ ELE_ID_TIGHT = ("  (( isEB "+
                            " && hadronicOverEm < 0.081902" +
                            " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.032046  " +
                            " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.005681  " +
-                           " && abs(dB('PV2D')) < 0.027261  " +
-                           " && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.147154  " +
+                           #" && abs(dB('PV2D')) < 0.027261  " +
+                           #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.147154  " +
                            " && abs(1./energy - 1/p) < 0.106055 " +
                            " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.090185 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
@@ -61,8 +61,8 @@ ELE_ID_LOOSE = ("  (( isEB "+
                            " && hadronicOverEm < 0.121476" +
                            " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.072624  " +
                            " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.012442 " +
-                           " && abs(dB('PV2D')) < 0.022664  " +
-                           " && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.173670  " +
+                           #" && abs(dB('PV2D')) < 0.022664  " +
+                           #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.173670  " +
                            " && abs(1./energy - 1/p) < 0.221803 " +
                            " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.120026 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
@@ -73,8 +73,8 @@ ELE_ID_LOOSE = ("  (( isEB "+
                            " && hadronicOverEm < 0.131862" +
                            " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.145129  " +
                            " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.010654  " +
-                           " && abs(dB('PV2D')) < 0.097358  " +
-                           " && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.198444  " +
+                           #" && abs(dB('PV2D')) < 0.097358  " +
+                           #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.198444  " +
                            " && abs(1./energy - 1/p) < 0.142283 " +
                            " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.162914 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
