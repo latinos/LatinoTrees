@@ -515,6 +515,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    void setApplyCorrectionForJets(bool flag);
             void setApplyIDForJets(int jetidvalue); 
             
+            void setPuJetIdDiscriminantName(std::string pujetiddiscriminant); 
+                       
+            
             //void sortJetsByPt() { std::sort(jets_.begin(), jets_.end(), sortPatJetByPt); }
             //void sortTagJetsByPt() { std::sort(tagJets_.begin(), tagJets_.end(), sortPatJetByPt); }
 
@@ -751,6 +754,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    bool applyCorrectionForJets_;
 	    int applyIDForJets_;
  
+            std::string _name_puJetIdDiscriminant;
+            
             // User float values
             std::vector<std::string> userFloatLabels_;
             std::vector<float> userFloats_;

@@ -203,6 +203,13 @@ void reco::SkimEvent::setDzCutForBtagJets(double value) {
  dzCutForBtagJets_ = value;
 }
 
+void reco::SkimEvent::setPuJetIdDiscriminantName(std::string pujetiddiscriminant) {
+ _name_puJetIdDiscriminant = pujetiddiscriminant;
+}
+
+
+
+
 // set GenParticles
 void reco::SkimEvent::setGenParticles(const edm::Handle<reco::GenParticleCollection> & h) {
  genParticles_.clear();
@@ -909,7 +916,9 @@ const float reco::SkimEvent::leadingJetPUid(size_t index, float minPt,float eta,
 //    std::cout << " jets_[" << i << "]->userFloat(pileupJetId:fullDiscriminant) = " << jets_[i]->userFloat("pileupJetId:fullDiscriminant") << std::endl;
 //    if (jets_[i]->userFloat("pileupJetId:fullDiscriminant") ) return jets_[i]->userFloat("pileupJetId:fullDiscriminant");
 //    if (jets_[i]->userFloat("pileupJetIdEvaluator:fullDiscriminant") ) return jets_[i]->userFloat("pileupJetIdEvaluator:fullDiscriminant");  
-   if (jets_[i]->userFloat("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant") ) return jets_[i]->userFloat("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant");  
+//    if (jets_[i]->userFloat("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant") ) return jets_[i]->userFloat("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant");  
+   if (jets_[i]->userFloat(_name_puJetIdDiscriminant) ) return jets_[i]->userFloat(_name_puJetIdDiscriminant);  
+   
    else return defaultvalues::defaultFloat;
   }
  }

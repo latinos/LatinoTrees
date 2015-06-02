@@ -13,6 +13,8 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     dzCutForBtagJets  = cms.double(99999),
     applyCorrectionForJets = cms.int32(1),
     applyIDForJets    = cms.int32(0),
+    namePuJetIdDiscriminant = cms.string("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant"),
+    #
     #
     mcLHEEventInfoTag = cms.InputTag(""),
     mcGenEventInfoTag = cms.InputTag(""),

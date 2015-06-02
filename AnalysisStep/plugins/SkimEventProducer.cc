@@ -74,6 +74,8 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     applyCorrectionForJets_ = cfg.getParameter<bool>("applyCorrectionForJets");
     applyIDForJets_	    = cfg.getParameter<int>("applyIDForJets");
  
+    name_puJetIdDiscriminant_= cfg.getParameter<std::string>("namePuJetIdDiscriminant");
+    
     // consumes
     tausT_         = consumes<pat::TauCollection>(tauTag_);
     genParticlesT_ = consumes<reco::GenParticleCollection>(genParticlesTag_);
@@ -287,7 +289,10 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     skimEvent->back().setApplyCorrectionForJets(applyCorrectionForJets_);
     //---- apply ID for jets for default values
     skimEvent->back().setApplyIDForJets(applyIDForJets_);
-   
+    //---- pile up jet id discimanot name (it depends on the options of the jettoolbox!)
+    skimEvent->back().setPuJetIdDiscriminantName(name_puJetIdDiscriminant_);
+    
+    
  
     iEvent.put(skimEvent);
 }

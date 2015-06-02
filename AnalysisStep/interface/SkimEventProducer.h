@@ -67,6 +67,8 @@ double neutFrac;
 	bool applyCorrectionForJets_;
 	int applyIDForJets_;
         
+        std::string name_puJetIdDiscriminant_;
+        
         std::string branchAlias_;
 
         edm::InputTag triggerTag_;
