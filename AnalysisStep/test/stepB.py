@@ -440,6 +440,8 @@ preSeq += process.myJetSequence
 
 # no need to recorrect the jets, since they are reclustered on the fly
 # the name patJetsAK4PFCHS found looking at the "processDump.py" and looking for patjetproducer
+#   edmConfigDump stepB.py &> processDump.py
+#
 process.skimEventProducer.jetTag    = cms.InputTag("selectedPatJetsAK4PFCHS")
 process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
 

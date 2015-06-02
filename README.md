@@ -57,6 +57,7 @@ Phys14:
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_3_2/src (almost unused)
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_3_3/src
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_3/src -> not working
+    /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_4/src
 
     scp amassiro@cmsneu:/data/amassiro/CMSSWRoot/Phys14/miniAOD/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/C667E84D-9D18-E411-99D8-02163E00ECE6.root  /tmp/amassiro/
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    08CFEF83-586C-E411-8D7C-002590A2CCF2.root
