@@ -645,8 +645,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float muChi2LocalPosByPt(size_t i) const {return muChi2LocalPos(indexByPt (i)); }
 	    const float muSegCompatibiltyByPt(size_t i) const {return muSegCompatibilty(indexByPt (i)); }
 
-	    const bool isTightMuon(size_t i) const;
-	    const bool isTightMuonByPt(size_t i) const {return isTightMuon(indexByPt (i)); }
+	    const bool isMediumMuon    (size_t i) const;
+	    const bool isTightMuon     (size_t i) const;
+	    const bool isMediumMuonByPt(size_t i) const {return isMediumMuon(indexByPt (i)); }
+	    const bool isTightMuonByPt (size_t i) const {return isTightMuon (indexByPt (i)); }
 
 	    const float muSIP3D(size_t i) const;
 	    const float muSIP3DByPt(size_t i) const {return muSIP3D(indexByPt (i)); };
