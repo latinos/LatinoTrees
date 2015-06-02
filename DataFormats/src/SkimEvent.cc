@@ -908,7 +908,8 @@ const float reco::SkimEvent::leadingJetPUid(size_t index, float minPt,float eta,
   if(++count > index) {
 //    std::cout << " jets_[" << i << "]->userFloat(pileupJetId:fullDiscriminant) = " << jets_[i]->userFloat("pileupJetId:fullDiscriminant") << std::endl;
 //    if (jets_[i]->userFloat("pileupJetId:fullDiscriminant") ) return jets_[i]->userFloat("pileupJetId:fullDiscriminant");
-   if (jets_[i]->userFloat("pileupJetIdEvaluator:fullDiscriminant") ) return jets_[i]->userFloat("pileupJetIdEvaluator:fullDiscriminant");  
+//    if (jets_[i]->userFloat("pileupJetIdEvaluator:fullDiscriminant") ) return jets_[i]->userFloat("pileupJetIdEvaluator:fullDiscriminant");  
+   if (jets_[i]->userFloat("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant") ) return jets_[i]->userFloat("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant");  
    else return defaultvalues::defaultFloat;
   }
  }
