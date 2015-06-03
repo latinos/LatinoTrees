@@ -399,13 +399,16 @@ def addMuonIdIsoVariables(process,pt):
 
 def addEleIdIsoVariables(process,pt):
     if hasattr(pt,"variables"):      
-        setattr(pt.variables, "std_vector_deltaEtaIn" ,   cms.string("deltaEtaSuperClusterTrackAtVtxByPt")),
-        setattr(pt.variables, "std_vector_deltaPhiIn" ,   cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
-        setattr(pt.variables, "std_vector_sigmaIetaIeta", cms.string("sigmaIetaIetaByPt")),
-        setattr(pt.variables, "std_vector_HoE" ,          cms.string("hadronicOverEmByPt")),
-        setattr(pt.variables, "std_vector_numHits",       cms.string("numberOfHitsByPt")),
-        setattr(pt.variables, "std_vector_effectiveArea", cms.string("GetElectronEffectiveAreaByPt")),
-        setattr(pt.variables, "std_vector_sceta",         cms.string("etaSCByPt")),
+        setattr(pt.variables, "std_vector_electron_deltaEtaIn" ,    cms.string("deltaEtaSuperClusterTrackAtVtxByPt")),
+        setattr(pt.variables, "std_vector_electron_deltaPhiIn" ,    cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
+        setattr(pt.variables, "std_vector_electron_sigmaIetaIeta",  cms.string("sigmaIetaIetaByPt")),
+        setattr(pt.variables, "std_vector_electron_HoE" ,           cms.string("hadronicOverEmByPt")),
+        setattr(pt.variables, "std_vector_electron_numHits",        cms.string("numberOfHitsByPt")),
+        setattr(pt.variables, "std_vector_electron_effectiveArea",  cms.string("GetElectronEffectiveAreaByPt")),
+        setattr(pt.variables, "std_vector_electron_scEta",          cms.string("etaSCByPt")),
+        setattr(pt.variables, "std_vector_electron_passConversion", cms.string("passesConversionByPt")),
+        setattr(pt.variables, "std_vector_electron_d0",             cms.string("d0RecoByPt")),
+        setattr(pt.variables, "std_vector_electron_dz",             cms.string("dZRecoByPt")),
     else:
         raise RuntimeError, "In addEleIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 

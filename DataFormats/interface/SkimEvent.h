@@ -394,20 +394,22 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float gamma() const;
             const float gammaMRStar() const;
 
-            //Selection Functions
-            const bool passesIP() const;
-            const bool passesIP(const refToCand &c) const;
-            const bool hasGoodVertex() const;
-            const double d0Reco(size_t a=0) const;
-            const double dZReco(size_t a=0) const;
-            // const bool passesIDV1(size_t a=0) const;
-            const bool passesConversion(size_t a=0) const;
-            const bool isSTA(size_t a=0) const;
-            const bool isSTA(const refToCand &c) const;
-            const bool isMuTriggered(size_t a=0) const;
+            // Selection functions
+            const bool   passesIP() const;
+            const bool   passesIP(const refToCand &c) const;
+            const bool   hasGoodVertex() const;
+            const double d0Reco              (size_t a=0) const;
+            const double dZReco              (size_t a=0) const;
+            const bool   passesConversion    (size_t a=0) const;
+            const double d0RecoByPt          (size_t a=0) const { return d0Reco          (indexByPt(a)); }
+            const double dZRecoByPt          (size_t a=0) const { return dZReco          (indexByPt(a)); }
+            const bool   passesConversionByPt(size_t a=0) const { return passesConversion(indexByPt(a)); }
+            const bool   isSTA(size_t a=0) const;
+            const bool   isSTA(const refToCand &c) const;
+            const bool   isMuTriggered(size_t a=0) const;
 
             
-            const float leadingTauPt(size_t a) const;
+            const float leadingTauPt (size_t a) const;
             const float leadingTauEta(size_t a) const;
             const float leadingTauPhi(size_t a) const;
             
@@ -657,27 +659,24 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float muSIP3DByPt(size_t i) const {return muSIP3D(indexByPt (i)); };
 
 
-
             // Electron ID
             void InitEffectiveAreasElectrons();
-            const float GetElectronEffectiveArea(size_t i) const;
-            const float GetElectronEffectiveAreaByPt(size_t i) const { return GetElectronEffectiveArea (indexByPt (i)); }
-            
-             
+
+            const float GetElectronEffectiveArea      (size_t i) const;
             const float deltaEtaSuperClusterTrackAtVtx(size_t i) const;           
             const float deltaPhiSuperClusterTrackAtVtx(size_t i) const;          
-            const float sigmaIetaIeta(size_t i) const;
-            const float hadronicOverEm(size_t i) const;
-            const float numberOfHits(size_t i) const;
-            
-            const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx (indexByPt (i)); }          
-            const float deltaPhiSuperClusterTrackAtVtxByPt(size_t i) const { return deltaPhiSuperClusterTrackAtVtx (indexByPt (i)); }
-            const float sigmaIetaIetaByPt(size_t i) const { return sigmaIetaIeta (indexByPt (i)); }
-            const float hadronicOverEmByPt(size_t i) const { return hadronicOverEm (indexByPt (i)); }
-            const float numberOfHitsByPt(size_t i) const { return hadronicOverEm (indexByPt (i)); }
+            const float sigmaIetaIeta                 (size_t i) const;
+            const float hadronicOverEm                (size_t i) const;
+            const float numberOfHits                  (size_t i) const;
+	    const float elSIP3D                       (size_t i) const;
 
-	    const float elSIP3D(size_t i) const;
-	    const float elSIP3DByPt(size_t i) const {return elSIP3D(indexByPt (i)); };
+            const float GetElectronEffectiveAreaByPt      (size_t i) const { return GetElectronEffectiveArea      (indexByPt(i)); }
+            const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx(indexByPt(i)); }          
+            const float deltaPhiSuperClusterTrackAtVtxByPt(size_t i) const { return deltaPhiSuperClusterTrackAtVtx(indexByPt(i)); }
+            const float sigmaIetaIetaByPt                 (size_t i) const { return sigmaIetaIeta                 (indexByPt(i)); }
+            const float hadronicOverEmByPt                (size_t i) const { return hadronicOverEm                (indexByPt(i)); }
+            const float numberOfHitsByPt                  (size_t i) const { return numberOfHits                  (indexByPt(i)); }
+	    const float elSIP3DByPt                       (size_t i) const { return elSIP3D                       (indexByPt(i)); }
 
 
             // Muon and electron isolation
