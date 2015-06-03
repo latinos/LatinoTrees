@@ -3129,8 +3129,7 @@ const bool reco::SkimEvent::isMediumMuon(size_t i) const
   if (i >= leps_.size()) return defaultvalues::defaultFloat;  
 
   if (isMuon(i)) {
-    return false;                                                  // To be removed from 74X
-    //  return (muon::isMediumMuon(*getMuon(i), highestPtVtx()));  // To be used from 74X
+    return (muon::isMediumMuon(*getMuon(i)));
   } else {
     return false;
   }
