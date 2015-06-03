@@ -407,8 +407,8 @@ def addEleIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_electron_effectiveArea",  cms.string("GetElectronEffectiveAreaByPt")),
         setattr(pt.variables, "std_vector_electron_scEta",          cms.string("etaSCByPt")),
         setattr(pt.variables, "std_vector_electron_passConversion", cms.string("passesConversionByPt")),
-        setattr(pt.variables, "std_vector_electron_d0",             cms.string("d0RecoByPt")),
-        setattr(pt.variables, "std_vector_electron_dz",             cms.string("dZRecoByPt")),
+        setattr(pt.variables, "std_vector_electron_d0",             cms.string("d0RecoByPt")),  # empty
+        setattr(pt.variables, "std_vector_electron_dz",             cms.string("dZRecoByPt")),  # empty
     else:
         raise RuntimeError, "In addEleIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 
