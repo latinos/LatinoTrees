@@ -3198,6 +3198,25 @@ const float reco::SkimEvent::numberOfHits(size_t i) const {
  else return -999.0;
 }
 
+const float reco::SkimEvent::ooEooP(size_t i) const {
+  if(i >= leps_.size() || getElectron(i)->ecalEnergy() == 0 || !std::isfinite(getElectron(i)->ecalEnergy())) return defaultvalues::defaultFloat;
+ else if( isElectron(i) ) return (1.0/getElectron(i)->ecalEnergy() - getElectron(i)->eSuperClusterOverP()/getElectron(i)->ecalEnergy());
+   else return -999.0;
+}
+
+const float reco::SkimEvent::d0(size_t i) const {
+  const reco::Vertex primaryVtx = highestPtVtx();
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
+ else if( isElectron(i) ) return getElectron(i)->gsfTrack()->dxy(primaryVtx.position()); 
+ else return -999.0;
+}
+const float reco::SkimEvent::dZ(size_t i) const {
+  const reco::Vertex primaryVtx = highestPtVtx();
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;
+ else if( isElectron(i) ) return getElectron(i)->gsfTrack()->dz(primaryVtx.position());
+ else return -999.0;
+}
+
 
 // Muon and electron isolation
 const float reco::SkimEvent::chargedHadronIso(size_t i) const {

@@ -668,6 +668,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float sigmaIetaIeta                 (size_t i) const;
             const float hadronicOverEm                (size_t i) const;
             const float numberOfHits                  (size_t i) const;
+            const float ooEooP                        (size_t i) const;
+            const float d0                            (size_t i) const;
+            const float dZ                            (size_t i) const;
 	    const float elSIP3D                       (size_t i) const;
 
             const float GetElectronEffectiveAreaByPt      (size_t i) const { return GetElectronEffectiveArea      (indexByPt(i)); }
@@ -676,6 +679,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float sigmaIetaIetaByPt                 (size_t i) const { return sigmaIetaIeta                 (indexByPt(i)); }
             const float hadronicOverEmByPt                (size_t i) const { return hadronicOverEm                (indexByPt(i)); }
             const float numberOfHitsByPt                  (size_t i) const { return numberOfHits                  (indexByPt(i)); }
+            const float ooEooPByPt                        (size_t i) const { return ooEooP                        (indexByPt(i)); }
+            const float d0ByPt                            (size_t i) const { return d0                            (indexByPt(i)); }
+            const float dZByPt                            (size_t i) const { return dZ                            (indexByPt(i)); }
 	    const float elSIP3DByPt                       (size_t i) const { return elSIP3D                       (indexByPt(i)); }
 
 
@@ -750,8 +756,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             double maxEtaForJets_;
             double minPtForJets_;
 	    double dzCutForBtagJets_;
-	    bool applyCorrectionForJets_;
-	    int applyIDForJets_;
+	    bool   applyCorrectionForJets_;
+	    int    applyIDForJets_;
  
             std::string _name_puJetIdDiscriminant;
             
