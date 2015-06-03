@@ -8,8 +8,8 @@ The command `bash -l` is needed only if the shell is not bash.
     bash -l
 
     export SCRAM_ARCH=slc6_amd64_gcc491
-    cmsrel CMSSW_7_3_3
-    cd CMSSW_7_3_3/src/
+    cmsrel CMSSW_7_4_4
+    cd CMSSW_7_4_4/src/
     cmsenv
 
 
