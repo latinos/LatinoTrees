@@ -92,7 +92,7 @@ Phys14:
                     doLHE=False \
                     doGen=True \
                     doBTag=True \
-                    globalTag=PHYS14_25_V2 \
+                    globalTag=MCRUN2_74_V9A \
                     inputFiles=file:/tmp/amassiro/0AA28275-5001-E511-8A45-0CC47A4DEDE0.root
                     
                     
