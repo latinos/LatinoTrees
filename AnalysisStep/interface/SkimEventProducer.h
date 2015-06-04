@@ -147,6 +147,9 @@ double neutFrac;
         void makeVertices   (std::vector<Vector> &iPVInfo,reco::VertexCollection &iVertices);
         reco::PFMET getMvaMet(const reco::Candidate *cand1,const reco::Candidate *cand2,reco::Vertex *iPV,reco::PFMETCollection thePfMet);
 
+        //---- objects filters
+        bool isGoodElectron( const reco::RecoCandidate &electron, const edm::Handle<double> &rho );
+        
 };
 
 

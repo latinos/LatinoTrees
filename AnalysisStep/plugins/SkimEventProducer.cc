@@ -216,7 +216,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
 //     std::cout << " electrons->size() = " << electrons->size() << std::endl;
     for(size_t i=0;i<electrons->size();++i) {
-     skimEvent->back().setLepton(electrons,i);
+     if (isGoodElectron(electrons->at(i), rhoJetIso)) {
+      skimEvent->back().setLepton(electrons,i);
+     }
     }
 
 //     std::cout << " muons->size() = " << muons->size() << std::endl;
@@ -296,6 +298,28 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
  
     iEvent.put(skimEvent);
 }
+
+
+//---- leptons filters
+
+bool SkimEventProducer::isGoodElectron(
+ const reco::RecoCandidate &electron,
+ const edm::Handle<double> &rho
+)
+{
+
+ return true;
+//  double rhoIso = (double) (*rho);
+//  if ((electron.pt() + rhoIso) > 20) {
+//    return true;
+//  }
+//  else {
+//   return false;
+//  }
+}
+
+
+
     //edm::Handle<reco::PFCandidateCollection> pfCandsH;
 reco::MET SkimEventProducer::computeTrkMet(const reco::Vertex &pv,
                       edm::Handle<pat::PackedCandidateCollection> candsH
