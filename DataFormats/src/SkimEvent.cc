@@ -3199,7 +3199,7 @@ const bool reco::SkimEvent::passesConversion(size_t i) const {
 	fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) return false;
    
     //---- formerly:      if (e->gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0) {
-    if (e->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS)) return false;
+    if (e->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS) > 1) return false;
 
     return true;
   }
