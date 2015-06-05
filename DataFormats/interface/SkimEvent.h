@@ -400,10 +400,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool   hasGoodVertex() const;
             const double d0Reco              (size_t a=0) const;
             const double dZReco              (size_t a=0) const;
-            const bool   passesConversion    (size_t a=0) const;
             const double d0RecoByPt          (size_t a=0) const { return d0Reco          (indexByPt(a)); }
             const double dZRecoByPt          (size_t a=0) const { return dZReco          (indexByPt(a)); }
-            const bool   passesConversionByPt(size_t a=0) const { return passesConversion(indexByPt(a)); }
             const bool   isSTA(size_t a=0) const;
             const bool   isSTA(const refToCand &c) const;
             const bool   isMuTriggered(size_t a=0) const;
@@ -672,6 +670,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float d0                            (size_t i) const;
             const float dZ                            (size_t i) const;
 	    const float elSIP3D                       (size_t i) const;
+            const bool  passesConversion              (size_t i) const;
 
             const float GetElectronEffectiveAreaByPt      (size_t i) const { return GetElectronEffectiveArea      (indexByPt(i)); }
             const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx(indexByPt(i)); }          
@@ -683,6 +682,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float d0ByPt                            (size_t i) const { return d0                            (indexByPt(i)); }
             const float dZByPt                            (size_t i) const { return dZ                            (indexByPt(i)); }
 	    const float elSIP3DByPt                       (size_t i) const { return elSIP3D                       (indexByPt(i)); }
+            const bool  passesConversionByPt              (size_t i) const { return passesConversion              (indexByPt(i)); }
 
 
             // Muon and electron isolation

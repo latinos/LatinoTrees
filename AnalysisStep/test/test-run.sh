@@ -10,7 +10,7 @@ export EVENTS=$1
 rm -rf latino_stepB_MC_numEvent${EVENTS}.root
 
 cmsRun stepB.py print \
-    label=Top \
+    label=WZ \
     id=1111 \
     scale=1 \
     outputFile=stepB_MC.root \
@@ -22,7 +22,7 @@ cmsRun stepB.py print \
     doGen=True \
     doBTag=True \
     globalTag=MCRUN2_74_V9A \
-    inputFiles=file:/afs/cern.ch/user/p/piedra/work/store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/00C90EFC-3074-E411-A845-002590DB9262.root
+    inputFiles=file:/afs/cern.ch/user/p/piedra/work/store/mc/Phys14DR/WZJetsTo3LNu_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/484D51C6-2673-E411-8AB0-001E67398412.root
 
 python cmssw2latino.py stepB_MC_numEvent${EVENTS}.root
 
