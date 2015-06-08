@@ -6,13 +6,13 @@ pyCfgParams = ['outputFile=stepB_MC.root', 'doNoFilter=True', 'doMuonIsoId=True'
 
 config.section_('General')
 config.General.transferLogs = True
-config.General.workArea     = 'crab_spring15_8Jun'  # Make sure you set this parameter
-
+config.General.workArea     = 'crab_projects_8Jun'  # Make sure you set this parameter
 
 config.section_('JobType')
-config.JobType.pluginName  = 'Analysis'
-config.JobType.psetName    = '../stepB.py'
-config.JobType.outputFiles = ['stepB_MC.root']
+config.JobType.pluginName       = 'Analysis'
+config.JobType.psetName         = '../stepB.py'
+config.JobType.maxJobRuntimeMin = 2800
+config.JobType.outputFiles      = ['stepB_MC.root']
 config.JobType.allowUndistributedCMSSW = True
 
 config.section_('Data')    
