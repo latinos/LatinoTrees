@@ -148,7 +148,8 @@ double neutFrac;
         reco::PFMET getMvaMet(const reco::Candidate *cand1,const reco::Candidate *cand2,reco::Vertex *iPV,reco::PFMETCollection thePfMet);
 
         //---- objects filters
-        bool isGoodElectron( const reco::RecoCandidate &electron, const edm::Handle<double> &rho );
+//         bool isGoodElectron( const reco::RecoCandidate &electron, const edm::Handle<double> &rho );
+        bool isGoodElectron( const edm::Ptr<reco::RecoCandidate> electron, const edm::Handle<double> &rho );
         
 };
 

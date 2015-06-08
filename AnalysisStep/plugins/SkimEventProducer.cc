@@ -216,7 +216,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
 //     std::cout << " electrons->size() = " << electrons->size() << std::endl;
     for(size_t i=0;i<electrons->size();++i) {
-     if (isGoodElectron(electrons->at(i), rhoJetIso)) {
+     if (isGoodElectron(electrons->ptrAt(i), rhoJetIso)) {
+//       if (isGoodElectron(electrons->at(i), rhoJetIso)) {
+       
       skimEvent->back().setLepton(electrons,i);
      }
     }
@@ -303,11 +305,14 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 //---- leptons filters
 
 bool SkimEventProducer::isGoodElectron(
- const reco::RecoCandidate &electron,
+ const edm::Ptr<reco::RecoCandidate> electron,
  const edm::Handle<double> &rho
 )
 {
 
+ const pat::Electron* patEle = static_cast<const pat::Electron*> (electron.get());
+ std::cout << patEle->deltaEtaSuperClusterTrackAtVtx() << std::endl;
+ 
  return true;
 //  double rhoIso = (double) (*rho);
 //  if ((electron.pt() + rhoIso) > 20) {
