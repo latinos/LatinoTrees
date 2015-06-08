@@ -110,6 +110,7 @@ double neutFrac;
         edm::InputTag rhoTag_;
 	edm::InputTag phoTag_; //PHOTON
 
+	int _debug;
 	
 	edm::EDGetTokenT<pat::TauCollection> tausT_;
         edm::EDGetTokenT<reco::GenParticleCollection> genParticlesT_;
