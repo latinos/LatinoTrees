@@ -216,9 +216,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
 //     std::cout << " electrons->size() = " << electrons->size() << std::endl;
     for(size_t i=0;i<electrons->size();++i) {
-     if (isGoodElectron(electrons->ptrAt(i), rhoJetIso)) {
+      if (isGoodElectron(electrons->ptrAt(i), rhoJetIso,vtxH)) {
 //       if (isGoodElectron(electrons->at(i), rhoJetIso)) {
-       
+	std::cout<<"good electron for you :)"<<std::endl;
       skimEvent->back().setLepton(electrons,i);
      }
     }
@@ -306,14 +306,82 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
 bool SkimEventProducer::isGoodElectron(
  const edm::Ptr<reco::RecoCandidate> electron,
- const edm::Handle<double> &rho
-)
+ const edm::Handle<double> &rho,
+ const edm::Handle<reco::VertexCollection> & vtxH
+				       )
 {
-
- const pat::Electron* patEle = static_cast<const pat::Electron*> (electron.get());
- std::cout << patEle->deltaEtaSuperClusterTrackAtVtx() << std::endl;
  
- return true;
+  int pv_pos=0;
+  reco::VertexRefVector vtxs_;
+  for(size_t i=0;i<vtxH->size();++i){
+      vtxs_.push_back(reco::VertexRef(vtxH,i));}
+	for(size_t i=0; i< vtxs_.size();i++) {
+	  if(vtxs_[i]->isValid() && !vtxs_[i]->isFake() && vtxs_[i]->ndof() >= 4.0 && fabs(vtxs_[i]->position().Rho()) < 2.0 && fabs(vtxs_[i]->z()) < 24.0){
+	    pv_pos=i;
+	  break;
+	  }
+	}
+	
+       
+	
+	const pat::Electron* patEle = static_cast<const pat::Electron*> (electron.get());
+      double rhoIso = double (*rho);
+      double sumChargedHadronPt=patEle->pfIsolationVariables().sumChargedHadronPt;
+      double sumPhotonEt=patEle->pfIsolationVariables().sumPhotonEt;
+      double sumNeutralHadronEt=patEle->pfIsolationVariables().sumNeutralHadronEt;
+
+  //PHYS14 Cut based Loose WP 
+
+  float SCeta=abs(patEle->superCluster()->eta());
+  float el_pt=patEle->pt();
+  if(patEle->isEB() &&
+     abs(patEle->deltaEtaSuperClusterTrackAtVtx()) < 0.009277 &&
+     abs(patEle->deltaPhiSuperClusterTrackAtVtx()) < 0.094739 &&
+     patEle->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS) <=1 &&
+     patEle->full5x5_sigmaIetaIeta() < 0.010331 &&
+     (1.0/patEle->ecalEnergy() - patEle->eSuperClusterOverP()/patEle->ecalEnergy()) < 0.189968 &&
+     patEle->hcalOverEcal() < 0.093068 &&
+     abs((-1)*patEle->gsfTrack()->dxy(vtxs_[pv_pos]->position())) < 0.035904 &&
+     abs(patEle->gsfTrack()->dz(vtxs_[pv_pos]->position())) <  0.075496 &&
+     (fabs(patEle->userFloat("convValueMapProd:dist")) < 0.02 && fabs(patEle->userFloat("convValueMapProd:dcot")) < 0.02) && 
+     (  
+      (SCeta >= 0.000 && SCeta < 0.800 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1013 * rhoIso))/el_pt < 0.130136)||
+      (SCeta >= 0.8 && SCeta < 1.3 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0988 * rhoIso))/el_pt < 0.130136)||
+      (SCeta >= 1.3 && SCeta < 2.0 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0572 * rhoIso))/el_pt < 0.130136)||
+      (SCeta >= 2.0 && SCeta < 2.2 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0842 * rhoIso))/el_pt < 0.130136)||
+      (SCeta >= 2.2 && SCeta < 2.5 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1530 * rhoIso))/el_pt < 0.130136))){
+    
+    return true;
+  
+  }
+		
+  else if(
+    abs(patEle->deltaEtaSuperClusterTrackAtVtx()) < 0.009833 &&
+      abs(patEle->deltaPhiSuperClusterTrackAtVtx()) < 0.149934 &&
+      patEle->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS)<=1 &&
+      patEle->hadronicOverEm() < 0.115754 &&
+      patEle->full5x5_sigmaIetaIeta() < 0.031838 &&
+      (1.0/patEle->ecalEnergy() - patEle->eSuperClusterOverP()/patEle->ecalEnergy()) < 0.140662 &&
+      patEle->hcalOverEcal() < 0.115754 &&
+      abs((-1)*patEle->gsfTrack()->dxy(vtxs_[pv_pos]->position())) < 0.099266 &&
+      abs(patEle->gsfTrack()->dz(vtxs_[pv_pos]->position())) <  0.197897 &&
+      (fabs(patEle->userFloat("convValueMapProd:dist")) < 0.02 && fabs(patEle->userFloat("convValueMapProd:dcot")) < 0.02) && 
+(  
+ (SCeta >= 0.000 && SCeta < 0.800 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1013 * rhoIso))/el_pt < 0.163368)||
+ (SCeta >= 0.8 && SCeta < 1.3 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0988 * rhoIso))/el_pt < 0.163368 )||
+ (SCeta >= 1.3 && SCeta < 2.0 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0572 * rhoIso))/el_pt < 0.163368 )|| 
+ (SCeta >= 2.0 && SCeta < 2.2 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0842 * rhoIso))/el_pt < 0.163368 )|| 
+ (SCeta >= 2.2 && SCeta < 2.5 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1530 * rhoIso))/el_pt < 0.163368 )))
+    {
+      return true;
+    }
+  else {
+    return false;
+  }
+
+
+
+
 //  double rhoIso = (double) (*rho);
 //  if ((electron.pt() + rhoIso) > 20) {
 //    return true;
