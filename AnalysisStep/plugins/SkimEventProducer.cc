@@ -55,7 +55,9 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     pfCandsTag_        = cfg.getParameter<edm::InputTag>("pfCandsTag" );
     rhoTag_            = cfg.getParameter<edm::InputTag>("rhoTag" );
     phoTag_	       = cfg.getParameter<edm::InputTag>("phoTag"); //Photon
-
+    
+    _debug             = cfg.getUntrackedParameter<int>("debug",0);
+    
     if (cfg.exists("sptTag" )) 
      sptTag_ = cfg.getParameter<edm::InputTag>("sptTag" );
     else 
@@ -111,6 +113,10 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
 
 void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
 
+    if (_debug >= 1) {
+     std::cout << " SkimEventProducer::produce " << std::endl;
+    }
+    
     std::auto_ptr<std::vector<reco::SkimEvent> > skimEvent(new std::vector<reco::SkimEvent> );
 
     edm::Handle<reco::GenParticleCollection> genParticles;
@@ -311,7 +317,9 @@ bool SkimEventProducer::isGoodElectron(
 {
 
  const pat::Electron* patEle = static_cast<const pat::Electron*> (electron.get());
- std::cout << patEle->deltaEtaSuperClusterTrackAtVtx() << std::endl;
+ if (_debug >= 1) {
+  std::cout << patEle->deltaEtaSuperClusterTrackAtVtx() << std::endl;
+ }
  
  return true;
 //  double rhoIso = (double) (*rho);
