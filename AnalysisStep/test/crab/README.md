@@ -21,7 +21,7 @@ Send the jobs:
     
 And create the final tree:
 
-    python ../cmssw2latino.py   /tmp/amassiro/stepB_MC_ggHww_1.root
+    python ../cmssw2latino.py /tmp/amassiro/stepB_MC_ggHww_1.root
 
 You should get something like:
 
@@ -31,11 +31,6 @@ You should get something like:
 MultiCRAB
 ====
 
-    python multicrab.py
+    python multicrab.py samples/samples_spring15.py
 
-    crab status
-    
     crab status folder_name
-
-    python multicrab_template.py samples/samples_phys14.py
-
