@@ -6,7 +6,7 @@ pyCfgParams = ['outputFile=stepB_MC.root', 'doNoFilter=True', 'doMuonIsoId=True'
 
 config.section_('General')
 config.General.transferLogs = True
-config.General.workArea     = 'crab_projects_13May'  # Make sure you set this parameter
+config.General.workArea     = 'crab_spring15_8Jun'  # Make sure you set this parameter
 
 
 config.section_('JobType')
