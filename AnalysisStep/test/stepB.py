@@ -321,7 +321,7 @@ process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 # Default parameters for jets
 process.skimEventProducer.maxEtaForJets = cms.double(4.7)
 process.skimEventProducer.minPtForJets = cms.double(20)
-process.skimEventProducer.applyCorrectionForJets = cms.int32(1) 
+process.skimEventProducer.applyCorrectionForJets = cms.bool(True) 
 process.skimEventProducer.applyIDForJets = cms.int32(int(globalVariables.jetId_WP))
 # 7 Run II jetID LOOSE
 # 8 Run II jetID TIGHT
