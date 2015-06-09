@@ -318,6 +318,7 @@ import LatinoTrees.AnalysisStep.globalVariables as globalVariables
 #  and all configurations and parameters are defined too
 process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
+
 # Default parameters for jets
 process.skimEventProducer.maxEtaForJets = cms.double(4.7)
 process.skimEventProducer.minPtForJets = cms.double(20)
