@@ -222,8 +222,11 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     skimEvent->push_back( *(new reco::SkimEvent() ) );
 
 //     std::cout << " electrons->size() = " << electrons->size() << std::endl;
+    if (_debug >= 1) {
+     std::cout << " SkimEventProducer::produce:electrons->size () = " << electrons->size () << std::endl;
+    }
     for(size_t i=0;i<electrons->size();++i) {
-      if (isGoodElectron(electrons->ptrAt(i), rhoJetIso)){ 
+     if (isGoodElectron(electrons->ptrAt(i), rhoJetIso)){ 
 //       if (isGoodElectron(electrons->at(i), rhoJetIso)) {
       skimEvent->back().setLepton(electrons,i);
      }

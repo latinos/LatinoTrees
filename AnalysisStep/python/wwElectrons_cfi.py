@@ -33,7 +33,7 @@ ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+
                            #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.075496 " +
                            " && abs(1./energy - 1/p) < 0.189968 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           " && userFloat('convValueMapProd:passVtxConvert') != 0 " +
+                           #" && userFloat('convValueMapProd:passVtxConvert') != 0 " +
                            " ) || " +
                    "( (!isEB) " +
                            " && sigmaIetaIeta < 0.031838" +
@@ -44,7 +44,7 @@ ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+
                            #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.197897  " +
                            " && abs(1./energy - 1/p) < 0.140662 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           " && userFloat('convValueMapProd:passVtxConvert') != 0 " +
+                           #" && userFloat('convValueMapProd:passVtxConvert') != 0 " +
                            " ) " +
                     ")")
 

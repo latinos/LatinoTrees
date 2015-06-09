@@ -113,10 +113,36 @@ Phys14:
        
        
        
+    scp amassiro@cmsneu:/media/data/CMSSWRoot/RunIISpring15DR74/WWTo2L2Nu_13TeV-powheg/MINIAODSIM/50ns/1EF48EA6-DE0B-E511-99EF-0002C92A1024.root /tmp/amassiro/
+    scp amassiro@cmsneu:/media/data/CMSSWRoot/RunIISpring15DR74/WWTo2L2Nu_13TeV-powheg/MINIAODSIM/25ns/082EF100-DC05-E511-AD3F-A0040420FE80.root /tmp/amassiro/
        
-                    MCRUN2_74_V9A
-                    MCRUN2_72_V3A
-                    PHYS14_25_V2
-
+    cmsRun stepB.py print \
+                    label=WW \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC_25ns.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    doLHE=False \
+                    doGen=True \
+                    doBTag=True \
+                    globalTag=MCRUN2_74_V9A \
+                    selection=LooseNoIso \
+                    inputFiles=file:/tmp/amassiro/082EF100-DC05-E511-AD3F-A0040420FE80.root
+    
+    cmsRun stepB.py print \
+                    label=WW \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC_50ns_bis.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    doLHE=False \
+                    doGen=True \
+                    doBTag=True \
+                    globalTag=MCRUN2_74_V9A \
+                    selection=LooseNoIso \
+                    inputFiles=file:/tmp/amassiro/1EF48EA6-DE0B-E511-99EF-0002C92A1024.root
+    
     
     
