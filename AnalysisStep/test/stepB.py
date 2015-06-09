@@ -405,6 +405,8 @@ if options.selection == 'Tight':
     #labelSetup = "Scenario1"; muon = "wwMuoTight"; ele = "wwEleTight"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence();  # --> fix ele/mu tag and un-comment this line and comment the previous one
 elif options.selection == 'Loose':
     labelSetup = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; pho = "wwPhoScenario1"; preSeq = cms.Sequence();
+elif options.selection == 'LooseNoIso':
+    labelSetup = "Scenario7"; muon = "wwMuoTightNoIso"; ele = "wwEleLooseNoIso"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence(); 
 else:
     raise ValueError('selection must be either Tight or Loose')
 

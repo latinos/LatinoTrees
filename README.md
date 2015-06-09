@@ -95,7 +95,25 @@ Phys14:
                     globalTag=MCRUN2_74_V9A \
                     inputFiles=file:/tmp/amassiro/0AA28275-5001-E511-8A45-0CC47A4DEDE0.root
                     
-                    
+       
+    cmsRun stepB.py print \
+                    label=Top \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    maxEvents=200 \
+                    doLHE=False \
+                    doGen=True \
+                    doBTag=True \
+                    globalTag=MCRUN2_74_V9A \
+                    selection=LooseNoIso \
+                    inputFiles=file:/tmp/amassiro/0AA28275-5001-E511-8A45-0CC47A4DEDE0.root
+       
+       
+       
+       
                     MCRUN2_74_V9A
                     MCRUN2_72_V3A
                     PHYS14_25_V2

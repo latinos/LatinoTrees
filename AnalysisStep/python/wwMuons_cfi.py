@@ -18,6 +18,14 @@ wwMuoBase = selectedMuonsBase.clone( cut = MUO_BASE )
 # https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
 
 
+MUO_ID_TIGHT_NO_ISO = ("("+
+                  " (isPFMuon && (isGlobalMuon || isTrackerMuon) ) " +
+                  " )")
+
+wwMuoTightNoIso     = selectedMuonsBase.clone( cut = MUO_BASE + " && " + MUO_ID_TIGHT_NO_ISO )
+
+
+
 #MUO_ID_TIGHT = ("isTightMuon") -> it does NOT work
 MUO_ID_TIGHT = ("("+
                   "(pfIsolationR04().sumChargedHadronPt+max(0.,pfIsolationR04().sumNeutralHadronEt+pfIsolationR04().sumPhotonEt-0.50*pfIsolationR04().sumPUPt))/pt < 0.20 " +

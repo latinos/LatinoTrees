@@ -56,6 +56,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     rhoTag_            = cfg.getParameter<edm::InputTag>("rhoTag" );
     phoTag_	       = cfg.getParameter<edm::InputTag>("phoTag"); //Photon
     
+    _electronId        = cfg.getUntrackedParameter<int>("electronId",1);
     _debug             = cfg.getUntrackedParameter<int>("debug",0);
     
     if (cfg.exists("sptTag" )) 
@@ -321,50 +322,60 @@ bool SkimEventProducer::isGoodElectron( const edm::Ptr<reco::RecoCandidate> elec
  
  float SCeta=abs(patEle->superCluster()->eta());
  float el_pt=patEle->pt();
- if(patEle->isEB() &&
-  abs(patEle->dB(pat::Electron::PV2D)) < 0.035904 &&
-  abs( sqrt( patEle->dB(pat::Electron::PV3D)*patEle->dB(pat::Electron::PV3D) - patEle->dB(pat::Electron::PV2D)*patEle->dB(pat::Electron::PV2D) ) ) < 0.075496 &&
-  abs(patEle->deltaEtaSuperClusterTrackAtVtx()) < 0.009277 &&
-  abs(patEle->deltaPhiSuperClusterTrackAtVtx()) < 0.094739 &&
-  patEle->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS) <=1 &&
-  patEle->full5x5_sigmaIetaIeta() < 0.010331 &&
-  (1.0/patEle->ecalEnergy() - patEle->eSuperClusterOverP()/patEle->ecalEnergy()) < 0.189968 &&
-  patEle->hcalOverEcal() < 0.093068 &&
-  (fabs(patEle->userFloat("convValueMapProd:dist")) < 0.02 && fabs(patEle->userFloat("convValueMapProd:dcot")) < 0.02) && 
-  (  
-  (SCeta >= 0.000 && SCeta < 0.800 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1013 * rhoIso))/el_pt < 0.130136)||
-  (SCeta >= 0.8 && SCeta < 1.3 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0988 * rhoIso))/el_pt < 0.130136)||
-  (SCeta >= 1.3 && SCeta < 2.0 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0572 * rhoIso))/el_pt < 0.130136)||
-  (SCeta >= 2.0 && SCeta < 2.2 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0842 * rhoIso))/el_pt < 0.130136)||
-  (SCeta >= 2.2 && SCeta < 2.5 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1530 * rhoIso))/el_pt < 0.130136))){
-  
-  return true;
-  
-  }
-  
-  else if(
-   abs(patEle->dB(pat::Electron::PV2D)) < 0.099266 &&
-   abs( sqrt( patEle->dB(pat::Electron::PV3D)*patEle->dB(pat::Electron::PV3D) - patEle->dB(pat::Electron::PV2D)*patEle->dB(pat::Electron::PV2D) ) ) < 0.197897 &&
-   abs(patEle->deltaEtaSuperClusterTrackAtVtx()) < 0.009833 &&
-   abs(patEle->deltaPhiSuperClusterTrackAtVtx()) < 0.149934 &&
-   patEle->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS)<=1 &&
-   patEle->hadronicOverEm() < 0.115754 &&
-   patEle->full5x5_sigmaIetaIeta() < 0.031838 &&
-   (1.0/patEle->ecalEnergy() - patEle->eSuperClusterOverP()/patEle->ecalEnergy()) < 0.140662 &&
-   patEle->hcalOverEcal() < 0.115754 &&
+ 
+ if (_electronId == 1) {
+  if(patEle->isEB() &&
+   abs(patEle->dB(pat::Electron::PV2D)) < 0.035904 &&
+   abs( sqrt( patEle->dB(pat::Electron::PV3D)*patEle->dB(pat::Electron::PV3D) - patEle->dB(pat::Electron::PV2D)*patEle->dB(pat::Electron::PV2D) ) ) < 0.075496 &&
+   abs(patEle->deltaEtaSuperClusterTrackAtVtx()) < 0.009277 &&
+   abs(patEle->deltaPhiSuperClusterTrackAtVtx()) < 0.094739 &&
+   patEle->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS) <=1 &&
+   patEle->full5x5_sigmaIetaIeta() < 0.010331 &&
+   (1.0/patEle->ecalEnergy() - patEle->eSuperClusterOverP()/patEle->ecalEnergy()) < 0.189968 &&
+   patEle->hcalOverEcal() < 0.093068 &&
    (fabs(patEle->userFloat("convValueMapProd:dist")) < 0.02 && fabs(patEle->userFloat("convValueMapProd:dcot")) < 0.02) && 
    (  
-   (SCeta >= 0.000 && SCeta < 0.800 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1013 * rhoIso))/el_pt < 0.163368)||
-   (SCeta >= 0.8 && SCeta < 1.3 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0988 * rhoIso))/el_pt < 0.163368 )||
-   (SCeta >= 1.3 && SCeta < 2.0 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0572 * rhoIso))/el_pt < 0.163368 )|| 
-   (SCeta >= 2.0 && SCeta < 2.2 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0842 * rhoIso))/el_pt < 0.163368 )|| 
-   (SCeta >= 2.2 && SCeta < 2.5 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1530 * rhoIso))/el_pt < 0.163368 )))
-  {
+   (SCeta >= 0.000 && SCeta < 0.800 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1013 * rhoIso))/el_pt < 0.130136)||
+   (SCeta >= 0.8 && SCeta < 1.3 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0988 * rhoIso))/el_pt < 0.130136)||
+   (SCeta >= 1.3 && SCeta < 2.0 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0572 * rhoIso))/el_pt < 0.130136)||
+   (SCeta >= 2.0 && SCeta < 2.2 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0842 * rhoIso))/el_pt < 0.130136)||
+   (SCeta >= 2.2 && SCeta < 2.5 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1530 * rhoIso))/el_pt < 0.130136))){
+   
    return true;
-  }
-  else {
-   return false;
-  }
+   
+   }
+   
+   else if(
+    abs(patEle->dB(pat::Electron::PV2D)) < 0.099266 &&
+    abs( sqrt( patEle->dB(pat::Electron::PV3D)*patEle->dB(pat::Electron::PV3D) - patEle->dB(pat::Electron::PV2D)*patEle->dB(pat::Electron::PV2D) ) ) < 0.197897 &&
+    abs(patEle->deltaEtaSuperClusterTrackAtVtx()) < 0.009833 &&
+    abs(patEle->deltaPhiSuperClusterTrackAtVtx()) < 0.149934 &&
+    patEle->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS)<=1 &&
+    patEle->hadronicOverEm() < 0.115754 &&
+    patEle->full5x5_sigmaIetaIeta() < 0.031838 &&
+    (1.0/patEle->ecalEnergy() - patEle->eSuperClusterOverP()/patEle->ecalEnergy()) < 0.140662 &&
+    patEle->hcalOverEcal() < 0.115754 &&
+    (fabs(patEle->userFloat("convValueMapProd:dist")) < 0.02 && fabs(patEle->userFloat("convValueMapProd:dcot")) < 0.02) && 
+    (  
+    (SCeta >= 0.000 && SCeta < 0.800 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1013 * rhoIso))/el_pt < 0.163368)||
+    (SCeta >= 0.8 && SCeta < 1.3 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0988 * rhoIso))/el_pt < 0.163368 )||
+    (SCeta >= 1.3 && SCeta < 2.0 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0572 * rhoIso))/el_pt < 0.163368 )|| 
+    (SCeta >= 2.0 && SCeta < 2.2 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0842 * rhoIso))/el_pt < 0.163368 )|| 
+    (SCeta >= 2.2 && SCeta < 2.5 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1530 * rhoIso))/el_pt < 0.163368 )))
+   {
+    return true;
+   }
+   else {
+    return false;
+   }
+ }
+ 
+ else if (_electronId == -1) { //---- no selections
+  return true;
+ }
+ else {
+  return true;
+ }
   
 }
 

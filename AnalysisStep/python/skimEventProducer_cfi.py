@@ -6,6 +6,9 @@ from LatinoTrees.AnalysisStep.wwMuons_cfi import *
 
 
 skimEventProducer = cms.EDProducer('SkimEventProducer',
+    debug         = cms.untracked.int32(0),                                   
+    electronId    = cms.untracked.int32(-1),
+    
     # general definition of variables,
     # needed for "std::vectors" definition
     maxEtaForJets     = cms.double(4.7),                                   
