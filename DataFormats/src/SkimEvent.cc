@@ -1148,12 +1148,17 @@ const float reco::SkimEvent::leadingJetPhi(size_t index) const {
 
 const float reco::SkimEvent::leadingJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
+//  std::cout << " minPtForJets_ = " << minPtForJets_ << std::endl;
+//  std::cout << " jets_.size() = " << jets_.size() << std::endl;
+ 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
+//   std::cout << " >> jets_[" << i << "]->pt() = " << jets_[i]->pt() << " > " << minPt << std::endl;
   if(!(passJetID(jets_[i],applyID)) ) continue;
+//   std::cout << " >> jets_[" << i << "]->eta() = " << jets_[i]->eta() << " < " << eta << std::endl;
   if( std::fabs(jets_[i]->eta()) >= eta) continue;
   if( jetPt(i,applyCorrection) <= minPt) continue;
-  
+//   std::cout << " >> isThisJetALepton(jets_[i]) = " << isThisJetALepton(jets_[i]) << std::endl;
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) return jetPt(i,applyCorrection);
  }

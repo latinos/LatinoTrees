@@ -77,6 +77,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     applyCorrectionForJets_ = cfg.getParameter<bool>("applyCorrectionForJets");
     applyIDForJets_	    = cfg.getParameter<int>("applyIDForJets");
  
+//     std::cout << " minPtForJets_= " << minPtForJets_ << std::endl;
     name_puJetIdDiscriminant_= cfg.getParameter<std::string>("namePuJetIdDiscriminant");
     
     // consumes

@@ -134,7 +134,7 @@ Phys14:
                     label=WW \
                     id=123456789 \
                     scale=1 \
-                    outputFile=stepB_MC_50ns_bis.root \
+                    outputFile=stepB_MC_50ns.root \
                     doNoFilter=True \
                     doMuonIsoId=True \
                     doLHE=False \
