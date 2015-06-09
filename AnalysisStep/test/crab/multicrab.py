@@ -2,11 +2,11 @@ import os
 from WMCore.Configuration import Configuration
 config = Configuration()
 
-pyCfgParams = ['outputFile=stepB_MC.root', 'doNoFilter=True', 'doMuonIsoId=True', 'doEleIsoId=True', 'doGen=True', 'doBTag=True', 'doLHE=False', 'runPUPPISequence=False']
+pyCfgParams = ['selection=LooseNoIso', 'outputFile=stepB_MC.root', 'doNoFilter=False', 'doMuonIsoId=True', 'doEleIsoId=True', 'doGen=True', 'doBTag=True', 'doLHE=False', 'runPUPPISequence=True']
 
 config.section_('General')
 config.General.transferLogs = True
-config.General.workArea     = 'crab_projects_8Jun'  # Make sure you set this parameter
+config.General.workArea     = 'crab_projects_9Jun'  # Make sure you set this parameter
 
 config.section_('JobType')
 config.JobType.pluginName       = 'Analysis'
