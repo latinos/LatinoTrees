@@ -151,6 +151,12 @@ double neutFrac;
         //---- objects filters
 //         bool isGoodElectron( const reco::RecoCandidate &electron, const edm::Handle<double> &rho );
         bool isGoodElectron( const edm::Ptr<reco::RecoCandidate> electron, const edm::Handle<double> &rho );
+        int _electronId;
+        //---- 0 = LOOSE NO ISO
+        //---- 1 = LOOSE
+        //---- 2 = MEDIUM
+        //---- 3 = TIGHT
+        
         
 };
 
