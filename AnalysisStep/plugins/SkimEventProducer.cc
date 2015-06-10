@@ -337,7 +337,7 @@ bool SkimEventProducer::isGoodElectron( const edm::Ptr<reco::RecoCandidate> elec
    patEle->full5x5_sigmaIetaIeta() < 0.010331 &&
    (1.0/patEle->ecalEnergy() - patEle->eSuperClusterOverP()/patEle->ecalEnergy()) < 0.189968 &&
    patEle->hcalOverEcal() < 0.093068 &&
-   (fabs(patEle->userFloat("convValueMapProd:dist")) < 0.02 && fabs(patEle->userFloat("convValueMapProd:dcot")) < 0.02) && 
+   (fabs(patEle->userFloat("convValueMapProd:dist")) > 0.02 || fabs(patEle->userFloat("convValueMapProd:dcot")) > 0.02) && 
    (  
    (SCeta >= 0.000 && SCeta < 0.800 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1013 * rhoIso))/el_pt < 0.130136)||
    (SCeta >= 0.8 && SCeta < 1.3 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0988 * rhoIso))/el_pt < 0.130136)||
@@ -359,7 +359,7 @@ bool SkimEventProducer::isGoodElectron( const edm::Ptr<reco::RecoCandidate> elec
     patEle->full5x5_sigmaIetaIeta() < 0.031838 &&
     (1.0/patEle->ecalEnergy() - patEle->eSuperClusterOverP()/patEle->ecalEnergy()) < 0.140662 &&
     patEle->hcalOverEcal() < 0.115754 &&
-    (fabs(patEle->userFloat("convValueMapProd:dist")) < 0.02 && fabs(patEle->userFloat("convValueMapProd:dcot")) < 0.02) && 
+    (fabs(patEle->userFloat("convValueMapProd:dist")) > 0.02 || fabs(patEle->userFloat("convValueMapProd:dcot")) > 0.02) && 
     (  
     (SCeta >= 0.000 && SCeta < 0.800 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1013 * rhoIso))/el_pt < 0.163368)||
     (SCeta >= 0.8 && SCeta < 1.3 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0988 * rhoIso))/el_pt < 0.163368 )||

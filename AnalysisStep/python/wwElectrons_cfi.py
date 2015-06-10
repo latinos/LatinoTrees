@@ -33,7 +33,8 @@ ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+
                            #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.075496 " +
                            " && abs(1./energy - 1/p) < 0.189968 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           #" && userFloat('convValueMapProd:passVtxConvert') != 0 " +
+                           " && passConversionVeto() " +                           
+                           #" && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
                            " ) || " +
                    "( (!isEB) " +
                            " && sigmaIetaIeta < 0.031838" +
@@ -44,7 +45,8 @@ ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+
                            #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.197897  " +
                            " && abs(1./energy - 1/p) < 0.140662 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           #" && userFloat('convValueMapProd:passVtxConvert') != 0 " +
+                           " && passConversionVeto() " +                           
+                           #" && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
                            " ) " +
                     ")")
 
@@ -70,7 +72,7 @@ ELE_ID_LOOSE = ("  (( isEB "+
                                #"(abs(superCluster.eta) >= 2.2 && abs(superCluster.eta) < 2.5 && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt - 0.1530 * rho))/pt < 0.130136 )   "+ 
                                #") " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           #" && userFloat('convValueMapProd:passVtxConvert') != 0 " +
+                           " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
                            " ) || " +
                    "( (!isEB) " +
                            " && sigmaIetaIeta < 0.031838" +
@@ -88,7 +90,7 @@ ELE_ID_LOOSE = ("  (( isEB "+
                                #"(abs(superCluster.eta) >= 2.2 && abs(superCluster.eta) < 2.5 && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt - 0.1530 * rho))/pt < 0.130136 )   "+ 
                                #") " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           #" && userFloat('convValueMapProd:passVtxConvert') != 0 " +
+                           " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
                            " ) " +
                     ")")
 
@@ -110,7 +112,7 @@ ELE_ID_MEDIUM = ("  (( isEB "+
                   #"(abs(superCluster.eta) >= 2.2 && abs(superCluster.eta) < 2.5 && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt - 0.1530 * rho))/pt < 0.107587 )" +
                   #")"+ 
                  " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                 " && userFloat('convValueMapProd:passVtxConvert') != 0 " +
+                 " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
                  " ) ||" +
                  
                  "( (!isEB) " +
@@ -129,7 +131,7 @@ ELE_ID_MEDIUM = ("  (( isEB "+
                   #"(abs(superCluster.eta) >= 2.2 && abs(superCluster.eta) < 2.5 && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt - 0.1530 * rho))/pt < 0.113254 ) " +
                   #") "+ 
                  " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                 " && userFloat('convValueMapProd:passVtxConvert') != 0 " +
+                 " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
                  " ) " +
                  ")")
 
@@ -152,7 +154,7 @@ ELE_ID_TIGHT = ("  (( isEB "+
                            " && abs(1./energy - 1/p) < 0.131191 " +
                            " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.074355 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           " && userFloat('convValueMapProd:passVtxConvert') != 0 " +
+                           " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
                            " ) || " +
                    "( (!isEB) " +
                            " && sigmaIetaIeta < 0.028766" +
@@ -164,7 +166,7 @@ ELE_ID_TIGHT = ("  (( isEB "+
                            " && abs(1./energy - 1/p) < 0.106055 " +
                            " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.090185 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           " && userFloat('convValueMapProd:passVtxConvert') != 0 " +
+                           " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
                            " ) " +
                     ")")
 
@@ -174,36 +176,6 @@ ELE_ID_ROBUSTTIGHT = (" electronID('eidRobustTight') ")
 
 wwEleTight       = selectedElectronsBase.clone( cut = ELE_BASE + " && " + ELE_ID_TIGHT )
 wwEleRobustTight = selectedElectronsBase.clone( cut = ELE_BASE + " && " + ELE_ID_ROBUSTTIGHT )
-
-
-## LOOSE
-#ELE_ID_LOOSE = ("  (( isEB "+ 
-                           #" && sigmaIetaIeta < 0.010557" +
-                           #" && hadronicOverEm < 0.121476" +
-                           #" && abs(deltaPhiSuperClusterTrackAtVtx) < 0.072624  " +
-                           #" && abs(deltaEtaSuperClusterTrackAtVtx) < 0.012442 " +
-                           ##" && abs(dB('PV2D')) < 0.022664  " +
-                           ##" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.173670  " +
-                           #" && abs(1./energy - 1/p) < 0.221803 " +
-                           #" && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.120026 " +
-                           #" && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           #" && userFloat('convValueMapProd:passVtxConvert') != 0 " +
-                           #" ) || " +
-                   #"( (!isEB) " +
-                           #" && sigmaIetaIeta < 0.032602" +
-                           #" && hadronicOverEm < 0.131862" +
-                           #" && abs(deltaPhiSuperClusterTrackAtVtx) < 0.145129  " +
-                           #" && abs(deltaEtaSuperClusterTrackAtVtx) < 0.010654  " +
-                           ##" && abs(dB('PV2D')) < 0.097358  " +
-                           ##" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.198444  " +
-                           #" && abs(1./energy - 1/p) < 0.142283 " +
-                           #" && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.162914 " +
-                           #" && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           #" && userFloat('convValueMapProd:passVtxConvert') != 0 " +
-                           #" ) " +
-                    #")")
-
-#wwEleLoose       = selectedElectronsBase.clone( cut = ELE_BASE + " && " + ELE_ID_LOOSE )
 
 
 
