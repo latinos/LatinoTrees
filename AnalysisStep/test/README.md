@@ -1,4 +1,4 @@
-Everything begins here
+1. Everything begins here
 ====
 
 The command `bash -l` is needed only if the shell is not bash.
@@ -8,102 +8,38 @@ The command `bash -l` is needed only if the shell is not bash.
     bash -l
 
     export SCRAM_ARCH=slc6_amd64_gcc491
-    cmsrel CMSSW_7_4_4
-    cd CMSSW_7_4_4/src/
+    cmsrel CMSSW_7_4_4_ROOT5
+    cd CMSSW_7_4_4_ROOT5/src/
     cmsenv
 
 
-Last release tested and supported:
-
-    CMSSW_7_4_4
-       -> wwElectrons_cfi.py need to be fixed for "dB" method, now de-activated
-       -> back-compatibility with <74X releases is not granted
-    
-    
-Setup CMS git connection
+2. Get the material
 ====
-
-Necessary to checkout CMSSW code (https://hypernews.cern.ch/HyperNews/CMS/get/git/200.html).
 
     git cms-init
-
-    
-Get the material
-====
-
     git clone --branch 13TeV git@github.com:latinos/setup.git LatinosSetup
 
     source LatinosSetup/Setup.sh
 
 
-Get a MiniAOD test file
+3. Produce common latino trees
 ====
 
-Useful for faster code test.
+Follow this step ONLY if you want to produce common latino trees.
 
-    cd LatinoTrees/AnalysisStep/test
+    cd LatinoTrees
+    git checkout tags/10June2015
 
-    source /afs/cern.ch/cms/cmsset_default.sh
-    source /afs/cern.ch/cms/LCG/LCG-2/UI/cms_ui_env.sh
-    voms-proxy-init -voms cms
+    scram b -j 10
+    cd LatinoTrees/AnalysisStep/test/crab
+    source /cvmfs/cms.cern.ch/crab3/crab.sh
+    python multicrab.py samples/samples_spring15.py
 
-    xrdcp root://xrootd.unl.edu//store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/00C90EFC-3074-E411-A845-002590DB9262.root .
 
-
-Run step B
+4. Produce a test latino tree
 ====
 
     scram b -j 10
-
     cd LatinoTrees/AnalysisStep/test/
-
-    cmsRun stepB.py print \
-                    label=Top \
-                    id=123456789 \
-                    scale=1 \
-                    outputFile=stepB_MC.root \
-                    doNoFilter=True \
-                    doMuonIsoId=True \
-                    maxEvents=200 \
-                    doLHE=False \
-                    doGen=True \
-                    doBTag=True \
-                    globalTag=MCRUN2_74_V9A \
-                    inputFiles=root://xrootd.unl.edu//store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/00C90EFC-3074-E411-A845-002590DB9262.root
-
-If the input file is local.
-
-                    inputFiles=file:/afs/cern.ch/user/p/piedra/work/store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/00C90EFC-3074-E411-A845-002590DB9262.root
-
-
-Parameter details
-====
-
-To add LHE information.
-
-    doLHE=True
-
-To add GEN information like `genjets` or `genleptons`.
-
-    doGen=True
-
-To add alternative b-tagging variables like `jetcsvv2ivf`.
-
-    doBTag=True
-    
-To apply a cut.
-
-    doNoFilter=False \
-    doCut=ptMin\>20
-
-To activate the dumping of MC weights. It requires GEN/LHE information directly from edm products. Default is `False`
-    
-    doMCweights=True
-
-    
-    
-Create the final latino tree
-====
-
-    python cmssw2latino.py stepB_MC_numEvent200.root
+    ./test-run.sh 100
 
