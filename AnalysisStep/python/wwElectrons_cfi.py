@@ -72,7 +72,7 @@ ELE_ID_LOOSE = ("  (( isEB "+
                                #"(abs(superCluster.eta) >= 2.2 && abs(superCluster.eta) < 2.5 && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt - 0.1530 * rho))/pt < 0.130136 )   "+ 
                                #") " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
+                           " && passConversionVeto() " +                           
                            " ) || " +
                    "( (!isEB) " +
                            " && sigmaIetaIeta < 0.031838" +
@@ -90,7 +90,7 @@ ELE_ID_LOOSE = ("  (( isEB "+
                                #"(abs(superCluster.eta) >= 2.2 && abs(superCluster.eta) < 2.5 && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt - 0.1530 * rho))/pt < 0.130136 )   "+ 
                                #") " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
+                           " && passConversionVeto() " +                           
                            " ) " +
                     ")")
 
@@ -112,7 +112,7 @@ ELE_ID_MEDIUM = ("  (( isEB "+
                   #"(abs(superCluster.eta) >= 2.2 && abs(superCluster.eta) < 2.5 && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt - 0.1530 * rho))/pt < 0.107587 )" +
                   #")"+ 
                  " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                 " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
+                 " && passConversionVeto() " +                           
                  " ) ||" +
                  
                  "( (!isEB) " +
@@ -131,7 +131,7 @@ ELE_ID_MEDIUM = ("  (( isEB "+
                   #"(abs(superCluster.eta) >= 2.2 && abs(superCluster.eta) < 2.5 && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt - 0.1530 * rho))/pt < 0.113254 ) " +
                   #") "+ 
                  " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                 " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
+                 " && passConversionVeto() " +                           
                  " ) " +
                  ")")
 
@@ -154,7 +154,7 @@ ELE_ID_TIGHT = ("  (( isEB "+
                            " && abs(1./energy - 1/p) < 0.131191 " +
                            " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.074355 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
+                           " && passConversionVeto() " +                           
                            " ) || " +
                    "( (!isEB) " +
                            " && sigmaIetaIeta < 0.028766" +
@@ -166,7 +166,7 @@ ELE_ID_TIGHT = ("  (( isEB "+
                            " && abs(1./energy - 1/p) < 0.106055 " +
                            " && (pfIsolationVariables().sumChargedHadronPt+ max(0.,pfIsolationVariables().sumNeutralHadronEt+pfIsolationVariables().sumPhotonEt-0.5*pfIsolationVariables().sumPUPt))/pt < 0.090185 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           " && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
+                           " && passConversionVeto() " +                           
                            " ) " +
                     ")")
 
