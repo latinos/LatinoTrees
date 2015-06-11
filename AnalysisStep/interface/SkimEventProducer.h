@@ -128,7 +128,7 @@ double neutFrac;
 	edm::EDGetTokenT<edm::ValueMap<float> > spt2HT_;
 	edm::EDGetTokenT<edm::TriggerResults> triggerResultsT_;
 	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > muonsT_;
-	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > softsT_;
+        edm::EDGetTokenT<edm::View<reco::RecoCandidate> > softMuonsT_;
 	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > electronsT_;
 	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > photonsT_; //PHOTON
 	edm::EDGetTokenT<GenEventInfoProduct> GenInfoT_ ;

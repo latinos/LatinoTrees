@@ -719,8 +719,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float jetssvhbByPt(size_t i) const;
             const float jetpfcsvByPt(size_t i) const;
             const float jetcmvaByPt(size_t i) const;
-
-
+            
+            const float jetSoftMuonPtByPt(size_t i) const;
+            const float jetSoftMuonPt(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;
+             
 
 	    //---- photon
 	    const math::XYZTLorentzVector photon(size_t a) const;

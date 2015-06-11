@@ -286,8 +286,7 @@ void reco::SkimEvent::setExtraLepton(const edm::Handle<edm::View<reco::RecoCandi
 }
 
 void reco::SkimEvent::setSoftMuon(const edm::Handle<edm::View<reco::RecoCandidate> > &h,size_t i){
- softMuons_.push_back(h->ptrAt(i) );
- //softMuons_.push_back(refToCand(h,i));
+ softMuons_.push_back( h->ptrAt(i) );
 }
 
 // Old implementation
@@ -524,6 +523,56 @@ const int reco::SkimEvent::nSoftMu(float minPt, float vetoJets, float dRCut) con
  }
  return count;
 }
+
+
+
+const float reco::SkimEvent::jetSoftMuonPtByPt(size_t i = 0) const {
+ float maxDrMuonJet = 0.3;
+ float minPtMuon = 10;
+ return jetSoftMuonPt(i,minPtMuon, maxDrMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::jetSoftMuonPt(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  //---- get the correct jet index ...
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;  
+  if(isThisJetALepton(jets_[i])) continue;
+  
+  //---- now check for the closest muon
+  if(++count > index) {
+   float minDR = 9999999.9;
+   float minMuonPt = -1;
+   int nMu = -1;
+   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+    //---- check if it is really a soft-muon
+    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+//      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+     float muonPt = softMuons_[iMu]->pt();
+     if (muonPt >= minPtMuon) {
+      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
+      if(dR < maxDrMuonJet && dR < minDR && muonPt > minMuonPt) {
+       minDR = dR;
+       minMuonPt = muonPt;
+       nMu = iMu;
+      }
+     }
+    }
+   }
+   if (nMu != -1) {
+    return softMuons_[nMu]->pt();
+   }
+  }
+  
+ }
+ return defaultvalues::defaultFloat;
+ 
+}
+
 
 
 const int reco::SkimEvent::pdgId(size_t i) const {
@@ -3199,14 +3248,15 @@ const float reco::SkimEvent::dZ(size_t i) const {
 const bool reco::SkimEvent::passesConversion(size_t i) const {
   if (i >= leps_.size()) return false;
   else if (isElectron(i)) {
-    pat::Electron const * const e = getElectron(i);
-    if (fabs(e->userFloat("convValueMapProd:dist")) < 0.02 &&
-	fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) return false;
-   
-    //---- formerly:      if (e->gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0) {
-    if (e->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS) > 1) return false;
-
-    return true;
+//     pat::Electron const * const e = getElectron(i);
+//     if (fabs(e->userFloat("convValueMapProd:dist")) < 0.02 &&
+// 	fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) return false;
+//    
+//     //---- formerly:      if (e->gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0) {
+//     if (e->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS) > 1) return false;
+// 
+//     return true;
+   return getElectron(i)->passConversionVeto();
   }
   else if (isMuon(i)) return true;
   else                return false;

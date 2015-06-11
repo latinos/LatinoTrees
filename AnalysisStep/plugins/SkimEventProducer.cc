@@ -97,7 +97,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     if(!(spt2Tag_ == edm::InputTag(""))) spt2HT_  = consumes<edm::ValueMap<float> >(spt2Tag_);
     triggerT_      = consumes<edm::TriggerResults>(triggerTag_);
     muonsT_        = consumes<edm::View<reco::RecoCandidate> > (muTag_);
-    softsT_        = consumes<edm::View<reco::RecoCandidate> > (softMuTag_);
+    softMuonsT_    = consumes<edm::View<reco::RecoCandidate> > (softMuTag_);
     electronsT_    = consumes<edm::View<reco::RecoCandidate> > (elTag_);
     photonsT_      = consumes<edm::View<reco::RecoCandidate> > (phoTag_); // Photon
 
@@ -185,8 +185,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     //---- RecoCandidate in order to be used by SKimEvent later in a template way
     edm::Handle<edm::View<reco::RecoCandidate> > muons;
     iEvent.getByToken(muonsT_,muons);
-    edm::Handle<edm::View<reco::RecoCandidate> > softs;
-    iEvent.getByToken(softsT_,softs);
+    edm::Handle<edm::View<reco::RecoCandidate> > softMuons;
+    iEvent.getByToken(softMuonsT_,softMuons);
     edm::Handle<edm::View<reco::RecoCandidate> > electrons;
     iEvent.getByToken(electronsT_,electrons);
     edm::Handle<edm::View<reco::RecoCandidate> > photons; // Photon
@@ -238,8 +238,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setLepton(muons,k);
     }
 
-    for(size_t k=0;k<softs->size();++k) {
-     skimEvent->back().setSoftMuon(softs,k);
+    for(size_t k=0;k<softMuons->size();++k) {
+     skimEvent->back().setSoftMuon(softMuons,k);
     }
 
     for(size_t k=0; k<photons->size();++k){ //Photon
@@ -337,7 +337,7 @@ bool SkimEventProducer::isGoodElectron( const edm::Ptr<reco::RecoCandidate> elec
    patEle->full5x5_sigmaIetaIeta() < 0.010331 &&
    (1.0/patEle->ecalEnergy() - patEle->eSuperClusterOverP()/patEle->ecalEnergy()) < 0.189968 &&
    patEle->hcalOverEcal() < 0.093068 &&
-   (fabs(patEle->userFloat("convValueMapProd:dist")) > 0.02 || fabs(patEle->userFloat("convValueMapProd:dcot")) > 0.02) && 
+   patEle->passConversionVeto() && 
    (  
    (SCeta >= 0.000 && SCeta < 0.800 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1013 * rhoIso))/el_pt < 0.130136)||
    (SCeta >= 0.8 && SCeta < 1.3 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0988 * rhoIso))/el_pt < 0.130136)||
@@ -359,7 +359,7 @@ bool SkimEventProducer::isGoodElectron( const edm::Ptr<reco::RecoCandidate> elec
     patEle->full5x5_sigmaIetaIeta() < 0.031838 &&
     (1.0/patEle->ecalEnergy() - patEle->eSuperClusterOverP()/patEle->ecalEnergy()) < 0.140662 &&
     patEle->hcalOverEcal() < 0.115754 &&
-    (fabs(patEle->userFloat("convValueMapProd:dist")) > 0.02 || fabs(patEle->userFloat("convValueMapProd:dcot")) > 0.02) && 
+    patEle->passConversionVeto() && 
     (  
     (SCeta >= 0.000 && SCeta < 0.800 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.1013 * rhoIso))/el_pt < 0.163368)||
     (SCeta >= 0.8 && SCeta < 1.3 && (sumChargedHadronPt+ std::max(0.0,sumNeutralHadronEt+sumPhotonEt - 0.0988 * rhoIso))/el_pt < 0.163368 )||
