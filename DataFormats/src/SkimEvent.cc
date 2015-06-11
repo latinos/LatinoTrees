@@ -179,6 +179,10 @@ reco::SkimEvent::SkimEvent() :
  applyCorrectionForJets_ = 1;
  applyIDForJets_ = 0;
  dzCutForBtagJets_ = 999999.9;
+
+ _maxDrSoftMuonJet = 0.3;
+ _minPtSoftMuon = 5;
+ 
 }
 
 // reco::SkimEvent::SkimEvent(const reco::SkimEvent::hypoType &h) :
@@ -207,6 +211,13 @@ void reco::SkimEvent::setPuJetIdDiscriminantName(std::string pujetiddiscriminant
  _name_puJetIdDiscriminant = pujetiddiscriminant;
 }
 
+
+void reco::SkimEvent::setMaxDrSoftMuonJet(double value) {
+ _maxDrSoftMuonJet = value;
+}
+void reco::SkimEvent::setMinPtSoftMuon(double value) {
+ _minPtSoftMuon = value;
+}
 
 
 
@@ -527,9 +538,7 @@ const int reco::SkimEvent::nSoftMu(float minPt, float vetoJets, float dRCut) con
 
 
 const float reco::SkimEvent::jetSoftMuonPtByPt(size_t i = 0) const {
- float maxDrMuonJet = 0.3;
- float minPtMuon = 10;
- return jetSoftMuonPt(i,minPtMuon, maxDrMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+  return jetSoftMuonPt(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
 }
 
 const float reco::SkimEvent::jetSoftMuonPt(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
@@ -566,6 +575,141 @@ const float reco::SkimEvent::jetSoftMuonPt(size_t index, float minPtMuon, float 
    if (nMu != -1) {
     return softMuons_[nMu]->pt();
    }
+  }
+  
+ }
+ return defaultvalues::defaultFloat;
+ 
+}
+
+
+
+const float reco::SkimEvent::jetSoftMuonEtaByPt(size_t i = 0) const {
+ return jetSoftMuonEta(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::jetSoftMuonEta(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  //---- get the correct jet index ...
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;  
+  if(isThisJetALepton(jets_[i])) continue;
+  
+  //---- now check for the closest muon
+  if(++count > index) {
+   float minDR = 9999999.9;
+   int nMu = -1;
+   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+    //---- check if it is really a soft-muon
+    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+     float muonPt = softMuons_[iMu]->pt();
+     if (muonPt >= minPtMuon) {
+      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
+      if(dR < maxDrMuonJet && dR < minDR) {
+       minDR = dR;
+       nMu = iMu;
+      }
+     }
+    }
+   }
+   if (nMu != -1) {
+    return softMuons_[nMu]->eta();
+   }
+  }
+  
+ }
+ return defaultvalues::defaultFloat;
+ 
+}
+
+
+
+const float reco::SkimEvent::jetSoftMuonPhiByPt(size_t i = 0) const {
+ return jetSoftMuonPhi(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::jetSoftMuonPhi(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  //---- get the correct jet index ...
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;  
+  if(isThisJetALepton(jets_[i])) continue;
+  
+  //---- now check for the closest muon
+  if(++count > index) {
+   float minDR = 9999999.9;
+   int nMu = -1;
+   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+    //---- check if it is really a soft-muon
+    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+     float muonPt = softMuons_[iMu]->pt();
+     if (muonPt >= minPtMuon) {
+      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
+      if(dR < maxDrMuonJet && dR < minDR) {
+       minDR = dR;
+       nMu = iMu;
+      }
+     }
+    }
+   }
+   if (nMu != -1) {
+    return softMuons_[nMu]->phi();
+   }
+  }
+  
+ }
+ return defaultvalues::defaultFloat;
+ 
+}
+
+//---- number of soft muons associated to a jet
+//----     it should be at most 1!
+const float reco::SkimEvent::jetSoftMuonCountingByPt(size_t i = 0) const {
+ return jetSoftMuonCounting(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::jetSoftMuonCounting(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  //---- get the correct jet index ...
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;  
+  if(isThisJetALepton(jets_[i])) continue;
+  
+  //---- now check all the soft muons that are close to the jet
+  if(++count > index) {
+   int numberOfMuons = 0;
+//    int nMu = -1;
+   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+    //---- check if it is really a soft-muon
+    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+     float muonPt = softMuons_[iMu]->pt();
+     if (muonPt >= minPtMuon) {
+      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
+      if(dR < maxDrMuonJet) {
+       numberOfMuons++;
+//        nMu = iMu;
+//        std::cout << " One more! --> numberOfMuons = " << numberOfMuons << std::endl;
+      }
+     }
+    }
+   }
+//    std::cout << " numberOfMuons = " << numberOfMuons << std::endl;
+//    std::cout << " nMu = " << nMu << std::endl;
+   return 1. * numberOfMuons;
   }
   
  }

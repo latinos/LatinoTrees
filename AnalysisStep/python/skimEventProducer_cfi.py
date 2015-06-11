@@ -17,6 +17,10 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     applyCorrectionForJets = cms.bool(True),
     applyIDForJets    = cms.int32(0),
     namePuJetIdDiscriminant = cms.string("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant"),
+    # default for soft muons from b-jets    
+    maxDrSoftMuonJet      = cms.double(0.3),
+    minPtSoftMuon         = cms.double(5),
+
     #
     #
     mcLHEEventInfoTag = cms.InputTag(""),

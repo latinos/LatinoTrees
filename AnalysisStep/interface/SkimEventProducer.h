@@ -67,6 +67,10 @@ double neutFrac;
 	bool applyCorrectionForJets_;
 	int applyIDForJets_;
         
+        double _maxDrSoftMuonJet;
+        double _minPtSoftMuon;
+        
+        
         std::string name_puJetIdDiscriminant_;
         
         std::string branchAlias_;

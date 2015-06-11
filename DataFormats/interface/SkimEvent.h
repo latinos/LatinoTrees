@@ -517,6 +517,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             
             void setPuJetIdDiscriminantName(std::string pujetiddiscriminant); 
                        
+            void setMaxDrSoftMuonJet(double value);
+            void setMinPtSoftMuon(double value);
+             
             
             //void sortJetsByPt() { std::sort(jets_.begin(), jets_.end(), sortPatJetByPt); }
             //void sortTagJetsByPt() { std::sort(tagJets_.begin(), tagJets_.end(), sortPatJetByPt); }
@@ -722,7 +725,14 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             
             const float jetSoftMuonPtByPt(size_t i) const;
             const float jetSoftMuonPt(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;
-             
+            const float jetSoftMuonEtaByPt(size_t i) const;
+            const float jetSoftMuonEta(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;
+            const float jetSoftMuonPhiByPt(size_t i) const;
+            const float jetSoftMuonPhi(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;
+            
+            const float jetSoftMuonCountingByPt(size_t i) const;
+            const float jetSoftMuonCounting(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;
+            
 
 	    //---- photon
 	    const math::XYZTLorentzVector photon(size_t a) const;
@@ -761,6 +771,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    bool   applyCorrectionForJets_;
 	    int    applyIDForJets_;
  
+            double _maxDrSoftMuonJet;
+            double _minPtSoftMuon;
+            
             std::string _name_puJetIdDiscriminant;
             
             // User float values

@@ -35,6 +35,19 @@ MUO_ID_TIGHT = ("("+
 wwMuoTight       = selectedMuonsBase.clone( cut = MUO_BASE + " && " + MUO_ID_TIGHT )
 
 
+
+## soft muons definition for b-veto from b decays -> muon is not isolated!
+##    isolation cut inverted
+MUON_ID_CUT_4VETO=("("+
+                  "(pfIsolationR04().sumChargedHadronPt+max(0.,pfIsolationR04().sumNeutralHadronEt+pfIsolationR04().sumPhotonEt-0.50*pfIsolationR04().sumPUPt))/pt > 0.20 " +
+                  " && (isPFMuon && (isGlobalMuon || isTrackerMuon) ) " +
+                  " )")
+
+wwMuoForVeto  = selectedMuonsBase.clone( cut = MUO_BASE + " && " + MUON_ID_CUT_4VETO )
+
+
+
+
 #
 #
 # |  ____|         | |

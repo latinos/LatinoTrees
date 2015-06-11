@@ -77,6 +77,10 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     applyCorrectionForJets_ = cfg.getParameter<bool>("applyCorrectionForJets");
     applyIDForJets_	    = cfg.getParameter<int>("applyIDForJets");
  
+    _maxDrSoftMuonJet       = cfg.getParameter<double>("maxDrSoftMuonJet");
+    _minPtSoftMuon          = cfg.getParameter<double>("minPtSoftMuon");
+    
+    
 //     std::cout << " minPtForJets_= " << minPtForJets_ << std::endl;
     name_puJetIdDiscriminant_= cfg.getParameter<std::string>("namePuJetIdDiscriminant");
     
@@ -306,8 +310,14 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     //---- pile up jet id discimanot name (it depends on the options of the jettoolbox!)
     skimEvent->back().setPuJetIdDiscriminantName(name_puJetIdDiscriminant_);
     
+    //---- default values for soft muons from b-jets
+    //----     max DR between jet and soft muon
+    skimEvent->back().setMaxDrSoftMuonJet(_maxDrSoftMuonJet);
+    //----     min pt of soft muon
+    skimEvent->back().setMaxDrSoftMuonJet(_minPtSoftMuon);
+
     
- 
+    
     iEvent.put(skimEvent);
 }
 
