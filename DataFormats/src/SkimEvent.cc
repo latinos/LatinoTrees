@@ -701,14 +701,11 @@ const float reco::SkimEvent::jetSoftMuonCounting(size_t index, float minPtMuon, 
       double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
       if(dR < maxDrMuonJet) {
        numberOfMuons++;
-//        nMu = iMu;
-//        std::cout << " One more! --> numberOfMuons = " << numberOfMuons << std::endl;
       }
      }
     }
    }
-//    std::cout << " numberOfMuons = " << numberOfMuons << std::endl;
-//    std::cout << " nMu = " << nMu << std::endl;
+
    return 1. * numberOfMuons;
   }
   
@@ -765,11 +762,9 @@ const float reco::SkimEvent::pt(size_t i) const {
  return leps_[i]->pt();
 }
 
-
 const math::XYZTLorentzVector reco::SkimEvent::lepton(size_t i) const {
- //  std::cout << " reco::SkimEvent::lepton :: accessing i = " << i << std::endl;
- if(indexByPt (i) >= leps_.size()) return math::XYZTLorentzVector(0,0,0,0);
- return leps_[indexByPt (i)]->p4();
+  if (indexByPt (i) >= leps_.size()) return math::XYZTLorentzVector(0,0,0,0);
+  return leps_[indexByPt (i)]->p4();
 }
 
 const int reco::SkimEvent::passCustom(size_t i, const std::string &muStr, const std::string &elStr) const {
@@ -810,26 +805,23 @@ const float reco::SkimEvent::etaSC(size_t i) const {
 }
 
 const float reco::SkimEvent::nBrem(size_t i) const {
- // std::cout << " AH AH AH i= " << i << " while leps_.size() = " << leps_.size() << std::endl;
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- // std::cout << " ma stai facendo quasto???" << std::endl;
- if( isElectron(i) ) return getElectron(i)->numberOfBrems();
- else return 0;
+  if (i >= leps_.size()) return defaultvalues::defaultFloat;
+  if (isElectron(i))     return getElectron(i)->numberOfBrems();
+  else return 0;
 }
 
 const float reco::SkimEvent::phi(size_t i) const {
- if(i < leps_.size()) return leps_[i]->phi();
- else return defaultvalues::defaultFloat;
+  if (i < leps_.size()) return leps_[i]->phi();
+  else return defaultvalues::defaultFloat;
 }
-
 
 const int reco::SkimEvent::q(size_t i) const{
- if(i < leps_.size()) return leps_[i]->charge();
- else return defaultvalues::defaultFloat;
+  if (i < leps_.size()) return leps_[i]->charge();
+  else return defaultvalues::defaultFloat;
 }
 
 
-//Jet variables
+// Jet variables
 void reco::SkimEvent::setupJEC(const std::string &l2File, const std::string &l3File, const std::string &residualFile) {
  
  jecFiles_.clear();
@@ -1068,11 +1060,9 @@ const float reco::SkimEvent::dPhiJetll(size_t leadingIndex,float minPt,float eta
 
 
 const math::XYZTLorentzVector reco::SkimEvent::jet(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
- unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
- //  std::cout << " index_jet_ordered = " << index_jet_ordered << " :: " << jets_.size() << std::endl;
- if (index_jet_ordered >= jets_.size()) return math::XYZTLorentzVector(0,0,0,0);
- return jets_[index_jet_ordered]->p4();
- 
+  unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+  if (index_jet_ordered >= jets_.size()) return math::XYZTLorentzVector(0,0,0,0);
+  return jets_[index_jet_ordered]->p4();
 }
 
 
@@ -1340,10 +1330,6 @@ const float reco::SkimEvent::leadingJetPhi(size_t index) const {
 
 
 const float reco::SkimEvent::leadingJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
- 
-//  std::cout << " minPtForJets_ = " << minPtForJets_ << std::endl;
-//  std::cout << " jets_.size() = " << jets_.size() << std::endl;
- 
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
 //   std::cout << " >> jets_[" << i << "]->pt() = " << jets_[i]->pt() << " > " << minPt << std::endl;
@@ -2890,22 +2876,29 @@ const float reco::SkimEvent::tkPt(size_t i) const {
 }
 
 const bool reco::SkimEvent::passesVtxSel(size_t i) const {
- if(i >= vtxs_.size()) {
+  if (i >= vtxs_.size()) return false;
+  else {
+    
+    // https://github.com/ikrav/EgammaWork/blob/ntupler_and_VID_demos/ElectronNtupler/plugins/SimpleElectronNtupler.cc#L321
+    bool isFake_miniaod = (vtxs_[i]->chi2() == 0 && vtxs_[i]->ndof() == 0);
+   
+    std::cout << " [Jonatan debug] vtxs_[i]->isFake() = " << vtxs_[i]->isFake() << " isFake_miniaod = " << isFake_miniaod << std::endl;;
+
+    return (vtxs_[i]->isValid() &&
+	    !vtxs_[i]->isFake() &&
+	    vtxs_[i]->ndof() >= 4.0 &&
+	    fabs(vtxs_[i]->position().Rho()) < 2.0 &&
+	    fabs(vtxs_[i]->z()) < 24.0);
+  }
+  
   return false;
- } else {
-  return ( vtxs_[i]->isValid() && !vtxs_[i]->isFake() &&
-  vtxs_[i]->ndof() >= 4.0 &&
-  fabs(vtxs_[i]->position().Rho()) < 2.0 &&
-  fabs(vtxs_[i]->z()) < 24.0 );
- }
- return false;
 }
 
 const int reco::SkimEvent::nGoodVertices() const {
- 
- int count = 0;
- for(size_t i=0;i<vtxs_.size();++i)
-  if( passesVtxSel(i) ) count++;
+  int count = 0;
+
+  for(size_t i=0; i<vtxs_.size(); ++i)
+    if (passesVtxSel(i)) count++;
   
   return count;
 }
@@ -2916,17 +2909,22 @@ const bool reco::SkimEvent::hasGoodVertex() const {
 }
 
 const reco::Vertex reco::SkimEvent::highestPtVtx() const {
- if(vtxs_.size() == 0) return reco::Vertex();
- if(sumPts_.size() == 0) return *vtxs_[0];
- double sum = 0;
- size_t high = 0;
- for(size_t i=0;i<vtxs_.size();++i) {
-  if( sumPts_[i] > sum && passesVtxSel(i) ) {
-   high = i;
-   sum = sumPts_[i];
+  if (vtxs_.size()   == 0) return reco::Vertex();
+  if (sumPts_.size() == 0) return *vtxs_[0];
+
+  // [Jonatan, 2015-06-12] All the events that I have tested have sumPts_.size() = 0
+
+  double sum  = 0;
+  size_t high = 0;
+
+  for (size_t i=0;i<vtxs_.size();++i) {
+    if (sumPts_[i] > sum && passesVtxSel(i)) {
+      high = i;
+      sum  = sumPts_[i];
+    }
   }
- }
- return *vtxs_[high];
+
+  return *vtxs_[high];
 }
 
 const bool reco::SkimEvent::passesIP() const {
@@ -3334,59 +3332,55 @@ const float reco::SkimEvent::elSIP3D(size_t i) const {
 }
 
 
-
-/**
- * ---- electron id ----
- */
-
+// Electron cut based ID
 const float reco::SkimEvent::deltaEtaSuperClusterTrackAtVtx(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- if( isElectron(i) ) return getElectron(i)->deltaEtaSuperClusterTrackAtVtx();
- else return -999.0;
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->deltaEtaSuperClusterTrackAtVtx();
+  else return -999.0;
 }
 
 const float reco::SkimEvent::deltaPhiSuperClusterTrackAtVtx(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- else if( isElectron(i) ) return getElectron(i)->deltaPhiSuperClusterTrackAtVtx();
- else return -999.0;
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->deltaPhiSuperClusterTrackAtVtx();
+  else return -999.0;
 }
 
-const float reco::SkimEvent::sigmaIetaIeta(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- else if( isElectron(i) ) return getElectron(i)->sigmaIetaIeta();
- else return -999.0;
+const float reco::SkimEvent::full5x5_sigmaIetaIeta(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->full5x5_sigmaIetaIeta();
+  else return -999.0;
 }
 
-const float reco::SkimEvent::hadronicOverEm(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- else if( isElectron(i) ) return getElectron(i)->hadronicOverEm();
- else return -999.0;
+const float reco::SkimEvent::hcalOverEcal(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->hcalOverEcal();
+  else return -999.0;
 }
 
 const float reco::SkimEvent::numberOfHits(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- //---- formerly:  else if( isElectron(i) ) return getElectron(i)->gsfTrack()->trackerExpectedHitsInner().numberOfHits();
- else if( isElectron(i) ) return getElectron(i)->gsfTrack()->hitPattern().numberOfTrackerHits(reco::HitPattern::TRACK_HITS);
- else return -999.0;
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfTrackerHits(reco::HitPattern::TRACK_HITS);
+  else return -999.0;
 }
 
-const float reco::SkimEvent::ooEooP(size_t i) const {
+const float reco::SkimEvent::ooEmooP(size_t i) const {
   if(i >= leps_.size() || getElectron(i)->ecalEnergy() == 0 || !std::isfinite(getElectron(i)->ecalEnergy())) return defaultvalues::defaultFloat;
- else if( isElectron(i) ) return (1.0/getElectron(i)->ecalEnergy() - getElectron(i)->eSuperClusterOverP()/getElectron(i)->ecalEnergy());
-   else return -999.0;
+  else if (isElectron(i)) return (1.0/getElectron(i)->ecalEnergy() - getElectron(i)->eSuperClusterOverP()/getElectron(i)->ecalEnergy());
+  else return -999.0;
 }
 
 const float reco::SkimEvent::d0(size_t i) const {
   const reco::Vertex primaryVtx = highestPtVtx();
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- else if( isElectron(i) ) return getElectron(i)->gsfTrack()->dxy(primaryVtx.position()); 
- else return -999.0;
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->dxy(primaryVtx.position()); 
+  else return -999.0;
 }
-const float reco::SkimEvent::dZ(size_t i) const {
+
+const float reco::SkimEvent::dz(size_t i) const {
   const reco::Vertex primaryVtx = highestPtVtx();
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- else if( isElectron(i) ) return getElectron(i)->gsfTrack()->dz(primaryVtx.position());
- else return -999.0;
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->dz(primaryVtx.position());
+  else return -999.0;
 }
 
 const float reco::SkimEvent::expectedMissingInnerHits(size_t i) const {
@@ -3401,6 +3395,7 @@ const bool reco::SkimEvent::passConversionVeto(size_t i) const {
   else if (isMuon(i))     return true;
   else                    return false;
 }
+
 
 // Muon and electron isolation
 const float reco::SkimEvent::chargedHadronIso(size_t i) const {
@@ -3438,198 +3433,6 @@ const float reco::SkimEvent::sumPUPt(size_t i) const {
  else                        return -999.0;
 }
 
-
-// ============== Matt's methods ===============================
-// const int reco::SkimEvent::nExtraLepMatt(float minPt) const {
-// int count = 0;
-// for(size_t i=0;i<extraLeps_.size();++i) {
-// if( extraLeps_[i]->pt() <= minPt) continue;
-// if( fabs(extraLeps_[i]->pdgId()) == 11 ) {
-// pat::Electron e = static_cast<const pat::Electron&>(extraLeps_[i]);
-// if( fabs(e.eta()) >= 2.5 ) continue;
-// if( fabs(e.userFloat("dxyPV")) >= 0.020 ) continue;
-// if( fabs(e.userFloat("dzPV") ) >= 1.0 ) continue;
-// if( fabs(e.userFloat("convValueMapProd:dist")) < 0.2 &&
-// fabs(e.userFloat("convValueMapProd:dcot")) < 0.2 ) continue;
-// if( e.gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0 ) continue;
-// if(!(( e.isEB() && e.sigmaIetaIeta() < 0.01 &&
-// fabs(e.deltaPhiSuperClusterTrackAtVtx()) < 0.06 &&
-// fabs(e.deltaEtaSuperClusterTrackAtVtx()) < 0.004 &&
-// // e.hadronicOverEm() < 0.04 &&
-// (e.dr03TkSumPt() + std::max(e.dr03EcalRecHitSumEt()-1,(float)0) + e.dr03HcalTowerSumEt() - e.userFloat("rhoEl")*3.14159*0.3*0.3)/e.pt() < 0.1) ||
-// ( !e.isEB() && e.sigmaIetaIeta() < 0.03 &&
-// fabs(e.deltaPhiSuperClusterTrackAtVtx()) < 0.03 &&
-// fabs(e.deltaEtaSuperClusterTrackAtVtx()) < 0.007 &&
-// (e.dr03TkSumPt() + e.dr03EcalRecHitSumEt() + e.dr03HcalTowerSumEt() - e.userFloat("rhoEl")*3.14159265*0.3*0.3)/e.pt() < 0.1 //&&
-// /*e.hadronicOverEm() < 0.025 */))) continue;
-// } else if ( fabs(extraLeps_[i]->pdgId()) == 13 ) {
-// pat::Muon m = static_cast<const pat::Muon&>(extraLeps_[i]);
-// if( fabs(m.userFloat("dxyPV")) >= 0.020 ) continue;
-// if( fabs(m.userFloat("dzPV") ) >= 1.0 ) continue;
-// if( !(m.isGlobalMuon() && m.isTrackerMuon() &&
-// m.innerTrack()->found() > 10 &&
-// m.innerTrack()->hitPattern().numberOfValidPixelHits() > 0 &&
-// m.globalTrack()->normalizedChi2() < 10 &&
-// m.globalTrack()->hitPattern().numberOfValidMuonHits() > 0 &&
-// m.numberOfMatches() > 1 && fabs(m.track()->ptError() / m.pt()) < 0.10 )) continue;
-// if( (m.isolationR03().emEt + m.isolationR03().hadEt + m.isolationR03().sumPt - m.userFloat("rhoMu") * 3.14159265 * 0.3 * 0.3) / m.pt() >= 0.15 ) continue;
-// }
-// count++;
-// }
-// return count;
-// }
-// const int reco::SkimEvent::nSoftMuMatt(float minPt) const {
-// int count = 0;
-// for(size_t i=0;i<softMuons_.size();++i) {
-// if(softMuons_[i].pt() <= minPt ) continue;
-// if( (softMuons_[i].isolationR03().emEt +
-// softMuons_[i].isolationR03().hadEt +
-// softMuons_[i].isolationR03().sumPt ) / softMuons_[i].pt() < 0.1 &&
-// softMuons_[i].pt() > 20.) continue;
-// count++;
-// }
-// return count;
-// }
-// const bool reco::SkimEvent::passesIDV1(size_t i) const {
-//
-// if( fabs(leps_[i]->pdgId()) == 11 ) {
-// const pat::Electron & e = static_cast<const pat::Electron&>(leps_[i]);
-// return (( e.isEB() && e.sigmaIetaIeta() < 0.01 &&
-// fabs(e.deltaPhiSuperClusterTrackAtVtx()) < 0.06 &&
-// fabs(e.deltaEtaSuperClusterTrackAtVtx()) < 0.004 //&&
-// /*e.hadronicOverEm() < 0.04*/) ||
-// ( !e.isEB() && e.sigmaIetaIeta() < 0.03 &&
-// fabs(e.deltaPhiSuperClusterTrackAtVtx()) < 0.03 &&
-// fabs(e.deltaEtaSuperClusterTrackAtVtx()) < 0.007 //&&
-// /*e.hadronicOverEm() < 0.025*/ ));
-// } else if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon & m = static_cast<const pat::Muon&>(leps_[i]);
-// return (m.isGlobalMuon() && m.isTrackerMuon() &&
-// m.innerTrack()->found() > 10 &&
-// m.innerTrack()->hitPattern().numberOfValidPixelHits() > 0 &&
-// // ( (float)m.innerTrack()->hitPattern().trackerLayersWithMeasurement() / (float)(
-// // m.innerTrack()->hitPattern().trackerLayersWithoutMeasurement() +
-// // m.innerTrack()->hitPattern().trackerLayersWithMeasurement() +
-// // m.innerTrack()->trackerExpectedHitsInner().numberOfLostHits() +
-// // m.innerTrack()->trackerExpectedHitsOuter().numberOfLostHits() ) >= 0.75 ) &&
-// // ( (float)m.innerTrack()->hitPattern().numberOfValidHits() / (float)
-// // (m.innerTrack()->hitPattern().numberOfHits() -
-// // m.innerTrack()->hitPattern().numberOfInactiveHits()) > 0.92 ) &&
-// m.globalTrack()->normalizedChi2() < 10 &&
-// m.globalTrack()->hitPattern().numberOfValidMuonHits() > 0 &&
-// m.numberOfMatches() > 1 && fabs(m.track()->ptError() / m.pt()) < 0.10 );
-// } else {
-// return false;
-// }
-//
-// }
-
-
-
-// ============== Boris' shit ===============================
-// Sorry dude, commented out temporarily
-// const bool reco::SkimEvent::passMuID0() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.genParticleRef().isNonnull() && fabs(mu.genParticleRef()->pdgId())==13);
-// }
-// }
-// return answer;
-// }
-//
-//
-// const bool reco::SkimEvent::passMuID1() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.isGlobalMuon() || (mu.isTrackerMuon() && mu.muonID("TMLastStationTight")));
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID2() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.isTrackerMuon());
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID3() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.innerTrack()->found()>10);
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID4() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.innerTrack()->hitPattern().numberOfValidPixelHits()>0);
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID5() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// if(mu.isGlobalMuon())
-// answer = answer && (mu.globalTrack()->normalizedChi2()<10);
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID6() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// if(mu.isGlobalMuon())
-// answer = answer && (mu.globalTrack()->hitPattern().numberOfValidMuonHits()>0);
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID7() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// if(!mu.isGlobalMuon())
-// answer = answer && (mu.numberOfMatches()>1);
-// }
-// }
-// return answer;
-// }
-//
-// const bool reco::SkimEvent::passMuID8() const {
-// bool answer=true;
-// for(unsigned int i=0; i<=1; i++){
-// if( fabs(leps_[i]->pdgId()) == 13 ) {
-// const pat::Muon &mu = static_cast<const pat::Muon&>(leps_[i]);
-// answer = answer && (mu.track()->ptError()/mu.pt()<0.10);
-// }
-// }
-// return answer;
-// }
 
 // New emanuele gamma mr star thingy
 const float reco::SkimEvent::mRStar() const {
