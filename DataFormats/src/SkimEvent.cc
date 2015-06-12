@@ -2880,9 +2880,8 @@ const bool reco::SkimEvent::passesVtxSel(size_t i) const {
   else {
     
     // https://github.com/ikrav/EgammaWork/blob/ntupler_and_VID_demos/ElectronNtupler/plugins/SimpleElectronNtupler.cc#L321
-    bool isFake_miniaod = (vtxs_[i]->chi2() == 0 && vtxs_[i]->ndof() == 0);
-   
-    std::cout << " [Jonatan debug] vtxs_[i]->isFake() = " << vtxs_[i]->isFake() << " isFake_miniaod = " << isFake_miniaod << std::endl;;
+//     bool isFake_miniaod = (vtxs_[i]->chi2() == 0 && vtxs_[i]->ndof() == 0);
+//     std::cout << " [Jonatan debug] vtxs_[i]->isFake() = " << vtxs_[i]->isFake() << " isFake_miniaod = " << isFake_miniaod << std::endl;;
 
     return (vtxs_[i]->isValid() &&
 	    !vtxs_[i]->isFake() &&
@@ -2910,21 +2909,32 @@ const bool reco::SkimEvent::hasGoodVertex() const {
 
 const reco::Vertex reco::SkimEvent::highestPtVtx() const {
   if (vtxs_.size()   == 0) return reco::Vertex();
-  if (sumPts_.size() == 0) return *vtxs_[0];
-
+//   if (sumPts_.size() == 0) return *vtxs_[0];
   // [Jonatan, 2015-06-12] All the events that I have tested have sumPts_.size() = 0
-
-  double sum  = 0;
-  size_t high = 0;
-
+  
+  
+  //---- vertices should be ordered in sumpt
+  //----   - here we just take the vertex with maximum sumpt but that is also a "good" vertex
   for (size_t i=0;i<vtxs_.size();++i) {
-    if (sumPts_[i] > sum && passesVtxSel(i)) {
-      high = i;
-      sum  = sumPts_[i];
-    }
+   if (passesVtxSel(i)) {
+    return *vtxs_[i];
+   }
   }
-
-  return *vtxs_[high];
+  
+  //---- if none are good ... return the default?!?
+  return reco::Vertex();
+  
+//   double sum  = 0;
+//   size_t high = 0;
+// 
+//   for (size_t i=0;i<vtxs_.size();++i) {
+//     if (sumPts_[i] > sum && passesVtxSel(i)) {
+//       high = i;
+//       sum  = sumPts_[i];
+//     }
+//   }
+// 
+//   return *vtxs_[high];
 }
 
 const bool reco::SkimEvent::passesIP() const {
