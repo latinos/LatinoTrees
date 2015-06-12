@@ -399,17 +399,18 @@ def addMuonIdIsoVariables(process,pt):
 
 def addEleIdIsoVariables(process,pt):
     if hasattr(pt,"variables"):      
-        setattr(pt.variables, "std_vector_electron_deltaEtaIn" ,    cms.string("deltaEtaSuperClusterTrackAtVtxByPt")),
-        setattr(pt.variables, "std_vector_electron_deltaPhiIn" ,    cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
-        setattr(pt.variables, "std_vector_electron_sigmaIetaIeta",  cms.string("sigmaIetaIetaByPt")),
-        setattr(pt.variables, "std_vector_electron_HoE" ,           cms.string("hadronicOverEmByPt")),
-        setattr(pt.variables, "std_vector_electron_numHits",        cms.string("numberOfHitsByPt")),
-        setattr(pt.variables, "std_vector_electron_effectiveArea",  cms.string("GetElectronEffectiveAreaByPt")),
-        setattr(pt.variables, "std_vector_electron_scEta",          cms.string("etaSCByPt")),
-        setattr(pt.variables, "std_vector_electron_passConversion", cms.string("passesConversionByPt")),
-        setattr(pt.variables, "std_vector_electron_ooEooP",         cms.string("ooEooPByPt")),
-        setattr(pt.variables, "std_vector_electron_d0",             cms.string("d0ByPt")),
-        setattr(pt.variables, "std_vector_electron_dz",             cms.string("dZByPt")),
+        setattr(pt.variables, "std_vector_electron_deltaEtaIn" ,        cms.string("deltaEtaSuperClusterTrackAtVtxByPt")),
+        setattr(pt.variables, "std_vector_electron_deltaPhiIn" ,        cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
+        setattr(pt.variables, "std_vector_electron_sigmaIetaIeta",      cms.string("sigmaIetaIetaByPt")),
+        setattr(pt.variables, "std_vector_electron_HoE" ,               cms.string("hadronicOverEmByPt")),
+        setattr(pt.variables, "std_vector_electron_numHits",            cms.string("numberOfHitsByPt")),
+        setattr(pt.variables, "std_vector_electron_effectiveArea",      cms.string("GetElectronEffectiveAreaByPt")),
+        setattr(pt.variables, "std_vector_electron_scEta",              cms.string("etaSCByPt")),
+        setattr(pt.variables, "std_vector_electron_missingInnerHits",   cms.string("expectedMissingInnerHitsByPt")),
+        setattr(pt.variables, "std_vector_electron_passConversionVeto", cms.string("passConversionVetoByPt")),
+        setattr(pt.variables, "std_vector_electron_ooEooP",             cms.string("ooEooPByPt")),
+        setattr(pt.variables, "std_vector_electron_d0",                 cms.string("d0ByPt")),
+        setattr(pt.variables, "std_vector_electron_dz",                 cms.string("dZByPt")),
     else:
         raise RuntimeError, "In addEleIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 

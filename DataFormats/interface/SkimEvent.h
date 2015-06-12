@@ -673,7 +673,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float d0                            (size_t i) const;
             const float dZ                            (size_t i) const;
 	    const float elSIP3D                       (size_t i) const;
-            const bool  passesConversion              (size_t i) const;
+	    const float expectedMissingInnerHits      (size_t i) const;
+            const bool  passConversionVeto            (size_t i) const;
 
             const float GetElectronEffectiveAreaByPt      (size_t i) const { return GetElectronEffectiveArea      (indexByPt(i)); }
             const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx(indexByPt(i)); }          
@@ -685,7 +686,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float d0ByPt                            (size_t i) const { return d0                            (indexByPt(i)); }
             const float dZByPt                            (size_t i) const { return dZ                            (indexByPt(i)); }
 	    const float elSIP3DByPt                       (size_t i) const { return elSIP3D                       (indexByPt(i)); }
-            const bool  passesConversionByPt              (size_t i) const { return passesConversion              (indexByPt(i)); }
+	    const float expectedMissingInnerHitsByPt      (size_t i) const { return expectedMissingInnerHits      (indexByPt(i)); }
+            const bool  passConversionVetoByPt            (size_t i) const { return passConversionVeto            (indexByPt(i)); }
 
 
             // Muon and electron isolation

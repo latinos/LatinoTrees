@@ -3389,21 +3389,17 @@ const float reco::SkimEvent::dZ(size_t i) const {
  else return -999.0;
 }
 
-const bool reco::SkimEvent::passesConversion(size_t i) const {
-  if (i >= leps_.size()) return false;
-  else if (isElectron(i)) {
-//     pat::Electron const * const e = getElectron(i);
-//     if (fabs(e->userFloat("convValueMapProd:dist")) < 0.02 &&
-// 	fabs(e->userFloat("convValueMapProd:dcot")) < 0.02 ) return false;
-//    
-//     //---- formerly:      if (e->gsfTrack()->trackerExpectedHitsInner().numberOfLostHits() > 0) {
-//     if (e->gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS) > 1) return false;
-// 
-//     return true;
-   return getElectron(i)->passConversionVeto();
-  }
-  else if (isMuon(i)) return true;
-  else                return false;
+const float reco::SkimEvent::expectedMissingInnerHits(size_t i) const {
+ if (i >= leps_.size())  return defaultvalues::defaultFloat;
+ else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfHits(reco::HitPattern::MISSING_INNER_HITS);
+ else return -999.9;
+}
+
+const bool reco::SkimEvent::passConversionVeto(size_t i) const {
+  if (i >= leps_.size())  return false;
+  else if (isElectron(i)) return getElectron(i)->passConversionVeto();
+  else if (isMuon(i))     return true;
+  else                    return false;
 }
 
 // Muon and electron isolation
