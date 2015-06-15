@@ -144,5 +144,9 @@ Phys14:
                     selection=LooseNoIso \
                     inputFiles=file:/tmp/amassiro/1EF48EA6-DE0B-E511-99EF-0002C92A1024.root
     
+    latino->Draw("std_vector_jet_pt[0]","std_vector_jet_pt[0]>0")
+    latino->Draw("std_vector_leptonGen_fromHardProcessBeforeFSR[0]","std_vector_leptonGen_pt[0]>0")
     
+    
+
     

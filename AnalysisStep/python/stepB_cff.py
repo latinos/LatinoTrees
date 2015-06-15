@@ -540,6 +540,9 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_leptonGen_index",   cms.string("genLeptonIndex")),
         setattr(pt.variables, "std_vector_leptonGen_mpid" ,   cms.string("genLeptonMotherPID")),
         setattr(pt.variables, "std_vector_leptonGen_mstatus", cms.string("genLeptonMotherStatus")),
+        setattr(pt.variables, "std_vector_leptonGen_isHardProcess", cms.string("genLeptonIsHardProcess")),
+        setattr(pt.variables, "std_vector_leptonGen_fromHardProcessBeforeFSR", cms.string("genLeptonFromHardProcessBeforeFSR")),
+
 
         setattr(pt.variables, "neutrinoGenpt1" , cms.string("leadingGenNeutrinoPt(0)")),
         setattr(pt.variables, "neutrinoGenpid1" , cms.string("leadingGenNeutrinoPID(0)")),

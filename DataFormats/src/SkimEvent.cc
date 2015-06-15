@@ -4731,6 +4731,46 @@ const float reco::SkimEvent::genLeptonMotherPID(size_t index) const {
 }
 
 
+const float reco::SkimEvent::genLeptonIsHardProcess(size_t index) const {
+ float pt_ofIndex   = genLeptonPt(index);
+ const reco::Candidate* mcH = 0;
+ 
+ // Loop over gen particles
+ for (size_t gp=0; gp<genParticles_.size(); gp++) {
+  int type = abs(genParticles_[gp]->pdgId());
+  if (type != 11 && type != 13 && type != 15) continue; //--- e = 11, mu = 13, tau = 15
+  
+  mcH = &(*(genParticles_[gp]));
+  if (mcH->pt() != pt_ofIndex) continue;
+  
+  return genParticles_[gp]-> isHardProcess();
+ } 
+ 
+ return defaultvalues::defaultFloat;
+}
+
+
+const float reco::SkimEvent::genLeptonFromHardProcessBeforeFSR(size_t index) const {
+ float pt_ofIndex   = genLeptonPt(index);
+ const reco::Candidate* mcH = 0;
+ 
+ // Loop over gen particles
+ for (size_t gp=0; gp<genParticles_.size(); gp++) {
+  int type = abs(genParticles_[gp]->pdgId());
+  if (type != 11 && type != 13 && type != 15) continue; //--- e = 11, mu = 13, tau = 15
+  
+  mcH = &(*(genParticles_[gp]));
+  if (mcH->pt() != pt_ofIndex) continue;
+  
+  return genParticles_[gp]-> fromHardProcessBeforeFSR();
+ } 
+ 
+ return defaultvalues::defaultFloat;
+}
+
+
+
+
 // Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonMotherStatus(size_t index) const {
 
