@@ -544,18 +544,27 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_leptonGen_fromHardProcessBeforeFSR", cms.string("genLeptonFromHardProcessBeforeFSR")),
 
 
-        setattr(pt.variables, "neutrinoGenpt1" , cms.string("leadingGenNeutrinoPt(0)")),
-        setattr(pt.variables, "neutrinoGenpid1" , cms.string("leadingGenNeutrinoPID(0)")),
-        setattr(pt.variables, "neutrinoGenphi1" , cms.string("leadingGenNeutrinoPhi(0)")),
-        setattr(pt.variables, "neutrinoGeneta1" , cms.string("leadingGenNeutrinoEta(0)")),
-        setattr(pt.variables, "neutrinoGenpt2" , cms.string("leadingGenNeutrinoPt(1)")),
-        setattr(pt.variables, "neutrinoGenpid2" , cms.string("leadingGenNeutrinoPID(1)")),
-        setattr(pt.variables, "neutrinoGenphi2" , cms.string("leadingGenNeutrinoPhi(1)")),
-        setattr(pt.variables, "neutrinoGeneta2" , cms.string("leadingGenNeutrinoEta(1)")),
-        setattr(pt.variables, "neutrinoGenpt3" , cms.string("leadingGenNeutrinoPt(2)")),
-        setattr(pt.variables, "neutrinoGenpid3" , cms.string("leadingGenNeutrinoPID(2)")),
-        setattr(pt.variables, "neutrinoGenphi3" , cms.string("leadingGenNeutrinoPhi(2)")),
-        setattr(pt.variables, "neutrinoGeneta3" , cms.string("leadingGenNeutrinoEta(2)")),
+        setattr(pt.variables, "neutrinoGenpt1" , cms.string("leadingGenNeutrinoPt(0)")),       # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGenpid1" , cms.string("leadingGenNeutrinoPID(0)")),     # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGenphi1" , cms.string("leadingGenNeutrinoPhi(0)")),     # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGeneta1" , cms.string("leadingGenNeutrinoEta(0)")),     # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGenpt2" , cms.string("leadingGenNeutrinoPt(1)")),       # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGenpid2" , cms.string("leadingGenNeutrinoPID(1)")),     # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGenphi2" , cms.string("leadingGenNeutrinoPhi(1)")),     # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGeneta2" , cms.string("leadingGenNeutrinoEta(1)")),     # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGenpt3" , cms.string("leadingGenNeutrinoPt(2)")),       # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGenpid3" , cms.string("leadingGenNeutrinoPID(2)")),     # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGenphi3" , cms.string("leadingGenNeutrinoPhi(2)")),     # to be removed once std vector is validated
+        setattr(pt.variables, "neutrinoGeneta3" , cms.string("leadingGenNeutrinoEta(2)")),     # to be removed once std vector is validated
+
+        setattr(pt.variables, "std_vector_neutrinoGen_pt",      cms.string("leadingGenNeutrinoPt")),
+        setattr(pt.variables, "std_vector_neutrinoGen_eta" ,    cms.string("leadingGenNeutrinoEta")),
+        setattr(pt.variables, "std_vector_neutrinoGen_phi",     cms.string("leadingGenNeutrinoPhi")),
+        setattr(pt.variables, "std_vector_neutrinoGen_pid",     cms.string("leadingGenNeutrinoPID")),
+        setattr(pt.variables, "std_vector_neutrinoGen_isHardProcess", cms.string("leadingGenNeutrinoIsHardProcess")),
+        setattr(pt.variables, "std_vector_neutrinoGen_fromHardProcessBeforeFSR", cms.string("leadingGenNeutrinoFromHardProcessBeforeFSR")),
+
+
 
         setattr(pt.variables, "higggsGenpt" , cms.string("getHiggsPt()")),
 

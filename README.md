@@ -146,7 +146,9 @@ Phys14:
     
     latino->Draw("std_vector_jet_pt[0]","std_vector_jet_pt[0]>0")
     latino->Draw("std_vector_leptonGen_fromHardProcessBeforeFSR[0]","std_vector_leptonGen_pt[0]>0")
-    
+    latino->Draw("std_vector_neutrinoGen_fromHardProcessBeforeFSR[0]","std_vector_neutrinoGen_pt[0]>0")
+    latino->Draw("std_vector_neutrinoGen_pt[0]","std_vector_neutrinoGen_pt[0]>0")
+     
     
 
     

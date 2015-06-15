@@ -461,6 +461,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingGenNeutrinoPID(size_t a) const;
             const float leadingGenNeutrinoEta(size_t a) const;
             const float leadingGenNeutrinoPhi(size_t a) const;
+            const float leadingGenNeutrinoIsHardProcess(size_t a) const;
+            const float leadingGenNeutrinoFromHardProcessBeforeFSR(size_t a) const;
+            
             const float leadingGenJetPt(size_t a) const;
             const float leadingGenJetEta(size_t a) const;
             const float leadingGenJetPhi(size_t a) const;
