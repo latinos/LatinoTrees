@@ -25,7 +25,7 @@ wwEleBase = selectedElectronsBase.clone( cut = ELE_BASE )
 # LOOSE without isolation
 
 ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+ 
-                           " && sigmaIetaIeta < 0.010331" +
+                           " && full5x5_sigmaIetaIeta < 0.010331" +
                            " && hadronicOverEm < 0.093068" +
                            " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.094739  " +
                            " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.009277 " +
@@ -37,7 +37,7 @@ ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+
                            #" && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
                            " ) || " +
                    "( (!isEB) " +
-                           " && sigmaIetaIeta < 0.031838" +
+                           " && full5x5_sigmaIetaIeta < 0.031838" +
                            " && hadronicOverEm < 0.115754" +
                            " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.149934  " +
                            " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.009833  " +
@@ -50,7 +50,7 @@ ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+
                            " ) " +
                     ")")
 
-wwEleLooseNoIso       = selectedElectronsBase.clone( cut = ELE_BASE + " && " + ELE_ID_LOOSE_NO_ISO )
+wwEleLooseNoIso = selectedElectronsBase.clone( cut = ELE_BASE + " && " + ELE_ID_LOOSE_NO_ISO )
 
 
 
