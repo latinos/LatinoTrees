@@ -776,8 +776,12 @@ const int reco::SkimEvent::passCustom(size_t i, const std::string &muStr, const 
 
 
 const float reco::SkimEvent::leptId(size_t i, std::string idele, std::string idmu) const {
+//  std::cout << " >> id-ele = " << idele << std::endl;
  if(i >= leps_.size()) return defaultvalues::defaultFloat;
- if( isElectron(i) ) return getElectron(i)->userFloat(idele); //---- "idele" is the name of the id for electrons
+ if( isElectron(i) ) {
+//   std::cout << " >> getElectron(i)->userFloat(" << idele << ") = " << getElectron(i)->userFloat(idele) << std::endl;
+  return getElectron(i)->userFloat(idele); //---- "idele" is the name of the id for electrons
+ }
  else return getMuon(i)->userFloat(idmu);
 }
 

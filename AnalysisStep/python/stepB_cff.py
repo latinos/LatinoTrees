@@ -263,6 +263,12 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         lh3 = cms.string("leptLHByPt(2)"),
         lh4 = cms.string("leptLHByPt(3)"),
 
+        eleIdVeto1   = cms.string("leptId(0,\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto\")"),
+        eleIdLoose1  = cms.string("leptId(0,\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-loose\")"),
+        eleIdMedium1 = cms.string("leptId(0,\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-medium\")"),
+        eleIdTight1  = cms.string("leptId(0,\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-tight\")"),
+
+
         pdgid1 = cms.string("pdgIdByPt(0)"),
         pdgid2 = cms.string("pdgIdByPt(1)"),
         pdgid3 = cms.string("pdgIdByPt(2)"),
