@@ -59,6 +59,9 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     _electronId        = cfg.getUntrackedParameter<int>("electronId",1);
     _debug             = cfg.getUntrackedParameter<int>("debug",0);
     
+    //---- list of electron ids: namely value maps!
+    _electronIds       = cfg.getParameter<std::vector<std::string> >("electronIds");
+    
     if (cfg.exists("sptTag" )) 
      sptTag_ = cfg.getParameter<edm::InputTag>("sptTag" );
     else 
@@ -114,6 +117,13 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     if (!(genMetTag_ == edm::InputTag(""))) genMetHT_ = consumes<reco::GenMETCollection>(genMetTag_);
     if (!(genJetTag_ == edm::InputTag(""))) genJetHT_ = consumes<reco::GenJetCollection>(genJetTag_);
 
+    if (_electronIds.size() != 0) {
+     _vector_electronIdsTags.clear();
+     for (unsigned int iEleIdName = 0; iEleIdName < _electronIds.size(); iEleIdName++) {
+      edm::EDGetTokenT<edm::ValueMap<bool> > temp_tag = consumes<edm::ValueMap<bool> >(_electronIds.at(iEleIdName));
+      _vector_electronIdsTags.push_back(temp_tag);
+     }
+    }
 }
 
 
@@ -226,18 +236,43 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     skimEvent->push_back( *(new reco::SkimEvent() ) );
 
-//     std::cout << " electrons->size() = " << electrons->size() << std::endl;
+    //---- list of electron ids
+    //----    save directly as vectors of "bool"
+    //----    see: https://github.com/ikrav/EgammaWork/blob/ntupler_and_VID_demos/ElectronNtupler/plugins/ElectronNtuplerVIDDemo.cc
+    //----         https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2#Recipe_for_regular_users_for_74X
+    skimEvent->back().setElectronIds(_electronIds);
+    std::vector < std::vector<bool> > v_electronIds;
+    for (unsigned int iEleIdName = 0; iEleIdName < _electronIds.size(); iEleIdName++) {
+     edm::Handle<edm::ValueMap<bool> > electronIdsHandle;
+     iEvent.getByToken(_vector_electronIdsTags.at(iEleIdName), electronIdsHandle);
+     std::vector<bool> eleid_values;
+     for(size_t i=0;i<electrons->size();++i) {
+      if (isGoodElectron(electrons->ptrAt(i), rhoJetIso)){ 
+       const auto patEle = electrons->ptrAt(i);
+       eleid_values.push_back( (*electronIdsHandle)[patEle] ); 
+      }
+     }
+     for(size_t k=0;k<muons->size();++k) {
+      eleid_values.push_back( true );  //---- true by default for muons :-)
+     }     
+     skimEvent->back().addElectronId(eleid_values,_electronIds.at(iEleIdName));
+    }
+    
+
+    //---- electrons
     if (_debug >= 1) {
      std::cout << " SkimEventProducer::produce:electrons->size () = " << electrons->size () << std::endl;
     }
     for(size_t i=0;i<electrons->size();++i) {
      if (isGoodElectron(electrons->ptrAt(i), rhoJetIso)){ 
-//       if (isGoodElectron(electrons->at(i), rhoJetIso)) {
       skimEvent->back().setLepton(electrons,i);
      }
     }
 
-//     std::cout << " muons->size() = " << muons->size() << std::endl;
+    //---- muons
+    if (_debug >= 1) {
+     std::cout << " SkimEventProducer::produce:muons->size () = " << muons->size () << std::endl;
+    }
     for(size_t k=0;k<muons->size();++k) {
      skimEvent->back().setLepton(muons,k);
     }

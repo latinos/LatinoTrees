@@ -318,6 +318,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             bool passTriggerElMu(size_t i, bool isData=true) const;
             bool passTriggerDoubleEl(size_t i, bool isData=true) const;
 
+            void setElectronIds( const std::vector <std::string> &);
+            void addElectronId (const std::vector<bool> &s, std::string name);
+//             void addElectronId (const edm::Handle<edm::ValueMap<bool> > &s, std::string name);
+            
+            
             const float met(metType metToUse=TCMET) const;
             const float pfType1SumEt() const;
             const float pfType1Met() const;
@@ -855,8 +860,12 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             bool passesMuEGMC_ ;
             bool passesAllEmbed_ ;
 
+            
+            
             //---- electrons
             float _eaElectronIso[5];
+            std::vector <std::string> _electronIds;
+            std::map <std::string, std::vector<bool> > _electronIdsMap;
             
             //JEC
 

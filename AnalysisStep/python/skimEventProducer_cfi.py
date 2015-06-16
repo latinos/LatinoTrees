@@ -120,6 +120,15 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     #tightMuSelection = cms.string(PRESEL_MU +"&&"+ MUON_ID_CUT +"&&"+ MUON_MERGE_ISO+"&&"+MUON_MERGE_IP),
     #looseEleSelection = cms.string(ELE_BASE + " && " + ELE_ID_LOOSE_2011),
     #tightEleSelection = cms.string(ELE_BASE + " && " + ELE_MERGE_ID + " && " + ELE_MERGE_ISO + " && " + ELE_MERGE_CONV + " && " + ELE_MERGE_IP),
+    
+    electronIds = cms.vstring(
+        "egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto",
+        "egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-loose",
+        "egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-medium",
+        "egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-tight",
+    ),
+
+
 )
 
 

@@ -142,7 +142,8 @@ double neutFrac;
         edm::EDGetTokenT<reco::GenMETCollection> genMetHT_;
 	edm::EDGetTokenT<reco::GenJetCollection> genJetHT_;
 	edm::EDGetTokenT<edm::TriggerResults> triggerT_;
-
+        
+        
         void addDYMVA(reco::SkimEvent* event);
         std::vector<std::pair<LorentzVector,double> > lPFInfo;
         std::vector<Vector> lVtxInfo;
@@ -161,6 +162,9 @@ double neutFrac;
         //---- 2 = MEDIUM
         //---- 3 = TIGHT
         
+        
+        std::vector< edm::EDGetTokenT<edm::ValueMap<bool> > > _vector_electronIdsTags;
+        std::vector <std::string> _electronIds;
         
 };
 

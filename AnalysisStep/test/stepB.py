@@ -399,6 +399,24 @@ else:
 
 
 
+####################
+# run electron id ##
+from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
+dataFormat = DataFormat.MiniAOD
+switchOnVIDElectronIdProducer(process, dataFormat)
+
+# define which IDs we want to produce
+my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_PHYS14_PU20bx25_V2_cff',
+                 'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV51_cff']
+
+#add them to the VID producer
+for idmod in my_id_modules:
+    setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
+
+####################
+
+
+
 
 if options.selection == 'Tight':
     labelSetup = "Scenario1"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence();

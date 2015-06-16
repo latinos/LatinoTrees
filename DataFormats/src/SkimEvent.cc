@@ -408,6 +408,34 @@ void reco::SkimEvent::setGenMet(const edm::Handle<reco::GenMETCollection> & mH) 
 }
 
 
+// void reco::SkimEvent::addElectronId(const edm::Handle<edm::ValueMap<bool> > &valueMapEleId, std::string name) {
+//  
+//  if (_electronIdsMap.find( name ) != _electronIdsMap.end()) {
+//   _electronIdsMap[name].clear();
+//  }
+//  std::vector<bool> eleidvector;
+//  for (unsigned int iLep = 0; iLep < leps_.size(); iLep++) {
+//   if (isElectron(leps_[iLep])) {
+//    eleidvector.push_back( (*valueMapEleId)[leps_[iLep]] );
+//   }
+//   else { //---- if it is a muon, it's ok!
+//    eleidvector.push_back( true );
+//   }
+//  }
+//  _electronIdsMap[name] = eleidvector;
+//  
+// }
+
+
+void reco::SkimEvent::addElectronId(const std::vector<bool> &EleId, std::string name) {
+ 
+ if (_electronIdsMap.find( name ) != _electronIdsMap.end()) {
+  _electronIdsMap[name].clear();
+ }
+ _electronIdsMap[name] = EleId;
+ 
+}
+
 void reco::SkimEvent::setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s) {
  
  for(size_t i=0;i<vtxs_.size();++i) sumPts_.push_back( (*s)[vtxs_[i]] );
@@ -780,7 +808,10 @@ const float reco::SkimEvent::leptId(size_t i, std::string idele, std::string idm
  if(i >= leps_.size()) return defaultvalues::defaultFloat;
  if( isElectron(i) ) {
 //   std::cout << " >> getElectron(i)->userFloat(" << idele << ") = " << getElectron(i)->userFloat(idele) << std::endl;
-  return getElectron(i)->userFloat(idele); //---- "idele" is the name of the id for electrons
+//   return getElectron(i)->userFloat(idele); //---- "idele" is the name of the id for electrons
+//   std::cout << " _electronIdsMap[" << idele << "].at(" << i << ") = " << (_electronIdsMap.at(idele)).at(i) << std::endl;
+  if ((_electronIdsMap.at(idele)).at(i)) return 1;
+  else                              return 0;
  }
  else return getMuon(i)->userFloat(idmu);
 }
@@ -2471,6 +2502,17 @@ const bool reco::SkimEvent::leptEtaCut(float maxAbsEtaMu,float maxAbsEtaEl) cons
  return (check0 && check1);
  
 }
+
+
+
+void reco::SkimEvent::setElectronIds( const std::vector<std::string> &idnames) {
+ _electronIds.clear();
+ for (unsigned int iname = 0; iname < idnames.size(); iname++) {
+  _electronIds.push_back(idnames.at(iname)); 
+ }
+}
+ 
+
 
 // ... in spite my egregious programming
 void reco::SkimEvent::setTriggerBits( const std::vector<bool> &bits) {
