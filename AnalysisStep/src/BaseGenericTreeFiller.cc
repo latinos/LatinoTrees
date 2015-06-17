@@ -98,7 +98,10 @@ tnp::BaseGenericTreeFiller::BaseGenericTreeFiller(BaseGenericTreeFiller &main, c
 
 void
 tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &iConfig, edm::ConsumesCollector & iC, const std::string &branchNamePrefix) {
-    // set up variables
+ 
+//  std::cout << " tnp::BaseGenericTreeFiller::addBranches_ " << std::endl;
+ 
+ // set up variables
     edm::ParameterSet variables = iConfig.getParameter<edm::ParameterSet>("variables");
     //.. the ones that are strings
     std::vector<std::string> stringVars = variables.getParameterNamesForType<std::string>();
@@ -128,9 +131,19 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
          }
          
          for (int i=0; i<lenghtVector_nameVariable_int; i++) {
-          vars_.push_back(tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+"("+std::to_string(i)+")"));
+          //---- if I call "pt" it will do "pt(0)", "pt(1)", ...
+          //---- if I call "pt(ggg" it will do "pt(ggg,0)", "pt(ggg,1)", ...
+          if (nameVariable.find("(") != std::string::npos) {
+//            std::cout << " nameVariable = " << nameVariable << " ---> " << (nameVariable+","+std::to_string(i)+")") << "   --> CIAO!" << std::endl;           
+           vars_.push_back(tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+","+std::to_string(i)+")"));
+          }
+          else {
+           vars_.push_back(tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+"("+std::to_string(i)+")"));
+          }
          }
-         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, nameVariable));        
+         //--->                                                     the second field is NOT used!
+         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, branchNamePrefix + *it));
+//          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, nameVariable));        
          }
         //---- std::vector <float> with variable length
         else if (std::strncmp((branchNamePrefix + *it).c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) {
@@ -150,16 +163,30 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
          }
 
          for (int i=0; i<lenghtVector_nameVariable_int; i++) {
-          vars_.push_back(tnp::ProbeVariable("_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+"("+std::to_string(i)+")"));
+          //---- if I call "pt" it will do "pt(0)", "pt(1)", ...
+          //---- if I call "pt(ggg" it will do "pt(ggg,0)", "pt(ggg,1)", ...
+          if (nameVariable.find("(") != std::string::npos) {
+//            std::cout << " nameVariable = " << nameVariable << std::endl;
+           vars_.push_back(tnp::ProbeVariable("_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+","+std::to_string(i)+")"));
+          }
+          else {
+           vars_.push_back(tnp::ProbeVariable("_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+"("+std::to_string(i)+")"));           
+          }
          }
-         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, nameVariable));
+         //--->                                                     the second field is NOT used!
+         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, branchNamePrefix + *it));
+//          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, nameVariable));        
         }
         
         //---- simple variable
         else {
+//          std::cout << " simple variable = " << variables.getParameter<std::string>(*it) << std::endl;
          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));
         }
     }
+    
+//     std::cout << " done ALL !!! " << std::endl;
+    
     //.. the ones that are InputTags
     std::vector<std::string> inputTagVars = variables.getParameterNamesForType<edm::InputTag>();
     for (std::vector<std::string>::const_iterator it = inputTagVars.begin(), ed = inputTagVars.end(); it != ed; ++it) {
@@ -220,6 +247,10 @@ tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &i
 tnp::BaseGenericTreeFiller::~BaseGenericTreeFiller() { }
 
 void tnp::BaseGenericTreeFiller::init(const edm::Event &iEvent) const {
+ 
+//     std::cout << " tnp::BaseGenericTreeFiller::init " << std::endl;
+ 
+ 
     run_  = iEvent.id().run();
     lumi_ = iEvent.id().luminosityBlock();
     event_ = iEvent.id().event();
@@ -314,6 +345,8 @@ void tnp::BaseGenericTreeFiller::init(const edm::Event &iEvent) const {
 }
 
 void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const {
+ 
+//  std::cout << " tnp::BaseGenericTreeFiller::fill " << std::endl;
  
  for (std::vector<tnp::ProbeVariable>::const_iterator it = vars_.begin(), ed = vars_.end(); it != ed; ++it) {
   if (std::strncmp(it->name().c_str(), "v_", strlen("v_")) != 0 &&

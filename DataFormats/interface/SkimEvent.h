@@ -195,7 +195,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
             const float pt(size_t a = 0) const;
             const int passCustom(size_t a = 0,const std::string &muStr="1", const std::string &elStr="1" ) const;
-            const float leptId(size_t i, std::string idele = "", std::string idmu = "") const;             
+//             const float leptId(size_t i, std::string idele = "", std::string idmu = "") const;             
+            const float leptId(std::string idele = "", std::string idmu = "", size_t i=0) const;
             const float leptBdt(size_t a = 0) const;
             const float leptLH(size_t a = 0) const;
             const float ptMax() const { return ptByPt(0); }
@@ -606,7 +607,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const int pdgIdByPt (size_t i = 0) const { return pdgId (indexByPt (i)); }
             const int pdgIdByIso (size_t i = 0) const { return pdgId (indexByIso(i)); }
             const float ptByPt (size_t i = 0) const { return pt (indexByPt (i)); }
-            const float leptIdByPt (size_t i = 0, std::string idele = "", std::string idmu = "") const { return leptId (indexByPt (i), idele, idmu); }
+            const float leptIdByPt (std::string idele = "", std::string idmu = "", size_t i = 0) const { return leptId (idele, idmu, indexByPt (i)); }
             const float leptBdtByPt (size_t i = 0) const { return leptBdt (indexByPt (i)); }
             const float leptLHByPt (size_t i = 0) const { return leptLH (indexByPt (i)); }
             const float nBremByPt (size_t i = 0) const { return nBrem (indexByPt (i)); }

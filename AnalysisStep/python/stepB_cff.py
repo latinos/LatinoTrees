@@ -263,11 +263,17 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         lh3 = cms.string("leptLHByPt(2)"),
         lh4 = cms.string("leptLHByPt(3)"),
 
-        eleIdVeto1   = cms.string("leptId(0,\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto\")"),
-        eleIdLoose1  = cms.string("leptId(0,\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-loose\")"),
-        eleIdMedium1 = cms.string("leptId(0,\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-medium\")"),
-        eleIdTight1  = cms.string("leptId(0,\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-tight\")"),
+        eleIdVeto1   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto\",\"\",0)"),
+        eleIdLoose1  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-loose\",\"\",0)"),
+        eleIdMedium1 = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-medium\",\"\",0)"),
+        eleIdTight1  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-tight\",\"\",0)"),
 
+        tryThisOne  = cms.string("leptIdByPt('egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto','',0)"),
+
+        std_vector_lepton_eleIdVeto   = cms.string("leptIdByPt('egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto',''"),
+        std_vector_lepton_eleIdLoose  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-loose\",\"\""),
+        std_vector_lepton_eleIdMedium = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-medium\",\"\""),
+        std_vector_lepton_eleIdTight  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-tight\",\"\""),
 
         pdgid1 = cms.string("pdgIdByPt(0)"),
         pdgid2 = cms.string("pdgIdByPt(1)"),

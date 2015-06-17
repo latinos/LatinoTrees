@@ -40,7 +40,9 @@ class ProbeVariable {
     public:
         /// Create a ProbeVariable to be evaluated on the fly from a string expression
         ProbeVariable(const std::string &name, const std::string &expression) :
-            name_(name), external_(false), function_(expression) {}
+            name_(name), external_(false), function_(expression) {
+//              std::cout << " expression = " << expression << std::endl;
+            }
 //         ProbeVariable(const std::string &name, const std::string &expression, int isVector=0) :
 //             name_(name), external_(false), function_(expression) {
 //              if (isVector) {
