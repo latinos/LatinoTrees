@@ -458,6 +458,7 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.std_vector_jet_softMuPt  = cms.string("jetSoftMuonPtByPt")
         pt.variables.std_vector_jet_softMuEta = cms.string("jetSoftMuonEtaByPt")
         pt.variables.std_vector_jet_softMuPhi = cms.string("jetSoftMuonPhiByPt")
+        pt.variables.std_vector_jet_softMuIso = cms.string("jetSoftMuonIsoByPt")
         pt.variables.std_vector_jet_NumberSoftMu = cms.string("jetSoftMuonCountingByPt")
 
         pt.variables.jetcsvv2ivf1 = cms.string("leadingJetBtag(0,'pfCombinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)

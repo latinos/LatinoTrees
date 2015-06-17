@@ -700,6 +700,54 @@ const float reco::SkimEvent::jetSoftMuonPhi(size_t index, float minPtMuon, float
  
 }
 
+
+
+const float reco::SkimEvent::jetSoftMuonIsoByPt(size_t i = 0) const {
+ return jetSoftMuonIso(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::jetSoftMuonIso(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  //---- get the correct jet index ...
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;  
+  if(isThisJetALepton(jets_[i])) continue;
+  
+  //---- now check for the closest muon
+  if(++count > index) {
+   float minDR = 9999999.9;
+   int nMu = -1;
+   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+    //---- check if it is really a soft-muon
+    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+     float muonPt = softMuons_[iMu]->pt();
+     if (muonPt >= minPtMuon) {
+      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
+      if(dR < maxDrMuonJet && dR < minDR) {
+       minDR = dR;
+       nMu = iMu;
+      }
+     }
+    }
+   }
+   if (nMu != -1) {
+    //---- isolation
+    return ((getMuon(softMuons_[nMu])->pfIsolationR04().sumChargedHadronPt+std::max(0.,getMuon(softMuons_[nMu])->pfIsolationR04().sumNeutralHadronEt+getMuon(softMuons_[nMu])->pfIsolationR04().sumPhotonEt-0.50*getMuon(softMuons_[nMu])->pfIsolationR04().sumPUPt))/getMuon(softMuons_[nMu])->pt());
+   }
+  }
+  
+ }
+ return defaultvalues::defaultFloat;
+ 
+}
+
+
+
 //---- number of soft muons associated to a jet
 //----     it should be at most 1!
 const float reco::SkimEvent::jetSoftMuonCountingByPt(size_t i = 0) const {
@@ -2770,13 +2818,25 @@ const float reco::SkimEvent::allIso(size_t i) const {
  if( i >= leps_.size() ) return defaultvalues::defaultFloat;
  
  if( isElectron(i) ) {
-  return getElectron(i)->userFloat("eleSmurfPF04");
+  //FIXME check definition for electron. Now just copied from muon
+  return ((getElectron(i)->pfIsolationVariables().sumChargedHadronPt+std::max(0.,getElectron(i)->pfIsolationVariables().sumNeutralHadronEt+getElectron(i)->pfIsolationVariables().sumPhotonEt-0.50*getElectron(i)->pfIsolationVariables().sumPUPt))/getElectron(i)->pt());
  } else if( isMuon(i) ) {
-  return getMuon(i)->userFloat("muSmurfPF");
+  return ((getMuon(i)->pfIsolationR04().sumChargedHadronPt+std::max(0.,getMuon(i)->pfIsolationR04().sumNeutralHadronEt+getMuon(i)->pfIsolationR04().sumPhotonEt-0.50*getMuon(i)->pfIsolationR04().sumPUPt))/getMuon(i)->pt());
  } else {
   std::cout << " Do I ever friggin get here?" << std::endl;
   return 9999.0;
  }
+ 
+ 
+ 
+//  if( isElectron(i) ) {
+//   return getElectron(i)->userFloat("eleSmurfPF04");
+//  } else if( isMuon(i) ) {
+//   return getMuon(i)->userFloat("muSmurfPF");
+//  } else {
+//   std::cout << " Do I ever friggin get here?" << std::endl;
+//   return 9999.0;
+//  }
  // if( isElectron(i) && isEB(i) ) {
  // return tkIso(i) + std::max((float)0,ecalIso(i)-1) + hcalIso(i) - getRho(i) * 3.14159265 * 0.3 * 0.3;
  // } else if( (isElectron(i) && !isEB(i)) || isMuon(i) ) {
