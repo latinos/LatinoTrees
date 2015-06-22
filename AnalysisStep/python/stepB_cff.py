@@ -554,6 +554,13 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_leptonGen_isHardProcess", cms.string("genLeptonIsHardProcess")),
         setattr(pt.variables, "std_vector_leptonGen_fromHardProcessBeforeFSR", cms.string("genLeptonFromHardProcessBeforeFSR")),
 
+        setattr(pt.variables, "std_vector_VBoson_pt",      cms.string("genVBosonPt")),
+        setattr(pt.variables, "std_vector_VBoson_eta" ,    cms.string("genVBosonEta")),
+        setattr(pt.variables, "std_vector_VBoson_phi",     cms.string("genVBosonPhi")),
+        setattr(pt.variables, "std_vector_VBoson_pid",     cms.string("genVBosonPID")),
+        setattr(pt.variables, "std_vector_VBoson_status",  cms.string("genVBosonStatus")),
+        setattr(pt.variables, "std_vector_VBoson_isHardProcess", cms.string("genVBosonIsHardProcess")),
+        setattr(pt.variables, "std_vector_VBoson_fromHardProcessBeforeFSR", cms.string("genVBosonFromHardProcessBeforeFSR")),
 
         setattr(pt.variables, "neutrinoGenpt1" , cms.string("leadingGenNeutrinoPt(0)")),       # to be removed once std vector is validated
         setattr(pt.variables, "neutrinoGenpid1" , cms.string("leadingGenNeutrinoPID(0)")),     # to be removed once std vector is validated

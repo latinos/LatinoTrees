@@ -4639,6 +4639,180 @@ const float reco::SkimEvent::leadingGenJetPartonPhi(size_t index) const {
 }
 
 
+
+
+
+//---- Vector Bosons
+
+const float reco::SkimEvent::genVBosonPt(size_t index) const {
+ 
+ std::vector<float> v_bosons_pt;
+ 
+ float particlePt = defaultvalues::defaultFloat;
+ 
+ const reco::Candidate* mcH = 0;
+ 
+ // Loop over gen particles
+ for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+  int type = abs(genParticles_[gp]->pdgId());
+  
+  if (type != 23 && type != 24) continue;
+  
+  mcH = &(*(genParticles_[gp]));
+  v_bosons_pt.push_back(mcH->pt());
+ }
+ 
+ if (v_bosons_pt.size () > 0) {
+  std::sort(v_bosons_pt.rbegin(), v_bosons_pt.rend());
+ }
+ 
+ size_t count = 0;
+ for (size_t i=0; i<v_bosons_pt.size(); ++i) {
+  if (++count > index) return v_bosons_pt.at(i);
+ }
+ 
+ return particlePt;
+}
+
+
+// Compatible with PYTHIA8
+const float reco::SkimEvent::genVBosonStatus(size_t index) const {
+ 
+ float pt_ofIndex     = genVBosonPt(index);
+ float particleStatus = defaultvalues::defaultFloat;
+ 
+ const reco::Candidate* mcH = 0;
+ 
+ // Loop over gen particles
+ for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+  int type = abs(genParticles_[gp]->pdgId());
+  
+  if (type != 23 && type != 24) continue;
+  
+  mcH = &(*(genParticles_[gp]));
+  if (mcH->pt() != pt_ofIndex) continue;
+  particleStatus = (float) genParticles_[gp]->status();
+ }
+ 
+ return particleStatus;
+}
+
+
+
+// Compatible with PYTHIA8
+const float reco::SkimEvent::genVBosonPID(size_t index) const {
+ 
+ float pt_ofIndex = genVBosonPt(index);
+ float particleID = defaultvalues::defaultFloat;
+ 
+ const reco::Candidate* mcH = 0;
+ 
+ // Loop over gen particles
+ for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+  int type = genParticles_[gp]->pdgId();
+  
+  if (abs(type) != 23 && abs(type) != 24) continue;
+  
+  mcH = &(*(genParticles_[gp]));
+  if (mcH->pt() != pt_ofIndex) continue;
+  
+  particleID = (float) type;
+ }
+ 
+ return particleID;
+}
+
+
+// Compatible with PYTHIA8
+const float reco::SkimEvent::genVBosonEta(size_t index) const {
+ 
+ float pt_ofIndex  = genVBosonPt(index);
+ float particleEta = defaultvalues::defaultFloat;
+ 
+ const reco::Candidate* mcH = 0;
+ 
+ // Loop over gen particles
+ for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+  int type = abs(genParticles_[gp]->pdgId());
+  
+  if (type != 23 && type != 24) continue;
+  
+  mcH = &(*(genParticles_[gp]));
+  if (mcH->pt() != pt_ofIndex) continue;
+  particleEta = (float) mcH->eta();
+ }
+ 
+ return particleEta;
+}
+
+
+// Compatible with PYTHIA8
+const float reco::SkimEvent::genVBosonPhi(size_t index) const {
+ 
+ float pt_ofIndex  = genVBosonPt(index);
+ float particlePhi = defaultvalues::defaultFloat;
+ 
+ const reco::Candidate* mcH = 0;
+ 
+ // Loop over gen particles
+ for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+  int type = abs(genParticles_[gp]->pdgId());
+  
+  if (type != 23 && type != 24) continue;
+  
+  mcH = &(*(genParticles_[gp]));
+  if (mcH->pt() != pt_ofIndex) continue;
+  particlePhi = (float) mcH->phi();
+ }
+ 
+ return particlePhi;
+}
+
+
+
+const float reco::SkimEvent::genVBosonIsHardProcess(size_t index) const {
+ float pt_ofIndex   = genVBosonPt(index);
+ const reco::Candidate* mcH = 0;
+ 
+ // Loop over gen particles
+ for (size_t gp=0; gp<genParticles_.size(); gp++) {
+  int type = abs(genParticles_[gp]->pdgId());
+  if (type != 23 && type != 24) continue; //--- Z = 23, W = 24
+  
+  mcH = &(*(genParticles_[gp]));
+  if (mcH->pt() != pt_ofIndex) continue;
+  
+  return genParticles_[gp]-> isHardProcess();
+ } 
+ 
+ return defaultvalues::defaultFloat;
+}
+
+
+const float reco::SkimEvent::genVBosonFromHardProcessBeforeFSR(size_t index) const {
+ float pt_ofIndex   = genVBosonPt(index);
+ const reco::Candidate* mcH = 0;
+ 
+ // Loop over gen particles
+ for (size_t gp=0; gp<genParticles_.size(); gp++) {
+  int type = abs(genParticles_[gp]->pdgId());
+  if (type != 23 && type != 24) continue; //--- Z = 23, W = 24
+  
+  mcH = &(*(genParticles_[gp]));
+  if (mcH->pt() != pt_ofIndex) continue;
+  
+  return genParticles_[gp]-> fromHardProcessBeforeFSR();
+ } 
+ 
+ return defaultvalues::defaultFloat;
+}
+
+
+
+
+
+
+
 // This method traces carbon copies of the particle up to its top mother. If
 // there are no such carbon copies, the status of the particle itself will be
 // returned. A carbon copy is when the "same" particle appears several times in
