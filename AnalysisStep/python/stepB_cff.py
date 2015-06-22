@@ -552,6 +552,7 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_leptonGen_mpid" ,   cms.string("genLeptonMotherPID")),
         setattr(pt.variables, "std_vector_leptonGen_mstatus", cms.string("genLeptonMotherStatus")),
         setattr(pt.variables, "std_vector_leptonGen_isHardProcess", cms.string("genLeptonIsHardProcess")),
+        setattr(pt.variables, "std_vector_leptonGen_fromHardProcessDecayed", cms.string("genLeptonFromHardProcessDecayed")),
         setattr(pt.variables, "std_vector_leptonGen_fromHardProcessBeforeFSR", cms.string("genLeptonFromHardProcessBeforeFSR")),
 
         setattr(pt.variables, "std_vector_VBoson_pt",      cms.string("genVBosonPt")),

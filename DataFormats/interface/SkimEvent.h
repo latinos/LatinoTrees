@@ -459,7 +459,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float genLeptonIndex       (size_t a) const;
             const float genLeptonMotherPID   (size_t a) const;
             const float genLeptonMotherStatus(size_t a) const;
-            const float genLeptonIsHardProcess(size_t a) const;
+	    const float genLeptonIsHardProcess(size_t a) const;
+            const float genLeptonFromHardProcessDecayed(size_t a) const;
             const float genLeptonFromHardProcessBeforeFSR(size_t a) const;
             
             const float genVBosonPt          (size_t a) const;
