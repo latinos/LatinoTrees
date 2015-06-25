@@ -728,6 +728,11 @@ if doBTag: addBTaggingVariables(tree, 99999)
 addJetsVariables(tree, 99999)
 
 
+# lepton variables needed for fake rate studies, measurement and application: e.g. jet variables for jet closest to lepton
+addFakeRateVariables(tree)
+
+
+
 setattr(process,"Tree", tree)
 seq += tree
 

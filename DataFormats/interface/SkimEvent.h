@@ -298,6 +298,17 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool passJetID (pat::JetRef jet,int) const ;
             const bool passFatJetID (pat::JetRef jet,int) const ;
 
+            const float leadingJetCloseLeptonPt(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const;
+            const float leadingJetCloseLeptonEta(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const;
+            const float leadingJetCloseLeptonPhi(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const;
+            const float leadingJetCloseLeptonFlavour(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const;            
+
+            const float leadingJetCloseLeptonPt(size_t ilepton) const;
+            const float leadingJetCloseLeptonEta(size_t ilepton) const;
+            const float leadingJetCloseLeptonPhi(size_t ilepton) const;
+            const float leadingJetCloseLeptonFlavour(size_t ilepton) const;            
+            
+            
             const float dPhiJetllInDegrees(size_t a,float pt ,float eta,int applyCorrection, int applyID) const;
             const float dPhiJetll(size_t a,float pt ,float eta,int applyCorrection, int applyID) const;
 //             const int leadingJetIndex(size_t index,float minPt,float eta,int applyCorrection,int applyID) const;

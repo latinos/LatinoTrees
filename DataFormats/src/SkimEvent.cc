@@ -582,7 +582,6 @@ const float reco::SkimEvent::jetSoftMuonPt(size_t index, float minPtMuon, float 
   //---- now check for the closest muon
   if(++count > index) {
    float minDR = 9999999.9;
-   float minMuonPt = -1;
    int nMu = -1;
    for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
     //---- check if it is really a soft-muon
@@ -592,9 +591,8 @@ const float reco::SkimEvent::jetSoftMuonPt(size_t index, float minPtMuon, float 
      float muonPt = softMuons_[iMu]->pt();
      if (muonPt >= minPtMuon) {
       double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet && dR < minDR && muonPt > minMuonPt) {
+      if(dR < maxDrMuonJet && dR < minDR) {
        minDR = dR;
-       minMuonPt = muonPt;
        nMu = iMu;
       }
      }
@@ -1862,6 +1860,146 @@ const float reco::SkimEvent::dPhillLeadingJet(float eta,int applyCorrection,int 
  }
  return dphi;
 }
+
+
+
+
+
+//---- jet closest to lepton
+//----     like normal jets 
+
+
+const float reco::SkimEvent::leadingJetCloseLeptonPt(size_t ilepton = 0) const {
+ return leadingJetCloseLeptonPt(ilepton, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::leadingJetCloseLeptonPt(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const { 
+ 
+ if (ilepton < leps_.size()) {
+  float minDR = 9999999.9;
+  int numJet = -1;
+  
+ for(size_t i=0;i<jets_.size();++i) {
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= etamaxjet) continue;
+  if( jetPt(i,applyCorrection) <= ptminjet) continue;
+  
+  //---- save the first jet closest to the lepton
+  double dR = fabs(ROOT::Math::VectorUtil::DeltaR(leps_[ilepton]->p4(),jets_[i]->p4()) );
+  if (dR < minDR) {
+    minDR = dR;
+    numJet = i;
+   }
+  }
+  if (numJet != -1) {
+   return jetPt(numJet,applyCorrection);
+  }
+ }
+ 
+ return defaultvalues::defaultFloat;
+}
+
+
+
+const float reco::SkimEvent::leadingJetCloseLeptonEta(size_t ilepton = 0) const {
+ return leadingJetCloseLeptonEta(ilepton, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::leadingJetCloseLeptonEta(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const { 
+ 
+ if (ilepton < leps_.size()) {
+  float minDR = 9999999.9;
+  int numJet = -1;
+  
+  for(size_t i=0;i<jets_.size();++i) {
+   if(!(passJetID(jets_[i],applyID)) ) continue;
+   if( std::fabs(jets_[i]->eta()) >= etamaxjet) continue;
+   if( jetPt(i,applyCorrection) <= ptminjet) continue;
+   
+   //---- save the first jet closest to the lepton
+   double dR = fabs(ROOT::Math::VectorUtil::DeltaR(leps_[ilepton]->p4(),jets_[i]->p4()) );
+   if (dR < minDR) {
+    minDR = dR;
+    numJet = i;
+   }
+  }
+  if (numJet != -1) {
+   return jets_[numJet]->eta();
+  }
+ }
+ 
+ return defaultvalues::defaultFloat;
+}
+
+
+
+const float reco::SkimEvent::leadingJetCloseLeptonPhi(size_t ilepton = 0) const {
+ return leadingJetCloseLeptonPhi(ilepton, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::leadingJetCloseLeptonPhi(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const { 
+ 
+ if (ilepton < leps_.size()) {
+  float minDR = 9999999.9;
+  int numJet = -1;
+  
+  for(size_t i=0;i<jets_.size();++i) {
+   if(!(passJetID(jets_[i],applyID)) ) continue;
+   if( std::fabs(jets_[i]->eta()) >= etamaxjet) continue;
+   if( jetPt(i,applyCorrection) <= ptminjet) continue;
+   
+   //---- save the first jet closest to the lepton
+   double dR = fabs(ROOT::Math::VectorUtil::DeltaR(leps_[ilepton]->p4(),jets_[i]->p4()) );
+   if (dR < minDR) {
+    minDR = dR;
+    numJet = i;
+   }
+  }
+  if (numJet != -1) {
+   return jets_[numJet]->phi();
+  }
+ }
+ 
+ return defaultvalues::defaultFloat;
+}
+
+
+
+
+const float reco::SkimEvent::leadingJetCloseLeptonFlavour(size_t ilepton = 0) const {
+ return leadingJetCloseLeptonFlavour(ilepton, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::leadingJetCloseLeptonFlavour(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const { 
+ 
+ if (ilepton < leps_.size()) {
+  float minDR = 9999999.9;
+  int numJet = -1;
+  
+  for(size_t i=0;i<jets_.size();++i) {
+   if(!(passJetID(jets_[i],applyID)) ) continue;
+   if( std::fabs(jets_[i]->eta()) >= etamaxjet) continue;
+   if( jetPt(i,applyCorrection) <= ptminjet) continue;
+   
+   //---- save the first jet closest to the lepton
+   double dR = fabs(ROOT::Math::VectorUtil::DeltaR(leps_[ilepton]->p4(),jets_[i]->p4()) );
+   if (dR < minDR) {
+    minDR = dR;
+    numJet = i;
+   }
+  }
+  if (numJet != -1) {
+   return jets_[numJet]->partonFlavour();
+  }
+ }
+ 
+ return defaultvalues::defaultFloat;
+}
+
+
+
+
+
 
 
 // const int reco::SkimEvent::leadingJetIndex(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {

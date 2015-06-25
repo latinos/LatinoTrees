@@ -430,6 +430,13 @@ def addJetsVariables(pt,dzCut=99999):
 
         pt.variables.std_vector_jet_puid = cms.string("leadingJetPUid")
 
+def addFakeRateVariables(pt):
+    if hasattr(pt,"variables"):
+
+        pt.variables.std_vector_lepton_closejet_pt    = cms.string("leadingJetCloseLeptonPt")
+        pt.variables.std_vector_lepton_closejet_eta   = cms.string("leadingJetCloseLeptonEta")
+        pt.variables.std_vector_lepton_closejet_phi   = cms.string("leadingJetCloseLeptonPhi")
+        pt.variables.std_vector_lepton_closejet_pdgid = cms.string("leadingJetCloseLeptonFlavour")
 
 
 
@@ -555,13 +562,13 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_leptonGen_fromHardProcessDecayed", cms.string("genLeptonFromHardProcessDecayed")),
         setattr(pt.variables, "std_vector_leptonGen_fromHardProcessBeforeFSR", cms.string("genLeptonFromHardProcessBeforeFSR")),
 
-        setattr(pt.variables, "std_vector_VBoson_pt",      cms.string("genVBosonPt")),
-        setattr(pt.variables, "std_vector_VBoson_eta" ,    cms.string("genVBosonEta")),
-        setattr(pt.variables, "std_vector_VBoson_phi",     cms.string("genVBosonPhi")),
-        setattr(pt.variables, "std_vector_VBoson_pid",     cms.string("genVBosonPID")),
-        setattr(pt.variables, "std_vector_VBoson_status",  cms.string("genVBosonStatus")),
-        setattr(pt.variables, "std_vector_VBoson_isHardProcess", cms.string("genVBosonIsHardProcess")),
-        setattr(pt.variables, "std_vector_VBoson_fromHardProcessBeforeFSR", cms.string("genVBosonFromHardProcessBeforeFSR")),
+        setattr(pt.variables, "std_vector_VBoson_pt",      cms.string("genVBosonPt/30")),
+        setattr(pt.variables, "std_vector_VBoson_eta" ,    cms.string("genVBosonEta/30")),
+        setattr(pt.variables, "std_vector_VBoson_phi",     cms.string("genVBosonPhi/30")),
+        setattr(pt.variables, "std_vector_VBoson_pid",     cms.string("genVBosonPID/30")),
+        setattr(pt.variables, "std_vector_VBoson_status",  cms.string("genVBosonStatus/30")),
+        setattr(pt.variables, "std_vector_VBoson_isHardProcess", cms.string("genVBosonIsHardProcess/30")),
+        setattr(pt.variables, "std_vector_VBoson_fromHardProcessBeforeFSR", cms.string("genVBosonFromHardProcessBeforeFSR/30")),
 
         setattr(pt.variables, "neutrinoGenpt1" , cms.string("leadingGenNeutrinoPt(0)")),       # to be removed once std vector is validated
         setattr(pt.variables, "neutrinoGenpid1" , cms.string("leadingGenNeutrinoPID(0)")),     # to be removed once std vector is validated
