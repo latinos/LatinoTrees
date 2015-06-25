@@ -1997,6 +1997,37 @@ const float reco::SkimEvent::leadingJetCloseLeptonFlavour(size_t ilepton, float 
 }
 
 
+const float reco::SkimEvent::leadingJetCloseLeptonDR(size_t ilepton = 0) const {
+ return leadingJetCloseLeptonDR(ilepton, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::leadingJetCloseLeptonDR(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const { 
+ 
+ if (ilepton < leps_.size()) {
+  float minDR = 9999999.9;
+  int numJet = -1;
+  
+  for(size_t i=0;i<jets_.size();++i) {
+   if(!(passJetID(jets_[i],applyID)) ) continue;
+   if( std::fabs(jets_[i]->eta()) >= etamaxjet) continue;
+   if( jetPt(i,applyCorrection) <= ptminjet) continue;
+   
+   //---- save the first jet closest to the lepton
+   double dR = fabs(ROOT::Math::VectorUtil::DeltaR(leps_[ilepton]->p4(),jets_[i]->p4()) );
+   if (dR < minDR) {
+    minDR = dR;
+    numJet = i;
+   }
+  }
+  if (numJet != -1) {
+   return minDR;
+  }
+ }
+ 
+ return defaultvalues::defaultFloat;
+}
+
+
 
 
 

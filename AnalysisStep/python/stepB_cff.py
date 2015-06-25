@@ -437,6 +437,7 @@ def addFakeRateVariables(pt):
         pt.variables.std_vector_lepton_closejet_eta   = cms.string("leadingJetCloseLeptonEta")
         pt.variables.std_vector_lepton_closejet_phi   = cms.string("leadingJetCloseLeptonPhi")
         pt.variables.std_vector_lepton_closejet_pdgid = cms.string("leadingJetCloseLeptonFlavour")
+        pt.variables.std_vector_lepton_closejet_drlj  = cms.string("leadingJetCloseLeptonDR")
 
 
 

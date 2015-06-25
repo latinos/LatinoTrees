@@ -302,11 +302,13 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingJetCloseLeptonEta(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const;
             const float leadingJetCloseLeptonPhi(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const;
             const float leadingJetCloseLeptonFlavour(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const;            
-
+            const float leadingJetCloseLeptonDR(size_t ilepton, float ptminjet ,float etamaxjet,int applyCorrection, int applyID) const;            
+            
             const float leadingJetCloseLeptonPt(size_t ilepton) const;
             const float leadingJetCloseLeptonEta(size_t ilepton) const;
             const float leadingJetCloseLeptonPhi(size_t ilepton) const;
             const float leadingJetCloseLeptonFlavour(size_t ilepton) const;            
+            const float leadingJetCloseLeptonDR(size_t ilepton) const;            
             
             
             const float dPhiJetllInDegrees(size_t a,float pt ,float eta,int applyCorrection, int applyID) const;
