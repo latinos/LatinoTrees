@@ -193,7 +193,11 @@ options.register ('doMCweights',
                   opts.VarParsing.varType.bool,
                   'Turn on MC weights dumper (can be \'True\' or \'False\'')
 
-
+options.register ('doSoftActivity',
+                  False, # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.bool,
+                  'Turn on soft activity variables (can be \'True\' or \'False\'')
 
 #-------------------------------------------------------------------------------
 # defaults
@@ -321,9 +325,9 @@ process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
 # Default parameters for jets
 process.skimEventProducer.maxEtaForJets = cms.double(4.7)
-process.skimEventProducer.minPtForJets = cms.double(20)
+process.skimEventProducer.minPtForJets = cms.double(0)
 process.skimEventProducer.applyCorrectionForJets = cms.bool(True) 
-process.skimEventProducer.applyIDForJets = cms.int32(int(globalVariables.jetId_WP))
+process.skimEventProducer.applyIDForJets = cms.int32(0) # set to int(globalVariables.jetId_WP) when working for forward jets
 # 7 Run II jetID LOOSE
 # 8 Run II jetID TIGHT
 
@@ -515,10 +519,18 @@ if options.runPUPPISequence:
     # the name selectedPatJetsAK4PFPuppi found looking at the "processDump.py" and looking for patjetproducer
     process.skimEventProducer.secondJetTag = cms.InputTag("selectedPatJetsAK4PFPuppi")
     #process.skimEventProducer.secondJetTag = cms.InputTag("patJetsAK4selectedPatJetsPuppi")
+
+if options.doSoftActivity:   
+    # Add trackjets
+    process.chargedPackedPFCandidates = cms.EDFilter("CandPtrSelector", src = cms.InputTag("packedPFCandidates"), cut = cms.string("charge != 0 && abs(eta) < 2.5 && pt > 0.3 && fromPV >= 1 && trackHighPurity"))
+
+    from RecoJets.JetProducers.ak4PFJets_cfi import ak4PFJets
+    process.ak4TrackJets = ak4PFJets.clone(src = cms.InputTag('chargedPackedPFCandidates'), jetPtMin = cms.double(1.0))
     
-
-
-
+    process.trackJetSequence = cms.Sequence(process.chargedPackedPFCandidates * process.ak4TrackJets)
+    preSeq += process.trackJetSequence
+    process.skimEventProducer.trackJetTag = cms.InputTag("ak4TrackJets")
+    
 # create the EventHypothesis
 # and tweaks for special MC/data samples
 
@@ -757,6 +769,8 @@ process.TFileService = cms.Service("TFileService",fileName = cms.string(options.
 if doSameSign:
     getattr(process,"Tree").cut = cms.string("q(0)*q(1) > 0 && !isSTA(0) && !isSTA(1) && leptEtaCut(2.4,2.5) && ptMax > 20 && ptMin > 10")
 
+if options.doSoftActivity: 
+    addSoftActivityVariables(process,tree)
 
 # save all events
 if doNoFilter:

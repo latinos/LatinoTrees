@@ -519,6 +519,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setFatJets(const edm::Handle<pat::JetCollection> &);
             void setTagJets(const edm::Handle<pat::JetCollection> &);
             void setSecondJets(const edm::Handle<pat::JetCollection> &);
+            void setTrackJets(const edm::Handle<reco::PFJetCollection> &);
             void setTCMet(const edm::Handle<reco::METCollection> &);
             void setPFMet(const edm::Handle< std::vector<pat::MET> > &);
             void setPUpMet(const edm::Handle< std::vector<pat::MET> > &);
@@ -581,8 +582,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingJetHadronFlavour(size_t a, float pt , float eta=5.0,int applyCorrection=true, int applyID=0, float dzCut=9999.) const;
             const float leadingJetHadronFlavour(size_t a) const;
             
-            
-            
+            // Soft Activity
+            float sumHtTrackJets() const;
+            float sumHtTrackJetsDensity() const;
             
             //Iso Functions
             const bool isEB(size_t a = 0) const;
@@ -849,6 +851,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             pat::JetRefVector fatJets_;
             pat::JetRefVector tagJets_;
             pat::JetRefVector secondJets_;
+            reco::PFJetRefVector trackJets_;
             reco::GenParticleRefVector genParticles_;
             reco::GenMETRef genMetRef_;
             reco::GenMET genMet_;

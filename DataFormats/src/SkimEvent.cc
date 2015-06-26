@@ -380,6 +380,17 @@ void reco::SkimEvent::setTagJets(const edm::Handle<pat::JetCollection> & jH) {
  
 }
 
+void reco::SkimEvent::setTrackJets(const edm::Handle<reco::PFJetCollection> & jH) {
+ 
+ trackJets_.clear();
+ 
+ for(size_t i=0;i<jH->size();++i)
+  trackJets_.push_back(reco::PFJetRef(jH,i));
+ 
+ //sortTagJetsByPt();
+ 
+}
+
 void reco::SkimEvent::setTCMet(const edm::Handle<reco::METCollection> & mH) {
  tcMet_ = reco::METRef(mH,0);
 }
@@ -2285,7 +2296,32 @@ const float reco::SkimEvent::leadingFatJetPrunedTau4(size_t index, float minPt,f
  return -9999.9;
 }
 
+float reco::SkimEvent::sumHtTrackJets() const {
+    float sumHt=0;
+    float minEta = leadingJetEta(0,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+    float maxEta = leadingJetEta(1,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+    if( minEta > maxEta ) {
+        float temp = minEta;
+        minEta = maxEta;
+        maxEta = temp;
+    }
+    for(size_t i=0;i<trackJets_.size();++i) {
+        if( trackJets_[i]->eta() < (maxEta-0.4) && trackJets_[i]->eta() > (minEta+0.4) ) {
+            sumHt += abs(trackJets_[i]->pt());
+        }
+    }
+    return sumHt;
+}
 
+float reco::SkimEvent::sumHtTrackJetsDensity() const {
+    float etaRange = abs(leadingJetEta(0,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_) - leadingJetEta(1,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_)) -0.8;
+    if( etaRange > 0 ) {
+        return (sumHtTrackJets()/etaRange);
+    }
+    else {
+        return 0;
+    }
+}
 
 //Event variables
 

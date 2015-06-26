@@ -744,8 +744,10 @@ def addAdditionalJets(process,pt):
             setattr(pt.variables, "jetNChgptCut7", cms.string("leadingJetNChgptCut(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
             setattr(pt.variables, "jetNNeutralptCut7", cms.string("leadingJetNNeutralptCut(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
 
-
-
+def addSoftActivityVariables(process,pt):
+     if hasattr(pt,"variables"):
+         setattr(pt.variables, "sumHtSoft",  cms.string("sumHtTrackJets")),
+         setattr(pt.variables, "sumHTSoftDensity", cms.string("sumHtTrackJetsDensity")),
 
 def addIsoStudyVariables(process,pt):
     if hasattr(pt,"variables"):

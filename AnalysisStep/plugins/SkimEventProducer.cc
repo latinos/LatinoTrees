@@ -55,6 +55,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     pfCandsTag_        = cfg.getParameter<edm::InputTag>("pfCandsTag" );
     rhoTag_            = cfg.getParameter<edm::InputTag>("rhoTag" );
     phoTag_	       = cfg.getParameter<edm::InputTag>("phoTag"); //Photon
+    trackJetTag_       = cfg.getParameter<edm::InputTag>("trackJetTag");
     
     _electronId        = cfg.getUntrackedParameter<int>("electronId",1);
     _debug             = cfg.getUntrackedParameter<int>("debug",0);
@@ -107,6 +108,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     softMuonsT_    = consumes<edm::View<reco::RecoCandidate> > (softMuTag_);
     electronsT_    = consumes<edm::View<reco::RecoCandidate> > (elTag_);
     photonsT_      = consumes<edm::View<reco::RecoCandidate> > (phoTag_); // Photon
+    trackJetT_     = consumes<reco::PFJetCollection> (trackJetTag_);
 
     if (!(mcGenEventInfoTag_ == edm::InputTag(""))) GenInfoT_     = consumes<GenEventInfoProduct>(mcGenEventInfoTag_);
     if (!(mcGenWeightTag_    == edm::InputTag(""))) mcGenWeightT_ = consumes<GenFilterInfo>(mcGenWeightTag_); 
@@ -159,6 +161,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     edm::Handle<pat::JetCollection> secondTagJetH;
     if(!(secondJetTag_==edm::InputTag(""))) iEvent.getByToken(secondTagJetHT_,secondTagJetH);
     
+    edm::Handle<reco::PFJetCollection> tagTrackJetH;
+    if(!(trackJetTag_==edm::InputTag(""))) iEvent.getByToken(trackJetT_,tagTrackJetH);    
     
     edm::Handle< std::vector<pat::MET> > pfMetH;
     iEvent.getByToken(pfMetHT_,pfMetH);
@@ -204,7 +208,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     edm::Handle<edm::View<reco::RecoCandidate> > electrons;
     iEvent.getByToken(electronsT_,electrons);
     edm::Handle<edm::View<reco::RecoCandidate> > photons; // Photon
-    iEvent.getByLabel(phoTag_, photons);
+    iEvent.getByToken(photonsT_, photons);
 
     edm::Handle<GenFilterInfo> mcGenWeight;
     if (!(mcGenWeightTag_ == edm::InputTag(""))) {
@@ -301,6 +305,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     else skimEvent->back().setTagJets(jetH);
 
     if(secondTagJetH.isValid()) skimEvent->back().setSecondJets(secondTagJetH);
+    if(tagTrackJetH.isValid()) skimEvent->back().setTrackJets(tagTrackJetH);
     
     if(genParticles.isValid()) {
      skimEvent->back().setGenParticles(genParticles);

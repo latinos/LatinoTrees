@@ -113,7 +113,8 @@ double neutFrac;
         edm::InputTag spt2Tag_;
         edm::InputTag rhoTag_;
 	edm::InputTag phoTag_; //PHOTON
-
+        edm::InputTag trackJetTag_;
+        
 	int _debug;
 	
 	edm::EDGetTokenT<pat::TauCollection> tausT_;
@@ -142,6 +143,7 @@ double neutFrac;
         edm::EDGetTokenT<reco::GenMETCollection> genMetHT_;
 	edm::EDGetTokenT<reco::GenJetCollection> genJetHT_;
 	edm::EDGetTokenT<edm::TriggerResults> triggerT_;
+        edm::EDGetTokenT<reco::PFJetCollection> trackJetT_;
         
         
         void addDYMVA(reco::SkimEvent* event);
