@@ -6,6 +6,10 @@ samples['25ns_WWTo2L2Nu'] = ['/WWTo2L2Nu_13TeV-powheg/RunIISpring15DR74-Asympt25
 samples['25ns_ZZ']        = ['/ZZ_TuneCUETP8M1_13TeV-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM',  ['label=ZZ',        'id=0003', 'scale=0.03192']]
 
 
+# Higgs #
+samples['25ns_ggToH120toWWTo2L2Nu'] = ['/GluGluHToWWTo2L2Nu_M120_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',         ['label=ggToH120toWWTo2L2Nu', 'id=01120', 'scale=1.0000']]
+
+
 ########
 # 50 ns
 ########
