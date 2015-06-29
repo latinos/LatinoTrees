@@ -433,11 +433,11 @@ def addJetsVariables(pt,dzCut=99999):
 def addFakeRateVariables(pt):
     if hasattr(pt,"variables"):
 
-        pt.variables.std_vector_lepton_closejet_pt    = cms.string("leadingJetCloseLeptonPt")
-        pt.variables.std_vector_lepton_closejet_eta   = cms.string("leadingJetCloseLeptonEta")
-        pt.variables.std_vector_lepton_closejet_phi   = cms.string("leadingJetCloseLeptonPhi")
-        pt.variables.std_vector_lepton_closejet_pdgid = cms.string("leadingJetCloseLeptonFlavour")
-        pt.variables.std_vector_lepton_closejet_drlj  = cms.string("leadingJetCloseLeptonDR")
+        pt.variables.std_vector_lepton_closejet_pt            = cms.string("leadingJetCloseLeptonPt")
+        pt.variables.std_vector_lepton_closejet_eta           = cms.string("leadingJetCloseLeptonEta")
+        pt.variables.std_vector_lepton_closejet_phi           = cms.string("leadingJetCloseLeptonPhi")
+        pt.variables.std_vector_lepton_closejet_PartonFlavour = cms.string("leadingJetCloseLeptonFlavour")
+        pt.variables.std_vector_lepton_closejet_drlj          = cms.string("leadingJetCloseLeptonDR")
 
 
 

@@ -1218,7 +1218,10 @@ const float reco::SkimEvent::leadingJetPartonFlavour(size_t index, float minPt,f
   
   if(isThisJetALepton(jets_[i])) continue;
   if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-  if(++count > index) return jets_[i]->partonFlavour();
+  if(++count > index) {
+//    std::cout << " partonFlavour = " << jets_[i]->partonFlavour() << " , hadronFlavour = " << jets_[i]->hadronFlavour() << std::endl;
+   return jets_[i]->partonFlavour();
+  }
  }
  return -9999.9;
  
