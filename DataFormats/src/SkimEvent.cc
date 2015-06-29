@@ -801,6 +801,19 @@ const float reco::SkimEvent::jetSoftMuonCounting(size_t index, float minPtMuon, 
 
 
 
+const int reco::SkimEvent::flavour(size_t i) const {
+ if(i < leps_.size()) {
+  if (isMuon(i)) {
+   return 13*q(i);
+  }
+  else {
+   return 11*q(i);  
+  }
+ }
+ else return -9999;
+}
+
+
 const int reco::SkimEvent::pdgId(size_t i) const {
  if(i < leps_.size()) return leps_[i]->pdgId();
  else return -9999;
@@ -5648,10 +5661,10 @@ const float reco::SkimEvent::GetElectronEffectiveArea(size_t i) const {
  if( isElectron(i) ) {
   float eta = leps_.at(i)->eta();
   if( fabs(eta) < 0.8000 ) return _eaElectronIso[0];
-  else if( fabs(eta) > 0.8000 && fabs(eta) < 1.3000 ) return _eaElectronIso[1];
-  else if( fabs(eta) > 1.3000 && fabs(eta) < 2.0000 ) return _eaElectronIso[2];
-  else if( fabs(eta) > 2.0000 && fabs(eta) < 2.2000 ) return _eaElectronIso[3];
-  else if( fabs(eta) > 2.2000)                        return _eaElectronIso[4];
+  else if( fabs(eta) => 0.8000 && fabs(eta) < 1.3000 ) return _eaElectronIso[1];
+  else if( fabs(eta) => 1.3000 && fabs(eta) < 2.0000 ) return _eaElectronIso[2];
+  else if( fabs(eta) => 2.0000 && fabs(eta) < 2.2000 ) return _eaElectronIso[3];
+  else if( fabs(eta) => 2.2000)                        return _eaElectronIso[4];
   //  else if( fabs(eta) > 2.2000 && fabs(eta) < 5.0000 ) return _eaElectronIso[1]; 
   else return defaultvalues::defaultFloat; 
  }

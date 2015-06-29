@@ -162,7 +162,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const int nExtraLep(float a = -1) const;
             const int nSoftMu(float a = -1, float vetoJets=-1, float dRCut = 0.3) const;
             const int pdgId(size_t a = 0) const;
-
+            const int flavour(size_t a = 0) const;
+            
+            
+            
             void FindDaughterParticles(const reco::Candidate** pCurrent, std::vector<const reco::Candidate*>* pFinal = 0) const;
             const float getFinalStateMC() const;
             const float getWWdecayMC() const;
@@ -627,6 +630,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float hcalVetoByIso(size_t i = 0) const { return hcalVeto(indexByIso(i)); }
             const float allVetoByPt (size_t i = 0) const { return allVeto (indexByPt (i)); }
             const float allVetoByIso (size_t i = 0) const { return allVeto (indexByIso(i)); }
+            const int flavourByPt (size_t i = 0) const { return flavour (indexByPt (i)); }
             const int pdgIdByPt (size_t i = 0) const { return pdgId (indexByPt (i)); }
             const int pdgIdByIso (size_t i = 0) const { return pdgId (indexByIso(i)); }
             const float ptByPt (size_t i = 0) const { return pt (indexByPt (i)); }
