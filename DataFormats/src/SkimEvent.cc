@@ -5661,10 +5661,10 @@ const float reco::SkimEvent::GetElectronEffectiveArea(size_t i) const {
  if( isElectron(i) ) {
   float eta = leps_.at(i)->eta();
   if( fabs(eta) < 0.8000 ) return _eaElectronIso[0];
-  else if( fabs(eta) => 0.8000 && fabs(eta) < 1.3000 ) return _eaElectronIso[1];
-  else if( fabs(eta) => 1.3000 && fabs(eta) < 2.0000 ) return _eaElectronIso[2];
-  else if( fabs(eta) => 2.0000 && fabs(eta) < 2.2000 ) return _eaElectronIso[3];
-  else if( fabs(eta) => 2.2000)                        return _eaElectronIso[4];
+  else if( fabs(eta) >= 0.8000 && fabs(eta) < 1.3000 ) return _eaElectronIso[1];
+  else if( fabs(eta) >= 1.3000 && fabs(eta) < 2.0000 ) return _eaElectronIso[2];
+  else if( fabs(eta) >= 2.0000 && fabs(eta) < 2.2000 ) return _eaElectronIso[3];
+  else if( fabs(eta) >= 2.2000)                        return _eaElectronIso[4];
   //  else if( fabs(eta) > 2.2000 && fabs(eta) < 5.0000 ) return _eaElectronIso[1]; 
   else return defaultvalues::defaultFloat; 
  }
