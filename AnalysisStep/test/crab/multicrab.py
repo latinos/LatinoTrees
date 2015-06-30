@@ -6,7 +6,7 @@ pyCfgParams = ['outputFile=stepB_MC.root', 'selection=LooseNoIso', 'doNoFilter=F
 
 config.section_('General')
 config.General.transferLogs = True
-config.General.workArea     = 'crab_projects_9Jun'  # Make sure you set this parameter
+config.General.workArea     = 'crab_projects_22Jun'  # Make sure you set this parameter
 
 config.section_('JobType')
 config.JobType.pluginName       = 'Analysis'
@@ -63,4 +63,3 @@ if __name__ == '__main__':
         config.JobType.pyCfgParams = list(pyCfgParams)
         config.JobType.pyCfgParams.extend(value[1])
         submit(config)
-

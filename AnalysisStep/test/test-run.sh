@@ -10,7 +10,7 @@ export MYFILE=root://xrootd.unl.edu//store/mc/RunIISpring15DR74/TT_TuneCUETP8M1_
 
 rm -rf latino_stepB_numEvent${EVENTS}.root
 
-cmsRun stepB.py print selection=LooseNoIso doMuonIsoId=True doEleIsoId=True runPUPPISequence=False maxEvents=${EVENTS} inputFiles=${MYFILE}
+cmsRun stepB.py print doNoFilter=True selection=Tight doMuonIsoId=True doEleIsoId=True runPUPPISequence=False maxEvents=${EVENTS} inputFiles=${MYFILE}
 
 python cmssw2latino.py stepB_numEvent${EVENTS}.root
 

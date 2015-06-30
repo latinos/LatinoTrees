@@ -1,5 +1,5 @@
 
-# Latino name                DAS name                                                                                                           Options
+#        Latino name           DAS name                                                                                                           Options
 samples['QCD']             = ['/QCD_Pt-20toInf_MuEnrichedPt15_PionKaonDecay_Tune4C_13TeV_pythia8/Phys14DR-PU20bx25_PHYS14_25_V1-v3/MINIAODSIM', ['label=QCD',             'id=0001', 'scale=79.80534']]
 samples['DYJetsToLL']      = ['/DYJetsToLL_M-50_13TeV-madgraph-pythia8/Phys14DR-PU20bx25_PHYS14_25_V1-v1/MINIAODSIM',                           ['label=DYJetsToLL',      'id=0002', 'scale=2.12968']]
 samples['WJetsToLNu']      = ['/WJetsToLNu_13TeV-madgraph-pythia8-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/MINIAODSIM',                         ['label=WJetsToLNu',      'id=0003', 'scale=2.04731']]
