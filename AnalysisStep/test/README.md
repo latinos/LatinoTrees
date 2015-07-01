@@ -28,7 +28,7 @@ The command `bash -l` is needed only if the shell is not bash.
 Follow this step ONLY if you want to produce common latino trees.
 
     cd LatinoTrees
-    git checkout tags/10June2015
+    git checkout tags/1July2015
 
     scram b -j 10
     cd LatinoTrees/AnalysisStep/test/crab
