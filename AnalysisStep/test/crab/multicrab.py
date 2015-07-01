@@ -40,7 +40,7 @@ if __name__ == '__main__':
     print sys.argv
     if len(sys.argv) <= 1 :
        print "no arguments?"
-       print "Usage: python multicrab_template.py test.py"
+       print "Usage: python multicrab.py samples_file.py"
        exit()
        
 
