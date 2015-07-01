@@ -776,9 +776,6 @@ if options.doSoftActivity:
 if doNoFilter:
     print ">> Dump all events"
     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 0")
-### else:
-###     print ">> Select events with at least 2 leptons"
-###     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 2")
 
 # TTree producer ends up in the endPath, then it's NOT a filter anymore
 # then applying a cut here has no effect
