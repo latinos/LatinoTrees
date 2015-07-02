@@ -456,7 +456,7 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              #addPUJetID=False,
              addPUJetID=True,
              addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True,
-             addSoftDrop=False  # addSoftDrop=True  
+             addSoftDrop=False,  addQGTagger=True  # addSoftDrop=True  
              ) #, addPrunedSubjets=True )
 
 
