@@ -1665,7 +1665,7 @@ const float reco::SkimEvent::leadingJetQGlikelihood(size_t index, float minPt,fl
   
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) {
-   return jets_[i]->userFloat("QGTagger:qgLikelihood");
+   return jets_[i]->userFloat("QGTaggerAK4PFCHS:qgLikelihood");
   }
  }
  return -9999.9;
