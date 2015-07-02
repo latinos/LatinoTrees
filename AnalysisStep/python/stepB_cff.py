@@ -95,9 +95,10 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_puppijet_eta = cms.string("leadingSecondJetEta"),
         std_vector_puppijet_phi = cms.string("leadingSecondJetPhi"),
 
-        std_vector_jet_pt  = cms.string("leadingJetPt"),
-        std_vector_jet_eta = cms.string("leadingJetEta"),
-        std_vector_jet_phi = cms.string("leadingJetPhi"),
+        std_vector_jet_pt   = cms.string("leadingJetPt"),
+        std_vector_jet_eta  = cms.string("leadingJetEta"),
+        std_vector_jet_phi  = cms.string("leadingJetPhi"),
+        std_vector_jet_mass = cms.string("leadingJetMass"),
 
         mll = cms.string("mll()"),
         ptll = cms.string("pTll()"),
