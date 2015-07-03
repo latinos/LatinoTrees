@@ -1437,6 +1437,10 @@ const float reco::SkimEvent::leadingJetPhi(size_t index) const {
  return leadingJetPhi(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
 }
 
+const float reco::SkimEvent::leadingJetMass(size_t index) const { 
+ return leadingJetMass(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+}
+
 
 const float reco::SkimEvent::leadingJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  size_t count = 0;
@@ -5554,7 +5558,9 @@ const int reco::SkimEvent::numberOftQuarks() const {
  return numt;
 }
 
-//BTAGGING ################################################################
+//---- B-tagging
+//---- see: https://github.com/alefisico/cmssw/blob/jetToolbox_74X/RecoJets/JetProducers/python/jetToolbox_cff.py#L156
+
 const float reco::SkimEvent::jettcheByPt(size_t i = 0) const {
  return leadingJetBtag(i,"pfTrackCountingHighEffBJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
