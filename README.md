@@ -116,6 +116,7 @@ Phys14:
        
     scp amassiro@cmsneu:/media/data/CMSSWRoot/RunIISpring15DR74/WWTo2L2Nu_13TeV-powheg/MINIAODSIM/25ns/082EF100-DC05-E511-AD3F-A0040420FE80.root /tmp/amassiro/
     scp amassiro@cmsneu:/media/data/CMSSWRoot/RunIISpring15DR74/WWTo2L2Nu_13TeV-powheg/MINIAODSIM/50ns/1EF48EA6-DE0B-E511-99EF-0002C92A1024.root /tmp/amassiro/
+    scp amassiro@cmsneu:/media/data/CMSSWRoot/RunIISpring15DR74/TT_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/00D2A247-2910-E511-9F3D-0CC47A4DEDD2.root /tmp/amassiro/
        
     cmsRun stepB.py print \
                     label=WW \
@@ -144,12 +145,28 @@ Phys14:
                     globalTag=MCRUN2_74_V9A \
                     selection=LooseNoIso \
                     inputFiles=file:/tmp/amassiro/1EF48EA6-DE0B-E511-99EF-0002C92A1024.root
-    
+ 
+    cmsRun stepB.py print \
+                    label=Top \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC_Top.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    doLHE=False \
+                    doGen=True \
+                    doBTag=True \
+                    globalTag=MCRUN2_74_V9A \
+                    selection=LooseNoIso \
+                    inputFiles=file:/tmp/amassiro/00D2A247-2910-E511-9F3D-0CC47A4DEDD2.root
+
     latino->Draw("std_vector_jet_pt[0]","std_vector_jet_pt[0]>0")
     latino->Draw("std_vector_leptonGen_fromHardProcessBeforeFSR[0]","std_vector_leptonGen_pt[0]>0")
     latino->Draw("std_vector_neutrinoGen_fromHardProcessBeforeFSR[0]","std_vector_neutrinoGen_pt[0]>0")
     latino->Draw("std_vector_neutrinoGen_pt[0]","std_vector_neutrinoGen_pt[0]>0")
-     
+    latino->Draw("std_vector_jet_csvv2ivf","std_vector_jet_csvv2ivf>-9000")
+
+
     
 
     
