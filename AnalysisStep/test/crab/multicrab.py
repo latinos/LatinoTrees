@@ -65,10 +65,10 @@ if __name__ == '__main__':
         config.JobType.pyCfgParams = list(pyCfgParams)
         config.JobType.pyCfgParams.extend(value[1])
         
-        #p = Process(target=submit, args=(config,))
-        #p.start()
-        #p.join()
-        submit(config)
+        p = Process(target=submit, args=(config,))
+        p.start()
+        p.join()
+        #submit(config)
         # see https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ#Multiple_submission_fails_with_a
         
         
