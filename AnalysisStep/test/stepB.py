@@ -202,8 +202,7 @@ options.register ('doSoftActivity',
 #-------------------------------------------------------------------------------
 # defaults
 options.outputFile = 'stepB.root'
-options.maxEvents = -1 #all events ---> already the default
-#print " options.maxEvents = ",options.maxEvents
+options.maxEvents = -1 # all events
 #-------------------------------------------------------------------------------
 
 options.parseArguments()
@@ -772,10 +771,13 @@ if doSameSign:
 if options.doSoftActivity: 
     addSoftActivityVariables(process,tree)
 
-# save all events
+# Save events
 if doNoFilter:
     print ">> Dump all events"
     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 0")
+else :
+    print ">> Dump events with nLep >= 1"
+    getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 1")
 
 # TTree producer ends up in the endPath, then it's NOT a filter anymore
 # then applying a cut here has no effect

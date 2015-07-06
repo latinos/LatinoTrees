@@ -35,6 +35,8 @@ Follow this step ONLY if you want to produce common latino trees.
     source /cvmfs/cms.cern.ch/crab3/crab.sh
     python multicrab.py samples/samples_spring15.py
 
+    cmsLs /store/group/phys_higgs/cmshww/amassiro/RunII/test/WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8/crab_25ns_WZTo3LNu/150703_170518/0000/ | grep stepB_MC | awk -v p="" '{if ($5!="") p=p" root://eoscms//eos/cms"$5}; END{print "hadd test.root" p}' | sh
+
 
 4. Produce a test latino tree
 ====
