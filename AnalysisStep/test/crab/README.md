@@ -33,4 +33,15 @@ MultiCRAB
 
     python multicrab.py samples/samples_spring15.py
 
+    
+    
+    
     crab status folder_name
+
+    python multicrab.py  folder_name
+
+    python multicrab.py crab_projects_6July
+    
+    
+    
+    

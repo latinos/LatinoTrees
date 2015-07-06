@@ -42,7 +42,8 @@ if __name__ == '__main__':
     print sys.argv
     if len(sys.argv) <= 1 :
        print "no arguments?"
-       print "Usage: python multicrab.py samples_file.py"
+       print "Usage to submit:     python multicrab.py samples_file.py"
+       print "Usage to get status: python multicrab.py folder"
        exit()
        
 
@@ -50,26 +51,28 @@ if __name__ == '__main__':
     SamplesFile = sys.argv[1]
     print " SamplesFile = ", SamplesFile
     
-    if os.path.exists(SamplesFile):
+    # submit
+    if os.path.exists(SamplesFile) and not os.path.isdir(SamplesFile) :
        handle = open(SamplesFile,'r')
        exec(handle)
        handle.close()
                 
-    # samples to be analysed
+       # samples to be analysed
                    
-    for key, value in samples.iteritems():
-        print key, ' -> ', value
+       for key, value in samples.iteritems():
+           print key, ' -> ', value
         
-        config.General.requestName = key
-        config.Data.inputDataset = value[0]
-        config.JobType.pyCfgParams = list(pyCfgParams)
-        config.JobType.pyCfgParams.extend(value[1])
+           config.General.requestName = key
+           config.Data.inputDataset = value[0]
+           config.JobType.pyCfgParams = list(pyCfgParams)
+           config.JobType.pyCfgParams.extend(value[1])
         
-        p = Process(target=submit, args=(config,))
-        p.start()
-        p.join()
-        #submit(config)
-        # see https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ#Multiple_submission_fails_with_a
+           p = Process(target=submit, args=(config,))
+           p.start()
+           p.join()
+           #submit(config)
+           # see https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ#Multiple_submission_fails_with_a
         
-        
- 
+    # status
+    else :
+       os.system("ls " + SamplesFile + " | awk '{print \" crab status " + SamplesFile + "/\"$1}' | /bin/sh")
