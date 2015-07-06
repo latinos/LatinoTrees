@@ -59,6 +59,7 @@ Phys14:
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_3/src -> not working
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_4/src
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_6/src
+    /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_6_patch4/src
 
     scp amassiro@cmsneu:/data/amassiro/CMSSWRoot/Phys14/miniAOD/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/C667E84D-9D18-E411-99D8-02163E00ECE6.root  /tmp/amassiro/
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    08CFEF83-586C-E411-8D7C-002590A2CCF2.root
@@ -152,6 +153,20 @@ Phys14:
                     scale=1 \
                     outputFile=stepB_MC_Top.root \
                     doNoFilter=True \
+                    doMuonIsoId=True \
+                    doLHE=False \
+                    doGen=True \
+                    doBTag=True \
+                    globalTag=MCRUN2_74_V9A \
+                    selection=LooseNoIso \
+                    inputFiles=file:/tmp/amassiro/00D2A247-2910-E511-9F3D-0CC47A4DEDD2.root
+
+    cmsRun stepB.py print \
+                    label=Top \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC_Top.root \
+                    doCut="nLep>0" \
                     doMuonIsoId=True \
                     doLHE=False \
                     doGen=True \
