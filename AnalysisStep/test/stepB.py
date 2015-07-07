@@ -269,9 +269,6 @@ process.GlobalTag.globaltag = globalTag
 
 
 
-
-
-
 # load configurations
 doMuonIsoId = options.doMuonIsoId
 doEleIsoId = options.doEleIsoId
@@ -755,6 +752,21 @@ setattr(process,'sel'+labelSetup,p)
 
 # define output
 process.TFileService = cms.Service("TFileService",fileName = cms.string(options.outputFile))
+
+
+
+
+#####################################
+## counter of all events you run on
+##   for MC in case you some crab jobs fail,
+##   it is necessary to keep track of how many
+##   events we run on
+process.AllEvents = cms.EDFilter("AllPassFilter")
+process.counterPath = cms.Path(process.AllEvents)
+##
+##
+
+
 
 
 #if IsoStudy:
