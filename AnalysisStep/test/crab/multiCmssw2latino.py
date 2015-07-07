@@ -34,7 +34,7 @@ if __name__ == '__main__':
            os.system("python ../cmssw2latino.py /tmp/" + requestName + ".root -o /tmp/latino_" + requestName + ".root")      
            # /afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select   is actually "eos"
            os.system("/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select cp /tmp/latino_" + requestName + ".root " + outputDirectory + "/")           
-            
+           os.system("rm /tmp/latino_" + requestName + ".root ")      
             
     # error
     else :
