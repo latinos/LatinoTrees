@@ -30,7 +30,8 @@ usage='''
 '''
 
 parser = OptionParser(usage=usage)
-parser.add_option('-d', dest='odir', help='output directory')
+parser.add_option('-d', dest='odir',   help='output directory')
+parser.add_option('-o', dest='output', help='output file name')
 
 (opts, args) = parser.parse_args()
 
@@ -46,8 +47,11 @@ if opts.odir:
     os.system('mkdir -p '+odir)
 
 for f in filenames:
-    ofile = os.path.join(odir,'latino_'+os.path.basename(f).replace('tree_',''))
-
+    if not opts.output:
+      ofile = os.path.join(odir,'latino_'+os.path.basename(f).replace('tree_',''))
+    else :
+      ofile = opts.output
+    
     print ofile
 
     probe2latino(chans,f,ofile)

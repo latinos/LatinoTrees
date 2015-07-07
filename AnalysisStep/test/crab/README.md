@@ -31,10 +31,14 @@ You should get something like:
 MultiCRAB
 ====
 
+
+submit:
+
     python multicrab.py samples/samples_spring15.py
 
     
-    
+
+status:
     
     crab status folder_name
 
@@ -43,5 +47,10 @@ MultiCRAB
     python multicrab.py crab_projects_6July
     
     
+run cmssw2latino step
     
+    python multiCmssw2latino.py  listFiles.py
+    python multiCmssw2latino.py  samples/listFiles.py    
+    python multiCmssw2latino.py  samples/listFiles50ns.py
     
+
