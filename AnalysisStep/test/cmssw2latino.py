@@ -10,6 +10,7 @@ import pdb
 def probe2latino(chans,ifile,ofile):
 
   ROOT.gROOT.cd()
+  
   latino = ROOT.TChain('probe_tree')
   for chan in chans:
     tree2add = ifile+'/'+chan+'Tree/probe_tree'
@@ -20,6 +21,20 @@ def probe2latino(chans,ifile,ofile):
   latino.SetTitle('latino')
   latino.Merge(ofile)
   latino.SetDirectory(0x0)
+
+ 
+  outputFile = ROOT.TFile(ofile, "UPDATE")
+  inputFile = ROOT.TFile(ifile)
+  h = inputFile.Get("AllEvents/totalEvents")  
+  if h :
+    print " - histogram events found"
+    h.SetName('totalEvents')
+    outputFile.cd() 
+    h.Write()
+    
+  
+
+
 
 from optparse import OptionParser
 usage='''
