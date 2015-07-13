@@ -13,4 +13,11 @@ samples['DoubleEG']          = ['/DoubleEG/Run2015B-PromptReco-v1/MINIAOD',     
 # config.Site.storageSite   = 'T2_ES_IFCA'
 config.Data.outLFNDirBase = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/13Jul/data/'
 
+pyCfgParams += 'globalTag=GR_P_V56'
+pyCfgParams += 'json=testJson'
+
+config.General.workArea     = 'crab_projects_13July'
+
+
+
 

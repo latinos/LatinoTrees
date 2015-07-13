@@ -35,6 +35,7 @@ MultiCRAB
 submit:
 
     python multicrab.py samples/samples_spring15.py
+    python multicrab.py samples/samples_dataB.py
 
     
 
