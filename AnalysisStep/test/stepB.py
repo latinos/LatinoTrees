@@ -289,7 +289,7 @@ doMCweights = options.doMCweights
 ###
 
 
-print "doCut = ",doCut
+print " >> doCut = ",doCut
 
 print "      __          __  _                ______              "
 print "     / /   ____ _/ /_(_)___  ____     /_  __/_______  ___  "
@@ -301,6 +301,7 @@ print "                                                           "
 
 id = 0
 json = None
+isMC = True
 
 wztth = False
 dy = False
@@ -337,13 +338,16 @@ from LatinoTrees.AnalysisStep.stepB_cff import *
 
 
 
+print " >> label:: ", label
 
 if '2011' in label: label = label[:label.find('2011')]
 if '2012' in label: label = label[:label.find('2012')]
 if '2015' in label: label = label[:label.find('2015')]
 
+
 # data
-if label in [ 'SingleElectron', 'DoubleElectron', 'SingleMuon', 'DoubleMuon', 'MuEG']:
+if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG']:
+    print " >> DATA:: ", label
     dataset = [label]
     id = options.id
     json = options.json
@@ -352,6 +356,9 @@ if label in [ 'SingleElectron', 'DoubleElectron', 'SingleMuon', 'DoubleMuon', 'M
     doGen = False
     doGenVV = False
     doLHE = False
+    isMC = False
+    process.skimEventProducer.isMC = cms.untracked.int32(0)
+
 
 # dytt embedded sample
 elif doTauEmbed == True:
@@ -374,6 +381,7 @@ else:
 
 stepBTree.variables.trigger = stepBTree.variables.trigger.value().replace("DATASET",dataset[0])
 idn = re.sub('[^0-9]','',str(id))
+print " >> idn = ", idn
 stepBTree.variables.dataset = str(idn)
 
 
@@ -568,6 +576,7 @@ if doGen == True :
     #cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
 
 if doGenVV == True :
+    print " >> doGenVV " 
     getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"
     getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
     getattr(process,"ww%s"% (labelSetup)).genMetTag = "genMetTrue"

@@ -1,9 +1,9 @@
 ########
 # 25 ns
 ########
-#        CRAB task name          DAS name                                                                                                              Latino name
-samples['SingleElectron']    = ['/SingleElectron/Run2015B-PromptReco-v1/AOD',                                   ['label=DataSE']]
-samples['DoubleEG']           = ['/DoubleEG/Run2015B-PromptReco-v1/AOD',                            ['label=DataDE']]
+#        CRAB task name          DAS name                                            Latino name
+samples['SingleElectron']    = ['/SingleElectron/Run2015B-PromptReco-v1/MINIAOD',      ['label=SingleElectron']]
+samples['DoubleEG']          = ['/DoubleEG/Run2015B-PromptReco-v1/MINIAOD',            ['label=DoubleEG']]
 
 
 ########

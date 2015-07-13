@@ -7,6 +7,7 @@ from LatinoTrees.AnalysisStep.wwMuons_cfi import *
 
 skimEventProducer = cms.EDProducer('SkimEventProducer',
     debug         = cms.untracked.int32(0),                                   
+    isMC          = cms.untracked.int32(1), 
     electronId    = cms.untracked.int32(-1),
     
     # general definition of variables,

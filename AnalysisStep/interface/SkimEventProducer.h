@@ -44,9 +44,9 @@ typedef math::XYZTLorentzVector LorentzVector;
 typedef math::XYZVector Vector;
   
 struct JetInfo {
-LorentzVector p4;
-double mva;
-double neutFrac;
+ LorentzVector p4;
+ double mva;
+ double neutFrac;
 };
 
 
@@ -115,6 +115,7 @@ double neutFrac;
 	edm::InputTag phoTag_; //PHOTON
         edm::InputTag trackJetTag_;
         
+        int _isMC;
 	int _debug;
 	
 	edm::EDGetTokenT<pat::TauCollection> tausT_;

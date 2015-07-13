@@ -181,7 +181,18 @@ Phys14:
     latino->Draw("std_vector_neutrinoGen_pt[0]","std_vector_neutrinoGen_pt[0]>0")
     latino->Draw("std_vector_jet_csvv2ivf","std_vector_jet_csvv2ivf>-9000")
 
-
+    scp amassiro@cmsneu.cern.ch:/media/data/CMSSWRoot/DATARunII/Run2015B/DoubleEG/PromptReco-v1_MINIAOD/6A0A8868-4B27-E511-B3F8-02163E011BD1.root /tmp/amassiro/
+    cmsRun stepB.py print \
+                    label=DoubleEG2015 \
+                    json=testJson  \
+                    scale=1 \
+                    outputFile=stepB_Data.root \
+                    doCut="nLep>0" \
+                    doMuonIsoId=True \
+                    doBTag=True \
+                    globalTag=GR_P_V56 \
+                    selection=LooseNoIso \
+                    inputFiles=file:/tmp/amassiro/6A0A8868-4B27-E511-B3F8-02163E011BD1.root
     
 
     

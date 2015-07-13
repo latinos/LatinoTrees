@@ -59,6 +59,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     
     _electronId        = cfg.getUntrackedParameter<int>("electronId",1);
     _debug             = cfg.getUntrackedParameter<int>("debug",0);
+    _isMC              = cfg.getUntrackedParameter<int>("isMC",1); //---- 1 = MC, 0 = data
     
     //---- list of electron ids: namely value maps!
     _electronIds       = cfg.getParameter<std::vector<std::string> >("electronIds");
@@ -325,7 +326,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setGenMet(genMetH);
     } 
     else {
-     skimEvent->back().setGenMet(pfMetH); //---- in miniAOD met and genmet are linked
+     if (_isMC) {
+      skimEvent->back().setGenMet(pfMetH); //---- in miniAOD met and genmet are linked
+     }
     }
     const reco::VertexCollection *pvCol = vtxH.product();
     const reco::Vertex* pv = &(*pvCol->begin());
