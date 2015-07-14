@@ -324,7 +324,7 @@ process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 process.skimEventProducer.maxEtaForJets = cms.double(4.7)
 process.skimEventProducer.minPtForJets = cms.double(0)
 process.skimEventProducer.applyCorrectionForJets = cms.bool(True) 
-process.skimEventProducer.applyIDForJets = cms.int32(0) # set to int(globalVariables.jetId_WP) when working for forward jets
+process.skimEventProducer.applyIDForJets = cms.int32(int(globalVariables.jetId_WP))
 # 7 Run II jetID LOOSE
 # 8 Run II jetID TIGHT
 
@@ -526,7 +526,7 @@ if options.runPUPPISequence:
 
 if options.doSoftActivity:   
     # Add trackjets
-    process.chargedPackedPFCandidates = cms.EDFilter("CandPtrSelector", src = cms.InputTag("packedPFCandidates"), cut = cms.string("charge != 0 && abs(eta) < 2.5 && pt > 0.3 && fromPV >= 1 && trackHighPurity"))
+    process.chargedPackedPFCandidates = cms.EDFilter("CandPtrSelector", src = cms.InputTag("packedPFCandidates"), cut = cms.string("charge != 0 && abs(eta) < 2.5 && pt > 0.3 && fromPV >= 2"))
 
     from RecoJets.JetProducers.ak4PFJets_cfi import ak4PFJets
     process.ak4TrackJets = ak4PFJets.clone(src = cms.InputTag('chargedPackedPFCandidates'), jetPtMin = cms.double(1.0))
