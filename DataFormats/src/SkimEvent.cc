@@ -1014,6 +1014,7 @@ const bool reco::SkimEvent::isThisJetALepton(pat::JetRef jet, float drCut, float
 }
 
 const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
+ if( abs(jet->eta()) > 3. ) return true; // temporary fix for broken jetId when |eta|>3
  // no ID
  if(applyID == 0) return true;
  
@@ -2327,7 +2328,15 @@ float reco::SkimEvent::sumHtTrackJets() const {
     }
     for(size_t i=0;i<trackJets_.size();++i) {
         if( trackJets_[i]->eta() < (maxEta-0.4) && trackJets_[i]->eta() > (minEta+0.4) ) {
-            sumHt += abs(trackJets_[i]->pt());
+            bool thisJetIsLepton = false;
+            for(size_t j=0; j<leps_.size();j++){ //---- check all leptons up to "minimum pt" (default 10 GeV, minLeptonPt)
+                double dR = fabs(ROOT::Math::VectorUtil::DeltaR(trackJets_[i]->p4(),leps_[indexByPt(j)]->p4()));
+                if(dR < 0.3){
+                    thisJetIsLepton = true;
+                    break;
+                }
+            }
+            if( !thisJetIsLepton ) sumHt += abs(trackJets_[i]->pt());
         }
     }
     return sumHt;
@@ -2342,6 +2351,42 @@ float reco::SkimEvent::sumHtTrackJetsDensity() const {
         return 0;
     }
 }
+
+float reco::SkimEvent::multiplicityTrackJets() const {
+    float multiplicity=0;
+    float minEta = leadingJetEta(0,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+    float maxEta = leadingJetEta(1,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+    if( minEta > maxEta ) {
+        float temp = minEta;
+        minEta = maxEta;
+        maxEta = temp;
+    }
+    for(size_t i=0;i<trackJets_.size();++i) {
+        if( trackJets_[i]->eta() < (maxEta-0.4) && trackJets_[i]->eta() > (minEta+0.4) ) {
+            bool thisJetIsLepton = false;
+            for(size_t j=0; j<leps_.size();j++){ //---- check all leptons up to "minimum pt" (default 10 GeV, minLeptonPt)
+                double dR = fabs(ROOT::Math::VectorUtil::DeltaR(trackJets_[i]->p4(),leps_[indexByPt(j)]->p4()));
+                if(dR < 0.3){
+                    thisJetIsLepton = true;
+                    break;
+                }
+            }
+            if( !thisJetIsLepton ) multiplicity++;
+        }
+    }
+    return multiplicity;
+}
+
+float reco::SkimEvent::multiplicityTrackJetsDensity() const {
+    float etaRange = abs(leadingJetEta(0,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_) - leadingJetEta(1,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_)) -0.8;
+    if( etaRange > 0 ) {
+        return (multiplicityTrackJets()/etaRange);
+    }
+    else {
+        return 0;
+    }
+}
+
 
 //Event variables
 

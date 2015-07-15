@@ -750,8 +750,10 @@ def addAdditionalJets(process,pt):
 def addSoftActivityVariables(process,pt):
      if hasattr(pt,"variables"):
          setattr(pt.variables, "sumHtSoft",  cms.string("sumHtTrackJets")),
-         setattr(pt.variables, "sumHTSoftDensity", cms.string("sumHtTrackJetsDensity")),
-
+         setattr(pt.variables, "sumHtSoftDensity", cms.string("sumHtTrackJetsDensity")),
+         setattr(pt.variables, "multiplicitySoft",  cms.string("multiplicityTrackJets")),
+         setattr(pt.variables, "multiplicitySoftDensity",  cms.string("multiplicityTrackJetsDensity")),
+         
 def addIsoStudyVariables(process,pt):
     if hasattr(pt,"variables"):
       for i,l in enumerate(["lep1", "lep2"]):

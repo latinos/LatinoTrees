@@ -589,6 +589,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             // Soft Activity
             float sumHtTrackJets() const;
             float sumHtTrackJetsDensity() const;
+            float multiplicityTrackJets() const;
+            float multiplicityTrackJetsDensity() const;
             
             //Iso Functions
             const bool isEB(size_t a = 0) const;
