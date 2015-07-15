@@ -44,14 +44,18 @@ if __name__ == '__main__':
            target.write("cmsLs " + inputFolder + " | grep " + pattern + " | awk -v p="" '{if ($5!=\"\") p=p\" root://eoscms//eos/cms\"$5}; END{print \"hadd /tmp/" + requestName + ".root\" p}' | /bin/sh" + "\n")           
            target.write("python ../cmssw2latino.py /tmp/" + requestName + ".root -o /tmp/latino_" + requestName + ".root" + "\n")      
            # /afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select   is actually "eos"
-           #target.write("/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select cp /tmp/latino_" + requestName + ".root " + outputDirectory + "/")           
-           target.write("cmsStage /tmp/latino_" + requestName + ".root " + outputDirectory + "/" + "\n")
+           target.write("/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select cp /tmp/latino_" + requestName + ".root " + outputDirectory + "/")           
+           #target.write("cmsStage /tmp/latino_" + requestName + ".root " + outputDirectory + "/" + "\n")
            target.write("rm /tmp/latino_" + requestName + ".root " + "\n")      
            target.write("rm /tmp/" + requestName + ".root " + "\n")
 
            target.close()        
-            
-           os.system ("bsub -q 8nm " + filename)
+
+           shortfilename = "job_" + requestName + ".sh"
+           os.system ("cd lxbatch " + "\n")
+           os.system ("bsub -q 8nm " + shortfilename)
+           os.system ("cd .. " + "\n")
+           
            
     # error
     else :
