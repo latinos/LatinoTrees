@@ -56,4 +56,7 @@ run cmssw2latino step
     python multiCmssw2latino.py  samples/listFilesData.py
 
     
+    python multiLxbatchCmssw2latino.py  samples/listFiles50ns.py
+    
+    
     
