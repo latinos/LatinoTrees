@@ -53,5 +53,7 @@ run cmssw2latino step
     python multiCmssw2latino.py  listFiles.py
     python multiCmssw2latino.py  samples/listFiles.py    
     python multiCmssw2latino.py  samples/listFiles50ns.py
-    
+    python multiCmssw2latino.py  samples/listFilesData.py
 
+    
+    
