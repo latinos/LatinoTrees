@@ -53,12 +53,6 @@ if __name__ == '__main__':
 
            os.system ("chmod +x " + filename)
            os.system ("bsub -q 1nd < " + filename)
-           #shortfilename = "job_" + requestName + ".sh"
-           #os.system ("cd lxbatch/ " + "\n")
-           #os.system ("bsub -q 8nm " + shortfilename)
-           
-           #os.system ("ls lxbatch/ " + "\n")
-           #os.system ("bsub -q 8nm " + filename)
            
            
     # error

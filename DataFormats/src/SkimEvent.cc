@@ -5119,6 +5119,8 @@ const float reco::SkimEvent::genLeptonPt(size_t index) const {
 
     if (type != 11 && type != 13 && type != 15) continue;
 
+    if (!(genParticles_[gp]->fromHardProcessDecayed() || genParticles_[gp]->isHardProcess())) continue;    
+    
     mcH = &(*(genParticles_[gp]));
     v_leptons_pt.push_back(mcH->pt());
   }
