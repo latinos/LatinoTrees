@@ -350,7 +350,8 @@ if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG']:
     print " >> DATA:: ", label
     dataset = [label]
     id = options.id
-    json = options.json
+    if options.json != "YYY" :
+      json = options.json
     scalef = 1
     doPDFvar = False
     doGen = False
@@ -364,7 +365,8 @@ if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG']:
 elif doTauEmbed == True:
     dataset = ["AllEmbed"]
     id = options.id
-    json = options.json
+    if options.json != "YYY" :
+      json = options.json
     scalef = 1
     doPDFvar = False
     doGen = False
@@ -392,9 +394,10 @@ if dataset[0] == "MC":
 else:
     from FWCore.PythonUtilities.LumiList import LumiList
     import os
-    lumis = LumiList(filename = os.getenv('CMSSW_BASE')+'/src/LatinoTrees/Misc/Jsons/%s.json'%json)
-    process.source.lumisToProcess = cms.untracked.VLuminosityBlockRange()
-    process.source.lumisToProcess = lumis.getCMSSWString().split(',')
+    if json != None :
+      lumis = LumiList(filename = os.getenv('CMSSW_BASE')+'/src/LatinoTrees/Misc/Jsons/%s.json'%json)
+      process.source.lumisToProcess = cms.untracked.VLuminosityBlockRange()
+      process.source.lumisToProcess = lumis.getCMSSWString().split(',')
     stepBTree.variables.baseW = "1"
     stepBTree.variables.trpu = cms.string("1")
     stepBTree.variables.itpu = cms.string("1")
