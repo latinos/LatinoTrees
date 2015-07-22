@@ -34,8 +34,8 @@ private:
  virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
  
  edm::EDGetTokenT<edm::TriggerResults> triggerBits_;
- edm::EDGetTokenT<pat::TriggerObjectStandAloneCollection> triggerObjects_;
- edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerPrescales_;
+//  edm::EDGetTokenT<pat::TriggerObjectStandAloneCollection> triggerObjects_;
+//  edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerPrescales_;
  
  TH1F* _totalEventsTriggers; 
  std::vector <std::string> _pathNames;

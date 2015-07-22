@@ -33,7 +33,9 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     AllEmbed_     ( cfg.getParameter<std::vector<std::string> >("AllEmbedPaths") ),
     //---- for fake rate estimation
     FakeRate_El_     ( cfg.getParameter<std::vector<std::string> >("FakeRateElPaths") ),
-    FakeRate_Mu_     ( cfg.getParameter<std::vector<std::string> >("FakeRateMuPaths") )
+    FakeRate_Mu_     ( cfg.getParameter<std::vector<std::string> >("FakeRateMuPaths") ),
+    //---- selected paths
+    SelectedPaths_   ( cfg.getParameter<std::vector<std::string> >("SelectedPaths") )
 {
     mcLHEEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcLHEEventInfoTag");
     mcGenEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcGenEventInfoTag");
@@ -206,6 +208,29 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     passBits.push_back( FakeRate_El_.check( iEvent,*triggerResults) );
     passBits.push_back( FakeRate_Mu_.check( iEvent,*triggerResults) );
     
+    
+    //---- check selected list of trigger paths
+    std::vector<float> passBitsSelected;
+    const edm::TriggerNames &names = iEvent.triggerNames(*triggerResults);
+    
+    for (unsigned int iPath = 0; iPath < SelectedPaths_.size(); iPath++) {
+     bool foundPath = false;
+//      std::cout << " SelectedPaths[" << iPath << "] = " << SelectedPaths_.at(iPath) << std::endl;
+     for (unsigned int jPath = 0, nmax = triggerResults->size(); jPath < nmax; jPath++) {
+      std::string nameTrigger = names.triggerName(jPath);
+      if (nameTrigger == SelectedPaths_.at(iPath)) {
+       passBitsSelected.push_back (1.0 * triggerResults->accept(iPath));
+//        std::cout << " >>  1.0 * triggerResults->accept(" << iPath << ") = " << 1.0 * triggerResults->accept(iPath) << std::endl;
+       foundPath = true;
+      }
+     }
+     if (!foundPath) {
+      passBitsSelected.push_back (-1);
+     }
+    }
+    
+    
+    
     //---- RecoCandidate in order to be used by SKimEvent later in a template way
     edm::Handle<edm::View<reco::RecoCandidate> > muons;
     iEvent.getByToken(muonsT_,muons);
@@ -291,7 +316,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setSoftMuon(softMuons,k);
     }
 
-    for(size_t k=0; k<photons->size();++k){ //Photon
+    for(size_t k=0; k<photons->size();++k){ // Photon
      skimEvent->back().setPhoton(photons,k);
     }
 
@@ -299,6 +324,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     skimEvent->back().setTaus(tausH);
     
     skimEvent->back().setTriggerBits(passBits);
+    skimEvent->back().setSelectedTriggerBits(passBitsSelected);
+    
     skimEvent->back().setJets(jetH);
     skimEvent->back().setFatJets(fatJetH);
     skimEvent->back().setJetRhoIso(rhoJetIso);

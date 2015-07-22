@@ -32,6 +32,9 @@
 #include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
 #include "SimDataFormats/GeneratorProducts/interface/LHERunInfoProduct.h"
 
+//---- Trigger
+#include "FWCore/Common/interface/TriggerNames.h"
+
 
 class SkimEventProducer : public edm::EDProducer {
     public:
@@ -90,6 +93,8 @@ struct JetInfo {
 
         TriggerBitChecker FakeRate_El_;
         TriggerBitChecker FakeRate_Mu_;
+        
+        std::vector <std::string> SelectedPaths_;
         
         edm::InputTag mcLHEEventInfoTag_;
         edm::InputTag mcGenEventInfoTag_;

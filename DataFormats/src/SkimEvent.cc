@@ -2830,9 +2830,28 @@ void reco::SkimEvent::setElectronIds( const std::vector<std::string> &idnames) {
   _electronIds.push_back(idnames.at(iname)); 
  }
 }
+
+
+//---- selected trigger bits
+
+void reco::SkimEvent::setSelectedTriggerBits( const std::vector<float> &bits) {
+ for (unsigned int i=0; i<bits.size(); i++) {
+  _bits.push_back(bits.at(i));  
+ }
+}
+
+
+const float reco::SkimEvent::selectedRateTrigger( size_t i ) const {
+ std::cout << " i = " << i << " :: " <<  _bits.size() << std::endl;
+ if (i < _bits.size()) {
+  return 1.0 * _bits.at(i);
+ }
+ else {
+  return -2.0;
+ }
+}
+
  
-
-
 // ... in spite my egregious programming
 void reco::SkimEvent::setTriggerBits( const std::vector<bool> &bits) {
  
@@ -2850,6 +2869,7 @@ void reco::SkimEvent::setTriggerBits( const std::vector<bool> &bits) {
  passesFakeRateEl_ = bits[11];
  passesFakeRateMu_ = bits[12];
 }
+
 
 const bool reco::SkimEvent::triggerBitsCut( SkimEvent::primaryDatasetType pdType) const{
  
@@ -2888,7 +2908,9 @@ const bool reco::SkimEvent::guillelmoTrigger( SkimEvent::primaryDatasetType pdTy
  return false;
 }
 
-const bool reco::SkimEvent::FakeRateTrigger( SkimEvent::primaryDatasetType pdType ) const {
+
+
+const bool reco::SkimEvent::fakeRateTrigger( SkimEvent::primaryDatasetType pdType ) const {
  
  //Guillelmo's Implementation:
  if(pdType == MC) return true;

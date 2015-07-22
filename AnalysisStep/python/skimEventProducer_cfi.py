@@ -137,6 +137,13 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     # doubleElMCPaths = cms.vstring("HLT_Ele17_SW_TightCaloEleId_Ele8HE_L1R_v*"),
     # muEGMCPaths = cms.vstring("HLT_Mu5_Ele17_v*","HLT_Mu11_Ele8_v*"),
 
+
+    SelectedPaths = cms.vstring(
+        "HLT_Ele27_eta2p1_WPLoose_Gsf_v1",
+        "HLT_Ele27_eta2p1_WPLoose_Gsf_v2",
+        "HLT_Ele27_eta2p1_WPTight_Gsf_v1",
+    ),
+
     #looseMuSelection = cms.string(PRESEL_MU +"&&"+ MUON_ID_LOOSE),
     #tightMuSelection = cms.string(PRESEL_MU +"&&"+ MUON_ID_CUT +"&&"+ MUON_MERGE_ISO+"&&"+MUON_MERGE_IP),
     #looseEleSelection = cms.string(ELE_BASE + " && " + ELE_ID_LOOSE_2011),

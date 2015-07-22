@@ -328,10 +328,12 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float mTll() const;
             const bool leptEtaCut(float maxAbsEtaMu=2.4,float maxAbsEtaEl=2.5) const;
             void setTriggerBits( const std::vector<bool> &);
+            void setSelectedTriggerBits( const std::vector<float> &);
             const bool triggerBitsCut(SkimEvent::primaryDatasetType pdType) const;
             const bool guillelmoTrigger(SkimEvent::primaryDatasetType pdType) const;
-            const bool FakeRateTrigger(SkimEvent::primaryDatasetType pdType) const;
+            const bool fakeRateTrigger(SkimEvent::primaryDatasetType pdType) const;
             const bool triggerMatchingCut(SkimEvent::primaryDatasetType pdType) const;
+            const float selectedRateTrigger(size_t i) const;
             bool passTriggerSingleMu(size_t i, bool isData=true) const;
             bool passTriggerDoubleMu(size_t i, bool isData=true) const;
             bool passTriggerElMu(size_t i, bool isData=true) const;
@@ -809,7 +811,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const math::XYZTLorentzVector photon_id(size_t a, int WP = 1) const;
 
 	    const bool Pho_IsIdIso(size_t i, int wp = 1) const;
-	//END PHOTON -------------------------------------------
+	
+            
         private:
          
             double maxEtaForJets_;
@@ -896,6 +899,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             bool passesAllEmbed_ ;
             bool passesFakeRateEl_ ;
             bool passesFakeRateMu_ ;
+            
+            std::vector <float> _bits;
             
             //---- electrons
             float _eaElectronIso[5];

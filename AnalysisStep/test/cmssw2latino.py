@@ -26,14 +26,18 @@ def probe2latino(chans,ifile,ofile):
   outputFile = ROOT.TFile(ofile, "UPDATE")
   inputFile = ROOT.TFile(ifile)
   h = inputFile.Get("AllEvents/totalEvents")  
+  htrigger = inputFile.Get("TriggerAnalyzer/totalEventsTriggers")  
   if h :
     print " - histogram events found"
     h.SetName('totalEvents')
     outputFile.cd() 
     h.Write()
     
-  
-
+  if htrigger :
+    print " - histogram trigger events found"
+    htrigger.SetName('totalEventsTriggers')
+    outputFile.cd() 
+    htrigger.Write()
 
 
 from optparse import OptionParser

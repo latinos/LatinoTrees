@@ -8,6 +8,7 @@ samples['DoubleMu']          = ['/DoubleMuon/Run2015B-PromptReco-v1/MINIAOD',   
 samples['DoubleMuLow']       = ['/DoubleMuonLowMass/Run2015B-PromptReco-v1/MINIAOD',   ['label=DoubleMuon']]
 samples['SingleMu']          = ['/SingleMu/Run2015B-PromptReco-v1/MINIAOD',            ['label=SingleMuon']]
 samples['SingleMuon']        = ['/SingleMuon/Run2015B-PromptReco-v1/MINIAOD',          ['label=SingleMuon']]
+samples['MuonEG']            = ['/MuonEG/Run2015B-PromptReco-v1/MINIAOD',              ['label=MuEG']]
 
 
 

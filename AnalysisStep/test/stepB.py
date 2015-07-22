@@ -381,7 +381,9 @@ else:
     doPDFvar = True
 
 
-stepBTree.variables.trigger = stepBTree.variables.trigger.value().replace("DATASET",dataset[0])
+stepBTree.variables.trigger         = stepBTree.variables.trigger.value().replace("DATASET",dataset[0])
+stepBTree.variables.triggerFakeRate = stepBTree.variables.triggerFakeRate.value().replace("DATASET",dataset[0])
+
 idn = re.sub('[^0-9]','',str(id))
 print " >> idn = ", idn
 stepBTree.variables.dataset = str(idn)
@@ -778,6 +780,15 @@ process.counterPath = cms.Path(process.AllEvents)
 ##
 ##
 
+#####################################
+## Trigger dumper
+##   dump trigger rates
+process.TriggerAnalyzer = cms.EDAnalyzer("MiniAODTriggerAnalyzer",
+      bits = cms.InputTag("TriggerResults","","HLT")
+      )
+process.TriggerAnalyzerPath = cms.Path(process.TriggerAnalyzer)
+##
+##
 
 
 
