@@ -88,6 +88,9 @@ struct JetInfo {
         TriggerBitChecker muEGMC_;
         TriggerBitChecker AllEmbed_;
 
+        TriggerBitChecker FakeRate_El_;
+        TriggerBitChecker FakeRate_Mu_;
+        
         edm::InputTag mcLHEEventInfoTag_;
         edm::InputTag mcGenEventInfoTag_;
         edm::InputTag mcGenWeightTag_;

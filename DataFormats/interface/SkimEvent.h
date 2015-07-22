@@ -330,6 +330,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setTriggerBits( const std::vector<bool> &);
             const bool triggerBitsCut(SkimEvent::primaryDatasetType pdType) const;
             const bool guillelmoTrigger(SkimEvent::primaryDatasetType pdType) const;
+            const bool FakeRateTrigger(SkimEvent::primaryDatasetType pdType) const;
             const bool triggerMatchingCut(SkimEvent::primaryDatasetType pdType) const;
             bool passTriggerSingleMu(size_t i, bool isData=true) const;
             bool passTriggerDoubleMu(size_t i, bool isData=true) const;
@@ -893,8 +894,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             bool passesDoubleElMC_ ;
             bool passesMuEGMC_ ;
             bool passesAllEmbed_ ;
-
-            
+            bool passesFakeRateEl_ ;
+            bool passesFakeRateMu_ ;
             
             //---- electrons
             float _eaElectronIso[5];

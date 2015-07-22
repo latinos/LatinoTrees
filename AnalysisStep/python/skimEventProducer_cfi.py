@@ -119,6 +119,12 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     AllEmbedPaths = cms.vstring(
         "1-999999:HLT_*",
     ),
+    FakeRateElPaths = cms.vstring(
+        "1-999999:HLT_*",
+    ),
+    FakeRateMuPaths = cms.vstring(
+        "1-999999:HLT_*",
+    ),
 
     singleMuMCPaths = cms.vstring("*"),
     singleElMCPaths = cms.vstring("*"),

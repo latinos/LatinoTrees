@@ -2847,7 +2847,8 @@ void reco::SkimEvent::setTriggerBits( const std::vector<bool> &bits) {
  passesDoubleElMC_ = bits[8];
  passesMuEGMC_ = bits[9];
  passesAllEmbed_ = bits[10];
- 
+ passesFakeRateEl_ = bits[11];
+ passesFakeRateMu_ = bits[12];
 }
 
 const bool reco::SkimEvent::triggerBitsCut( SkimEvent::primaryDatasetType pdType) const{
@@ -2886,6 +2887,19 @@ const bool reco::SkimEvent::guillelmoTrigger( SkimEvent::primaryDatasetType pdTy
  
  return false;
 }
+
+const bool reco::SkimEvent::FakeRateTrigger( SkimEvent::primaryDatasetType pdType ) const {
+ 
+ //Guillelmo's Implementation:
+ if(pdType == MC) return true;
+ 
+ if (pdType == DoubleMuon) { return ( passesFakeRateMu_ );
+ } else if(pdType == DoubleEG  ) { return ( !passesFakeRateMu_ && passesFakeRateEl_ );
+ }
+ 
+ return false;
+}
+
 
 bool reco::SkimEvent::passTriggerSingleMu(size_t i, bool isData) const{
  bool result(false);

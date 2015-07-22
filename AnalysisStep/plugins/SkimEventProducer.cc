@@ -30,7 +30,10 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     doubleMuMC_   ( cfg.getParameter<std::vector<std::string> >("doubleMuMCPaths") ),
     doubleElMC_   ( cfg.getParameter<std::vector<std::string> >("doubleElMCPaths") ),
     muEGMC_       ( cfg.getParameter<std::vector<std::string> >("muEGMCPaths") ),
-    AllEmbed_     ( cfg.getParameter<std::vector<std::string> >("AllEmbedPaths") )
+    AllEmbed_     ( cfg.getParameter<std::vector<std::string> >("AllEmbedPaths") ),
+    //---- for fake rate estimation
+    FakeRate_El_     ( cfg.getParameter<std::vector<std::string> >("FakeRateElPaths") ),
+    FakeRate_Mu_     ( cfg.getParameter<std::vector<std::string> >("FakeRateMuPaths") )
 {
     mcLHEEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcLHEEventInfoTag");
     mcGenEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcGenEventInfoTag");
@@ -200,7 +203,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     passBits.push_back( doubleElMC_.check(iEvent,*triggerResults) );
     passBits.push_back( muEGMC_.check( iEvent,*triggerResults) );
     passBits.push_back( AllEmbed_.check( iEvent,*triggerResults) );
-
+    passBits.push_back( FakeRate_El_.check( iEvent,*triggerResults) );
+    passBits.push_back( FakeRate_Mu_.check( iEvent,*triggerResults) );
+    
     //---- RecoCandidate in order to be used by SKimEvent later in a template way
     edm::Handle<edm::View<reco::RecoCandidate> > muons;
     iEvent.getByToken(muonsT_,muons);
