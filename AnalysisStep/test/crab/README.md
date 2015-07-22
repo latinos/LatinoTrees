@@ -46,7 +46,11 @@ status:
     python multicrab.py  folder_name
 
     python multicrab.py crab_projects_6July
-    
+    python multicrab.py crab_projects_6July status
+
+resubmit:
+
+    python multicrab.py crab_projects_6July  resubmit
     
 run cmssw2latino step
     
