@@ -2842,7 +2842,7 @@ void reco::SkimEvent::setSelectedTriggerBits( const std::vector<float> &bits) {
 
 
 const float reco::SkimEvent::selectedRateTrigger( size_t i ) const {
- std::cout << " i = " << i << " :: " <<  _bits.size() << std::endl;
+//  std::cout << " i = " << i << " :: " <<  _bits.size() << std::endl;
  if (i < _bits.size()) {
   return 1.0 * _bits.at(i);
  }
