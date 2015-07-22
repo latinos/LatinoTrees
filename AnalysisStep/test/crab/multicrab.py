@@ -73,6 +73,14 @@ if __name__ == '__main__':
            #submit(config)
            # see https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ#Multiple_submission_fails_with_a
         
-    # status
+    # status and resubmit
     else :
-       os.system("ls " + SamplesFile + " | awk '{print \" crab status " + SamplesFile + "/\"$1}' | /bin/sh")
+       if len(sys.argv) == 3 :
+          if sys.argv[2] == 'status' :
+           os.system("ls " + SamplesFile + " | awk '{print \" crab status " + SamplesFile + "/\"$1}' | /bin/sh")
+          if sys.argv[2] == 'resubmit' :
+           os.system("ls " + SamplesFile + " | awk '{print \" crab resubmit " + SamplesFile + "/\"$1}' | /bin/sh") 
+       else :
+          os.system("ls " + SamplesFile + " | awk '{print \" crab status " + SamplesFile + "/\"$1}' | /bin/sh")
+        
+ 
