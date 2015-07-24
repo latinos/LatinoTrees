@@ -142,6 +142,18 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "HLT_Ele27_eta2p1_WPLoose_Gsf_v1",
         "HLT_Ele27_eta2p1_WPLoose_Gsf_v2",
         "HLT_Ele27_eta2p1_WPTight_Gsf_v1",
+# muon
+        "HLT_Mu8",
+        "HLT_Mu17",
+        "HLT_Mu24",
+        "HLT_Mu34",
+# EG
+        "HLT_Ele8_CaloIdM_TrackIdM_PFJet30",
+        "HLT_Ele12_CaloIdM_TrackIdM_PFJet30",
+        "HLT_Ele23_CaloIdM_TrackIdM_PFJet30",
+        "HLT_Ele18_CaloIdM_TrackIdM_PFJet30",
+        "HLT_Ele23_CaloIdM_TrackIdM_PFJet30",
+        "HLT_Ele33_CaloIdM_TrackIdM_PFJet30",
     ),
 
     #looseMuSelection = cms.string(PRESEL_MU +"&&"+ MUON_ID_LOOSE),

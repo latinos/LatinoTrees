@@ -360,7 +360,6 @@ if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG']:
     isMC = False
     process.skimEventProducer.isMC = cms.untracked.int32(0)
 
-
 # dytt embedded sample
 elif doTauEmbed == True:
     dataset = ["AllEmbed"]
@@ -387,6 +386,14 @@ stepBTree.variables.triggerFakeRate = stepBTree.variables.triggerFakeRate.value(
 idn = re.sub('[^0-9]','',str(id))
 print " >> idn = ", idn
 stepBTree.variables.dataset = str(idn)
+
+
+# save triggers only in DATA
+if not isMC :
+    setattr(stepBTree.variables, "std_vector_trigger",  cms.string("selectedRateTrigger/13") )
+if isMC :
+    process.skimEventProducer.SelectedPaths = cms.vstring ("")
+
 
 
 # mc

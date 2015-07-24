@@ -159,6 +159,7 @@ Phys14:
                     doBTag=True \
                     globalTag=MCRUN2_74_V9A \
                     selection=LooseNoIso \
+                    maxEvents=100 \
                     inputFiles=file:/tmp/amassiro/00D2A247-2910-E511-9F3D-0CC47A4DEDD2.root
 
     cmsRun stepB.py print \
@@ -192,6 +193,20 @@ Phys14:
                     doBTag=True \
                     globalTag=GR_P_V56 \
                     selection=LooseNoIso \
+                    maxEvents=100 \
+                    inputFiles=file:/tmp/amassiro/6A0A8868-4B27-E511-B3F8-02163E011BD1.root
+    
+    cmsRun stepB.py print \
+                    label=DoubleEG2015 \
+                    json=testJson  \
+                    scale=1 \
+                    outputFile=stepB_Data.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    doBTag=True \
+                    globalTag=GR_P_V56 \
+                    selection=LooseNoIso \
+                    maxEvents=100 \
                     inputFiles=file:/tmp/amassiro/6A0A8868-4B27-E511-B3F8-02163E011BD1.root
     
 
