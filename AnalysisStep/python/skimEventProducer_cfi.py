@@ -57,6 +57,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     #hypoType = cms.string("WWELMU"),
     
     triggerTag = cms.InputTag("TriggerResults","","HLT"),
+    triggerPrescaleTag = cms.InputTag("patTrigger"),
     singleMuDataPaths = cms.vstring(
         #"1-163261:HLT_Mu15_v*",
         #"163262-165099:HLT_Mu24_v*",

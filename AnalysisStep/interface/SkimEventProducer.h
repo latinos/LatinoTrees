@@ -34,6 +34,7 @@
 
 //---- Trigger
 #include "FWCore/Common/interface/TriggerNames.h"
+#include "DataFormats/PatCandidates/interface/PackedTriggerPrescales.h"
 
 
 class SkimEventProducer : public edm::EDProducer {
@@ -79,6 +80,8 @@ struct JetInfo {
         std::string branchAlias_;
 
         edm::InputTag triggerTag_;
+        edm::InputTag triggerPrescaleTag_;
+        
         TriggerBitChecker singleMuData_;
         TriggerBitChecker singleElData_;
         TriggerBitChecker doubleMuData_;
@@ -152,6 +155,8 @@ struct JetInfo {
         edm::EDGetTokenT<reco::GenMETCollection> genMetHT_;
 	edm::EDGetTokenT<reco::GenJetCollection> genJetHT_;
 	edm::EDGetTokenT<edm::TriggerResults> triggerT_;
+        edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerPrescaleT_;
+        
         edm::EDGetTokenT<reco::PFJetCollection> trackJetT_;
         
         

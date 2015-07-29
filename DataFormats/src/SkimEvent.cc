@@ -2840,6 +2840,12 @@ void reco::SkimEvent::setSelectedTriggerBits( const std::vector<float> &bits) {
  }
 }
 
+void reco::SkimEvent::setSelectedTriggerBitsPrescales( const std::vector<float> &bitsprescales) {
+ for (unsigned int i=0; i<bitsprescales.size(); i++) {
+  _bitsPrescales.push_back(bitsprescales.at(i));  
+ }
+}
+
 
 const float reco::SkimEvent::selectedRateTrigger( size_t i ) const {
 //  std::cout << " i = " << i << " :: " <<  _bits.size() << std::endl;
@@ -2851,6 +2857,14 @@ const float reco::SkimEvent::selectedRateTrigger( size_t i ) const {
  }
 }
 
+const float reco::SkimEvent::selectedRateTriggerPrescale( size_t i ) const {
+ if (i < _bitsPrescales.size()) {
+  return 1.0 * _bitsPrescales.at(i);
+ }
+ else {
+  return -2.0;
+ }
+}
  
 // ... in spite my egregious programming
 void reco::SkimEvent::setTriggerBits( const std::vector<bool> &bits) {

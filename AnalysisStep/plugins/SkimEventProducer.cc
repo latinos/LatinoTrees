@@ -19,7 +19,8 @@
 
 
 SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
-    triggerTag_   ( cfg.getParameter<edm::InputTag>("triggerTag")),
+    triggerTag_           ( cfg.getParameter<edm::InputTag>("triggerTag")),
+    triggerPrescaleTag_   ( cfg.getParameter<edm::InputTag>("triggerPrescaleTag")),
     singleMuData_ ( cfg.getParameter<std::vector<std::string> >("singleMuDataPaths") ),
     singleElData_ ( cfg.getParameter<std::vector<std::string> >("singleElDataPaths") ),
     doubleMuData_ ( cfg.getParameter<std::vector<std::string> >("doubleMuDataPaths") ),
@@ -110,6 +111,8 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     if(!(sptTag_  == edm::InputTag(""))) sptHT_   = consumes<edm::ValueMap<float> >(sptTag_);
     if(!(spt2Tag_ == edm::InputTag(""))) spt2HT_  = consumes<edm::ValueMap<float> >(spt2Tag_);
     triggerT_      = consumes<edm::TriggerResults>(triggerTag_);
+    triggerPrescaleT_ = consumes<pat::PackedTriggerPrescales>(triggerPrescaleTag_);
+    
     muonsT_        = consumes<edm::View<reco::RecoCandidate> > (muTag_);
     softMuonsT_    = consumes<edm::View<reco::RecoCandidate> > (softMuTag_);
     electronsT_    = consumes<edm::View<reco::RecoCandidate> > (elTag_);
@@ -209,8 +212,12 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     passBits.push_back( FakeRate_Mu_.check( iEvent,*triggerResults) );
     
     
+    edm::Handle<pat::PackedTriggerPrescales> triggerPrescales;
+    iEvent.getByToken(triggerPrescaleT_, triggerPrescales);
+    
     //---- check selected list of trigger paths
     std::vector<float> passBitsSelected;
+    std::vector<float> prescaleBitsSelected;
     const edm::TriggerNames &names = iEvent.triggerNames(*triggerResults);
     
     for (unsigned int iPath = 0; iPath < SelectedPaths_.size(); iPath++) {
@@ -220,12 +227,14 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
       std::string nameTrigger = names.triggerName(jPath);
       if (nameTrigger == SelectedPaths_.at(iPath)) {
        passBitsSelected.push_back (1.0 * triggerResults->accept(iPath));
+       prescaleBitsSelected.push_back (1.0 * triggerPrescales->getPrescaleForIndex(iPath) );
 //        std::cout << " >>  1.0 * triggerResults->accept(" << iPath << ") = " << 1.0 * triggerResults->accept(iPath) << std::endl;
        foundPath = true;
       }
      }
      if (!foundPath) {
       passBitsSelected.push_back (-1);
+      prescaleBitsSelected.push_back (-1);
      }
     }
     
@@ -325,6 +334,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     
     skimEvent->back().setTriggerBits(passBits);
     skimEvent->back().setSelectedTriggerBits(passBitsSelected);
+    skimEvent->back().setSelectedTriggerBitsPrescales(prescaleBitsSelected);
+    
     
     skimEvent->back().setJets(jetH);
     skimEvent->back().setFatJets(fatJetH);

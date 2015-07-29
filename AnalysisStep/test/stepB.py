@@ -390,7 +390,8 @@ stepBTree.variables.dataset = str(idn)
 
 # save triggers only in DATA
 if not isMC :
-    setattr(stepBTree.variables, "std_vector_trigger",  cms.string("selectedRateTrigger/13") )
+    setattr(stepBTree.variables, "std_vector_trigger",           cms.string("selectedRateTrigger/13") )
+    setattr(stepBTree.variables, "std_vector_trigger_prescale",  cms.string("selectedRateTriggerPrescale/13") )
 if isMC :
     process.skimEventProducer.SelectedPaths = cms.vstring ("")
 
