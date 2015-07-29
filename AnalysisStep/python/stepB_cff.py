@@ -88,8 +88,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_isTightMuon  = cms.string("isTightMuonByPt"),
         std_vector_lepton_muSIP3D      = cms.string("muSIP3DByPt"),
         std_vector_lepton_elSIP3D      = cms.string("elSIP3DByPt"),
-
-        std_vector_lepton_id           = cms.string("pdgIdByPt"),
+        std_vector_lepton_ch           = cms.string("qByPt"),
+        
+        #std_vector_lepton_id           = cms.string("pdgIdByPt"),  --> already std_vector_lepton_flavour
 
         std_vector_puppijet_pt  = cms.string("leadingSecondJetPt"),
         std_vector_puppijet_eta = cms.string("leadingSecondJetEta"),
@@ -273,7 +274,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         eleIdMedium1 = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-medium\",\"\",0)"),
         eleIdTight1  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-tight\",\"\",0)"),
 
-        std_vector_lepton_eleIdVeto   = cms.string("leptIdByPt('egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto',''"),
+        std_vector_lepton_eleIdVeto   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto\",\"\""),
         std_vector_lepton_eleIdLoose  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-loose\",\"\""),
         std_vector_lepton_eleIdMedium = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-medium\",\"\""),
         std_vector_lepton_eleIdTight  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-tight\",\"\""),

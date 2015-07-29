@@ -51,6 +51,11 @@ if __name__ == '__main__':
     SamplesFile = sys.argv[1]
     print " SamplesFile = ", SamplesFile
     
+    additionalConfiguration = ''
+    if len(sys.argv) == 4 :
+      additionalConfiguration = sys.argv[3]
+    print " additionalConfiguration = ", additionalConfiguration
+    
     # submit
     if os.path.exists(SamplesFile) and not os.path.isdir(SamplesFile) :
        handle = open(SamplesFile,'r')
@@ -75,12 +80,16 @@ if __name__ == '__main__':
         
     # status and resubmit
     else :
-       if len(sys.argv) == 3 :
+       if len(sys.argv) >= 3 :
           if sys.argv[2] == 'status' :
-           os.system("ls " + SamplesFile + " | awk '{print \" crab status " + SamplesFile + "/\"$1}' | /bin/sh")
+           os.system("ls " + SamplesFile + " | awk '{print \" crab status "   + SamplesFile + "/\"$1" + "\" " + additionalConfiguration + "\"}' | /bin/sh")
           if sys.argv[2] == 'resubmit' :
-           os.system("ls " + SamplesFile + " | awk '{print \" crab resubmit " + SamplesFile + "/\"$1}' | /bin/sh") 
+           os.system("ls " + SamplesFile + " | awk '{print \" crab resubmit " + SamplesFile + "/\"$1" + "\" " + additionalConfiguration + "\"}' | /bin/sh") 
        else :
           os.system("ls " + SamplesFile + " | awk '{print \" crab status " + SamplesFile + "/\"$1}' | /bin/sh")
+        
+ 
+ 
+ 
         
  
