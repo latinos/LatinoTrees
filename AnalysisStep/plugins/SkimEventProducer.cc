@@ -226,9 +226,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      for (unsigned int jPath = 0, nmax = triggerResults->size(); jPath < nmax; jPath++) {
       std::string nameTrigger = names.triggerName(jPath);
       if (nameTrigger == SelectedPaths_.at(iPath)) {
-       passBitsSelected.push_back (1.0 * triggerResults->accept(iPath));
-       prescaleBitsSelected.push_back (1.0 * triggerPrescales->getPrescaleForIndex(iPath) );
-//        std::cout << " >>  1.0 * triggerResults->accept(" << iPath << ") = " << 1.0 * triggerResults->accept(iPath) << std::endl;
+       passBitsSelected.push_back (1.0 * triggerResults->accept(jPath));
+       prescaleBitsSelected.push_back (1.0 * triggerPrescales->getPrescaleForIndex(jPath) );
+//        std::cout << " >>  1.0 * triggerResults->accept(" << jPath << ") = " << 1.0 * triggerResults->accept(jPath) << std::endl;
        foundPath = true;
       }
      }
