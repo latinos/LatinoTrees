@@ -10,7 +10,6 @@ samples['25ns_TTTo2L2Nu']    = ['/TTTo2L2Nu_13TeV-powheg/RunIISpring15DR74-Asymp
 samples['25ns_TTJets']       = ['/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',           ['label=TTJets',       'id=00006',   'doMCweights=True']]
 samples['25ns_DYJetsToLL']   = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM',  ['label=DYJetsToLL',   'id=00007',   'doMCweights=True']]
 samples['25ns_WJetsToLNu']   = ['/WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',       ['label=WJetsToLNu',   'id=00008',   'doMCweights=True']]
-samples['25ns_ggHWW120']     = ['/GluGluHToWWTo2L2Nu_M120_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',      ['label=ggHWW120',     'id=01120',   'doMCweights=True']]
 samples['25ns_ZZ4l']         = ['/ZZTo4L_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=ZZ4l',         'id=00009',   'doMCweights=True']]
 samples['25ns_ZZ2l2q']       = ['/ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',              ['label=ZZ2l2q',       'id=00010',   'doMCweights=True']]
 samples['25ns_topTchannelAntitop'] = ['/ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',  ['label=topTchannelAntitop', 'id=00011',   'doMCweights=True']]
@@ -19,6 +18,7 @@ samples['25ns_topTWantitop']       = ['/ST_tW_antitop_5f_inclusiveDecays_13TeV-p
 samples['25ns_topTWtop']           = ['/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',          ['label=topTWtop',           'id=00014',   'doMCweights=True']]
 samples['25ns_DYJetsToLL1050']     = ['/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',             ['label=DYJetsToLL1050',     'id=00015',   'doMCweights=True']]
 
+# QCD
 samples['25ns_QCD15to20Mu']  = ['/QCD_Pt-15to20_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',   ['label=QCD15to20Mu',  'id=10001']]
 samples['25ns_QCD20toInfMu'] = ['/QCD_Pt-20toInf_MuEnrichedPt15_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD20toInfMu', 'id=10002']]
 
@@ -27,6 +27,13 @@ samples['25ns_QCD20to30Ele'] = ['/QCD_Pt-20to30_EMEnriched_TuneCUETP8M1_13TeV_py
 samples['25ns_QCD30to50Ele'] = ['/QCD_Pt-30to50_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD30to50Ele', 'id=10005', 'doCut="nLep>0"']]
 samples['25ns_QCD50to80Ele'] = ['/QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD50to80Ele', 'id=10006', 'doCut="nLep>0"']]
 samples['25ns_QCD30toInfDoubleEle'] = ['/QCD_Pt-30toInf_DoubleEMEnriched_MGG-40to80_TuneCUETP8M1_13TeV_Pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD30toInfDoubleEle', 'id=10010', 'doCut="nLep>0"']]
+
+# Higgs
+samples['25ns_ggHWW120']     = ['/GluGluHToWWTo2L2Nu_M120_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',      ['label=ggHWW120',     'id=01120',   'doMCweights=True']]
+samples['25ns_WpHWW130']     = ['/HWplusJ_HToWW_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',      ['label=WpHWW130',     'id=03130',   'doMCweights=True']]
+samples['25ns_ggHZZ4l125']     = ['/GluGluHToZZTo4L_M125_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',      ['label=ggHZZ125',     'id=11125',   'doMCweights=True']]
+
+
 
 
 ########

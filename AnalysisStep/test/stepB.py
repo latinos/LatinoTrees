@@ -556,8 +556,8 @@ if options.doSoftActivity:
 # and tweaks for special MC/data samples
 
 from LatinoTrees.AnalysisStep.skimEventProducer_cfi import addEventHypothesis
-#process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","HLT")
-process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","PAT")
+process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","HLT")
+#process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","PAT")
 
 if doTauEmbed == True:
   process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","EmbeddedRECO")
