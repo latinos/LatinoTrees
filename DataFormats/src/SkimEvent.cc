@@ -2865,6 +2865,28 @@ const float reco::SkimEvent::selectedRateTriggerPrescale( size_t i ) const {
   return -2.0;
  }
 }
+
+
+//---- special trigger bits. E.g. metFilters
+
+void reco::SkimEvent::setSpecialTriggerBits( const std::vector<float> &bits) {
+ for (unsigned int i=0; i<bits.size(); i++) {
+  _specialBits.push_back(bits.at(i));  
+ }
+}
+
+const float reco::SkimEvent::specialRateTrigger( size_t i ) const {
+ if (i < _specialBits.size()) {
+  return 1.0 * _specialBits.at(i);
+ }
+ else {
+  return -2.0;
+ }
+}
+
+
+
+
  
 // ... in spite my egregious programming
 void reco::SkimEvent::setTriggerBits( const std::vector<bool> &bits) {

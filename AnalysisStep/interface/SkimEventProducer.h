@@ -98,6 +98,7 @@ struct JetInfo {
         TriggerBitChecker FakeRate_Mu_;
         
         std::vector <std::string> SelectedPaths_;
+        std::vector <std::string> SpecialPaths_;
         
         edm::InputTag mcLHEEventInfoTag_;
         edm::InputTag mcGenEventInfoTag_;

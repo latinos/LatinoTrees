@@ -157,6 +157,22 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "HLT_Ele33_CaloIdM_TrackIdM_PFJet30",
     ),
 
+    SpecialPaths = cms.vstring(
+      "HBHENoiseFilter"                    ,
+      "CSCTightHaloFilter"                 ,
+      "hcalLaserEventFilter"               ,
+      "EcalDeadCellTriggerPrimitiveFilter" ,
+      "goodVertices"                       ,
+      "trackingFailureFilter"              ,
+      "eeBadScFilter"                      ,
+      "ecalLaserCorrFilter"                ,
+      "trkPOGFilters"                      ,
+      "manystripclus53X"                   ,
+      "toomanystripclus53X"                ,
+      "logErrorTooManyClusters"            ,
+      "METFilters"
+    ),
+    
     #looseMuSelection = cms.string(PRESEL_MU +"&&"+ MUON_ID_LOOSE),
     #tightMuSelection = cms.string(PRESEL_MU +"&&"+ MUON_ID_CUT +"&&"+ MUON_MERGE_ISO+"&&"+MUON_MERGE_IP),
     #looseEleSelection = cms.string(ELE_BASE + " && " + ELE_ID_LOOSE_2011),

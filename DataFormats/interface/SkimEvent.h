@@ -330,13 +330,17 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setTriggerBits( const std::vector<bool> &);
             void setSelectedTriggerBits( const std::vector<float> &);
             void setSelectedTriggerBitsPrescales( const std::vector<float> &);
+            void setSpecialTriggerBits( const std::vector<float> &);
             
+          
             const bool triggerBitsCut(SkimEvent::primaryDatasetType pdType) const;
             const bool guillelmoTrigger(SkimEvent::primaryDatasetType pdType) const;
             const bool fakeRateTrigger(SkimEvent::primaryDatasetType pdType) const;
             const bool triggerMatchingCut(SkimEvent::primaryDatasetType pdType) const;
             const float selectedRateTrigger(size_t i) const;
             const float selectedRateTriggerPrescale(size_t i) const;
+            const float specialRateTrigger(size_t i) const;
+            
             bool passTriggerSingleMu(size_t i, bool isData=true) const;
             bool passTriggerDoubleMu(size_t i, bool isData=true) const;
             bool passTriggerElMu(size_t i, bool isData=true) const;
@@ -905,6 +909,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             
             std::vector <float> _bits;
             std::vector <float> _bitsPrescales;
+            std::vector <float> _specialBits;
             
             //---- electrons
             float _eaElectronIso[5];

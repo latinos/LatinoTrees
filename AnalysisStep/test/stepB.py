@@ -392,8 +392,12 @@ stepBTree.variables.dataset = str(idn)
 if not isMC :
     setattr(stepBTree.variables, "std_vector_trigger",           cms.string("selectedRateTrigger/13") )
     setattr(stepBTree.variables, "std_vector_trigger_prescale",  cms.string("selectedRateTriggerPrescale/13") )
+    # special paths, e.g. metFilters. See skimEventProducer_cfi for the list
+    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/13") )
 if isMC :
     process.skimEventProducer.SelectedPaths = cms.vstring ("")
+    # special paths always saved
+    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/13") )
 
 
 
@@ -552,7 +556,8 @@ if options.doSoftActivity:
 # and tweaks for special MC/data samples
 
 from LatinoTrees.AnalysisStep.skimEventProducer_cfi import addEventHypothesis
-process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","HLT")
+#process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","HLT")
+process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","PAT")
 
 if doTauEmbed == True:
   process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","EmbeddedRECO")
@@ -580,6 +585,7 @@ if doHiggs == True :
 if doLHE == True :
     getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"
     getattr(process,"ww%s"% (labelSetup)).whichLHE = cms.untracked.int32(typeLHEcomment)
+
 
 if doGen == True :
     # Difference between "prunedGenParticles" and "packedGenParticles": https://twiki.cern.ch/twiki/bin/viewauth/CMS/MiniAOD#PackedGenParticles
@@ -716,6 +722,10 @@ addTau(process,tree)
 
 if doMCweights:
   addMCweights(process,tree)
+  # if you add weights you need LHE and GEN
+  #getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"  #----> the name of this collection is sample dependent!!! What!?!? BE CAREFUL!
+  getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "externalLHEProducer"
+  getattr(process,"ww%s"% (labelSetup)).mcGenEventInfoTag = "generator"
 
 
 if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample

@@ -212,4 +212,22 @@ Phys14:
                     inputFiles=file:/tmp/amassiro/6A0A8868-4B27-E511-B3F8-02163E011BD1.root
     
 
+    scp amassiro@cmsneu.cern.ch:/media/data/CMSSWRoot/RunIISpring15DR74/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/25ns/00C0BECF-6F14-E511-96F8-0025904B739A.root  /tmp/amassiro/
+    cmsRun stepB.py print \
+                    label=Wjets \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC_Wjets.root \
+                    doCut="nLep>0" \
+                    doMuonIsoId=True \
+                    doLHE=False \
+                    doGen=True \
+                    doBTag=True \
+                    globalTag=MCRUN2_74_V9A \
+                    selection=LooseNoIso \
+                    maxEvents=100 \
+                    doMCweights=True \
+                    inputFiles=file:/tmp/amassiro/00C0BECF-6F14-E511-96F8-0025904B739A.root
+
+    
     

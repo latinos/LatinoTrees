@@ -36,7 +36,8 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     FakeRate_El_     ( cfg.getParameter<std::vector<std::string> >("FakeRateElPaths") ),
     FakeRate_Mu_     ( cfg.getParameter<std::vector<std::string> >("FakeRateMuPaths") ),
     //---- selected paths
-    SelectedPaths_   ( cfg.getParameter<std::vector<std::string> >("SelectedPaths") )
+    SelectedPaths_   ( cfg.getParameter<std::vector<std::string> >("SelectedPaths") ),
+    SpecialPaths_   ( cfg.getParameter<std::vector<std::string> >("SpecialPaths") )     //---- no prescale options
 {
     mcLHEEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcLHEEventInfoTag");
     mcGenEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcGenEventInfoTag");
@@ -239,6 +240,26 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     }
     
     
+    //---- check special list of trigger paths -> no prescale!   Like "metFilter" triggers
+    std::vector<float> passBitsSpecial;
+    
+    for (unsigned int iPath = 0; iPath < SpecialPaths_.size(); iPath++) {
+     bool foundPath = false;
+     for (unsigned int jPath = 0, nmax = triggerResults->size(); jPath < nmax; jPath++) {
+      std::string nameTrigger = names.triggerName(jPath);
+      if (nameTrigger == SpecialPaths_.at(iPath)) {
+       passBitsSpecial.push_back (1.0 * triggerResults->accept(jPath));
+       //        std::cout << " >>  1.0 * triggerResults->accept(" << jPath << ") = " << 1.0 * triggerResults->accept(jPath) << std::endl;
+       foundPath = true;
+      }
+     }
+     if (!foundPath) {
+      passBitsSpecial.push_back (-1);
+     }
+    }
+    
+    
+    
     
     //---- RecoCandidate in order to be used by SKimEvent later in a template way
     edm::Handle<edm::View<reco::RecoCandidate> > muons;
@@ -335,6 +356,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     skimEvent->back().setTriggerBits(passBits);
     skimEvent->back().setSelectedTriggerBits(passBitsSelected);
     skimEvent->back().setSelectedTriggerBitsPrescales(prescaleBitsSelected);
+    skimEvent->back().setSpecialTriggerBits(passBitsSpecial);
+    
     
     
     skimEvent->back().setJets(jetH);
