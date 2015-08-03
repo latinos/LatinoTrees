@@ -68,15 +68,13 @@ Submit jobs.
 
 Resubmit jobs.
 
-    python multicrab.py crab_projects_6July resubmit
+    python multicrab.py crab_projects_3August resubmit
 
 Check status.
     
-    crab status folder_name
+    crab status crab_projects_3August/crab_DoubleEG
 
-    python multicrab.py folder_name
-    python multicrab.py crab_projects_6July
-    python multicrab.py crab_projects_6July status
+    python multicrab.py crab_projects_3August status
 
 6. Run cmssw2latino
 ====
@@ -85,3 +83,4 @@ You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
     
     python multiCmssw2latino.py        samples/listFiles50ns.py
     python multiLxbatchCmssw2latino.py samples/listFiles50ns.py
+
