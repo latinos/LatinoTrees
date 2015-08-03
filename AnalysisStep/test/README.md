@@ -1,3 +1,10 @@
+0. Documentation
+====
+
+    https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCRAB3Tutorial#CRAB_configuration_parameters
+    https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3ConfigurationFile
+
+
 1. Everything begins here
 ====
 
@@ -8,8 +15,8 @@ The command `bash -l` is needed only if the shell is not bash.
     bash -l
 
     export SCRAM_ARCH=slc6_amd64_gcc491
-    cmsrel CMSSW_7_4_6
-    cd CMSSW_7_4_6/src/
+    cmsrel CMSSW_7_4_7
+    cd CMSSW_7_4_7/src/
     cmsenv
 
 
@@ -22,26 +29,58 @@ The command `bash -l` is needed only if the shell is not bash.
     source LatinosSetup/Setup.sh
 
 
-3. Produce common latino trees
+3. Produce latino trees
 ====
 
-Follow this step ONLY if you want to produce common latino trees.
+Follow this step if you want to use a specific tag.
 
     cd LatinoTrees
     git checkout tags/1July2015
 
-    scram b -j 10
-    cd LatinoTrees/AnalysisStep/test/crab
-    source /cvmfs/cms.cern.ch/crab3/crab.sh
-    python multicrab.py samples/samples_spring15.py
-
-    cmsLs /store/group/phys_higgs/cmshww/amassiro/RunII/test/WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8/crab_25ns_WZTo3LNu/150703_170518/0000/ | grep stepB_MC | awk -v p="" '{if ($5!="") p=p" root://eoscms//eos/cms"$5}; END{print "hadd test.root" p}' | sh
-
-
-4. Produce a test latino tree
-====
+Test the latino tree production
 
     scram b -j 10
     cd LatinoTrees/AnalysisStep/test/
     ./test-run.sh 100
+
+
+4. Setup CRAB
+====
+
+    cd LatinoTrees/AnalysisStep/test/crab
+
+    source /cvmfs/cms.cern.ch/crab3/crab.sh
+    source /cvmfs/cms.cern.ch/crab3/crab.csh
+
+Check if you have writing permissions in the common area.
+
+    crab checkwrite --site=T2_CH_CERN
+    crab checkwrite --site=T2_CH_CERN --lfn=/store/group/phys_higgs/cmshww/amassiro/RunII/test/
+
+
+4. Run CRAB
+====
+
+Submit jobs.
+
+    python multicrab.py samples/samples_spring15.py
+    python multicrab.py samples/samples_dataB.py
+
+Resubmit jobs.
+
+    python multicrab.py crab_projects_6July resubmit
+
+Check status.
+    
+    crab status folder_name
+
+    python multicrab.py folder_name
+
+    python multicrab.py crab_projects_6July
+    python multicrab.py crab_projects_6July status
+
+Run cmssw2latino with `multiCmssw2latino.py` or `multiLxbatchCmssw2latino.py`.
+    
+    python multiCmssw2latino.py        samples/listFiles50ns.py
+    python multiLxbatchCmssw2latino.py samples/listFiles50ns.py
 

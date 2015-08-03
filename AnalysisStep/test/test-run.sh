@@ -12,6 +12,7 @@ rm -rf latino_stepB_numEvent${EVENTS}.root
 
 cmsRun stepB.py print     \
     globalTag=GR_P_V56    \
+    label=DoubleEG        \
     outputFile=stepB.root \
     selection=LooseNoIso  \
     doNoFilter=False      \
