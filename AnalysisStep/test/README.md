@@ -58,7 +58,7 @@ Check if you have writing permissions in the common area.
     crab checkwrite --site=T2_CH_CERN --lfn=/store/group/phys_higgs/cmshww/amassiro/RunII/test/
 
 
-4. Run CRAB
+5. Run CRAB
 ====
 
 Submit jobs.
@@ -75,7 +75,6 @@ Check status.
     crab status folder_name
 
     python multicrab.py folder_name
-
     python multicrab.py crab_projects_6July
     python multicrab.py crab_projects_6July status
 
