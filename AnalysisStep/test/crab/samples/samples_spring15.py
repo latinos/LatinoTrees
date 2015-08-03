@@ -21,12 +21,11 @@ samples['25ns_DYJetsToLL1050']     = ['/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-a
 # QCD
 samples['25ns_QCD15to20Mu']  = ['/QCD_Pt-15to20_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',   ['label=QCD15to20Mu',  'id=10001']]
 samples['25ns_QCD20toInfMu'] = ['/QCD_Pt-20toInf_MuEnrichedPt15_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD20toInfMu', 'id=10002']]
-
-samples['25ns_QCD15to20Ele'] = ['/QCD_Pt-15to20_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD15to20Ele', 'id=10003', 'doCut="nLep>0"']]
-samples['25ns_QCD20to30Ele'] = ['/QCD_Pt-20to30_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD20to30Ele', 'id=10004', 'doCut="nLep>0"']]
-samples['25ns_QCD30to50Ele'] = ['/QCD_Pt-30to50_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD30to50Ele', 'id=10005', 'doCut="nLep>0"']]
-samples['25ns_QCD50to80Ele'] = ['/QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD50to80Ele', 'id=10006', 'doCut="nLep>0"']]
-samples['25ns_QCD30toInfDoubleEle'] = ['/QCD_Pt-30toInf_DoubleEMEnriched_MGG-40to80_TuneCUETP8M1_13TeV_Pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD30toInfDoubleEle', 'id=10010', 'doCut="nLep>0"']]
+samples['25ns_QCD15to20Ele'] = ['/QCD_Pt-15to20_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD15to20Ele', 'id=10003']]
+samples['25ns_QCD20to30Ele'] = ['/QCD_Pt-20to30_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD20to30Ele', 'id=10004']]
+samples['25ns_QCD30to50Ele'] = ['/QCD_Pt-30to50_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD30to50Ele', 'id=10005']]
+samples['25ns_QCD50to80Ele'] = ['/QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD50to80Ele', 'id=10006']]
+samples['25ns_QCD30toInfDoubleEle'] = ['/QCD_Pt-30toInf_DoubleEMEnriched_MGG-40to80_TuneCUETP8M1_13TeV_Pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=QCD30toInfDoubleEle', 'id=10010']]
 
 # Higgs
 samples['25ns_ggHWW120']     = ['/GluGluHToWWTo2L2Nu_M120_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',      ['label=ggHWW120',     'id=01120',   'doMCweights=True']]

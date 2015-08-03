@@ -826,10 +826,10 @@ if options.doSoftActivity:
 
 # Save events
 if doNoFilter:
-    print ">> Dump all events"
+    print ">> Accept all events"
     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 0")
 else :
-    print ">> Dump events with nLep >= 1"
+    print ">> Accept events with nLep >= 1"
     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 1")
 
 # TTree producer ends up in the endPath, then it's NOT a filter anymore
