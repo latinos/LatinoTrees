@@ -20,8 +20,3 @@ config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/13Jul
 #config.Site.storageSite   = 'T2_ES_IFCA'
 
 pyCfgParams.append('globalTag=GR_P_V56')
-pyCfgParams.append('json=testJson')
-
-
-
-
