@@ -79,6 +79,7 @@ Check status.
     python multicrab.py crab_projects_6July status
 
 6. Run cmssw2latino
+====
 
 You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
     
