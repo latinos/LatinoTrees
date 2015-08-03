@@ -78,8 +78,9 @@ Check status.
     python multicrab.py crab_projects_6July
     python multicrab.py crab_projects_6July status
 
-Run cmssw2latino with `multiCmssw2latino.py` or `multiLxbatchCmssw2latino.py`.
+6. Run cmssw2latino
+
+You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
     
     python multiCmssw2latino.py        samples/listFiles50ns.py
     python multiLxbatchCmssw2latino.py samples/listFiles50ns.py
-
