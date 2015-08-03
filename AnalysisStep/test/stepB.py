@@ -286,10 +286,7 @@ label = options.label
 doBTag = options.doBTag
 doCut = options.doCut
 doMCweights = options.doMCweights
-###
 
-
-print " >> doCut = ",doCut
 
 print "      __          __  _                ______              "
 print "     / /   ____ _/ /_(_)___  ____     /_  __/_______  ___  "
