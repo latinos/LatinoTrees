@@ -64,17 +64,18 @@ Check if you have writing permissions in the common area.
 Submit jobs.
 
     python multicrab.py samples/samples_spring15.py
-    python multicrab.py samples/samples_dataB.py
+    python multicrab.py samples/samples_dataB_PromptReco.py
+    python multicrab.py samples/samples_dataB_17Jul2015.py
 
 Resubmit jobs.
 
-    python multicrab.py crab_projects_3August resubmit
+    python multicrab.py crab_projects_4August resubmit
 
 Check status.
     
-    crab status crab_projects_3August/crab_DoubleEG
+    crab status crab_projects_4August/crab_DoubleEG
 
-    python multicrab.py crab_projects_3August status
+    python multicrab.py crab_projects_4August status
 
 6. Run cmssw2latino
 ====
