@@ -21,6 +21,8 @@ samples['25ns_TTWJets']              = ['/TTWJets_Tune4C_13TeV-madgraph-tauola/P
 samples['25ns_TTZJets']              = ['/TTZJets_Tune4C_13TeV-madgraph-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/MINIAODSIM',                                              ['label=TTZJets',              'id=00018', 'doMCweights=True']]
 # Higgs
 samples['25ns_GluGluHToWWTo2L2Nu_M120'] = ['/GluGluHToWWTo2L2Nu_M120_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=GluGluHToWWTo2L2Nu_M120', 'id=01120', 'doMCweights=True']]
+samples['25ns_GluGluHToWWTo2L2Nu_M125'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM', ['label=GluGluHToWWTo2L2Nu_M125', 'id=01125', 'doMCweights=True']]
+samples['25ns_GluGluHToWWTo2L2Nu_M125'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM', ['label=GluGluHToWWTo2L2Nu_M125', 'id=01125', 'doMCweights=True']]
 samples['25ns_GluGluHToZZTo4L_M125']    = ['/GluGluHToZZTo4L_M125_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',    ['label=GluGluHToZZTo4L_M125',    'id=11125', 'doMCweights=True']]
 samples['25ns_HWminusJ_HToWW_M120']     = ['/HWminusJ_HToWW_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',            ['label=HWminusJ_HToWW_M120',     'id=02120', 'doMCweights=True']]
 samples['25ns_HWminusJ_HToWW_M125']     = ['/HWminusJ_HToWW_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',            ['label=HWminusJ_HToWW_M125',     'id=02125', 'doMCweights=True']]
