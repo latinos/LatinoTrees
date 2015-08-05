@@ -16,7 +16,7 @@ samples['25ns_ZZTo4L']                  = ['/ZZTo4L_13TeV_powheg_pythia8/RunIISp
 # Single top
 samples['25ns_ST_t-channel_antitop']    = ['/ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=ST_t-channel_antitop',    'id=00012', 'doMCweights=True']]
 samples['25ns_ST_t-channel_top']        = ['/ST_t-channel_top_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',     ['label=ST_t-channel_top',        'id=00013', 'doMCweights=True']]
-samples['25ns_ST_t-channel']            = ['/ST_t-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',       ['label=ST_t-channel',            'id=00014']]
+samples['25ns_ST_t-channel']            = ['/ST_t-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',       ['label=ST_t-channel',            'id=00014', 'doMCweights=True']]
 samples['25ns_ST_tW_antitop']           = ['/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',     ['label=ST_tW_antitop',           'id=00015', 'doMCweights=True']]
 samples['25ns_ST_tW_top']               = ['/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',         ['label=ST_tW_top',               'id=00016', 'doMCweights=True']]
 
@@ -56,7 +56,7 @@ samples['50ns_DYJetsToLL_M-50'] = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnlo
 samples['50ns_WWTo2L2Nu']       = ['/WWTo2L2Nu_13TeV-powheg/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v2/MINIAODSIM',                                             ['label=WWTo2L2Nu',       'id=00004', 'doMCweights=True']]
 samples['50ns_WZ']              = ['/WZ_TuneCUETP8M1_13TeV-pythia8/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v2/MINIAODSIM',                                      ['label=WZ',              'id=00005']]
 samples['50ns_ZZ']              = ['/ZZ_TuneCUETP8M1_13TeV-pythia8/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v2/MINIAODSIM',                                      ['label=ZZ',              'id=00009']]
-samples['50ns_ST_t-channel']    = ['/ST_t-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v1/MINIAODSIM',   ['label=ST_t-channel',    'id=00014']]
+samples['50ns_ST_t-channel']    = ['/ST_t-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v1/MINIAODSIM',   ['label=ST_t-channel',    'id=00014', 'doMCweights=True']]
 samples['50ns_ST_tW_antitop']   = ['/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v2/MINIAODSIM', ['label=ST_tW_antitop',   'id=00015', 'doMCweights=True']]
 samples['50ns_ST_tW_top']       = ['/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v1/MINIAODSIM',     ['label=ST_tW_top',       'id=00016', 'doMCweights=True']]
 samples['50ns_TTJets']          = ['/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v1/MINIAODSIM',                     ['label=TTJets',          'id=00018', 'doMCweights=True']]

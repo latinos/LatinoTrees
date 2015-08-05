@@ -32,13 +32,13 @@
 
 *Do this only if you want to create a tag.*
 
-    git tag -a 5August2015_v4 -m 'Updated parameters'
-    git push origin 5August2015_v4
+    git tag -a 5August2015_v6 -m 'Latino production'
+    git push origin 5August2015_v6
 
 *Do this only if you want to use a tag.*
 
     cd LatinoTrees
-    git checkout tags/5August2015_v4
+    git checkout tags/5August2015_v6
 
 Test the latino tree production.
 
