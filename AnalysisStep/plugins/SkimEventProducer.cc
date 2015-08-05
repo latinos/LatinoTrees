@@ -20,7 +20,6 @@
 
 SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     triggerTag_           ( cfg.getParameter<edm::InputTag>("triggerTag")),
-    triggerPrescaleTag_   ( cfg.getParameter<edm::InputTag>("triggerPrescaleTag")),
     singleMuData_ ( cfg.getParameter<std::vector<std::string> >("singleMuDataPaths") ),
     singleElData_ ( cfg.getParameter<std::vector<std::string> >("singleElDataPaths") ),
     doubleMuData_ ( cfg.getParameter<std::vector<std::string> >("doubleMuDataPaths") ),
@@ -39,6 +38,9 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     SelectedPaths_   ( cfg.getParameter<std::vector<std::string> >("SelectedPaths") ),
     SpecialPaths_   ( cfg.getParameter<std::vector<std::string> >("SpecialPaths") )     //---- no prescale options
 {
+    triggerSpecialTag_  = cfg.getParameter<edm::InputTag>("triggerSpecialTag");
+    triggerPrescaleTag_ = cfg.getParameter<edm::InputTag>("triggerPrescaleTag");
+    
     mcLHEEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcLHEEventInfoTag");
     mcGenEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcGenEventInfoTag");
     mcGenWeightTag_    = cfg.getParameter<edm::InputTag>("mcGenWeightTag");
@@ -109,11 +111,14 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     vtxHT_         = consumes<reco::VertexCollection>(vtxTag_);
     candsHT_       = consumes<reco::CandidateView>(chCandsTag_);
     pfCandsHT_     = consumes<pat::PackedCandidateCollection>(pfCandsTag_);
-    if(!(sptTag_  == edm::InputTag(""))) sptHT_   = consumes<edm::ValueMap<float> >(sptTag_);
-    if(!(spt2Tag_ == edm::InputTag(""))) spt2HT_  = consumes<edm::ValueMap<float> >(spt2Tag_);
-    triggerT_      = consumes<edm::TriggerResults>(triggerTag_);
+    if (!(sptTag_  == edm::InputTag(""))) sptHT_   = consumes<edm::ValueMap<float> >(sptTag_);
+    if (!(spt2Tag_ == edm::InputTag(""))) spt2HT_  = consumes<edm::ValueMap<float> >(spt2Tag_);
+    triggerT_         = consumes<edm::TriggerResults>(triggerTag_);
     triggerPrescaleT_ = consumes<pat::PackedTriggerPrescales>(triggerPrescaleTag_);
-    
+    if (!(triggerSpecialTag_ == edm::InputTag(""))) { //---- like for MET special paths
+     triggerSpecialT_ = consumes<edm::TriggerResults>(triggerSpecialTag_);
+    }
+     
     muonsT_        = consumes<edm::View<reco::RecoCandidate> > (muTag_);
     softMuonsT_    = consumes<edm::View<reco::RecoCandidate> > (softMuTag_);
     electronsT_    = consumes<edm::View<reco::RecoCandidate> > (elTag_);
@@ -241,15 +246,23 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     
     
     //---- check special list of trigger paths -> no prescale!   Like "metFilter" triggers
+    
+    
+    edm::Handle<edm::TriggerResults> triggerSpecialResults;
+    if (!(triggerSpecialTag_ == edm::InputTag(""))) {
+     iEvent.getByToken(triggerSpecialT_,triggerSpecialResults);
+    }
+    
+    
     std::vector<float> passBitsSpecial;
     
     for (unsigned int iPath = 0; iPath < SpecialPaths_.size(); iPath++) {
      bool foundPath = false;
-     for (unsigned int jPath = 0, nmax = triggerResults->size(); jPath < nmax; jPath++) {
+     for (unsigned int jPath = 0, nmax = triggerSpecialResults->size(); jPath < nmax; jPath++) {
       std::string nameTrigger = names.triggerName(jPath);
       if (nameTrigger == SpecialPaths_.at(iPath)) {
-       passBitsSpecial.push_back (1.0 * triggerResults->accept(jPath));
-       //        std::cout << " >>  1.0 * triggerResults->accept(" << jPath << ") = " << 1.0 * triggerResults->accept(jPath) << std::endl;
+       passBitsSpecial.push_back (1.0 * triggerSpecialResults->accept(jPath));
+       //        std::cout << " >>  1.0 * triggerSpecialResults->accept(" << jPath << ") = " << 1.0 * triggerSpecialResults->accept(jPath) << std::endl;
        foundPath = true;
       }
      }

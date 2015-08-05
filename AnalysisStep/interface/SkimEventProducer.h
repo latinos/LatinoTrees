@@ -81,6 +81,7 @@ struct JetInfo {
 
         edm::InputTag triggerTag_;
         edm::InputTag triggerPrescaleTag_;
+        edm::InputTag triggerSpecialTag_;
         
         TriggerBitChecker singleMuData_;
         TriggerBitChecker singleElData_;
@@ -145,6 +146,8 @@ struct JetInfo {
 	edm::EDGetTokenT<edm::ValueMap<float> > sptHT_;
 	edm::EDGetTokenT<edm::ValueMap<float> > spt2HT_;
 	edm::EDGetTokenT<edm::TriggerResults> triggerResultsT_;
+        edm::EDGetTokenT<edm::TriggerResults> triggerResultsSpecialT_;
+        
 	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > muonsT_;
         edm::EDGetTokenT<edm::View<reco::RecoCandidate> > softMuonsT_;
 	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > electronsT_;
@@ -156,6 +159,7 @@ struct JetInfo {
         edm::EDGetTokenT<reco::GenMETCollection> genMetHT_;
 	edm::EDGetTokenT<reco::GenJetCollection> genJetHT_;
 	edm::EDGetTokenT<edm::TriggerResults> triggerT_;
+        edm::EDGetTokenT<edm::TriggerResults> triggerSpecialT_;
         edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerPrescaleT_;
         
         edm::EDGetTokenT<reco::PFJetCollection> trackJetT_;
