@@ -37,6 +37,11 @@ samples['25ns_HWminusJ_HToWW_M125']     = ['/HWminusJ_HToWW_M125_13TeV_powheg_py
 samples['25ns_HWplusJ_HToWW_M125']      = ['/HWplusJ_HToWW_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                ['label=HWplusJ_HToWW_M125',      'id=03125', 'doMCweights=True']]
 samples['25ns_HWplusJ_HToWW_M130']      = ['/HWplusJ_HToWW_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                ['label=HWplusJ_HToWW_M130',      'id=03130', 'doMCweights=True']]
 samples['25ns_ttHJetToNonbb_M125']      = ['/ttHJetToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9_ext1-v3/MINIAODSIM',             ['label=ttHJetToNonbb_M125',      'id=04125', 'doMCweights=True']]
+samples['25ns_VBFHToWWTo2L2Nu_M125']    = ['/VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                    ['label=VBFHToWWTo2L2Nu_M125', 'id=05125', 'doMCweights=True']]
+
+
+
+
 
 # QCD
 samples['25ns_QCD_Pt-15to20_MuEnrichedPt5']     = ['/QCD_Pt-15to20_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                ['label=QCD_Pt-15to20_MuEnrichedPt5',     'id=10001']]
