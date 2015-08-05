@@ -74,7 +74,7 @@ Resubmit jobs.
 
 Check status.
     
-    crab status crab_projects_5August/crab_DoubleEG
+    crab status crab_projects_5August/PromptReco_crab_DoubleEG
 
     python multicrab.py crab_projects_5August status
 
