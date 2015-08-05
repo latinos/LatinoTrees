@@ -35,7 +35,7 @@ The command `bash -l` is needed only if the shell is not bash.
 Follow this step if you want to use a specific tag.
 
     cd LatinoTrees
-    git checkout tags/1July2015
+    git checkout tags/5August2015
 
 Test the latino tree production
 
