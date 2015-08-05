@@ -35,7 +35,7 @@ The command `bash -l` is needed only if the shell is not bash.
 Follow this step if you want to use a specific tag.
 
     cd LatinoTrees
-    git checkout tags/5August2015
+    git checkout tags/5August2015_v2
 
 Test the latino tree production
 
@@ -69,13 +69,13 @@ Submit jobs.
 
 Resubmit jobs.
 
-    python multicrab.py crab_projects_4August resubmit
+    python multicrab.py crab_projects_5August resubmit
 
 Check status.
     
-    crab status crab_projects_4August/crab_DoubleEG
+    crab status crab_projects_5August/crab_DoubleEG
 
-    python multicrab.py crab_projects_4August status
+    python multicrab.py crab_projects_5August status
 
 6. Run cmssw2latino
 ====

@@ -21,7 +21,6 @@ cmsRun stepB.py print     \
     doGen=False           \
     doBTag=True           \
     doLHE=False           \
-    doMCweights=False     \
     runPUPPISequence=True \
     maxEvents=${EVENTS}   \
     inputFiles=${MYFILE}

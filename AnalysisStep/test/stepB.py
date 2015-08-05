@@ -188,7 +188,7 @@ options.register ('doBTag',
                   'Turn on bTagging variables dumper (can be \'True\' or \'False\'')
 
 options.register ('doMCweights',
-                  True, # default value
+                  False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
                   'Turn on MC weights dumper (can be \'True\' or \'False\'')
