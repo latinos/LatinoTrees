@@ -188,7 +188,7 @@ options.register ('doBTag',
                   'Turn on bTagging variables dumper (can be \'True\' or \'False\'')
 
 options.register ('doMCweights',
-                  False, # default value
+                  True, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
                   'Turn on MC weights dumper (can be \'True\' or \'False\'')
@@ -355,6 +355,7 @@ if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG']:
     doGenVV = False
     doLHE = False
     isMC = False
+    doMCweights = False
     process.skimEventProducer.isMC = cms.untracked.int32(0)
 
 # dytt embedded sample
