@@ -32,13 +32,13 @@
 
 *Do this only if you want to create a tag.*
 
-    git tag -a 5August2015_v3 -m 'Updated parameters'
-    git push origin 5August2015_v3
+    git tag -a 5August2015_v4 -m 'Updated parameters'
+    git push origin 5August2015_v4
 
 *Do this only if you want to use a tag.*
 
     cd LatinoTrees
-    git checkout tags/5August2015_v3
+    git checkout tags/5August2015_v4
 
 Test the latino tree production.
 
@@ -56,7 +56,7 @@ Test the latino tree production.
 
 Check if you have writing permissions in the common area.
 
-    crab checkwrite --site=T2_CH_CERN --lfn=/store/group/phys_higgs/cmshww/amassiro/RunII/test/
+    crab checkwrite --site=T2_CH_CERN --lfn=/store/group/phys_higgs/cmshww/amassiro/RunII/
 
 
 5. Run CRAB

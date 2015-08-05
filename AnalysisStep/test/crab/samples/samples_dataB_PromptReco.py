@@ -18,7 +18,7 @@ pyCfgParams.append('globalTag=GR_P_V56')
 ########
 # Additional global configuration
 ########
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/13Jul/data/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/5Aug/data/'
 #config.Data.outLFNDirBase = '/store/user/piedra/test'
 #config.Site.storageSite   = 'T2_ES_IFCA'
 
