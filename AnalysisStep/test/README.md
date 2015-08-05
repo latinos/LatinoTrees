@@ -32,7 +32,12 @@ The command `bash -l` is needed only if the shell is not bash.
 3. Produce latino trees
 ====
 
-Follow this step if you want to use a specific tag.
+Do this **ONLY** if you want to create a tag.
+
+    git tag -a 5August2015_v2 -m 'Updated parameters'
+    git push origin 5August2015_v2
+
+Do this **ONLY** if you want to use a tag.
 
     cd LatinoTrees
     git checkout tags/5August2015_v2
