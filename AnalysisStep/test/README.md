@@ -8,8 +8,6 @@
 1. Everything begins here
 ====
 
-The command `bash -l` is needed only if the shell is not bash.
-
     ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
 
     bash -l
@@ -32,17 +30,17 @@ The command `bash -l` is needed only if the shell is not bash.
 3. Produce latino trees
 ====
 
-Do this **ONLY** if you want to create a tag.
+*Do this only if you want to create a tag.*
 
-    git tag -a 5August2015_v2 -m 'Updated parameters'
-    git push origin 5August2015_v2
+    git tag -a 5August2015_v3 -m 'Updated parameters'
+    git push origin 5August2015_v3
 
-Do this **ONLY** if you want to use a tag.
+*Do this only if you want to use a tag.*
 
     cd LatinoTrees
-    git checkout tags/5August2015_v2
+    git checkout tags/5August2015_v3
 
-Test the latino tree production
+Test the latino tree production.
 
     scram b -j 10
     cd LatinoTrees/AnalysisStep/test/
@@ -55,11 +53,9 @@ Test the latino tree production
     cd LatinoTrees/AnalysisStep/test/crab
 
     source /cvmfs/cms.cern.ch/crab3/crab.sh
-    source /cvmfs/cms.cern.ch/crab3/crab.csh
 
 Check if you have writing permissions in the common area.
 
-    crab checkwrite --site=T2_CH_CERN
     crab checkwrite --site=T2_CH_CERN --lfn=/store/group/phys_higgs/cmshww/amassiro/RunII/test/
 
 
