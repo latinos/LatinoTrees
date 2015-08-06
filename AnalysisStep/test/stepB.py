@@ -193,6 +193,12 @@ options.register ('doMCweights',
                   opts.VarParsing.varType.bool,
                   'Turn on MC weights dumper (can be \'True\' or \'False\'')
 
+options.register ('LHEweightSource',
+                  'externalLHEProducer', # default value
+                   opts.VarParsing.multiplicity.singleton,
+                   opts.VarParsing.varType.string,
+                  'LHE weight source. It depends on sample and on how they were produced: pLHE, wMLHE, ... (suggested options  \'externalLHEProducer\' or \'source\'')
+
 options.register ('doSoftActivity',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
@@ -721,8 +727,10 @@ addTau(process,tree)
 if doMCweights:
   addMCweights(process,tree)
   # if you add weights you need LHE and GEN
-  #getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"  #----> the name of this collection is sample dependent!!! What!?!? BE CAREFUL!
-  getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "externalLHEProducer"
+  # getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"  #----> the name of this collection is sample dependent!!! What!?!? BE CAREFUL!
+  # getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "externalLHEProducer"
+  getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = options.LHEweightSource
+  
   getattr(process,"ww%s"% (labelSetup)).mcGenEventInfoTag = "generator"
 
 
