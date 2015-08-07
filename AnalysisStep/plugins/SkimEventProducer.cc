@@ -253,13 +253,16 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      iEvent.getByToken(triggerSpecialT_,triggerSpecialResults);
     }
     
-    
     std::vector<float> passBitsSpecial;
+
+    const edm::TriggerNames &specialNames = iEvent.triggerNames(*triggerSpecialResults);
     
     for (unsigned int iPath = 0; iPath < SpecialPaths_.size(); iPath++) {
+
      bool foundPath = false;
      for (unsigned int jPath = 0, nmax = triggerSpecialResults->size(); jPath < nmax; jPath++) {
-      std::string nameTrigger = names.triggerName(jPath);
+      std::string nameTrigger = specialNames.triggerName(jPath);
+
       if (nameTrigger == SpecialPaths_.at(iPath)) {
        passBitsSpecial.push_back (1.0 * triggerSpecialResults->accept(jPath));
        //        std::cout << " >>  1.0 * triggerSpecialResults->accept(" << jPath << ") = " << 1.0 * triggerSpecialResults->accept(jPath) << std::endl;
