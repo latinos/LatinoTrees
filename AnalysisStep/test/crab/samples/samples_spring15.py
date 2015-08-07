@@ -85,6 +85,8 @@ samples['50ns_ST_tW_antitop']   = ['/ST_tW_antitop_5f_inclusiveDecays_13TeV-powh
 samples['50ns_ST_tW_top']       = ['/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v1/MINIAODSIM',     ['label=ST_tW_top',       'id=00016', 'doMCweights=True']]
 samples['50ns_TTJets']          = ['/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v1/MINIAODSIM',                     ['label=TTJets',          'id=00018', 'doMCweights=True']]
 samples['50ns_TTTo2L2Nu']       = ['/TTTo2L2Nu_13TeV-powheg/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v2/MINIAODSIM',                                             ['label=TTTo2L2Nu',       'id=00019', 'doMCweights=True']]
+samples['50ns_ZZTo2L2Nu']       = ['/ZZTo2L2Nu_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v1/MINIAODSIM',                                     ['label=ZZTo2L2Nu',       'id=00030', 'doMCweights=True']]
+
 
 # QCD
 samples['50ns_QCD_Pt-15to20_MuEnrichedPt5']   = ['/QCD_Pt-15to20_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v3/MINIAODSIM',   ['label=QCD_Pt-15to20_MuEnrichedPt5',   'id=10001']]
