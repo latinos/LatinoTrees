@@ -12,6 +12,28 @@ samples['25ns_WZJets']                  = ['/WZJets_TuneCUETP8M1_13TeV-amcatnloF
 samples['25ns_ZZ']                      = ['/ZZ_TuneCUETP8M1_13TeV-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM',                                          ['label=ZZ',                      'id=00009']]
 samples['25ns_ZZTo2L2Q']                = ['/ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                            ['label=ZZTo2L2Q',                'id=00010', 'doMCweights=True']]
 samples['25ns_ZZTo4L']                  = ['/ZZTo4L_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                            ['label=ZZTo4L',                  'id=00011', 'doMCweights=True']]
+samples['25ns_ZZTo2L2Nu']               = ['/ZZTo2L2Nu_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                         ['label=ZZTo2L2Nu',               'id=00030', 'doMCweights=True']]
+ 
+ 
+ 
+# Wjets in bins
+samples['25ns_WJetsToLNu_HT100_200']     = ['/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',         ['label=WJetsToLNuHT100to200',    'id=20001', 'doMCweights=True']]
+samples['25ns_WJetsToLNu_HT200_400']     = ['/WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',         ['label=WJetsToLNuHT200to400',    'id=20002', 'doMCweights=True']]
+samples['25ns_WJetsToLNu_HT400_600']     = ['/WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM',         ['label=WJetsToLNuHT400to600',    'id=20003', 'doMCweights=True']]
+samples['25ns_WJetsToLNu_HT600_inf']     = ['/WJetsToLNu_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',         ['label=WJetsToLNuHT600toinf',    'id=20004', 'doMCweights=True']]
+samples['25ns_WJetsToLNu_HT600_800']     = ['/WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM',         ['label=WJetsToLNuHT600to800',    'id=20005', 'doMCweights=True']]
+samples['25ns_WJetsToLNu_HT800_1200']    = ['/WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',        ['label=WJetsToLNuHT800to1200',   'id=20006', 'doMCweights=True']]
+samples['25ns_WJetsToLNu_HT1200_2500']   = ['/WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',       ['label=WJetsToLNuHT1200to2500',  'id=20007', 'doMCweights=True']]
+samples['25ns_WJetsToLNu_HT2500_inf']    = ['/WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM',        ['label=WJetsToLNuHT2500toinf',   'id=20008', 'doMCweights=True']]
+
+# ggZZ
+samples['25ns_ggZZ4e']       = ['/GluGluToZZTo4e_BackgroundOnly_13TeV_MCFM/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',        ['label=ggZZ4e',    'id=00040']]
+samples['25ns_ggZZ4m']       = ['/GluGluToZZTo4mu_BackgroundOnly_13TeV_MCFM/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',       ['label=ggZZ4m',    'id=00041']]
+samples['25ns_ggZZ4t']       = ['/GluGluToZZTo4tau_BackgroundOnly_13TeV_MCFM/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',      ['label=ggZZ4t',    'id=00042']]
+samples['25ns_ggZZ2e2m']     = ['/GluGluToZZTo2e2mu_BackgroundOnly_13TeV_MCFM/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',     ['label=ggZZ2e2m',  'id=00043']]
+samples['25ns_ggZZ2e2t']     = ['/GluGluToZZTo2e2tau_BackgroundOnly_13TeV_MCFM/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',    ['label=ggZZ2e2t',  'id=00044']]
+samples['25ns_ggZZ2m2t']     = ['/GluGluToZZTo2mu2tau_BackgroundOnly_13TeV_MCFM/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',   ['label=ggZZ2m2t',  'id=00045']]
+
 
 # Single top
 samples['25ns_ST_t-channel_antitop']    = ['/ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM', ['label=ST_t-channel_antitop',    'id=00012', 'doMCweights=True', 'LHEweightSource=source']]
