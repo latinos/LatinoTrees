@@ -91,16 +91,18 @@ You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
 7. Example of file copy from EOS
 ====
 
-At `lxplus.cern.ch` or source.
+Verify that the files are available at the source.
 
+    ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
     eos ls /eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/5Aug/25ns/
 
-At `gridui.ifca.es` or destination.
+Copy to the destination.
 
+    ssh -Y gridui.ifca.es -o ServerAliveInterval=240
     cd /gpfs/csic_projects/cms/piedra/work/CMSSW_7_4_6/src
     source /cvmfs/cms.cern.ch/cmsset_default.sh
     cmsenv
 
     cd /gpfs/csic_projects/tier3data/LatinosSkims/MC_Spring15/25ns
-    xrdcp -f -r root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/5Aug/25ns .
+    xrdcp --force --recursive --silent root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/5Aug/25ns .
 
