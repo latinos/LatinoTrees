@@ -1,9 +1,9 @@
 0. Documentation
 ====
 
-* [CRAB configuration parameters](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCRAB3Tutorial#CRAB_configuration_parameters)
-* [CRAB configuration file](https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3ConfigurationFile)
-* [xrootd](https://twiki.cern.ch/CMSPublic/WorkBookXrootdService)
+    https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCRAB3Tutorial#CRAB_configuration_parameters
+    https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3ConfigurationFile
+    https://twiki.cern.ch/CMSPublic/WorkBookXrootdService
 
 
 1. Everything begins here
