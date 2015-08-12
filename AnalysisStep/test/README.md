@@ -78,6 +78,7 @@ Check status.
 
     python multicrab.py crab_projects_5August status
 
+
 6. Run cmssw2latino
 ====
 
@@ -85,4 +86,21 @@ You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
     
     python multiCmssw2latino.py        samples/listFiles50ns.py
     python multiLxbatchCmssw2latino.py samples/listFiles50ns.py
+
+
+7. Example of file copy from EOS
+====
+
+At `lxplus.cern.ch` or source.
+
+    eos ls /eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/5Aug/25ns/
+
+At `gridui.ifca.es` or destination.
+
+    cd /gpfs/csic_projects/cms/piedra/work/CMSSW_7_4_6/src
+    source /cvmfs/cms.cern.ch/cmsset_default.sh
+    cmsenv
+
+    cd /gpfs/csic_projects/tier3data/LatinosSkims/MC_Spring15/25ns
+    xrdcp -f -r root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/5Aug/25ns .
 
