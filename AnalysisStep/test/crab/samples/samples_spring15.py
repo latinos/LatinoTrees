@@ -109,7 +109,8 @@ samples['50ns_QCD_Pt-20toInf_MuEnrichedPt15'] = ['/QCD_Pt-20toInf_MuEnrichedPt15
 ########
 # Additional global configuration
 ########
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/5Aug/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/1Sep/MC/'
+#config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/5Aug/'
 #config.Data.outLFNDirBase = '/store/user/piedra/test'
 #config.Site.storageSite   = 'T2_ES_IFCA'
 
