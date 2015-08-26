@@ -10,6 +10,8 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     isMC          = cms.untracked.int32(1), 
     electronId    = cms.untracked.int32(-1),
     
+    # apply jet cleaning with leptons
+    applyJetCleaning = cms.int32(1),  # 1 = apply jet cleaning, 0 = don't apply jet cleaning
     # general definition of variables,
     # needed for "std::vectors" definition
     maxEtaForJets     = cms.double(4.7),                                   

@@ -453,6 +453,7 @@ if options.selection == 'Tight':
 elif options.selection == 'Loose':
     labelSetup = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; pho = "wwPhoScenario1"; preSeq = cms.Sequence();
 elif options.selection == 'LooseNoIso':
+    process.skimEventProducer.applyJetCleaning = cms.int32(0)  # don't apply jet cleaning, since leptons are not-isolated here
     labelSetup = "Scenario7"; muon = "wwMuoTightNoIso"; ele = "wwEleLooseNoIso"; softmu = "wwMuoForVeto"; pho = "slimmedPhotons"; preSeq = cms.Sequence(); 
 else:
     raise ValueError('selection must be either Tight or Loose')

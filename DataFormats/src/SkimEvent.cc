@@ -180,6 +180,8 @@ reco::SkimEvent::SkimEvent() :
  applyIDForJets_ = 0;
  dzCutForBtagJets_ = 999999.9;
 
+ applyJetCleaning_ = 1;
+ 
  _maxDrSoftMuonJet = 0.3;
  _minPtSoftMuon = 5;
  
@@ -188,6 +190,13 @@ reco::SkimEvent::SkimEvent() :
 // reco::SkimEvent::SkimEvent(const reco::SkimEvent::hypoType &h) :
 //         hypo_(h), sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{ }
 
+
+
+void reco::SkimEvent::setApplyJetCleaning(int applyJetCleaning) {
+ applyJetCleaning_ = applyJetCleaning;
+ //---- "1" is apply jet cleaning (default in constructor)
+ //---- "0" is DON'T apply jet cleaning
+}
 
 
 void reco::SkimEvent::setMaxEtaForJets(double value) {
@@ -996,19 +1005,21 @@ const bool reco::SkimEvent::isThisJetALepton(pat::JetRef jet, float drCut, float
 //    break;
 //   }
 
- for(size_t j=0; j<leps_.size();j++){ //---- check all leptons up to "minimum pt" (default 10 GeV, minLeptonPt)
-  if (leps_[indexByPt(j)]->pt() > minLeptonPt) {
-   double dR = fabs(ROOT::Math::VectorUtil::DeltaR(jet->p4(),leps_[indexByPt(j)]->p4()) );
-   if(dR < drCut){
-    thisJetIsLepton = true;
+ 
+ if (applyJetCleaning_) {
+  for(size_t j=0; j<leps_.size();j++){ //---- check all leptons up to "minimum pt" (default 10 GeV, minLeptonPt)
+   if (leps_[indexByPt(j)]->pt() > minLeptonPt) {
+    double dR = fabs(ROOT::Math::VectorUtil::DeltaR(jet->p4(),leps_[indexByPt(j)]->p4()) );
+    if(dR < drCut){
+     thisJetIsLepton = true;
+     break;
+    }
+   }
+   else {
     break;
    }
   }
-  else {
-   break;
-  }
  }
- 
  
  return thisJetIsLepton;
 }
@@ -2895,15 +2906,15 @@ void reco::SkimEvent::setTriggerBits( const std::vector<bool> &bits) {
  passesSingleElData_ = bits[1];
  passesDoubleMuData_ = bits[2];
  passesDoubleElData_ = bits[3];
- passesMuEGData_ = bits[4];
- passesSingleMuMC_ = bits[5];
- passesSingleElMC_ = bits[6];
- passesDoubleMuMC_ = bits[7];
- passesDoubleElMC_ = bits[8];
- passesMuEGMC_ = bits[9];
- passesAllEmbed_ = bits[10];
- passesFakeRateEl_ = bits[11];
- passesFakeRateMu_ = bits[12];
+ passesMuEGData_     = bits[4];
+ passesSingleMuMC_   = bits[5];
+ passesSingleElMC_   = bits[6];
+ passesDoubleMuMC_   = bits[7];
+ passesDoubleElMC_   = bits[8];
+ passesMuEGMC_       = bits[9];
+ passesAllEmbed_     = bits[10];
+ passesFakeRateEl_   = bits[11];
+ passesFakeRateMu_   = bits[12];
 }
 
 

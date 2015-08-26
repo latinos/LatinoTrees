@@ -65,6 +65,7 @@ struct JetInfo {
         reco::MET computeTrkMet(const reco::Vertex &pv,
 	    edm::Handle<pat::PackedCandidateCollection> pfCandsH);
  
+        int applyJetCleaning_;
         double maxEtaForJets_;
 	double minPtForJets_;
 	double dzCutForBtagJets_;

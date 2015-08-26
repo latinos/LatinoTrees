@@ -556,7 +556,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setGenMet(const edm::Handle<reco::GenMETCollection> &);
             void setGenJets(const edm::Handle<reco::GenJetCollection> &);
         
-            
+            void setApplyJetCleaning(int applyJetCleaning);
             void setMaxEtaForJets(double value);
 	    void setMinPtForJets(double value);            
             void setDzCutForBtagJets(double value);
@@ -828,6 +828,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    bool   applyCorrectionForJets_;
 	    int    applyIDForJets_;
  
+            int    applyJetCleaning_;
+
             double _maxDrSoftMuonJet;
             double _minPtSoftMuon;
             

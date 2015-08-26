@@ -84,7 +84,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
 
     produces<std::vector<reco::SkimEvent> >().setBranchAlias(cfg.getParameter<std::string>("@module_label"));
 
-    
+    applyJetCleaning_       = cfg.getParameter<int>("applyJetCleaning");
     maxEtaForJets_          = cfg.getParameter<double>("maxEtaForJets");
     minPtForJets_	    = cfg.getParameter<double>("minPtForJets"); 
     dzCutForBtagJets_	    = cfg.getParameter<double>("dzCutForBtagJets");
@@ -422,6 +422,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setGenJets(genJetH);
     }
 
+    //---- apply jet cleaning using lepton collection
+    skimEvent->back().setApplyJetCleaning(applyJetCleaning_);
     //---- maximum eta for jets for default values
     skimEvent->back().setMaxEtaForJets(maxEtaForJets_);
     //---- maximum eta for jets for default values
