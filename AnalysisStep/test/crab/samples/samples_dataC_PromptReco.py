@@ -9,8 +9,8 @@ samples['PromptReco_SingleMu']          = ['/SingleMu/Run2015C-PromptReco-v1/MIN
 samples['PromptReco_SingleMuon']        = ['/SingleMuon/Run2015C-PromptReco-v1/MINIAOD',        ['label=SingleMuon']]
 samples['PromptReco_MuonEG']            = ['/MuonEG/Run2015C-PromptReco-v1/MINIAOD',            ['label=MuEG']]
 
-config.Data.lumiMask = "/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Cert_246908-254349_13TeV_PromptReco_Collisions15_JSON.txt"
-config.Data.runRange = 'XXX-XXX' #FIXME
+config.Data.lumiMask = "/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Cert_246908-254879_13TeV_PromptReco_Collisions15_JSON.txt"
+config.Data.runRange = '251562-254880'
 
 pyCfgParams.append('globalTag=GR_P_V56')
 
