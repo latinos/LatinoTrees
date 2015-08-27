@@ -8,7 +8,8 @@ selectedMuonsBase = cms.EDFilter("PATMuonRefSelector",
     )
 
 
-MUO_BASE = "( pt > 8 && abs(eta)<2.5 )"
+MUO_BASE         = "( pt > 8 && abs(eta)<2.5 )"
+MUO_BASE_SOFT_MU = "( pt > 2 && abs(eta)<2.5 )"
 wwMuoBase = selectedMuonsBase.clone( cut = MUO_BASE )
 
 
@@ -43,7 +44,7 @@ MUON_ID_CUT_4VETO=("("+
                   " && (isPFMuon && (isGlobalMuon || isTrackerMuon) ) " +
                   " )")
 
-wwMuoForVeto  = selectedMuonsBase.clone( cut = MUO_BASE + " && " + MUON_ID_CUT_4VETO )
+wwMuoForVeto  = selectedMuonsBase.clone( cut = MUO_BASE_SOFT_MU + " && " + MUON_ID_CUT_4VETO )
 
 
 
