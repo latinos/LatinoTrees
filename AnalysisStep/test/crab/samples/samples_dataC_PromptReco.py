@@ -5,7 +5,6 @@ samples['PromptReco_SingleElectron']    = ['/SingleElectron/Run2015C-PromptReco-
 samples['PromptReco_DoubleEG']          = ['/DoubleEG/Run2015C-PromptReco-v1/MINIAOD',          ['label=DoubleEG']]
 samples['PromptReco_DoubleMuon']        = ['/DoubleMuon/Run2015C-PromptReco-v1/MINIAOD',        ['label=DoubleMuon']]
 samples['PromptReco_DoubleMuonLowMass'] = ['/DoubleMuonLowMass/Run2015C-PromptReco-v1/MINIAOD', ['label=DoubleMuon']]
-samples['PromptReco_SingleMu']          = ['/SingleMu/Run2015C-PromptReco-v1/MINIAOD',          ['label=SingleMuon']]
 samples['PromptReco_SingleMuon']        = ['/SingleMuon/Run2015C-PromptReco-v1/MINIAOD',        ['label=SingleMuon']]
 samples['PromptReco_MuonEG']            = ['/MuonEG/Run2015C-PromptReco-v1/MINIAOD',            ['label=MuEG']]
 
