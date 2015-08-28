@@ -79,6 +79,10 @@ Check status.
 
     python multicrab.py crab_projects_5August status
 
+*Only for data.* Report the non-analyzed luminosity sections.
+
+    crab report -d crab_projects_5August/PromptReco_crab_DoubleEG
+
 
 6. Run cmssw2latino
 ====
