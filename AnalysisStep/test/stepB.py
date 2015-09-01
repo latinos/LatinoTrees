@@ -564,6 +564,10 @@ from LatinoTrees.AnalysisStep.skimEventProducer_cfi import addEventHypothesis
 process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","HLT")
 #process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","PAT")
 
+# old productions DATA
+#process.skimEventProducer.triggerSpecialTag = cms.InputTag("")
+
+
 if doTauEmbed == True:
   process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","EmbeddedRECO")
   process.skimEventProducer.mcGenWeightTag = cms.InputTag("generator:minVisPtFilter")

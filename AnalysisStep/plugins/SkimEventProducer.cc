@@ -255,25 +255,27 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     
     std::vector<float> passBitsSpecial;
 
-    const edm::TriggerNames &specialNames = iEvent.triggerNames(*triggerSpecialResults);
-    
-    for (unsigned int iPath = 0; iPath < SpecialPaths_.size(); iPath++) {
-
-     bool foundPath = false;
-     for (unsigned int jPath = 0, nmax = triggerSpecialResults->size(); jPath < nmax; jPath++) {
-      std::string nameTrigger = specialNames.triggerName(jPath);
-
-      if (nameTrigger == SpecialPaths_.at(iPath)) {
-       passBitsSpecial.push_back (1.0 * triggerSpecialResults->accept(jPath));
-       //        std::cout << " >>  1.0 * triggerSpecialResults->accept(" << jPath << ") = " << 1.0 * triggerSpecialResults->accept(jPath) << std::endl;
-       foundPath = true;
+    if (!(triggerSpecialTag_ == edm::InputTag(""))) {
+     
+     const edm::TriggerNames &specialNames = iEvent.triggerNames(*triggerSpecialResults);
+     
+     for (unsigned int iPath = 0; iPath < SpecialPaths_.size(); iPath++) {
+      
+      bool foundPath = false;
+      for (unsigned int jPath = 0, nmax = triggerSpecialResults->size(); jPath < nmax; jPath++) {
+       std::string nameTrigger = specialNames.triggerName(jPath);
+       
+       if (nameTrigger == SpecialPaths_.at(iPath)) {
+        passBitsSpecial.push_back (1.0 * triggerSpecialResults->accept(jPath));
+        //        std::cout << " >>  1.0 * triggerSpecialResults->accept(" << jPath << ") = " << 1.0 * triggerSpecialResults->accept(jPath) << std::endl;
+        foundPath = true;
+       }
+      }
+      if (!foundPath) {
+       passBitsSpecial.push_back (-1);
       }
      }
-     if (!foundPath) {
-      passBitsSpecial.push_back (-1);
-     }
     }
-    
     
     
     
@@ -317,6 +319,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     skimEvent->push_back( *(new reco::SkimEvent() ) );
 
+    skimEvent->back().setEventInfo(iEvent);
+    
     //---- list of electron ids
     //----    save directly as vectors of "bool"
     //----    see: https://github.com/ikrav/EgammaWork/blob/ntupler_and_VID_demos/ElectronNtupler/plugins/ElectronNtuplerVIDDemo.cc

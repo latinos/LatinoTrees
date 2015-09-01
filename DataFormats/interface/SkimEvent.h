@@ -1,7 +1,7 @@
 #ifndef AnalysisDataFormats_SkimEvent_h
 #define AnalysisDataFormats_SkimEvent_h
 
-// #include "FWCore/Framework/interface/Event.h"
+#include "FWCore/Framework/interface/Event.h"
 // #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/FileInPath.h"
 // #include "FWCore/Framework/interface/Frameworkfwd.h"
@@ -520,7 +520,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             //void setSoftMuon(const pat::Muon& mu);
             //void setExtraLepton(const pat::Electron& ele);
             //void setExtraLepton(const pat::Muon& mu);
-//             void setEventInfo (const edm::Event &e) { run_ = e.id().run(); lumi_ = e.id().luminosityBlock(); evt_ = e.id().event(); }
+            void setEventInfo  (const edm::Event &e) { run_ = e.id().run(); lumi_ = e.id().luminosityBlock(); evt_ = e.id().event(); }
             void setLepton     (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
             void setSoftMuon   (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
             void setExtraLepton(const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);

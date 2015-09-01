@@ -66,6 +66,13 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
     variables = cms.PSet(
         #hypo = cms.string("hypo()"),
         #lepton1_pt = cms.string("lepton(0).x()"),
+        
+        # run, lumi, event
+        run  = cms.string("run()"),
+        lumi = cms.string("lumi()"),
+        evt  = cms.string("evt()"),
+        
+        # leptons
         channel = cms.string("channel()"),
         v_lepton1 = cms.string("lepton(0)"),
         v_lepton2 = cms.string("lepton(1)"),
