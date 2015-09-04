@@ -835,6 +835,25 @@ if isMC :
 ##
 ##
 
+
+
+#####################################
+## pileup dumper
+##   dump pileup with NO selections applied
+process.PileUpDumperAnalyzer = cms.EDAnalyzer('PileUpDumper',
+    puLabel  = cms.InputTag("addPileupInfo"),
+    debug    = cms.untracked.bool(False)
+  )
+
+if isMC :
+  process.PileUpDumperAnalyzerPath = cms.Path(process.PileUpDumperAnalyzer)
+##
+##
+
+
+
+
+
 #if IsoStudy:
   ##getattr(process,"ww%s%s"% (X,labelSetup)).elTag = "wwEleIDMerge"
   ##getattr(process,"ww%s%s"% (X,labelSetup)).muTag = "wwMuonsMergeID"
