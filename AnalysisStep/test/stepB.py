@@ -797,8 +797,6 @@ setattr(process,'sel'+labelSetup,p)
 process.TFileService = cms.Service("TFileService",fileName = cms.string(options.outputFile))
 
 
-
-
 #####################################
 ## counter of all events you run on
 ##   for MC in case you some crab jobs fail,
@@ -819,6 +817,35 @@ process.TriggerAnalyzerPath = cms.Path(process.TriggerAnalyzer)
 ##
 ##
 
+
+#####################################
+## Weights dumper
+##   dump weights with NO selections applied
+process.WeightDumperAnalyzer = cms.EDAnalyzer('WeightDumper',
+     mcLHEEventInfoTag  = cms.InputTag("externalLHEProducer"),
+     #mcLHEEventInfoTag = cms.InputTag("source"),
+     genEvtInfoTag      = cms.InputTag("generator"), 
+     debug              = cms.untracked.bool(False)
+  )
+
+if isMC :
+  process.WeightDumperAnalyzerPath = cms.Path(process.WeightDumperAnalyzer)
+##
+##
+
+
+#####################################
+## pileup dumper
+##   dump pileup with NO selections applied
+process.PileUpDumperAnalyzer = cms.EDAnalyzer('PileUpDumper',
+    puLabel  = cms.InputTag("addPileupInfo"),
+    debug    = cms.untracked.bool(False)
+  )
+
+if isMC :
+  process.PileUpDumperAnalyzerPath = cms.Path(process.PileUpDumperAnalyzer)
+##
+##
 
 
 #if IsoStudy:
