@@ -820,6 +820,20 @@ process.TriggerAnalyzerPath = cms.Path(process.TriggerAnalyzer)
 ##
 
 
+#####################################
+## Weights dumper
+##   dump weights with NO selections applied
+process.WeightDumperAnalyzer = cms.EDAnalyzer('WeightDumper',
+     mcLHEEventInfoTag      = cms.InputTag("externalLHEProducer"),
+     #mcLHEEventInfoTag      = cms.InputTag("source"),
+     genEvtInfoTag          = cms.InputTag("generator"), 
+     debug                  = cms.untracked.bool(False)
+  )
+
+if isMC :
+  process.WeightDumperAnalyzerPath = cms.Path(process.WeightDumperAnalyzer)
+##
+##
 
 #if IsoStudy:
   ##getattr(process,"ww%s%s"% (X,labelSetup)).elTag = "wwEleIDMerge"

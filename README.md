@@ -229,5 +229,17 @@ Phys14:
                     doMCweights=True \
                     inputFiles=file:/tmp/amassiro/00C0BECF-6F14-E511-96F8-0025904B739A.root
 
-    
+                    
+                    
+    cmsRun weightDumper.py \
+                    outputFile=weight_MC_Wjets.root \
+                    inputFiles=file:/tmp/amassiro/00C0BECF-6F14-E511-96F8-0025904B739A.root
+
+
+    cmsRun puDumper.py \
+                    outputFile=pu_MC_Wjets.root \
+                    inputFiles=file:/tmp/amassiro/00C0BECF-6F14-E511-96F8-0025904B739A.root
+
+                    
+                    
     
