@@ -11,23 +11,24 @@ export MYFILE=file:/afs/cern.ch/user/p/piedra/work/store/mc/RunIISpring15DR74/TT
 
 rm -rf latino_stepB_numEvent${EVENTS}.root
 
-cmsRun stepB.py print     \
-    label=TT              \
-    outputFile=stepB.root \
-    selection=LooseNoIso  \
-    doNoFilter=False      \
-    doMuonIsoId=True      \
-    doEleIsoId=True       \
-    doGen=False           \
-    doBTag=True           \
-    doLHE=False           \
-    runPUPPISequence=True \
-    maxEvents=${EVENTS}   \
+cmsRun stepB.py print       \
+    globalTag=MCRUN2_74_V9A \
+    label=TT                \
+    outputFile=stepB.root   \
+    selection=LooseNoIso    \
+    doNoFilter=False        \
+    doMuonIsoId=True        \
+    doEleIsoId=True         \
+    doGen=False             \
+    doBTag=True             \
+    doLHE=False             \
+    runPUPPISequence=False  \
+    maxEvents=${EVENTS}     \
     inputFiles=${MYFILE}
 
 # For DoubleEG data
-#   globalTag=GR_P_V56    \
-#   label=DoubleEG        \
+#   globalTag=GR_P_V56 \
+#   label=DoubleEG     \
 
 python cmssw2latino.py stepB_numEvent${EVENTS}.root
 

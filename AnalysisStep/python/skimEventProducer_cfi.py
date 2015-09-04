@@ -193,10 +193,10 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     #tightEleSelection = cms.string(ELE_BASE  + "&&" + ELE_MERGE_ID + " && " + ELE_MERGE_ISO + " && " + ELE_MERGE_CONV + " && " + ELE_MERGE_IP),
     
     electronIds = cms.vstring(
-        "egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto",
-        "egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-loose",
-        "egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-medium",
-        "egmGsfElectronIDs:cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-tight",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight",
     ),
 
 

@@ -435,10 +435,10 @@ dataFormat = DataFormat.MiniAOD
 switchOnVIDElectronIdProducer(process, dataFormat)
 
 # define which IDs we want to produce
-my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_PHYS14_PU20bx25_V2_cff',
-                 'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV51_cff']
+my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
+                 'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
 
-#add them to the VID producer
+# add them to the VID producer
 for idmod in my_id_modules:
     setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
 
@@ -818,39 +818,6 @@ process.TriggerAnalyzer = cms.EDAnalyzer("MiniAODTriggerAnalyzer",
 process.TriggerAnalyzerPath = cms.Path(process.TriggerAnalyzer)
 ##
 ##
-
-
-#####################################
-## Weights dumper
-##   dump weights with NO selections applied
-process.WeightDumperAnalyzer = cms.EDAnalyzer('WeightDumper',
-     mcLHEEventInfoTag      = cms.InputTag("externalLHEProducer"),
-     #mcLHEEventInfoTag      = cms.InputTag("source"),
-     genEvtInfoTag          = cms.InputTag("generator"), 
-     debug                  = cms.untracked.bool(False)
-  )
-
-if isMC :
-  process.WeightDumperAnalyzerPath = cms.Path(process.WeightDumperAnalyzer)
-##
-##
-
-
-
-#####################################
-## pileup dumper
-##   dump pileup with NO selections applied
-process.PileUpDumperAnalyzer = cms.EDAnalyzer('PileUpDumper',
-    puLabel  = cms.InputTag("addPileupInfo"),
-    debug    = cms.untracked.bool(False)
-  )
-
-if isMC :
-  process.PileUpDumperAnalyzerPath = cms.Path(process.PileUpDumperAnalyzer)
-##
-##
-
-
 
 
 
