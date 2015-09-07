@@ -475,10 +475,13 @@ from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
 #from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
 process.myJetSequence = cms.Sequence()
 
-#                          the new sequence ,  temporary output file
+JEC = ['L1FastJet','L2Relative','L3Absolute']
+if not isMC:
+    JEC += ['L2L3Residual']
+
 jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',    
-             JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
-             miniAOD=True,      addNsub=True,     
+             JETCorrPayload='AK4PFchs', JETCorrLevels = JEC, 
+             miniAOD=True, runOnMC=isMC, addNsub=True,     
              #addPUJetID=False,
              addPUJetID=True,
              addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True,
@@ -561,9 +564,9 @@ if options.runPUPPISequence:
     #makePuppiAlgo(process) ## call puppi producer and puppi met
     
     jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',    
-             #JETCorrPayload='AK4PFchs', JETCorrLevels = ['L1FastJet','L2Relative','L3Absolute'], 
+             JETCorrPayload='AK4PFPuppi', JETCorrLevels = JEC, 
              PUMethod='Puppi',
-             miniAOD=True,      addNsub=True,      
+             miniAOD=True, runOnMC=isMC, addNsub=True,      
              addPUJetID=False,
              #addPUJetID=True, ----> can't be puppi AND pujetid
              addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True,
