@@ -517,6 +517,43 @@ process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
 
 if options.runPUPPISequence:
 
+    # Load db with Puppi JEC
+    process.load("CondCore.DBCommon.CondDBCommon_cfi")
+    # MC
+    if isMC:
+        process.jec = cms.ESSource("PoolDBESSource",
+                DBParameters = cms.PSet(
+                    messageLevel = cms.untracked.int32(0)
+                    ),
+                timetype = cms.string('runnumber'),
+                toGet = cms.VPSet(
+                cms.PSet(
+                     record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_MC_AK4PFPuppi'),
+                     label  = cms.untracked.string('AK4PFPuppi')
+                     ),
+                ),
+                connect = cms.string('sqlite:Summer15_50nsV5_MC.db')
+                )    
+    # Data
+    else:
+        process.jec = cms.ESSource("PoolDBESSource",
+                DBParameters = cms.PSet(
+                    messageLevel = cms.untracked.int32(0)
+                    ),
+                timetype = cms.string('runnumber'),
+                toGet = cms.VPSet(
+                cms.PSet(
+                     record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_DATA_AK4PFPuppi'),
+                     label  = cms.untracked.string('AK4PFPuppi')
+                     ),
+                ),
+                connect = cms.string('sqlite:Summer15_50nsV5_DATA.db')
+                )
+    
+    process.es_prefer_jec = cms.ESPrefer('PoolDBESSource','jec')
+
     from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence, makePatPuppiMetSequence
     #from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiMetSequence
 
