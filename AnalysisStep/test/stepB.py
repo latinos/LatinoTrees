@@ -205,6 +205,12 @@ options.register ('doSoftActivity',
                   opts.VarParsing.varType.bool,
                   'Turn on soft activity variables (can be \'True\' or \'False\'')
 
+options.register ('is50ns',
+                  False, # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.bool,
+                  'Use V5 JEC for CHS jets (can be \'True\' or \'False\'')
+
 #-------------------------------------------------------------------------------
 # defaults
 options.outputFile = 'stepB.root'
@@ -469,7 +475,59 @@ process.load("JetMETCorrections.Configuration.JetCorrectionServices_cff")
 process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff")
 
 # load jet corrections 
-process.prefer("ak4PFCHSL1FastL2L3") 
+# process.prefer("ak4PFCHSL1FastL2L3") 
+
+# load V5 JEC
+toGetVPSet = cms.VPSet()
+
+if options.runPUPPISequence:
+    if isMC:
+        toGetVPSet.append( cms.PSet(
+                     record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_MC_AK4PFPuppi'),
+                     label  = cms.untracked.string('AK4PFPuppi')
+                     )
+        )
+        connectString = cms.string('sqlite:Summer15_50nsV5_MC.db')
+    else:
+        toGetVPSet.append( cms.PSet(
+                     record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_DATA_AK4PFPuppi'),
+                     label  = cms.untracked.string('AK4PFPuppi')
+                     ),
+                )
+        connectString = cms.string('sqlite:Summer15_50nsV5_DATA.db')
+
+if options.is50ns:
+    if isMC:
+        toGetVPSet.append( cms.PSet(
+                     record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_MC_AK4PFchs'),
+                     label  = cms.untracked.string('AK4PFchs')
+                     )
+        )
+        connectString = cms.string('sqlite:Summer15_50nsV5_MC.db')
+    else:
+        toGetVPSet.append( cms.PSet(
+                     record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_DATA_AK4PFchs'),
+                     label  = cms.untracked.string('AK4PFchs')
+                     ),
+                )
+        connectString = cms.string('sqlite:Summer15_50nsV5_DATA.db')
+
+if options.runPUPPISequence or options.is50ns:
+    process.load("CondCore.DBCommon.CondDBCommon_cfi")
+    process.jec = cms.ESSource("PoolDBESSource",
+            DBParameters = cms.PSet(
+                messageLevel = cms.untracked.int32(0)
+                ),
+            timetype = cms.string('runnumber'),
+            toGet = toGetVPSet,
+            connect = connectString
+            )        
+    process.es_prefer_jec = cms.ESPrefer('PoolDBESSource','jec')
+
 
 from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
 #from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
@@ -519,43 +577,6 @@ process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
 #   and let cmssw do the rest ...
 
 if options.runPUPPISequence:
-
-    # Load db with Puppi JEC
-    process.load("CondCore.DBCommon.CondDBCommon_cfi")
-    # MC
-    if isMC:
-        process.jec = cms.ESSource("PoolDBESSource",
-                DBParameters = cms.PSet(
-                    messageLevel = cms.untracked.int32(0)
-                    ),
-                timetype = cms.string('runnumber'),
-                toGet = cms.VPSet(
-                cms.PSet(
-                     record = cms.string('JetCorrectionsRecord'),
-                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_MC_AK4PFPuppi'),
-                     label  = cms.untracked.string('AK4PFPuppi')
-                     ),
-                ),
-                connect = cms.string('sqlite:Summer15_50nsV5_MC.db')
-                )    
-    # Data
-    else:
-        process.jec = cms.ESSource("PoolDBESSource",
-                DBParameters = cms.PSet(
-                    messageLevel = cms.untracked.int32(0)
-                    ),
-                timetype = cms.string('runnumber'),
-                toGet = cms.VPSet(
-                cms.PSet(
-                     record = cms.string('JetCorrectionsRecord'),
-                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_DATA_AK4PFPuppi'),
-                     label  = cms.untracked.string('AK4PFPuppi')
-                     ),
-                ),
-                connect = cms.string('sqlite:Summer15_50nsV5_DATA.db')
-                )
-    
-    process.es_prefer_jec = cms.ESPrefer('PoolDBESSource','jec')
 
     from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence, makePatPuppiMetSequence
     #from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiMetSequence
