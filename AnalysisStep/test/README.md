@@ -26,11 +26,11 @@
     git clone --branch 13TeV git@github.com:latinos/setup.git LatinosSetup
     source LatinosSetup/Setup.sh
 
-Get the [Spring15 MC and 25ns/50ns data cut-based electron ID](https://twiki.cern.ch/twiki/bin/viewauth/CMS/CutBasedElectronIdentificationRun2#Recipe_for_regular_users_for_747)
+Get the [Spring15 MC and 25ns/50ns data cut-based electron ID](https://twiki.cern.ch/twiki/bin/viewauth/CMS/CutBasedElectronIdentificationRun2#Recipe_for_regular_users_for_747).
 
     git cms-merge-topic ikrav:egm_id_747_v2
 
-Include [MET without HF](https://twiki.cern.ch/twiki/bin/view/CMS/MissingETUncertaintyPrescription#Instructions_for_7_4_X)
+Include [MET without HF](https://twiki.cern.ch/twiki/bin/view/CMS/MissingETUncertaintyPrescription#Instructions_for_7_4_X). This is a temporary solution.
 
     git cms-merge-topic -u cms-met:METCorUnc74X
 
