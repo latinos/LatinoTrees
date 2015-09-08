@@ -56,6 +56,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     secondJetTag_      = cfg.getParameter<edm::InputTag>("secondJetTag" );
     fatJetTag_         = cfg.getParameter<edm::InputTag>("fatJetTag" );
     pfMetTag_          = cfg.getParameter<edm::InputTag>("pfMetTag" );
+    pfMetNoHfTag_      = cfg.getParameter<edm::InputTag>("pfMetNoHfTag" );
     pupMetTag_         = cfg.getParameter<edm::InputTag>("pupMetTag" );
     tcMetTag_          = cfg.getParameter<edm::InputTag>("tcMetTag" );
     chargedMetTag_     = cfg.getParameter<edm::InputTag>("chargedMetTag" );
@@ -107,6 +108,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     tagJetHT_      = consumes<pat::JetCollection>(tagJetTag_);
     secondTagJetHT_= consumes<pat::JetCollection>(secondJetTag_);
     pfMetHT_       = consumes<std::vector<pat::MET> >(pfMetTag_);
+    pfMetNoHfHT_   = consumes<std::vector<pat::MET> >(pfMetNoHfTag_);
     if(!(pupMetTag_ == edm::InputTag(""))) pupMetHT_       = consumes<std::vector<pat::MET> >(pupMetTag_);
     vtxHT_         = consumes<reco::VertexCollection>(vtxTag_);
     candsHT_       = consumes<reco::CandidateView>(chCandsTag_);
@@ -181,6 +183,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     
     edm::Handle< std::vector<pat::MET> > pfMetH;
     iEvent.getByToken(pfMetHT_,pfMetH);
+
+    edm::Handle< std::vector<pat::MET> > pfMetNoHfH;
+    iEvent.getByToken(pfMetNoHfHT_,pfMetNoHfH);
 
     edm::Handle< std::vector<pat::MET> > pupMetH;
     if(!(pupMetTag_ == edm::InputTag(""))) iEvent.getByToken(pupMetHT_,pupMetH);
@@ -384,6 +389,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     skimEvent->back().setFatJets(fatJetH);
     skimEvent->back().setJetRhoIso(rhoJetIso);
     skimEvent->back().setPFMet(pfMetH);
+    skimEvent->back().setPFMetNoHf(pfMetNoHfH);
     if(pupMetH.isValid() )skimEvent->back().setPUpMet(pupMetH);
     skimEvent->back().setVertex(vtxH);
     if(sptH.isValid() ) skimEvent->back().setVtxSumPts(sptH);
