@@ -44,6 +44,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     secondJetTag = cms.InputTag("slimmedJets"), # miniAOD  slimPatFatJetsTriggerMatch -> alternative jet collection
     fatJetTag = cms.InputTag("slimmedJets"), # miniAOD  slimPatFatJetsTriggerMatch
     pfMetTag = cms.InputTag("slimmedMETs"), # miniAOD pfMet
+    pfMetNoHfTag = cms.InputTag("slimmedMETsNoHF"), # miniAOD pfMet no HF
     pupMetTag = cms.InputTag(""), #  puppiMet from puppi objects
     tcMetTag = cms.InputTag("slimmedMETs"), # miniAOD tcMet
     chargedMetTag = cms.InputTag("slimmedMETs"), # miniAOD trackMetProducer
@@ -260,9 +261,3 @@ def addEventHypothesis(process, label, thisMuTag, thisEleTag, thisSoftMuTag='wwM
     # add to pooloutput module
     if hasattr(process,'out'): process.out.outputCommands.append( 'keep *_{0}_*_*'.format( 'ww'+label ) )
     if hasattr(process,'out'): process.out.SelectEvents.SelectEvents.append( 'sel'+label )
-
-
-
-
-
-

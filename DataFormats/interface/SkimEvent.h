@@ -353,6 +353,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             
             const float met(metType metToUse=TCMET) const;
             const float pfType1SumEt() const;
+            const float pfMetNoHf() const;
             const float pfType1Met() const;
             const float pfType1MetUp() const;
             const float pfType1MetDn() const;
@@ -536,6 +537,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setTrackJets(const edm::Handle<reco::PFJetCollection> &);
             void setTCMet(const edm::Handle<reco::METCollection> &);
             void setPFMet(const edm::Handle< std::vector<pat::MET> > &);
+            void setPFMetNoHf(const edm::Handle< std::vector<pat::MET> > &);
             void setPUpMet(const edm::Handle< std::vector<pat::MET> > &);
             void setTrkMet(const reco::MET &);
             void setMvaMet(const reco::PFMET &met) {mvaMet_ = met;}
@@ -853,6 +855,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             reco::METRef tcMet_;
 //             reco::PFMETRef pfMet_;
             pat::METRef pfMet_;
+            pat::METRef pfMetNoHf_;
             pat::METRef pupMet_;
             reco::MET   trkMet_;
             reco::PFMET mvaMet_;

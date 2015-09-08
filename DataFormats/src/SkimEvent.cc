@@ -404,6 +404,10 @@ void reco::SkimEvent::setTCMet(const edm::Handle<reco::METCollection> & mH) {
  tcMet_ = reco::METRef(mH,0);
 }
 
+void reco::SkimEvent::setPFMetNoHf(const edm::Handle< std::vector<pat::MET> > & mH) {
+ pfMetNoHf_ = pat::METRef(mH,0);
+}
+
 void reco::SkimEvent::setPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
  pfMet_ = pat::METRef(mH,0);
 }
@@ -2411,6 +2415,12 @@ float reco::SkimEvent::multiplicityTrackJetsDensity() const {
 
 
 //Event variables
+
+const float reco::SkimEvent::pfMetNoHf() const {
+ 
+ if(pfMetNoHf_.isNonnull()) return pfMetNoHf_->pt();
+ else return defaultvalues::defaultFloat;
+}
 
 const float reco::SkimEvent::pfType1Met() const {
  
