@@ -211,6 +211,12 @@ options.register ('is50ns',
                   opts.VarParsing.varType.bool,
                   'Use V5 JEC for CHS jets (can be \'True\' or \'False\'')
 
+options.register ('isPromptRecoData',
+                  False, # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.bool,
+                  'Switch between PAT and RECO process names for the MET filters (can be \'True\' or \'False\'')
+
 #-------------------------------------------------------------------------------
 # defaults
 options.outputFile = 'stepB.root'
@@ -329,16 +335,6 @@ import LatinoTrees.AnalysisStep.globalVariables as globalVariables
 process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
 
-
-# change trigger according to 50ns/25ns/MC
-if options.is50ns :
-  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
-else :
-  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
- 
-
-
-
 # Default parameters for jets
 process.skimEventProducer.maxEtaForJets = cms.double(4.7)
 process.skimEventProducer.minPtForJets = cms.double(0)
@@ -406,6 +402,16 @@ stepBTree.variables.triggerFakeRate = stepBTree.variables.triggerFakeRate.value(
 idn = re.sub('[^0-9]','',str(id))
 print " >> idn = ", idn
 stepBTree.variables.dataset = str(idn)
+
+
+# Change TriggerResults process name (for the MET filters) according to MC/PromptRecoData/17Jul2015Data
+# https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2015#ETmiss_filters
+if isMC :
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
+elif options.isPromptRecoData :
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","RECO")
+else : 
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
 
 
 # save triggers only in DATA
@@ -579,10 +585,6 @@ if options.doSoftActivity:
 from LatinoTrees.AnalysisStep.skimEventProducer_cfi import addEventHypothesis
 process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","HLT")
 #process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","PAT")
-
-# old productions DATA
-#process.skimEventProducer.triggerSpecialTag = cms.InputTag("")
-
 
 if doTauEmbed == True:
   process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","EmbeddedRECO")

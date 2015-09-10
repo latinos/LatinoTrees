@@ -12,6 +12,7 @@ config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Coll
 config.Data.runRange = '251585-251883'
 
 pyCfgParams.append('globalTag=GR_P_V56')
+pyCfgParams.append('isPromptRecoData=True')
 
 
 ########
