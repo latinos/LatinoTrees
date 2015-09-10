@@ -484,61 +484,6 @@ else:
 process.load("JetMETCorrections.Configuration.JetCorrectionServices_cff")
 process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff")
 
-# load jet corrections 
-# process.prefer("ak4PFCHSL1FastL2L3") 
-
-# load V5 JEC
-toGetVPSet = cms.VPSet()
-
-if options.runPUPPISequence:
-    if isMC:
-        toGetVPSet.append( cms.PSet(
-                     record = cms.string('JetCorrectionsRecord'),
-                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_MC_AK4PFPuppi'),
-                     label  = cms.untracked.string('AK4PFPuppi')
-                     )
-        )
-        connectString = cms.string('sqlite:Summer15_50nsV5_MC.db')
-    else:
-        toGetVPSet.append( cms.PSet(
-                     record = cms.string('JetCorrectionsRecord'),
-                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_DATA_AK4PFPuppi'),
-                     label  = cms.untracked.string('AK4PFPuppi')
-                     ),
-                )
-        connectString = cms.string('sqlite:Summer15_50nsV5_DATA.db')
-
-if options.is50ns:
-    if isMC:
-        toGetVPSet.append( cms.PSet(
-                     record = cms.string('JetCorrectionsRecord'),
-                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_MC_AK4PFchs'),
-                     label  = cms.untracked.string('AK4PFchs')
-                     )
-        )
-        connectString = cms.string('sqlite:Summer15_50nsV5_MC.db')
-    else:
-        toGetVPSet.append( cms.PSet(
-                     record = cms.string('JetCorrectionsRecord'),
-                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_DATA_AK4PFchs'),
-                     label  = cms.untracked.string('AK4PFchs')
-                     ),
-                )
-        connectString = cms.string('sqlite:Summer15_50nsV5_DATA.db')
-
-if options.runPUPPISequence or options.is50ns:
-    process.load("CondCore.DBCommon.CondDBCommon_cfi")
-    process.jec = cms.ESSource("PoolDBESSource",
-            DBParameters = cms.PSet(
-                messageLevel = cms.untracked.int32(0)
-                ),
-            timetype = cms.string('runnumber'),
-            toGet = toGetVPSet,
-            connect = connectString
-            )        
-    process.es_prefer_jec = cms.ESPrefer('PoolDBESSource','jec')
-
-
 from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
 #from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
 process.myJetSequence = cms.Sequence()

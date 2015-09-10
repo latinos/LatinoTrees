@@ -14,7 +14,6 @@ config.JobType.psetName         = '../stepB.py'
 config.JobType.maxJobRuntimeMin = 2800
 config.JobType.outputFiles      = ['stepB_MC.root']
 config.JobType.allowUndistributedCMSSW = True
-config.JobType.inputFiles = ['../Summer15_50nsV5_MC.db','../Summer15_50nsV5_DATA.db']
 
 config.section_('Data')    
 config.Data.inputDBS      = 'global'
