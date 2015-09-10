@@ -329,6 +329,16 @@ import LatinoTrees.AnalysisStep.globalVariables as globalVariables
 process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
 
+
+# change trigger according to 50ns/25ns/MC
+if options.is50ns :
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
+else :
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
+ 
+
+
+
 # Default parameters for jets
 process.skimEventProducer.maxEtaForJets = cms.double(4.7)
 process.skimEventProducer.minPtForJets = cms.double(0)
