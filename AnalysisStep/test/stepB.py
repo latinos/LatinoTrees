@@ -254,11 +254,11 @@ process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(options.su
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(options.maxEvents) )
 
 
-process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
-#process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
+#process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
-globalTag = options.globalTag + "::All"
-#globalTag = options.globalTag
+#globalTag = options.globalTag + "::All"
+globalTag = options.globalTag
 #process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 #

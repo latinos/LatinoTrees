@@ -86,7 +86,7 @@ from PhysicsTools.PatAlgos.mcMatchLayer0.jetFlavourId_cff import patJetFlavourAs
 from PhysicsTools.PatAlgos.recoLayer0.jetTracksCharge_cff import patJetCharge
 from PhysicsTools.PatAlgos.selectionLayer1.jetSelector_cfi import selectedPatJets
 from PhysicsTools.PatAlgos.producersLayer1.jetProducer_cfi import patJets
-from PhysicsTools.PatAlgos.slimming.pileupJetId_cfi import *
+#from PhysicsTools.PatAlgos.slimming.pileupJetId_cfi import *
 from PhysicsTools.PatAlgos.tools.jetTools import addJetCollection
 
 def makePatPuppiJetSequence( process, rParameter = 0.4):
