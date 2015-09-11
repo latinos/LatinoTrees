@@ -448,8 +448,6 @@ else:
     stepBTree.variables.puBW = cms.string("1")
 
 
-
-
 ####################
 # run electron id ##
 from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
@@ -457,8 +455,26 @@ dataFormat = DataFormat.MiniAOD
 switchOnVIDElectronIdProducer(process, dataFormat)
 
 # define which IDs we want to produce
-my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
-                 'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
+if options.is50ns :
+    my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_50ns_V1_cff',
+                     'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
+
+    process.skimEventProducer.electronIds = cms.vstring(
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-veto",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-loose",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-medium",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-tight",
+        )
+else :
+    my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
+                     'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
+
+    process.skimEventProducer.electronIds = cms.vstring(
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight",
+        )
 
 # add them to the VID producer
 for idmod in my_id_modules:
