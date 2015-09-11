@@ -30,10 +30,6 @@ Get the [Spring15 MC and 25ns/50ns data cut-based electron ID](https://twiki.cer
 
     git cms-merge-topic ikrav:egm_id_747_v2
 
-Include [MET without HF](https://twiki.cern.ch/twiki/bin/view/CMS/MissingETUncertaintyPrescription#Instructions_for_7_4_X). This is a temporary solution.
-
-    git cms-merge-topic -u cms-met:METCorUnc74X
-
 
 3. Produce latino trees
 ====
