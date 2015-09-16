@@ -59,7 +59,7 @@ options.register ('doTauEmbed',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on DY embedding mode (can be \'True\' or \'False\')')
+                  'Turn on DY embedding mode (can be \'True\' or \'False\'')
 
 options.register ('selection',
                   'Tight',
@@ -71,31 +71,31 @@ options.register ('doSameSign',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on Same Sign mode (can be \'True\' or \'False\')')
+                  'Turn on Same Sign mode (can be \'True\' or \'False\'')
 
 options.register ('doType01met',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on Type01 met correction Sign mode (can be \'True\' or \'False\')')
+                  'Turn on Type01 met correction Sign mode (can be \'True\' or \'False\'')
 
 options.register ('doSusy',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on Susy MC dumper (can be \'True\' or \'False\')')
+                  'Turn on Susy MC dumper (can be \'True\' or \'False\'')
 
 options.register ('doHiggs',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on Higgs MC mass dumper (can be \'True\' or \'False\')')
+                  'Turn on Higgs MC mass dumper (can be \'True\' or \'False\'')
 
 options.register ('doLHE',
-                  False, # default value
+                  True, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on LHE dumper (can be \'True\' or \'False\')')
+                  'Turn on LHE dumper (can be \'True\' or \'False\'')
 
 options.register ('typeLHEcomment',
                   0, # default value
@@ -107,19 +107,19 @@ options.register ('doGen',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on gen Variables dumper (can be \'True\' or \'False\')')
+                  'Turn on gen Variables dumper (can be \'True\' or \'False\'')
 
 options.register ('doGenVV',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on gen truth Variables dumper, specific for VV final state (can be \'True\' or \'False\')')
+                  'Turn on gen truth Variables dumper, specific for VV final state (can be \'True\' or \'False\'')
 
 options.register ('doNoFilter',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on no filter requirement, not even requiring 2 leptons! Needed for unfolding at GEN (can be \'True\' or \'False\')')
+                  'Turn on no filter requirement, not even requiring 2 leptons! Needed for unfolding at GEN (can be \'True\' or \'False\'')
 
 options.register ('doCut',
                   '1',
@@ -131,25 +131,25 @@ options.register ('doMuonIsoId',
                   True, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on muon id/iso dumper (can be \'True\' or \'False\')')
+                  'Turn on muon id/iso dumper (can be \'True\' or \'False\'')
 
 options.register ('doEleIsoId',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on electron id/iso dumper (can be \'True\' or \'False\')')
+                  'Turn on electron id/iso dumper (can be \'True\' or \'False\'')
 
 options.register ('acceptDuplicates',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'accept duplicates. Suggested true for private production (can be \'True\' or \'False\')')
+                  'accept duplicates. Suggested true for private production (can be \'True\' or \'False\'')
 
 options.register ('doFatJet',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on Fat jet production and dumper (can be \'True\' or \'False\')')
+                  'Turn on Fat jet production and dumper (can be \'True\' or \'False\'')
 
 options.register ('puInformation',
                   'addPileupInfo', # default value
@@ -161,19 +161,19 @@ options.register ('doPhotonID',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on photon ID variables (can be \'True\' or \'False\')')
+                  'Turn on photon ID variables (can be \'True\' or \'False\'')
 
 options.register ('doIsoStudy',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on isolation studies, additional variables, ... (can be \'True\' or \'False\')')
+                  'Turn on isolation studies, additional variables, ... (can be \'True\' or \'False\'')
 
 options.register ('runPUPPISequence',
                   True,
                   opts.VarParsing.multiplicity.singleton,
                   opts.VarParsing.varType.bool,
-                  'Turn on PUPPI jets (can be \'True\' or \'False\')')
+                  'Turn on PUPPI jets (can be \'True\' or \'False\'')
 
 options.register ('globalTag',
                   'MCRUN2_74_V9',
@@ -185,37 +185,31 @@ options.register ('doBTag',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on bTagging variables dumper (can be \'True\' or \'False\')')
+                  'Turn on bTagging variables dumper (can be \'True\' or \'False\'')
 
 options.register ('doMCweights',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on MC weights dumper (can be \'True\' or \'False\')')
+                  'Turn on MC weights dumper (can be \'True\' or \'False\'')
 
 options.register ('LHEweightSource',
                   'externalLHEProducer', # default value
                    opts.VarParsing.multiplicity.singleton,
                    opts.VarParsing.varType.string,
-                  'LHE weight source. It depends on sample and on how they were produced: pLHE, wMLHE, ... (suggested options  \'externalLHEProducer\' or \'source\')')
+                  'LHE weight source. It depends on sample and on how they were produced: pLHE, wMLHE, ... (suggested options  \'externalLHEProducer\' or \'source\'')
 
 options.register ('doSoftActivity',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on soft activity variables (can be \'True\' or \'False\')')
+                  'Turn on soft activity variables (can be \'True\' or \'False\'')
 
 options.register ('is50ns',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Switch between 50ns and 25ns (can be \'True\' or \'False\')')
-
-options.register ('isPromptRecoData',
-                  False, # default value
-                  opts.VarParsing.multiplicity.singleton, # singleton or list
-                  opts.VarParsing.varType.bool,
-                  'Switch between PAT and RECO process names for the MET filters (can be \'True\' or \'False\')')
+                  'Use V5 JEC for CHS jets (can be \'True\' or \'False\'')
 
 #-------------------------------------------------------------------------------
 # defaults
@@ -254,11 +248,11 @@ process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(options.su
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(options.maxEvents) )
 
 
-#process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
-process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+#process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
-#globalTag = options.globalTag + "::All"
-globalTag = options.globalTag
+globalTag = options.globalTag + "::All"
+#globalTag = options.globalTag
 #process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 #
@@ -335,10 +329,14 @@ import LatinoTrees.AnalysisStep.globalVariables as globalVariables
 process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
 
+
+# change trigger according to 50ns/25ns/MC
 if options.is50ns :
-    process.skimEventProducer.apply50nsValues = cms.bool(True)
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
 else :
-    process.skimEventProducer.apply50nsValues = cms.bool(False) 
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
+ 
+
 
 
 # Default parameters for jets
@@ -410,16 +408,6 @@ print " >> idn = ", idn
 stepBTree.variables.dataset = str(idn)
 
 
-# Change TriggerResults process name (for the MET filters) according to MC/PromptRecoData/17Jul2015Data
-# https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2015#ETmiss_filters
-if isMC :
-  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
-elif options.isPromptRecoData :
-  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","RECO")
-else : 
-  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
-
-
 # save triggers only in DATA
 if not isMC :
     setattr(stepBTree.variables, "std_vector_trigger",           cms.string("selectedRateTrigger/13") )
@@ -454,6 +442,8 @@ else:
     stepBTree.variables.puBW = cms.string("1")
 
 
+
+
 ####################
 # run electron id ##
 from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
@@ -461,36 +451,8 @@ dataFormat = DataFormat.MiniAOD
 switchOnVIDElectronIdProducer(process, dataFormat)
 
 # define which IDs we want to produce
-if options.is50ns :
-    my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_50ns_V1_cff',
-                     'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
-
-    process.skimEventProducer.electronIds = cms.vstring(
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-veto",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-loose",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-medium",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-tight",
-        )
-
-    stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","50ns")
-    stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","50ns")
-    stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","50ns")
-    stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","50ns")
-else :
-    my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
-                     'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
-
-    process.skimEventProducer.electronIds = cms.vstring(
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight",
-        )
-
-    stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","25ns")
-    stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","25ns")
-    stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","25ns")
-    stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","25ns")
+my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
+                 'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
 
 # add them to the VID producer
 for idmod in my_id_modules:
@@ -521,6 +483,61 @@ else:
 # then apply the new corrections
 process.load("JetMETCorrections.Configuration.JetCorrectionServices_cff")
 process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff")
+
+# load jet corrections 
+# process.prefer("ak4PFCHSL1FastL2L3") 
+
+# load V5 JEC
+toGetVPSet = cms.VPSet()
+
+if options.runPUPPISequence:
+    if isMC:
+        toGetVPSet.append( cms.PSet(
+                     record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_MC_AK4PFPuppi'),
+                     label  = cms.untracked.string('AK4PFPuppi')
+                     )
+        )
+        connectString = cms.string('sqlite:Summer15_50nsV5_MC.db')
+    else:
+        toGetVPSet.append( cms.PSet(
+                     record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_DATA_AK4PFPuppi'),
+                     label  = cms.untracked.string('AK4PFPuppi')
+                     ),
+                )
+        connectString = cms.string('sqlite:Summer15_50nsV5_DATA.db')
+
+if options.is50ns:
+    if isMC:
+        toGetVPSet.append( cms.PSet(
+                     record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_MC_AK4PFchs'),
+                     label  = cms.untracked.string('AK4PFchs')
+                     )
+        )
+        connectString = cms.string('sqlite:Summer15_50nsV5_MC.db')
+    else:
+        toGetVPSet.append( cms.PSet(
+                     record = cms.string('JetCorrectionsRecord'),
+                     tag    = cms.string('JetCorrectorParametersCollection_Summer15_50nsV5_DATA_AK4PFchs'),
+                     label  = cms.untracked.string('AK4PFchs')
+                     ),
+                )
+        connectString = cms.string('sqlite:Summer15_50nsV5_DATA.db')
+
+if options.runPUPPISequence or options.is50ns:
+    process.load("CondCore.DBCommon.CondDBCommon_cfi")
+    process.jec = cms.ESSource("PoolDBESSource",
+            DBParameters = cms.PSet(
+                messageLevel = cms.untracked.int32(0)
+                ),
+            timetype = cms.string('runnumber'),
+            toGet = toGetVPSet,
+            connect = connectString
+            )        
+    process.es_prefer_jec = cms.ESPrefer('PoolDBESSource','jec')
+
 
 from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
 #from RecoJets.JetProducers.jetToolbox_cff import jetToolbox
@@ -618,6 +635,10 @@ from LatinoTrees.AnalysisStep.skimEventProducer_cfi import addEventHypothesis
 process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","HLT")
 #process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","PAT")
 
+# old productions DATA
+#process.skimEventProducer.triggerSpecialTag = cms.InputTag("")
+
+
 if doTauEmbed == True:
   process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","EmbeddedRECO")
   process.skimEventProducer.mcGenWeightTag = cms.InputTag("generator:minVisPtFilter")
@@ -641,9 +662,9 @@ if doSusy == True :
 if doHiggs == True :
     getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
 
-if doLHE == True :
-    getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"
-    getattr(process,"ww%s"% (labelSetup)).whichLHE = cms.untracked.int32(typeLHEcomment)
+#if doLHE == True :
+    #getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"
+    #getattr(process,"ww%s"% (labelSetup)).whichLHE = cms.untracked.int32(typeLHEcomment)
 
 
 if doGen == True :
@@ -726,41 +747,41 @@ if options.doPhotonID:
 addPhotonVariables(process,tree)
 
 # LHE information dumper
-if doLHE:
-  addLHEVariables(process,tree)
+#if doLHE:
+  #addLHEVariables(process,tree)
 
-  tree.variables.numbLHE = cms.string("numberOfbQuarks()")
-  tree.variables.numtLHE = cms.string("numberOftQuarks()")
+  #tree.variables.numbLHE = cms.string("numberOfbQuarks()")
+  #tree.variables.numtLHE = cms.string("numberOftQuarks()")
 
-  tree.variables.HEPMCweightScale0 = cms.string("HEPMCweightScale(0)")
-  tree.variables.HEPMCweightScale1 = cms.string("HEPMCweightScale(1)")
-  tree.variables.HEPMCweightScale2 = cms.string("HEPMCweightScale(2)")
-  tree.variables.HEPMCweightScale3 = cms.string("HEPMCweightScale(3)")
-  tree.variables.HEPMCweightScale4 = cms.string("HEPMCweightScale(4)")
-  tree.variables.HEPMCweightScale5 = cms.string("HEPMCweightScale(5)")
-  tree.variables.HEPMCweightScale6 = cms.string("HEPMCweightScale(6)")
+  #tree.variables.HEPMCweightScale0 = cms.string("HEPMCweightScale(0)")
+  #tree.variables.HEPMCweightScale1 = cms.string("HEPMCweightScale(1)")
+  #tree.variables.HEPMCweightScale2 = cms.string("HEPMCweightScale(2)")
+  #tree.variables.HEPMCweightScale3 = cms.string("HEPMCweightScale(3)")
+  #tree.variables.HEPMCweightScale4 = cms.string("HEPMCweightScale(4)")
+  #tree.variables.HEPMCweightScale5 = cms.string("HEPMCweightScale(5)")
+  #tree.variables.HEPMCweightScale6 = cms.string("HEPMCweightScale(6)")
 
-  if typeLHEcomment == 1 :
-     #import ROOT
-     for i in range (70) :
-         #ROOT.gROOT.ProcessLine("tree.variables.HEPMCweightScale" + str(i+7) + " = cms.string(\"HEPMCweightScale(" + str(i+7) + ")\")")
-         exec("tree.variables.HEPMCweightScale" + str(i+7) + " = cms.string(\"HEPMCweightScale(" + str(i+7) + ")\")")
+  #if typeLHEcomment == 1 :
+     ##import ROOT
+     #for i in range (70) :
+         ##ROOT.gROOT.ProcessLine("tree.variables.HEPMCweightScale" + str(i+7) + " = cms.string(\"HEPMCweightScale(" + str(i+7) + ")\")")
+         #exec("tree.variables.HEPMCweightScale" + str(i+7) + " = cms.string(\"HEPMCweightScale(" + str(i+7) + ")\")")
 
-  tree.variables.HEPMCweightRen0 = cms.string("HEPMCweightRen(0)")
-  tree.variables.HEPMCweightRen1 = cms.string("HEPMCweightRen(1)")
-  tree.variables.HEPMCweightRen2 = cms.string("HEPMCweightRen(2)")
-  tree.variables.HEPMCweightRen3 = cms.string("HEPMCweightRen(3)")
-  tree.variables.HEPMCweightRen4 = cms.string("HEPMCweightRen(4)")
-  tree.variables.HEPMCweightRen5 = cms.string("HEPMCweightRen(5)")
-  tree.variables.HEPMCweightRen6 = cms.string("HEPMCweightRen(6)")
+  #tree.variables.HEPMCweightRen0 = cms.string("HEPMCweightRen(0)")
+  #tree.variables.HEPMCweightRen1 = cms.string("HEPMCweightRen(1)")
+  #tree.variables.HEPMCweightRen2 = cms.string("HEPMCweightRen(2)")
+  #tree.variables.HEPMCweightRen3 = cms.string("HEPMCweightRen(3)")
+  #tree.variables.HEPMCweightRen4 = cms.string("HEPMCweightRen(4)")
+  #tree.variables.HEPMCweightRen5 = cms.string("HEPMCweightRen(5)")
+  #tree.variables.HEPMCweightRen6 = cms.string("HEPMCweightRen(6)")
 
-  tree.variables.HEPMCweightFac0 = cms.string("HEPMCweightFac(0)")
-  tree.variables.HEPMCweightFac1 = cms.string("HEPMCweightFac(1)")
-  tree.variables.HEPMCweightFac2 = cms.string("HEPMCweightFac(2)")
-  tree.variables.HEPMCweightFac3 = cms.string("HEPMCweightFac(3)")
-  tree.variables.HEPMCweightFac4 = cms.string("HEPMCweightFac(4)")
-  tree.variables.HEPMCweightFac5 = cms.string("HEPMCweightFac(5)")
-  tree.variables.HEPMCweightFac6 = cms.string("HEPMCweightFac(6)")
+  #tree.variables.HEPMCweightFac0 = cms.string("HEPMCweightFac(0)")
+  #tree.variables.HEPMCweightFac1 = cms.string("HEPMCweightFac(1)")
+  #tree.variables.HEPMCweightFac2 = cms.string("HEPMCweightFac(2)")
+  #tree.variables.HEPMCweightFac3 = cms.string("HEPMCweightFac(3)")
+  #tree.variables.HEPMCweightFac4 = cms.string("HEPMCweightFac(4)")
+  #tree.variables.HEPMCweightFac5 = cms.string("HEPMCweightFac(5)")
+  #tree.variables.HEPMCweightFac6 = cms.string("HEPMCweightFac(6)")
 
 if doGen: addGenVariables(process,tree)
 
@@ -878,7 +899,7 @@ process.WeightDumperAnalyzer = cms.EDAnalyzer('WeightDumper',
      debug              = cms.untracked.bool(False)
   )
 
-if isMC :
+if isMC and doLHE :
   process.WeightDumperAnalyzerPath = cms.Path(process.WeightDumperAnalyzer)
 ##
 ##

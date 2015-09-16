@@ -2,7 +2,7 @@ import os
 from WMCore.Configuration import Configuration
 config = Configuration()
 
-pyCfgParams = ['outputFile=stepB_MC.root', 'selection=LooseNoIso', 'doNoFilter=False', 'doMuonIsoId=True', 'doEleIsoId=True', 'doGen=True', 'doBTag=True', 'doLHE=False', 'runPUPPISequence=True']
+pyCfgParams = ['outputFile=stepB_MC.root', 'selection=LooseNoIso', 'doNoFilter=False', 'doMuonIsoId=True', 'doEleIsoId=True', 'doGen=True', 'doBTag=True', 'runPUPPISequence=True']
 
 config.section_('General')
 config.General.transferLogs = True
