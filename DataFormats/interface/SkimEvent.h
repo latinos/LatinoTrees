@@ -563,6 +563,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    void setMinPtForJets(double value);            
             void setDzCutForBtagJets(double value);
 	    void setApplyCorrectionForJets(bool flag);
+	    void setApply50nsValues(bool flag);
             void setApplyIDForJets(int jetidvalue); 
             
             void setPuJetIdDiscriminantName(std::string pujetiddiscriminant); 
@@ -828,6 +829,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             double minPtForJets_;
 	    double dzCutForBtagJets_;
 	    bool   applyCorrectionForJets_;
+	    bool   apply50nsValues_;
 	    int    applyIDForJets_;
  
             int    applyJetCleaning_;

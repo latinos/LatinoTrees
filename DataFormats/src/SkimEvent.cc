@@ -177,6 +177,7 @@ reco::SkimEvent::SkimEvent() :
  maxEtaForJets_ = 4.7;
  minPtForJets_ = 0;
  applyCorrectionForJets_ = 1;
+ apply50nsValues_ = 0;
  applyIDForJets_ = 0;
  dzCutForBtagJets_ = 999999.9;
 
@@ -204,6 +205,9 @@ void reco::SkimEvent::setMaxEtaForJets(double value) {
 }
 void reco::SkimEvent::setMinPtForJets(double value) {
  minPtForJets_ = value;
+}
+void reco::SkimEvent::setApply50nsValues(bool flag) {
+ apply50nsValues_ = flag;
 }
 void reco::SkimEvent::setApplyCorrectionForJets(bool flag) {
  applyCorrectionForJets_ = flag;
@@ -5798,23 +5802,28 @@ void reco::SkimEvent::InitEffectiveAreasElectrons()
   // https://indico.cern.ch/event/369239/contribution/4/attachments/1134761/1623262/talk_effective_areas_25ns.pdf
 
   // 50ns
-//  _eaElectronIso[0] = 0.1733;
-//  _eaElectronIso[1] = 0.1782;
-//  _eaElectronIso[2] = 0.1238;
-//  _eaElectronIso[3] = 0.1571;
-//  _eaElectronIso[4] = 0.2095;
-//  _eaElectronIso[5] = 0.2425;
-//  _eaElectronIso[6] = 0.2935;
-
+  if (apply50nsValues_)
+    {
+      _eaElectronIso[0] = 0.1733;
+      _eaElectronIso[1] = 0.1782;
+      _eaElectronIso[2] = 0.1238;
+      _eaElectronIso[3] = 0.1571;
+      _eaElectronIso[4] = 0.2095;
+      _eaElectronIso[5] = 0.2425;
+      _eaElectronIso[6] = 0.2935;
+    }
   // 25ns
-  _eaElectronIso[0] = 0.1752;
-  _eaElectronIso[1] = 0.1862;
-  _eaElectronIso[2] = 0.1411;
-  _eaElectronIso[3] = 0.1534;
-  _eaElectronIso[4] = 0.1903;
-  _eaElectronIso[5] = 0.2243;
-  _eaElectronIso[6] = 0.2687;
-} 
+  else
+    {
+      _eaElectronIso[0] = 0.1752;
+      _eaElectronIso[1] = 0.1862;
+      _eaElectronIso[2] = 0.1411;
+      _eaElectronIso[3] = 0.1534;
+      _eaElectronIso[4] = 0.1903;
+      _eaElectronIso[5] = 0.2243;
+      _eaElectronIso[6] = 0.2687;
+    } 
+}
 
 
 const float reco::SkimEvent::GetElectronEffectiveArea(size_t i) const

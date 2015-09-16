@@ -65,12 +65,13 @@ struct JetInfo {
         reco::MET computeTrkMet(const reco::Vertex &pv,
 	    edm::Handle<pat::PackedCandidateCollection> pfCandsH);
  
-        int applyJetCleaning_;
+	bool   applyCorrectionForJets_;
+	bool   apply50nsValues_;
+	int    applyIDForJets_;
+        int    applyJetCleaning_;
         double maxEtaForJets_;
 	double minPtForJets_;
 	double dzCutForBtagJets_;
-	bool applyCorrectionForJets_;
-	int applyIDForJets_;
         
         double _maxDrSoftMuonJet;
         double _minPtSoftMuon;

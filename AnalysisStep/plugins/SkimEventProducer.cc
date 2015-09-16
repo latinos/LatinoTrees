@@ -90,6 +90,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     minPtForJets_	    = cfg.getParameter<double>("minPtForJets"); 
     dzCutForBtagJets_	    = cfg.getParameter<double>("dzCutForBtagJets");
     applyCorrectionForJets_ = cfg.getParameter<bool>("applyCorrectionForJets");
+    apply50nsValues_        = cfg.getParameter<bool>("apply50nsValues");
     applyIDForJets_	    = cfg.getParameter<int>("applyIDForJets");
  
     _maxDrSoftMuonJet       = cfg.getParameter<double>("maxDrSoftMuonJet");
@@ -432,6 +433,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setGenJets(genJetH);
     }
 
+    //---- apply 50ns values
+    skimEvent->back().setApply50nsValues(apply50nsValues_);
     //---- apply jet cleaning using lepton collection
     skimEvent->back().setApplyJetCleaning(applyJetCleaning_);
     //---- maximum eta for jets for default values
