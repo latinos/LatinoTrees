@@ -727,9 +727,12 @@ const float reco::SkimEvent::jetSoftMuonPhi(size_t index, float minPtMuon, float
 }
 
 
+const float reco::SkimEvent::GetElectronEffectiveAreaByPt(size_t i = 0) const {
+  return GetElectronEffectiveArea(indexByPt(i), apply50nsValues_);
+}
 
 const float reco::SkimEvent::jetSoftMuonIsoByPt(size_t i = 0) const {
- return jetSoftMuonIso(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+ return jetSoftMuonIso(i, _minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
 }
 
 const float reco::SkimEvent::jetSoftMuonIso(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
@@ -5802,45 +5805,42 @@ void reco::SkimEvent::InitEffectiveAreasElectrons()
   // https://indico.cern.ch/event/369239/contribution/4/attachments/1134761/1623262/talk_effective_areas_25ns.pdf
 
   // 50ns
-  if (apply50nsValues_)
-    {
-      _eaElectronIso[0] = 0.1733;
-      _eaElectronIso[1] = 0.1782;
-      _eaElectronIso[2] = 0.1238;
-      _eaElectronIso[3] = 0.1571;
-      _eaElectronIso[4] = 0.2095;
-      _eaElectronIso[5] = 0.2425;
-      _eaElectronIso[6] = 0.2935;
-    }
+  _eaElectronIso[0][1] = 0.1733;
+  _eaElectronIso[1][1] = 0.1782;
+  _eaElectronIso[2][1] = 0.1238;
+  _eaElectronIso[3][1] = 0.1571;
+  _eaElectronIso[4][1] = 0.2095;
+  _eaElectronIso[5][1] = 0.2425;
+  _eaElectronIso[6][1] = 0.2935;
+
   // 25ns
-  else
-    {
-      _eaElectronIso[0] = 0.1752;
-      _eaElectronIso[1] = 0.1862;
-      _eaElectronIso[2] = 0.1411;
-      _eaElectronIso[3] = 0.1534;
-      _eaElectronIso[4] = 0.1903;
-      _eaElectronIso[5] = 0.2243;
-      _eaElectronIso[6] = 0.2687;
-    } 
+  _eaElectronIso[0][0] = 0.1752;
+  _eaElectronIso[1][0] = 0.1862;
+  _eaElectronIso[2][0] = 0.1411;
+  _eaElectronIso[3][0] = 0.1534;
+  _eaElectronIso[4][0] = 0.1903;
+  _eaElectronIso[5][0] = 0.2243;
+  _eaElectronIso[6][0] = 0.2687;
 }
 
 
-const float reco::SkimEvent::GetElectronEffectiveArea(size_t i) const
+const float reco::SkimEvent::GetElectronEffectiveArea(size_t i, bool apply50nsValues) const
 {
+  int use50ns = (apply50nsValues) ? 1 : 0;
+  
   if (i >= leps_.size()) return defaultvalues::defaultFloat;
 
   if (isElectron(i))
     {
       float aeta = fabs(leps_.at(i)->eta());
 
-      if      (aeta <  1.000)                 return _eaElectronIso[0];
-      else if (aeta >= 1.000 && aeta < 1.479) return _eaElectronIso[1];
-      else if (aeta >= 1.479 && aeta < 2.000) return _eaElectronIso[2];
-      else if (aeta >= 2.000 && aeta < 2.200) return _eaElectronIso[3];
-      else if (aeta >= 2.200 && aeta < 2.300) return _eaElectronIso[4];
-      else if (aeta >= 2.300 && aeta < 2.400) return _eaElectronIso[5];
-      else if (aeta >= 2.400 && aeta < 2.500) return _eaElectronIso[6];
+      if      (aeta <  1.000)                 return _eaElectronIso[0][use50ns];
+      else if (aeta >= 1.000 && aeta < 1.479) return _eaElectronIso[1][use50ns];
+      else if (aeta >= 1.479 && aeta < 2.000) return _eaElectronIso[2][use50ns];
+      else if (aeta >= 2.000 && aeta < 2.200) return _eaElectronIso[3][use50ns];
+      else if (aeta >= 2.200 && aeta < 2.300) return _eaElectronIso[4][use50ns];
+      else if (aeta >= 2.300 && aeta < 2.400) return _eaElectronIso[5][use50ns];
+      else if (aeta >= 2.400 && aeta < 2.500) return _eaElectronIso[6][use50ns];
       else                                    return defaultvalues::defaultFloat; 
     }
   else return defaultvalues::defaultFloat; 
@@ -5908,7 +5908,8 @@ double reco::SkimEvent::ChoosePhotonEffectiveArea(int type, double phoEta) const
  
 }
 
-void reco::SkimEvent::InitEffectiveAreasPhoton(){
+void reco::SkimEvent::InitEffectiveAreasPhoton()
+{
  //double eaPhotonIso_[eta range][0: charged, 1: neutral, 2: photon] 
  //
  //abs(eta) < 1.0

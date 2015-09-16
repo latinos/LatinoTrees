@@ -12,6 +12,7 @@ export MYFILE=root://xrootd.unl.edu//store/data/Run2015B/DoubleEG/MINIAOD/17Jul2
 rm -rf latino_stepB_numEvent${EVENTS}.root
 
 cmsRun stepB.py print       \
+    is50ns=True             \
     globalTag=GR_P_V56      \
     label=DoubleEG          \
     outputFile=stepB.root   \

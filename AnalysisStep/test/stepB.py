@@ -59,7 +59,7 @@ options.register ('doTauEmbed',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on DY embedding mode (can be \'True\' or \'False\'')
+                  'Turn on DY embedding mode (can be \'True\' or \'False\')')
 
 options.register ('selection',
                   'Tight',
@@ -71,31 +71,31 @@ options.register ('doSameSign',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on Same Sign mode (can be \'True\' or \'False\'')
+                  'Turn on Same Sign mode (can be \'True\' or \'False\')')
 
 options.register ('doType01met',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on Type01 met correction Sign mode (can be \'True\' or \'False\'')
+                  'Turn on Type01 met correction Sign mode (can be \'True\' or \'False\')')
 
 options.register ('doSusy',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on Susy MC dumper (can be \'True\' or \'False\'')
+                  'Turn on Susy MC dumper (can be \'True\' or \'False\')')
 
 options.register ('doHiggs',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on Higgs MC mass dumper (can be \'True\' or \'False\'')
+                  'Turn on Higgs MC mass dumper (can be \'True\' or \'False\')')
 
 options.register ('doLHE',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on LHE dumper (can be \'True\' or \'False\'')
+                  'Turn on LHE dumper (can be \'True\' or \'False\')')
 
 options.register ('typeLHEcomment',
                   0, # default value
@@ -107,19 +107,19 @@ options.register ('doGen',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on gen Variables dumper (can be \'True\' or \'False\'')
+                  'Turn on gen Variables dumper (can be \'True\' or \'False\')')
 
 options.register ('doGenVV',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on gen truth Variables dumper, specific for VV final state (can be \'True\' or \'False\'')
+                  'Turn on gen truth Variables dumper, specific for VV final state (can be \'True\' or \'False\')')
 
 options.register ('doNoFilter',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on no filter requirement, not even requiring 2 leptons! Needed for unfolding at GEN (can be \'True\' or \'False\'')
+                  'Turn on no filter requirement, not even requiring 2 leptons! Needed for unfolding at GEN (can be \'True\' or \'False\')')
 
 options.register ('doCut',
                   '1',
@@ -131,25 +131,25 @@ options.register ('doMuonIsoId',
                   True, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on muon id/iso dumper (can be \'True\' or \'False\'')
+                  'Turn on muon id/iso dumper (can be \'True\' or \'False\')')
 
 options.register ('doEleIsoId',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on electron id/iso dumper (can be \'True\' or \'False\'')
+                  'Turn on electron id/iso dumper (can be \'True\' or \'False\')')
 
 options.register ('acceptDuplicates',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'accept duplicates. Suggested true for private production (can be \'True\' or \'False\'')
+                  'accept duplicates. Suggested true for private production (can be \'True\' or \'False\')')
 
 options.register ('doFatJet',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on Fat jet production and dumper (can be \'True\' or \'False\'')
+                  'Turn on Fat jet production and dumper (can be \'True\' or \'False\')')
 
 options.register ('puInformation',
                   'addPileupInfo', # default value
@@ -161,19 +161,19 @@ options.register ('doPhotonID',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on photon ID variables (can be \'True\' or \'False\'')
+                  'Turn on photon ID variables (can be \'True\' or \'False\')')
 
 options.register ('doIsoStudy',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on isolation studies, additional variables, ... (can be \'True\' or \'False\'')
+                  'Turn on isolation studies, additional variables, ... (can be \'True\' or \'False\')')
 
 options.register ('runPUPPISequence',
                   True,
                   opts.VarParsing.multiplicity.singleton,
                   opts.VarParsing.varType.bool,
-                  'Turn on PUPPI jets (can be \'True\' or \'False\'')
+                  'Turn on PUPPI jets (can be \'True\' or \'False\')')
 
 options.register ('globalTag',
                   'MCRUN2_74_V9',
@@ -185,37 +185,37 @@ options.register ('doBTag',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on bTagging variables dumper (can be \'True\' or \'False\'')
+                  'Turn on bTagging variables dumper (can be \'True\' or \'False\')')
 
 options.register ('doMCweights',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on MC weights dumper (can be \'True\' or \'False\'')
+                  'Turn on MC weights dumper (can be \'True\' or \'False\')')
 
 options.register ('LHEweightSource',
                   'externalLHEProducer', # default value
                    opts.VarParsing.multiplicity.singleton,
                    opts.VarParsing.varType.string,
-                  'LHE weight source. It depends on sample and on how they were produced: pLHE, wMLHE, ... (suggested options  \'externalLHEProducer\' or \'source\'')
+                  'LHE weight source. It depends on sample and on how they were produced: pLHE, wMLHE, ... (suggested options  \'externalLHEProducer\' or \'source\')')
 
 options.register ('doSoftActivity',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Turn on soft activity variables (can be \'True\' or \'False\'')
+                  'Turn on soft activity variables (can be \'True\' or \'False\')')
 
 options.register ('is50ns',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Use V5 JEC for CHS jets (can be \'True\' or \'False\'')
+                  'Switch between 50ns and 25ns (can be \'True\' or \'False\')')
 
 options.register ('isPromptRecoData',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
-                  'Switch between PAT and RECO process names for the MET filters (can be \'True\' or \'False\'')
+                  'Switch between PAT and RECO process names for the MET filters (can be \'True\' or \'False\')')
 
 #-------------------------------------------------------------------------------
 # defaults
@@ -333,6 +333,12 @@ import LatinoTrees.AnalysisStep.globalVariables as globalVariables
 # SkimEventProducer is where the objects are defined
 #  and all configurations and parameters are defined too
 process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
+
+
+if options.is50ns :
+    process.skimEventProducer.apply50nsValues = cms.bool(True)
+else :
+    process.skimEventProducer.apply50nsValues = cms.bool(False) 
 
 
 # Default parameters for jets
@@ -455,7 +461,6 @@ dataFormat = DataFormat.MiniAOD
 switchOnVIDElectronIdProducer(process, dataFormat)
 
 # define which IDs we want to produce
-process.skimEventProducer.apply50nsValues = cms.bool(options.is50ns) 
 if options.is50ns :
     my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_50ns_V1_cff',
                      'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']

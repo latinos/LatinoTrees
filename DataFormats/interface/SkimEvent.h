@@ -718,7 +718,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             // Electron ID
             void InitEffectiveAreasElectrons();
 
-            const float GetElectronEffectiveArea      (size_t i) const;
+            const float GetElectronEffectiveArea      (size_t i, bool apply50nsValues) const;
             const float deltaEtaSuperClusterTrackAtVtx(size_t i) const;           
             const float deltaPhiSuperClusterTrackAtVtx(size_t i) const;          
             const float full5x5_sigmaIetaIeta         (size_t i) const;
@@ -731,7 +731,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float expectedMissingInnerHits      (size_t i) const;
             const bool  passConversionVeto            (size_t i) const;
 
-            const float GetElectronEffectiveAreaByPt      (size_t i) const { return GetElectronEffectiveArea      (indexByPt(i)); }
+            const float GetElectronEffectiveAreaByPt      (size_t i) const;
             const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx(indexByPt(i)); }          
             const float deltaPhiSuperClusterTrackAtVtxByPt(size_t i) const { return deltaPhiSuperClusterTrackAtVtx(indexByPt(i)); }
             const float full5x5_sigmaIetaIetaByPt         (size_t i) const { return full5x5_sigmaIetaIeta         (indexByPt(i)); }
@@ -919,7 +919,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             std::vector <float> _specialBits;
             
             //---- electrons
-            float _eaElectronIso[7];
+            float _eaElectronIso[7][2];
             std::vector <std::string> _electronIds;
             std::map <std::string, std::vector<bool> > _electronIdsMap;
             
