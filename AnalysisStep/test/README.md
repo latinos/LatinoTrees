@@ -26,10 +26,6 @@
     git clone --branch 13TeV git@github.com:latinos/setup.git LatinosSetup
     source LatinosSetup/Setup.sh
 
-Get the [Spring15 MC and 25ns/50ns data cut-based electron ID](https://twiki.cern.ch/twiki/bin/viewauth/CMS/CutBasedElectronIdentificationRun2#Recipe_for_regular_users_for_747).
-
-    git cms-merge-topic ikrav:egm_id_747_v2
-
 
 3. Produce latino trees
 ====
