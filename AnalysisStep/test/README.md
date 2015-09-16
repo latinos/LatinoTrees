@@ -67,6 +67,8 @@ Submit jobs.
     python multicrab.py samples/samples_spring15.py
     python multicrab.py samples/samples_dataB_PromptReco.py
     python multicrab.py samples/samples_dataB_17Jul2015.py
+    python multicrab.py samples/samples_dataC_PromptReco_25ns.py
+    python multicrab.py samples/samples_dataC_PromptReco_50ns.py
 
 Resubmit jobs.
 
