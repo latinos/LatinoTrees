@@ -5792,43 +5792,50 @@ const float reco::SkimEvent::mllgid(int WP) const{
 
 //--- electrons
 
-void reco::SkimEvent::InitEffectiveAreasElectrons(){
- //---- see https://github.com/ikrav/cmssw/blob/work_in_progress_v2/EgammaAnalysis/ElectronTools/data/PHYS14/effAreaElectrons_cone03_pfNeuHadronsAndPhotons.txt
- 
-//  # |eta| min   |eta| max   effective area
-//  0.0000         0.8000        0.1013
-//  0.8000         1.3000        0.0988
-//  1.3000         2.0000        0.0572
-//  2.0000         2.2000        0.0842
-//  2.2000         5.0000        0.1530
- 
- //double _eaElectronIso[eta range]
- //
- _eaElectronIso[0] = 0.1013;
- _eaElectronIso[1] = 0.0988;
- _eaElectronIso[2] = 0.0572;
- _eaElectronIso[3] = 0.0842;
- _eaElectronIso[4] = 0.1530;
- 
+void reco::SkimEvent::InitEffectiveAreasElectrons()
+{
+  // See 2nd table in slide 14 of
+  // https://indico.cern.ch/event/369239/contribution/4/attachments/1134761/1623262/talk_effective_areas_25ns.pdf
+
+  // 50ns
+//  _eaElectronIso[0] = 0.1733;
+//  _eaElectronIso[1] = 0.1782;
+//  _eaElectronIso[2] = 0.1238;
+//  _eaElectronIso[3] = 0.1571;
+//  _eaElectronIso[4] = 0.2095;
+//  _eaElectronIso[5] = 0.2425;
+//  _eaElectronIso[6] = 0.2935;
+
+  // 25ns
+  _eaElectronIso[0] = 0.1752;
+  _eaElectronIso[1] = 0.1862;
+  _eaElectronIso[2] = 0.1411;
+  _eaElectronIso[3] = 0.1534;
+  _eaElectronIso[4] = 0.1903;
+  _eaElectronIso[5] = 0.2243;
+  _eaElectronIso[6] = 0.2687;
 } 
 
 
-const float reco::SkimEvent::GetElectronEffectiveArea(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- if( isElectron(i) ) {
-  float eta = leps_.at(i)->eta();
-  if( fabs(eta) < 0.8000 ) return _eaElectronIso[0];
-  else if( fabs(eta) >= 0.8000 && fabs(eta) < 1.3000 ) return _eaElectronIso[1];
-  else if( fabs(eta) >= 1.3000 && fabs(eta) < 2.0000 ) return _eaElectronIso[2];
-  else if( fabs(eta) >= 2.0000 && fabs(eta) < 2.2000 ) return _eaElectronIso[3];
-  else if( fabs(eta) >= 2.2000)                        return _eaElectronIso[4];
-  //  else if( fabs(eta) > 2.2000 && fabs(eta) < 5.0000 ) return _eaElectronIso[1]; 
+const float reco::SkimEvent::GetElectronEffectiveArea(size_t i) const
+{
+  if (i >= leps_.size()) return defaultvalues::defaultFloat;
+
+  if (isElectron(i))
+    {
+      float aeta = fabs(leps_.at(i)->eta());
+
+      if      (aeta <  1.000)                 return _eaElectronIso[0];
+      else if (aeta >= 1.000 && aeta < 1.479) return _eaElectronIso[1];
+      else if (aeta >= 1.479 && aeta < 2.000) return _eaElectronIso[2];
+      else if (aeta >= 2.000 && aeta < 2.200) return _eaElectronIso[3];
+      else if (aeta >= 2.200 && aeta < 2.300) return _eaElectronIso[4];
+      else if (aeta >= 2.300 && aeta < 2.400) return _eaElectronIso[5];
+      else if (aeta >= 2.400 && aeta < 2.500) return _eaElectronIso[6];
+      else                                    return defaultvalues::defaultFloat; 
+    }
   else return defaultvalues::defaultFloat; 
- }
- else return defaultvalues::defaultFloat; 
 }
-
-
 
 
 //--- Photon ID variables

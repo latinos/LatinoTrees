@@ -917,7 +917,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             std::vector <float> _specialBits;
             
             //---- electrons
-            float _eaElectronIso[5];
+            float _eaElectronIso[7];
             std::vector <std::string> _electronIds;
             std::map <std::string, std::vector<bool> > _electronIdsMap;
             
