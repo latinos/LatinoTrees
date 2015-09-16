@@ -32,13 +32,13 @@
 
 *Do this only if you want to create a tag.*
 
-    git tag -a 10August2015 -m 'Triggers fixed'
-    git push origin 10August2015
+    git tag -a 16September2015 -m 'Triggers fixed'
+    git push origin 16September2015
 
 *Do this only if you want to use a tag.*
 
     cd LatinoTrees
-    git checkout tags/10August2015
+    git checkout tags/16September2015
 
 Test the latino tree production.
 
@@ -72,17 +72,17 @@ Submit jobs.
 
 Resubmit jobs.
 
-    python multicrab.py crab_projects_5August resubmit
+    python multicrab.py crab_projects_16September resubmit
 
 Check status.
     
-    crab status crab_projects_5August/PromptReco_crab_DoubleEG
+    crab status crab_projects_16September/PromptReco_crab_DoubleEG
 
-    python multicrab.py crab_projects_5August status
+    python multicrab.py crab_projects_16September status
 
 *Only for data.* Report the non-analyzed luminosity sections.
 
-    crab report -d crab_projects_5August/PromptReco_crab_DoubleEG
+    crab report -d crab_projects_16September/PromptReco_crab_DoubleEG
 
 
 6. Run cmssw2latino
