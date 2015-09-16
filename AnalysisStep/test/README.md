@@ -32,7 +32,7 @@
 
 *Do this only if you want to create a tag.*
 
-    git tag -a 16September2015 -m 'Triggers fixed'
+    git tag -a 16September2015 -m 'Ready for the next production'
     git push origin 16September2015
 
 *Do this only if you want to use a tag.*
