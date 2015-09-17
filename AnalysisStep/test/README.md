@@ -32,8 +32,8 @@
 
 *Do this only if you want to create a tag.*
 
-    git tag -a 17September2015 -m 'Ready for the next production'
-    git push origin 17September2015
+    git tag -a 17September2015_v2 -m 'Ready for the next production'
+    git push origin 17September2015_v2
 
 *Do this only if you want to use a tag.*
 
