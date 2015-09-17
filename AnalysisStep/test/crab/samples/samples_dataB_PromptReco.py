@@ -8,7 +8,7 @@ samples['PromptReco_DoubleMuonLowMass'] = ['/DoubleMuonLowMass/Run2015B-PromptRe
 samples['PromptReco_SingleMuon']        = ['/SingleMuon/Run2015B-PromptReco-v1/MINIAOD',        ['label=SingleMuon']]
 samples['PromptReco_MuonEG']            = ['/MuonEG/Run2015B-PromptReco-v1/MINIAOD',            ['label=MuEG']]
 
-pyCfgParams.append('globalTag=GR_P_V56')
+pyCfgParams.append('globalTag=74X_dataRun2_v2')
 pyCfgParams.append('is50ns=True')
 pyCfgParams.append('isPromptRecoData=True')
 
