@@ -145,9 +145,56 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
 
 
     SelectedPaths = cms.vstring(
+        
+        # Physics paths: needed to choose a posteriori the soup
         "HLT_Ele27_eta2p1_WPLoose_Gsf_v1",
-        "HLT_Ele27_eta2p1_WPLoose_Gsf_v2",
+        "HLT_Ele27_eta2p1_WPLoose_Gsf_v2",        
+        "HLT_Ele23_WPLoose_Gsf_v1",
+        "HLT_Ele23_WPLoose_Gsf_v2",
+        "HLT_Ele22_eta2p1_WPLoose_Gsf_v1",        
+        "HLT_Ele22_eta2p1_WPLoose_Gsf_v2",        
         "HLT_Ele27_eta2p1_WPTight_Gsf_v1",
+         
+         
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v1",
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v2",
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v3",
+        "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v1",
+        "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v2",
+        "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v3",
+     
+     
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v1",
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v2",
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v3",
+        "HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v1",
+        "HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v2",
+        "HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v3",
+        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v1",
+        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v2",
+        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v3",
+        "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v1",
+        "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v2",
+        "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v3",
+
+
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v1",
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v2",
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v1",
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v2",
+        "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v1",
+        "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v2",
+        "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v1",
+        "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v2",
+        "HLT_Mu27_TkMu8_v1",
+        "HLT_Mu27_TkMu8_v2",
+
+        "HLT_IsoMu20_v1",
+        "HLT_IsoMu20_v2",
+        "HLT_IsoTkMu20_v1",
+        "HLT_IsoTkMu20_v2",
+        "HLT_IsoTkMu20_v3",
+
 
         # Muon (8 paths)
         "HLT_Mu8_v1",
