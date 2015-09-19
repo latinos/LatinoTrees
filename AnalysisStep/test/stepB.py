@@ -872,7 +872,8 @@ process.TriggerAnalyzerPath = cms.Path(process.TriggerAnalyzer)
 ## Weights dumper
 ##   dump weights with NO selections applied
 process.WeightDumperAnalyzer = cms.EDAnalyzer('WeightDumper',
-     mcLHEEventInfoTag  = cms.InputTag("externalLHEProducer"),
+     mcLHEEventInfoTag  = cms.InputTag(options.LHEweightSource),
+     #mcLHEEventInfoTag  = cms.InputTag("externalLHEProducer"),
      #mcLHEEventInfoTag = cms.InputTag("source"),
      genEvtInfoTag      = cms.InputTag("generator"), 
      debug              = cms.untracked.bool(False)
