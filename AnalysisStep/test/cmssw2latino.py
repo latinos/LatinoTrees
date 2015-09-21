@@ -27,6 +27,10 @@ def probe2latino(chans,ifile,ofile):
   inputFile = ROOT.TFile(ifile)
   h = inputFile.Get("AllEvents/totalEvents")  
   htrigger = inputFile.Get("TriggerAnalyzer/totalEventsTriggers")  
+  # MC
+  trpileup = inputFile.Get("PileUpDumperAnalyzer/myTree")  
+  trmcweight = inputFile.Get("WeightDumperAnalyzer/myTree") 
+  
   if h :
     print " - histogram events found"
     h.SetName('totalEvents')
@@ -39,6 +43,20 @@ def probe2latino(chans,ifile,ofile):
     outputFile.cd() 
     htrigger.Write()
 
+  # for MC
+  if trpileup :
+    print " - tree with pileup information"
+    outputFile.cd() 
+    newtrpileup = trpileup.CloneTree()
+    newtrpileup.SetName('pu')
+    newtrpileup.Write()
+
+  if trmcweight :
+    print " - tree with MC weights"
+    outputFile.cd() 
+    newtrmcweight = trmcweight.CloneTree()
+    newtrmcweight.SetName('mcweight')
+    newtrmcweight.Write()
 
 from optparse import OptionParser
 usage='''
