@@ -15,7 +15,7 @@ rm -rf latino_stepB_numEvent${EVENTS}.root
 
 cmsRun stepB.py print         \
     is50ns=True               \
-    isPromptRecoData=False    \
+    isPromptRecoData=True     \
     globalTag=74X_dataRun2_v2 \
     label=DoubleMuon          \
     outputFile=stepB.root     \

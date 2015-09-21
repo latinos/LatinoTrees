@@ -204,7 +204,8 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
  
  typedef std::vector<LHERunInfoProduct::Header>::const_iterator headers_const_iterator;
  
- iRun.getByLabel( "externalLHEProducer", run );
+ //iRun.getByLabel( "externalLHEProducer", run );
+ iRun.getByLabel( mcLHEEventInfoTag_, run );
  
  LHERunInfoProduct myLHERunInfoProduct = *(run.product());
  
