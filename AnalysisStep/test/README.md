@@ -37,8 +37,9 @@
 
 *Do this only if you want to use a tag.*
 
-    cd LatinoTrees
+    pushd LatinoTrees
     git checkout tags/17September2015_v7
+    popd
 
 Test the latino tree production.
 
