@@ -780,13 +780,12 @@ if options.doFatJet :
 addTau(process,tree)
 
 if doMCweights:
-  addMCweights(process,tree)
-  # if you add weights you need LHE and GEN
-  # getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"  #----> the name of this collection is sample dependent!!! What!?!? BE CAREFUL!
-  # getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "externalLHEProducer"
-  getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = options.LHEweightSource
-  
-  getattr(process,"ww%s"% (labelSetup)).mcGenEventInfoTag = "generator"
+    addMCweights(process,tree)
+    # if you add weights you need LHE and GEN
+    # getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"  #----> the name of this collection is sample dependent!!! What!?!? BE CAREFUL!
+    # getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "externalLHEProducer"
+    getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = options.LHEweightSource
+    getattr(process,"ww%s"% (labelSetup)).mcGenEventInfoTag = "generator"
 
 
 if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
