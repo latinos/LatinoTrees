@@ -81,7 +81,26 @@ samples['25ns_GluGluHToWWTo2L2NuAMCNLO_M125']    = ['/GluGluHToWWTo2L2Nu_M125_13
 samples['25ns_VBFHToWWTo2L2NuAMCNLO_M125']       = ['/VBFHToWWTo2L2Nu_M125_13TeV_amcatnlo_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                   ['label=VBFHToWWTo2L2NuAMCNLO_M125',       'id=08125', 'doMCweights=True']]
 
 samples['25ns_GluGluHToZZTo4L_M125']    = ['/GluGluHToZZTo4L_M125_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                       ['label=GluGluHToZZTo4L_M125',    'id=11125', 'doMCweights=True']]
+
+samples['25ns_GluGluHToTauTau_M120']    = ['/GluGluHToTauTau_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=GluGluHToTauTau_M120',    'id=21120', 'doMCweights=True']]
 samples['25ns_GluGluHToTauTau_M125']    = ['/GluGluHToTauTau_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=GluGluHToTauTau_M125',    'id=21125', 'doMCweights=True']]
+samples['25ns_GluGluHToTauTau_M130']    = ['/GluGluHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=GluGluHToTauTau_M130',    'id=21130', 'doMCweights=True']]
+samples['25ns_VBFHToTauTau_M120']       = ['/VBFHToTauTau_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                 ['label=VBFHToTauTau_M120',       'id=51120', 'doMCweights=True']]
+samples['25ns_VBFHToTauTau_M125']       = ['/VBFHToTauTau_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                 ['label=VBFHToTauTau_M125',       'id=51125', 'doMCweights=True']]
+samples['25ns_VBFHToTauTau_M130']       = ['/VBFHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                 ['label=VBFHToTauTau_M130',       'id=51130', 'doMCweights=True']]
+samples['25ns_HWminusJ_HToTauTau_M120']      = ['/WminusHToTauTau_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM',                         ['label=HWminusJ_HToTauTau_M120', 'id=52120', 'doMCweights=True']]
+samples['25ns_HWminusJ_HToTauTau_M125']      = ['/WminusHToTauTau_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                         ['label=HWminusJ_HToTauTau_M125', 'id=52125', 'doMCweights=True']]
+samples['25ns_HWminusJ_HToTauTau_M130']      = ['/WminusHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                         ['label=HWminusJ_HToTauTau_M130', 'id=52130', 'doMCweights=True']]
+samples['25ns_HWplusJ_HToTauTau_M120']       = ['/WplusHToTauTau_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                          ['label=HWplusJ_HToTauTau_M120', 'id=53120', 'doMCweights=True']]
+samples['25ns_HWplusJ_HToTauTau_M125']       = ['/WplusHToTauTau_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                          ['label=HWplusJ_HToTauTau_M125', 'id=53125', 'doMCweights=True']]
+samples['25ns_HWplusJ_HToTauTau_M130']       = ['/WplusHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                          ['label=HWplusJ_HToTauTau_M130', 'id=53130', 'doMCweights=True']]
+samples['25ns_HZJ_HToWW_M120']               = ['/ZHToTauTau_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM',                              ['label=HZJ_HToWW_M120', 'id=53120', 'doMCweights=True']]
+samples['25ns_HZJ_HToWW_M125']               = ['/ZHToTauTau_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=HZJ_HToWW_M125', 'id=53125', 'doMCweights=True']]
+samples['25ns_HZJ_HToWW_M130']               = ['/ZHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=HZJ_HToWW_M130', 'id=53130', 'doMCweights=True']]
+
+
+
+
 
 
 # QCD
