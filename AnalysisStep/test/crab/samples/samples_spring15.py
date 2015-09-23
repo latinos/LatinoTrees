@@ -6,6 +6,9 @@
 samples['25ns_WJetsToLNu']              = ['/WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                     ['label=WJetsToLNu',              'id=00001', 'doMCweights=True']]
 samples['25ns_DYJetsToLL_M-10to50']     = ['/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',            ['label=DYJetsToLL_M-10to50',     'id=00002', 'doMCweights=True']]
 samples['25ns_DYJetsToLL_M-50']         = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM',                ['label=DYJetsToLL_M-50',         'id=00003', 'doMCweights=True']]
+samples['25ns_DYJetsToLL_M-5to50-LO']   = ['/DYJetsToLL_M-5to50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',              ['label=DYJetsToLL_M-5to50',      'id=30002', 'doMCweights=True']]
+samples['25ns_DYJetsToLL_M-50-LO']      = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                 ['label=DYJetsToLL_M-50',         'id=30003', 'doMCweights=True']]
+
 
 # VV
 samples['25ns_WWTo2L2Nu']               = ['/WWTo2L2Nu_13TeV-powheg/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                                 ['label=WWTo2L2Nu',               'id=00004', 'doMCweights=True']]
