@@ -580,6 +580,7 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_VBoson_pt",      cms.string("genVBosonPt/30")),
         setattr(pt.variables, "std_vector_VBoson_eta" ,    cms.string("genVBosonEta/30")),
         setattr(pt.variables, "std_vector_VBoson_phi",     cms.string("genVBosonPhi/30")),
+        setattr(pt.variables, "std_vector_VBoson_mass",    cms.string("genVBosonMass/30")),
         setattr(pt.variables, "std_vector_VBoson_pid",     cms.string("genVBosonPID/30")),
         setattr(pt.variables, "std_vector_VBoson_status",  cms.string("genVBosonStatus/30")),
         setattr(pt.variables, "std_vector_VBoson_isHardProcess", cms.string("genVBosonIsHardProcess/30")),
