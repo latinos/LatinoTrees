@@ -5,9 +5,9 @@ if __name__ == '__main__':
 
     print sys.argv
     if len(sys.argv) <= 1 :
-       print "no arguments?"
-       print "Usage to submit:     python multiCmssw2latino.py file.py"
-       exit()
+        print "no arguments?"
+        print "Usage to submit:     python multiCmssw2latino.py file.py"
+        exit()
        
 
     samples = {}
@@ -29,7 +29,7 @@ if __name__ == '__main__':
            pattern     = value[1]
            print " outputDirectory = ", outputDirectory
            
-           os.system("cmsLs " + inputFolder + " | grep " + pattern + " | awk -v p="" '{if ($5!=\"\") p=p\" root://eoscms//eos/cms\"$5}; END{print \"hadd /tmp/" + requestName + ".root\" p}' | /bin/sh")
+           os.system("cmsLs " + inputFolder + " | grep " + pattern + " | awk -v p=\"\" '{if ($5!=\"\") p=p\" root://eoscms//eos/cms\"$5}; END{print \"hadd /tmp/" + requestName + ".root\" p}' | /bin/sh")
            
            os.system("python ../cmssw2latino.py /tmp/" + requestName + ".root -o /tmp/latino_" + requestName + ".root")      
            # /afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select   is actually "eos"
@@ -40,5 +40,4 @@ if __name__ == '__main__':
     # error
     else :
        print "Error: ", SamplesFile, " does not exist "
-       
-       
+
