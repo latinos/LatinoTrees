@@ -5128,6 +5128,28 @@ const float reco::SkimEvent::genVBosonEta(size_t index) const {
 
 
 // Compatible with PYTHIA8
+const float reco::SkimEvent::genVBosonMass(size_t index) const {
+ 
+ float pt_ofIndex  = genVBosonPt(index);
+ float particleMass = defaultvalues::defaultFloat;
+ 
+ const reco::Candidate* mcH = 0;
+ 
+ // Loop over gen particles
+ for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+  int type = abs(genParticles_[gp]->pdgId());
+  
+  if (type != 23 && type != 24) continue;
+  
+  mcH = &(*(genParticles_[gp]));
+  if (mcH->pt() != pt_ofIndex) continue;
+  particleMass = (float) mcH->mass();
+ }
+ 
+ return particleMass;
+}
+
+
 const float reco::SkimEvent::genVBosonPhi(size_t index) const {
  
  float pt_ofIndex  = genVBosonPt(index);

@@ -494,6 +494,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float genVBosonPt          (size_t a) const;
             const float genVBosonEta         (size_t a) const;
             const float genVBosonPhi         (size_t a) const;
+            const float genVBosonMass        (size_t a) const;
             const float genVBosonPID         (size_t a) const;
             const float genVBosonStatus      (size_t a) const;
             const float genVBosonIsHardProcess(size_t a) const;

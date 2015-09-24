@@ -134,7 +134,6 @@ Phys14:
                     doLHE=False \
                     doGen=True \
                     doBTag=True \
-                    globalTag=MCRUN2_74_V9A \
                     selection=LooseNoIso \
                     inputFiles=file:/tmp/amassiro/082EF100-DC05-E511-AD3F-A0040420FE80.root
     
