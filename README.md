@@ -225,7 +225,7 @@ Phys14:
                     outputFile=stepB_MC_Wjets.root \
                     doCut="nLep>0" \
                     doMuonIsoId=True \
-                    doLHE=False \
+                    doLHE=True \
                     doGen=True \
                     doBTag=True \
                     selection=LooseNoIso \

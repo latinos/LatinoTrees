@@ -6,17 +6,22 @@
 samples['25ns_WJetsToLNu']              = ['/WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                     ['label=WJetsToLNu',              'id=00001', 'doMCweights=True']]
 samples['25ns_DYJetsToLL_M-10to50']     = ['/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',            ['label=DYJetsToLL_M-10to50',     'id=00002', 'doMCweights=True']]
 samples['25ns_DYJetsToLL_M-50']         = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM',                ['label=DYJetsToLL_M-50',         'id=00003', 'doMCweights=True']]
+samples['25ns_DYJetsToLL_M-5to50-LO']   = ['/DYJetsToLL_M-5to50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',              ['label=DYJetsToLL_M-5to50',      'id=30002', 'doMCweights=True']]
+samples['25ns_DYJetsToLL_M-50-LO']      = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                 ['label=DYJetsToLL_M-50',         'id=30003', 'doMCweights=True']]
+
 
 # VV
 samples['25ns_WWTo2L2Nu']               = ['/WWTo2L2Nu_13TeV-powheg/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                                 ['label=WWTo2L2Nu',               'id=00004', 'doMCweights=True']]
+samples['25ns_WWToLNuQQ']               = ['/WWToLNuQQ_13TeV-powheg/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                                 ['label=WWToLNuQQ',               'id=00031', 'doMCweights=True']]
 samples['25ns_WZ']                      = ['/WZ_TuneCUETP8M1_13TeV-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                          ['label=WZ',                      'id=00005', 'doLHE=False']]
 samples['25ns_WZTo3LNu']                = ['/WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                             ['label=WZTo3LNu',                'id=00006', 'doMCweights=True']]
 samples['25ns_WZJets']                  = ['/WZJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM',                         ['label=WZJets',                  'id=00007', 'doMCweights=True']]
-#samples['25ns_WZTo2L2Q']               = ['/WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                            ['label=WZTo2L2Q',                'id=00008', 'doMCweights=True']] --> status invalid
+samples['25ns_WZTo2L2Q']                = ['/WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM',                            ['label=WZTo2L2Q',                'id=00008', 'doMCweights=True']]
 samples['25ns_ZZ']                      = ['/ZZ_TuneCUETP8M1_13TeV-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM',                                          ['label=ZZ',                      'id=00009', 'doLHE=False']]
 samples['25ns_ZZTo2L2Q']                = ['/ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                            ['label=ZZTo2L2Q',                'id=00010', 'doMCweights=True']]
 samples['25ns_ZZTo4L']                  = ['/ZZTo4L_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                            ['label=ZZTo4L',                  'id=00011', 'doMCweights=True']]
 samples['25ns_ZZTo2L2Nu']               = ['/ZZTo2L2Nu_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                         ['label=ZZTo2L2Nu',               'id=00030', 'doMCweights=True']]
+samples['25ns_VVTo2L2Nu']               = ['/VVTo2L2Nu_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                           ['label=VVTo2L2Nu',               'id=00032', 'doMCweights=True']]
  
 # WJets in bins
 samples['25ns_WJetsToLNu_HT100_200']     = ['/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',         ['label=WJetsToLNuHT100to200',    'id=20001', 'doMCweights=True']]
@@ -63,7 +68,14 @@ samples['25ns_HWplusJ_HToWW_M130']      = ['/HWplusJ_HToWW_M130_13TeV_powheg_pyt
 samples['25ns_HZJ_HToWW_M120']      = ['/HZJ_HToWW_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                        ['label=HZJ_HToWW_M120',          'id=06120', 'doMCweights=True']]
 samples['25ns_HZJ_HToWW_M125']      = ['/HZJ_HToWW_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                        ['label=HZJ_HToWW_M125',          'id=06125', 'doMCweights=True']]
 samples['25ns_HZJ_HToWW_M130']      = ['/HZJ_HToWW_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                        ['label=HZJ_HToWW_M130',          'id=06130', 'doMCweights=True']]
-samples['25ns_ttHJetToNonbb_M125']      = ['/ttHJetToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9_ext1-v3/MINIAODSIM',             ['label=ttHJetToNonbb_M125',      'id=04125', 'doMCweights=True']]
+samples['25ns_ttHJetToNonbb_M120']      = ['/ttHJetToNonbb_M120_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM',                  ['label=ttHJetToNonbb_M120',      'id=04120', 'doMCweights=True']]
+samples['25ns_ttHJetToNonbb_M125']    = ['/ttHJetToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM',                    ['label=ttHJetToNonbb_M125',      'id=04125', 'doMCweights=True']]
+samples['25ns_ttHJetToNonbb_M125_A']  = ['/ttHJetToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9_ext1-v3/MINIAODSIM',               ['label=ttHJetToNonbb_M125_A',    'id=04125', 'doMCweights=True']]
+samples['25ns_ttHJetToNonbb_M130']      = ['/ttHJetToNonbb_M130_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM',                  ['label=ttHJetToNonbb_M130',      'id=04130', 'doMCweights=True']]
+samples['25ns_ttHJetTobb_M120']      = ['/ttHJetTobb_M120_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                        ['label=ttHJetTobb_M120',         'id=34120', 'doMCweights=True']]
+samples['25ns_ttHJetTobb_M125']      = ['/ttHJetTobb_M125_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                        ['label=ttHJetTobb_M125',         'id=34125', 'doMCweights=True']]
+samples['25ns_ttHJetTobb_M125_A']    = ['/ttHJetTobb_M125_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9_ext1-v1/MINIAODSIM',                   ['label=ttHJetTobb_M125_A',       'id=34125', 'doMCweights=True']]
+samples['25ns_ttHJetTobb_M130']      = ['/ttHJetTobb_M130_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM',                        ['label=ttHJetTobb_M130',         'id=34130', 'doMCweights=True']] 
 samples['25ns_VBFHToWWTo2L2Nu_M120']    = ['/VBFHToWWTo2L2Nu_M120_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                       ['label=VBFHToWWTo2L2Nu_M120',    'id=05120', 'doMCweights=True']]
 samples['25ns_VBFHToWWTo2L2Nu_M125']    = ['/VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                       ['label=VBFHToWWTo2L2Nu_M125',    'id=05125', 'doMCweights=True']]
 samples['25ns_VBFHToWWTo2L2Nu_M130']    = ['/VBFHToWWTo2L2Nu_M130_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                       ['label=VBFHToWWTo2L2Nu_M130',    'id=05130', 'doMCweights=True']]
@@ -72,7 +84,26 @@ samples['25ns_GluGluHToWWTo2L2NuAMCNLO_M125']    = ['/GluGluHToWWTo2L2Nu_M125_13
 samples['25ns_VBFHToWWTo2L2NuAMCNLO_M125']       = ['/VBFHToWWTo2L2Nu_M125_13TeV_amcatnlo_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                   ['label=VBFHToWWTo2L2NuAMCNLO_M125',       'id=08125', 'doMCweights=True']]
 
 samples['25ns_GluGluHToZZTo4L_M125']    = ['/GluGluHToZZTo4L_M125_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                       ['label=GluGluHToZZTo4L_M125',    'id=11125', 'doMCweights=True']]
+
+samples['25ns_GluGluHToTauTau_M120']    = ['/GluGluHToTauTau_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=GluGluHToTauTau_M120',    'id=21120', 'doMCweights=True']]
 samples['25ns_GluGluHToTauTau_M125']    = ['/GluGluHToTauTau_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=GluGluHToTauTau_M125',    'id=21125', 'doMCweights=True']]
+samples['25ns_GluGluHToTauTau_M130']    = ['/GluGluHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=GluGluHToTauTau_M130',    'id=21130', 'doMCweights=True']]
+samples['25ns_VBFHToTauTau_M120']       = ['/VBFHToTauTau_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                 ['label=VBFHToTauTau_M120',       'id=51120', 'doMCweights=True']]
+samples['25ns_VBFHToTauTau_M125']       = ['/VBFHToTauTau_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                 ['label=VBFHToTauTau_M125',       'id=51125', 'doMCweights=True']]
+samples['25ns_VBFHToTauTau_M130']       = ['/VBFHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                 ['label=VBFHToTauTau_M130',       'id=51130', 'doMCweights=True']]
+samples['25ns_HWminusJ_HToTauTau_M120'] = ['/WminusHToTauTau_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v3/MINIAODSIM',                              ['label=HWminusJ_HToTauTau_M120', 'id=52120', 'doMCweights=True']]
+samples['25ns_HWminusJ_HToTauTau_M125'] = ['/WminusHToTauTau_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=HWminusJ_HToTauTau_M125', 'id=52125', 'doMCweights=True']]
+samples['25ns_HWminusJ_HToTauTau_M130'] = ['/WminusHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                              ['label=HWminusJ_HToTauTau_M130', 'id=52130', 'doMCweights=True']]
+samples['25ns_HWplusJ_HToTauTau_M120']  = ['/WplusHToTauTau_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                               ['label=HWplusJ_HToTauTau_M120',  'id=53120', 'doMCweights=True']]
+samples['25ns_HWplusJ_HToTauTau_M125']  = ['/WplusHToTauTau_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                               ['label=HWplusJ_HToTauTau_M125',  'id=53125', 'doMCweights=True']]
+samples['25ns_HWplusJ_HToTauTau_M130']  = ['/WplusHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                               ['label=HWplusJ_HToTauTau_M130',  'id=53130', 'doMCweights=True']]
+samples['25ns_HZJ_HToTauTau_M120']      = ['/ZHToTauTau_M120_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM',                                   ['label=HZJ_HToTauTau_M120',      'id=53120', 'doMCweights=True']]
+samples['25ns_HZJ_HToTauTau_M125']      = ['/ZHToTauTau_M125_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                   ['label=HZJ_HToTauTau_M125',      'id=53125', 'doMCweights=True']]
+samples['25ns_HZJ_HToTauTau_M130']      = ['/ZHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                   ['label=HZJ_HToTauTau_M130',      'id=53130', 'doMCweights=True']]
+
+
+
+
 
 
 # QCD
