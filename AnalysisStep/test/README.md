@@ -32,13 +32,13 @@
 
 *Do this only if you want to create a tag.*
 
-    git tag -a 17September2015_v7 -m 'Ready for the next production'
-    git push origin 17September2015_v7
+    git tag -a 28September2015 -m 'Last 7_4_9 tag'
+    git push origin 28September2015
 
 *Do this only if you want to use a tag.*
 
     pushd LatinoTrees
-    git checkout tags/17September2015_v7
+    git checkout tags/28September2015
     popd
 
 Test the latino tree production.
