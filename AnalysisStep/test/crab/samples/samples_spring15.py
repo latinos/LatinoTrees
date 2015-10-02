@@ -104,9 +104,11 @@ samples['25ns_HZJ_HToTauTau_M125']      = ['/ZHToTauTau_M125_13TeV_powheg_pythia
 samples['25ns_HZJ_HToTauTau_M130']      = ['/ZHToTauTau_M130_13TeV_powheg_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                                   ['label=HZJ_HToTauTau_M130',      'id=53130', 'doMCweights=True']]
 
 
+# HtoWW->lvj
 
-
-
+samples['25ns_GluGluHToWWToLNuQQ_M450']=['/GluGluHToWWToLNuQQ_M450_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM','label=GluGluHToWWToLNuQQ_M450','id=60450', 'doMCweights=True']]
+samples['25ns_GluGluHToWWToLNuQQ_M650']=['/GluGluHToWWToLNuQQ_M650_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM','label=GluGluHToWWToLNuQQ_M650','id=60650', 'doMCweights=True']]
+samples['25ns_GluGluHToWWToLNuQQ_M1000']=['/GluGluHToWWToLNuQQ_M1000_13TeV_powheg_JHUgen_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM','label=GluGluHToWWToLNuQQ_M1000','id=61000', 'doMCweights=True']]
 
 # QCD
 samples['25ns_QCD_Pt-15to20_MuEnrichedPt5']     = ['/QCD_Pt-15to20_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',                ['label=QCD_Pt-15to20_MuEnrichedPt5',     'id=10001', 'doLHE=False' ]]
