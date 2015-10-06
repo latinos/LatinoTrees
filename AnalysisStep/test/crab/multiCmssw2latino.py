@@ -36,7 +36,7 @@ if __name__ == '__main__':
            os.system("/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select cp /tmp/latino_" + requestName + ".root " + outputDirectory + "/")           
            os.system("rm /tmp/latino_" + requestName + ".root ")      
            os.system("rm /tmp/" + requestName + ".root ")      
-            
+
     # error
     else :
        print "Error: ", SamplesFile, " does not exist "
