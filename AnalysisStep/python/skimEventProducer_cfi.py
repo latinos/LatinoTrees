@@ -189,8 +189,13 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "HLT_Mu27_TkMu8_v1",
         "HLT_Mu27_TkMu8_v2",
 
+        "HLT_IsoMu27_v1",
+        "HLT_IsoMu27_v2",
+        "HLT_IsoMu27_v3",
+
         "HLT_IsoMu20_v1",
         "HLT_IsoMu20_v2",
+        "HLT_IsoMu20_v3",
         "HLT_IsoTkMu20_v1",
         "HLT_IsoTkMu20_v2",
         "HLT_IsoTkMu20_v3",
@@ -216,6 +221,14 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "HLT_Ele18_CaloIdL_TrackIdL_IsoVL_PFJet30_v2",
         "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30_v2",
         "HLT_Ele33_CaloIdL_TrackIdL_IsoVL_PFJet30_v2",
+        
+        
+        # 3 lepton triggers        
+        "HLT_TripleMu_12_10_5_v1",
+        "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_v2",
+        "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v2",
+        "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_v2",
+        
         ),
 
 
