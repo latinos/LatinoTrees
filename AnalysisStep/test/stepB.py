@@ -422,8 +422,8 @@ else :
 
 # save triggers only in DATA
 if not isMC :
-    setattr(stepBTree.variables, "std_vector_trigger",           cms.string("selectedRateTrigger/57") )
-    setattr(stepBTree.variables, "std_vector_trigger_prescale",  cms.string("selectedRateTriggerPrescale/57") )
+    setattr(stepBTree.variables, "std_vector_trigger",           cms.string("selectedRateTrigger/64") )
+    setattr(stepBTree.variables, "std_vector_trigger_prescale",  cms.string("selectedRateTriggerPrescale/64") )
     # special paths, e.g. metFilters. See skimEventProducer_cfi for the list
     setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/13") )
 if isMC :

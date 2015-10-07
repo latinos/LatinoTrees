@@ -120,7 +120,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
 # end of 2011 Data
         #"190456-999999:HLT_Ele27_WP80_v*",
 # Run II
-        "200000-400000:HLT_Ele27_eta2p1_WPLoose_Gsf_v1*"
+        "200000-400000:HLT_Ele27_eta2p1_WPLoose_Gsf_v*"
     ),
     AllEmbedPaths = cms.vstring(
         "1-999999:HLT_*",
