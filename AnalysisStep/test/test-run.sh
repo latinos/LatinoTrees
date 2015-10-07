@@ -6,20 +6,19 @@ if [ $# -lt 1 ]; then
 fi
 
 export EVENTS=$1
-#export MYFILE=file:/afs/cern.ch/user/p/piedra/work/store/mc/RunIISpring15DR74/TT_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/Asympt50ns_MCRUN2_74_V9A-v1/50000/68EBC80B-4CFF-E411-8D52-00074305CFFB.root
-#export MYFILE=root://xrootd.unl.edu//store/data/Run2015C/DoubleMuon/MINIAOD/PromptReco-v1/000/254/231/00000/A8A4FD2D-F645-E511-A2CF-02163E0135AD.root
-export MYFILE=root://xrootd.unl.edu//store/data/Run2015D/DoubleMuon/MINIAOD/PromptReco-v3/000/256/630/00000/7413EB59-1A5F-E511-BC4E-02163E014792.root
 
-rm -rf latino_stepB_numEvent${EVENTS}.root
+export MYFILE=root://xrootd.unl.edu//store/mc/RunIISpring15DR74/WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/Asympt25ns_MCRUN2_74_V9-v1/60000/008E7FBF-9218-E511-81E0-001E675A5244.root
+
+### rm -rf latino_stepB_numEvent${EVENTS}.root
 
 cmsRun stepB.py print         \
-    is50ns=True               \
-    isPromptRecoData=True     \
-    globalTag=74X_dataRun2_v2 \
-    label=DoubleMuon          \
+    is50ns=False              \
+    isPromptRecoData=False    \
+    globalTag=74X_mcRun2_asymptotic_v2 \
+    label=WZ                  \
     outputFile=stepB.root     \
     selection=LooseNoIso      \
-    doNoFilter=False          \
+    doNoFilter=True           \
     doMuonIsoId=True          \
     doEleIsoId=True           \
     doGen=False               \
@@ -40,7 +39,7 @@ cmsRun stepB.py print         \
 #  for data:                                     74X_dataRun2_v2 
 
 
-python cmssw2latino.py stepB_numEvent${EVENTS}.root
+### python cmssw2latino.py stepB_numEvent${EVENTS}.root
 
-rm -rf stepB_numEvent${EVENTS}.root
+### rm -rf stepB_numEvent${EVENTS}.root
 

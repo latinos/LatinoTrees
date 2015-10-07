@@ -1,6 +1,8 @@
 0. Documentation
 ====
 
+    https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkFor2015
+
     https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCRAB3Tutorial#CRAB_configuration_parameters
     https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3ConfigurationFile
     https://twiki.cern.ch/CMSPublic/WorkBookXrootdService
