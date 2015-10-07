@@ -170,7 +170,7 @@ options.register ('doIsoStudy',
                   'Turn on isolation studies, additional variables, ... (can be \'True\' or \'False\')')
 
 options.register ('runPUPPISequence',
-                  True,
+                  False,
                   opts.VarParsing.multiplicity.singleton,
                   opts.VarParsing.varType.bool,
                   'Turn on PUPPI jets (can be \'True\' or \'False\')')

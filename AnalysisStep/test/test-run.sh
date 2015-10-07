@@ -24,20 +24,9 @@ cmsRun stepB.py print         \
     doGen=False               \
     doBTag=True               \
     doLHE=False               \
-    runPUPPISequence=True     \
+    runPUPPISequence=False    \
     maxEvents=${EVENTS}       \
     inputFiles=${MYFILE}
-
-
-# From https://hypernews.cern.ch/HyperNews/CMS/get/JetMET/1630.html
-#
-# The relevant GTs are:
-#
-#  for 50ns MC with startup conditions:          74X_mcRun2_startup_v2
-#  for 25ns MC with design conditions:           74X_mcRun2_design_v2
-#  for 25ns MC with 25ns data-taking conditions: 74X_mcRun2_asymptotic_v2
-#  for data:                                     74X_dataRun2_v2 
-
 
 python cmssw2latino.py stepB_numEvent${EVENTS}.root
 
