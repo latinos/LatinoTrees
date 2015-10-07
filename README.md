@@ -63,6 +63,7 @@ Phys14:
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_7/src
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_7_patch2/src/
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_9/src/
+    /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_14/src/   --> from RunD on
 
     
     
@@ -186,6 +187,24 @@ Phys14:
     latino->Draw("std_vector_neutrinoGen_pt[0]","std_vector_neutrinoGen_pt[0]>0")
     latino->Draw("std_vector_jet_csvv2ivf","std_vector_jet_csvv2ivf>-9000")
 
+    
+    scp amassiro@cmsneu.cern.ch:/media/data/CMSSWRoot/DATARunII/Run2015D/DoubleMuon/MINIAOD/PromptReco-v4/A23E7F00-D86C-E511-9343-02163E01359B.root /tmp/amassiro/
+    cmsRun stepB.py print \
+                    label=DoubleMuon2015 \
+                    json=testJson  \
+                    scale=1 \
+                    outputFile=stepB_Data.root \
+                    doCut="nLep>0" \
+                    doMuonIsoId=True \
+                    doBTag=True \
+                    globalTag=74X_dataRun2_v2 \
+                    selection=LooseNoIso \
+                    maxEvents=100 \
+                    inputFiles=file:/tmp/amassiro/A23E7F00-D86C-E511-9343-02163E01359B.root
+    
+     74X_dataRun2_Prompt_v2
+     
+    
     scp amassiro@cmsneu.cern.ch:/media/data/CMSSWRoot/DATARunII/Run2015B/DoubleEG/PromptReco-v1_MINIAOD/6A0A8868-4B27-E511-B3F8-02163E011BD1.root /tmp/amassiro/
     cmsRun stepB.py print \
                     label=DoubleEG2015 \
