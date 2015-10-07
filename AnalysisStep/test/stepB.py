@@ -888,44 +888,12 @@ if isMC and doLHE :
 ## pileup dumper
 ##   dump pileup with NO selections applied
 process.PileUpDumperAnalyzer = cms.EDAnalyzer('PileUpDumper',
-    puLabel  = cms.InputTag("addPileupInfo"),
-    debug    = cms.untracked.bool(False)
+    puLabel = cms.InputTag("addPileupInfo"),
+    debug   = cms.untracked.bool(False)
   )
 
 if isMC :
   process.PileUpDumperAnalyzerPath = cms.Path(process.PileUpDumperAnalyzer)
-##
-##
-
-
-#####################################
-# metNoHF
-#
-# Following instructions at
-# https://twiki.cern.ch/twiki/bin/view/CMS/MissingETUncertaintyPrescription#Instructions_for_7_4_X
-#
-# Code copied from
-# PhysicsTools/PatAlgos/test/corMETFromMiniAOD.py
-#####################################
-jecUncertaintyFile="PhysicsTools/PatUtils/data/Summer15_50nsV4_DATA_UncertaintySources_AK4PFchs.txt"
-
-runOnData=True
-if isMC:
-    runOnData=False
-
-process.noHFCands = cms.EDFilter("CandPtrSelector",
-                                 src=cms.InputTag("packedPFCandidates"),
-                                 cut=cms.string("abs(pdgId)!=1 && abs(pdgId)!=2 && abs(eta)<3.0")
-                                 )
-
-from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
-
-runMetCorAndUncFromMiniAOD(process,
-                           isData=runOnData,
-                           pfCandColl=cms.InputTag("noHFCands"),
-                           jecUncFile=jecUncertaintyFile,
-                           postfix="NoHF"
-                           )
 
 
 #if IsoStudy:
