@@ -767,7 +767,7 @@ if doGen: addGenVariables(process,tree)
 if doGenVV: addGenVVVariables(process,tree)
 
 # add 5th and 6th, ... jets variables
-addAdditionalJets(process,tree)
+# addAdditionalJets(process,tree)
 
 # add QG likelihood
 addQGJets(process,tree)
