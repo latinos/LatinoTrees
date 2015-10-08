@@ -170,7 +170,7 @@ options.register ('doIsoStudy',
                   'Turn on isolation studies, additional variables, ... (can be \'True\' or \'False\')')
 
 options.register ('runPUPPISequence',
-                  False,
+                  True,
                   opts.VarParsing.multiplicity.singleton,
                   opts.VarParsing.varType.bool,
                   'Turn on PUPPI jets (can be \'True\' or \'False\')')
@@ -915,8 +915,12 @@ if doNoFilter:
     print ">> Accept all events"
     getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 0")
 else :
-    print ">> Accept events with nLep >= 1"
-    getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 1")
+    if doCut == "1" :
+        print ">> Accept events with nLep >= 1"
+        getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 1")
+    else :
+        print ">> Accept events with ", doCut
+     
 
 # TTree producer ends up in the endPath, then it's NOT a filter anymore
 # then applying a cut here has no effect

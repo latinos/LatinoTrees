@@ -191,10 +191,11 @@ Phys14:
     scp amassiro@cmsneu.cern.ch:/media/data/CMSSWRoot/DATARunII/Run2015D/DoubleMuon/MINIAOD/PromptReco-v4/A23E7F00-D86C-E511-9343-02163E01359B.root /tmp/amassiro/
     cmsRun stepB.py print \
                     label=DoubleMuon2015 \
-                    json=testJson  \
+                    is50ns=False              \
+                    isPromptRecoData=True     \
                     scale=1 \
                     outputFile=stepB_Data.root \
-                    doCut="nLep>0" \
+                    doCut="nLep>=1" \
                     doMuonIsoId=True \
                     doBTag=True \
                     globalTag=74X_dataRun2_v2 \
