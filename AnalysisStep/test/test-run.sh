@@ -7,7 +7,9 @@ fi
 
 export EVENTS=$1
 
-export MYFILE=root://xrootd.unl.edu//store/data/Run2015D/DoubleMuon/MINIAOD/PromptReco-v4/000/258/159/00000/0C6D4AB0-6F6C-E511-8A64-02163E0133CD.root
+#export MYFILE=root://xrootd.unl.edu//store/data/Run2015D/DoubleMuon/MINIAOD/PromptReco-v4/000/258/159/00000/0C6D4AB0-6F6C-E511-8A64-02163E0133CD.root
+export MYFILE=file:/afs/cern.ch/work/p/piedra/public/store/data/Run2015D/DoubleMuon/MINIAOD/PromptReco-v4/000/258/159/00000/28A6C3C3-6F6C-E511-94A4-02163E01459B.root
+
 
 rm -rf latino_stepB_numEvent${EVENTS}.root
 
