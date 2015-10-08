@@ -1,7 +1,13 @@
 0. Documentation
 ====
 
+Latino's twiki and indico pages.
+
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkFor2015
+    https://indico.cern.ch/category/3374/
+
+External documentation.
+
     https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCRAB3Tutorial#CRAB_configuration_parameters
     https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3ConfigurationFile
     https://twiki.cern.ch/CMSPublic/WorkBookXrootdService
@@ -102,15 +108,15 @@ You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
 Verify that the files are available at the source.
 
     ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
-    eos ls /eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/5Aug/25ns/
+    eos ls /eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/25ns
 
 Copy to the destination.
 
     ssh -Y gridui.ifca.es -o ServerAliveInterval=240
-    cd /gpfs/csic_projects/cms/piedra/work/CMSSW_7_4_6/src
+    cd /gpfs/csic_projects/cms/piedra/work/CMSSW_7_5_3/src
     source /cvmfs/cms.cern.ch/cmsset_default.sh
     cmsenv
 
     cd /gpfs/csic_projects/tier3data/LatinosSkims/MC_Spring15/25ns
-    xrdcp --force --recursive --silent root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/5Aug/25ns .
+    xrdcp --force --recursive root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/25ns .
 
