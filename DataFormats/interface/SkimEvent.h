@@ -217,12 +217,12 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             //Jet variables
             const size_t indexJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID) const;
             const math::XYZTLorentzVector jet(size_t index, float minPt,float eta,int applyCorrection,int applyID) const;
-            const int nJets(float pt , int applyCorrection , int applyID) const;
-            const int nCentralJets(float pt , float eta,int applyCorrection=true, int applyID=0) const;
+            const int   nJets(float pt , int applyCorrection , int applyID) const;
+            const int   nCentralJets(float pt , float eta,int applyCorrection=true, int applyID=0) const;
             const float leadingVBFJetPt(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingVBFJetEta(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingVBFJetPhi(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const int leadingVBFJetId(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
+            const int   leadingVBFJetId(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingVBFJetMva(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const pat::Jet* leadingJet(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
 
@@ -282,10 +282,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingJetNeutralHadronMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
             const float leadingJetPhotonMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
             const float getJetRhoIso() const ;
-            const int leadingJetId(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
+            const int   leadingJetId(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingJetMva(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float dPhillLeadingJet(float eta,int applyCorrection, int applyID) const;
-            const bool passesDPhillJet(float pt,float eta,int applyCorrection, int applyID) const;
+            const bool  passesDPhillJet(float pt,float eta,int applyCorrection, int applyID) const;
 
             const float jetPt(size_t a = 0,int = 0) const;
             const float secondJetPt(size_t a = 0,int = 0) const;

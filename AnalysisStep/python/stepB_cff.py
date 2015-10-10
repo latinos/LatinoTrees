@@ -74,15 +74,16 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         
         # leptons
         channel = cms.string("channel()"),
-        v_lepton1 = cms.string("lepton(0)"),
-        v_lepton2 = cms.string("lepton(1)"),
-        v_lepton3 = cms.string("lepton(2)"),
-        v_lepton4 = cms.string("lepton(3)"),
 
-        v_jet1 = cms.string("jet(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        v_jet2 = cms.string("jet(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        v_jet3 = cms.string("jet(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        v_jet4 = cms.string("jet(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
+        #v_lepton1 = cms.string("lepton(0)"),  # Deprecated, use std_vector_lepton
+        #v_lepton2 = cms.string("lepton(1)"),  # Deprecated, use std_vector_lepton
+        #v_lepton3 = cms.string("lepton(2)"),  # Deprecated, use std_vector_lepton
+        #v_lepton4 = cms.string("lepton(3)"),  # Deprecated, use std_vector_lepton
+
+        #v_jet1 = cms.string("jet(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),  # Deprecated, use std_vector_jet
+        #v_jet2 = cms.string("jet(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),  # Deprecated, use std_vector_jet
+        #v_jet3 = cms.string("jet(2,0,"+CJVmaxEta+",1,"+jetId_WP+")"),  # Deprecated, use std_vector_jet
+        #v_jet4 = cms.string("jet(3,0,"+CJVmaxEta+",1,"+jetId_WP+")"),  # Deprecated, use std_vector_jet
 
         #std_variable_vector_lepton_pt_max3 = cms.string("ptByPt/3"),
         #std_vector_lepton_pt_max3          = cms.string("ptByPt/3"),
@@ -97,7 +98,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_elSIP3D      = cms.string("elSIP3DByPt"),
         std_vector_lepton_ch           = cms.string("qByPt"),
         
-        #std_vector_lepton_id           = cms.string("pdgIdByPt"),  --> already std_vector_lepton_flavour
+        #std_vector_lepton_id          = cms.string("pdgIdByPt"),  # Deprecated, use std_vector_lepton_flavour
 
         std_vector_puppijet_pt  = cms.string("leadingSecondJetPt"),
         std_vector_puppijet_eta = cms.string("leadingSecondJetEta"),
@@ -108,23 +109,14 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_jet_phi  = cms.string("leadingJetPhi"),
         std_vector_jet_mass = cms.string("leadingJetMass"),
 
-        mll = cms.string("mll()"),
+        mll  = cms.string("mll()"),
         ptll = cms.string("pTll()"),
-        yll = cms.string("yll()"), #fixed! returns (p4a+p4b).Rapidity()
-        pt1 = cms.string("ptMax"),
-        pt2 = cms.string("ptMin"),
-        pt3 = cms.string("ptByPt(2)"),
-        pt4 = cms.string("ptByPt(3)"),
+        yll  = cms.string("yll()"), #fixed! returns (p4a+p4b).Rapidity()
+        pt1  = cms.string("ptMax"),
+        pt2  = cms.string("ptMin"),
+        pt3  = cms.string("ptByPt(2)"),
+        pt4  = cms.string("ptByPt(3)"),
         
-        #isTightMuon1 = cms.string("isTightMuon(0)"),
-        #isTightMuon2 = cms.string("isTightMuon(1)"),
-        #isTightMuon3 = cms.string("isTightMuon(2)"),
-        #isTightMuon4 = cms.string("isTightMuon(3)"),
-        
-        #isSTA1 = cms.string("isSTAByPt(0)"),
-        #isSTA2 = cms.string("isSTAByPt(1)"),
-        #isSTA3 = cms.string("isSTAByPt(2)"),
-        #isSTA4 = cms.string("isSTAByPt(3)"),
         peaking = cms.string("peaking"),
         trigger = cms.string("guillelmoTrigger('DATASET')"),
         triggerFakeRate = cms.string("fakeRateTrigger('DATASET')"),
