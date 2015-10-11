@@ -70,7 +70,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         # run, lumi, event
         #run  = cms.string("run()"),   # Using addRunLumiInfo
         #lumi = cms.string("lumi()"),  # Using addRunLumiInfo
-        #evt  = cms.string("evt()"),   # Using addRunLumiInfo
+        evt = cms.string("evt()"),
         
         # leptons
         channel = cms.string("channel()"),
