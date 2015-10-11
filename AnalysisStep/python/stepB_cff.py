@@ -68,9 +68,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         #lepton1_pt = cms.string("lepton(0).x()"),
         
         # run, lumi, event
-        run  = cms.string("run()"),
-        lumi = cms.string("lumi()"),
-        evt  = cms.string("evt()"),
+        #run  = cms.string("run()"),   # Using addRunLumiInfo
+        #lumi = cms.string("lumi()"),  # Using addRunLumiInfo
+        #evt  = cms.string("evt()"),   # Using addRunLumiInfo
         
         # leptons
         channel = cms.string("channel()"),
@@ -98,7 +98,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_elSIP3D      = cms.string("elSIP3DByPt"),
         std_vector_lepton_ch           = cms.string("qByPt"),
         
-        #std_vector_lepton_id          = cms.string("pdgIdByPt"),  # Deprecated, use std_vector_lepton_flavour
+        #std_vector_lepton_id = cms.string("pdgIdByPt"),  # Deprecated, use std_vector_lepton_flavour
 
         std_vector_puppijet_pt  = cms.string("leadingSecondJetPt"),
         std_vector_puppijet_eta = cms.string("leadingSecondJetEta"),
@@ -812,14 +812,22 @@ def addExtraPUWeights(process,tree,X,seq):
 
 def addPhotonVariables(process,pt):
     if hasattr(pt,"variables"):
-        setattr(pt.variables, "v_photon1" ,    cms.string("photon(0)")),
-        setattr(pt.variables, "v_photon2" ,    cms.string("photon(1)")),
-        setattr(pt.variables, "v_photon3" ,    cms.string("photon(2)")),
-        setattr(pt.variables, "v_photon1id" ,  cms.string("photon_id(0)")),
-        setattr(pt.variables, "nPhos" ,        cms.string("nPhos()")),
-        setattr(pt.variables, "pho_n_id" ,     cms.string("Pho_n_ID()")),
-        setattr(pt.variables, "mllg" ,         cms.string("mllg()")),
-        setattr(pt.variables, "mllgid" ,       cms.string("mllg()")),
+        #setattr(pt.variables, "v_photon1" ,    cms.string("photon(0)")),     # Deprecated, use std_vector_photon
+        #setattr(pt.variables, "v_photon2" ,    cms.string("photon(1)")),     # Deprecated, use std_vector_photon
+        #setattr(pt.variables, "v_photon3" ,    cms.string("photon(2)")),     # Deprecated, use std_vector_photon
+        #setattr(pt.variables, "v_photon1id" ,  cms.string("photon_id(0)")),  # Deprecated, use std_vector_photon
+
+        setattr(pt.variables, "std_vector_photon_pt",    cms.string("photon_ptByPt")),
+        setattr(pt.variables, "std_vector_photon_eta",   cms.string("photon_etaByPt")),
+        setattr(pt.variables, "std_vector_photon_phi",   cms.string("photon_phiByPt")),
+        setattr(pt.variables, "std_vector_photonid_pt",  cms.string("photonid_ptByPt")),
+        setattr(pt.variables, "std_vector_photonid_eta", cms.string("photonid_etaByPt")),
+        setattr(pt.variables, "std_vector_photonid_phi", cms.string("photonid_phiByPt")),
+
+        setattr(pt.variables, "nPhos",    cms.string("nPhos()")),
+        setattr(pt.variables, "pho_n_id", cms.string("Pho_n_ID()")),
+        setattr(pt.variables, "mllg",     cms.string("mllg()")),
+        setattr(pt.variables, "mllgid",   cms.string("mllg()")),
 
 def addPhotonIDVariables(process,pt):
         setattr(pt.variables, "pho_sietaieta" ,    cms.string("Pho_sigmaIetaIeta(0)")),

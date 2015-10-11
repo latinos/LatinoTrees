@@ -2,12 +2,7 @@
 #define AnalysisDataFormats_SkimEvent_h
 
 #include "FWCore/Framework/interface/Event.h"
-// #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/FileInPath.h"
-// #include "FWCore/Framework/interface/Frameworkfwd.h"
-// #include "FWCore/Framework/interface/EDAnalyzer.h"
-
-
 #include "DataFormats/Candidate/interface/LeafCandidate.h"
 #include "DataFormats/Common/interface/RefToBase.h"
 #include "DataFormats/Common/interface/Ref.h"
@@ -821,7 +816,14 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const int Pho_n_ID(int WP = 1) const;
             const math::XYZTLorentzVector photon_id(size_t a, int WP = 1) const;
 
-	    const bool Pho_IsIdIso(size_t i, int wp = 1) const;
+	    const float photon_ptByPt   (size_t i) const;
+	    const float photon_etaByPt  (size_t i) const;
+	    const float photon_phiByPt  (size_t i) const;
+	    const float photonid_ptByPt (size_t i, int WP = 1) const;
+	    const float photonid_etaByPt(size_t i, int WP = 1) const;
+	    const float photonid_phiByPt(size_t i, int WP = 1) const;
+
+	    const bool Pho_IsIdIso(size_t i, int WP = 1) const;
 	
             
         private:

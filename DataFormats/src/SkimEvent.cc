@@ -5768,7 +5768,7 @@ const float reco::SkimEvent::jetcmvaByPt(size_t i = 0) const {
 
 //---- Photon
 void reco::SkimEvent::setPhoton(const edm::Handle<edm::View<reco::RecoCandidate> > &h,size_t i){
- //std::cout << "setting lepton with collection ID: " << h->ptrAt(i).id() << std::endl;
+
  phos_.push_back( h->ptrAt(i) );
 }
 const pat::Photon * reco::SkimEvent::getPhoton(size_t i) const {
@@ -5778,10 +5778,74 @@ const pat::Photon * reco::SkimEvent::getPhoton(const refToCand &c) const {
  return static_cast<const pat::Photon*>(c.get());
 }
 const math::XYZTLorentzVector reco::SkimEvent::photon(size_t i) const {
- //  std::cout << " reco::SkimEvent::lepton :: accessing i = " << i << std::endl;
+
  if(indexByPtPho (i) >= phos_.size()) return math::XYZTLorentzVector(0,0,0,0);
  return phos_[indexByPtPho (i)]->p4();
 }
+
+const float reco::SkimEvent::photon_ptByPt(size_t i) const
+{
+  if (indexByPtPho(i) >= phos_.size()) return defaultvalues::defaultFloat;
+
+  return phos_[indexByPtPho(i)]->pt();
+}
+
+const float reco::SkimEvent::photon_etaByPt(size_t i) const
+{
+  if (indexByPtPho(i) >= phos_.size()) return defaultvalues::defaultFloat;
+
+  return phos_[indexByPtPho(i)]->eta();
+}
+
+const float reco::SkimEvent::photon_phiByPt(size_t i) const
+{
+  if (indexByPtPho(i) >= phos_.size()) return defaultvalues::defaultFloat;
+
+  return phos_[indexByPtPho(i)]->phi();
+}
+
+const float reco::SkimEvent::photonid_ptByPt(size_t i, int WP) const
+{
+  if (indexByPtPho(i) >= phos_.size()) return defaultvalues::defaultFloat;
+
+  if (Pho_n_ID(WP) < 1) return defaultvalues::defaultFloat;
+
+  for (unsigned int a=0; a<phos_.size(); a++)
+    {
+      if (Pho_IsIdIso(indexByPtPho(a), WP)) return phos_[indexByPtPho(a)]->pt();
+    }
+
+  return phos_[indexByPtPho(i)]->pt();
+}
+
+const float reco::SkimEvent::photonid_etaByPt(size_t i, int WP) const
+{
+  if (indexByPtPho(i) >= phos_.size()) return defaultvalues::defaultFloat;
+
+  if (Pho_n_ID(WP) < 1) return defaultvalues::defaultFloat;
+
+  for (unsigned int a=0; a<phos_.size(); a++)
+    {
+      if (Pho_IsIdIso(indexByPtPho(a), WP)) return phos_[indexByPtPho(a)]->eta();
+    }
+
+  return phos_[indexByPtPho(i)]->eta();
+}
+
+const float reco::SkimEvent::photonid_phiByPt(size_t i, int WP) const
+{
+  if (indexByPtPho(i) >= phos_.size()) return defaultvalues::defaultFloat;
+
+  if (Pho_n_ID(WP) < 1) return defaultvalues::defaultFloat;
+
+  for (unsigned int a=0; a<phos_.size(); a++)
+    {
+      if (Pho_IsIdIso(indexByPtPho(a), WP)) return phos_[indexByPtPho(a)]->phi();
+    }
+
+  return phos_[indexByPtPho(i)]->phi();
+}
+
 const size_t reco::SkimEvent::indexByPtPho(size_t i) const {
  
  if( i >= phos_.size() ) return 9999; //--> big number then it will fail other tests later! good!
