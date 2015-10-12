@@ -68,9 +68,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         #lepton1_pt = cms.string("lepton(0).x()"),
         
         # run, lumi, event
-        #run  = cms.string("run()"),   # Using addRunLumiInfo
-        #lumi = cms.string("lumi()"),  # Using addRunLumiInfo
-        evt = cms.string("evt()"),
+        run  = cms.string("run()"),
+        lumi = cms.string("lumi()"),
+        evt  = cms.string("evt()"),
         
         # leptons
         channel = cms.string("channel()"),
@@ -343,7 +343,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 # passWW = cms.string("guillelmoTrigger('DATASET') && pfMet > 20 && mll()>20 && (abs(mll-91.1876)>15 || hypo == 4 || hypo == 5) && min(projPfMet,projChargedMetSmurf) && nCentralJets(30,4.7) && (passesDPhillJet||!sameflav) && bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',2.0) == 0 && nSoftMu(3) == 0 && nExtraLep(10)"),
 
     ),
-    addRunLumiInfo = cms.bool(True)
+    #addRunLumiInfo = cms.bool(True)  # Deprecated, run and lumi are already defined
 )
 
 
