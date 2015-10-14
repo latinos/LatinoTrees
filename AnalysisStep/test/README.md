@@ -70,13 +70,18 @@ Check if you have writing permissions in the common area.
 5. Run CRAB
 ====
 
-Submit jobs.
+Submit CRAB tasks using miniAOD version 1 and CMSSW_7_4_9. These tasks should be updated to miniAOD version 2 and CMSSW_7_4_14.
 
     python multicrab.py samples/samples_spring15.py
     python multicrab.py samples/samples_dataB_PromptReco.py
     python multicrab.py samples/samples_dataB_17Jul2015.py
     python multicrab.py samples/samples_dataC_PromptReco_25ns.py
     python multicrab.py samples/samples_dataC_PromptReco_50ns.py
+
+Submit CRAB tasks using miniAOD version 2 and CMSSW_7_4_14.
+
+    python multicrab.py samples/samples_dataD_PromptReco_25ns.py
+    python multicrab.py samples/samples_dataD_05Oct2015_25ns.py
 
 Resubmit jobs.
 
