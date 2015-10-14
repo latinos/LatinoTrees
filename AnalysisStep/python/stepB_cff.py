@@ -111,12 +111,8 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 
         mll  = cms.string("mll()"),
         ptll = cms.string("pTll()"),
-        yll  = cms.string("yll()"), #fixed! returns (p4a+p4b).Rapidity()
-        #pt1  = cms.string("ptMax"),      # Deprecated, use std_vector_lepton_pt
-        #pt2  = cms.string("ptMin"),      # Deprecated, use std_vector_lepton_pt
-        #pt3  = cms.string("ptByPt(2)"),  # Deprecated, use std_vector_lepton_pt
-        #pt4  = cms.string("ptByPt(3)"),  # Deprecated, use std_vector_lepton_pt
-        
+        yll  = cms.string("yll()"),  # Returns (p4a+p4b).Rapidity()
+
         peaking = cms.string("peaking"),
         trigger = cms.string("guillelmoTrigger('DATASET')"),
         triggerFakeRate = cms.string("fakeRateTrigger('DATASET')"),
@@ -170,10 +166,15 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 
         puppijetpt1 = cms.string("leadingSecondJetPt(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
        
-        jetpt1 = cms.string("leadingJetPt(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jeteta1 = cms.string("leadingJetEta(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jetphi1 = cms.string("leadingJetPhi(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jetmass1 = cms.string("leadingJetMass(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
+        jetpt1   = cms.string("leadingJetPt(0,0,"   + CJVmaxEta + ",1," + jetId_WP + ")"),
+        jeteta1  = cms.string("leadingJetEta(0,0,"  + CJVmaxEta + ",1," + jetId_WP + ")"),
+        jetphi1  = cms.string("leadingJetPhi(0,0,"  + CJVmaxEta + ",1," + jetId_WP + ")"),
+        jetmass1 = cms.string("leadingJetMass(0,0," + CJVmaxEta + ",1," + jetId_WP + ")"),
+        jetpt2   = cms.string("leadingJetPt(1,0,"   + CJVmaxEta + ",1," + jetId_WP + ")"),
+        jeteta2  = cms.string("leadingJetEta(1,0,"  + CJVmaxEta + ",1," + jetId_WP + ")"),
+        jetphi2  = cms.string("leadingJetPhi(1,0,"  + CJVmaxEta + ",1," + jetId_WP + ")"),
+        jetmass2 = cms.string("leadingJetMass(1,0," + CJVmaxEta + ",1," + jetId_WP + ")"),
+
         jetid1 = cms.string("leadingJetId(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetmva1 = cms.string("leadingJetMva(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetbjpb1 = cms.string("leadingJetBtag(0,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
@@ -187,10 +188,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         jetNChgptCut1 = cms.string("leadingJetNChgptCut(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetNNeutralptCut1 = cms.string("leadingJetNNeutralptCut(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
 
-        jetpt2 = cms.string("leadingJetPt(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jeteta2 = cms.string("leadingJetEta(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jetphi2 = cms.string("leadingJetPhi(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        jetmass2 = cms.string("leadingJetMass(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetid2 = cms.string("leadingJetId(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jetmva2 = cms.string("leadingJetMva(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         jettche2 = cms.string("leadingJetBtag(1,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
@@ -210,6 +207,10 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         #iso2   = cms.string("allIsoByPt(1)/ptByPt(1)"),  # Deprecated, use std_vector_lepton_{IdIsoVariables}
         #iso3   = cms.string("allIsoByPt(2)/ptByPt(2)"),  # Deprecated, use std_vector_lepton_{IdIsoVariables}
         #iso4   = cms.string("allIsoByPt(3)/ptByPt(3)"),  # Deprecated, use std_vector_lepton_{IdIsoVariables}
+        #pt1    = cms.string("ptMax"),           # Deprecated, use std_vector_lepton_pt
+        #pt2    = cms.string("ptMin"),           # Deprecated, use std_vector_lepton_pt
+        #pt3    = cms.string("ptByPt(2)"),       # Deprecated, use std_vector_lepton_pt
+        #pt4    = cms.string("ptByPt(3)"),       # Deprecated, use std_vector_lepton_pt
         #eta1   = cms.string("etaByPt(0)"),      # Deprecated, use std_vector_lepton_eta
         #eta2   = cms.string("etaByPt(1)"),      # Deprecated, use std_vector_lepton_eta
         #eta3   = cms.string("etaByPt(2)"),      # Deprecated, use std_vector_lepton_eta
