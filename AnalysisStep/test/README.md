@@ -94,6 +94,10 @@ Check status.
 
     python multicrab.py crab_projects_17September report
     
+    export PATH=$HOME/.local/bin:/nfshome0/lumipro/brilconda/bin:$PATH
+    brilcalc lumi -i json.txt
+
+    
 
 6. Run cmssw2latino
 ====
