@@ -81,6 +81,8 @@ if __name__ == '__main__':
     # status and resubmit
     else :
        if len(sys.argv) >= 3 :
+          if sys.argv[2] == 'report' :
+           os.system("ls " + SamplesFile + " | awk '{print \" crab report "   + SamplesFile + "/\"$1" + "\" " + additionalConfiguration + "\"}' | /bin/sh")
           if sys.argv[2] == 'status' :
            os.system("ls " + SamplesFile + " | awk '{print \" crab status "   + SamplesFile + "/\"$1" + "\" " + additionalConfiguration + "\"}' | /bin/sh")
           if sys.argv[2] == 'resubmit' :
