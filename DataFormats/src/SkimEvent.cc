@@ -3871,6 +3871,7 @@ const float reco::SkimEvent::d0(size_t i) const {
   const reco::Vertex primaryVtx = highestPtVtx();
   if (i >= leps_.size())  return defaultvalues::defaultFloat;
   else if (isElectron(i)) return getElectron(i)->gsfTrack()->dxy(primaryVtx.position()); 
+  else if (isMuon(i))     return getMuon(i)->muonBestTrack()->dxy(primaryVtx.position()); 
   else return -999.0;
 }
 
@@ -3878,6 +3879,7 @@ const float reco::SkimEvent::dz(size_t i) const {
   const reco::Vertex primaryVtx = highestPtVtx();
   if (i >= leps_.size())  return defaultvalues::defaultFloat;
   else if (isElectron(i)) return getElectron(i)->gsfTrack()->dz(primaryVtx.position());
+  else if (isMuon(i))     return getMuon(i)->muonBestTrack()->dz(primaryVtx.position()); 
   else return -999.0;
 }
 

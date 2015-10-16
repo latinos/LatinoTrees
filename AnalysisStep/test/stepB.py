@@ -152,10 +152,10 @@ options.register ('doFatJet',
                   'Turn on Fat jet production and dumper (can be \'True\' or \'False\')')
 
 options.register ('puInformation',
-                  'addPileupInfo', # default value
+                  'slimmedAddPileupInfo', # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.string, # string, int, or float
-                  'name of pile-up information collection: it may change for premixing samples in MC, addPileupInfo [default], mixData for premixinf')
+                  'name of pile-up information collection: it may change for premixing samples in MC, slimmedAddPileupInfo [default], mixData for premixinf')
 
 options.register ('doPhotonID',
                   False, # default value
@@ -687,7 +687,7 @@ if doIsoStudy:
 
 # pile-up
 nPU = cms.EDProducer("PileUpMultiplicityCounter",
-    puLabel = cms.InputTag("addPileupInfo"),
+    puLabel = cms.InputTag("slimmedAddPileupInfo"),  # v1 miniaod addPileupInfo 
     src = cms.InputTag("")
 )
 
@@ -888,7 +888,7 @@ if isMC and doLHE :
 ## pileup dumper
 ##   dump pileup with NO selections applied
 process.PileUpDumperAnalyzer = cms.EDAnalyzer('PileUpDumper',
-    puLabel = cms.InputTag("addPileupInfo"),
+    puLabel = cms.InputTag("slimmedAddPileupInfo"),  # v1 miniaod addPileupInfo 
     debug   = cms.untracked.bool(False)
   )
 

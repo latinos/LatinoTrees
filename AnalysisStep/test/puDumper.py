@@ -31,7 +31,7 @@ process.TFileService = cms.Service("TFileService",
 )
 
 process.Analyzer = cms.EDAnalyzer('PileUpDumper',
-    puLabel  = cms.InputTag("addPileupInfo"),
+    puLabel = cms.InputTag("slimmedAddPileupInfo"),  # v1 miniaod addPileupInfo 
     debug    = cms.untracked.bool(False)
   )
 

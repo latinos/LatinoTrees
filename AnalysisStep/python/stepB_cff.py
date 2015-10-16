@@ -97,7 +97,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_muSIP3D      = cms.string("muSIP3DByPt"),
         std_vector_lepton_elSIP3D      = cms.string("elSIP3DByPt"),
         std_vector_lepton_ch           = cms.string("qByPt"),
-        
+        std_vector_lepton_d0           = cms.string("d0ByPt"),
+        std_vector_electron_dz         = cms.string("dzByPt"),
+          
         #std_vector_lepton_id = cms.string("pdgIdByPt"),  # Deprecated, use std_vector_lepton_flavour
 
         std_vector_puppijet_pt  = cms.string("leadingSecondJetPt"),
