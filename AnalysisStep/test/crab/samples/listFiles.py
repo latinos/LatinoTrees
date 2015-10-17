@@ -1,6 +1,7 @@
 ########
 
-outputDirectory = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/7Jul/25ns/"
+#outputDirectory = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/7Jul/25ns/"
+outputDirectory = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/TEST/"
 
 ########
 # 25 ns
@@ -21,10 +22,6 @@ samples['WWTo2L2Nu']    = ['/store/group/phys_higgs/cmshww/amassiro/RunII/test/W
 #samples['QCD30to50Ele'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/test3Jul/QCD_Pt-30to50_EMEnriched_TuneCUETP8M1_13TeV_pythia8/crab_25ns_QCD30to50Ele/150706_120525/0000/', 'stepB_MC_']
 #samples['QCD50to80Ele'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/test3Jul/QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8/crab_25ns_QCD50to80Ele/150706_120544/0000', 'stepB_MC_']
 #samples['QCD30toInfDoubleEle']    = ['/store/group/phys_higgs/cmshww/amassiro/RunII/test3Jul/QCD_Pt-30toInf_DoubleEMEnriched_MGG-40to80_TuneCUETP8M1_13TeV_Pythia8/crab_25ns_QCD30toInfDoubleEle/150706_120513/0000', 'stepB_MC_']
-
-
-
-
 
 
 

@@ -107,7 +107,7 @@ You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
     python multiCmssw2latino.py        samples/listFiles50ns.py
     python multiLxbatchCmssw2latino.py samples/listFiles50ns.py
 
-
+    
 7. Example of file copy from EOS
 ====
 
