@@ -11,8 +11,8 @@ pyCfgParams.append('globalTag=74X_dataRun2_Prompt_v4')
 pyCfgParams.append('is50ns=False')
 pyCfgParams.append('isPromptRecoData=True')
 
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/14Oct/data/'
-config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Cert_246908-258159_13TeV_PromptReco_Collisions15_25ns_JSON_v3.txt'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/19Oct/data/'
+config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Cert_246908-258714_13TeV_PromptReco_Collisions15_25ns_JSON.txt'
 config.Data.runRange      = '258159-999999'
 config.Data.splitting     = 'LumiBased'
-config.Data.unitsPerJob   = 5
+config.Data.unitsPerJob   = 3
