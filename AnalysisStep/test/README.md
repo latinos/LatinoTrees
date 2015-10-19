@@ -39,13 +39,13 @@ External documentation.
 
 *Do this only if you want to create a tag.*
 
-    git tag -a 28September2015 -m 'Last 7_4_9 tag'
-    git push origin 28September2015
+    git tag -a 19October2015 -m 'First miniAODv2 production'
+    git push origin 19October2015
 
 *Do this only if you want to use a tag.*
 
     pushd LatinoTrees
-    git checkout tags/28September2015
+    git checkout tags/19October2015
     popd
 
 Test the latino tree production.
@@ -72,27 +72,25 @@ Check if you have writing permissions in the common area.
 
 Submit jobs.
 
-    python multicrab.py samples/samples_spring15.py
-    python multicrab.py samples/samples_dataB_PromptReco.py
-    python multicrab.py samples/samples_dataB_17Jul2015.py
-    python multicrab.py samples/samples_dataC_PromptReco_25ns.py
-    python multicrab.py samples/samples_dataC_PromptReco_50ns.py
+    python multicrab.py samples/samples_spring15_miniaodv2_25ns.py
+    python multicrab.py samples/samples_dataD_05Oct2015_25ns.py
+    python multicrab.py samples/samples_dataD_PromptReco_25ns.py
 
 Resubmit jobs.
 
-    python multicrab.py crab_projects_17September resubmit
+    python multicrab.py crab_projects_19October resubmit
 
 Check status.
     
-    crab status crab_projects_17September/PromptReco_crab_DoubleEG
+    crab status crab_projects_19October/PromptReco_crab_DoubleEG
 
-    python multicrab.py crab_projects_17September status
+    python multicrab.py crab_projects_19October status
 
 *Only for data.* Report the non-analyzed luminosity sections.
 
-    crab report -d crab_projects_17September/PromptReco_crab_DoubleEG
+    crab report -d crab_projects_19October/PromptReco_crab_DoubleEG
 
-    python multicrab.py crab_projects_17September report
+    python multicrab.py crab_projects_19October report
     
     export PATH=$HOME/.local/bin:/nfshome0/lumipro/brilconda/bin:$PATH
     brilcalc lumi -i json.txt
