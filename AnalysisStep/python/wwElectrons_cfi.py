@@ -25,25 +25,25 @@ wwEleBase = selectedElectronsBase.clone( cut = ELE_BASE )
 # LOOSE without isolation
 
 ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+ 
-                           " && full5x5_sigmaIetaIeta < 0.010331" +
-                           " && hadronicOverEm < 0.093068" +
-                           " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.094739  " +
-                           " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.009277 " +
+                           " && full5x5_sigmaIetaIeta < 0.0011" +
+                           " && hadronicOverEm < 0.08" +
+                           " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.04  " +
+                           " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.01  " +
                            #" && abs(dB('PV2D')) < 0.035904  " +
                            #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.075496 " +
-                           " && abs(1./energy - 1/p) < 0.189968 " +
-                           " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
+                           " && abs(1./energy - 1/p) < 0.01 " +
+                           " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 2 "+
                            " && passConversionVeto() " +                           
                            #" && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
                            " ) || " +
                    "( (!isEB) " +
-                           " && full5x5_sigmaIetaIeta < 0.031838" +
-                           " && hadronicOverEm < 0.115754" +
-                           " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.149934  " +
-                           " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.009833  " +
+                           " && full5x5_sigmaIetaIeta < 0.031" +
+                           " && hadronicOverEm < 0.08" +
+                           " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.08  " +
+                           " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.01  " +
                            #" && abs(dB('PV2D')) < 0.099266  " +
                            #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.197897  " +
-                           " && abs(1./energy - 1/p) < 0.140662 " +
+                           " && abs(1./energy - 1/p) < 0.01 " +
                            " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
                            " && passConversionVeto() " +                           
                            #" && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +

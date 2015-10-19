@@ -726,6 +726,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float elSIP3D                       (size_t i) const;
 	    const float expectedMissingInnerHits      (size_t i) const;
             const bool  passConversionVeto            (size_t i) const;
+	    const float hcalPFClusterIso              (size_t i) const;
+	    const float ecalPFClusterIso              (size_t i) const;
+
 
             const float GetElectronEffectiveAreaByPt      (size_t i) const;
             const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx(indexByPt(i)); }          
@@ -739,15 +742,19 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float elSIP3DByPt                       (size_t i) const { return elSIP3D                       (indexByPt(i)); }
 	    const float expectedMissingInnerHitsByPt      (size_t i) const { return expectedMissingInnerHits      (indexByPt(i)); }
             const bool  passConversionVetoByPt            (size_t i) const { return passConversionVeto            (indexByPt(i)); }
+	    const float hcalPFClusterIsoByPt              (size_t i) const { return hcalPFClusterIso              (indexByPt(i)); }   
+	    const float ecalPFClusterIsoByPt              (size_t i) const { return ecalPFClusterIso              (indexByPt(i)); }   
 
 
             // Muon and electron isolation
+	    const float trackIso          (size_t i = 0) const;
 	    const float chargedHadronIso  (size_t i = 0) const;
 	    const float chargedParticleIso(size_t i = 0) const;
 	    const float neutralHadronIso  (size_t i = 0) const;
 	    const float photonIso         (size_t i = 0) const;
 	    const float sumPUPt           (size_t i = 0) const;
 
+	    const float trackIsoByPt          (size_t i = 0) const { return trackIso          (indexByPt(i)); }
             const float chargedHadronIsoByPt  (size_t i = 0) const { return chargedHadronIso  (indexByPt(i)); }
 	    const float chargedParticleIsoByPt(size_t i = 0) const { return chargedParticleIso(indexByPt(i)); }
 	    const float neutralHadronIsoByPt  (size_t i = 0) const { return neutralHadronIso  (indexByPt(i)); }

@@ -18,7 +18,6 @@
 //     }
 // return -1;
 // }
-
 const int reco::SkimEvent::channel() const {
  if ((pdgIdByPt(0) != -9999) && (pdgIdByPt(1) != -9999)) {
   if      (abs(pdgIdByPt(0)) == 13 && abs(pdgIdByPt(1)) == 13 ) return 0; //---- mm
@@ -3782,6 +3781,7 @@ const float reco::SkimEvent::muSegCompatibilty(size_t i) const  {
 }
 
 
+
 const bool reco::SkimEvent::isTightMuon(size_t i) const {
  if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isMuon(i) ) {
@@ -3828,6 +3828,10 @@ const float reco::SkimEvent::elSIP3D(size_t i) const {
   return defaultvalues::defaultFloat;
  }
 }
+
+
+
+
 
 
 // Electron cut based ID
@@ -3897,7 +3901,29 @@ const bool reco::SkimEvent::passConversionVeto(size_t i) const {
 }
 
 
+const float reco::SkimEvent::ecalPFClusterIso(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->ecalPFClusterIso();
+  else return -999.0;
+}
+
+const float reco::SkimEvent::hcalPFClusterIso(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->hcalPFClusterIso();
+  else return -999.0;
+}
+
+
 // Muon and electron isolation
+
+const float reco::SkimEvent::trackIso(size_t i) const  {
+ if(i >= leps_.size()) return defaultvalues::defaultFloat;  
+ else if (isElectron(i))     return getElectron(i)->trackIso();
+ else if (isMuon(i))         return getMuon(i)->isolationR03().sumPt;
+ else                        return -999.0;
+}
+
+
 const float reco::SkimEvent::chargedHadronIso(size_t i) const {
  if      (i >= leps_.size()) return defaultvalues::defaultFloat;
  else if (isElectron(i))     return getElectron(i)->pfIsolationVariables().sumChargedHadronPt;
