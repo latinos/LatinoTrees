@@ -376,7 +376,7 @@ def addMuonIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_lepton_neutralHadronIso",     cms.string("neutralHadronIsoByPt")),
         setattr(pt.variables, "std_vector_lepton_photonIso",            cms.string("photonIsoByPt")),
         setattr(pt.variables, "std_vector_lepton_sumPUPt",              cms.string("sumPUPtByPt")),
-        setattr(pt.variables, "std_vector_lepton_trackIso",             cms.string("trackIsoByPt")),
+ 
     else:
         raise RuntimeError, "In addMuonIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 
@@ -394,8 +394,6 @@ def addEleIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_electron_scEta",                    cms.string("etaSCByPt")),
         setattr(pt.variables, "std_vector_electron_expectedMissingInnerHits", cms.string("expectedMissingInnerHitsByPt")),
         setattr(pt.variables, "std_vector_electron_passConversionVeto",       cms.string("passConversionVetoByPt")),
-        setattr(pt.variables, "std_vector_electron_ecalPFClusterIso",         cms.string("ecalPFClusterIsoByPt")),
-        setattr(pt.variables, "std_vector_electron_hcalPFClusterIso",         cms.string("hcalPFClusterIsoByPt")),
     else:
         raise RuntimeError, "In addEleIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 
@@ -443,6 +441,8 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.std_vector_jet_softMuEta = cms.string("jetSoftMuonEtaByPt")
         pt.variables.std_vector_jet_softMuPhi = cms.string("jetSoftMuonPhiByPt")
         pt.variables.std_vector_jet_softMuIso = cms.string("jetSoftMuonIsoByPt")
+        pt.variables.std_vector_jet_softMuD0  = cms.string("jetSoftMuonD0ByPt")
+        pt.variables.std_vector_jet_softMuDz  = cms.string("jetSoftMuonDzByPt")
         pt.variables.std_vector_jet_NumberSoftMu = cms.string("jetSoftMuonCountingByPt")
 
         pt.variables.jetcsvv2ivf1 = cms.string("leadingJetBtag(0,'pfCombinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)

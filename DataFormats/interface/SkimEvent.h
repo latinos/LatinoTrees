@@ -791,7 +791,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float jetSoftMuonPhi(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;
             const float jetSoftMuonIsoByPt(size_t i) const;
             const float jetSoftMuonIso(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;
-                        
+            const float jetSoftMuonDzByPt(size_t i) const;
+            const float jetSoftMuonDz(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const;
+            const float jetSoftMuonD0ByPt(size_t i) const;
+            const float jetSoftMuonD0(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const;
+            
             const float jetSoftMuonCountingByPt(size_t i) const;
             const float jetSoftMuonCounting(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;
             
