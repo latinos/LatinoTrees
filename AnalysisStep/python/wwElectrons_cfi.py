@@ -25,7 +25,7 @@ wwEleBase = selectedElectronsBase.clone( cut = ELE_BASE )
 # LOOSE without isolation
 
 ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+ 
-                           " && full5x5_sigmaIetaIeta < 0.0011" +
+                           " && full5x5_sigmaIetaIeta < 0.011" +
                            " && hadronicOverEm < 0.08" +
                            " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.04  " +
                            " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.01  " +
