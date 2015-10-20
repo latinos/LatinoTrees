@@ -39,13 +39,13 @@ External documentation.
 
 *Do this only if you want to create a tag.*
 
-    git tag -a 21October2015 -m '1.28/fb miniAODv2 latino production'
-    git push origin 21October2015
+    git tag -a 21October2015_v2 -m '1.28/fb miniAODv2 latino production'
+    git push origin 21October2015_v2
 
 *Do this only if you want to use a tag.*
 
     pushd LatinoTrees
-    git checkout tags/21October2015
+    git checkout tags/21October2015_v2
     popd
 
 Test the latino tree production.
