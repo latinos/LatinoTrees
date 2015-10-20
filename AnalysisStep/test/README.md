@@ -39,13 +39,13 @@ External documentation.
 
 *Do this only if you want to create a tag.*
 
-    git tag -a 19October2015 -m 'First miniAODv2 production'
-    git push origin 19October2015
+    git tag -a 21October2015 -m '1.28/fb miniAODv2 latino production'
+    git push origin 21October2015
 
 *Do this only if you want to use a tag.*
 
     pushd LatinoTrees
-    git checkout tags/19October2015
+    git checkout tags/21October2015
     popd
 
 Test the latino tree production.
@@ -78,19 +78,19 @@ Submit jobs.
 
 Resubmit jobs.
 
-    python multicrab.py crab_projects_19October resubmit
+    python multicrab.py crab_projects_21October resubmit
 
 Check status.
     
-    crab status crab_projects_19October/PromptReco_crab_DoubleEG
+    crab status crab_projects_21October/PromptReco_crab_DoubleEG
 
-    python multicrab.py crab_projects_19October status
+    python multicrab.py crab_projects_21October status
 
 *Only for data.* Report the non-analyzed luminosity sections.
 
-    crab report -d crab_projects_19October/PromptReco_crab_DoubleEG
+    crab report -d crab_projects_21October/PromptReco_crab_DoubleEG
 
-    python multicrab.py crab_projects_19October report
+    python multicrab.py crab_projects_21October report
     
     export PATH=$HOME/.local/bin:/nfshome0/lumipro/brilconda/bin:$PATH
     brilcalc lumi -i json.txt
