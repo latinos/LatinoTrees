@@ -92,6 +92,26 @@ Phys14:
     
     
     
+    xrdcp root://xrootd.unl.edu//store/mc/RunIISpring15MiniAODv2/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/74X_mcRun2_asymptotic_v2-v3/60000/00372E76-286A-E511-B90C-0025905A60D2.root /tmp/amassiro/
+    scp amassiro@cmsneu:/media/data/CMSSWRoot/Phys14DR/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/MINIAODSIMv2/00372E76-286A-E511-B90C-0025905A60D2.root  /tmp/amassiro/00372E76-286A-E511-B90C-0025905A60D2.root
+    cmsRun stepB.py print \
+                    label=Top \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    maxEvents=200 \
+                    doLHE=True \
+                    doGen=True \
+                    doBTag=True \
+                    globalTag=74X_mcRun2_asymptotic_v2 \
+                    inputFiles=file:/tmp/amassiro/00372E76-286A-E511-B90C-0025905A60D2.root
+
+    cmsRun weightDumper.py \
+                    outputFile=weight_MC.root \
+                    inputFiles=file:/tmp/amassiro/00372E76-286A-E511-B90C-0025905A60D2.root
+
     
     xrdcp root://xrootd.unl.edu//store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU30bx50_PHYS14_25_V1-v1/00000/003B6371-8D81-E411-8467-003048F0E826.root /tmp/amassiro/
     scp amassiro@cmsneu:/media/data/CMSSWRoot/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/003B6371-8D81-E411-8467-003048F0E826.root  /tmp/amassiro/003B6371-8D81-E411-8467-003048F0E826.root

@@ -126,8 +126,10 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  myTree_ = fs -> make <TTree>("myTree","myTree");
  
  myTree_ -> Branch("weightsLHE", "std::vector<double>", &_weightsLHE);
+//  myTree_ -> Branch("weightsLHE", &_weightsLHE);
  myTree_ -> Branch("weightNominalLHE", &_weightNominalLHE, "weightNominalLHE/D");
  myTree_ -> Branch("weights", "std::vector<double>", &_weights);
+//  myTree_ -> Branch("weights", &_weights);
  myTree_ -> Branch("weightSM", &_weightSM, "weightSM/D");
  
 }
@@ -162,8 +164,9 @@ void WeightDumper::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
  _weightSM = genEvtInfo->weight();
  
  _weights.clear();
+ if (_debug) std::cout << " evtWeights.size() = " << evtWeights.size() << std::endl;
  for (unsigned int iWeight = 0; iWeight < evtWeights.size(); iWeight++) {
-  if (_debug) std::cout << " evtWeights[" << iWeight << "] = " << evtWeights.at(iWeight) << std::endl;
+//   if (_debug) std::cout << " evtWeights[" << iWeight << "] = " << evtWeights.at(iWeight) << std::endl;
   _weights.push_back(evtWeights.at(iWeight));
  }
  if (_debug) std::cout << " weightSM = " << _weightSM << std::endl;
