@@ -16,4 +16,4 @@ config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification
 config.Data.runRange      = '256630-258158'
 config.Data.splitting     = 'LumiBased'
 config.Data.unitsPerJob   = 3
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/19Oct/data/25ns/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/'

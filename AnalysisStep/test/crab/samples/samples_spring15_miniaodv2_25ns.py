@@ -147,5 +147,5 @@ samples['QCD_Pt-30toInf_DoubleEMEnriched'] = ['/QCD_Pt-30toInf_DoubleEMEnriched_
 ########
 # Additional global configuration
 ########
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/19Oct/MC/25ns/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/MC/25ns/'
 pyCfgParams.append('globalTag=74X_mcRun2_asymptotic_v2')

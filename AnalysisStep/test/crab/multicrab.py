@@ -19,7 +19,7 @@ config.section_('Data')
 config.Data.inputDBS      = 'global'
 config.Data.splitting     = 'FileBased'
 config.Data.unitsPerJob   = 1
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/19Oct/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/'
 
 config.section_('Site')
 config.Site.storageSite = 'T2_CH_CERN'
