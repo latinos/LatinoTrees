@@ -138,7 +138,7 @@ Steps to be followed (in this order) for MC.
 
     gardener.py wwNLLcorrections -m 'powheg' latino_WW.root latino_WW_NLL.root
 
-This step, to be applied for both data and MC, requires two good leptons and removes them from the jet collection.
+This step, to be applied on both data and MC, requires two good leptons and removes them from the jet collection.
 
     gardener.py l2selfiller -r input_folder output_folder
 
