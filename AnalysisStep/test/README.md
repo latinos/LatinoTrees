@@ -126,9 +126,9 @@ To add the PU weight in the MC latino trees we need to be provided with a PU jso
 
 Steps to be followed (in this order) for MC.
 
-    gardener.py mcweightsfiller -r input_folder/ output_folder/
+    gardener.py mcweightsfiller -r input_folder output_folder
 
-    gardener.py puadder -r input_folder/ output_folder/ \
+    gardener.py puadder -r input_folder output_folder \
         --data=pudata.root \
         --HistName=pileup \
         --branch=puW \
@@ -138,9 +138,9 @@ Steps to be followed (in this order) for MC.
 
     gardener.py wwNLLcorrections -m 'powheg' latino_WW.root latino_WW_NLL.root
 
-This step requires two good leptons and removes them from the jet collection.
+This step, to be applied for both data and MC, requires two good leptons and removes them from the jet collection.
 
-    gardener.py l2selfiller -r input_folder/ output_folder/
+    gardener.py l2selfiller -r input_folder output_folder
 
 
 8. Example of file copy from EOS
