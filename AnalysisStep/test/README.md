@@ -106,7 +106,44 @@ You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
     python multiLxbatchCmssw2latino.py samples/listFiles50ns.py
 
     
-7. Example of file copy from EOS
+7. Postprocess the latino trees
+====
+
+Please have a look at the Gardener README for detailed instructions.
+
+    https://github.com/latinos/LatinoAnalysis/blob/master/Gardener/test/README.md
+
+To add the PU weight in the MC latino trees we need to be provided with a PU json file, `pujson.txt`. Once we have it one person should produce and share the `pudata.root` file. Both `pujson.txt` and `pudata.root` should be kept in some afs public area.
+
+    pileupCalc.py \
+        -i Cert_246908-251883_13TeV_PromptReco_Collisions15_JSON_v2.txt \
+        --inputLumiJSON=pujson.txt \
+        --calcMode=true \
+        --minBiasXsec=70000 \
+        --maxPileupBin=80 \
+        --numPileupBins=80 \
+        pudata.root
+
+Steps to be followed (in this order) for MC.
+
+    gardener.py mcweightsfiller -r input_folder/ output_folder/
+
+    gardener.py puadder -r input_folder/ output_folder/ \
+        --data=pudata.root \
+        --HistName=pileup \
+        --branch=puW \
+        --kind=trpu
+
+    gardener.py adder -v 'baseW/F=<number from google doc>' latino_input.root latino_output.root  
+
+    gardener.py wwNLLcorrections -m 'powheg' latino_WW.root latino_WW_NLL.root
+
+This step requires two good leptons and removes them from the jet collection.
+
+    gardener.py l2selfiller -r input_folder/ output_folder/
+
+
+8. Example of file copy from EOS
 ====
 
 Verify that the files are available at the source.

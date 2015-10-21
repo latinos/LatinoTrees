@@ -3,7 +3,7 @@
 ########
 samples['Run2015D_05Oct2015_25ns_DoubleEG']       = ['/DoubleEG/Run2015D-05Oct2015-v1/MINIAOD',       ['label=DoubleEG']]
 samples['Run2015D_05Oct2015_25ns_DoubleMuon']     = ['/DoubleMuon/Run2015D-05Oct2015-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['Run2015D_05Oct2015_25ns_MuonEG']         = ['/MuonEG/Run2015D-05Oct2015-v1/MINIAOD',         ['label=MuEG']]
+samples['Run2015D_05Oct2015_25ns_MuonEG']         = ['/MuonEG/Run2015D-05Oct2015-v2/MINIAOD',         ['label=MuEG']]
 samples['Run2015D_05Oct2015_25ns_SingleElectron'] = ['/SingleElectron/Run2015D-05Oct2015-v1/MINIAOD', ['label=SingleElectron']]
 samples['Run2015D_05Oct2015_25ns_SingleMuon']     = ['/SingleMuon/Run2015D-05Oct2015-v1/MINIAOD',     ['label=SingleMuon']]
 
