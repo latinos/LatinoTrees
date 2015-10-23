@@ -39,8 +39,10 @@ External documentation.
 
 *Do this only if you want to create a tag.*
 
+    pushd LatinoTrees
     git tag -a 21October2015_v2 -m '1.28/fb miniAODv2 latino production'
     git push origin 21October2015_v2
+    popd
 
 *Do this only if you want to use a tag.*
 
@@ -82,18 +84,16 @@ Resubmit jobs.
 
 Check status.
     
-    crab status crab_projects_21October/PromptReco_crab_DoubleEG
+    crab status crab_projects_21October/crab_Run2015D_PromptReco_25ns_DoubleMuon
 
     python multicrab.py crab_projects_21October status
 
 *Only for data.* Report the non-analyzed luminosity sections.
 
-    crab report -d crab_projects_21October/PromptReco_crab_DoubleEG
+    crab report crab_projects_21October/crab_Run2015D_PromptReco_25ns_DoubleMuon
 
-    python multicrab.py crab_projects_21October report
-    
     export PATH=$HOME/.local/bin:/nfshome0/lumipro/brilconda/bin:$PATH
-    brilcalc lumi -i json.txt
+    brilcalc lumi -i missingLumiSummary.json
 
     
 
