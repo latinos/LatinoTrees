@@ -93,7 +93,7 @@ Check status.
     crab report crab_projects_21October/crab_Run2015D_PromptReco_25ns_DoubleMuon
 
     export PATH=$HOME/.local/bin:/nfshome0/lumipro/brilconda/bin:$PATH
-    brilcalc lumi -i missingLumiSummary.json
+    brilcalc lumi -u /pb -i missingLumiSummary.json
 
     
 
