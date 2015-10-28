@@ -146,14 +146,11 @@ This step, to be applied on both data and MC, requires two good leptons and remo
 8. Example of file copy from EOS
 ====
 
-Login to lxplus.
-
-    ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
-
 Mount eos if you need to rearrange the source files.
 
-   eosmount  eos
-   eosumount eos
+    ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
+    eosmount  eos
+    eosumount eos
 
 Verify the location of the source files.
 
