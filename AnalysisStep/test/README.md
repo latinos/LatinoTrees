@@ -109,14 +109,9 @@ You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
 7. Postprocess the latino trees
 ====
 
-Please have a look at the Gardener README for detailed instructions.
-
-    https://github.com/latinos/LatinoAnalysis/blob/master/Gardener/test/README.md
-
 To add the PU weight in the MC latino trees we need to be provided with a PU json file. Once we have it one person should produce and share the `pudata.root` file.
 
     pushd /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV
-
     pileupCalc.py \
         -i Cert_246908-251883_13TeV_PromptReco_Collisions15_JSON_v2.txt \
         --inputLumiJSON=PileUp/pileup_latest.txt \
@@ -125,10 +120,9 @@ To add the PU weight in the MC latino trees we need to be provided with a PU jso
         --maxPileupBin=80 \
         --numPileupBins=80 \
         /afs/cern.ch/user/p/piedra/work/pudata.root
-
     popd
 
-Steps to be followed (in this order) for MC.
+Steps to be followed (in this order) for MC. Please have a look at the Gardener [README](https://github.com/latinos/LatinoAnalysis/blob/master/Gardener/test/README.md) for detailed instructions.
 
     gardener.py mcweightsfiller -r input_folder output_folder
 
