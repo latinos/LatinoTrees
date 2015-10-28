@@ -146,18 +146,27 @@ This step, to be applied on both data and MC, requires two good leptons and remo
 8. Example of file copy from EOS
 ====
 
-Verify that the files are available at the source.
+Login to lxplus.
 
     ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
-    eos ls /eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/25ns
 
-Copy to the destination.
+Mount eos if you need to rearrange the source files.
+
+   eosmount  eos
+   eosumount eos
+
+Verify the location of the source files.
+
+    eos ls /eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/Run2015D_PromptReco
+
+Login to gridui.
 
     ssh -Y gridui.ifca.es -o ServerAliveInterval=240
     cd /gpfs/csic_projects/cms/piedra/work/CMSSW_7_5_3/src
     source /cvmfs/cms.cern.ch/cmsset_default.sh
     cmsenv
 
-    cd /gpfs/csic_projects/tier3data/LatinosSkims/MC_Spring15/25ns
-    xrdcp --force --recursive root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/25ns .
+Go to the destination folder and copy all the files from the source directory.
+
+    xrdcp --force --recursive root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/Run2015D_PromptReco .
 
