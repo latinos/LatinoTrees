@@ -143,6 +143,39 @@ samples['QCD_Pt-30to50_EMEnriched']        = ['/QCD_Pt-30to50_EMEnriched_TuneCUE
 samples['QCD_Pt-50to80_EMEnriched']        = ['/QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                   ['label=QCD_Pt-50to80_EMEnriched',        'id=10006', 'doLHE=False' ]]
 samples['QCD_Pt-30toInf_DoubleEMEnriched'] = ['/QCD_Pt-30toInf_DoubleEMEnriched_MGG-40to80_TuneCUETP8M1_13TeV_Pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=QCD_Pt-30toInf_DoubleEMEnriched', 'id=10007', 'doLHE=False' ]]
 
+# VBS >> Jasper
+#WpWpJJ
+samples['WpWpJJ_EWK_QCD']                = ['/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                         ['label=WpWpJJ_EWK_QCD',               	'id=40001', 'doMCweights=True']]
+samples['WpWpJJ_EWK']            	 = ['/WpWpJJ_EWK_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',               ['label=WpWpJJ_EWK',           		'id=40002', 'doMCweights=True']]
+samples['WpWpJJ_QCD']         		= ['/WWJJToLNuLNu_QCD_noTop_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', 
+['label=WpWpJJ_QCD',        		'id=40003', 'doMCweights=True']]
+
+#WpWmJJ
+samples['WpWmJJ_EWK_QCD_noTop']          = ['/WWJJToLNuLNu_EWK_QCD_noTop_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                         ['label=WpWmJJ_EWK_QCD_noTop',           'id=40004', 'doMCweights=True']]
+#samples['WpWmJJ_EWK_noTop']           	 = ['/WWJJToLNuLNu_EWK_noTop_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',               ['label=WpWmJJ_EWK_noTop',           	 'id=40005', 'doMCweights=True']]
+samples['WpWmJJ_QCD_noTop']            	 = ['/WWJJToLNuLNu_QCD_noTop_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',               ['label=WpWmJJ_QCD_noTop',           	 'id=40006', 'doMCweights=True']]
+
+#samples['WpWmJJ_EWK_QCD_noTop_noHiggs']  	= ['/WWJJToLNuLNu_EWK_QCD_noTop-noHiggs_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=WpWmJJ_EWK_QCD_noTop_noHiggs',          'id=40007', 'doMCweights=True']]
+#samples['WpWmJJ_EWK']            	 	= ['/WWJJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',               ['label=WpWmJJ_EWK',           			'id=40008', 'doMCweights=True']]
+
+#TWJ
+#samples['TWJ']            	 	= ['/TWJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',               ['label=TWJ',           		'id=40009', 'doMCweights=True']]
+
+
+#WLLJJ
+samples['WLLJJToLNu_M-60_EWK_QCD']   	= ['/WLLJJToLNu_M-60_EWK_QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',['label=WLLJJToLNu_M-60_EWK_QCD',       'id=40010', 'doMCweights=True']]
+samples['WLLJJToLNu_M-60_EWK']         	= ['/WLLJJToLNu_M-60_EWK_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',               ['label=WLLJJToLNu_M-60_EWK',           'id=40011', 'doMCweights=True']]
+samples['WLLJJToLNu_M-60_QCD']         	= ['/WLLJJToLNu_M-60_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', 
+['label=WLLJJToLNu_M-60_QCD',        	'id=40012', 'doMCweights=True']]
+samples['WLLJJToLNu_M-4to60_EWK_QCD']   = ['/WLLJJToLNu_M-4to60_EWK_QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', 
+['label=WLLJJToLNu_M-4to60_EWK_QCD',    'id=40013', 'doMCweights=True']]
+
+#WZjj
+samples['WZJJ_EWK_QCD']         	= ['/WZJJ_EWK_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', 
+['label=WZJJ_EWK_QCD',        		'id=40014', 'doMCweights=True']
+samples['WZJJ_EWK']         		= ['/WZJJ_EWK_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', 
+['label=WZJJ_EWK',        		'id=40015', 'doMCweights=True']]
+#samples['WZJJ_QCD']         		= ['/WZJJ_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                        ['label=WZJJ_QCD',        		'id=40016', 'doMCweights=True']]
 
 ########
 # Additional global configuration
