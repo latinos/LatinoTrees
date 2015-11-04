@@ -58,6 +58,3 @@ if __name__ == '__main__':
     # error
     else :
        print "Error: ", SamplesFile, " does not exist "
-       
-
-       
