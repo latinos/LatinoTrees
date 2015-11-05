@@ -1,4 +1,4 @@
-0. Documentation
+1. Documentation
 ====
 
 Latino's twiki and indico pages.
@@ -88,6 +88,7 @@ Check status.
     python multicrab.py crab_projects_21October status
 
 6. How much luminosity?
+====
 
 *Only for data.* Use [brilcalc](http://cms-service-lumi.web.cern.ch/cms-service-lumi/brilwsdoc.html) to report the analyzed (or missed) luminosity.
 
