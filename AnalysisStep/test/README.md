@@ -1,4 +1,4 @@
-1. Documentation
+0. Documentation
 ====
 
 Latino's twiki and indico pages.
