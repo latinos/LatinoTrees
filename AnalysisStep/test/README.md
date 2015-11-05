@@ -88,14 +88,17 @@ Check status.
 
     python multicrab.py crab_projects_21October status
 
-*Only for data.* Report the non-analyzed luminosity sections.
+*Only for data.* Use [brilcalc](http://cms-service-lumi.web.cern.ch/cms-service-lumi/brilwsdoc.html) to report the analyzed (or missed) luminosity.
 
     crab report crab_projects_21October/crab_Run2015D_PromptReco_25ns_DoubleMuon
 
-    export PATH=$HOME/.local/bin:/nfshome0/lumipro/brilconda/bin:$PATH
+    export PATH=$HOME/.local/bin:/afs/cern.ch/cms/lumi/brilconda-1.0.3/bin:$PATH
+
+    brilcalc lumi --begin 256630 --end 258158 -u /fb -i Cert_246908-258750_13TeV_PromptReco_Collisions15_25ns_JSON.txt
+    brilcalc lumi --begin 258159 --end 999999 -u /fb -i Cert_246908-258750_13TeV_PromptReco_Collisions15_25ns_JSON.txt
+
     brilcalc lumi -u /pb -i missingLumiSummary.json
 
-    
 
 6. Run cmssw2latino
 ====
