@@ -163,5 +163,5 @@ Login to gridui.
 
 Go to the destination folder and copy all the files from the source directory.
 
-    xrdcp --force --recursive root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/Run2015D_PromptReco .
+    xrdcp --recursive root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/Run2015D_PromptReco .
 
