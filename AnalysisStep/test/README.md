@@ -87,6 +87,8 @@ Check status.
 
     python multicrab.py crab_projects_21October status
 
+6. How much luminosity?
+
 *Only for data.* Use [brilcalc](http://cms-service-lumi.web.cern.ch/cms-service-lumi/brilwsdoc.html) to report the analyzed (or missed) luminosity.
 
     crab report crab_projects_21October/crab_Run2015D_PromptReco_25ns_DoubleMuon
@@ -99,7 +101,7 @@ Check status.
     brilcalc lumi -u /pb -i missingLumiSummary.json
 
 
-6. Run cmssw2latino
+7. Run cmssw2latino
 ====
 
 You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
@@ -108,7 +110,7 @@ You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
     python multiLxbatchCmssw2latino.py samples/listFiles50ns.py
 
     
-7. Postprocess the latino trees
+8. Postprocess the latino trees
 ====
 
 To add the PU weight in the MC latino trees we need to be provided with a PU json file. Once we have it one person should produce and share the `pudata.root` file.
@@ -143,7 +145,7 @@ This step, to be applied on both data and MC, requires two good leptons and remo
     gardener.py l2selfiller -r input_folder output_folder
 
 
-8. Example of file copy from EOS
+9. Example of file copy from EOS
 ====
 
 Mount eos if you need to rearrange the source files.
