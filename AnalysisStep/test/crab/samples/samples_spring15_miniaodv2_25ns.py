@@ -121,17 +121,18 @@ samples['VBFHToTauTau_M130']          = ['/VBFHToTauTau_M130_13TeV_powheg_pythia
 
 
 # VVV >> Khakim
-#samples['WWW'] = ['', ['label=WWW', 'id=00000', 'doMCweights=True']]
+#samples['WWW'] = ['',                                                                                                       ['label=WWW', 'id=00000', 'doMCweights=True']]
 samples['WWZ']  = ['/WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=WWZ', 'id=00000', 'doMCweights=True']]
 samples['WZZ']  = ['/WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=WZZ', 'id=00000', 'doMCweights=True']]
 samples['ZZZ']  = ['/ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=ZZZ', 'id=00000', 'doMCweights=True']]
 
 
 # Vg >> Khakim
-samples['Wg']      = ['/WGToLNuG_PtG-500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=Wg', 'id=00000', 'doMCweights=True']]
-#samples['WgStar'] = ['', ['label=WgStar', 'id=00000', 'doMCweights=True']]
-#samples['Zg']     = ['', ['label=Zg',     'id=00000', 'doMCweights=True']]
-#samples['ZgStar'] = ['', ['label=ZgStar', 'id=00000', 'doMCweights=True']]
+samples['Wg']      = ['/WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',        ['label=Wg',     'id=00000', 'doMCweights=True']]
+samples['Wg500']   = ['/WGToLNuG_PtG-500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=Wg500',  'id=00000', 'doMCweights=True']]
+#samples['WgStar'] = ['',                                                                                                                       ['label=WgStar', 'id=00000', 'doMCweights=True']]
+samples['Zg']      = ['/ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',         ['label=Zg',     'id=00000', 'doMCweights=True']]
+#samples['ZgStar'] = ['',                                                                                                                       ['label=ZgStar', 'id=00000', 'doMCweights=True']]
 
 
 # QCD >> Khakim
