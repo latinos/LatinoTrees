@@ -45,7 +45,7 @@ if __name__ == '__main__':
                print "split --lines=20 -d list.txt list_"
                print "for x in `ls list_*` ; do hadd -f `ls $x | awk --field-separator=\"_\" '{ print \"/tmp/" + requestName + "_\"$2\".root\" }'` `cat $x` ; done"
                print "for x in `ls /tmp/" + requestName + "*` ; do python ../cmssw2latino.py $x ; done"
-               print "for x in `ls latino_" + requestName + "*` ; do /afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select cp $x " + outputDirectory + " ; done"          
+               print "for x in `ls latino_" + requestName + "*` ; do /afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select cp $x " + outputDirectory + "/ ; done"          
                print "rm list.txt list_*"
                print "rm latino_" + requestName + "*.root /tmp/" + requestName + "*.root "     
 
@@ -57,7 +57,7 @@ if __name__ == '__main__':
                os.system("split --lines=20 -d list.txt list_")
                os.system("for x in `ls list_*` ; do hadd -f `ls $x | awk --field-separator=\"_\" '{ print \"/tmp/" + requestName + "_\"$2\".root\" }'` `cat $x` ; done")
                os.system("for x in `ls /tmp/" + requestName + "*` ; do python ../cmssw2latino.py $x ; done")
-               os.system("for x in `ls latino_" + requestName + "*` ; do /afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select cp $x " + outputDirectory + " ; done")
+               os.system("for x in `ls latino_" + requestName + "*` ; do /afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select cp $x " + outputDirectory + "/ ; done")
                os.system("rm list.txt list_*")
                os.system("rm latino_" + requestName + "*.root /tmp/" + requestName + "*.root ")
 
