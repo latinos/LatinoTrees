@@ -6,7 +6,7 @@ if __name__ == '__main__':
     print sys.argv
     if len(sys.argv) <= 1 :
         print "no arguments?"
-        print "Usage to submit:     python multiCmssw2latino.py file.py [0/1 = dryRun/exec]"
+        print "Usage to submit:     python multiCmssw2latino_split.py file.py [0/1 = dryRun/exec]"
         exit()
        
     # default is "execute"   
