@@ -160,8 +160,8 @@ samples['WLLJJToLNu_M-60_EWK']           = ['/WLLJJToLNu_M-60_EWK_13TeV-madgraph
 samples['WLLJJToLNu_M-60_QCD']           = ['/WLLJJToLNu_M-60_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                     ['label=WLLJJToLNu_M-60_QCD',          'id=40012', 'doMCweights=True']]
 samples['WLLJJToLNu_M-4to60_EWK_QCD']    = ['/WLLJJToLNu_M-4to60_EWK_QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=WLLJJToLNu_M-4to60_EWK_QCD',   'id=40013', 'doMCweights=True']]
 samples['WZJJ_EWK_QCD']                  = ['/WZJJ_EWK_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                            ['label=WZJJ_EWK_QCD',                 'id=40014', 'doMCweights=True']]
-samples['WZJJ_EWK']                      = ['/WZJJ_EWK_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                                ['label=WZJJ_EWK',                     'id=40015', 'doMCweights=True']]
-#samples['WZJJ_QCD']                     = ['/WZJJ_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                                ['label=WZJJ_QCD',                     'id=40016', 'doMCweights=True']]
+#samples['WZJJ_EWK']                     = ['/WZJJ_EWK_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                                ['label=WZJJ_EWK',                     'id=40015', 'doMCweights=True']]
+samples['WZJJ_QCD']                      = ['/WZJJ_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                                ['label=WZJJ_QCD',                     'id=40016', 'doMCweights=True']]
 
 
 ########
