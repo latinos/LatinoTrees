@@ -18,7 +18,7 @@ config.JobType.allowUndistributedCMSSW = True
 config.section_('Data')    
 config.Data.inputDBS      = 'global'
 config.Data.splitting     = 'LumiBased'
-config.Data.unitsPerJob   = 200
+config.Data.unitsPerJob   = 150
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/'
 
 config.section_('Site')
