@@ -12,13 +12,13 @@ config.section_('JobType')
 config.JobType.pluginName       = 'Analysis'
 config.JobType.psetName         = '../stepB.py'
 config.JobType.maxJobRuntimeMin = 2800
-config.JobType.outputFiles      = ['stepB_MC.root']
+config.JobType.outputFiles      = ['stepB.root']
 config.JobType.allowUndistributedCMSSW = True
 
 config.section_('Data')    
 config.Data.inputDBS      = 'global'
-config.Data.splitting     = 'FileBased'
-config.Data.unitsPerJob   = 1
+config.Data.splitting     = 'LumiBased'
+config.Data.unitsPerJob   = 200
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/'
 
 config.section_('Site')
