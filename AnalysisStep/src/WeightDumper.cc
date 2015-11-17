@@ -94,6 +94,11 @@ private:
  
  TTree* myTree_;
  
+ TH1F* _mcWeightPos;
+ TH1F* _mcWeightNeg;
+ TH1F* _list_vectors_weights;
+ int _MAXWEIGHTS;
+ 
  //---- MC qcd scale
  std::vector <double> _weightsLHE;
  double _weightNominalLHE;
@@ -123,6 +128,12 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  
  
  edm::Service<TFileService> fs ;
+ _MAXWEIGHTS = 200;
+ _mcWeightPos = fs -> make <TH1F>("mcWeightPos","mcWeightPos", 1, 0, 1);
+ _mcWeightNeg = fs -> make <TH1F>("mcWeightNeg","mcWeightNeg", 1, 0, 1);
+ _list_vectors_weights = fs -> make <TH1F>("list_vectors_weights","list_vectors_weights", _MAXWEIGHTS, 0, _MAXWEIGHTS);
+ 
+ 
  myTree_ = fs -> make <TTree>("myTree","myTree");
  
  myTree_ -> Branch("weightsLHE", "std::vector<double>", &_weightsLHE);
@@ -183,6 +194,25 @@ void WeightDumper::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
  if (_debug) std::cout << " ---------- " << std::endl; 
  
  myTree_->Fill();
+
+ 
+ if (_weightSM > 0) {
+//   _mcWeightPos->Fill(0.5);
+  _mcWeightPos->Fill(0.5, _weightSM);
+ }
+ if (_weightSM < 0) {
+//   _mcWeightNeg->Fill(0.5);
+  _mcWeightNeg->Fill(0.5, -_weightSM);
+ }
+ 
+ unsigned int min_num;
+ if (int(num_whichWeight) > _MAXWEIGHTS) min_num = _MAXWEIGHTS;
+ else  min_num = num_whichWeight;
+  
+ for (unsigned int iWeight = 0; iWeight < min_num ; iWeight++) {
+  _list_vectors_weights->Fill( iWeight+0.5, productLHEHandle->weights()[iWeight].wgt/productLHEHandle->originalXWGTUP() );
+ }
+ 
 }
 
 

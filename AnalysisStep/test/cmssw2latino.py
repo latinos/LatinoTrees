@@ -30,6 +30,10 @@ def probe2latino(chans,ifile,ofile):
   # MC
   trpileup = inputFile.Get("PileUpDumperAnalyzer/myTree")  
   trmcweight = inputFile.Get("WeightDumperAnalyzer/myTree") 
+  mcWeightPos = inputFile.Get("WeightDumperAnalyzer/mcWeightPos") 
+  mcWeightNeg = inputFile.Get("WeightDumperAnalyzer/mcWeightNeg") 
+  list_vectors_weights = inputFile.Get("WeightDumperAnalyzer/list_vectors_weights") 
+  
   
   if h :
     print " - histogram events found"
@@ -57,6 +61,13 @@ def probe2latino(chans,ifile,ofile):
     newtrmcweight = trmcweight.CloneTree()
     newtrmcweight.SetName('mcweight')
     newtrmcweight.Write()
+  if mcWeightPos :
+    mcWeightPos.Write()
+  if mcWeightNeg :
+    mcWeightNeg.Write()
+  if list_vectors_weights :
+    list_vectors_weights.Write()
+    
 
 from optparse import OptionParser
 usage='''
