@@ -164,6 +164,14 @@ samples['WZJJ_EWK_QCD']                  = ['/WZJJ_EWK_QCD_13TeV-madgraph-pythia
 samples['WZJJ_QCD']                      = ['/WZJJ_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                                ['label=WZJJ_QCD',                     'id=40016', 'doMCweights=True']]
 
 
+# ttDM >> Juan
+samples['ttDM1scalar10']  = ['/TTbarDMJets_scalar_Mchi-1_Mphi-10_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',  ['label=ttDM1scalar10',  'id=90001', 'doLHE=False']]
+samples['ttDM1scalar20']  = ['/TTbarDMJets_scalar_Mchi-1_Mphi-20_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',  ['label=ttDM1scalar20',  'id=90002', 'doLHE=False']]
+samples['ttDM1scalar50']  = ['/TTbarDMJets_scalar_Mchi-1_Mphi-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',  ['label=ttDM1scalar50',  'id=90003', 'doLHE=False']]
+samples['ttDM1scalar100'] = ['/TTbarDMJets_scalar_Mchi-1_Mphi-100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=ttDM1scalar100', 'id=90004', 'doLHE=False']]
+samples['ttDM1scalar200'] = ['/TTbarDMJets_scalar_Mchi-1_Mphi-200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=ttDM1scalar200', 'id=90005', 'doLHE=False']]
+
+
 ########
 # Additional global configuration
 ########
