@@ -55,12 +55,14 @@ if __name__ == '__main__':
                 whereAmI = os.getcwd()
                 target.write("cd " + whereAmI + "\n")
                 target.write("eval `scramv1 runtime -sh`" + "\n")
-                target.write("hadd -f /tmp/" + requestName_i + ".root `cat list_" + requestName_i + ".txt`\n")
+                hadd_list = os.popen("awk -v p=\"\" '{ if ($1!=\"\") p=p\" \"$1 }; END{ print \"hadd -f /tmp/" + requestName_i + ".root\" p}' list_" + requestName_i + ".txt").read()
+                target.write(hadd_list + "\n")
                 target.write("python ../cmssw2latino.py /tmp/" + requestName_i + ".root -o /tmp/latino_" + requestName_i + ".root\n")
                 target.write("/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select cp /tmp/latino_" + requestName_i + ".root " + outputDirectory + "\n")
                 target.write("rm /tmp/latino_" + requestName_i + ".root /tmp/" + requestName_i + ".root\n")
                 target.close()
                 os.system("chmod +x " + filename)
-###             os.system("bsub -q 1nd < " + filename)
+                os.system("bsub -q 1nd < " + filename)
+            os.system("rm -rf list_" + requestName + "*")
     else :
         print "Error: ", SamplesFile, " does not exist "
