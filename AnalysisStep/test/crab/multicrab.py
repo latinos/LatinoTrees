@@ -2,24 +2,24 @@ import os
 from WMCore.Configuration import Configuration
 config = Configuration()
 
-pyCfgParams = ['outputFile=stepB_MC.root', 'selection=LooseNoIso', 'doNoFilter=False', 'doMuonIsoId=True', 'doEleIsoId=True', 'doGen=True', 'doBTag=True', 'runPUPPISequence=True']
+pyCfgParams = ['outputFile=stepB.root', 'selection=LooseNoIso', 'doNoFilter=False', 'doMuonIsoId=True', 'doEleIsoId=True', 'doGen=True', 'doBTag=True', 'runPUPPISequence=True']
 
 config.section_('General')
 config.General.transferLogs = True
-config.General.workArea     = 'crab_projects_19October'  # Make sure you set this parameter
+config.General.workArea     = 'crab_projects_21October'  # Make sure you set this parameter
 
 config.section_('JobType')
 config.JobType.pluginName       = 'Analysis'
 config.JobType.psetName         = '../stepB.py'
-config.JobType.maxJobRuntimeMin = 2800
-config.JobType.outputFiles      = ['stepB_MC.root']
+config.JobType.maxJobRuntimeMin = 2750
+config.JobType.outputFiles      = ['stepB.root']
 config.JobType.allowUndistributedCMSSW = True
 
 config.section_('Data')    
 config.Data.inputDBS      = 'global'
-config.Data.splitting     = 'FileBased'
-config.Data.unitsPerJob   = 1
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/19Oct/'
+config.Data.splitting     = 'LumiBased'
+config.Data.unitsPerJob   = 150
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/'
 
 config.section_('Site')
 config.Site.storageSite = 'T2_CH_CERN'

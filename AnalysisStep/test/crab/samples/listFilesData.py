@@ -1,39 +1,33 @@
 ########
 
-outputDirectory = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/"
+outputDirectory = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/"
 
 
 ########
-# 2015B
+# 2015D
 ########
 
-### samples['Run2015B_PromptReco_DoubleEG']       = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/DoubleEG/?',       'stepB']
-### samples['Run2015B_PromptReco_DoubleMuon']     = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/DoubleMuon/?',     'stepB']
-### samples['Run2015B_PromptReco_MuonEG']         = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/MuonEG/?',         'stepB']
-### samples['Run2015B_PromptReco_SingleElectron'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/SingleElectron/?', 'stepB']
-### samples['Run2015B_PromptReco_SingleMuon']     = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/SingleMuon/?',     'stepB']
+samples['Run2015D_PromptReco_DoubleEG_0'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/DoubleEG/crab_Run2015D_PromptReco_25ns_DoubleEG/151020_094057/0000/', 'stepB']
+samples['Run2015D_PromptReco_DoubleEG_1'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/DoubleEG/crab_Run2015D_PromptReco_25ns_DoubleEG/151020_094057/0001/', 'stepB']
+samples['Run2015D_PromptReco_DoubleEG_2'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/DoubleEG/crab_Run2015D_PromptReco_25ns_DoubleEG/151020_094057/0002/', 'stepB']
+samples['Run2015D_PromptReco_DoubleEG_3'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/DoubleEG/crab_Run2015D_PromptReco_25ns_DoubleEG/151020_094057/0003/', 'stepB']
 
-### samples['Run2015B_17Jul2015_DoubleEG']        = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/DoubleEG/?',       'stepB']
-### samples['Run2015B_17Jul2015_DoubleMuon']      = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/DoubleMuon/?',     'stepB']
-### samples['Run2015B_17Jul2015_MuonEG']          = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/MuonEG/?',         'stepB']
-### samples['Run2015B_17Jul2015_SingleElectron']  = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/SingleElectron/?', 'stepB']
-### samples['Run2015B_17Jul2015_SingleMuon']      = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/SingleMuon/?',     'stepB']
+samples['Run2015D_PromptReco_DoubleMuon_0'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/DoubleMuon/crab_Run2015D_PromptReco_25ns_DoubleMuon/151020_094327/0000/', 'stepB']
+samples['Run2015D_PromptReco_DoubleMuon_1'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/DoubleMuon/crab_Run2015D_PromptReco_25ns_DoubleMuon/151020_094327/0001/', 'stepB']
+samples['Run2015D_PromptReco_DoubleMuon_2'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/DoubleMuon/crab_Run2015D_PromptReco_25ns_DoubleMuon/151020_094327/0002/', 'stepB']
+samples['Run2015D_PromptReco_DoubleMuon_3'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/DoubleMuon/crab_Run2015D_PromptReco_25ns_DoubleMuon/151020_094327/0003/', 'stepB']
 
+samples['Run2015D_PromptReco_MuonEG_0'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/MuonEG/crab_Run2015D_PromptReco_25ns_MuonEG/151020_094238/0000/', 'stepB']
+samples['Run2015D_PromptReco_MuonEG_1'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/MuonEG/crab_Run2015D_PromptReco_25ns_MuonEG/151020_094238/0001/', 'stepB']
+samples['Run2015D_PromptReco_MuonEG_2'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/MuonEG/crab_Run2015D_PromptReco_25ns_MuonEG/151020_094238/0002/', 'stepB']
+samples['Run2015D_PromptReco_MuonEG_3'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/MuonEG/crab_Run2015D_PromptReco_25ns_MuonEG/151020_094238/0003/', 'stepB']
 
-########
-# 2015C
-########
+samples['Run2015D_PromptReco_SingleElectron_0'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/SingleElectron/crab_Run2015D_PromptReco_25ns_SingleElectron/151020_094152/0000/', 'stepB']
+samples['Run2015D_PromptReco_SingleElectron_1'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/SingleElectron/crab_Run2015D_PromptReco_25ns_SingleElectron/151020_094152/0001/', 'stepB']
+samples['Run2015D_PromptReco_SingleElectron_2'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/SingleElectron/crab_Run2015D_PromptReco_25ns_SingleElectron/151020_094152/0002/', 'stepB']
+samples['Run2015D_PromptReco_SingleElectron_3'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/SingleElectron/crab_Run2015D_PromptReco_25ns_SingleElectron/151020_094152/0003/', 'stepB']
 
-### samples['Run2015C_PromptReco_25ns_DoubleEG']       = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/DoubleEG/crab_Run2015C_PromptReco_25ns_DoubleEG/150921_092736/0000/',                 'stepB']  ## Done
-### samples['Run2015C_PromptReco_25ns_DoubleMuon']     = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/DoubleMuon/crab_Run2015C_PromptReco_25ns_DoubleMuon_from_scratch/151005_161132/0000', 'stepB']  ## Done
-### samples['Run2015C_PromptReco_25ns_MuonEG']         = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/MuonEG/crab_Run2015C_PromptReco_25ns_MuonEG/150921_092616/0000/',                     'stepB']  ## Done
-### samples['Run2015C_PromptReco_25ns_SingleElectron'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/SingleElectron/crab_Run2015C_PromptReco_25ns_SingleElectron/150921_092636/0000/',     'stepB']  ## Done
-### samples['Run2015C_PromptReco_25ns_SingleMuon']     = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/SingleMuon/crab_Run2015C_PromptReco_25ns_SingleMuon/150921_092559/0000/',             'stepB']  ## Done
-
-### samples['Run2015C_PromptReco_50ns_DoubleEG']            = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/DoubleEG/crab_Run2015C_PromptReco_50ns_DoubleEG/150923_082930/0000/',             'stepB']  ## Done
-### samples['Run2015C_PromptReco_50ns_DoubleMuon']          = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/DoubleMuon/crab_Run2015C_PromptReco_50ns_DoubleMuon/150923_083014/0000/',         'stepB']  ## Done
-samples['Run2015C_PromptReco_50ns_DoubleMuon_missingLumi'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/DoubleMuon/crab_Run2015C_PromptReco_50ns_DoubleMuon_missingLumi/151005_162749/0000/', 'stepB']
-### samples['Run2015C_PromptReco_50ns_MuonEG']              = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/MuonEG/crab_Run2015C_PromptReco_50ns_MuonEG/150923_082835/0000/',                 'stepB']  ## Done
-### samples['Run2015C_PromptReco_50ns_SingleElectron']      = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/SingleElectron/crab_Run2015C_PromptReco_50ns_SingleElectron/150923_082911/0000/', 'stepB']  ## Done
-samples['Run2015C_PromptReco_50ns_SingleMuon']             = ['/store/group/phys_higgs/cmshww/amassiro/RunII/17Sep/data/SingleMuon/crab_Run2015C_PromptReco_50ns_SingleMuon/150926_161004/0000/',             'stepB']
-
+samples['Run2015D_PromptReco_SingleMuon_0'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/SingleMuon/crab_Run2015D_PromptReco_25ns_SingleMuon/151020_094602/0000/', 'stepB']
+samples['Run2015D_PromptReco_SingleMuon_1'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/SingleMuon/crab_Run2015D_PromptReco_25ns_SingleMuon/151020_094602/0001/', 'stepB']
+samples['Run2015D_PromptReco_SingleMuon_2'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/SingleMuon/crab_Run2015D_PromptReco_25ns_SingleMuon/151020_094602/0002/', 'stepB']
+samples['Run2015D_PromptReco_SingleMuon_3'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/SingleMuon/crab_Run2015D_PromptReco_25ns_SingleMuon/151020_094602/0003/', 'stepB']

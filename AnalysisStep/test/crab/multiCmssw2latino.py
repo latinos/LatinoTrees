@@ -49,9 +49,7 @@ if __name__ == '__main__':
 
            # really execute instructions
            else :
-
-             print ("   /afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select ls " + inputFolder + " | grep " + pattern + " | awk -v p=\"\" '{if ($1!=\"\") p=p\" root://eoscms.cern.ch//eos/cms/" + inputFolder + "/\"$1}; END{print \"hadd /tmp/" + requestName + ".root\" p}' | /bin/sh")
-             os.system("/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select ls " + inputFolder + " | grep " + pattern + " | awk -v p=\"\" '{if ($1!=\"\") p=p\" root://eoscms.cern.ch//eos/cms/" + inputFolder + "/\"$1}; END{print \"hadd /tmp/" + requestName + ".root\" p}' | /bin/sh")
+             os.system("/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select ls " + inputFolder + " | grep " + pattern + " | awk -v p="" '{if ($1!=\"\") p=p\" root://eoscms.cern.ch//eos/cms/" + inputFolder + "/\"$1}; END{print \"hadd /tmp/" + requestName + ".root\" p}' | /bin/sh")
              
              os.system("python ../cmssw2latino.py /tmp/" + requestName + ".root -o /tmp/latino_" + requestName + ".root")      
              # /afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select   is actually "eos"
