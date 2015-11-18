@@ -58,7 +58,7 @@ if __name__ == '__main__':
                 target.write("rm /tmp/latino_" + requestName_i + ".root /tmp/" + requestName_i + ".root\n")
                 target.close()
                 os.system("chmod +x " + filename)
-###                os.system("bsub -q 1nd < " + filename)
+                os.system("bsub -q 1nd < " + filename)
 
             os.system("rm -rf list_" + requestName + "*")
 
