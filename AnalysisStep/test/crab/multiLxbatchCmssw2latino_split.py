@@ -5,16 +5,14 @@ if __name__ == '__main__':
 
     print sys.argv
     if len(sys.argv) <= 1 :
-        print "no arguments?"
-        print "Usage to submit:     python multiLxbatchCmssw2latino_split.py file.py [number of files per hadd]"
+        print "No arguments?"
+        print "Usage to submit:     python multiLxbatchCmssw2latino_split.py file.py [number of files per hadd, default is 200]"
         exit()
 
-
-    # default is 20 files per hadd
-    nfiles_hadd = '20'
+    # default is 200 files per hadd
+    nfiles_hadd = '200'
     if len(sys.argv) == 3 :
         nfiles_hadd = sys.argv[2]
-
 
     samples = {}
     SamplesFile = sys.argv[1]
@@ -47,9 +45,7 @@ if __name__ == '__main__':
             print " nfiles = ", nfiles
 
             for i in range(0, nfiles) :
-
                 requestName_i = requestName + "_" + str(i)
-
                 filename = "lxbatch/job_" + requestName_i + ".sh"
                 target = open(filename, 'w')
                 whereAmI = os.getcwd()
@@ -63,6 +59,8 @@ if __name__ == '__main__':
                 target.close()
                 os.system("chmod +x " + filename)
                 os.system("bsub -q 1nd < " + filename)
+
             os.system("rm -rf list_" + requestName + "*")
+
     else :
         print "Error: ", SamplesFile, " does not exist "
