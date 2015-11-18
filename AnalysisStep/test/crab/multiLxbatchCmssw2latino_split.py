@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
     samples = {}
     SamplesFile = sys.argv[1]
-    print " SamplesFile = ", SamplesFile
+    print " SamplesFile =", SamplesFile
     
     if os.path.exists(SamplesFile) :
         handle = open(SamplesFile,'r')
@@ -35,17 +35,17 @@ if __name__ == '__main__':
             requestName = key
             inputFolder = value[0]
             pattern     = value[1]
-            print " outputDirectory = ", outputDirectory
+            print " outputDirectory =", outputDirectory
 
             # here it goes
             os.system("rm -rf list_" + requestName + "*")
             os.system("/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select ls " + inputFolder + " | grep " + pattern + " | awk '{ print \"root://eoscms.cern.ch//eos/cms/" + inputFolder + "\"$1 }' > list_" + requestName + ".txt")
-            os.system("awk 'NR%" + nfiles_hadd + "==1 { file = \"list_" + requestName + "\" sprintf(\"_%d.txt\", i) ; i++ } { print > file }' list_" + requestName + ".txt")
-            nfiles = int(os.popen("ls list_" + requestName + "_*.txt | wc -l").read())
-            print " nfiles = ", nfiles
+            os.system("awk 'NR%" + nfiles_hadd + "==1 { file = \"list_" + requestName + "\" sprintf(\"__part%d.txt\", i) ; i++ } { print > file }' list_" + requestName + ".txt")
+            nfiles = int(os.popen("ls list_" + requestName + "__part*.txt | wc -l").read())
+            print " nfiles =", nfiles
 
             for i in range(0, nfiles) :
-                requestName_i = requestName + "_" + str(i)
+                requestName_i = requestName + "__part" + str(i)
                 filename = "lxbatch/job_" + requestName_i + ".sh"
                 target = open(filename, 'w')
                 whereAmI = os.getcwd()
@@ -58,7 +58,7 @@ if __name__ == '__main__':
                 target.write("rm /tmp/latino_" + requestName_i + ".root /tmp/" + requestName_i + ".root\n")
                 target.close()
                 os.system("chmod +x " + filename)
-                os.system("bsub -q 1nd < " + filename)
+###                os.system("bsub -q 1nd < " + filename)
 
             os.system("rm -rf list_" + requestName + "*")
 
