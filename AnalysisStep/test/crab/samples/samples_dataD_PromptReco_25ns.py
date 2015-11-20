@@ -7,7 +7,7 @@ samples['Run2015D_PromptReco_25ns_MuonEG']         = ['/MuonEG/Run2015D-PromptRe
 samples['Run2015D_PromptReco_25ns_SingleElectron'] = ['/SingleElectron/Run2015D-PromptReco-v4/MINIAOD', ['label=SingleElectron']]
 samples['Run2015D_PromptReco_25ns_SingleMuon']     = ['/SingleMuon/Run2015D-PromptReco-v4/MINIAOD',     ['label=SingleMuon']]
 
-pyCfgParams.append('globalTag=74X_dataRun2_Prompt_v4')
+pyCfgParams.append('globalTag=74X_dataRun2_v5')
 pyCfgParams.append('is50ns=False')
 pyCfgParams.append('isPromptRecoData=True')
 

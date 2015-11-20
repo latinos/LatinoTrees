@@ -204,4 +204,4 @@ samples['ttDM500pseudo500']   = ['/TTbarDMJets_pseudoscalar_Mchi-500_Mphi-500_Tu
 # Additional global configuration
 ########
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/MC/25ns/'
-pyCfgParams.append('globalTag=74X_mcRun2_asymptotic_v2')
+pyCfgParams.append('globalTag=74X_mcRun2_asymptotic_v4')

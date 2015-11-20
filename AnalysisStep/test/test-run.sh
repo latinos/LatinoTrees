@@ -17,7 +17,7 @@ rm -rf latino_stepB_numEvent${EVENTS}.root
 cmsRun stepB.py print         \
     is50ns=False              \
     isPromptRecoData=True     \
-    globalTag=74X_dataRun2_Prompt_v2 \
+    globalTag=74X_dataRun2_v5 \
     label=DoubleEG            \
     outputFile=stepB.root     \
     selection=LooseNoIso      \
