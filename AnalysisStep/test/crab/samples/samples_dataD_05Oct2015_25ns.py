@@ -7,7 +7,7 @@ samples['Run2015D_05Oct2015_25ns_MuonEG']         = ['/MuonEG/Run2015D-05Oct2015
 samples['Run2015D_05Oct2015_25ns_SingleElectron'] = ['/SingleElectron/Run2015D-05Oct2015-v1/MINIAOD', ['label=SingleElectron']]
 samples['Run2015D_05Oct2015_25ns_SingleMuon']     = ['/SingleMuon/Run2015D-05Oct2015-v1/MINIAOD',     ['label=SingleMuon']]
 
-pyCfgParams.append('globalTag=74X_dataRun2_reMiniAOD_v0')
+pyCfgParams.append('globalTag=74X_dataRun2_v5')
 pyCfgParams.append('is50ns=False')
 pyCfgParams.append('isPromptRecoData=False')
 

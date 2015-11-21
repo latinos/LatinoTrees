@@ -176,7 +176,7 @@ options.register ('runPUPPISequence',
                   'Turn on PUPPI jets (can be \'True\' or \'False\')')
 
 options.register ('globalTag',
-                  '74X_mcRun2_asymptotic_v2',
+                  '74X_mcRun2_asymptotic_v4',
                    opts.VarParsing.multiplicity.singleton,
                    opts.VarParsing.varType.string,
                   'GlobalTag')
