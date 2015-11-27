@@ -118,12 +118,12 @@ To add the PU weight in the MC latino trees we need to be provided with a PU jso
 
     pushd /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV
     pileupCalc.py \
-        -i Cert_246908-251883_13TeV_PromptReco_Collisions15_JSON_v2.txt \
+        -i Cert_246908-258750_13TeV_PromptReco_Collisions15_25ns_JSON.txt \
         --inputLumiJSON=PileUp/pileup_latest.txt \
         --calcMode=true \
-        --minBiasXsec=80000 \
-        --maxPileupBin=80 \
-        --numPileupBins=80 \
+        --minBiasXsec=69000 \
+        --maxPileupBin=50 \
+        --numPileupBins=50 \
         /afs/cern.ch/user/p/piedra/work/pudata.root
     popd
 
