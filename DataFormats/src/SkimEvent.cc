@@ -3901,6 +3901,19 @@ const bool reco::SkimEvent::isMediumMuon(size_t i) const
 }
 
 
+const bool reco::SkimEvent::isTrackerMuon(size_t i) const {
+
+  if (i >= leps_.size()) return defaultvalues::defaultFloat;
+
+  if (isMuon(i)) {
+    pat::Muon const * const mu = getMuon(i);
+    return (mu->isTrackerMuon());
+  } else{
+    return false;
+  }
+}
+
+
 const float reco::SkimEvent::muSIP3D(size_t i) const {
  if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isMuon(i) ) {
