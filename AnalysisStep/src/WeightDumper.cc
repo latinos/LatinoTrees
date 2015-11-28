@@ -197,12 +197,12 @@ void WeightDumper::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
  
  if (_weightSM > 0) {
-//   _mcWeightPos->Fill(0.5);
-  _mcWeightPos->Fill(0.5, _weightSM);
+  _mcWeightPos->Fill(0.5); //---> histogram is filled with +1 event
+//   _mcWeightPos->Fill(0.5, _weightSM);
  }
  if (_weightSM < 0) {
-//   _mcWeightNeg->Fill(0.5);
-  _mcWeightNeg->Fill(0.5, -_weightSM);
+  _mcWeightNeg->Fill(0.5); //---> histogram is filled with +1 event
+//   _mcWeightNeg->Fill(0.5, -_weightSM);
  }
  
  unsigned int min_num;

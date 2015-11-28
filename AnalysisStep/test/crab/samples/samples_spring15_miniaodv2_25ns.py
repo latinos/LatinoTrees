@@ -31,6 +31,11 @@ samples['WZJets']     = ['/WZJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIS
 samples['WZTo2L2Q']   = ['/WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',    ['label=WZTo2L2Q',  'id=00008', 'doMCweights=True']]
 samples['VVTo2L2Nu']  = ['/VVTo2L2Nu_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',   ['label=VVTo2L2Nu', 'id=00032', 'doMCweights=True']]
 
+# ggWW >> Ankita
+samples['GluGluWWTo2L2Nu_MCFM']       = ['/GluGluWWTo2L2Nu_MCFM_13TeV/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',   ['label=GluGluWWTo2L2Nu_MCFM', 'id=00033', 'doMCweights=True', 'metNoHF=\"\"', 'LHEweightSource=source', 'puInformation=addPileupInfo' ]]
+#samples['GluGluWWTo2L2NuHiggs_MCFM']  = ['',   ['label=GluGluWWTo2L2NuHiggs_MCFM', 'id=00034', 'doMCweights=True']]
+    
+
 
 # ZZ >> Ankita
 samples['ZZ']         = ['/ZZ_TuneCUETP8M1_13TeV-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                  ['label=ZZ',        'id=00009', 'doLHE=False']]

@@ -217,6 +217,16 @@ options.register ('isPromptRecoData',
                   opts.VarParsing.varType.bool,
                   'Switch between PAT and RECO process names for the MET filters (can be \'True\' or \'False\')')
 
+
+options.register ('metNoHF',
+                  'slimmedMETsNoHF', # default value
+                   opts.VarParsing.multiplicity.singleton,
+                   opts.VarParsing.varType.string,
+                  'metNoHF. Only in miniAOD v2 (set as empty if collection to be skipped)')
+ 
+
+
+
 #-------------------------------------------------------------------------------
 # defaults
 options.outputFile = 'stepB.root'
@@ -418,6 +428,12 @@ elif options.isPromptRecoData :
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","RECO")
 else : 
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
+
+
+# set metNoHF tag (fix for miniAOD older version)
+process.skimEventProducer.pfMetNoHfTag = cms.InputTag(options.metNoHF)
+
+
 
 
 # save triggers only in DATA
@@ -687,7 +703,7 @@ if doIsoStudy:
 
 # pile-up
 nPU = cms.EDProducer("PileUpMultiplicityCounter",
-    puLabel = cms.InputTag("slimmedAddPileupInfo"),  # v1 miniaod addPileupInfo 
+    puLabel = cms.InputTag(options.puInformation),  # v1 miniaod addPileupInfo 
     src = cms.InputTag("")
 )
 
@@ -888,7 +904,7 @@ if isMC and doLHE :
 ## pileup dumper
 ##   dump pileup with NO selections applied
 process.PileUpDumperAnalyzer = cms.EDAnalyzer('PileUpDumper',
-    puLabel = cms.InputTag("slimmedAddPileupInfo"),  # v1 miniaod addPileupInfo 
+    puLabel = cms.InputTag(options.puInformation),  # v1 miniaod addPileupInfo 
     debug   = cms.untracked.bool(False)
   )
 
