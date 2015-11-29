@@ -31,10 +31,10 @@ samples['WZJets']     = ['/WZJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIS
 samples['WZTo2L2Q']   = ['/WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',    ['label=WZTo2L2Q',  'id=00008', 'doMCweights=True']]
 samples['VVTo2L2Nu']  = ['/VVTo2L2Nu_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',   ['label=VVTo2L2Nu', 'id=00032', 'doMCweights=True']]
 
+
 # ggWW >> Ankita
 samples['GluGluWWTo2L2Nu_MCFM']       = ['/GluGluWWTo2L2Nu_MCFM_13TeV/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',   ['label=GluGluWWTo2L2Nu_MCFM', 'id=00033', 'doMCweights=True', 'metNoHF=\"\"', 'LHEweightSource=source', 'puInformation=addPileupInfo' ]]
-#samples['GluGluWWTo2L2NuHiggs_MCFM']  = ['',   ['label=GluGluWWTo2L2NuHiggs_MCFM', 'id=00034', 'doMCweights=True']]
-    
+#samples['GluGluWWTo2L2NuHiggs_MCFM'] = ['',   ['label=GluGluWWTo2L2NuHiggs_MCFM', 'id=00034', 'doMCweights=True']]
 
 
 # ZZ >> Ankita
@@ -206,15 +206,16 @@ samples['ttDM150pseudo500']   = ['/TTbarDMJets_pseudoscalar_Mchi-150_Mphi-500_Tu
 samples['ttDM500pseudo500']   = ['/TTbarDMJets_pseudoscalar_Mchi-500_Mphi-500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v2/MINIAODSIM ', ['label=ttDM500pseudo500',  'id=90033', 'doLHE=False']]
 
 
-# monoHiggs >> nicolo'
-Samples['monoH_2HDM_MZp-600_MA0-300']       = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-600_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',            ['label=monoH_2HDM_MZp-600_MA0-300',      'id=80001', 'doLHE=False']]
-Samples['monoH_2HDM_MZp-800_MA0-300']       = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-800_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',            ['label=monoH_2HDM_MZp-800_MA0-300',      'id=80002', 'doLHE=False']]
-Samples['monoH_2HDM_MZp-1000_MA0-300']      = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1000_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',           ['label=monoH_2HDM_MZp-1000_MA0-300',     'id=80003', 'doLHE=False']]
-Samples['monoH_2HDM_MZp-1200_MA0-300']      = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1200_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',           ['label=monoH_2HDM_MZp-1200_MA0-300',     'id=80004', 'doLHE=False']]
-Samples['monoH_2HDM_MZp-1400_MA0-300']      = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1400_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',           ['label=monoH_2HDM_MZp-1400_MA0-300',     'id=80005', 'doLHE=False']]
-Samples['monoH_2HDM_MZp-1700_MA0-300']      = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1700_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',           ['label=monoH_2HDM_MZp-1700_MA0-300',     'id=80006', 'doLHE=False']]
-Samples['monoH_2HDM_MZp-2000_MA0-300']      = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-2000_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',           ['label=monoH_2HDM_MZp-2000_MA0-300',     'id=80007', 'doLHE=False']]
-Samples['monoH_2HDM_MZp-2500_MA0-300']      = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-2500_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',           ['label=monoH_2HDM_MZp-2500_MA0-300',     'id=80008', 'doLHE=False']]
+# monoHiggs >> Nicolo'
+Samples['monoH_2HDM_MZp-600_MA0-300']  = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-600_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',  ['label=monoH_2HDM_MZp-600_MA0-300',  'id=80001', 'doLHE=False']]
+Samples['monoH_2HDM_MZp-800_MA0-300']  = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-800_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',  ['label=monoH_2HDM_MZp-800_MA0-300',  'id=80002', 'doLHE=False']]
+Samples['monoH_2HDM_MZp-1000_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1000_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=monoH_2HDM_MZp-1000_MA0-300', 'id=80003', 'doLHE=False']]
+Samples['monoH_2HDM_MZp-1200_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1200_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=monoH_2HDM_MZp-1200_MA0-300', 'id=80004', 'doLHE=False']]
+Samples['monoH_2HDM_MZp-1400_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1400_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=monoH_2HDM_MZp-1400_MA0-300', 'id=80005', 'doLHE=False']]
+Samples['monoH_2HDM_MZp-1700_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1700_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=monoH_2HDM_MZp-1700_MA0-300', 'id=80006', 'doLHE=False']]
+Samples['monoH_2HDM_MZp-2000_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-2000_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=monoH_2HDM_MZp-2000_MA0-300', 'id=80007', 'doLHE=False']]
+Samples['monoH_2HDM_MZp-2500_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-2500_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=monoH_2HDM_MZp-2500_MA0-300', 'id=80008', 'doLHE=False']]
+
 
 ########
 # Additional global configuration
