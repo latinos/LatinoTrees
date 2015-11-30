@@ -99,7 +99,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_elSIP3D       = cms.string("elSIP3DByPt"),
         std_vector_lepton_ch            = cms.string("qByPt"),
         std_vector_lepton_d0            = cms.string("d0ByPt"),
-        std_vector_electron_dz          = cms.string("dzByPt"),
+        std_vector_lepton_dz            = cms.string("dzByPt"),
           
         #std_vector_lepton_id = cms.string("pdgIdByPt"),  # Deprecated, use std_vector_lepton_flavour
 
@@ -389,8 +389,6 @@ def addEleIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_electron_dPhiIn" ,                  cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
         setattr(pt.variables, "std_vector_electron_full5x5_sigmaIetaIeta",    cms.string("full5x5_sigmaIetaIetaByPt")),
         setattr(pt.variables, "std_vector_electron_hOverE" ,                  cms.string("hcalOverEcalByPt")),
-        setattr(pt.variables, "std_vector_electron_d0",                       cms.string("d0ByPt")),
-        setattr(pt.variables, "std_vector_electron_dz",                       cms.string("dzByPt")),
         setattr(pt.variables, "std_vector_electron_ooEmooP",                  cms.string("ooEmooPByPt")),
         setattr(pt.variables, "std_vector_electron_effectiveArea",            cms.string("GetElectronEffectiveAreaByPt")),
         setattr(pt.variables, "std_vector_electron_scEta",                    cms.string("etaSCByPt")),
