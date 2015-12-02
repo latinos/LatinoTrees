@@ -89,6 +89,24 @@ Phys14:
                     globalTag=74X_mcRun2_asymptotic_v2 \
                     inputFiles=file:/tmp/amassiro/220B892B-C46D-E511-91F6-0025905B85D6.root
 
+    xrdcp root://xrootd.unl.edu//store/mc/RunIISpring15DR74/GluGluWWTo2L2Nu_MCFM_13TeV/MINIAODSIM/Asympt25ns_MCRUN2_74_V9-v1/70000/16FD9FE9-918F-E511-87AE-FA163EE04A7D.root /tmp/amassiro/
+    cmsRun stepB.py print \
+                    label=ggWW \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    maxEvents=200 \
+                    doLHE=True \
+                    doGen=True \
+                    doBTag=True \
+                    doMCweights=True \
+                    LHEweightSource=source \
+                    puInformation=addPileupInfo \
+                    metNoHF=\"\" \
+                    globalTag=74X_mcRun2_asymptotic_v2 \
+                    inputFiles=file:/tmp/amassiro/16FD9FE9-918F-E511-87AE-FA163EE04A7D.root
     
     
     
@@ -247,6 +265,24 @@ Phys14:
     
      74X_dataRun2_Prompt_v2
      
+     cp /afs/cern.ch/work/p/piedra/public/store/data/Run2015D/DoubleEG/MINIAOD/PromptReco-v4/000/258/175/00000/FA1AB2EB-436D-E511-8DF2-02163E011E2B.root /tmp/amassiro/
+
+     cmsRun stepB.py print \
+                    label=DoubleMuon2015 \
+                    is50ns=False              \
+                    isPromptRecoData=True     \
+                    scale=1 \
+                    outputFile=stepB_Data.root \
+                    doCut="nLep>=1" \
+                    doMuonIsoId=True \
+                    doBTag=True \
+                    globalTag=74X_dataRun2_v2 \
+                    selection=LooseNoIso \
+                    maxEvents=100 \
+                    inputFiles=file:/tmp/amassiro/FA1AB2EB-436D-E511-8DF2-02163E011E2B.root
+
+                    
+                    
     
     scp amassiro@cmsneu.cern.ch:/media/data/CMSSWRoot/DATARunII/Run2015B/DoubleEG/PromptReco-v1_MINIAOD/6A0A8868-4B27-E511-B3F8-02163E011BD1.root /tmp/amassiro/
     cmsRun stepB.py print \
