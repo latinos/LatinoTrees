@@ -100,6 +100,8 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_ch            = cms.string("qByPt"),
         std_vector_lepton_d0            = cms.string("d0ByPt"),
         std_vector_lepton_dz            = cms.string("dzByPt"),
+
+        std_vector_lepton_PfIsoDeltaBeta= cms.string("allIsoByPt"),
           
         #std_vector_lepton_id = cms.string("pdgIdByPt"),  # Deprecated, use std_vector_lepton_flavour
 
