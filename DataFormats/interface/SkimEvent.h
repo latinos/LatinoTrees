@@ -483,12 +483,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float genLeptonPhi         (size_t a) const;
             const float genLeptonPID         (size_t a) const;
             const float genLeptonStatus      (size_t a) const;
+            const float genLeptonIsPrompt    (size_t a) const;
+            const float genLeptonIsDirectPromptTauDecayProduct  (size_t a) const;
             const float genLeptonIndex       (size_t a) const;
             const float genLeptonMotherPID   (size_t a) const;
             const float genLeptonMotherStatus(size_t a) const;
-            const float genLeptonIsHardProcess(size_t a) const;
-            const float genLeptonFromHardProcessDecayed(size_t a) const;
-            const float genLeptonFromHardProcessBeforeFSR(size_t a) const;
             
             const float genVBosonPt          (size_t a) const;
             const float genVBosonEta         (size_t a) const;
@@ -599,11 +598,14 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingJetHadronFlavour(size_t a, float pt , float eta=5.0,int applyCorrection=true, int applyID=0, float dzCut=9999.) const;
             const float leadingJetHadronFlavour(size_t a) const;
             
-            // Soft Activity
+            // Track Jets
             float sumHtTrackJets() const;
             float sumHtTrackJetsDensity() const;
             float multiplicityTrackJets() const;
             float multiplicityTrackJetsDensity() const;
+            float trackJetPt(size_t i) const;
+            float trackJetEta(size_t i) const;
+            float trackJetPhi(size_t i) const;
             
             //Iso Functions
             const bool isEB(size_t a = 0) const;

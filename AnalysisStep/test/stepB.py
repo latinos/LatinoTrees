@@ -109,12 +109,6 @@ options.register ('doGen',
                   opts.VarParsing.varType.bool,
                   'Turn on gen Variables dumper (can be \'True\' or \'False\')')
 
-options.register ('doGenVV',
-                  False, # default value
-                  opts.VarParsing.multiplicity.singleton, # singleton or list
-                  opts.VarParsing.varType.bool,
-                  'Turn on gen truth Variables dumper, specific for VV final state (can be \'True\' or \'False\')')
-
 options.register ('doNoFilter',
                   False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
@@ -302,7 +296,6 @@ doMuonIsoId = options.doMuonIsoId
 doEleIsoId = options.doEleIsoId
 doLHE = options.doLHE
 doGen = options.doGen
-doGenVV = options.doGenVV
 doHiggs = options.doHiggs
 doSusy = options.doSusy
 doTauEmbed = options.doTauEmbed
@@ -386,7 +379,6 @@ if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG']:
     scalef = 1
     doPDFvar = False
     doGen = False
-    doGenVV = False
     doLHE = False
     isMC = False
     doMCweights = False
@@ -401,7 +393,6 @@ elif doTauEmbed == True:
     scalef = 1
     doPDFvar = False
     doGen = False
-    doGenVV = False
     doLHE = False
 
 # mc
@@ -673,13 +664,6 @@ if doGen == True :
     getattr(process,"ww%s"% (labelSetup)).genJetTag = "slimmedGenJets"
     #cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
 
-if doGenVV == True :
-    print " >> doGenVV " 
-    getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"
-    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
-    getattr(process,"ww%s"% (labelSetup)).genMetTag = "genMetTrue"
-    getattr(process,"ww%s"% (labelSetup)).genJetTag = cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
-
 #if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
     #getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
 
@@ -783,8 +767,6 @@ addPhotonVariables(process,tree)
   #tree.variables.HEPMCweightFac6 = cms.string("HEPMCweightFac(6)")
 
 if doGen: addGenVariables(process,tree)
-
-if doGenVV: addGenVVVariables(process,tree)
 
 # add 5th and 6th, ... jets variables
 # addAdditionalJets(process,tree)
