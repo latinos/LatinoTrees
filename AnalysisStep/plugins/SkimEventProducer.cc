@@ -127,6 +127,8 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     }
      
      
+    edm::Service<TFileService> fs ;
+    _selectedTriggers = fs -> make<TH1F>("selectedTriggers", "selectedTriggers", 1000,  0., 1000.);
      
      
     muonsT_        = consumes<edm::View<reco::RecoCandidate> > (muTag_);
@@ -248,6 +250,12 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     
     for (unsigned int iPath = 0; iPath < SelectedPaths_.size(); iPath++) {
      bool foundPath = false;
+
+     //---- save names of triggers     
+     if (iPath<1000) {
+       _selectedTriggers->GetXaxis()->SetBinLabel (iPath +1, SelectedPaths_.at(iPath).c_str());
+      }
+     
 //      std::cout << " SelectedPaths[" << iPath << "] = " << SelectedPaths_.at(iPath) << std::endl;
      
      //---- remove "*" in the name

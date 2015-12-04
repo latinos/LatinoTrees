@@ -3,7 +3,7 @@
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 
-#include "PhysicsTools/TagAndProbe/interface/ColinsSoperVariables.h"
+// #include "PhysicsTools/TagAndProbe/interface/ColinsSoperVariables.h"
 
 #include <TList.h>
 #include <TObjString.h>
@@ -96,8 +96,7 @@ tnp::BaseGenericTreeFiller::BaseGenericTreeFiller(BaseGenericTreeFiller &main, c
     addBranches_(main.tree_, iConfig, iC, branchNamePrefix);
 }
 
-void
-tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &iConfig, edm::ConsumesCollector & iC, const std::string &branchNamePrefix) {
+void tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterSet &iConfig, edm::ConsumesCollector & iC, const std::string &branchNamePrefix) {
   
  // set up variables
     edm::ParameterSet variables = iConfig.getParameter<edm::ParameterSet>("variables");

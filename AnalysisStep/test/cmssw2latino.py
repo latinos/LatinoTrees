@@ -27,6 +27,8 @@ def probe2latino(chans,ifile,ofile):
   inputFile = ROOT.TFile(ifile)
   h = inputFile.Get("AllEvents/totalEvents")  
   htrigger = inputFile.Get("TriggerAnalyzer/totalEventsTriggers")  
+  htriggername = inputFile.Get("wwTreeProducer/selectedTriggers") 
+
   # MC
   trpileup = inputFile.Get("PileUpDumperAnalyzer/myTree")  
   trmcweight = inputFile.Get("WeightDumperAnalyzer/myTree") 
@@ -46,6 +48,13 @@ def probe2latino(chans,ifile,ofile):
     htrigger.SetName('totalEventsTriggers')
     outputFile.cd() 
     htrigger.Write()
+
+  if htriggername :
+    print " - histogram trigger names found"
+    htriggername.SetName('selectedTriggers')
+    outputFile.cd() 
+    htriggername.Write()
+
 
   # for MC
   if trpileup :

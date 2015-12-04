@@ -35,7 +35,10 @@
 //---- Trigger
 #include "FWCore/Common/interface/TriggerNames.h"
 #include "DataFormats/PatCandidates/interface/PackedTriggerPrescales.h"
-
+#include "TH1F.h"
+//---- for auto-tree
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
 
 class SkimEventProducer : public edm::EDProducer {
     public:
@@ -194,6 +197,10 @@ struct JetInfo {
         
         std::vector< edm::EDGetTokenT<edm::ValueMap<bool> > > _vector_electronIdsTags;
         std::vector <std::string> _electronIds;
+        
+        
+        //---- global variables to be saved
+        TH1F* _selectedTriggers;
         
 };
 

@@ -278,6 +278,7 @@ Phys14:
                     doBTag=True \
                     globalTag=74X_dataRun2_v2 \
                     selection=LooseNoIso \
+                    doEleIsoId=True \
                     maxEvents=100 \
                     inputFiles=file:/tmp/amassiro/FA1AB2EB-436D-E511-8DF2-02163E011E2B.root
 
