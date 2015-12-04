@@ -83,6 +83,8 @@ struct JetInfo {
 
         edm::InputTag triggerTag_;
         edm::InputTag triggerPrescaleTag_;
+        edm::InputTag triggerL1minPrescaleTag_;
+        edm::InputTag triggerL1maxPrescaleTag_;
         edm::InputTag triggerSpecialTag_;
         
         TriggerBitChecker singleMuData_;
@@ -165,6 +167,8 @@ struct JetInfo {
 	edm::EDGetTokenT<edm::TriggerResults> triggerT_;
         edm::EDGetTokenT<edm::TriggerResults> triggerSpecialT_;
         edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerPrescaleT_;
+        edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerL1minPrescaleT_;
+        edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerL1maxPrescaleT_;
         
         edm::EDGetTokenT<reco::PFJetCollection> trackJetT_;
         

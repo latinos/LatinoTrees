@@ -40,6 +40,8 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
 {
     triggerSpecialTag_  = cfg.getParameter<edm::InputTag>("triggerSpecialTag");
     triggerPrescaleTag_ = cfg.getParameter<edm::InputTag>("triggerPrescaleTag");
+    triggerL1minPrescaleTag_ = cfg.getParameter<edm::InputTag>("triggerL1minPrescaleTag");
+    triggerL1maxPrescaleTag_ = cfg.getParameter<edm::InputTag>("triggerL1maxPrescaleTag");    
     
     mcLHEEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcLHEEventInfoTag");
     mcGenEventInfoTag_ = cfg.getParameter<edm::InputTag>("mcGenEventInfoTag");
@@ -118,9 +120,14 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     if (!(spt2Tag_ == edm::InputTag(""))) spt2HT_  = consumes<edm::ValueMap<float> >(spt2Tag_);
     triggerT_         = consumes<edm::TriggerResults>(triggerTag_);
     triggerPrescaleT_ = consumes<pat::PackedTriggerPrescales>(triggerPrescaleTag_);
+    triggerL1minPrescaleT_ = consumes<pat::PackedTriggerPrescales>(triggerL1minPrescaleTag_);
+    triggerL1maxPrescaleT_ = consumes<pat::PackedTriggerPrescales>(triggerL1maxPrescaleTag_);
     if (!(triggerSpecialTag_ == edm::InputTag(""))) { //---- like for MET special paths
      triggerSpecialT_ = consumes<edm::TriggerResults>(triggerSpecialTag_);
     }
+     
+     
+     
      
     muonsT_        = consumes<edm::View<reco::RecoCandidate> > (muTag_);
     softMuonsT_    = consumes<edm::View<reco::RecoCandidate> > (softMuTag_);
@@ -226,10 +233,17 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     
     edm::Handle<pat::PackedTriggerPrescales> triggerPrescales;
     iEvent.getByToken(triggerPrescaleT_, triggerPrescales);
+    edm::Handle<pat::PackedTriggerPrescales> triggerL1minPrescales;
+    iEvent.getByToken(triggerL1minPrescaleT_, triggerL1minPrescales);
+    edm::Handle<pat::PackedTriggerPrescales> triggerL1maxPrescales;
+    iEvent.getByToken(triggerL1maxPrescaleT_, triggerL1maxPrescales);
+    
     
     //---- check selected list of trigger paths
     std::vector<float> passBitsSelected;
     std::vector<float> prescaleBitsSelected;
+    std::vector<float> prescaleL1minBitsSelected;
+    std::vector<float> prescaleL1maxBitsSelected;
     const edm::TriggerNames &names = iEvent.triggerNames(*triggerResults);
     
     for (unsigned int iPath = 0; iPath < SelectedPaths_.size(); iPath++) {
@@ -249,15 +263,21 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
       
       std::size_t foundInTrigger = nameTrigger.find(wantedTrigger);
       if (foundInTrigger != std::string::npos) {
+       //---- see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2015#Trigger for instructions details
        passBitsSelected.push_back (1.0 * triggerResults->accept(jPath));
        prescaleBitsSelected.push_back (1.0 * triggerPrescales->getPrescaleForIndex(jPath) );
-//        std::cout << " >>  1.0 * triggerResults->accept(" << jPath << ") = " << 1.0 * triggerResults->accept(jPath) << std::endl;
+       prescaleL1minBitsSelected.push_back (1.0 * triggerL1minPrescales->getPrescaleForIndex(jPath) );
+       prescaleL1maxBitsSelected.push_back (1.0 * triggerL1maxPrescales->getPrescaleForIndex(jPath) );
+       //        std::cout << " >>  1.0 * triggerResults.push_back (1.0 * triggerPrescales->getPrescaleForIndex(jPath) );->accept(" << jPath << ") = " << 1.0 * triggerResults->accept(jPath) << std::endl;
        foundPath = true;
+       break;
       }
      }
      if (!foundPath) {
       passBitsSelected.push_back (-1);
       prescaleBitsSelected.push_back (-1);
+      prescaleL1minBitsSelected.push_back ( -1 );
+      prescaleL1maxBitsSelected.push_back ( -1 );
      }
     }
     
@@ -393,6 +413,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     skimEvent->back().setTriggerBits(passBits);
     skimEvent->back().setSelectedTriggerBits(passBitsSelected);
     skimEvent->back().setSelectedTriggerBitsPrescales(prescaleBitsSelected);
+    skimEvent->back().setSelectedTriggerL1minBitsPrescales(prescaleL1minBitsSelected);
+    skimEvent->back().setSelectedTriggerL1maxBitsPrescales(prescaleL1maxBitsSelected);
     skimEvent->back().setSpecialTriggerBits(passBitsSpecial);
     
     

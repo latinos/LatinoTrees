@@ -63,6 +63,8 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     triggerTag = cms.InputTag("TriggerResults","","HLT"),
     triggerSpecialTag = cms.InputTag("TriggerResults","","PAT"),
     triggerPrescaleTag = cms.InputTag("patTrigger"),
+    triggerL1minPrescaleTag = cms.InputTag("patTrigger","l1min"),
+    triggerL1maxPrescaleTag = cms.InputTag("patTrigger","l1max"),
     singleMuDataPaths = cms.vstring(
         #"1-163261:HLT_Mu15_v*",
         #"163262-165099:HLT_Mu24_v*",

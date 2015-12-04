@@ -438,8 +438,10 @@ process.skimEventProducer.pfMetNoHfTag = cms.InputTag(options.metNoHF)
 
 # save triggers only in DATA
 if not isMC :
-    setattr(stepBTree.variables, "std_vector_trigger",           cms.string("selectedRateTrigger/64") )
-    setattr(stepBTree.variables, "std_vector_trigger_prescale",  cms.string("selectedRateTriggerPrescale/64") )
+    setattr(stepBTree.variables, "std_vector_trigger",           cms.string("selectedRateTrigger/50") )
+    setattr(stepBTree.variables, "std_vector_trigger_prescale",  cms.string("selectedRateTriggerPrescale/50") )
+    setattr(stepBTree.variables, "std_vector_trigger_L1min_prescale",  cms.string("selectedRateTriggerL1minPrescale/50") )
+    setattr(stepBTree.variables, "std_vector_trigger_L1max_prescale",  cms.string("selectedRateTriggerL1maxPrescale/50") )
     # special paths, e.g. metFilters. See skimEventProducer_cfi for the list
     setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/13") )
 if isMC :

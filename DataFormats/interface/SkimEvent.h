@@ -325,6 +325,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setTriggerBits( const std::vector<bool> &);
             void setSelectedTriggerBits( const std::vector<float> &);
             void setSelectedTriggerBitsPrescales( const std::vector<float> &);
+            void setSelectedTriggerL1minBitsPrescales( const std::vector<float> &);
+            void setSelectedTriggerL1maxBitsPrescales( const std::vector<float> &);
             void setSpecialTriggerBits( const std::vector<float> &);
             
           
@@ -334,6 +336,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool triggerMatchingCut(SkimEvent::primaryDatasetType pdType) const;
             const float selectedRateTrigger(size_t i) const;
             const float selectedRateTriggerPrescale(size_t i) const;
+            const float selectedRateTriggerL1minPrescale(size_t i) const;
+            const float selectedRateTriggerL1maxPrescale(size_t i) const;
             const float specialRateTrigger(size_t i) const;
             
             bool passTriggerSingleMu(size_t i, bool isData=true) const;
@@ -932,6 +936,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             
             std::vector <float> _bits;
             std::vector <float> _bitsPrescales;
+            std::vector <float> _bitsL1minPrescales;
+            std::vector <float> _bitsL1maxPrescales;
             std::vector <float> _specialBits;
             
             //---- electrons

@@ -2981,6 +2981,18 @@ void reco::SkimEvent::setSelectedTriggerBitsPrescales( const std::vector<float> 
  }
 }
 
+void reco::SkimEvent::setSelectedTriggerL1minBitsPrescales( const std::vector<float> &bitsprescales) {
+ for (unsigned int i=0; i<bitsprescales.size(); i++) {
+  _bitsL1minPrescales.push_back(bitsprescales.at(i));  
+ }
+}
+
+void reco::SkimEvent::setSelectedTriggerL1maxBitsPrescales( const std::vector<float> &bitsprescales) {
+ for (unsigned int i=0; i<bitsprescales.size(); i++) {
+  _bitsL1maxPrescales.push_back(bitsprescales.at(i));  
+ }
+}
+
 
 const float reco::SkimEvent::selectedRateTrigger( size_t i ) const {
 //  std::cout << " i = " << i << " :: " <<  _bits.size() << std::endl;
@@ -3000,6 +3012,26 @@ const float reco::SkimEvent::selectedRateTriggerPrescale( size_t i ) const {
   return -2.0;
  }
 }
+
+const float reco::SkimEvent::selectedRateTriggerL1minPrescale( size_t i ) const {
+ if (i < _bitsL1minPrescales.size()) {
+  return 1.0 * _bitsL1minPrescales.at(i);
+ }
+ else {
+  return -2.0;
+ } 
+}
+
+const float reco::SkimEvent::selectedRateTriggerL1maxPrescale( size_t i ) const {
+ if (i < _bitsL1maxPrescales.size()) {
+  return 1.0 * _bitsL1maxPrescales.at(i);
+ }
+ else {
+  return -2.0;
+ } 
+}
+
+
 
 
 //---- special trigger bits. E.g. metFilters
