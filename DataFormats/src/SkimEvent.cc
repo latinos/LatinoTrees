@@ -70,7 +70,7 @@ void reco::SkimEvent::addUserInt( const std::string &label, int data )
 
 const bool reco::SkimEvent::peaking() const {
  
- if(leps_.size() < 2) return false;
+ if (leps_.size() < 2) return false;
  
  if (getMotherID(0).isNonnull() && getMotherID(1).isNonnull() && getMotherID(0) == getMotherID(1)) return true;
  
@@ -3848,22 +3848,22 @@ const int  reco::SkimEvent::muNumOfMatchedStations(size_t i) const {
 }
 
 
-const float reco::SkimEvent::muBestTrackdz(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- const reco::Vertex primaryVtx = highestPtVtx();
- if( isMuon(i) ) {
-  return getMuon(i)->muonBestTrack()->dz(primaryVtx.position());
- } else return -999.0;
-}
-
-
-const float reco::SkimEvent::muBestTrackdxy(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;
- const reco::Vertex primaryVtx = highestPtVtx();
- if( isMuon(i) ) {
-  return getMuon(i)->muonBestTrack()->dxy(primaryVtx.position());
- } else return -999.0;
-}
+// const float reco::SkimEvent::muBestTrackdz(size_t i) const {
+//  if(i >= leps_.size()) return defaultvalues::defaultFloat;
+//  const reco::Vertex primaryVtx = highestPtVtx();
+//  if( isMuon(i) ) {
+//   return getMuon(i)->muonBestTrack()->dz(primaryVtx.position());
+//  } else return -999.0;
+// }
+// 
+// 
+// const float reco::SkimEvent::muBestTrackdxy(size_t i) const {
+//  if(i >= leps_.size()) return defaultvalues::defaultFloat;
+//  const reco::Vertex primaryVtx = highestPtVtx();
+//  if( isMuon(i) ) {
+//   return getMuon(i)->muonBestTrack()->dxy(primaryVtx.position());
+//  } else return -999.0;
+// }
 
 
 const int  reco::SkimEvent::muNValidPixelHitsInTrk(size_t i) const {
