@@ -2915,8 +2915,10 @@ const float reco::SkimEvent::dPhilChargedMetSmurf(size_t i) const {
 
 
 const float reco::SkimEvent::nTracks() const {
+ const reco::Vertex primaryVtx = highestPtVtx();
+ return 1.0 * primaryVtx.nTracks();
  
- return 0;
+//  return 0;
 }
 
 /*
