@@ -119,8 +119,9 @@ bool GenericTreeProducer::filter(edm::Event& iEvent, const edm::EventSetup& iSet
 }
 
 void GenericTreeProducer::endJob(){
-    // ask to write the current PSet info into the TTree header
-    probeFiller_->writeProvenance(edm::getProcessParameterSet());
+ // ask to write the current PSet info into the TTree header
+   probeFiller_->writeProvenance(edm::getProcessParameterSetContainingModule(moduleDescription()));
+ //     probeFiller_->writeProvenance(edm::getProcessParameterSet());
 }
 
 //define this as a plug-in
