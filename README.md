@@ -64,7 +64,7 @@ Phys14:
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_7_patch2/src/
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_9/src/
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_14/src/   --> from RunD on
-
+    /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_6_1/src/ 
     
     
     scp amassiro@cmsneu:/data/amassiro/CMSSWRoot/Phys14/miniAOD/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/C667E84D-9D18-E411-99D8-02163E00ECE6.root  /tmp/amassiro/

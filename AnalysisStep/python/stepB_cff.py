@@ -465,6 +465,16 @@ def addBTaggingVariables(pt,dzCut=99999):
 # LHE information
 def addLHEVariables(process,pt):
     if hasattr(pt,"variables"):
+        setattr(pt.variables, "std_vector_LHElepton_pt" , cms.string("leadingLHELeptonPt/5")),
+        setattr(pt.variables, "std_vector_LHElepton_eta" , cms.string("leadingLHELeptonEta/5")),
+        setattr(pt.variables, "std_vector_LHElepton_phi" , cms.string("leadingLHELeptonPhi/5")),
+        setattr(pt.variables, "std_vector_LHElepton_id" , cms.string("leadingLHELeptonPID/5")),
+
+        setattr(pt.variables, "std_vector_LHEparton_pt" , cms.string("leadingLHEJetPt/5")),
+        setattr(pt.variables, "std_vector_LHEparton_eta" , cms.string("leadingLHEJetEta/5")),
+        setattr(pt.variables, "std_vector_LHEparton_phi" , cms.string("leadingLHEJetPhi/5")),
+        setattr(pt.variables, "std_vector_LHEparton_id" , cms.string("leadingLHEJetPID/5")),
+
         setattr(pt.variables, "jetLHEPartonpt1" , cms.string("leadingLHEJetPt(0)")),
         setattr(pt.variables, "jetLHEPartonpid1" , cms.string("leadingLHEJetPID(0)")),
         setattr(pt.variables, "jetLHEPartonphi1" , cms.string("leadingLHEJetPhi(0)")),
