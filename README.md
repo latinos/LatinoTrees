@@ -67,6 +67,55 @@ Phys14:
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_6_1/src/ 
     
     
+    scp amassiro@cmsneu:/media/data/CMSSWRoot/RunIIFall15/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8/MINIAODv2/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root  /tmp/amassiro/
+    cmsRun stepB.py print \
+                    label=Top \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    maxEvents=200 \
+                    doLHE=True \
+                    doGen=True \
+                    doBTag=True \
+                    globalTag=76X_mcRun2_asymptotic_v12 \
+                    inputFiles=file:/tmp/amassiro/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root
+                    
+    cmsRun stepB.py print \
+                    label=Top \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    maxEvents=200 \
+                    doLHE=True \
+                    doGen=True \
+                    doBTag=False \
+                    globalTag=76X_mcRun2_asymptotic_v12 \
+                    inputFiles=file:/tmp/amassiro/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root
+    
+    cmsRun stepB.py print \
+                    label=Top \
+                    id=123456789 \
+                    scale=1 \
+                    outputFile=stepB_MC.root \
+                    doNoFilter=True \
+                    doMuonIsoId=True \
+                    maxEvents=200 \
+                    doLHE=True \
+                    doGen=True \
+                    doBTag=True \
+                    globalTag=76X_mcRun2_asymptotic_v12 \
+                    inputFiles=file:/tmp/amassiro/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root
+
+    cmsRun weightDumper.py \
+                    outputFile=weight_MC_ggHww.root \
+                    inputFiles=file:/tmp/amassiro/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root
+
+
+                    
     scp amassiro@cmsneu:/data/amassiro/CMSSWRoot/Phys14/miniAOD/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/C667E84D-9D18-E411-99D8-02163E00ECE6.root  /tmp/amassiro/
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    08CFEF83-586C-E411-8D7C-002590A2CCF2.root
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    440AA9AF-9988-E411-9786-00266CFFA038.root

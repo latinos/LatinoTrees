@@ -478,41 +478,44 @@ from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
 dataFormat = DataFormat.MiniAOD
 switchOnVIDElectronIdProducer(process, dataFormat)
 
+process.skimEventProducer.electronIds = cms.vstring(
+ )
+
 # define which IDs we want to produce
-if options.is50ns :
-    my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_50ns_V1_cff',
-                     'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
+#if options.is50ns :
+    #my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_50ns_V1_cff',
+                     #'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
 
-    process.skimEventProducer.electronIds = cms.vstring(
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-veto",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-loose",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-medium",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-tight",
-        )
+    #process.skimEventProducer.electronIds = cms.vstring(
+        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-veto",
+        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-loose",
+        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-medium",
+        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-tight",
+        #)
 
-    stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","50ns")
-    stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","50ns")
-    stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","50ns")
-    stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","50ns")
-else :
-    my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
-                     'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
+    #stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","50ns")
+    #stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","50ns")
+    #stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","50ns")
+    #stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","50ns")
+#else :
+    #my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
+                     #'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
 
-    process.skimEventProducer.electronIds = cms.vstring(
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight",
-        )
+    #process.skimEventProducer.electronIds = cms.vstring(
+        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto",
+        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose",
+        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium",
+        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight",
+        #)
 
-    stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","25ns")
-    stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","25ns")
-    stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","25ns")
-    stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","25ns")
+    #stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","25ns")
+    #stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","25ns")
+    #stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","25ns")
+    #stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","25ns")
 
-# add them to the VID producer
-for idmod in my_id_modules:
-    setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
+## add them to the VID producer
+#for idmod in my_id_modules:
+    #setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
 
 ####################
 
@@ -555,9 +558,30 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              miniAOD=True, runOnMC=isMC, addNsub=True,     
              #addPUJetID=False,
              addPUJetID=True,
-             addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True,
-             addSoftDrop=False,  addQGTagger=True  # addSoftDrop=True  
+             addPruning=False,
+             addTrimming=False,
+             addCMSTopTagger=True,
+             addHEPTopTagger=True,
+             addMassDrop=True,
+             addSoftDrop=False, 
+             addQGTagger=True  # addSoftDrop=True  
              ) #, addPrunedSubjets=True )
+
+#jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',    
+             #JETCorrPayload='AK4PFchs', JETCorrLevels = JEC, 
+             #miniAOD=True, runOnMC=isMC, 
+             #addNsub=False,     
+             #addPUJetID=False,
+             ##addPUJetID=True,
+             ##addPruning=False,
+             #addTrimming=False,
+             #addCMSTopTagger=False,
+             #addHEPTopTagger=False,
+             #addMassDrop=False,
+             #addSoftDrop=False, 
+             #addQGTagger=False,
+             #addPrunedSubjets=False            
+            #)
 
 
 preSeq += process.myJetSequence
@@ -597,13 +621,38 @@ if options.runPUPPISequence:
     jetPuppiR = 0.4
     #makePuppiAlgo(process) ## call puppi producer and puppi met
     
+    #jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',    
+             #JETCorrPayload='AK4PFPuppi', JETCorrLevels = JEC, 
+             #PUMethod='Puppi',
+             #miniAOD=True,
+             #runOnMC=isMC,
+             #addNsub=False,      
+             #addPUJetID=False,
+             ##addPUJetID=False, #----> can't be puppi AND pujetid
+             #addPruning=False, 
+             #addTrimming=False,
+             #addCMSTopTagger=False,
+             #addHEPTopTagger=False,
+             #addMassDrop=False,
+             #addSoftDrop=False,
+             #addQGTagger=False,
+             #addPrunedSubjets=False
+             ##addSoftDrop=True
+             #) #, addPrunedSubjets=True )
+
     jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',    
              JETCorrPayload='AK4PFPuppi', JETCorrLevels = JEC, 
              PUMethod='Puppi',
-             miniAOD=True, runOnMC=isMC, addNsub=True,      
+             miniAOD=True,
+             runOnMC=isMC, 
+             addNsub=True,      
              addPUJetID=False,
              #addPUJetID=True, ----> can't be puppi AND pujetid
-             addPruning=False, addTrimming=False, addCMSTopTagger=True, addHEPTopTagger=True, addMassDrop=True,
+             addPruning=False,
+             addTrimming=False,
+             addCMSTopTagger=True,
+             addHEPTopTagger=True, 
+             addMassDrop=True,
              addSoftDrop=False   #addSoftDrop=True
              ) #, addPrunedSubjets=True )
 
@@ -790,7 +839,7 @@ if doGenVV: addGenVVVariables(process,tree)
 # addAdditionalJets(process,tree)
 
 # add QG likelihood
-addQGJets(process,tree)
+#addQGJets(process,tree)   ---> deactivated because missing??
 
 # add fatjets
 if options.doFatJet :
@@ -845,7 +894,7 @@ if doPDFvar == True :
 if doBTag: addBTaggingVariables(tree, 99999)
 
 # jet additional variables: e.g. pu-jetid
-addJetsVariables(tree, 99999)
+addJetsVariables(tree, 99999)  # ---> deactivated because missing??
 
 
 # lepton variables needed for fake rate studies, measurement and application: e.g. jet variables for jet closest to lepton

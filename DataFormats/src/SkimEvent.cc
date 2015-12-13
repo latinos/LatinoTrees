@@ -2576,6 +2576,9 @@ const float reco::SkimEvent::pupMet() const {
 const float reco::SkimEvent::trkMet() const {
  return trkMet_.pt();
 }
+const float reco::SkimEvent::trkMetphi() const {
+ return trkMet_.phi();
+}
 
 
 

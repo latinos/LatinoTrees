@@ -362,6 +362,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float pfRawMetPhi() const;
             const float pupMet() const;
             const float trkMet() const;
+            const float trkMetphi() const;
             const float mvaMet() const{return mvaMet_.pt();}
             const float mvaMetPhi() const{return mvaMet_.phi();}
             const float tcSumEt() const;
