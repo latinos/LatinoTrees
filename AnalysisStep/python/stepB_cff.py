@@ -528,63 +528,39 @@ def addLHEVariables(process,pt):
 # gen information
 def addGenVariables(process,pt):
     if hasattr(pt,"variables"):
-        setattr(pt.variables, "jetGenPartonpt1",  cms.string("leadingGenJetPartonPt(0)")),
-        setattr(pt.variables, "jetGenPartonpid1", cms.string("leadingGenJetPartonPID(0)")),
-        setattr(pt.variables, "jetGenPartonphi1", cms.string("leadingGenJetPartonPhi(0)")),
-        setattr(pt.variables, "jetGenPartoneta1", cms.string("leadingGenJetPartonEta(0)")),
-        setattr(pt.variables, "jetGenPartonpt2",  cms.string("leadingGenJetPartonPt(1)")),
-        setattr(pt.variables, "jetGenPartonpid2", cms.string("leadingGenJetPartonPID(1)")),
-        setattr(pt.variables, "jetGenPartonphi2", cms.string("leadingGenJetPartonPhi(1)")),
-        setattr(pt.variables, "jetGenPartoneta2", cms.string("leadingGenJetPartonEta(1)")),
-        setattr(pt.variables, "jetGenPartonpt3" , cms.string("leadingGenJetPartonPt(2)")),
-        setattr(pt.variables, "jetGenPartonpid3", cms.string("leadingGenJetPartonPID(2)")),
-        setattr(pt.variables, "jetGenPartonphi3", cms.string("leadingGenJetPartonPhi(2)")),
-        setattr(pt.variables, "jetGenPartoneta3", cms.string("leadingGenJetPartonEta(2)")),
+        setattr(pt.variables, "std_vector_partonGen_pt",      cms.string("leadingGenJetPartonPt")),
+        setattr(pt.variables, "std_vector_partonGen_eta" ,    cms.string("leadingGenJetPartonEta")),
+        setattr(pt.variables, "std_vector_partonGen_phi",     cms.string("leadingGenJetPartonPhi")),
+        setattr(pt.variables, "std_vector_partonGen_pid",     cms.string("leadingGenJetPartonPID")),
+        setattr(pt.variables, "std_vector_partonGen_isPrompt",     cms.string("leadingGenJetPartonIsPrompt")),
+        setattr(pt.variables, "std_vector_partonGen_isHardProcess",     cms.string("leadingGenJetPartonIsHardProcess")),
 
-        setattr(pt.variables, "std_vector_leptonGen_pt",      cms.string("genLeptonPt")),
-        setattr(pt.variables, "std_vector_leptonGen_eta" ,    cms.string("genLeptonEta")),
-        setattr(pt.variables, "std_vector_leptonGen_phi",     cms.string("genLeptonPhi")),
-        setattr(pt.variables, "std_vector_leptonGen_pid",     cms.string("genLeptonPID")),
-        setattr(pt.variables, "std_vector_leptonGen_status",  cms.string("genLeptonStatus")),
-        setattr(pt.variables, "std_vector_leptonGen_index",   cms.string("genLeptonIndex")),
-        setattr(pt.variables, "std_vector_leptonGen_mpid" ,   cms.string("genLeptonMotherPID")),
-        setattr(pt.variables, "std_vector_leptonGen_mstatus", cms.string("genLeptonMotherStatus")),
-        setattr(pt.variables, "std_vector_leptonGen_isHardProcess", cms.string("genLeptonIsHardProcess")),
-        setattr(pt.variables, "std_vector_leptonGen_fromHardProcessDecayed", cms.string("genLeptonFromHardProcessDecayed")),
-        setattr(pt.variables, "std_vector_leptonGen_fromHardProcessBeforeFSR", cms.string("genLeptonFromHardProcessBeforeFSR")),
+        setattr(pt.variables, "std_vector_leptonGen_pt",                                cms.string("genLeptonPt")),
+        setattr(pt.variables, "std_vector_leptonGen_eta" ,                              cms.string("genLeptonEta")),
+        setattr(pt.variables, "std_vector_leptonGen_phi",                               cms.string("genLeptonPhi")),
+        setattr(pt.variables, "std_vector_leptonGen_pid",                               cms.string("genLeptonPID")),
+        setattr(pt.variables, "std_vector_leptonGen_status",                            cms.string("genLeptonStatus")),
+        setattr(pt.variables, "std_vector_leptonGen_isPrompt",                          cms.string("genLeptonIsPrompt")),
+        setattr(pt.variables, "std_vector_leptonGen_isDirectPromptTauDecayProduct",     cms.string("genLeptonIsDirectPromptTauDecayProduct")),
 
-        setattr(pt.variables, "std_vector_VBoson_pt",      cms.string("genVBosonPt/30")),
-        setattr(pt.variables, "std_vector_VBoson_eta" ,    cms.string("genVBosonEta/30")),
-        setattr(pt.variables, "std_vector_VBoson_phi",     cms.string("genVBosonPhi/30")),
-        setattr(pt.variables, "std_vector_VBoson_mass",    cms.string("genVBosonMass/30")),
-        setattr(pt.variables, "std_vector_VBoson_pid",     cms.string("genVBosonPID/30")),
-        setattr(pt.variables, "std_vector_VBoson_status",  cms.string("genVBosonStatus/30")),
-        setattr(pt.variables, "std_vector_VBoson_isHardProcess", cms.string("genVBosonIsHardProcess/30")),
-        setattr(pt.variables, "std_vector_VBoson_fromHardProcessBeforeFSR", cms.string("genVBosonFromHardProcessBeforeFSR/30")),
-
-        setattr(pt.variables, "neutrinoGenpt1" , cms.string("leadingGenNeutrinoPt(0)")),       # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGenpid1" , cms.string("leadingGenNeutrinoPID(0)")),     # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGenphi1" , cms.string("leadingGenNeutrinoPhi(0)")),     # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGeneta1" , cms.string("leadingGenNeutrinoEta(0)")),     # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGenpt2" , cms.string("leadingGenNeutrinoPt(1)")),       # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGenpid2" , cms.string("leadingGenNeutrinoPID(1)")),     # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGenphi2" , cms.string("leadingGenNeutrinoPhi(1)")),     # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGeneta2" , cms.string("leadingGenNeutrinoEta(1)")),     # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGenpt3" , cms.string("leadingGenNeutrinoPt(2)")),       # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGenpid3" , cms.string("leadingGenNeutrinoPID(2)")),     # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGenphi3" , cms.string("leadingGenNeutrinoPhi(2)")),     # to be removed once std vector is validated
-        setattr(pt.variables, "neutrinoGeneta3" , cms.string("leadingGenNeutrinoEta(2)")),     # to be removed once std vector is validated
+        setattr(pt.variables, "std_vector_VBoson_pt",      cms.string("genVBosonPt/5")),
+        setattr(pt.variables, "std_vector_VBoson_eta" ,    cms.string("genVBosonEta/5")),
+        setattr(pt.variables, "std_vector_VBoson_phi",     cms.string("genVBosonPhi/5")),
+        setattr(pt.variables, "std_vector_VBoson_mass",    cms.string("genVBosonMass/5")),
+        setattr(pt.variables, "std_vector_VBoson_pid",     cms.string("genVBosonPID/5")),
+        #setattr(pt.variables, "std_vector_VBoson_status",  cms.string("genVBosonStatus/5")),
 
         setattr(pt.variables, "std_vector_neutrinoGen_pt",      cms.string("leadingGenNeutrinoPt")),
         setattr(pt.variables, "std_vector_neutrinoGen_eta" ,    cms.string("leadingGenNeutrinoEta")),
         setattr(pt.variables, "std_vector_neutrinoGen_phi",     cms.string("leadingGenNeutrinoPhi")),
         setattr(pt.variables, "std_vector_neutrinoGen_pid",     cms.string("leadingGenNeutrinoPID")),
-        setattr(pt.variables, "std_vector_neutrinoGen_isHardProcess", cms.string("leadingGenNeutrinoIsHardProcess")),
-        setattr(pt.variables, "std_vector_neutrinoGen_fromHardProcessBeforeFSR", cms.string("leadingGenNeutrinoFromHardProcessBeforeFSR")),
+        setattr(pt.variables, "std_vector_neutrinoGen_isPrompt",                          cms.string("leadingGenNeutrinoIsPrompt")),
+        setattr(pt.variables, "std_vector_neutrinoGen_isDirectPromptTauDecayProduct",     cms.string("leadingGenNeutrinoIsDirectPromptTauDecayProduct")),
 
-
-
-        setattr(pt.variables, "higggsGenpt" , cms.string("getHiggsPt()")),
+        setattr(pt.variables, "higgsGenpt" , cms.string("getHiggsPt()")),
+        setattr(pt.variables, "higgsGeneta" , cms.string("getHiggsEta()")),
+        setattr(pt.variables, "higgsGenphi" , cms.string("getHiggsPhi()")),
+        setattr(pt.variables, "higgsGenmass" , cms.string("getHiggsMass()")),
 
         setattr(pt.variables, "metGenpt" , cms.string("genMetPt()")),
         setattr(pt.variables, "metGeneta", cms.string("genMetEta()")),
@@ -771,10 +747,14 @@ def addAdditionalJets(process,pt):
 
 def addSoftActivityVariables(process,pt):
      if hasattr(pt,"variables"):
-         setattr(pt.variables, "sumHtSoft",  cms.string("sumHtTrackJets")),
-         setattr(pt.variables, "sumHtSoftDensity", cms.string("sumHtTrackJetsDensity")),
-         setattr(pt.variables, "multiplicitySoft",  cms.string("multiplicityTrackJets")),
-         setattr(pt.variables, "multiplicitySoftDensity",  cms.string("multiplicityTrackJetsDensity")),
+         # Require final lepton selection
+         #setattr(pt.variables, "sumHtSoft",  cms.string("sumHtTrackJets")),
+         #setattr(pt.variables, "sumHtSoftDensity", cms.string("sumHtTrackJetsDensity")),
+         #setattr(pt.variables, "multiplicitySoft",  cms.string("multiplicityTrackJets")),
+         #setattr(pt.variables, "multiplicitySoftDensity",  cms.string("multiplicityTrackJetsDensity")),
+         setattr(pt.variables, "std_vector_trackjet_pt",  cms.string("trackJetPt/50")),
+         setattr(pt.variables, "std_vector_trackjet_eta",  cms.string("trackJetEta/50")),
+         setattr(pt.variables, "std_vector_trackjet_phi",  cms.string("trackJetPhi/50")),
          
 #def addIsoStudyVariables(process,pt):
     #if hasattr(pt,"variables"):

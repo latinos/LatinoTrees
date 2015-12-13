@@ -177,6 +177,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
             const float getHiggsMass() const;
             const float getHiggsPt() const;
+            const float getHiggsEta() const;
+            const float getHiggsPhi() const;
             const float getSusyStopMass() const;
             const float getSusyLSPMass() const;
 
@@ -476,6 +478,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingGenJetPartonPID(size_t a) const;
             const float leadingGenJetPartonEta(size_t a) const;
             const float leadingGenJetPartonPhi(size_t a) const;
+            const float leadingGenJetPartonIsPrompt(size_t a) const;
+            const float leadingGenJetPartonIsHardProcess(size_t a) const;
 
 	    // Compatible with PYTHIA8
 	    const int   originalStatus(const reco::Candidate* p) const;
@@ -484,12 +488,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float genLeptonPhi         (size_t a) const;
             const float genLeptonPID         (size_t a) const;
             const float genLeptonStatus      (size_t a) const;
+            const float genLeptonIsPrompt    (size_t a) const;
+            const float genLeptonIsDirectPromptTauDecayProduct  (size_t a) const;
             const float genLeptonIndex       (size_t a) const;
             const float genLeptonMotherPID   (size_t a) const;
             const float genLeptonMotherStatus(size_t a) const;
-            const float genLeptonIsHardProcess(size_t a) const;
-            const float genLeptonFromHardProcessDecayed(size_t a) const;
-            const float genLeptonFromHardProcessBeforeFSR(size_t a) const;
             
             const float genVBosonPt          (size_t a) const;
             const float genVBosonEta         (size_t a) const;
@@ -504,8 +507,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingGenNeutrinoPID(size_t a) const;
             const float leadingGenNeutrinoEta(size_t a) const;
             const float leadingGenNeutrinoPhi(size_t a) const;
-            const float leadingGenNeutrinoIsHardProcess(size_t a) const;
-            const float leadingGenNeutrinoFromHardProcessBeforeFSR(size_t a) const;
+            const float leadingGenNeutrinoIsPrompt(size_t a) const;
+            const float leadingGenNeutrinoIsDirectPromptTauDecayProduct(size_t a) const;
             
             const float leadingGenJetPt(size_t a) const;
             const float leadingGenJetEta(size_t a) const;
@@ -600,11 +603,14 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingJetHadronFlavour(size_t a, float pt , float eta=5.0,int applyCorrection=true, int applyID=0, float dzCut=9999.) const;
             const float leadingJetHadronFlavour(size_t a) const;
             
-            // Soft Activity
+            // Track Jets
             float sumHtTrackJets() const;
             float sumHtTrackJetsDensity() const;
             float multiplicityTrackJets() const;
             float multiplicityTrackJetsDensity() const;
+            float trackJetPt(size_t i) const;
+            float trackJetEta(size_t i) const;
+            float trackJetPhi(size_t i) const;
             
             //Iso Functions
             const bool isEB(size_t a = 0) const;

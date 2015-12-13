@@ -2446,6 +2446,7 @@ const float reco::SkimEvent::leadingFatJetPrunedTau4(size_t index, float minPt,f
  return -9999.9;
 }
 
+// Track jet variables
 float reco::SkimEvent::sumHtTrackJets() const {
     float sumHt=0;
     float minEta = leadingJetEta(0,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
@@ -2516,6 +2517,26 @@ float reco::SkimEvent::multiplicityTrackJetsDensity() const {
     }
 }
 
+float reco::SkimEvent::trackJetPt(size_t i) const {
+    if( i < trackJets_.size() )
+        return trackJets_[i]->pt();
+    else 
+        return defaultvalues::defaultFloat;
+}
+
+float reco::SkimEvent::trackJetEta(size_t i) const {
+    if( i < trackJets_.size() )
+        return trackJets_[i]->eta();
+    else 
+        return defaultvalues::defaultFloat;
+}
+
+float reco::SkimEvent::trackJetPhi(size_t i) const {
+    if( i < trackJets_.size() )
+        return trackJets_[i]->phi();
+    else 
+        return defaultvalues::defaultFloat;
+}
 
 //Event variables
 
@@ -4561,7 +4582,7 @@ if( (pdgId == 25) && (status == 3) ) {
 
 const float reco::SkimEvent::getHiggsMass() const {
  
- float mass = -1;
+ float mass = defaultvalues::defaultFloat;
  
  const reco::Candidate* mcH = 0;
  
@@ -4569,12 +4590,12 @@ const float reco::SkimEvent::getHiggsMass() const {
  for(size_t gp=0; gp<genParticles_.size();++gp){
   
   int pdgId = genParticles_[gp] -> pdgId();
-  int status = genParticles_[gp] -> status();
   
   // Stop {1000006}
-  if( (pdgId == 25) && (status == 3) ) {
+  if( (pdgId == 25) ) {
    mcH = &(*(genParticles_[gp]));
    mass = mcH->mass();
+   break;
   }
  } // loop over gen particles
  
@@ -4585,7 +4606,7 @@ const float reco::SkimEvent::getHiggsMass() const {
 
 const float reco::SkimEvent::getHiggsPt() const {
  
- float pt = -1;
+ float pt = defaultvalues::defaultFloat;
  
  const reco::Candidate* mcH = 0;
  
@@ -4593,16 +4614,63 @@ const float reco::SkimEvent::getHiggsPt() const {
  for(size_t gp=0; gp<genParticles_.size();++gp){
   
   int pdgId = genParticles_[gp] -> pdgId();
-  int status = genParticles_[gp] -> status();
   
   // Stop {1000006}
-  if( (pdgId == 25) && (status == 3) ) {
+  if( (pdgId == 25) ) {
    mcH = &(*(genParticles_[gp]));
    pt = mcH->pt();
+   break;
   }
  } // loop over gen particles
  
  return pt;
+}
+
+
+const float reco::SkimEvent::getHiggsEta() const {
+ 
+ float eta = defaultvalues::defaultFloat;
+ 
+ const reco::Candidate* mcH = 0;
+ 
+ // loop over gen particles
+ for(size_t gp=0; gp<genParticles_.size();++gp){
+  
+  int pdgId = genParticles_[gp] -> pdgId();
+  
+  // Stop {1000006}
+  if( (pdgId == 25) ) {
+   mcH = &(*(genParticles_[gp]));
+   eta = mcH->eta();
+   break;
+  }
+ } // loop over gen particles
+ 
+ return eta;
+}
+
+
+
+const float reco::SkimEvent::getHiggsPhi() const {
+ 
+ float phi = defaultvalues::defaultFloat;
+ 
+ const reco::Candidate* mcH = 0;
+ 
+ // loop over gen particles
+ for(size_t gp=0; gp<genParticles_.size();++gp){
+  
+  int pdgId = genParticles_[gp] -> pdgId();
+  
+  // Stop {1000006}
+  if( (pdgId == 25) ) {
+   mcH = &(*(genParticles_[gp]));
+   phi = mcH->phi();
+   break;
+  }
+ } // loop over gen particles
+ 
+ return phi;
 }
 
 
@@ -5115,17 +5183,16 @@ const float reco::SkimEvent::higgsLHEmass() const {
 const float reco::SkimEvent::leadingGenJetPartonPt(size_t index) const {
  std::vector<float> v_jets_pt ;
  
- float pt = -9999.9;
+ float pt = defaultvalues::defaultFloat;
  
  const reco::Candidate* mcH = 0;
  
  // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
   int type = abs( genParticles_[gp] -> pdgId() );
-  int status = genParticles_[gp] -> status();
   
   // Stop {1000006}
-  if( ((type < 9 && type > 0) || type == 21) && (status == 3) ) {
+  if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt())) {
    mcH = &(*(genParticles_[gp]));
    v_jets_pt.push_back( mcH->pt() );
   }
@@ -5145,16 +5212,16 @@ const float reco::SkimEvent::leadingGenJetPartonPt(size_t index) const {
 
 const float reco::SkimEvent::leadingGenJetPartonPID(size_t index) const {
  float pt_ofIndex = leadingGenJetPartonPt(index);
- float particleID=-9999.9;
+ float particleID= defaultvalues::defaultFloat;
  const reco::Candidate* mcH = 0;
  // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
   int type = abs( genParticles_[gp] -> pdgId() );
-  int status = genParticles_[gp] -> status();
-  if( ((type < 9 && type > 0) || type == 21) && (status == 3) ) {
+  if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt()) ) {
    mcH = &(*(genParticles_[gp]));
    if( mcH->pt() != pt_ofIndex) continue;
    particleID = (float) type;
+   break;
   }
  } // loop over gen particles
  return particleID;
@@ -5162,16 +5229,16 @@ const float reco::SkimEvent::leadingGenJetPartonPID(size_t index) const {
 
 const float reco::SkimEvent::leadingGenJetPartonEta(size_t index) const {
  float pt_ofIndex = leadingGenJetPartonPt(index);
- float particleEta=-9999.9;
+ float particleEta= defaultvalues::defaultFloat;
  const reco::Candidate* mcH = 0;
  // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
   int type = abs( genParticles_[gp] -> pdgId() );
-  int status = genParticles_[gp] -> status();
-  if( ((type < 9 && type > 0) || type == 21) && (status == 3) ) {
+  if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt()) ) {
    mcH = &(*(genParticles_[gp]));
    if( mcH->pt() != pt_ofIndex) continue;
    particleEta = (float) mcH->eta();
+   break;
   }
  } // loop over gen particles
  return particleEta;
@@ -5179,24 +5246,54 @@ const float reco::SkimEvent::leadingGenJetPartonEta(size_t index) const {
 
 const float reco::SkimEvent::leadingGenJetPartonPhi(size_t index) const {
  float pt_ofIndex = leadingGenJetPartonPt(index);
- float particlePhi=-9999.9;
+ float particlePhi= defaultvalues::defaultFloat;
  const reco::Candidate* mcH = 0;
  // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
   int type = abs( genParticles_[gp] -> pdgId() );
-  int status = genParticles_[gp] -> status();
-  if( ((type < 9 && type > 0) || type == 21) && (status == 3) ) {
+  if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt()) ) {
    mcH = &(*(genParticles_[gp]));
    if( mcH->pt() != pt_ofIndex) continue;
    particlePhi = (float) mcH->phi();
+   break;
   }
  } // loop over gen particles
  return particlePhi;
 }
 
+const float reco::SkimEvent::leadingGenJetPartonIsPrompt(size_t index) const {
+ float pt_ofIndex = leadingGenJetPartonPt(index);
+ float flag= defaultvalues::defaultFloat;
+ const reco::Candidate* mcH = 0;
+ // loop over gen particles
+ for(size_t gp=0; gp<genParticles_.size();++gp){
+  int type = abs( genParticles_[gp] -> pdgId() );
+  if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt()) ) {
+   mcH = &(*(genParticles_[gp]));
+   if( mcH->pt() != pt_ofIndex) continue;
+   flag = (float) genParticles_[gp]->statusFlags().isPrompt();
+   break;
+  }
+ } // loop over gen particles
+ return flag;
+}
 
-
-
+const float reco::SkimEvent::leadingGenJetPartonIsHardProcess(size_t index) const {
+ float pt_ofIndex = leadingGenJetPartonPt(index);
+ float flag= defaultvalues::defaultFloat;
+ const reco::Candidate* mcH = 0;
+ // loop over gen particles
+ for(size_t gp=0; gp<genParticles_.size();++gp){
+  int type = abs( genParticles_[gp] -> pdgId() );
+  if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt()) ) {
+   mcH = &(*(genParticles_[gp]));
+   if( mcH->pt() != pt_ofIndex) continue;
+   flag = (float) genParticles_[gp]->statusFlags().isHardProcess();
+   break;
+  }
+ } // loop over gen particles
+ return flag;
+}
 
 //---- Vector Bosons
 
@@ -5212,7 +5309,7 @@ const float reco::SkimEvent::genVBosonPt(size_t index) const {
  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
   int type = abs(genParticles_[gp]->pdgId());
   
-  if (type != 23 && type != 24) continue;
+  if ( !((type == 23 || type == 24) && genParticles_[gp]->isHardProcess()) ) continue;
   
   mcH = &(*(genParticles_[gp]));
   v_bosons_pt.push_back(mcH->pt());
@@ -5243,11 +5340,12 @@ const float reco::SkimEvent::genVBosonStatus(size_t index) const {
  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
   int type = abs(genParticles_[gp]->pdgId());
   
-  if (type != 23 && type != 24) continue;
+  if ( !((type == 23 || type == 24) && genParticles_[gp]->isHardProcess()) ) continue;
   
   mcH = &(*(genParticles_[gp]));
   if (mcH->pt() != pt_ofIndex) continue;
   particleStatus = (float) genParticles_[gp]->status();
+  break;
  }
  
  return particleStatus;
@@ -5267,12 +5365,13 @@ const float reco::SkimEvent::genVBosonPID(size_t index) const {
  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
   int type = genParticles_[gp]->pdgId();
   
-  if (abs(type) != 23 && abs(type) != 24) continue;
+  if ( !((type == 23 || type == 24) && genParticles_[gp]->isHardProcess()) ) continue;
   
   mcH = &(*(genParticles_[gp]));
   if (mcH->pt() != pt_ofIndex) continue;
   
   particleID = (float) type;
+  break;
  }
  
  return particleID;
@@ -5291,11 +5390,12 @@ const float reco::SkimEvent::genVBosonEta(size_t index) const {
  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
   int type = abs(genParticles_[gp]->pdgId());
   
-  if (type != 23 && type != 24) continue;
+  if ( !((type == 23 || type == 24) && genParticles_[gp]->isHardProcess()) ) continue;
   
   mcH = &(*(genParticles_[gp]));
   if (mcH->pt() != pt_ofIndex) continue;
   particleEta = (float) mcH->eta();
+  break;
  }
  
  return particleEta;
@@ -5314,11 +5414,12 @@ const float reco::SkimEvent::genVBosonMass(size_t index) const {
  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
   int type = abs(genParticles_[gp]->pdgId());
   
-  if (type != 23 && type != 24) continue;
+  if ( !((type == 23 || type == 24) && genParticles_[gp]->isHardProcess()) ) continue;
   
   mcH = &(*(genParticles_[gp]));
   if (mcH->pt() != pt_ofIndex) continue;
   particleMass = (float) mcH->mass();
+  break;
  }
  
  return particleMass;
@@ -5336,11 +5437,12 @@ const float reco::SkimEvent::genVBosonPhi(size_t index) const {
  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
   int type = abs(genParticles_[gp]->pdgId());
   
-  if (type != 23 && type != 24) continue;
+  if ( !((type == 23 || type == 24) && genParticles_[gp]->isHardProcess()) ) continue;
   
   mcH = &(*(genParticles_[gp]));
   if (mcH->pt() != pt_ofIndex) continue;
   particlePhi = (float) mcH->phi();
+  break;
  }
  
  return particlePhi;
@@ -5425,9 +5527,8 @@ const float reco::SkimEvent::genLeptonPt(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
     int type = abs(genParticles_[gp]->pdgId());
 
-    if (type != 11 && type != 13 && type != 15) continue;
-
-    if (!(genParticles_[gp]->fromHardProcessDecayed() || genParticles_[gp]->isHardProcess())) continue;    
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed() ) )
+        continue;
     
     mcH = &(*(genParticles_[gp]));
     v_leptons_pt.push_back(mcH->pt());
@@ -5458,16 +5559,60 @@ const float reco::SkimEvent::genLeptonStatus(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
     int type = abs(genParticles_[gp]->pdgId());
 
-    if (type != 11 && type != 13 && type != 15) continue;
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed() ) ) continue;
 
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
     particleStatus = (float) genParticles_[gp]->status();
+    break;
  }
 
  return particleStatus;
 }
 
+const float reco::SkimEvent::genLeptonIsPrompt (size_t index) const {
+
+  float pt_ofIndex     = genLeptonPt(index);
+  float isPrompt = defaultvalues::defaultFloat;
+
+  const reco::Candidate* mcH = 0;
+
+  // Loop over gen particles
+  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+    int type = abs(genParticles_[gp]->pdgId());
+
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if (mcH->pt() != pt_ofIndex) continue;
+    isPrompt = (float) genParticles_[gp]->statusFlags().isPrompt();
+    break;
+ }
+
+ return isPrompt;
+}
+
+const float reco::SkimEvent::genLeptonIsDirectPromptTauDecayProduct (size_t index) const {
+
+  float pt_ofIndex     = genLeptonPt(index);
+  float isDirectPromptTauDecayProduct = defaultvalues::defaultFloat;
+
+  const reco::Candidate* mcH = 0;
+
+  // Loop over gen particles
+  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+    int type = abs(genParticles_[gp]->pdgId());
+
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if (mcH->pt() != pt_ofIndex) continue;
+    isDirectPromptTauDecayProduct = (float) genParticles_[gp]->statusFlags().isDirectPromptTauDecayProduct();
+    break;
+ }
+
+ return isDirectPromptTauDecayProduct;
+}
 
 // Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonIndex(size_t index) const {
@@ -5481,11 +5626,12 @@ const float reco::SkimEvent::genLeptonIndex(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
     int type = abs(genParticles_[gp]->pdgId());
 
-    if (type != 11 && type != 13 && type != 15) continue;
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
 
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
     particleIndex = (float) gp;
+    break;
  }
 
  return particleIndex;
@@ -5502,14 +5648,14 @@ const float reco::SkimEvent::genLeptonPID(size_t index) const {
 
   // Loop over gen particles
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = genParticles_[gp]->pdgId();
+    int type = abs(genParticles_[gp]->pdgId());
 
-    if (abs(type) != 11 && abs(type) != 13 && abs(type) != 15) continue;
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
 
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
-
-    particleID = (float) type;
+    particleID = (float) genParticles_[gp]->pdgId();
+    break;
  }
 
  return particleID;
@@ -5528,11 +5674,12 @@ const float reco::SkimEvent::genLeptonEta(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
     int type = abs(genParticles_[gp]->pdgId());
 
-    if (type != 11 && type != 13 && type != 15) continue;
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
 
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
     particleEta = (float) mcH->eta();
+    break;
   }
 
   return particleEta;
@@ -5551,11 +5698,12 @@ const float reco::SkimEvent::genLeptonPhi(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
     int type = abs(genParticles_[gp]->pdgId());
 
-    if (type != 11 && type != 13 && type != 15) continue;
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
 
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
     particlePhi = (float) mcH->phi();
+    break;
   }
 
   return particlePhi;
@@ -5574,7 +5722,7 @@ const float reco::SkimEvent::genLeptonMotherPID(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
 
     int type = abs(genParticles_[gp]->pdgId());
-    if (type != 11 && type != 13 && type != 15) continue;
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
 
     int motherPdgId = 0;
     const reco::Candidate* pMother = 0;
@@ -5586,68 +5734,11 @@ const float reco::SkimEvent::genLeptonMotherPID(size_t index) const {
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
     motherPID = (float) motherPdgId;
+    break;
   }
   
   return motherPID;
 }
-
-
-const float reco::SkimEvent::genLeptonIsHardProcess(size_t index) const {
- float pt_ofIndex   = genLeptonPt(index);
- const reco::Candidate* mcH = 0;
- 
- // Loop over gen particles
- for (size_t gp=0; gp<genParticles_.size(); gp++) {
-  int type = abs(genParticles_[gp]->pdgId());
-  if (type != 11 && type != 13 && type != 15) continue; //--- e = 11, mu = 13, tau = 15
-  
-  mcH = &(*(genParticles_[gp]));
-  if (mcH->pt() != pt_ofIndex) continue;
-  
-  return genParticles_[gp]-> isHardProcess();
- } 
- 
- return defaultvalues::defaultFloat;
-}
-
-const float reco::SkimEvent::genLeptonFromHardProcessDecayed(size_t index) const {
- float pt_ofIndex   = genLeptonPt(index);
- const reco::Candidate* mcH = 0;
- 
- // Loop over gen particles
- for (size_t gp=0; gp<genParticles_.size(); gp++) {
-  int type = abs(genParticles_[gp]->pdgId());
-  if (type != 11 && type != 13 && type != 15) continue; //--- e = 11, mu = 13, tau = 15
-  
-  mcH = &(*(genParticles_[gp]));
-  if (mcH->pt() != pt_ofIndex) continue;
-  
-  return genParticles_[gp]-> fromHardProcessDecayed();
- } 
- 
- return defaultvalues::defaultFloat;
-}
-
-
-const float reco::SkimEvent::genLeptonFromHardProcessBeforeFSR(size_t index) const {
- float pt_ofIndex   = genLeptonPt(index);
- const reco::Candidate* mcH = 0;
- 
- // Loop over gen particles
- for (size_t gp=0; gp<genParticles_.size(); gp++) {
-  int type = abs(genParticles_[gp]->pdgId());
-  if (type != 11 && type != 13 && type != 15) continue; //--- e = 11, mu = 13, tau = 15
-  
-  mcH = &(*(genParticles_[gp]));
-  if (mcH->pt() != pt_ofIndex) continue;
-  
-  return genParticles_[gp]-> fromHardProcessBeforeFSR();
- } 
- 
- return defaultvalues::defaultFloat;
-}
-
-
 
 
 // Compatible with PYTHIA8
@@ -5662,7 +5753,7 @@ const float reco::SkimEvent::genLeptonMotherStatus(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
 
     int type = abs(genParticles_[gp]->pdgId());
-    if (type != 11 && type != 13 && type != 15) continue;
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
 
     int motherOriginalStatus = 0;
     const reco::Candidate* pMother = 0;
@@ -5674,28 +5765,27 @@ const float reco::SkimEvent::genLeptonMotherStatus(size_t index) const {
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
     motherStatus = (float) motherOriginalStatus;
+    break;
   }
 
   return motherStatus;
 }
 
-
-
 //---- neutrinos
 
-const float reco::SkimEvent::leadingGenNeutrinoIsHardProcess(size_t index) const {
+const float reco::SkimEvent::leadingGenNeutrinoIsPrompt(size_t index) const {
  float pt_ofIndex   = leadingGenNeutrinoPt(index);
  const reco::Candidate* mcH = 0;
  
  // Loop over gen particles
  for (size_t gp=0; gp<genParticles_.size(); gp++) {
   int type = abs(genParticles_[gp]->pdgId());
-  if( (type == 12 || type == 14 || type == 16) ) {
+  if( (type == 12 || type == 14 || type == 16) && genParticles_[gp]->status()==1 ) {
    
    mcH = &(*(genParticles_[gp]));
    if (mcH->pt() != pt_ofIndex) continue;
    
-   return genParticles_[gp]-> isHardProcess();
+   return genParticles_[gp]->statusFlags().isPrompt();
   }
  } 
  
@@ -5703,19 +5793,19 @@ const float reco::SkimEvent::leadingGenNeutrinoIsHardProcess(size_t index) const
 }
 
 
-const float reco::SkimEvent::leadingGenNeutrinoFromHardProcessBeforeFSR(size_t index) const {
+const float reco::SkimEvent::leadingGenNeutrinoIsDirectPromptTauDecayProduct(size_t index) const {
  float pt_ofIndex   = leadingGenNeutrinoPt(index);
  const reco::Candidate* mcH = 0;
  
  // Loop over gen particles
  for (size_t gp=0; gp<genParticles_.size(); gp++) {
   int type = abs(genParticles_[gp]->pdgId());
-  if( (type == 12 || type == 14 || type == 16) ) {
+  if( (type == 12 || type == 14 || type == 16) && genParticles_[gp]->status()==1 ) {
    
    mcH = &(*(genParticles_[gp]));
    if (mcH->pt() != pt_ofIndex) continue;
    
-   return genParticles_[gp]-> fromHardProcessBeforeFSR();
+   return genParticles_[gp]->statusFlags().isDirectPromptTauDecayProduct();
   }
  } 
  
@@ -5733,10 +5823,10 @@ const float reco::SkimEvent::leadingGenNeutrinoPt(size_t index) const {
  // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
   int type = abs( genParticles_[gp] -> pdgId() );
-//   int status = genParticles_[gp] -> status();
+  int status = genParticles_[gp] -> status();
   
   // Stop {1000006}
-  if( (type == 12 || type == 14 || type == 16) ) {
+  if( (type == 12 || type == 14 || type == 16) && status==1 ) {
 //   if( (type == 12 || type == 14 || type == 16) && (status == 3) ) {
    mcH = &(*(genParticles_[gp]));
    v_jets_pt.push_back( mcH->pt() );
@@ -5763,12 +5853,13 @@ const float reco::SkimEvent::leadingGenNeutrinoPID(size_t index) const {
  // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
   int type = abs( genParticles_[gp] -> pdgId() );
-//   int status = genParticles_[gp] -> status();
-  if( (type == 12 || type == 14 || type == 16) ) {
+  int status = genParticles_[gp] -> status();
+  if( (type == 12 || type == 14 || type == 16) && status==1 ) {
 //   if( (type == 12 || type == 14 || type == 16) && (status == 3) ) {
    mcH = &(*(genParticles_[gp]));
    if( mcH->pt() != pt_ofIndex) continue;
    particleID = (float) type;
+   break;
   }
  } // loop over gen particles
  return particleID;
@@ -5781,12 +5872,13 @@ const float reco::SkimEvent::leadingGenNeutrinoEta(size_t index) const {
  // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
   int type = abs( genParticles_[gp] -> pdgId() );
-//   int status = genParticles_[gp] -> status();
-  if( (type == 12 || type == 14 || type == 16) ) {
+  int status = genParticles_[gp] -> status();
+  if( (type == 12 || type == 14 || type == 16) && status==1 ) {
 //   if( (type == 12 || type == 14 || type == 16) && (status == 3) ) {
    mcH = &(*(genParticles_[gp]));
    if( mcH->pt() != pt_ofIndex) continue;
    particleEta = (float) mcH->eta();
+   break;
   }
  } // loop over gen particles
  return particleEta;
@@ -5799,12 +5891,13 @@ const float reco::SkimEvent::leadingGenNeutrinoPhi(size_t index) const {
  // loop over gen particles
  for(size_t gp=0; gp<genParticles_.size();++gp){
   int type = abs( genParticles_[gp] -> pdgId() );
-//   int status = genParticles_[gp] -> status();
-  if( (type == 12 || type == 14 || type == 16) ) {
+  int status = genParticles_[gp] -> status();
+  if( (type == 12 || type == 14 || type == 16) && status==1 ) {
 //   if( (type == 12 || type == 14 || type == 16) && (status == 3) ) {
    mcH = &(*(genParticles_[gp]));
    if( mcH->pt() != pt_ofIndex) continue;
    particlePhi = (float) mcH->phi();
+   break;
   }
  } // loop over gen particles
  return particlePhi;
@@ -5858,6 +5951,7 @@ const float reco::SkimEvent::leadingGenJetPhi(size_t index) const {
   if ( abs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
   if((genJets_[iPart]->pt())!=pt_ofIndex) continue;
   phi = genJets_[iPart]->phi() ;
+  break;
  }
  
  //---- now return ----
@@ -5873,6 +5967,7 @@ const float reco::SkimEvent::leadingGenJetEta(size_t index) const {
   if ( abs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
   if((genJets_[iPart]->pt())!=pt_ofIndex) continue;
   eta = genJets_[iPart]->eta() ;
+  break;
  }
  //---- now return ----
  return eta;
