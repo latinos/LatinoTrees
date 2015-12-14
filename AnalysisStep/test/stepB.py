@@ -550,24 +550,8 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              addHEPTopTagger=True,
              addMassDrop=True,
              addSoftDrop=False, 
-             addQGTagger=True  # addSoftDrop=True  
+             addQGTagger=True,  # addSoftDrop=True  
              ) #, addPrunedSubjets=True )
-
-#jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',    
-             #JETCorrPayload='AK4PFchs', JETCorrLevels = JEC, 
-             #miniAOD=True, runOnMC=isMC, 
-             #addNsub=False,     
-             #addPUJetID=False,
-             ##addPUJetID=True,
-             ##addPruning=False,
-             #addTrimming=False,
-             #addCMSTopTagger=False,
-             #addHEPTopTagger=False,
-             #addMassDrop=False,
-             #addSoftDrop=False, 
-             #addQGTagger=False,
-             #addPrunedSubjets=False            
-            #)
 
 
 preSeq += process.myJetSequence
@@ -607,25 +591,6 @@ if options.runPUPPISequence:
     jetPuppiR = 0.4
     #makePuppiAlgo(process) ## call puppi producer and puppi met
     
-    #jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',    
-             #JETCorrPayload='AK4PFPuppi', JETCorrLevels = JEC, 
-             #PUMethod='Puppi',
-             #miniAOD=True,
-             #runOnMC=isMC,
-             #addNsub=False,      
-             #addPUJetID=False,
-             ##addPUJetID=False, #----> can't be puppi AND pujetid
-             #addPruning=False, 
-             #addTrimming=False,
-             #addCMSTopTagger=False,
-             #addHEPTopTagger=False,
-             #addMassDrop=False,
-             #addSoftDrop=False,
-             #addQGTagger=False,
-             #addPrunedSubjets=False
-             ##addSoftDrop=True
-             #) #, addPrunedSubjets=True )
-
     jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',    
              JETCorrPayload='AK4PFPuppi', JETCorrLevels = JEC, 
              PUMethod='Puppi',
@@ -639,7 +604,9 @@ if options.runPUPPISequence:
              addCMSTopTagger=True,
              addHEPTopTagger=True, 
              addMassDrop=True,
-             addSoftDrop=False   #addSoftDrop=True
+             addSoftDrop=False, 
+             addQGTagger=True,  
+             #addSoftDrop=True
              ) #, addPrunedSubjets=True )
 
 
@@ -774,8 +741,8 @@ if options.doPhotonID:
 addPhotonVariables(process,tree)
 
 # LHE information dumper
-#if doLHE:
-  #addLHEVariables(process,tree)
+if doLHE:
+  addLHEVariables(process,tree)
 
   #tree.variables.numbLHE = cms.string("numberOfbQuarks()")
   #tree.variables.numtLHE = cms.string("numberOftQuarks()")
@@ -812,11 +779,8 @@ addPhotonVariables(process,tree)
 
 if doGen: addGenVariables(process,tree)
 
-# add 5th and 6th, ... jets variables
-# addAdditionalJets(process,tree)
-
 # add QG likelihood
-#addQGJets(process,tree)   ---> deactivated because missing??
+addQGJets(process,tree)   
 
 # add fatjets
 if options.doFatJet :

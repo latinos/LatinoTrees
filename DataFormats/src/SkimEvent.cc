@@ -5051,7 +5051,7 @@ const float reco::SkimEvent::LHEMetPt() const {
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
-  if (type == 12 || type == 14 || type == 16) {
+  if (type == 12 || type == 14 || type == 16) { //---- neutrinos
    sum_px+=LHEhepeup_.PUP.at (iPart) [0];
    sum_py+=LHEhepeup_.PUP.at (iPart) [1];
    number_neutrino++;
@@ -5073,7 +5073,7 @@ const float reco::SkimEvent::LHEMetPhi() const {
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
-  if (type == 12 || type == 14 || type == 16) {
+  if (type == 12 || type == 14 || type == 16) { //---- neutrinos
    sum_px+=LHEhepeup_.PUP.at (iPart) [0];
    sum_py+=LHEhepeup_.PUP.at (iPart) [1];
    sum_pz+=LHEhepeup_.PUP.at (iPart) [2];
@@ -5097,7 +5097,7 @@ const float reco::SkimEvent::LHEMetEta() const {
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
-  if (type == 12 || type == 14 || type == 16) {
+  if (type == 12 || type == 14 || type == 16) { //---- neutrinos
    sum_px+=LHEhepeup_.PUP.at (iPart) [0];
    sum_py+=LHEhepeup_.PUP.at (iPart) [1];
    sum_pz+=LHEhepeup_.PUP.at (iPart) [2];

@@ -38,8 +38,8 @@ jetId_WP = globalVariables.jetId_WP
 
 CJVminPt = "30."
 CJVmaxEta = "4.7"
-DphiJetVetominPt = "15."
-DphiJetVetominEta = "4.7"
+#DphiJetVetominPt = "15."
+#DphiJetVetominEta = "4.7"
 
 DzBVeto="999999.9"
 minPtBVeto="10.0"
@@ -75,6 +75,10 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         # leptons
         channel = cms.string("channel()"),
 
+        # keep these comments here only as a placeholder 
+        # for different methods that can be used in filling the trees
+        # (do NOT remove)
+        
         #v_lepton1 = cms.string("lepton(0)"),  # Deprecated, use std_vector_lepton
         #v_lepton2 = cms.string("lepton(1)"),  # Deprecated, use std_vector_lepton
         #v_lepton3 = cms.string("lepton(2)"),  # Deprecated, use std_vector_lepton
@@ -92,6 +96,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_eta           = cms.string("etaByPt"),
         std_vector_lepton_phi           = cms.string("phiByPt"),
         std_vector_lepton_flavour       = cms.string("flavourByPt"),
+        #std_vector_lepton_id = cms.string("pdgIdByPt"),  # Deprecated, use std_vector_lepton_flavour
         std_vector_lepton_isMediumMuon  = cms.string("isMediumMuonByPt"),
         std_vector_lepton_isTrackerMuon = cms.string("isTrackerMuonByPt"),
         std_vector_lepton_isTightMuon   = cms.string("isTightMuonByPt"),
@@ -109,8 +114,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 
 
         std_vector_lepton_PfIsoDeltaBeta= cms.string("allIsoByPt"),
-          
-        #std_vector_lepton_id = cms.string("pdgIdByPt"),  # Deprecated, use std_vector_lepton_flavour
 
         std_vector_puppijet_pt  = cms.string("leadingSecondJetPt"),
         std_vector_puppijet_eta = cms.string("leadingSecondJetEta"),
@@ -120,10 +123,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_jet_eta  = cms.string("leadingJetEta"),
         std_vector_jet_phi  = cms.string("leadingJetPhi"),
         std_vector_jet_mass = cms.string("leadingJetMass"),
-
-        #mll  = cms.string("mll()"),
-        #ptll = cms.string("pTll()"),
-        #yll  = cms.string("yll()"),  # Returns (p4a+p4b).Rapidity()
 
         peaking = cms.string("peaking"),
         trigger = cms.string("guillelmoTrigger('DATASET')"),
@@ -144,50 +143,26 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         trkMet = cms.string("trkMet"),
         trkMetphi = cms.string("trkMetphi"),
         pfMetNoHf = cms.string("pfMetNoHf"),
-# mvamet = cms.string("mvaMet"),
-# mvamethi = cms.string("mvaMetPhi"),
-# pmvamet = cms.string("projMvaMet"),
+        # mvamet = cms.string("mvaMet"),
+        # mvamethi = cms.string("mvaMetPhi"),
+        # pmvamet = cms.string("projMvaMet"),
         chSumEt = cms.string("chargedMetSmurfSumEt"),
         pfmetMEtSig = cms.string("pfMetMEtSig"),
         pfmetSignificance = cms.string("pfMetSignificance"),
         chmet = cms.string("chargedMetSmurf"),
         chmetphi = cms.string("chargedMetSmurfPhi"),
         pchmet = cms.string("projChargedMetSmurf"),
-        #dymva0 = cms.string("userFloat('dymva0')"),
-        #dymva1 = cms.string("userFloat('dymva1')"),
         redmet = cms.string("-9999"),
         predmet = cms.string("-9999"),
         mpmet = cms.string("min(projPfMet,projChargedMetSmurf)"), ##note: min of proj and proj of min are not the same
         imet = cms.string("min(projPfMet,projChargedMetSmurf)*cos(pfRawMetPhi-chargedMetSmurfPhi)"),
-        #dphill = cms.string("dPhill()"),
-        #drll = cms.string("dRll()"),
-        #dphilljet = cms.string("dPhillLeadingJet("+CJVmaxEta+",1,"+jetId_WP+")"),
-        #dphilljetjet = cms.string("dPhilljetjet("+CJVmaxEta+",1,"+jetId_WP+")"), #WHAT
-        #dphillmet = cms.string("dPhillMet('PFMET')"),
-        #dphilmet = cms.string("dPhilMet('PFMET')"),
-        #dphilmet1 = cms.string("dPhilMetByPt(0,'PFMET')"),
-        #dphilmet2 = cms.string("dPhilMetByPt(1,'PFMET')"),
-        #mtw1 = cms.string("mTByPt(0,'PFMET')"),
-        #mtw2 = cms.string("mTByPt(1,'PFMET')"),
-        #mth = cms.string("mTHiggs('PFMET')"),
-        gammaMRStar = cms.string("gammaMRStar"),
+        #gammaMRStar = cms.string("gammaMRStar"),
         njet = cms.string("nCentralJets("+CJVminPt+","+CJVmaxEta+",1,"+jetId_WP+")"),
         njetid = cms.string("nCentralJets("+CJVminPt+","+CJVmaxEta+",1,0)"),
         # here we do apply a dz cut cause we are actually counting bjets
         nbjettche = cms.string("bTaggedJetsOver("+CJVminPt+",2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+")"),
         nbjet     = cms.string("bTaggedJetsOver("+CJVminPt+",1.05,'pfJetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+")"),
         # here we don't apply the dz cut, cause we just use the b-tag value of highest pt jets
-
-        #puppijetpt1 = cms.string("leadingSecondJetPt(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-       
-        #jetpt1   = cms.string("leadingJetPt(0,0,"   + CJVmaxEta + ",1," + jetId_WP + ")"),
-        #jeteta1  = cms.string("leadingJetEta(0,0,"  + CJVmaxEta + ",1," + jetId_WP + ")"),
-        #jetphi1  = cms.string("leadingJetPhi(0,0,"  + CJVmaxEta + ",1," + jetId_WP + ")"),
-        #jetmass1 = cms.string("leadingJetMass(0,0," + CJVmaxEta + ",1," + jetId_WP + ")"),
-        #jetpt2   = cms.string("leadingJetPt(1,0,"   + CJVmaxEta + ",1," + jetId_WP + ")"),
-        #jeteta2  = cms.string("leadingJetEta(1,0,"  + CJVmaxEta + ",1," + jetId_WP + ")"),
-        #jetphi2  = cms.string("leadingJetPhi(1,0,"  + CJVmaxEta + ",1," + jetId_WP + ")"),
-        #jetmass2 = cms.string("leadingJetMass(1,0," + CJVmaxEta + ",1," + jetId_WP + ")"),
 
         #jetid1 = cms.string("leadingJetId(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         #jetmva1 = cms.string("leadingJetMva(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -202,57 +177,10 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         #jetNChgptCut1 = cms.string("leadingJetNChgptCut(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
         #jetNNeutralptCut1 = cms.string("leadingJetNNeutralptCut(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
 
-        #jetid2 = cms.string("leadingJetId(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetmva2 = cms.string("leadingJetMva(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jettche2 = cms.string("leadingJetBtag(1,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        #jetbjpb2 = cms.string("leadingJetBtag(1,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        #jettchp2 = cms.string("leadingJetBtag(1,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        #jetptd2 = cms.string("leadingJetPtd(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetCHM2 = cms.string("leadingJetChargedHadronMultiplicity(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetNHM2 = cms.string("leadingJetNeutralHadronMultiplicity(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetPhM2 = cms.string("leadingJetPhotonMultiplicity(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetNChgQC2 = cms.string("leadingJetNChgQC(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetNChgptCut2 = cms.string("leadingJetNChgptCut(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetNNeutralptCut2 = cms.string("leadingJetNNeutralptCut(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
+        # FIXME: add all the previous jet observables into std_vector form
+        # add DZ on jets and b-jets
 
         jetRho = cms.string("getJetRhoIso()"),
-
-        #iso1   = cms.string("allIsoByPt(0)/ptByPt(0)"),  # Deprecated, use std_vector_lepton_{IdIsoVariables}
-        #iso2   = cms.string("allIsoByPt(1)/ptByPt(1)"),  # Deprecated, use std_vector_lepton_{IdIsoVariables}
-        #iso3   = cms.string("allIsoByPt(2)/ptByPt(2)"),  # Deprecated, use std_vector_lepton_{IdIsoVariables}
-        #iso4   = cms.string("allIsoByPt(3)/ptByPt(3)"),  # Deprecated, use std_vector_lepton_{IdIsoVariables}
-        #pt1    = cms.string("ptMax"),           # Deprecated, use std_vector_lepton_pt
-        #pt2    = cms.string("ptMin"),           # Deprecated, use std_vector_lepton_pt
-        #pt3    = cms.string("ptByPt(2)"),       # Deprecated, use std_vector_lepton_pt
-        #pt4    = cms.string("ptByPt(3)"),       # Deprecated, use std_vector_lepton_pt
-        #eta1   = cms.string("etaByPt(0)"),      # Deprecated, use std_vector_lepton_eta
-        #eta2   = cms.string("etaByPt(1)"),      # Deprecated, use std_vector_lepton_eta
-        #eta3   = cms.string("etaByPt(2)"),      # Deprecated, use std_vector_lepton_eta
-        #eta4   = cms.string("etaByPt(3)"),      # Deprecated, use std_vector_lepton_eta
-        #sceta1 = cms.string("etaSCByPt(0)"),    # Deprecated, use std_vector_electron_scEta
-        #sceta2 = cms.string("etaSCByPt(1)"),    # Deprecated, use std_vector_electron_scEta
-        #sceta3 = cms.string("etaSCByPt(2)"),    # Deprecated, use std_vector_electron_scEta
-        #sceta4 = cms.string("etaSCByPt(3)"),    # Deprecated, use std_vector_electron_scEta
-        #phi1   = cms.string("phiByPt(0)"),      # Deprecated, use std_vector_lepton_phi
-        #phi2   = cms.string("phiByPt(1)"),      # Deprecated, use std_vector_lepton_phi
-        #phi3   = cms.string("phiByPt(2)"),      # Deprecated, use std_vector_lepton_phi
-        #phi4   = cms.string("phiByPt(3)"),      # Deprecated, use std_vector_lepton_phi
-        #ch1    = cms.string("qByPt(0)"),        # Deprecated, use std_vector_lepton_ch
-        #ch2    = cms.string("qByPt(1)"),        # Deprecated, use std_vector_lepton_ch
-        #ch3    = cms.string("qByPt(2)"),        # Deprecated, use std_vector_lepton_ch
-        #ch4    = cms.string("qByPt(3)"),        # Deprecated, use std_vector_lepton_ch
-        #bdt1   = cms.string("leptBdtByPt(0)"),  # Deprecated, this is a Run I variable
-        #bdt2   = cms.string("leptBdtByPt(1)"),  # Deprecated, this is a Run I variable
-        #bdt3   = cms.string("leptBdtByPt(2)"),  # Deprecated, this is a Run I variable
-        #bdt4   = cms.string("leptBdtByPt(3)"),  # Deprecated, this is a Run I variable
-        #lh1    = cms.string("leptLHByPt(0)"),   # Deprecated, this is a Run I variable
-        #lh2    = cms.string("leptLHByPt(1)"),   # Deprecated, this is a Run I variable
-        #lh3    = cms.string("leptLHByPt(2)"),   # Deprecated, this is a Run I variable
-        #lh4    = cms.string("leptLHByPt(3)"),   # Deprecated, this is a Run I variable
-        #pdgid1 = cms.string("pdgIdByPt(0)"),    # Deprecated, use std_vector_lepton_flavour
-        #pdgid2 = cms.string("pdgIdByPt(1)"),    # Deprecated, use std_vector_lepton_flavour
-        #pdgid3 = cms.string("pdgIdByPt(2)"),    # Deprecated, use std_vector_lepton_flavour
-        #pdgid4 = cms.string("pdgIdByPt(3)"),    # Deprecated, use std_vector_lepton_flavour
 
         #eleIdVeto1   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto\",\"\",0)"),
         #eleIdLoose1  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose\",\"\",0)"),
@@ -265,14 +193,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_eleIdMedium = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-FREQUENCY-V1-standalone-medium\",\"\""),
         std_vector_lepton_eleIdTight  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-FREQUENCY-V1-standalone-tight\",\"\""),
 
-        #nbrem1  = cms.string("nBremByPt(0)"),
-        #nbrem2  = cms.string("nBremByPt(1)"),
-        #nbrem3  = cms.string("nBremByPt(2)"),
-        #nbrem4  = cms.string("nBremByPt(3)"),
-        #isomva1 = cms.string("mvaIsoByPt(0)"),
-        #isomva2 = cms.string("mvaIsoByPt(1)"),
-        #isomva3 = cms.string("mvaIsoByPt(2)"),
-        #isomva4 = cms.string("mvaIsoByPt(3)"),
         # in the 2012 selection, 2 BJet algorithms are used: softtche and hardbjpb !
         # softbdisc = cms.string("highestBDiscRange(10.0,30.0,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+")"),
         # hardbdisc = cms.string("highestBDiscRange(30.0,999999.,'pfJetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+",1)"),
@@ -283,52 +203,24 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         tightmu = cms.string("passesSmurfMuonID"),
         #worstJetLepPt = cms.string("max(matchedJetPt(0, 0.5)/pt(0), matchedJetPt(1, 0.5)/pt(1))"),
         dataset = cms.string("REPLACE_ME"),
-        #puAW = cms.InputTag("puWeightA"),  # miniAOD
-        #puBW = cms.InputTag("puWeightB"),  # miniAOD
-        #puW = cms.InputTag("puWeight"),  # miniAOD
         puW = cms.string("1"),
         kfW = cms.string("1"),
-        #kfW = cms.InputTag("ptWeight"),
         baseW = cms.string("REPLACE_ME"),
-        #fourW = cms.string("REPLACE_ME"),
-        #fermiW = cms.string("REPLACE_ME"),
 
         trpu = cms.InputTag("nPU:tr"),
         itpu = cms.InputTag("nPU:it"),
         ootpup1 = cms.InputTag("nPU:p1"),
         ootpum1 = cms.InputTag("nPU:m1"),
 
-
-        effAW = cms.string("1"),
-        effBW = cms.string("1"),
         effW = cms.string("1"),
-        triggAW = cms.string("1"),
-        triggBW = cms.string("1"),
         triggW = cms.string("1"),
-        fakeAW = cms.string("1"),
-        fakeBW = cms.string("1"),
         fakeW = cms.string("1"),
-        #vbf stuff:
-        #njetvbf = cms.string("nJetVBF(30,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #mjj = cms.string("mjj(0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #detajj = cms.string("dEtajj(30,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #cjetpt1 = cms.string("leadingVBFJetPt(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #cjeteta1 = cms.string("leadingVBFJetEta(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #cjetphi1 = cms.string("leadingVBFJetPhi(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #cjetid1 = cms.string("leadingVBFJetId(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #cjetmva1 = cms.string("leadingVBFJetMva(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #cjetpt2 = cms.string("leadingVBFJetPt(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #cjeteta2 = cms.string("leadingVBFJetEta(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #cjetphi2 = cms.string("leadingVBFJetPhi(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #cjetid2 = cms.string("leadingVBFJetId(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #cjetmva2 = cms.string("leadingVBFJetMva(1,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
+
         # mc info
         mctruth = cms.string("-1"),
 
     ),
     flags = cms.PSet(
-        #sameflav = cms.string("hypo == 3 || hypo == 6"),
-        #zveto = cms.string("abs(mll-91.1876)>15. || hypo == 4 || hypo == 5"),
         # here we do apply a dz cut cause we are actually counting bjets
         bveto_ip       = cms.string("bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0"),
         # bveto          = cms.string("bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+") == 0 && nSoftMu(3) == 0"),
@@ -341,22 +233,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         # bveto_munj30   = cms.string("nSoftMu(3,30) == 0"),
         # bveto_munj05   = cms.string("nSoftMu(3,1,0.5) == 0"),
         # bveto_munj3005 = cms.string("nSoftMu(3,30,0.5) == 0"),
-        dphiveto       = cms.string("passesDPhillJet("+DphiJetVetominPt+","+DphiJetVetominEta+",1,"+jetId_WP+")"),
-        #pass2012ICHEP1 = cms.string('passCustomByPt(0,"'+Scenario6_ICHEP2012+'","'+Scenario6_ICHEP+'")'),
-        #pass2012ICHEP2 = cms.string('passCustomByPt(1,"'+Scenario6_ICHEP2012+'","'+Scenario6_ICHEP+'")'),
-        #pass2012ICHEP3 = cms.string('passCustomByPt(2,"'+Scenario6_ICHEP2012+'","'+Scenario6_ICHEP+'")'),
-        #pass2012ICHEP4 = cms.string('passCustomByPt(3,"'+Scenario6_ICHEP2012+'","'+Scenario6_ICHEP+'")'),
-
-# passBDT1 = cms.string('passCustomByPt(0,"'+Scenario2_KINK_MUONS+'","'+Scenario4_BDT_ELECTRONS+'")'),
-# passBDT2 = cms.string('passCustomByPt(1,"'+Scenario2_KINK_MUONS+'","'+Scenario4_BDT_ELECTRONS+'")'),
-# passLH1 = cms.string('passCustomByPt(0,"'+Scenario2_KINK_MUONS+'","'+Scenario3_LH_ELECTRONS+ '")'),
-# passLH2 = cms.string('passCustomByPt(1,"'+Scenario2_KINK_MUONS+'","'+Scenario3_LH_ELECTRONS+ '")'),
-# passCB1 = cms.string('passCustomByPt(0,"'+Scenario2_KINK_MUONS+'","'+Scenario2_LP_ELECTRONS+ '")'),
-# passCB2 = cms.string('passCustomByPt(1,"'+Scenario2_KINK_MUONS+'","'+Scenario2_LP_ELECTRONS+ '")'),
-# passCBOld1 = cms.string('passCustomByPt(0,"'+Scenario1_LP_MUONS +'","'+Scenario1_LP_ELECTRONS+ '")'),
-# passCBOld2 = cms.string('passCustomByPt(1,"'+Scenario1_LP_MUONS +'","'+Scenario1_LP_ELECTRONS+ '")'),
-# WRONG FOR 2012 SELECTION
-# passWW = cms.string("guillelmoTrigger('DATASET') && pfMet > 20 && mll()>20 && (abs(mll-91.1876)>15 || hypo == 4 || hypo == 5) && min(projPfMet,projChargedMetSmurf) && nCentralJets(30,4.7) && (passesDPhillJet||!sameflav) && bTaggedJetsBetween(10,30,2.1,'pfTrackCountingHighEffBJetTags',2.0) == 0 && nSoftMu(3) == 0 && nExtraLep(10)"),
+        # dphiveto       = cms.string("passesDPhillJet("+DphiJetVetominPt+","+DphiJetVetominEta+",1,"+jetId_WP+")"),
 
     ),
     #addRunLumiInfo = cms.bool(True)  # Deprecated, run and lumi are already defined
@@ -434,6 +311,9 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.softcmva     = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'combinedMVABJetTags',"+jetId_WP+",%f)"%dzCut)
         pt.variables.hardcmva     = cms.string("highestBDiscRange("+CJVminPt+",999999.,'combinedMVABJetTags',"+jetId_WP+",%f,1)"%dzCut)
 
+        # FIXME: move the index of jets as last step and allow saving of jets as above
+        #        no need to give information to skimeventproducer via 2 roads!
+        
         pt.variables.std_vector_jet_csvv2ivf  = cms.string("jetcsvv2ivfByPt")
         pt.variables.std_vector_jet_ssvhe     = cms.string("jetssvheByPt")
         pt.variables.std_vector_jet_ssvhb     = cms.string("jetssvhbByPt")
@@ -477,42 +357,10 @@ def addLHEVariables(process,pt):
         setattr(pt.variables, "std_vector_LHEparton_phi" , cms.string("leadingLHEJetPhi/5")),
         setattr(pt.variables, "std_vector_LHEparton_id" , cms.string("leadingLHEJetPID/5")),
 
-        setattr(pt.variables, "jetLHEPartonpt1" , cms.string("leadingLHEJetPt(0)")),
-        setattr(pt.variables, "jetLHEPartonpid1" , cms.string("leadingLHEJetPID(0)")),
-        setattr(pt.variables, "jetLHEPartonphi1" , cms.string("leadingLHEJetPhi(0)")),
-        setattr(pt.variables, "jetLHEPartoneta1" , cms.string("leadingLHEJetEta(0)")),
-        setattr(pt.variables, "jetLHEPartonpt2" , cms.string("leadingLHEJetPt(1)")),
-        setattr(pt.variables, "jetLHEPartonpid2" , cms.string("leadingLHEJetPID(1)")),
-        setattr(pt.variables, "jetLHEPartonphi2" , cms.string("leadingLHEJetPhi(1)")),
-        setattr(pt.variables, "jetLHEPartoneta2" , cms.string("leadingLHEJetEta(1)")),
-        setattr(pt.variables, "jetLHEPartonpt3" , cms.string("leadingLHEJetPt(2)")),
-        setattr(pt.variables, "jetLHEPartonpid3" , cms.string("leadingLHEJetPID(2)")),
-        setattr(pt.variables, "jetLHEPartonphi3" , cms.string("leadingLHEJetPhi(2)")),
-        setattr(pt.variables, "jetLHEPartoneta3" , cms.string("leadingLHEJetEta(2)")),
-        setattr(pt.variables, "leptonLHEpt1" , cms.string("leadingLHELeptonPt(0)")),
-        setattr(pt.variables, "leptonLHEpid1" , cms.string("leadingLHELeptonPID(0)")),
-        setattr(pt.variables, "leptonLHEphi1" , cms.string("leadingLHELeptonPhi(0)")),
-        setattr(pt.variables, "leptonLHEeta1" , cms.string("leadingLHELeptonEta(0)")),
-        setattr(pt.variables, "leptonLHEpt2" , cms.string("leadingLHELeptonPt(1)")),
-        setattr(pt.variables, "leptonLHEpid2" , cms.string("leadingLHELeptonPID(1)")),
-        setattr(pt.variables, "leptonLHEphi2" , cms.string("leadingLHELeptonPhi(1)")),
-        setattr(pt.variables, "leptonLHEeta2" , cms.string("leadingLHELeptonEta(1)")),
-        setattr(pt.variables, "leptonLHEpt3" , cms.string("leadingLHELeptonPt(2)")),
-        setattr(pt.variables, "leptonLHEpid3" , cms.string("leadingLHELeptonPID(2)")),
-        setattr(pt.variables, "leptonLHEphi3" , cms.string("leadingLHELeptonPhi(2)")),
-        setattr(pt.variables, "leptonLHEeta3" , cms.string("leadingLHELeptonEta(2)")),
-        setattr(pt.variables, "neutrinoLHEpt1" , cms.string("leadingLHENeutrinoPt(0)")),
-        setattr(pt.variables, "neutrinoLHEpid1" , cms.string("leadingLHENeutrinoPID(0)")),
-        setattr(pt.variables, "neutrinoLHEphi1" , cms.string("leadingLHENeutrinoPhi(0)")),
-        setattr(pt.variables, "neutrinoLHEeta1" , cms.string("leadingLHENeutrinoEta(0)")),
-        setattr(pt.variables, "neutrinoLHEpt2" , cms.string("leadingLHENeutrinoPt(1)")),
-        setattr(pt.variables, "neutrinoLHEpid2" , cms.string("leadingLHENeutrinoPID(1)")),
-        setattr(pt.variables, "neutrinoLHEphi2" , cms.string("leadingLHENeutrinoPhi(1)")),
-        setattr(pt.variables, "neutrinoLHEeta2" , cms.string("leadingLHENeutrinoEta(1)")),
-        setattr(pt.variables, "neutrinoLHEpt3" , cms.string("leadingLHENeutrinoPt(2)")),
-        setattr(pt.variables, "neutrinoLHEpid3" , cms.string("leadingLHENeutrinoPID(2)")),
-        setattr(pt.variables, "neutrinoLHEphi3" , cms.string("leadingLHENeutrinoPhi(2)")),
-        setattr(pt.variables, "neutrinoLHEeta3" , cms.string("leadingLHENeutrinoEta(2)")),
+        setattr(pt.variables, "std_vector_LHEneutrino_pt" , cms.string("leadingLHENeutrinoPt/5")),
+        setattr(pt.variables, "std_vector_LHEneutrino_eta" , cms.string("leadingLHENeutrinoEta/5")),
+        setattr(pt.variables, "std_vector_LHEneutrino_phi" , cms.string("leadingLHENeutrinoPhi/5")),
+        setattr(pt.variables, "std_vector_LHEneutrino_id" , cms.string("leadingLHENeutrinoPID/5")),
 
         setattr(pt.variables, "metLHEpt" , cms.string("LHEMetPt()")),
         setattr(pt.variables, "metLHEphi" , cms.string("LHEMetPhi()")),
@@ -650,101 +498,12 @@ def addQGJets(process,pt):
 
         if hasattr(pt,"variables"):
          
-            pt.variables.std_vector_jet_QGaxis1      = cms.string("leadingJetQGaxis1")
-            pt.variables.std_vector_jet_QGaxis2      = cms.string("leadingJetQGaxis2")
-            pt.variables.std_vector_jet_QGRMScand    = cms.string("leadingJetQGRMScand")
-            pt.variables.std_vector_jet_QGRmax       = cms.string("leadingJetQGRmax")
+            #pt.variables.std_vector_jet_QGaxis1      = cms.string("leadingJetQGaxis1")
+            #pt.variables.std_vector_jet_QGaxis2      = cms.string("leadingJetQGaxis2")
+            #pt.variables.std_vector_jet_QGRMScand    = cms.string("leadingJetQGRMScand")
+            #pt.variables.std_vector_jet_QGRmax       = cms.string("leadingJetQGRmax")
             pt.variables.std_vector_jet_QGlikelihood = cms.string("leadingJetQGlikelihood")
 
-
-def addAdditionalJets(process,pt):
-
-        #if hasattr(pt,"variables"):
-            #setattr(pt.variables, "jetpt3", cms.string("leadingJetPt(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jeteta3", cms.string("leadingJetEta(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetphi3", cms.string("leadingJetPhi(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetmass3", cms.string("leadingJetMass(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetid3", cms.string("leadingJetId(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetmva3", cms.string("leadingJetMva(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jettche3", cms.string("leadingJetBtag(2,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jetbjpb3", cms.string("leadingJetBtag(2,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jettchp3", cms.string("leadingJetBtag(2,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jetptd3", cms.string("leadingJetPtd(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetCHM3", cms.string("leadingJetChargedHadronMultiplicity(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNHM3", cms.string("leadingJetNeutralHadronMultiplicity(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetPhM3", cms.string("leadingJetPhotonMultiplicity(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNChgQC3", cms.string("leadingJetNChgQC(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNChgptCut3", cms.string("leadingJetNChgptCut(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNNeutralptCut3", cms.string("leadingJetNNeutralptCut(2,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-
-            #setattr(pt.variables, "jetpt4", cms.string("leadingJetPt(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jeteta4", cms.string("leadingJetEta(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetphi4", cms.string("leadingJetPhi(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetmass4", cms.string("leadingJetMass(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetid4", cms.string("leadingJetId(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetmva4", cms.string("leadingJetMva(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jettche4", cms.string("leadingJetBtag(3,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jetbjpb4", cms.string("leadingJetBtag(3,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jettchp4", cms.string("leadingJetBtag(3,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jetptd4", cms.string("leadingJetPtd(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetCHM4", cms.string("leadingJetChargedHadronMultiplicity(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNHM4", cms.string("leadingJetNeutralHadronMultiplicity(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetPhM4", cms.string("leadingJetPhotonMultiplicity(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNChgQC4", cms.string("leadingJetNChgQC(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNChgptCut4", cms.string("leadingJetNChgptCut(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNNeutralptCut4", cms.string("leadingJetNNeutralptCut(3,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-
-
-            #setattr(pt.variables, "jetpt5", cms.string("leadingJetPt(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jeteta5", cms.string("leadingJetEta(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetphi5", cms.string("leadingJetPhi(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetmass5", cms.string("leadingJetMass(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetid5", cms.string("leadingJetId(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetmva5", cms.string("leadingJetMva(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jettche5", cms.string("leadingJetBtag(4,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jetbjpb5", cms.string("leadingJetBtag(4,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jettchp5", cms.string("leadingJetBtag(4,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jetptd5", cms.string("leadingJetPtd(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetCHM5", cms.string("leadingJetChargedHadronMultiplicity(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNHM5", cms.string("leadingJetNeutralHadronMultiplicity(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetPhM5", cms.string("leadingJetPhotonMultiplicity(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNChgQC5", cms.string("leadingJetNChgQC(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNChgptCut5", cms.string("leadingJetNChgptCut(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNNeutralptCut5", cms.string("leadingJetNNeutralptCut(4,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-
-            #setattr(pt.variables, "jetpt6", cms.string("leadingJetPt(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jeteta6", cms.string("leadingJetEta(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetphi6", cms.string("leadingJetPhi(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetmass6", cms.string("leadingJetMass(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetid6", cms.string("leadingJetId(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetmva6", cms.string("leadingJetMva(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jettche6", cms.string("leadingJetBtag(5,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jetbjpb6", cms.string("leadingJetBtag(5,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jettchp6", cms.string("leadingJetBtag(5,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jetptd6", cms.string("leadingJetPtd(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetCHM6", cms.string("leadingJetChargedHadronMultiplicity(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNHM6", cms.string("leadingJetNeutralHadronMultiplicity(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetPhM6", cms.string("leadingJetPhotonMultiplicity(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNChgQC6", cms.string("leadingJetNChgQC(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNChgptCut6", cms.string("leadingJetNChgptCut(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNNeutralptCut6", cms.string("leadingJetNNeutralptCut(5,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-
-            #setattr(pt.variables, "jetpt7", cms.string("leadingJetPt(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jeteta7", cms.string("leadingJetEta(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetphi7", cms.string("leadingJetPhi(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetmass7", cms.string("leadingJetMass(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetid7", cms.string("leadingJetId(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetmva7", cms.string("leadingJetMva(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jettche7", cms.string("leadingJetBtag(6,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jetbjpb7", cms.string("leadingJetBtag(6,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jettchp7", cms.string("leadingJetBtag(6,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")")),
-            #setattr(pt.variables, "jetptd7", cms.string("leadingJetPtd(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetCHM7", cms.string("leadingJetChargedHadronMultiplicity(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNHM7", cms.string("leadingJetNeutralHadronMultiplicity(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetPhM7", cms.string("leadingJetPhotonMultiplicity(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNChgQC7", cms.string("leadingJetNChgQC(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            #setattr(pt.variables, "jetNChgptCut7", cms.string("leadingJetNChgptCut(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
-            setattr(pt.variables, "jetNNeutralptCut7", cms.string("leadingJetNNeutralptCut(6,0,"+CJVmaxEta+",1,"+jetId_WP+")")),
 
 def addSoftActivityVariables(process,pt):
      if hasattr(pt,"variables"):
