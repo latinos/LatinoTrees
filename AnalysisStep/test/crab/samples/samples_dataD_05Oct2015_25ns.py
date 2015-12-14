@@ -12,7 +12,9 @@ pyCfgParams.append('is50ns=False')
 pyCfgParams.append('isPromptRecoData=False')
 
 # 1280.23/pb
-config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Cert_246908-258750_13TeV_PromptReco_Collisions15_25ns_JSON.txt'
+#config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Cert_246908-258750_13TeV_PromptReco_Collisions15_25ns_JSON.txt'
+# 2136.361/pb
+config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON.txt'
 config.Data.runRange      = '256630-258158'
 config.Data.splitting     = 'LumiBased'
 config.Data.unitsPerJob   = 10

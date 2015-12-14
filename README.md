@@ -65,7 +65,9 @@ Phys14:
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_9/src/
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_4_14/src/   --> from RunD on
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_6_1/src/ 
+    /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_6_2/src/ 
     
+    RunIIFall15
     
     scp amassiro@cmsneu:/media/data/CMSSWRoot/RunIIFall15/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8/MINIAODv2/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root  /tmp/amassiro/
     cmsRun stepB.py print \

@@ -208,6 +208,11 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v*",
         "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_v*",
         
+        # same as analysis triggers
+        "HLT_IsoTkMu18_v*",
+        "HLT_IsoMu18_v*",
+        
+        
         ),
 
 
