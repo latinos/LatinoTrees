@@ -259,10 +259,11 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         #eleIdMedium1 = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium\",\"\",0)"),
         #eleIdTight1  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight\",\"\",0)"),
 
-        #std_vector_lepton_eleIdVeto   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-FREQUENCY-V1-standalone-veto\",\"\""),
-        #std_vector_lepton_eleIdLoose  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-FREQUENCY-V1-standalone-loose\",\"\""),
-        #std_vector_lepton_eleIdMedium = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-FREQUENCY-V1-standalone-medium\",\"\""),
-        #std_vector_lepton_eleIdTight  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-FREQUENCY-V1-standalone-tight\",\"\""),
+        #                                                                              FREQUENCY will be replaced to 25ns/50ns in stepB.py
+        std_vector_lepton_eleIdVeto   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-FREQUENCY-V1-standalone-veto\",\"\""),
+        std_vector_lepton_eleIdLoose  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-FREQUENCY-V1-standalone-loose\",\"\""),
+        std_vector_lepton_eleIdMedium = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-FREQUENCY-V1-standalone-medium\",\"\""),
+        std_vector_lepton_eleIdTight  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-FREQUENCY-V1-standalone-tight\",\"\""),
 
         #nbrem1  = cms.string("nBremByPt(0)"),
         #nbrem2  = cms.string("nBremByPt(1)"),

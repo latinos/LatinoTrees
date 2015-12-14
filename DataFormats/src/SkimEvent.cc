@@ -998,9 +998,16 @@ const float reco::SkimEvent::leptId(std::string idele, std::string idmu, size_t 
 //   return getElectron(i)->userFloat(idele); //---- "idele" is the name of the id for electrons
 //   std::cout << " _electronIdsMap[" << idele << "].at(" << i << ") = " << (_electronIdsMap.at(idele)).at(i) << std::endl;
   if ((_electronIdsMap.at(idele)).at(i)) return 1;
-  else                              return 0;
+  else                                   return 0;
  }
- else return getMuon(i)->userFloat(idmu);
+ else {
+  if (idmu != "") {
+   return getMuon(i)->userFloat(idmu);
+  }
+  else {
+   return 1.;  //---- if no muon id is defined, then return "1" 
+  }
+ }
 }
 
 const float reco::SkimEvent::leptBdt(size_t i) const {

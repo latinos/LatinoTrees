@@ -149,8 +149,10 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     if (_electronIds.size() != 0) {
      _vector_electronIdsTags.clear();
      for (unsigned int iEleIdName = 0; iEleIdName < _electronIds.size(); iEleIdName++) {
+      if (_debug >= 2) std::cout << " electron id: " << iEleIdName << " : = " << _electronIds.at(iEleIdName) << std::endl;
       edm::EDGetTokenT<edm::ValueMap<bool> > temp_tag = consumes<edm::ValueMap<bool> >(_electronIds.at(iEleIdName));
       _vector_electronIdsTags.push_back(temp_tag);
+      if (_debug >= 2) std::cout << " done! " << std::endl;
      }
     }
 }
@@ -374,7 +376,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     std::vector < std::vector<bool> > v_electronIds;
     for (unsigned int iEleIdName = 0; iEleIdName < _electronIds.size(); iEleIdName++) {
      edm::Handle<edm::ValueMap<bool> > electronIdsHandle;
+     if (_debug >= 2) std::cout << " electron id: get by token: " << iEleIdName << " [" << _electronIds.size() << "] : = " << _electronIds.at(iEleIdName) << std::endl;
      iEvent.getByToken(_vector_electronIdsTags.at(iEleIdName), electronIdsHandle);
+     if (_debug >= 2) std::cout << " done " << std::endl;
      std::vector<bool> eleid_values;
      for(size_t i=0;i<electrons->size();++i) {
       if (isGoodElectron(electrons->ptrAt(i), rhoJetIso)){ 
@@ -384,7 +388,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      }
      for(size_t k=0;k<muons->size();++k) {
       eleid_values.push_back( true );  //---- true by default for muons :-)
-     }     
+     } 
+     if (_debug >= 2) std::cout << " addElectronId :: " << _electronIds.at(iEleIdName) << std::endl;
      skimEvent->back().addElectronId(eleid_values,_electronIds.at(iEleIdName));
     }
     

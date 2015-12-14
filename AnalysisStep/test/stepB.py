@@ -324,11 +324,6 @@ isMC = True
 wztth = False
 dy = False
 
-#puStudy = False ## set to true to add 16, yes 16 different PU possibilities
-#IsoStudy = False ## Set to True to get isolation variables (and a tree build only after ID+CONV+IP, without isolation)
-                 ## Note: works only if running also the step2
-
-
 
 import LatinoTrees.AnalysisStep.globalVariables as globalVariables
 
@@ -469,44 +464,44 @@ from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
 dataFormat = DataFormat.MiniAOD
 switchOnVIDElectronIdProducer(process, dataFormat)
 
-process.skimEventProducer.electronIds = cms.vstring(
- )
+#process.skimEventProducer.electronIds = cms.vstring(
+ #)
 
 # define which IDs we want to produce
-#if options.is50ns :
-    #my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_50ns_V1_cff',
-                     #'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
+if options.is50ns :
+    my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_50ns_V1_cff',
+                     'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
 
-    #process.skimEventProducer.electronIds = cms.vstring(
-        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-veto",
-        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-loose",
-        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-medium",
-        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-tight",
-        #)
+    process.skimEventProducer.electronIds = cms.vstring(
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-veto",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-loose",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-medium",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-tight",
+        )
 
-    #stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","50ns")
-    #stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","50ns")
-    #stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","50ns")
-    #stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","50ns")
-#else :
-    #my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
-                     #'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
+    stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","50ns")
+    stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","50ns")
+    stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","50ns")
+    stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","50ns")
+else :
+    my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
+                     'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
 
-    #process.skimEventProducer.electronIds = cms.vstring(
-        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto",
-        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose",
-        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium",
-        #"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight",
-        #)
+    process.skimEventProducer.electronIds = cms.vstring(
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium",
+        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight",
+        )
 
-    #stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","25ns")
-    #stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","25ns")
-    #stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","25ns")
-    #stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","25ns")
+    stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","25ns")
+    stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","25ns")
+    stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","25ns")
+    stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","25ns")
 
-## add them to the VID producer
-#for idmod in my_id_modules:
-    #setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
+# add them to the VID producer
+for idmod in my_id_modules:
+    setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
 
 ####################
 
