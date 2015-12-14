@@ -70,33 +70,6 @@ Phys14:
     RunIIFall15
     
     scp amassiro@cmsneu:/media/data/CMSSWRoot/RunIIFall15/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8/MINIAODv2/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root  /tmp/amassiro/
-    cmsRun stepB.py print \
-                    label=Top \
-                    id=123456789 \
-                    scale=1 \
-                    outputFile=stepB_MC.root \
-                    doNoFilter=True \
-                    doMuonIsoId=True \
-                    maxEvents=200 \
-                    doLHE=True \
-                    doGen=True \
-                    doBTag=True \
-                    globalTag=76X_mcRun2_asymptotic_v12 \
-                    inputFiles=file:/tmp/amassiro/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root
-                    
-    cmsRun stepB.py print \
-                    label=Top \
-                    id=123456789 \
-                    scale=1 \
-                    outputFile=stepB_MC.root \
-                    doNoFilter=True \
-                    doMuonIsoId=True \
-                    maxEvents=200 \
-                    doLHE=True \
-                    doGen=True \
-                    doBTag=False \
-                    globalTag=76X_mcRun2_asymptotic_v12 \
-                    inputFiles=file:/tmp/amassiro/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root
     
     cmsRun stepB.py print \
                     label=Top \
@@ -105,6 +78,8 @@ Phys14:
                     outputFile=stepB_MC.root \
                     doNoFilter=True \
                     doMuonIsoId=True \
+                    doEleIsoId=True \
+                    doPhotonID=True \
                     maxEvents=200 \
                     doLHE=True \
                     doGen=True \
