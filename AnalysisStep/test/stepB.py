@@ -409,7 +409,8 @@ stepBTree.variables.dataset = str(idn)
 # Change TriggerResults process name (for the MET filters) according to MC/PromptRecoData/17Jul2015Data
 # https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2015#ETmiss_filters
 if isMC :
-  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
+  #process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
 elif options.isPromptRecoData :
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","RECO")
 else : 
@@ -575,6 +576,10 @@ process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
 
 #process.patJets.userData.userFloats.src += ['QGTagger:qgLikelihood']
 
+#add dressed leptons sequence
+if isMC:
+  process.load("LatinoTrees.AnalysisStep.dressedLeptons_cff")
+  preSeq += process.dressedLeptonsSequence
 
 # add puppi calculated from miniAOD
 #   since puppi must be run as first
@@ -582,7 +587,6 @@ process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
 #   it's not possible to add it afterwards, 
 #   unless we transform everything into a sequence
 #   and let cmssw do the rest ...
-
 if options.runPUPPISequence:
 
     from LatinoTrees.AnalysisStep.puppiSequence_cff import makePuppiAlgo, makePatPuppiJetSequence, makePatPuppiMetSequence
