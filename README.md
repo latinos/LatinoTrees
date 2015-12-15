@@ -81,8 +81,11 @@ Phys14:
                     doEleIsoId=True \
                     doPhotonID=True \
                     maxEvents=200 \
+                    doMCweights=True \
+                    LHEweightSource=externalLHEProducer \
                     doLHE=True \
                     doGen=True \
+                    doHiggs=True \
                     doBTag=True \
                     doFatJet=True \
                     globalTag=76X_mcRun2_asymptotic_v12 \

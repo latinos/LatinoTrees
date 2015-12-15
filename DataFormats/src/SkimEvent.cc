@@ -4785,7 +4785,7 @@ const float reco::SkimEvent::leadingLHEJetPt(size_t index) const {
  std::vector<float> v_jetsLHE_pt ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if ((type < 9 && type > 0) || type == 21) {
    v_jetsLHE_pt.push_back (
@@ -4811,7 +4811,7 @@ const float reco::SkimEvent::leadingLHEJetPID(size_t index) const {
  float particleID=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if ((type < 9 && type > 0) || type == 21) {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -4829,7 +4829,7 @@ const float reco::SkimEvent::leadingLHEJetPhi(size_t index) const {
  float phi=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if ((type < 9 && type > 0) || type == 21) {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -4849,7 +4849,7 @@ const float reco::SkimEvent::leadingLHEJetEta(size_t index) const {
  float eta=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if ((type < 9 && type > 0) || type == 21) {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -4867,7 +4867,7 @@ const float reco::SkimEvent::leadingLHELeptonPt(size_t index) const {
  std::vector<float> v_jetsLHE_pt ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 11 || type == 13 || type == 15) {
    v_jetsLHE_pt.push_back (
@@ -4915,7 +4915,7 @@ const float reco::SkimEvent::leadingLHELeptonPID(size_t index) const {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
    LHEhepeup_.PUP.at (iPart) [1] * LHEhepeup_.PUP.at (iPart) [1]); // py
    if(iPart_Pt!=pt_ofIndex) continue;
-   particleID = (float) type;
+   particleID = (float) LHEhepeup_.IDUP.at (iPart);
    //std::cout << "particleID " << particleID << std::endl;
   }
  }
@@ -4928,7 +4928,7 @@ const float reco::SkimEvent::leadingLHELeptonPhi(size_t index) const {
  float phi=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 11 || type == 13 || type == 15) { //---- quarks or gluons
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -4948,7 +4948,7 @@ const float reco::SkimEvent::leadingLHELeptonEta(size_t index) const {
  float eta=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 11 || type == 13 || type == 15) { //---- quarks or gluons
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -4966,7 +4966,7 @@ const float reco::SkimEvent::leadingLHENeutrinoPt(size_t index) const {
  std::vector<float> v_jetsLHE_pt ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) {
    v_jetsLHE_pt.push_back (
@@ -4998,7 +4998,7 @@ const float reco::SkimEvent::leadingLHENeutrinoPID(size_t index) const {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
    LHEhepeup_.PUP.at (iPart) [1] * LHEhepeup_.PUP.at (iPart) [1]); // py
    if(iPart_Pt!=pt_ofIndex) continue;
-   particleID = (float) type;
+   particleID = (float) LHEhepeup_.IDUP.at (iPart);
   }
  }
  //---- now return ----
@@ -5010,7 +5010,7 @@ const float reco::SkimEvent::leadingLHENeutrinoPhi(size_t index) const {
  float phi=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -5030,7 +5030,7 @@ const float reco::SkimEvent::leadingLHENeutrinoEta(size_t index) const {
  float eta=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -5051,7 +5051,7 @@ const float reco::SkimEvent::LHEMetPt() const {
  int number_neutrino=0;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) { //---- neutrinos
    sum_px+=LHEhepeup_.PUP.at (iPart) [0];
@@ -5073,7 +5073,7 @@ const float reco::SkimEvent::LHEMetPhi() const {
  float phi=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) { //---- neutrinos
    sum_px+=LHEhepeup_.PUP.at (iPart) [0];
@@ -5097,7 +5097,8 @@ const float reco::SkimEvent::LHEMetEta() const {
  float eta=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+//   std::cout << " LHEhepeup_.ISTUP.at (" << iPart << ") = " << LHEhepeup_.ISTUP.at (iPart) << " LHEhepeup_.IDUP.at (" << iPart << ") = " << LHEhepeup_.IDUP.at (iPart)  << std::endl;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) { //---- neutrinos
    sum_px+=LHEhepeup_.PUP.at (iPart) [0];
@@ -5107,8 +5108,9 @@ const float reco::SkimEvent::LHEMetEta() const {
   }
  }
  //---- now return ----
- if(number_neutrino==0) return eta;
+ if (number_neutrino==0) return eta;
  TVector3 pt_ofIndex(sum_px, sum_py, sum_pz ); // pass px, py, pz
+ eta = pt_ofIndex.Eta() ;
  return eta;
 }
 
@@ -5116,7 +5118,7 @@ const float reco::SkimEvent::higgsLHEPt() const {
  std::vector<float> v_jetsLHE_pt ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+//   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type ==25) { //---- Higgs
    v_jetsLHE_pt.push_back (
@@ -5141,7 +5143,7 @@ const float reco::SkimEvent::higgsLHEEta() const {
  std::vector<float> v_particleLHE_eta ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+//   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type ==25) { //---- Higgs
    TVector3 temp_vector(LHEhepeup_.PUP.at (iPart) [0], LHEhepeup_.PUP.at (iPart) [1], LHEhepeup_.PUP.at (iPart) [2] ); // pass px, py, pz
@@ -5158,7 +5160,7 @@ const float reco::SkimEvent::higgsLHEPhi() const {
  std::vector<float> v_particleLHE_phi ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+//   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type ==25) { //---- Higgs
    TVector3 temp_vector(LHEhepeup_.PUP.at (iPart) [0], LHEhepeup_.PUP.at (iPart) [1], LHEhepeup_.PUP.at (iPart) [2] ); // pass px, py, pz
@@ -5175,8 +5177,9 @@ const float reco::SkimEvent::higgsLHEmass() const {
  std::vector<float> v_particleLHE_mass ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+//   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
+//   std::cout << " type = " << type << std::endl;
   if (type ==25) { //---- Higgs
    v_particleLHE_mass.push_back(LHEhepeup_.PUP.at (iPart) [4]); //---- mass
    //---- see http://home.thep.lu.se/~leif/LHEF/classLHEF_1_1HEPEUP.html
@@ -5187,6 +5190,8 @@ const float reco::SkimEvent::higgsLHEmass() const {
  return -9999.9; //if no Higgs was found
 }
 
+
+//---- end LHE information
 
 
 const float reco::SkimEvent::leadingGenJetPartonPt(size_t index) const {
