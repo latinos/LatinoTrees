@@ -19,7 +19,7 @@ External documentation.
 
     bash -l
 
-    export SCRAM_ARCH=slc6_amd64_gcc491
+    export SCRAM_ARCH=slc6_amd64_gcc493
     cmsrel CMSSW_7_6_2
     cd CMSSW_7_6_2/src/
     cmsenv
