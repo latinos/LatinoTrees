@@ -680,6 +680,8 @@ if doGen == True :
     #getattr(process,"ww%s"% (labelSetup)).genMetTag = "slimmedMETs" # "genMetTrue"
     getattr(process,"ww%s"% (labelSetup)).genJetTag = "slimmedGenJets"
     #cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
+    getattr(process,"ww%s"% (labelSetup)).dressedMuonTag     = "dressedMuons01" 
+    getattr(process,"ww%s"% (labelSetup)).dressedElectronTag = "dressedElectrons01" 
 
 #if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
     #getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
@@ -942,7 +944,6 @@ else :
 # then applying a cut here has no effect
 # then I leave "1" by default, not to create confusion
 getattr(process,"Tree").cut = cms.string("1")
-
 #################
 # very important!
 # needed otherwise the "unschedule" approach does not work

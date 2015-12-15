@@ -24,7 +24,8 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     # default for soft muons from b-jets    
     maxDrSoftMuonJet      = cms.double(0.3),
     minPtSoftMuon         = cms.double(3),
-
+    dressedMuonTag        = cms.InputTag(""), 
+    dressedElectronTag    = cms.InputTag(""),
     #
     #
     mcLHEEventInfoTag = cms.InputTag(""),
