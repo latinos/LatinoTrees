@@ -1424,51 +1424,6 @@ const float reco::SkimEvent::leadingJetBtag(size_t index, std::string discrimina
 }
 
 
-const float reco::SkimEvent::leadingJetMass(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
- 
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->mass();
- }
- return -9999.9;
- 
-}
-
-
-const float reco::SkimEvent::leadingJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
- 
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->phi();
- }
- return -9999.9;
- 
-}
-
-const float reco::SkimEvent::leadingJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
- 
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->eta();
- }
- return -9999.9;
- 
-}
 
 const int reco::SkimEvent::leadingJetId(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
@@ -1563,23 +1518,23 @@ const float reco::SkimEvent::leadingSecondJetPhi(size_t index) const {
 
 
 const float reco::SkimEvent::leadingJetPt(size_t index) const { 
- return leadingJetPt(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+ return leadingJetPt(minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,index);
 }
 
 const float reco::SkimEvent::leadingJetEta(size_t index) const { 
- return leadingJetEta(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+ return leadingJetEta(minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,index);
 }
 
 const float reco::SkimEvent::leadingJetPhi(size_t index) const { 
- return leadingJetPhi(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+ return leadingJetPhi(minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,index);
 }
 
 const float reco::SkimEvent::leadingJetMass(size_t index) const { 
- return leadingJetMass(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+ return leadingJetMass(minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,index);
 }
 
 
-const float reco::SkimEvent::leadingJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingJetPt(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  size_t count = 0;
  for(size_t i=0;i<jets_.size();++i) {
 //   std::cout << " >> jets_[" << i << "]->pt() = " << jets_[i]->pt() << " > " << minPt << std::endl;
@@ -1592,6 +1547,53 @@ const float reco::SkimEvent::leadingJetPt(size_t index, float minPt,float eta,in
   if(++count > index) return jetPt(i,applyCorrection);
  }
  return -9999.9;
+}
+
+
+const float reco::SkimEvent::leadingJetMass(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;
+  
+  if(isThisJetALepton(jets_[i])) continue;
+  if(++count > index) return jets_[i]->mass();
+ }
+ return -9999.9;
+ 
+}
+
+
+const float reco::SkimEvent::leadingJetPhi(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;
+  
+  if(isThisJetALepton(jets_[i])) continue;
+  if(++count > index) return jets_[i]->phi();
+ }
+ return -9999.9;
+ 
+}
+
+const float reco::SkimEvent::leadingJetEta(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;
+  
+  if(isThisJetALepton(jets_[i])) continue;
+  if(++count > index) return jets_[i]->eta();
+ }
+ return -9999.9;
+ 
 }
 
 
@@ -1729,8 +1731,8 @@ const float reco::SkimEvent::leadingJetQGRmax(size_t index, float minPt,float et
   
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QCRmax");
-   else return jets_[i]->userFloat("Rmax");
+   if (QualityCut == 1) return jets_[i]->userFloat("QGTaggerAK4PFCHS:QCRmax");
+   else return jets_[i]->userFloat("QGTaggerAK4PFCHS:Rmax");
   }
  }
  return -9999.9;
@@ -1748,8 +1750,8 @@ const float reco::SkimEvent::leadingJetQGRMScand(size_t index, float minPt,float
   
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QCRMScand");
-   else return jets_[i]->userFloat("RMScand");
+   if (QualityCut == 1) return jets_[i]->userFloat("QGTaggerAK4PFCHS:QCRMScand");
+   else return jets_[i]->userFloat("QGTaggerAK4PFCHS:RMScand");
   }
  }
  return -9999.9;
@@ -1767,8 +1769,8 @@ const float reco::SkimEvent::leadingJetQGaxis1(size_t index, float minPt,float e
   
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QCaxis1");
-   else return jets_[i]->userFloat("axis1");
+   if (QualityCut == 1) return jets_[i]->userFloat("QGTaggerAK4PFCHS:QCaxis1");
+   else return jets_[i]->userFloat("QGTaggerAK4PFCHS:axis1");
   }
  }
  return -9999.9;
@@ -1786,8 +1788,8 @@ const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float e
   
   if(isThisJetALepton(jets_[i])) continue;
   if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QCaxis2");
-   else return jets_[i]->userFloat("axis2");
+   if (QualityCut == 1) return jets_[i]->userFloat("QGTaggerAK4PFCHS:QCaxis2");
+   else return jets_[i]->userFloat("QGTaggerAK4PFCHS:axis2");
   }
  }
  return -9999.9;
@@ -2287,7 +2289,7 @@ const float reco::SkimEvent::tagJetPt(size_t i, int applyCorrection) const {
 
 // Fat jet variables
 
-const float reco::SkimEvent::leadingFatJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPt(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2300,7 +2302,7 @@ const float reco::SkimEvent::leadingFatJetPt(size_t index, float minPt,float eta
  return -9999.9;
 }
 
-const float reco::SkimEvent::leadingFatJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetEta(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2313,7 +2315,7 @@ const float reco::SkimEvent::leadingFatJetEta(size_t index, float minPt,float et
  return -9999.9;
 }
 
-const float reco::SkimEvent::leadingFatJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPhi(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2326,7 +2328,7 @@ const float reco::SkimEvent::leadingFatJetPhi(size_t index, float minPt,float et
  return -9999.9;
 }
 
-const float reco::SkimEvent::leadingFatJetTrimmedMass(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetTrimmedMass(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2334,13 +2336,13 @@ const float reco::SkimEvent::leadingFatJetTrimmedMass(size_t index, float minPt,
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
   if( fatJetPt(i,applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("TrimmedMass");
+  if(++count > index) return fatJets_[i]->userFloat("ak8PFJetsCHSTrimmedMass");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetFilteredMass(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetFilteredMass(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2348,13 +2350,13 @@ const float reco::SkimEvent::leadingFatJetFilteredMass(size_t index, float minPt
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
   if( fatJetPt(i,applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("FilteredMass");
+  if(++count > index) return fatJets_[i]->userFloat("ak8PFJetsCHSFilteredMass");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedMass(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPrunedMass(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2362,7 +2364,7 @@ const float reco::SkimEvent::leadingFatJetPrunedMass(size_t index, float minPt,f
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
   if( fatJetPt(i,applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("PrunedMass");
+  if(++count > index) return fatJets_[i]->userFloat("ak8PFJetsCHSPrunedMass");
  }
  return -9999.9;
 }
@@ -2370,7 +2372,7 @@ const float reco::SkimEvent::leadingFatJetPrunedMass(size_t index, float minPt,f
 
 
 
-const float reco::SkimEvent::leadingFatJetMassDrop(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetMassDrop(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2378,13 +2380,13 @@ const float reco::SkimEvent::leadingFatJetMassDrop(size_t index, float minPt,flo
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
   if( fatJetPt(i,applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("massDrop");
+  if(++count > index) return fatJets_[i]->userFloat("ak8PFJetsCHSSoftDropMass");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedTau2Tau1(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPrunedTau2Tau1(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2398,7 +2400,7 @@ const float reco::SkimEvent::leadingFatJetPrunedTau2Tau1(size_t index, float min
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedTau1(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPrunedTau1(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2406,13 +2408,13 @@ const float reco::SkimEvent::leadingFatJetPrunedTau1(size_t index, float minPt,f
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
   if( fatJetPt(i,applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("Prunedtau1");
+  if(++count > index) return fatJets_[i]->userFloat("NjettinessAK8:tau1");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedTau2(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPrunedTau2(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2420,13 +2422,13 @@ const float reco::SkimEvent::leadingFatJetPrunedTau2(size_t index, float minPt,f
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
   if( fatJetPt(i,applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("Prunedtau2");
+  if(++count > index) return fatJets_[i]->userFloat("NjettinessAK8:tau2");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedTau3(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPrunedTau3(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {
@@ -2434,13 +2436,13 @@ const float reco::SkimEvent::leadingFatJetPrunedTau3(size_t index, float minPt,f
   if( std::fabs(fatJets_[i]->eta()) >= eta) continue;
   if( fatJetPt(i,applyCorrection) <= minPt) continue;
   if(isThisJetALepton(fatJets_[i])) continue;
-  if(++count > index) return fatJets_[i]->userFloat("Prunedtau3");
+  if(++count > index) return fatJets_[i]->userFloat("NjettinessAK8:tau3");
  }
  return -9999.9;
 }
 
 
-const float reco::SkimEvent::leadingFatJetPrunedTau4(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+const float reco::SkimEvent::leadingFatJetPrunedTau4(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
  size_t count = 0;
  for(size_t i=0;i<fatJets_.size();++i) {

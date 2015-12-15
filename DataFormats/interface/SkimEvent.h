@@ -228,10 +228,15 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingJetPhi(size_t a) const;
             const float leadingJetMass(size_t a) const;
             
-            const float leadingJetPt(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingJetEta(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingJetMass(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingJetPhi(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
+            const float leadingJetPt(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingJetEta(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingJetMass(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingJetPhi(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+
+//             const float leadingJetPt(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
+//             const float leadingJetEta(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
+//             const float leadingJetMass(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
+//             const float leadingJetPhi(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
 
             const float leadingSecondJetPt(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
             const float leadingSecondJetEta(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
@@ -241,20 +246,21 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingSecondJetEta(size_t a) const;
             const float leadingSecondJetPhi(size_t a) const;
             
-            const float leadingFatJetPt(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingFatJetEta(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingFatJetPhi(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-
-            const float leadingFatJetTrimmedMass (size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingFatJetFilteredMass (size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingFatJetPrunedMass (size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-
-            const float leadingFatJetMassDrop (size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingFatJetPrunedTau2Tau1 (size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingFatJetPrunedTau1 (size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingFatJetPrunedTau2 (size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingFatJetPrunedTau3 (size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
-            const float leadingFatJetPrunedTau4 (size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
+            const float leadingFatJetPt(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingFatJetEta(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingFatJetPhi(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            
+            const float leadingFatJetTrimmedMass (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingFatJetFilteredMass (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingFatJetPrunedMass (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            
+            const float leadingFatJetMassDrop (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingFatJetPrunedTau2Tau1 (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingFatJetPrunedTau1 (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingFatJetPrunedTau2 (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingFatJetPrunedTau3 (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            const float leadingFatJetPrunedTau4 (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+            
 
             const float leadingJetPtd(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
             const float leadingJetPtD(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;

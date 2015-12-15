@@ -84,6 +84,7 @@ Phys14:
                     doLHE=True \
                     doGen=True \
                     doBTag=True \
+                    doFatJet=True \
                     globalTag=76X_mcRun2_asymptotic_v12 \
                     inputFiles=file:/tmp/amassiro/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root
 
