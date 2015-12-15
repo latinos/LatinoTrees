@@ -551,6 +551,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s);
             void setVtxSumPt2s(const edm::Handle<edm::ValueMap<float> > &s);
             void setGenParticles(const edm::Handle<reco::GenParticleCollection> &h);
+            void setDressedLepton(const edm::Handle<edm::View<reco::Candidate> > &h, size_t i);
 
 // void setGenWeight(const edm::Handle<double> &s);
             void setGenWeight(const edm::Handle<GenFilterInfo> &s);
@@ -677,6 +678,18 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float mTByPt(size_t i = 0, metType metToUse=TCMET) const { return mT(indexByPt(i), metToUse); }
             const float dPhilMetByPt(size_t i = 0, metType metToUse=TCMET) const { return dPhilMet(indexByPt(i),metToUse); }
             const int passCustomByPt(size_t i,std::string &a,const std::string &b) const { return passCustom(indexByPt (i),a,b); }
+
+            //dressed lepton
+            const size_t dressed_indexByPt(size_t a = 0) const;
+            const float dressed_pt(size_t i = 0) const;
+            const float dressed_eta(size_t i = 0) const;
+            const float dressed_phi(size_t i = 0) const;
+            const float dressed_pdgId(size_t i = 0) const;
+            const float dressedLepton_ptByPt (size_t i = 0)   const { return dressed_pt    (dressed_indexByPt (i)); }
+            const float dressedLepton_etaByPt(size_t i = 0)   const { return dressed_eta   (dressed_indexByPt (i)); }
+            const float dressedLepton_phiByPt(size_t i = 0)   const { return dressed_phi   (dressed_indexByPt (i)); }
+            const float dressedLepton_pdgIdByPt(size_t i = 0) const { return dressed_pdgId (dressed_indexByPt (i)); }
+
 
             const int vtxSize() const { return vtxs_.size(); }
             const int nGoodVertices() const;
@@ -848,7 +861,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float photonid_phiByPt(size_t i, int WP = 1) const;
 
 	    const bool Pho_IsIdIso(size_t i, int WP = 1) const;
-	
+
+            const reco::Candidate * getDressedLepton(size_t a) const;
+            const reco::Candidate * getDressedLepton(const edm::Ptr<reco::Candidate>&) const;
+
+
             
         private:
          
@@ -893,6 +910,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             std::vector<refToCand> leps_;
             std::vector<refToCand> extraLeps_;
             std::vector<refToCand> softMuons_;
+            std::vector<edm::Ptr<reco::Candidate> > dressedLeptons_;
             //edm::RefToBaseVector<reco::RecoCandidate> leps_;
             //edm::RefToBaseVector<reco::RecoCandidate> extraLeps_;
             //edm::RefToBaseVector<reco::RecoCandidate> softMuons_;

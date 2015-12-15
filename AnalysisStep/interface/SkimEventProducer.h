@@ -135,6 +135,8 @@ struct JetInfo {
         edm::InputTag rhoTag_;
 	edm::InputTag phoTag_; //PHOTON
         edm::InputTag trackJetTag_;
+        edm::InputTag dressedMuonTag_;
+        edm::InputTag dressedElectronTag_;
         
         int _isMC;
 	int _debug;
@@ -161,6 +163,8 @@ struct JetInfo {
         edm::EDGetTokenT<edm::View<reco::RecoCandidate> > softMuonsT_;
 	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > electronsT_;
 	edm::EDGetTokenT<edm::View<reco::RecoCandidate> > photonsT_; //PHOTON
+	edm::EDGetTokenT<edm::View<reco::Candidate> > dressedMuonT_; 
+	edm::EDGetTokenT<edm::View<reco::Candidate> > dressedElectronT_; 
 	edm::EDGetTokenT<GenEventInfoProduct> GenInfoT_ ;
 	edm::EDGetTokenT<GenFilterInfo> mcGenWeightT_;
 	edm::EDGetTokenT<LHEEventProduct> productLHET_ ;

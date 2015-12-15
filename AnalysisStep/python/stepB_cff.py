@@ -422,6 +422,12 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_jet_HadronFlavour", cms.string("leadingJetHadronFlavour")),
         setattr(pt.variables, "std_vector_jet_PartonFlavour", cms.string("leadingJetPartonFlavour")),
 
+        setattr(pt.variables, "std_vector_dressedLeptonGen_pt",                                cms.string("dressedLepton_ptByPt")),
+        setattr(pt.variables, "std_vector_dressedLeptonGen_eta" ,                              cms.string("dressedLepton_etaByPt")),
+        setattr(pt.variables, "std_vector_dressedLeptonGen_phi",                               cms.string("dressedLepton_phiByPt")),
+        setattr(pt.variables, "std_vector_dressedLeptonGen_pid",                               cms.string("dressedLepton_pdgIdByPt")),
+
+
     else:
         raise addGenVariables, "In addGenVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 

@@ -6123,6 +6123,47 @@ const float reco::SkimEvent::photonid_phiByPt(size_t i, int WP) const
   return phos_[indexByPtPho(i)]->phi();
 }
 
+//dressed leptons
+void reco::SkimEvent::setDressedLepton(const edm::Handle<edm::View<reco::Candidate> > &h,size_t i){
+ dressedLeptons_.push_back( h->ptrAt(i) );
+}
+const reco::Candidate * reco::SkimEvent::getDressedLepton(size_t i) const {
+ return getDressedLepton(dressedLeptons_[i]);
+}
+const reco::Candidate * reco::SkimEvent::getDressedLepton(const edm::Ptr<reco::Candidate> &c) const {
+ return static_cast<const reco::Candidate*>(c.get());
+}
+
+const size_t reco::SkimEvent::dressed_indexByPt(size_t i) const {
+ if( i >= dressedLeptons_.size() ) return 9999; //--> big number then it will fail other tests later! good!
+ std::vector<indexValueStruct> a;
+
+ for(size_t j=0;j<dressedLeptons_.size();++j) a.push_back(indexValueStruct(dressed_pt(j),j));
+ std::sort(a.begin(),a.end(),highToLow);
+
+ return a[i].index;
+}
+
+const float reco::SkimEvent::dressed_pt(size_t i) const {
+ if(i >= dressedLeptons_.size()) return defaultvalues::defaultFloat; //---- -9999.0
+ return dressedLeptons_[i]->pt();
+}
+
+const float reco::SkimEvent::dressed_eta(size_t i) const {
+ if(i >= dressedLeptons_.size()) return defaultvalues::defaultFloat; //---- -9999.0
+ return dressedLeptons_[i]->eta();
+}
+
+const float reco::SkimEvent::dressed_phi(size_t i) const {
+ if(i >= dressedLeptons_.size()) return defaultvalues::defaultFloat; //---- -9999.0
+ return dressedLeptons_[i]->phi();
+}
+
+const float reco::SkimEvent::dressed_pdgId(size_t i) const {
+ if(i >= dressedLeptons_.size()) return defaultvalues::defaultFloat; //---- -9999.0
+ return dressedLeptons_[i]->pdgId();
+}
+
 const size_t reco::SkimEvent::indexByPtPho(size_t i) const {
  
  if( i >= phos_.size() ) return 9999; //--> big number then it will fail other tests later! good!
