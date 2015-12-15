@@ -51,6 +51,7 @@ private:
   int PdgId_;
   double DeltaR_;
   edm::InputTag collection_name_;
+  edm::EDGetTokenT<reco::GenParticleCollection> collection_token_;
 
   //virtual void beginRun(edm::Run const&, edm::EventSetup const&) override;
   //virtual void endRun(edm::Run const&, edm::EventSetup const&) override;
@@ -78,6 +79,7 @@ DressedLeptons::DressedLeptons(const edm::ParameterSet& iConfig)// l'oggetto iCi
   PdgId_ =( iConfig.getParameter<int>("PdgId") ); //copio le variabili di input "XXX" nella variabile privata XXX_
   DeltaR_ =( iConfig.getParameter<double>("DeltaR") );
   collection_name_=( iConfig.getParameter<edm::InputTag>("genParticles") );
+  collection_token_      = consumes<reco::GenParticleCollection>(collection_name_);
   produces<std::vector<CompositeCandidate> > (""); //output in uscita: vettore di CompisiteCandidate
     
 
@@ -106,7 +108,7 @@ DressedLeptons::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
   // get GEN Particle candidates
   Handle<GenParticleCollection> genParticles;
-  iEvent.getByLabel(collection_name_, genParticles);//"prunedGenParticles
+  iEvent.getByToken(collection_token_, genParticles);//"prunedGenParticles
   
 
   std::vector<const GenParticle*> leptons; 

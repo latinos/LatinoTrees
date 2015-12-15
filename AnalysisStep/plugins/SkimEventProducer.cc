@@ -68,6 +68,8 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     rhoTag_            = cfg.getParameter<edm::InputTag>("rhoTag" );
     phoTag_	       = cfg.getParameter<edm::InputTag>("phoTag"); //Photon
     trackJetTag_       = cfg.getParameter<edm::InputTag>("trackJetTag");
+    dressedMuonTag_    = cfg.getParameter<edm::InputTag>("dressedMuonTag");
+    dressedElectronTag_= cfg.getParameter<edm::InputTag>("dressedElectronTag");
     
     _electronId        = cfg.getUntrackedParameter<int>("electronId",1);
     _debug             = cfg.getUntrackedParameter<int>("debug",0);
@@ -137,6 +139,14 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     photonsT_      = consumes<edm::View<reco::RecoCandidate> > (phoTag_); // Photon
     trackJetT_     = consumes<reco::PFJetCollection> (trackJetTag_);
 
+    if (_isMC){
+      if ( !( dressedMuonTag_ == edm::InputTag("")) )
+        dressedMuonT_     = consumes<edm::View<reco::Candidate> > (dressedMuonTag_    );  
+      if ( !( dressedElectronTag_ == edm::InputTag("")) )  
+        dressedElectronT_ = consumes<edm::View<reco::Candidate> > (dressedElectronTag_);  
+    }
+
+
     if (!(mcGenEventInfoTag_ == edm::InputTag(""))) GenInfoT_     = consumes<GenEventInfoProduct>(mcGenEventInfoTag_);
     if (!(mcGenWeightTag_    == edm::InputTag(""))) mcGenWeightT_ = consumes<GenFilterInfo>(mcGenWeightTag_); 
     if (!(mcLHEEventInfoTag_ == edm::InputTag(""))) {
@@ -169,6 +179,15 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     edm::Handle<reco::GenParticleCollection> genParticles;
     if(!(genParticlesTag_ == edm::InputTag(""))) {
      iEvent.getByToken(genParticlesT_,genParticles);
+    }
+
+    edm::Handle<reco::CandidateView> dressedMuonsH;
+    edm::Handle<reco::CandidateView> dressedElectronsH;
+    if (_isMC){
+      if (!(dressedMuonTag_ == edm::InputTag("")))
+        iEvent.getByToken(dressedMuonT_, dressedMuonsH);
+      if (!(dressedElectronTag_ == edm::InputTag("")))  
+        iEvent.getByToken(dressedElectronT_, dressedElectronsH);
     }
 
     
@@ -502,7 +521,18 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     //----     min pt of soft muon
     skimEvent->back().setMaxDrSoftMuonJet(_minPtSoftMuon);
 
-    
+    if (_isMC) {
+      if (!(dressedMuonTag_ == edm::InputTag(""))){
+        for(size_t k=0; k<dressedMuonsH->size();++k){
+          skimEvent->back().setDressedLepton(dressedMuonsH, k);
+        }  
+      }    
+      if (!(dressedElectronTag_ == edm::InputTag(""))){
+        for(size_t k=0; k<dressedElectronsH->size();++k){
+          skimEvent->back().setDressedLepton(dressedElectronsH, k);
+        }  
+      }    
+    }
     
     iEvent.put(skimEvent);
 }
