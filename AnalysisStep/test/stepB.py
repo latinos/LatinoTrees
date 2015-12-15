@@ -562,6 +562,8 @@ preSeq += process.myJetSequence
 #
 process.skimEventProducer.jetTag    = cms.InputTag("selectedPatJetsAK4PFCHS")
 process.skimEventProducer.tagJetTag = cms.InputTag("selectedPatJetsAK4PFCHS")
+if options.doFatJet :
+    process.skimEventProducer.fatJetTag = cms.InputTag("slimmedJetsAK8")
 
 
 
@@ -835,7 +837,7 @@ if doPDFvar == True :
 if doBTag: addBTaggingVariables(tree, 99999)
 
 # jet additional variables: e.g. pu-jetid
-addJetsVariables(tree, 99999)  # ---> deactivated because missing??
+addJetsVariables(tree, 99999)
 
 
 # lepton variables needed for fake rate studies, measurement and application: e.g. jet variables for jet closest to lepton
