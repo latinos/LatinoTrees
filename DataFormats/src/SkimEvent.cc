@@ -4022,34 +4022,24 @@ const bool reco::SkimEvent::isTrackerMuon(size_t i) const {
 }
 
 
-const float reco::SkimEvent::muSIP3D(size_t i) const {
+const float reco::SkimEvent::SIP3D(size_t i) const {
  if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isMuon(i) ) {
   double ip = fabs(getMuon(i)->dB(pat::Muon::PV3D));
   double ipError = getMuon(i)->edB(pat::Muon::PV3D);
   double sip = ip/ipError;
   return sip;
- } else {
-  return defaultvalues::defaultFloat;
- }
-}
-
-
-const float reco::SkimEvent::elSIP3D(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;  
- if( isElectron(i) ) {
+ } 
+ else if( isElectron(i) ) {
   double ip = fabs(getElectron(i)->dB(pat::Electron::PV3D));
   double ipError = getElectron(i)->edB(pat::Electron::PV3D);
   double sip = ip/ipError;
   return sip;
- } else {
+ } 
+ else {
   return defaultvalues::defaultFloat;
  }
 }
-
-
-
-
 
 
 // Electron cut based ID
