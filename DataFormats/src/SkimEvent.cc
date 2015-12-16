@@ -4112,6 +4112,19 @@ const float reco::SkimEvent::hcalPFClusterIso(size_t i) const {
 }
 
 
+const float reco::SkimEvent::TMLastStationAngTight(size_t i) const {
+
+  if (i >= leps_.size()) return defaultvalues::defaultFloat;
+
+  if (isMuon(i)) {
+    pat::Muon const * const mu = getMuon(i);
+    return (mu->isGood("TMLastStationAngTight"));
+  } else{
+    return false;
+  }
+}
+
+
 // Muon and electron isolation
 
 const float reco::SkimEvent::trackIso(size_t i) const  {

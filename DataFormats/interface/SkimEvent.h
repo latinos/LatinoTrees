@@ -765,6 +765,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float hcalPFClusterIso              (size_t i) const;
 	    const float ecalPFClusterIso              (size_t i) const;
 
+	    const float TMLastStationAngTight         (size_t i) const;
 
             const float GetElectronEffectiveAreaByPt      (size_t i) const;
             const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx(indexByPt(i)); }          
@@ -780,6 +781,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool  passConversionVetoByPt            (size_t i) const { return passConversionVeto            (indexByPt(i)); }
 	    const float hcalPFClusterIsoByPt              (size_t i) const { return hcalPFClusterIso              (indexByPt(i)); }   
 	    const float ecalPFClusterIsoByPt              (size_t i) const { return ecalPFClusterIso              (indexByPt(i)); }   
+
+	    const float TMLastStationAngTightByPt              (size_t i) const { return TMLastStationAngTight    (indexByPt(i)); }   
 
 
             // Muon and electron isolation
