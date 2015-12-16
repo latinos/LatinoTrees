@@ -241,6 +241,26 @@ void reco::SkimEvent::setGenParticles(const edm::Handle<reco::GenParticleCollect
  }
 }
 
+void reco::SkimEvent::setGenLeptonIndices() {
+  leptonIndices.clear();
+
+  std::vector<float> v_leptons_pt;
+  const reco::Candidate* mcH = 0;
+  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+    int type = abs(genParticles_[gp]->pdgId());
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed() ) )
+        continue;
+    
+    mcH = &(*(genParticles_[gp]));
+    v_leptons_pt.push_back(mcH->pt());
+    leptonIndices.push_back(gp);
+  }
+
+  if (v_leptons_pt.size () > 0) {
+    std::sort(leptonIndices.rbegin(), leptonIndices.rend(), [&](unsigned int i1, unsigned int i2) { return v_leptons_pt[i1] < v_leptons_pt[i2];});
+  }
+}
+
 // set GenJets
 void reco::SkimEvent::setGenJets(const edm::Handle<reco::GenJetCollection> & h) {
  genJets_.clear();
@@ -4002,34 +4022,24 @@ const bool reco::SkimEvent::isTrackerMuon(size_t i) const {
 }
 
 
-const float reco::SkimEvent::muSIP3D(size_t i) const {
+const float reco::SkimEvent::SIP3D(size_t i) const {
  if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isMuon(i) ) {
   double ip = fabs(getMuon(i)->dB(pat::Muon::PV3D));
   double ipError = getMuon(i)->edB(pat::Muon::PV3D);
   double sip = ip/ipError;
   return sip;
- } else {
-  return defaultvalues::defaultFloat;
- }
-}
-
-
-const float reco::SkimEvent::elSIP3D(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;  
- if( isElectron(i) ) {
+ } 
+ else if( isElectron(i) ) {
   double ip = fabs(getElectron(i)->dB(pat::Electron::PV3D));
   double ipError = getElectron(i)->edB(pat::Electron::PV3D);
   double sip = ip/ipError;
   return sip;
- } else {
+ } 
+ else {
   return defaultvalues::defaultFloat;
  }
 }
-
-
-
-
 
 
 // Electron cut based ID
@@ -4819,7 +4829,7 @@ const float reco::SkimEvent::leadingLHEJetPt(size_t index) const {
  std::vector<float> v_jetsLHE_pt ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if ((type < 9 && type > 0) || type == 21) {
    v_jetsLHE_pt.push_back (
@@ -4845,7 +4855,7 @@ const float reco::SkimEvent::leadingLHEJetPID(size_t index) const {
  float particleID=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if ((type < 9 && type > 0) || type == 21) {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -4863,7 +4873,7 @@ const float reco::SkimEvent::leadingLHEJetPhi(size_t index) const {
  float phi=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if ((type < 9 && type > 0) || type == 21) {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -4883,7 +4893,7 @@ const float reco::SkimEvent::leadingLHEJetEta(size_t index) const {
  float eta=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if ((type < 9 && type > 0) || type == 21) {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -4901,7 +4911,7 @@ const float reco::SkimEvent::leadingLHELeptonPt(size_t index) const {
  std::vector<float> v_jetsLHE_pt ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 11 || type == 13 || type == 15) {
    v_jetsLHE_pt.push_back (
@@ -4949,7 +4959,7 @@ const float reco::SkimEvent::leadingLHELeptonPID(size_t index) const {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
    LHEhepeup_.PUP.at (iPart) [1] * LHEhepeup_.PUP.at (iPart) [1]); // py
    if(iPart_Pt!=pt_ofIndex) continue;
-   particleID = (float) type;
+   particleID = (float) LHEhepeup_.IDUP.at (iPart);
    //std::cout << "particleID " << particleID << std::endl;
   }
  }
@@ -4962,7 +4972,7 @@ const float reco::SkimEvent::leadingLHELeptonPhi(size_t index) const {
  float phi=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 11 || type == 13 || type == 15) { //---- quarks or gluons
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -4982,7 +4992,7 @@ const float reco::SkimEvent::leadingLHELeptonEta(size_t index) const {
  float eta=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 11 || type == 13 || type == 15) { //---- quarks or gluons
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -5000,7 +5010,7 @@ const float reco::SkimEvent::leadingLHENeutrinoPt(size_t index) const {
  std::vector<float> v_jetsLHE_pt ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) {
    v_jetsLHE_pt.push_back (
@@ -5032,7 +5042,7 @@ const float reco::SkimEvent::leadingLHENeutrinoPID(size_t index) const {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
    LHEhepeup_.PUP.at (iPart) [1] * LHEhepeup_.PUP.at (iPart) [1]); // py
    if(iPart_Pt!=pt_ofIndex) continue;
-   particleID = (float) type;
+   particleID = (float) LHEhepeup_.IDUP.at (iPart);
   }
  }
  //---- now return ----
@@ -5044,7 +5054,7 @@ const float reco::SkimEvent::leadingLHENeutrinoPhi(size_t index) const {
  float phi=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -5064,7 +5074,7 @@ const float reco::SkimEvent::leadingLHENeutrinoEta(size_t index) const {
  float eta=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) {
    float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
@@ -5085,7 +5095,7 @@ const float reco::SkimEvent::LHEMetPt() const {
  int number_neutrino=0;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) { //---- neutrinos
    sum_px+=LHEhepeup_.PUP.at (iPart) [0];
@@ -5107,7 +5117,7 @@ const float reco::SkimEvent::LHEMetPhi() const {
  float phi=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) { //---- neutrinos
    sum_px+=LHEhepeup_.PUP.at (iPart) [0];
@@ -5131,7 +5141,8 @@ const float reco::SkimEvent::LHEMetEta() const {
  float eta=-9999.9;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+//   std::cout << " LHEhepeup_.ISTUP.at (" << iPart << ") = " << LHEhepeup_.ISTUP.at (iPart) << " LHEhepeup_.IDUP.at (" << iPart << ") = " << LHEhepeup_.IDUP.at (iPart)  << std::endl;
+  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ; //incoming particle / beam, we only want intermediate or outgoing particles
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type == 12 || type == 14 || type == 16) { //---- neutrinos
    sum_px+=LHEhepeup_.PUP.at (iPart) [0];
@@ -5141,8 +5152,9 @@ const float reco::SkimEvent::LHEMetEta() const {
   }
  }
  //---- now return ----
- if(number_neutrino==0) return eta;
+ if (number_neutrino==0) return eta;
  TVector3 pt_ofIndex(sum_px, sum_py, sum_pz ); // pass px, py, pz
+ eta = pt_ofIndex.Eta() ;
  return eta;
 }
 
@@ -5150,7 +5162,7 @@ const float reco::SkimEvent::higgsLHEPt() const {
  std::vector<float> v_jetsLHE_pt ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+//   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type ==25) { //---- Higgs
    v_jetsLHE_pt.push_back (
@@ -5175,7 +5187,7 @@ const float reco::SkimEvent::higgsLHEEta() const {
  std::vector<float> v_particleLHE_eta ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+//   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type ==25) { //---- Higgs
    TVector3 temp_vector(LHEhepeup_.PUP.at (iPart) [0], LHEhepeup_.PUP.at (iPart) [1], LHEhepeup_.PUP.at (iPart) [2] ); // pass px, py, pz
@@ -5192,7 +5204,7 @@ const float reco::SkimEvent::higgsLHEPhi() const {
  std::vector<float> v_particleLHE_phi ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+//   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
   if (type ==25) { //---- Higgs
    TVector3 temp_vector(LHEhepeup_.PUP.at (iPart) [0], LHEhepeup_.PUP.at (iPart) [1], LHEhepeup_.PUP.at (iPart) [2] ); // pass px, py, pz
@@ -5209,8 +5221,9 @@ const float reco::SkimEvent::higgsLHEmass() const {
  std::vector<float> v_particleLHE_mass ;
  // loop over particles in the event
  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
-  if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+//   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
   int type = abs (LHEhepeup_.IDUP.at (iPart)) ;
+//   std::cout << " type = " << type << std::endl;
   if (type ==25) { //---- Higgs
    v_particleLHE_mass.push_back(LHEhepeup_.PUP.at (iPart) [4]); //---- mass
    //---- see http://home.thep.lu.se/~leif/LHEF/classLHEF_1_1HEPEUP.html
@@ -5221,6 +5234,8 @@ const float reco::SkimEvent::higgsLHEmass() const {
  return -9999.9; //if no Higgs was found
 }
 
+
+//---- end LHE information
 
 
 const float reco::SkimEvent::leadingGenJetPartonPt(size_t index) const {
@@ -5557,104 +5572,32 @@ const int reco::SkimEvent::originalStatus(const reco::Candidate* p) const
 }
 
 
-// Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonPt(size_t index) const {
-
-  std::vector<float> v_leptons_pt;
-
-  float particlePt = defaultvalues::defaultFloat;
- 
-  const reco::Candidate* mcH = 0;
- 
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed() ) )
-        continue;
-    
-    mcH = &(*(genParticles_[gp]));
-    v_leptons_pt.push_back(mcH->pt());
-  }
- 
-  if (v_leptons_pt.size () > 0) {
-    std::sort(v_leptons_pt.rbegin(), v_leptons_pt.rend());
-  }
-
-  size_t count = 0;
-  for (size_t i=0; i<v_leptons_pt.size(); ++i) {
-    if (++count > index) return v_leptons_pt.at(i);
-  }
- 
-  return particlePt;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->pt();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
-
-// Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonStatus(size_t index) const {
-
-  float pt_ofIndex     = genLeptonPt(index);
-  float particleStatus = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed() ) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    particleStatus = (float) genParticles_[gp]->status();
-    break;
- }
-
- return particleStatus;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->status();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::genLeptonIsPrompt (size_t index) const {
-
-  float pt_ofIndex     = genLeptonPt(index);
-  float isPrompt = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    isPrompt = (float) genParticles_[gp]->statusFlags().isPrompt();
-    break;
- }
-
- return isPrompt;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->statusFlags().isPrompt();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::genLeptonIsDirectPromptTauDecayProduct (size_t index) const {
-
-  float pt_ofIndex     = genLeptonPt(index);
-  float isDirectPromptTauDecayProduct = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    isDirectPromptTauDecayProduct = (float) genParticles_[gp]->statusFlags().isDirectPromptTauDecayProduct();
-    break;
- }
-
- return isDirectPromptTauDecayProduct;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->statusFlags().isDirectPromptTauDecayProduct();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 // Compatible with PYTHIA8
@@ -5683,73 +5626,28 @@ const float reco::SkimEvent::genLeptonIndex(size_t index) const {
 
 // Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonPID(size_t index) const {
-
-  float pt_ofIndex = genLeptonPt(index);
-  float particleID = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    particleID = (float) genParticles_[gp]->pdgId();
-    break;
- }
-
- return particleID;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->pdgId();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 
 // Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonEta(size_t index) const {
-
-  float pt_ofIndex  = genLeptonPt(index);
-  float particleEta = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    particleEta = (float) mcH->eta();
-    break;
-  }
-
-  return particleEta;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->eta();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 
 // Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonPhi(size_t index) const {
-
-  float pt_ofIndex  = genLeptonPt(index);
-  float particlePhi = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    particlePhi = (float) mcH->phi();
-    break;
-  }
-
-  return particlePhi;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->phi();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 

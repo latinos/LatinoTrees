@@ -561,6 +561,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s);
             void setVtxSumPt2s(const edm::Handle<edm::ValueMap<float> > &s);
             void setGenParticles(const edm::Handle<reco::GenParticleCollection> &h);
+	    void setGenLeptonIndices();
             void setDressedLepton(const edm::Handle<edm::View<reco::Candidate> > &h, size_t i);
 
 // void setGenWeight(const edm::Handle<double> &s);
@@ -743,8 +744,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const bool isTrackerMuonByPt(size_t i) const {return isTrackerMuon(indexByPt (i)); }
 	    const bool isTightMuonByPt (size_t i) const {return isTightMuon (indexByPt (i)); }
 
-	    const float muSIP3D(size_t i) const;
-	    const float muSIP3DByPt(size_t i) const {return muSIP3D(indexByPt (i)); };
+	    const float SIP3D(size_t i) const;
+	    const float SIP3DByPt(size_t i) const {return SIP3D(indexByPt (i)); };
 
 
             // Electron ID
@@ -759,7 +760,6 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float ooEmooP                       (size_t i) const;
             const float d0                            (size_t i) const;
             const float dz                            (size_t i) const;
-	    const float elSIP3D                       (size_t i) const;
 	    const float expectedMissingInnerHits      (size_t i) const;
             const bool  passConversionVeto            (size_t i) const;
 	    const float hcalPFClusterIso              (size_t i) const;
@@ -776,7 +776,6 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float ooEmooPByPt                       (size_t i) const { return ooEmooP                       (indexByPt(i)); }
             const float d0ByPt                            (size_t i) const { return d0                            (indexByPt(i)); }
             const float dzByPt                            (size_t i) const { return dz                            (indexByPt(i)); }
-	    const float elSIP3DByPt                       (size_t i) const { return elSIP3D                       (indexByPt(i)); }
 	    const float expectedMissingInnerHitsByPt      (size_t i) const { return expectedMissingInnerHits      (indexByPt(i)); }
             const bool  passConversionVetoByPt            (size_t i) const { return passConversionVeto            (indexByPt(i)); }
 	    const float hcalPFClusterIsoByPt              (size_t i) const { return hcalPFClusterIso              (indexByPt(i)); }   
@@ -983,7 +982,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             std::vector <std::string> _electronIds;
             std::map <std::string, std::vector<bool> > _electronIdsMap;
             
-            //JEC
+            // GEN
+	    std::vector<unsigned int> leptonIndices;
 
 	    //---- photons
 	    std::vector<refToCand> phos_;

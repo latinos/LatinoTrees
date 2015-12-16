@@ -100,8 +100,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_isMediumMuon  = cms.string("isMediumMuonByPt"),
         std_vector_lepton_isTrackerMuon = cms.string("isTrackerMuonByPt"),
         std_vector_lepton_isTightMuon   = cms.string("isTightMuonByPt"),
-        std_vector_lepton_muSIP3D       = cms.string("muSIP3DByPt"),
-        std_vector_lepton_elSIP3D       = cms.string("elSIP3DByPt"),
+        std_vector_lepton_SIP3D         = cms.string("SIP3DByPt"),
         std_vector_lepton_ch            = cms.string("qByPt"),
         std_vector_lepton_d0            = cms.string("d0ByPt"),
         std_vector_lepton_dz            = cms.string("dzByPt"),
@@ -372,10 +371,10 @@ def addLHEVariables(process,pt):
         setattr(pt.variables, "metLHEphi" , cms.string("LHEMetPhi()")),
         setattr(pt.variables, "metLHEeta" , cms.string("LHEMetEta()")),
 
-        setattr(pt.variables, "higgsLHEpt" , cms.string("higgsLHEPt()")),
+        setattr(pt.variables, "higgsLHEpt"  , cms.string("higgsLHEPt()")),
         setattr(pt.variables, "higgsLHEeta" , cms.string("higgsLHEEta()")),
         setattr(pt.variables, "higgsLHEphi" , cms.string("higgsLHEPhi()")),
-        setattr(pt.variables, "higgsLHEm" , cms.string("higgsLHEmass()")),
+        setattr(pt.variables, "higgsLHEmass", cms.string("higgsLHEmass()")),
 
     else:
         raise addLHEVariables, "In addLHEVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
