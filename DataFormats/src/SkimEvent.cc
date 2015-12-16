@@ -656,7 +656,6 @@ const float reco::SkimEvent::jetSoftMuonPt(size_t index, float minPtMuon, float 
 }
 
 
-
 const float reco::SkimEvent::jetSoftMuonEtaByPt(size_t i = 0) const {
  return jetSoftMuonEta(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
 }
@@ -743,6 +742,124 @@ const float reco::SkimEvent::jetSoftMuonPhi(size_t index, float minPtMuon, float
  }
  return defaultvalues::defaultFloat;
  
+}
+
+
+const float reco::SkimEvent::SoftMuonPtByPt(size_t i = 0) const {
+  return SoftMuonPt(i,_minPtSoftMuon);
+}
+
+const float reco::SkimEvent::SoftMuonPt(size_t i, float minPtMuon) const {
+
+  if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
+  if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
+    float muonPt = softMuons_[i]->pt();
+    if (muonPt >= minPtMuon) {
+      return muonPt;  
+    }
+    else 
+      return defaultvalues::defaultFloat;
+  }
+  else 
+    return defaultvalues::defaultFloat;
+}
+
+
+const float reco::SkimEvent::SoftMuonEtaByPt(size_t i = 0) const {
+  return SoftMuonEta(i,_minPtSoftMuon);
+}
+
+const float reco::SkimEvent::SoftMuonEta(size_t i, float minPtMuon) const {
+  
+  if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
+  if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
+    float muonPt = softMuons_[i]->pt();
+    if (muonPt >= minPtMuon) {
+      return softMuons_[i]->eta();  
+    }
+    else 
+      return defaultvalues::defaultFloat;
+  }
+  else 
+    return defaultvalues::defaultFloat;
+}
+
+
+const float reco::SkimEvent::SoftMuonPhiByPt(size_t i = 0) const {
+  return SoftMuonPhi(i,_minPtSoftMuon);
+}
+
+const float reco::SkimEvent::SoftMuonPhi(size_t i, float minPtMuon) const {
+  if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
+  if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
+    float muonPt = softMuons_[i]->pt();
+    if (muonPt >= minPtMuon) {
+      return softMuons_[i]->phi();  
+    }
+    else 
+      return defaultvalues::defaultFloat;
+  }
+  else 
+    return defaultvalues::defaultFloat;
+}
+
+
+const float reco::SkimEvent::SoftMuonIsoByPt(size_t i = 0) const {
+  return SoftMuonIso(i,_minPtSoftMuon);
+}
+
+const float reco::SkimEvent::SoftMuonIso(size_t i, float minPtMuon) const {
+  if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
+  if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
+    float muonPt = softMuons_[i]->pt();
+    if (muonPt >= minPtMuon) {
+      return ((getMuon(softMuons_[i])->pfIsolationR04().sumChargedHadronPt+std::max(0.,getMuon(softMuons_[i])->pfIsolationR04().sumNeutralHadronEt+getMuon(softMuons_[i])->pfIsolationR04().sumPhotonEt-0.50*getMuon(softMuons_[i])->pfIsolationR04().sumPUPt))/getMuon(softMuons_[i])->pt());
+    }
+    else 
+      return defaultvalues::defaultFloat;
+  }
+  else 
+    return defaultvalues::defaultFloat;
+}
+
+
+const float reco::SkimEvent::SoftMuonDzByPt(size_t i = 0) const {
+  return SoftMuonDz(i,_minPtSoftMuon);
+}
+
+const float reco::SkimEvent::SoftMuonDz(size_t i, float minPtMuon) const {
+  if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
+  if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
+    float muonPt = softMuons_[i]->pt();
+    if (muonPt >= minPtMuon) {
+      const reco::Vertex primaryVtx = highestPtVtx();
+      return (getMuon(softMuons_[i]))->muonBestTrack()->dz(primaryVtx.position()); 
+    }
+    else 
+      return defaultvalues::defaultFloat;
+  }
+  else 
+    return defaultvalues::defaultFloat;
+}
+
+
+const float reco::SkimEvent::SoftMuonDxyByPt(size_t i = 0) const {
+  return SoftMuonDxy(i,_minPtSoftMuon);
+}
+
+const float reco::SkimEvent::SoftMuonDxy(size_t i, float minPtMuon) const {
+  if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
+  if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
+    float muonPt = softMuons_[i]->pt();
+    if (muonPt >= minPtMuon) {
+      const reco::Vertex primaryVtx = highestPtVtx();
+      return (getMuon(softMuons_[i]))->muonBestTrack()->dxy(primaryVtx.position()); 
+    }
+    else 
+      return defaultvalues::defaultFloat;
+  }
+  else 
+    return defaultvalues::defaultFloat;
 }
 
 

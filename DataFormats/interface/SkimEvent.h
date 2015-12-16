@@ -837,8 +837,24 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float jetSoftMuonCountingByPt(size_t i) const;
             const float jetSoftMuonCounting(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;
             
+            const float SoftMuonPtByPt(size_t i) const;
+            const float SoftMuonPt(size_t i, float minPtMuon) const;
 
-	    //---- photon
+            const float SoftMuonEtaByPt(size_t i) const;
+            const float SoftMuonEta(size_t i, float minPtMuon) const;
+
+            const float SoftMuonPhiByPt(size_t i) const;
+            const float SoftMuonPhi(size_t i, float minPtMuon) const;
+
+            const float SoftMuonIsoByPt(size_t i) const;
+            const float SoftMuonIso(size_t i, float minPtMuon) const;
+
+            const float SoftMuonDzByPt(size_t i) const;
+            const float SoftMuonDz(size_t i, float minPtMuon) const;
+
+            const float SoftMuonDxyByPt(size_t i) const;
+            const float SoftMuonDxy(size_t i, float minPtMuon) const;
+
 	    const math::XYZTLorentzVector photon(size_t a) const;
 	    void setPhoton (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
 	    const size_t indexByPtPho(size_t a = 0) const;
