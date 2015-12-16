@@ -2565,19 +2565,40 @@ const float reco::SkimEvent::pfType1SumEt() const {
  if(pfMet_.isNonnull()) return pfMet_->sumEt();
  else return defaultvalues::defaultFloat;
 }
-const float reco::SkimEvent::pfType1MetUp() const {
+const float reco::SkimEvent::pfType1MetPhi() const {
  
- if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnUp);
+ if(pfMet_.isNonnull()) return pfMet_->phi();
  else return defaultvalues::defaultFloat;
 }
-const float reco::SkimEvent::pfType1MetDn() const {
+const float reco::SkimEvent::pfType1MetJetUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::METUncertainty::JetEnUp,pat::MET::METCorrectionLevel::Type1);
+ //if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnUp);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::pfType1MetJetDn() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnDown);
  else return defaultvalues::defaultFloat;
 }
-const float reco::SkimEvent::pfType1MetPhi() const {
+const float reco::SkimEvent::pfType1MetMuonUp() const {
  
- if(pfMet_.isNonnull()) return pfMet_->phi();
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::MuonEnUp);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::pfType1MetMuonDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::MuonEnDown);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::pfType1MetElecUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::ElectronEnUp);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::pfType1MetElecDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::ElectronEnDown);
  else return defaultvalues::defaultFloat;
 }
 
