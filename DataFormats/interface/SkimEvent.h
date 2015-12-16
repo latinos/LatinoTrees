@@ -362,9 +362,13 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float pfType1SumEt() const;
             const float pfMetNoHf() const;
             const float pfType1Met() const;
-            const float pfType1MetUp() const;
-            const float pfType1MetDn() const;
             const float pfType1MetPhi() const;
+            const float pfType1MetJetUp() const;
+            const float pfType1MetJetDn() const;
+            const float pfType1MetMuonUp() const;
+            const float pfType1MetMuonDn() const;
+            const float pfType1MetElecUp() const;
+            const float pfType1MetElecDn() const;
             const float pfRawSumEt() const;
             const float pfRawMet() const;
             const float pfRawMetPhi() const;
