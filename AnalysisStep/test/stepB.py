@@ -194,7 +194,7 @@ options.register ('LHEweightSource',
                   'LHE weight source. It depends on sample and on how they were produced: pLHE, wMLHE, ... (suggested options  \'externalLHEProducer\' or \'source\')')
 
 options.register ('doSoftActivity',
-                  False, # default value
+                  True, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
                   'Turn on soft activity variables (can be \'True\' or \'False\')')
@@ -661,13 +661,6 @@ process.options = cms.untracked.PSet( allowUnscheduled = cms.untracked.bool(True
 
 if (wztth == True) or (doPDFvar == True):
     getattr(process,"ww%s"% (labelSetup)).mcGenEventInfoTag = "generator"
-    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
-
-if doSusy == True :
-    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
-
-if doHiggs == True :
-    getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
 
 #if doLHE == True :
     #getattr(process,"ww%s"% (labelSetup)).mcLHEEventInfoTag = "source"

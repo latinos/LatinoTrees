@@ -241,6 +241,26 @@ void reco::SkimEvent::setGenParticles(const edm::Handle<reco::GenParticleCollect
  }
 }
 
+void reco::SkimEvent::setGenLeptonIndices() {
+  leptonIndices.clear();
+
+  std::vector<float> v_leptons_pt;
+  const reco::Candidate* mcH = 0;
+  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+    int type = abs(genParticles_[gp]->pdgId());
+    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed() ) )
+        continue;
+    
+    mcH = &(*(genParticles_[gp]));
+    v_leptons_pt.push_back(mcH->pt());
+    leptonIndices.push_back(gp);
+  }
+
+  if (v_leptons_pt.size () > 0) {
+    std::sort(leptonIndices.rbegin(), leptonIndices.rend(), [&](unsigned int i1, unsigned int i2) { return v_leptons_pt[i1] < v_leptons_pt[i2];});
+  }
+}
+
 // set GenJets
 void reco::SkimEvent::setGenJets(const edm::Handle<reco::GenJetCollection> & h) {
  genJets_.clear();
@@ -4002,34 +4022,24 @@ const bool reco::SkimEvent::isTrackerMuon(size_t i) const {
 }
 
 
-const float reco::SkimEvent::muSIP3D(size_t i) const {
+const float reco::SkimEvent::SIP3D(size_t i) const {
  if(i >= leps_.size()) return defaultvalues::defaultFloat;  
  if( isMuon(i) ) {
   double ip = fabs(getMuon(i)->dB(pat::Muon::PV3D));
   double ipError = getMuon(i)->edB(pat::Muon::PV3D);
   double sip = ip/ipError;
   return sip;
- } else {
-  return defaultvalues::defaultFloat;
- }
-}
-
-
-const float reco::SkimEvent::elSIP3D(size_t i) const {
- if(i >= leps_.size()) return defaultvalues::defaultFloat;  
- if( isElectron(i) ) {
+ } 
+ else if( isElectron(i) ) {
   double ip = fabs(getElectron(i)->dB(pat::Electron::PV3D));
   double ipError = getElectron(i)->edB(pat::Electron::PV3D);
   double sip = ip/ipError;
   return sip;
- } else {
+ } 
+ else {
   return defaultvalues::defaultFloat;
  }
 }
-
-
-
-
 
 
 // Electron cut based ID
@@ -5549,104 +5559,32 @@ const int reco::SkimEvent::originalStatus(const reco::Candidate* p) const
 }
 
 
-// Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonPt(size_t index) const {
-
-  std::vector<float> v_leptons_pt;
-
-  float particlePt = defaultvalues::defaultFloat;
- 
-  const reco::Candidate* mcH = 0;
- 
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed() ) )
-        continue;
-    
-    mcH = &(*(genParticles_[gp]));
-    v_leptons_pt.push_back(mcH->pt());
-  }
- 
-  if (v_leptons_pt.size () > 0) {
-    std::sort(v_leptons_pt.rbegin(), v_leptons_pt.rend());
-  }
-
-  size_t count = 0;
-  for (size_t i=0; i<v_leptons_pt.size(); ++i) {
-    if (++count > index) return v_leptons_pt.at(i);
-  }
- 
-  return particlePt;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->pt();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
-
-// Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonStatus(size_t index) const {
-
-  float pt_ofIndex     = genLeptonPt(index);
-  float particleStatus = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed() ) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    particleStatus = (float) genParticles_[gp]->status();
-    break;
- }
-
- return particleStatus;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->status();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::genLeptonIsPrompt (size_t index) const {
-
-  float pt_ofIndex     = genLeptonPt(index);
-  float isPrompt = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    isPrompt = (float) genParticles_[gp]->statusFlags().isPrompt();
-    break;
- }
-
- return isPrompt;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->statusFlags().isPrompt();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::genLeptonIsDirectPromptTauDecayProduct (size_t index) const {
-
-  float pt_ofIndex     = genLeptonPt(index);
-  float isDirectPromptTauDecayProduct = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    isDirectPromptTauDecayProduct = (float) genParticles_[gp]->statusFlags().isDirectPromptTauDecayProduct();
-    break;
- }
-
- return isDirectPromptTauDecayProduct;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->statusFlags().isDirectPromptTauDecayProduct();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 // Compatible with PYTHIA8
@@ -5675,73 +5613,28 @@ const float reco::SkimEvent::genLeptonIndex(size_t index) const {
 
 // Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonPID(size_t index) const {
-
-  float pt_ofIndex = genLeptonPt(index);
-  float particleID = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    particleID = (float) genParticles_[gp]->pdgId();
-    break;
- }
-
- return particleID;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->pdgId();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 
 // Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonEta(size_t index) const {
-
-  float pt_ofIndex  = genLeptonPt(index);
-  float particleEta = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    particleEta = (float) mcH->eta();
-    break;
-  }
-
-  return particleEta;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->eta();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 
 // Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonPhi(size_t index) const {
-
-  float pt_ofIndex  = genLeptonPt(index);
-  float particlePhi = defaultvalues::defaultFloat;
-
-  const reco::Candidate* mcH = 0;
-
-  // Loop over gen particles
-  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
-    int type = abs(genParticles_[gp]->pdgId());
-
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
-
-    mcH = &(*(genParticles_[gp]));
-    if (mcH->pt() != pt_ofIndex) continue;
-    particlePhi = (float) mcH->phi();
-    break;
-  }
-
-  return particlePhi;
+    if( index < leptonIndices.size() ) 
+	return genParticles_[leptonIndices[index]]->phi();
+    else 
+	return defaultvalues::defaultFloat;
 }
 
 
