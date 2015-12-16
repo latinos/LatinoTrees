@@ -561,6 +561,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s);
             void setVtxSumPt2s(const edm::Handle<edm::ValueMap<float> > &s);
             void setGenParticles(const edm::Handle<reco::GenParticleCollection> &h);
+	    void setGenLeptonIndices();
             void setDressedLepton(const edm::Handle<edm::View<reco::Candidate> > &h, size_t i);
 
 // void setGenWeight(const edm::Handle<double> &s);
@@ -980,7 +981,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             std::vector <std::string> _electronIds;
             std::map <std::string, std::vector<bool> > _electronIdsMap;
             
-            //JEC
+            // GEN
+	    std::vector<unsigned int> leptonIndices;
 
 	    //---- photons
 	    std::vector<refToCand> phos_;
