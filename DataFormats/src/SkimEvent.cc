@@ -4745,7 +4745,7 @@ const float reco::SkimEvent::getHiggsMass() const {
   int pdgId = genParticles_[gp] -> pdgId();
   
   // Stop {1000006}
-  if( (pdgId == 25) ) {
+  if( (pdgId == 25 && genParticles_[gp]->isHardProcess()) ) {
    mcH = &(*(genParticles_[gp]));
    mass = mcH->mass();
    break;
@@ -4769,7 +4769,7 @@ const float reco::SkimEvent::getHiggsPt() const {
   int pdgId = genParticles_[gp] -> pdgId();
   
   // Stop {1000006}
-  if( (pdgId == 25) ) {
+  if( (pdgId == 25 && genParticles_[gp]->isHardProcess()) ) {
    mcH = &(*(genParticles_[gp]));
    pt = mcH->pt();
    break;
@@ -4792,7 +4792,7 @@ const float reco::SkimEvent::getHiggsEta() const {
   int pdgId = genParticles_[gp] -> pdgId();
   
   // Stop {1000006}
-  if( (pdgId == 25) ) {
+  if( (pdgId == 25 && genParticles_[gp]->isHardProcess()) ) {
    mcH = &(*(genParticles_[gp]));
    eta = mcH->eta();
    break;
@@ -4816,7 +4816,7 @@ const float reco::SkimEvent::getHiggsPhi() const {
   int pdgId = genParticles_[gp] -> pdgId();
   
   // Stop {1000006}
-  if( (pdgId == 25) ) {
+  if( (pdgId == 25 && genParticles_[gp]->isHardProcess()) ) {
    mcH = &(*(genParticles_[gp]));
    phi = mcH->phi();
    break;
