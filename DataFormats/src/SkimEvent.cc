@@ -700,7 +700,6 @@ const float reco::SkimEvent::jetSoftMuonEta(size_t index, float minPtMuon, float
 }
 
 
-
 const float reco::SkimEvent::jetSoftMuonPhiByPt(size_t i = 0) const {
  return jetSoftMuonPhi(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
 }
@@ -737,6 +736,184 @@ const float reco::SkimEvent::jetSoftMuonPhi(size_t index, float minPtMuon, float
    if (nMu != -1) {
     return softMuons_[nMu]->phi();
    }
+  }
+  
+ }
+ return defaultvalues::defaultFloat;
+ 
+}
+
+
+const float reco::SkimEvent::jetSoftMuonIsoByPt(size_t i = 0) const {
+ return jetSoftMuonIso(i, _minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::jetSoftMuonIso(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  //---- get the correct jet index ...
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;  
+  if(isThisJetALepton(jets_[i])) continue;
+  
+  //---- now check for the closest muon
+  if(++count > index) {
+   float minDR = 9999999.9;
+   int nMu = -1;
+   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+    //---- check if it is really a soft-muon
+    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+     float muonPt = softMuons_[iMu]->pt();
+     if (muonPt >= minPtMuon) {
+      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
+      if(dR < maxDrMuonJet && dR < minDR) {
+       minDR = dR;
+       nMu = iMu;
+      }
+     }
+    }
+   }
+   if (nMu != -1) {
+    //---- isolation
+    return ((getMuon(softMuons_[nMu])->pfIsolationR04().sumChargedHadronPt+std::max(0.,getMuon(softMuons_[nMu])->pfIsolationR04().sumNeutralHadronEt+getMuon(softMuons_[nMu])->pfIsolationR04().sumPhotonEt-0.50*getMuon(softMuons_[nMu])->pfIsolationR04().sumPUPt))/getMuon(softMuons_[nMu])->pt());
+   }
+  }
+  
+ }
+ return defaultvalues::defaultFloat;
+ 
+}
+
+
+const float reco::SkimEvent::jetSoftMuonD0ByPt(size_t i = 0) const {
+ return jetSoftMuonD0(i, _minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::jetSoftMuonD0(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  //---- get the correct jet index ...
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;  
+  if(isThisJetALepton(jets_[i])) continue;
+  
+  //---- now check for the closest muon
+  if(++count > index) {
+   float minDR = 9999999.9;
+   int nMu = -1;
+   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+    //---- check if it is really a soft-muon
+    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+     float muonPt = softMuons_[iMu]->pt();
+     if (muonPt >= minPtMuon) {
+      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
+      if(dR < maxDrMuonJet && dR < minDR) {
+       minDR = dR;
+       nMu = iMu;
+      }
+     }
+    }
+   }
+   if (nMu != -1) {
+    //---- d0
+    const reco::Vertex primaryVtx = highestPtVtx();
+    return (getMuon(softMuons_[nMu]))->muonBestTrack()->dxy(primaryVtx.position()); 
+   }
+  }
+  
+ }
+ return defaultvalues::defaultFloat;
+}
+
+
+const float reco::SkimEvent::jetSoftMuonDzByPt(size_t i = 0) const {
+ return jetSoftMuonDz(i, _minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::jetSoftMuonDz(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  //---- get the correct jet index ...
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;  
+  if(isThisJetALepton(jets_[i])) continue;
+  
+  //---- now check for the closest muon
+  if(++count > index) {
+   float minDR = 9999999.9;
+   int nMu = -1;
+   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+    //---- check if it is really a soft-muon
+    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+     float muonPt = softMuons_[iMu]->pt();
+     if (muonPt >= minPtMuon) {
+      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
+      if(dR < maxDrMuonJet && dR < minDR) {
+       minDR = dR;
+       nMu = iMu;
+      }
+     }
+    }
+   }
+   if (nMu != -1) {
+    //---- dz
+    const reco::Vertex primaryVtx = highestPtVtx();
+    return (getMuon(softMuons_[nMu]))->muonBestTrack()->dz(primaryVtx.position()); 
+   }
+  }
+  
+ }
+ return defaultvalues::defaultFloat;
+}
+
+
+//---- number of soft muons associated to a jet
+//----     it should be at most 1!
+const float reco::SkimEvent::jetSoftMuonCountingByPt(size_t i = 0) const {
+ return jetSoftMuonCounting(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
+}
+
+const float reco::SkimEvent::jetSoftMuonCounting(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ size_t count = 0;
+ for(size_t i=0;i<jets_.size();++i) {
+  //---- get the correct jet index ...
+  if(!(passJetID(jets_[i],applyID)) ) continue;
+  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+  if( jetPt(i,applyCorrection) <= minPt) continue;  
+  if(isThisJetALepton(jets_[i])) continue;
+  
+  //---- now check all the soft muons that are close to the jet
+  if(++count > index) {
+   int numberOfMuons = 0;
+//    int nMu = -1;
+   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+    //---- check if it is really a soft-muon
+    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+     float muonPt = softMuons_[iMu]->pt();
+     if (muonPt >= minPtMuon) {
+      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
+      if(dR < maxDrMuonJet) {
+       numberOfMuons++;
+      }
+     }
+    }
+   }
+
+   return 1. * numberOfMuons;
   }
   
  }
@@ -863,195 +1040,21 @@ const float reco::SkimEvent::SoftMuonDxy(size_t i, float minPtMuon) const {
 }
 
 
-const float reco::SkimEvent::GetElectronEffectiveAreaByPt(size_t i = 0) const {
-  return GetElectronEffectiveArea(indexByPt(i), apply50nsValues_);
+const bool reco::SkimEvent::SoftMuonIsTrackerMuonByPt(size_t i = 0) const {
+  return SoftMuonIsTrackerMuon(i,_minPtSoftMuon);
 }
 
-const float reco::SkimEvent::jetSoftMuonIsoByPt(size_t i = 0) const {
- return jetSoftMuonIso(i, _minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
-}
-
-const float reco::SkimEvent::jetSoftMuonIso(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
- 
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
-  //---- now check for the closest muon
-  if(++count > index) {
-   float minDR = 9999999.9;
-   int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet && dR < minDR) {
-       minDR = dR;
-       nMu = iMu;
-      }
-     }
-    }
-   }
-   if (nMu != -1) {
-    //---- isolation
-    return ((getMuon(softMuons_[nMu])->pfIsolationR04().sumChargedHadronPt+std::max(0.,getMuon(softMuons_[nMu])->pfIsolationR04().sumNeutralHadronEt+getMuon(softMuons_[nMu])->pfIsolationR04().sumPhotonEt-0.50*getMuon(softMuons_[nMu])->pfIsolationR04().sumPUPt))/getMuon(softMuons_[nMu])->pt());
-   }
+const bool reco::SkimEvent::SoftMuonIsTrackerMuon(size_t i, float minPtMuon) const {
+  if (i >= leps_.size()) return false;
+  if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
+    float muonPt = softMuons_[i]->pt();
+    if (muonPt >= minPtMuon) {
+      return (softMuons_[i]->isTrackerMuon());
+    } 
+    else return false;
   }
-  
- }
- return defaultvalues::defaultFloat;
- 
+  else return false;
 }
-
-
-
-
-const float reco::SkimEvent::jetSoftMuonD0ByPt(size_t i = 0) const {
- return jetSoftMuonD0(i, _minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
-}
-
-const float reco::SkimEvent::jetSoftMuonD0(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
- 
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
-  //---- now check for the closest muon
-  if(++count > index) {
-   float minDR = 9999999.9;
-   int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet && dR < minDR) {
-       minDR = dR;
-       nMu = iMu;
-      }
-     }
-    }
-   }
-   if (nMu != -1) {
-    //---- d0
-    const reco::Vertex primaryVtx = highestPtVtx();
-    return (getMuon(softMuons_[nMu]))->muonBestTrack()->dxy(primaryVtx.position()); 
-   }
-  }
-  
- }
- return defaultvalues::defaultFloat;
-}
-
-
-
-
-
-
-const float reco::SkimEvent::jetSoftMuonDzByPt(size_t i = 0) const {
- return jetSoftMuonDz(i, _minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
-}
-
-const float reco::SkimEvent::jetSoftMuonDz(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
- 
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
-  //---- now check for the closest muon
-  if(++count > index) {
-   float minDR = 9999999.9;
-   int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet && dR < minDR) {
-       minDR = dR;
-       nMu = iMu;
-      }
-     }
-    }
-   }
-   if (nMu != -1) {
-    //---- dz
-    const reco::Vertex primaryVtx = highestPtVtx();
-    return (getMuon(softMuons_[nMu]))->muonBestTrack()->dz(primaryVtx.position()); 
-   }
-  }
-  
- }
- return defaultvalues::defaultFloat;
-}
-
-
-
-
-//---- number of soft muons associated to a jet
-//----     it should be at most 1!
-const float reco::SkimEvent::jetSoftMuonCountingByPt(size_t i = 0) const {
- return jetSoftMuonCounting(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
-}
-
-const float reco::SkimEvent::jetSoftMuonCounting(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
- 
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
-  //---- now check all the soft muons that are close to the jet
-  if(++count > index) {
-   int numberOfMuons = 0;
-//    int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet) {
-       numberOfMuons++;
-      }
-     }
-    }
-   }
-
-   return 1. * numberOfMuons;
-  }
-  
- }
- return defaultvalues::defaultFloat;
- 
-}
-
 
 
 const int reco::SkimEvent::flavour(size_t i) const {
@@ -1065,6 +1068,12 @@ const int reco::SkimEvent::flavour(size_t i) const {
  }
  else return -9999;
 }
+
+
+const float reco::SkimEvent::GetElectronEffectiveAreaByPt(size_t i = 0) const {
+  return GetElectronEffectiveArea(indexByPt(i), apply50nsValues_);
+}
+
 
 
 const int reco::SkimEvent::pdgId(size_t i) const {
@@ -4125,7 +4134,7 @@ const bool reco::SkimEvent::isMediumMuon(size_t i) const
   }
 }
 
-
+/*
 const bool reco::SkimEvent::isTrackerMuon(size_t i) const {
 
   if (i >= leps_.size()) return defaultvalues::defaultFloat;
@@ -4137,6 +4146,7 @@ const bool reco::SkimEvent::isTrackerMuon(size_t i) const {
     return false;
   }
 }
+*/
 
 
 const float reco::SkimEvent::SIP3D(size_t i) const {
@@ -4236,19 +4246,6 @@ const float reco::SkimEvent::hcalPFClusterIso(size_t i) const {
   if (i >= leps_.size())  return defaultvalues::defaultFloat;
   else if (isElectron(i)) return getElectron(i)->hcalPFClusterIso();
   else return -999.0;
-}
-
-
-const float reco::SkimEvent::TMLastStationAngTight(size_t i) const {
-
-  if (i >= leps_.size()) return defaultvalues::defaultFloat;
-
-  if (isMuon(i)) {
-    pat::Muon const * const mu = getMuon(i);
-    return (mu->isGood("TMLastStationAngTight"));
-  } else{
-    return false;
-  }
 }
 
 

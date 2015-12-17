@@ -738,10 +738,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float muSegCompatibiltyByPt(size_t i) const {return muSegCompatibilty(indexByPt (i)); }
 
 	    const bool isMediumMuon     (size_t i) const;
-	    const bool isTrackerMuon    (size_t i) const;
+	    //const bool isTrackerMuon    (size_t i) const;
 	    const bool isTightMuon      (size_t i) const;
 	    const bool isMediumMuonByPt(size_t i) const {return isMediumMuon(indexByPt (i)); }
-	    const bool isTrackerMuonByPt(size_t i) const {return isTrackerMuon(indexByPt (i)); }
+	    //const bool isTrackerMuonByPt(size_t i) const {return isTrackerMuon(indexByPt (i)); }
 	    const bool isTightMuonByPt (size_t i) const {return isTightMuon (indexByPt (i)); }
 
 	    const float SIP3D(size_t i) const;
@@ -765,8 +765,6 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float hcalPFClusterIso              (size_t i) const;
 	    const float ecalPFClusterIso              (size_t i) const;
 
-	    const float TMLastStationAngTight         (size_t i) const;
-
             const float GetElectronEffectiveAreaByPt      (size_t i) const;
             const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx(indexByPt(i)); }          
             const float deltaPhiSuperClusterTrackAtVtxByPt(size_t i) const { return deltaPhiSuperClusterTrackAtVtx(indexByPt(i)); }
@@ -780,8 +778,6 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const bool  passConversionVetoByPt            (size_t i) const { return passConversionVeto            (indexByPt(i)); }
 	    const float hcalPFClusterIsoByPt              (size_t i) const { return hcalPFClusterIso              (indexByPt(i)); }   
 	    const float ecalPFClusterIsoByPt              (size_t i) const { return ecalPFClusterIso              (indexByPt(i)); }   
-
-	    const float TMLastStationAngTightByPt              (size_t i) const { return TMLastStationAngTight    (indexByPt(i)); }   
 
 
             // Muon and electron isolation
@@ -854,6 +850,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
             const float SoftMuonDxyByPt(size_t i) const;
             const float SoftMuonDxy(size_t i, float minPtMuon) const;
+
+            const bool SoftMuonIsTrackerMuonByPt(size_t i) const;
+            const bool SoftMuonIsTrackerMuon(size_t i, float minPtMuon) const;
 
 	    const math::XYZTLorentzVector photon(size_t a) const;
 	    void setPhoton (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
