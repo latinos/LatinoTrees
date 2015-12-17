@@ -1039,23 +1039,23 @@ const float reco::SkimEvent::SoftMuonDxy(size_t i, float minPtMuon) const {
     return defaultvalues::defaultFloat;
 }
 
-/*
+
 const bool reco::SkimEvent::SoftMuonIsTrackerMuonByPt(size_t i = 0) const {
   return SoftMuonIsTrackerMuon(i,_minPtSoftMuon);
 }
 
 const bool reco::SkimEvent::SoftMuonIsTrackerMuon(size_t i, float minPtMuon) const {
-  if (i >= leps_.size()) return false;
+  if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
     float muonPt = softMuons_[i]->pt();
     if (muonPt >= minPtMuon) {
-      return (softMuons_[i]->isTrackerMuon());
+      return softMuons_[i] -> isTrackerMuon();
     } 
     else return false;
   }
   else return false;
 }
-*/
+
 
 const int reco::SkimEvent::flavour(size_t i) const {
  if(i < leps_.size()) {
@@ -4133,20 +4133,6 @@ const bool reco::SkimEvent::isMediumMuon(size_t i) const
     return false;
   }
 }
-
-/*
-const bool reco::SkimEvent::isTrackerMuon(size_t i) const {
-
-  if (i >= leps_.size()) return defaultvalues::defaultFloat;
-
-  if (isMuon(i)) {
-    pat::Muon const * const mu = getMuon(i);
-    return (mu->isTrackerMuon());
-  } else{
-    return false;
-  }
-}
-*/
 
 
 const float reco::SkimEvent::SIP3D(size_t i) const {
