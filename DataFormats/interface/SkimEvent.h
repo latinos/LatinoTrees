@@ -851,8 +851,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float SoftMuonDxyByPt(size_t i) const;
             const float SoftMuonDxy(size_t i, float minPtMuon) const;
 
-            const bool SoftMuonIsTrackerMuonByPt(size_t i) const;
-            const bool SoftMuonIsTrackerMuon(size_t i, float minPtMuon) const;
+	    //            const bool SoftMuonIsTrackerMuonByPt(size_t i) const;
+	    //            const bool SoftMuonIsTrackerMuon(size_t i, float minPtMuon) const;
 
 	    const math::XYZTLorentzVector photon(size_t a) const;
 	    void setPhoton (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);

@@ -1039,7 +1039,7 @@ const float reco::SkimEvent::SoftMuonDxy(size_t i, float minPtMuon) const {
     return defaultvalues::defaultFloat;
 }
 
-
+/*
 const bool reco::SkimEvent::SoftMuonIsTrackerMuonByPt(size_t i = 0) const {
   return SoftMuonIsTrackerMuon(i,_minPtSoftMuon);
 }
@@ -1055,7 +1055,7 @@ const bool reco::SkimEvent::SoftMuonIsTrackerMuon(size_t i, float minPtMuon) con
   }
   else return false;
 }
-
+*/
 
 const int reco::SkimEvent::flavour(size_t i) const {
  if(i < leps_.size()) {
