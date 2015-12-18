@@ -5700,6 +5700,28 @@ const float reco::SkimEvent::genLeptonIsDirectPromptTauDecayProduct (size_t inde
 	return defaultvalues::defaultFloat;
 }
 
+const float reco::SkimEvent::genLeptonIsTauDecayProduct (size_t index) const {
+    if( index < leptonIndices.size() ) 
+        return genParticles_[leptonIndices[index]]->statusFlags().isTauDecayProduct();
+    else 
+        return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::genLeptonIsDirectHadronDecayProduct (size_t index) const {
+    if( index < leptonIndices.size() ) 
+        return genParticles_[leptonIndices[index]]->statusFlags().isDirectHadronDecayProduct();
+    else 
+        return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::genLeptonFromHardProcess (size_t index) const
+ {
+    if( index < leptonIndices.size() ) 
+        return genParticles_[leptonIndices[index]]->statusFlags().fromHardProcess();
+    else 
+        return defaultvalues::defaultFloat;
+}
+
 // Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonIndex(size_t index) const {
 

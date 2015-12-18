@@ -500,6 +500,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float genLeptonStatus      (size_t a) const;
             const float genLeptonIsPrompt    (size_t a) const;
             const float genLeptonIsDirectPromptTauDecayProduct  (size_t a) const;
+            const float genLeptonIsTauDecayProduct              (size_t a) const;
+            const float genLeptonIsDirectHadronDecayProduct     (size_t a) const;
+            const float genLeptonFromHardProcess                (size_t a) const;
             const float genLeptonIndex       (size_t a) const;
             const float genLeptonMotherPID   (size_t a) const;
             const float genLeptonMotherStatus(size_t a) const;
