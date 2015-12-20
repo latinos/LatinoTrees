@@ -98,7 +98,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_flavour       = cms.string("flavourByPt"),
         #std_vector_lepton_id = cms.string("pdgIdByPt"),  # Deprecated, use std_vector_lepton_flavour
         std_vector_lepton_isMediumMuon  = cms.string("isMediumMuonByPt"),
-        std_vector_lepton_isTrackerMuon = cms.string("isTrackerMuonByPt"),
+        #std_vector_lepton_isTrackerMuon = cms.string("isTrackerMuonByPt"),
         std_vector_lepton_isTightMuon   = cms.string("isTightMuonByPt"),
         std_vector_lepton_SIP3D         = cms.string("SIP3DByPt"),
         std_vector_lepton_ch            = cms.string("qByPt"),
@@ -321,7 +321,6 @@ def addEleIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_electron_passConversionVeto",       cms.string("passConversionVetoByPt")),
         setattr(pt.variables, "std_vector_electron_ecalPFClusterIso",         cms.string("ecalPFClusterIsoByPt")),
         setattr(pt.variables, "std_vector_electron_hcalPFClusterIso",         cms.string("hcalPFClusterIsoByPt")),
-        setattr(pt.variables, "std_vector_electron_TMLastStationAngTight",         cms.string("TMLastStationAngTightByPt")),
 
     else:
         raise RuntimeError, "In addEleIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
@@ -383,6 +382,7 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.std_vector_softMuIso     = cms.string("SoftMuonIsoByPt")
         pt.variables.std_vector_softMuDz      = cms.string("SoftMuonDzByPt")
         pt.variables.std_vector_softMuD0      = cms.string("SoftMuonDxyByPt")
+        pt.variables.std_vector_softMuIsTrackerMuon = cms.string("SoftMuonIsTrackerMuonByPt")
 
         pt.variables.jetcsvv2ivf1 = cms.string("leadingJetBtag(0,'pfCombinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
         pt.variables.jetcsvv2ivf2 = cms.string("leadingJetBtag(1,'pfCombinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
@@ -445,6 +445,9 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_leptonGen_status",                            cms.string("genLeptonStatus")),
         setattr(pt.variables, "std_vector_leptonGen_isPrompt",                          cms.string("genLeptonIsPrompt")),
         setattr(pt.variables, "std_vector_leptonGen_isDirectPromptTauDecayProduct",     cms.string("genLeptonIsDirectPromptTauDecayProduct")),
+        setattr(pt.variables, "std_vector_leptonGen_isTauDecayProduct",                 cms.string("genLeptonIsTauDecayProduct")),
+        setattr(pt.variables, "std_vector_leptonGen_isDirectHadronDecayProduct",        cms.string("genLeptonIsDirectHadronDecayProduct")),
+        setattr(pt.variables, "std_vector_leptonGen_fromHardProcess",                   cms.string("genLeptonFromHardProcess")),
 
         setattr(pt.variables, "std_vector_VBoson_pt",      cms.string("genVBosonPt/5")),
         setattr(pt.variables, "std_vector_VBoson_eta" ,    cms.string("genVBosonEta/5")),
