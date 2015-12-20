@@ -359,19 +359,62 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             
             
             const float met(metType metToUse=TCMET) const;
-            const float pfType1SumEt() const;
-            const float pfMetNoHf() const;
-            const float pfType1Met() const;
-            const float pfType1MetPhi() const;
-            const float pfType1MetJetUp() const;
-            const float pfType1MetJetDn() const;
-            const float pfType1MetMuonUp() const;
-            const float pfType1MetMuonDn() const;
-            const float pfType1MetElecUp() const;
-            const float pfType1MetElecDn() const;
-            const float pfRawSumEt() const;
-            const float pfRawMet() const;
-            const float pfRawMetPhi() const;
+
+            const float metPfRaw() const;
+            const float metPfRawJetEnUp() const;
+            const float metPfRawJetEnDn() const;
+            const float metPfRawJetResUp() const;
+            const float metPfRawJetResDn() const;
+            const float metPfRawMuonEnUp() const;
+            const float metPfRawMuonEnDn() const;
+            const float metPfRawElecEnUp() const;
+            const float metPfRawElecEnDn() const;
+            const float metPfRawUnclEnUp() const;
+            const float metPfRawUnclEnDn() const;
+
+            const float metPfRawPhi() const;
+            const float metPfRawPhiJetEnUp() const;
+            const float metPfRawPhiJetEnDn() const;
+            const float metPfRawPhiJetResUp() const;
+            const float metPfRawPhiJetResDn() const;
+            const float metPfRawPhiMuonEnUp() const;
+            const float metPfRawPhiMuonEnDn() const;
+            const float metPfRawPhiElecEnUp() const;
+            const float metPfRawPhiElecEnDn() const;
+            const float metPfRawPhiUnclEnUp() const;
+            const float metPfRawPhiUnclEnDn() const;
+
+            const float metPfRawSumEt() const;
+
+
+            const float metPfType1() const;
+            const float metPfType1JetEnUp() const;
+            const float metPfType1JetEnDn() const;
+            const float metPfType1JetResUp() const;
+            const float metPfType1JetResDn() const;
+            const float metPfType1MuonEnUp() const;
+            const float metPfType1MuonEnDn() const;
+            const float metPfType1ElecEnUp() const;
+            const float metPfType1ElecEnDn() const;
+            const float metPfType1UnclEnUp() const;
+            const float metPfType1UnclEnDn() const;
+
+            const float metPfType1Phi() const;
+            const float metPfType1SumEt() const;
+            const float metPfNoHf() const;
+
+            const float metPfProj() const;
+            const float metPfProjJetEnUp() const;
+            const float metPfProjJetEnDn() const;
+            const float metPfProjJetResUp() const;
+            const float metPfProjJetResDn() const;
+            const float metPfProjMuonEnUp() const;
+            const float metPfProjMuonEnDn() const;
+            const float metPfProjElecEnUp() const;
+            const float metPfProjElecEnDn() const;
+            const float metPfProjUnclEnUp() const;
+            const float metPfProjUnclEnDn() const;
+
             const float pupMet() const;
             const float trkMet() const;
             const float trkMetphi() const;
@@ -404,6 +447,16 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             //const float dPhillMinMet() const;
             const float mT(size_t a = 0, metType metToUse=TCMET) const;
             const float dPhilPfMet(size_t a) const;
+            const float dPhilPfMetJetEnUp(size_t a) const;
+            const float dPhilPfMetJetEnDn(size_t a) const;
+            const float dPhilPfMetJetResUp(size_t a) const;
+            const float dPhilPfMetJetResDn(size_t a) const;
+            const float dPhilPfMetMuonEnUp(size_t a) const;
+            const float dPhilPfMetMuonEnDn(size_t a) const;
+            const float dPhilPfMetElecEnUp(size_t a) const;
+            const float dPhilPfMetElecEnDn(size_t a) const;
+            const float dPhilPfMetUnclEnUp(size_t a) const;
+            const float dPhilPfMetUnclEnDn(size_t a) const;
             const float dPhilMvaMet(size_t a) const;
             const float dPhilTcMet(size_t a) const;
             const float dPhilChargedMet(size_t a) const;
@@ -412,13 +465,22 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float dPhilMet(metType metToUse=TCMET) const;
             const float dPhilMet(size_t a, metType metToUse=TCMET) const;
             const float dPhilPfMet() const;
+            const float dPhilPfMetJetEnUp() const;
+            const float dPhilPfMetJetEnDn() const;
+            const float dPhilPfMetJetResUp() const;
+            const float dPhilPfMetJetResDn() const;
+            const float dPhilPfMetMuonEnUp() const;
+            const float dPhilPfMetMuonEnDn() const;
+            const float dPhilPfMetElecEnUp() const;
+            const float dPhilPfMetElecEnDn() const;
+            const float dPhilPfMetUnclEnUp() const;
+            const float dPhilPfMetUnclEnDn() const;
             const float dPhilMvaMet() const;
             const float dPhilTcMet() const;
             const float dPhilChargedMet() const;
             const float dPhilChargedMetSmurf() const;
             //const float dPhilMinMet() const;
             const float projMet(metType metToUse=TCMET) const;
-            const float projPfMet() const;
             const float projMvaMet() const;
             const float projTcMet() const;
             const float projChargedMet() const;

@@ -2686,73 +2686,197 @@ float reco::SkimEvent::trackJetPhi(size_t i) const {
 
 //Event variables
 
-const float reco::SkimEvent::pfMetNoHf() const {
+const float reco::SkimEvent::metPfNoHf() const {
  
  if(pfMetNoHf_.isNonnull()) return pfMetNoHf_->pt();
  else return defaultvalues::defaultFloat;
 }
 
-const float reco::SkimEvent::pfType1Met() const {
- 
- if(pfMet_.isNonnull()) return pfMet_->pt();
- else return defaultvalues::defaultFloat;
-}
-const float reco::SkimEvent::pfType1SumEt() const {
+const float reco::SkimEvent::metPfType1SumEt() const {
  
  if(pfMet_.isNonnull()) return pfMet_->sumEt();
  else return defaultvalues::defaultFloat;
 }
-const float reco::SkimEvent::pfType1MetPhi() const {
+const float reco::SkimEvent::metPfType1Phi() const {
  
  if(pfMet_.isNonnull()) return pfMet_->phi();
  else return defaultvalues::defaultFloat;
 }
-const float reco::SkimEvent::pfType1MetJetUp() const {
+// metPfType1
+const float reco::SkimEvent::metPfType1() const {
  
- if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::METUncertainty::JetEnUp,pat::MET::METCorrectionLevel::Type1);
- //if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnUp);
+ if(pfMet_.isNonnull()) return pfMet_->pt();
  else return defaultvalues::defaultFloat;
 }
-const float reco::SkimEvent::pfType1MetJetDn() const {
+const float reco::SkimEvent::metPfType1JetEnUp() const {
+ 
+ //if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::METUncertainty::JetEnUp,pat::MET::METCorrectionLevel::Type1);
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnUp);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfType1JetEnDn() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnDown);
  else return defaultvalues::defaultFloat;
 }
-const float reco::SkimEvent::pfType1MetMuonUp() const {
+const float reco::SkimEvent::metPfType1JetResUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetResUp);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfType1JetResDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetResDown);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfType1MuonEnUp() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::MuonEnUp);
  else return defaultvalues::defaultFloat;
 }
-const float reco::SkimEvent::pfType1MetMuonDn() const {
+const float reco::SkimEvent::metPfType1MuonEnDn() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::MuonEnDown);
  else return defaultvalues::defaultFloat;
 }
-const float reco::SkimEvent::pfType1MetElecUp() const {
+const float reco::SkimEvent::metPfType1ElecEnUp() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::ElectronEnUp);
  else return defaultvalues::defaultFloat;
 }
-const float reco::SkimEvent::pfType1MetElecDn() const {
+const float reco::SkimEvent::metPfType1ElecEnDn() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::ElectronEnDown);
  else return defaultvalues::defaultFloat;
 }
+const float reco::SkimEvent::metPfType1UnclEnUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::UnclusteredEnUp);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfType1UnclEnDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::UnclusteredEnDown);
+ else return defaultvalues::defaultFloat;
+}
+// metPfRaw
+const float reco::SkimEvent::metPfRaw() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::NoShift, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawJetEnUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnUp, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawJetEnDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetEnDown, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawJetResUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetResUp, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawJetResDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::JetResDown, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawMuonEnUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::MuonEnUp, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawMuonEnDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::MuonEnDown, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawElecEnUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::ElectronEnUp, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawElecEnDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::ElectronEnDown, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawUnclEnUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::UnclusteredEnUp, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawUnclEnDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::UnclusteredEnDown, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
 
-const float reco::SkimEvent::pfRawSumEt() const {
+//
+
+const float reco::SkimEvent::metPfRawSumEt() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedSumEt(pat::MET::NoShift, pat::MET::Raw);
  else return defaultvalues::defaultFloat;
 }
 
-const float reco::SkimEvent::pfRawMet() const {
- 
- if(pfMet_.isNonnull()) return pfMet_->shiftedPt(pat::MET::NoShift, pat::MET::Raw);
- else return defaultvalues::defaultFloat;
-}
-const float reco::SkimEvent::pfRawMetPhi() const {
+const float reco::SkimEvent::metPfRawPhi() const {
  
  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::NoShift, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawPhiJetEnUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::JetEnUp, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawPhiJetEnDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::JetEnDown, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawPhiJetResUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::JetResUp, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawPhiJetResDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::JetResDown, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawPhiMuonEnUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::MuonEnUp, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawPhiMuonEnDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::MuonEnDown, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawPhiElecEnUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::ElectronEnUp, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawPhiElecEnDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::ElectronEnDown, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawPhiUnclEnUp() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::UnclusteredEnUp, pat::MET::Raw);
+ else return defaultvalues::defaultFloat;
+}
+const float reco::SkimEvent::metPfRawPhiUnclEnDn() const {
+ 
+ if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::UnclusteredEnDown, pat::MET::Raw);
  else return defaultvalues::defaultFloat;
 }
 
@@ -2943,7 +3067,7 @@ const float reco::SkimEvent::mT(size_t i, metType metToUse) const {
 const float reco::SkimEvent::met(metType metToUse) const {
  switch (metToUse) {
   case TCMET: return tcMet();
-  case PFMET: return pfRawMet();
+  case PFMET: return metPfRaw();
   case CHMET: return chargedMet();
   //case MINMET: return minMet();
  }
@@ -2956,10 +3080,60 @@ const float reco::SkimEvent::projMet(metType metToUse) const {
  else return met(metToUse);
 }
 
-const float reco::SkimEvent::projPfMet() const {
+const float reco::SkimEvent::metPfProj() const {
  float dphi = dPhilPfMet();
- if(dphi < M_PI/2.) return pfRawMet()*sin(dphi);
- else return pfRawMet();
+ if(dphi < M_PI/2.) return metPfRaw()*sin(dphi);
+ else return metPfRaw();
+}
+const float reco::SkimEvent::metPfProjJetEnUp() const {
+ float dphi = dPhilPfMetJetEnUp();
+ if(dphi < M_PI/2.) return metPfRawJetEnUp()*sin(dphi);
+ else return metPfRawJetEnUp();
+}
+const float reco::SkimEvent::metPfProjJetEnDn() const {
+ float dphi = dPhilPfMetJetEnDn();
+ if(dphi < M_PI/2.) return metPfRawJetEnDn()*sin(dphi);
+ else return metPfRawJetEnDn();
+}
+const float reco::SkimEvent::metPfProjJetResUp() const {
+ float dphi = dPhilPfMetJetResUp();
+ if(dphi < M_PI/2.) return metPfRawJetResUp()*sin(dphi);
+ else return metPfRawJetResUp();
+}
+const float reco::SkimEvent::metPfProjJetResDn() const {
+ float dphi = dPhilPfMetJetResDn();
+ if(dphi < M_PI/2.) return metPfRawJetResDn()*sin(dphi);
+ else return metPfRawJetResDn();
+}
+const float reco::SkimEvent::metPfProjMuonEnUp() const {
+ float dphi = dPhilPfMetMuonEnUp();
+ if(dphi < M_PI/2.) return metPfRawMuonEnUp()*sin(dphi);
+ else return metPfRawMuonEnUp();
+}
+const float reco::SkimEvent::metPfProjMuonEnDn() const {
+ float dphi = dPhilPfMetMuonEnDn();
+ if(dphi < M_PI/2.) return metPfRawMuonEnDn()*sin(dphi);
+ else return metPfRawMuonEnDn();
+}
+const float reco::SkimEvent::metPfProjElecEnUp() const {
+ float dphi = dPhilPfMetElecEnUp();
+ if(dphi < M_PI/2.) return metPfRawElecEnUp()*sin(dphi);
+ else return metPfRawElecEnUp();
+}
+const float reco::SkimEvent::metPfProjElecEnDn() const {
+ float dphi = dPhilPfMetElecEnDn();
+ if(dphi < M_PI/2.) return metPfRawElecEnDn()*sin(dphi);
+ else return metPfRawElecEnDn();
+}
+const float reco::SkimEvent::metPfProjUnclEnUp() const {
+ float dphi = dPhilPfMetUnclEnUp();
+ if(dphi < M_PI/2.) return metPfRawUnclEnUp()*sin(dphi);
+ else return metPfRawUnclEnUp();
+}
+const float reco::SkimEvent::metPfProjUnclEnDn() const {
+ float dphi = dPhilPfMetUnclEnDn();
+ if(dphi < M_PI/2.) return metPfRawUnclEnDn()*sin(dphi);
+ else return metPfRawUnclEnDn();
 }
 
 const float reco::SkimEvent::projMvaMet() const {
@@ -3022,6 +3196,86 @@ const float reco::SkimEvent::dPhilPfMet() const {
  }
  return smallestDphi;
 }
+const float reco::SkimEvent::dPhilPfMetJetEnUp() const {
+ float smallestDphi = 9999.;
+ for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+  float dphi = dPhilPfMetJetEnUp(l);
+  if( dphi < smallestDphi) smallestDphi = dphi;
+ }
+ return smallestDphi;
+}
+const float reco::SkimEvent::dPhilPfMetJetEnDn() const {
+ float smallestDphi = 9999.;
+ for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+  float dphi = dPhilPfMetJetEnDn(l);
+  if( dphi < smallestDphi) smallestDphi = dphi;
+ }
+ return smallestDphi;
+}
+const float reco::SkimEvent::dPhilPfMetJetResUp() const {
+ float smallestDphi = 9999.;
+ for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+  float dphi = dPhilPfMetJetResUp(l);
+  if( dphi < smallestDphi) smallestDphi = dphi;
+ }
+ return smallestDphi;
+}
+const float reco::SkimEvent::dPhilPfMetJetResDn() const {
+ float smallestDphi = 9999.;
+ for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+  float dphi = dPhilPfMetJetResDn(l);
+  if( dphi < smallestDphi) smallestDphi = dphi;
+ }
+ return smallestDphi;
+}
+const float reco::SkimEvent::dPhilPfMetMuonEnUp() const {
+ float smallestDphi = 9999.;
+ for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+  float dphi = dPhilPfMetMuonEnUp(l);
+  if( dphi < smallestDphi) smallestDphi = dphi;
+ }
+ return smallestDphi;
+}
+const float reco::SkimEvent::dPhilPfMetMuonEnDn() const {
+ float smallestDphi = 9999.;
+ for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+  float dphi = dPhilPfMetMuonEnDn(l);
+  if( dphi < smallestDphi) smallestDphi = dphi;
+ }
+ return smallestDphi;
+}
+const float reco::SkimEvent::dPhilPfMetElecEnUp() const {
+ float smallestDphi = 9999.;
+ for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+  float dphi = dPhilPfMetElecEnUp(l);
+  if( dphi < smallestDphi) smallestDphi = dphi;
+ }
+ return smallestDphi;
+}
+const float reco::SkimEvent::dPhilPfMetElecEnDn() const {
+ float smallestDphi = 9999.;
+ for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+  float dphi = dPhilPfMetElecEnDn(l);
+  if( dphi < smallestDphi) smallestDphi = dphi;
+ }
+ return smallestDphi;
+}
+const float reco::SkimEvent::dPhilPfMetUnclEnUp() const {
+ float smallestDphi = 9999.;
+ for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+  float dphi = dPhilPfMetUnclEnUp(l);
+  if( dphi < smallestDphi) smallestDphi = dphi;
+ }
+ return smallestDphi;
+}
+const float reco::SkimEvent::dPhilPfMetUnclEnDn() const {
+ float smallestDphi = 9999.;
+ for(size_t l=0; l<std::min((uint) 2,(uint) leps_.size());++l){
+  float dphi = dPhilPfMetUnclEnDn(l);
+  if( dphi < smallestDphi) smallestDphi = dphi;
+ }
+ return smallestDphi;
+}
 
 const float reco::SkimEvent::dPhilMvaMet() const {
  float smallestDphi = 9999.;
@@ -3080,6 +3334,46 @@ const float reco::SkimEvent::dPhilTcMet(size_t i) const {
 const float reco::SkimEvent::dPhilPfMet(size_t i) const {
  if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
  return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::NoShift, pat::MET::Raw),leps_[i]->p4()) );
+}
+const float reco::SkimEvent::dPhilPfMetJetEnUp(size_t i) const {
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
+ return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::JetEnUp, pat::MET::Raw),leps_[i]->p4()) );
+}
+const float reco::SkimEvent::dPhilPfMetJetEnDn(size_t i) const {
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
+ return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::JetEnDown, pat::MET::Raw),leps_[i]->p4()) );
+}
+const float reco::SkimEvent::dPhilPfMetJetResUp(size_t i) const {
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
+ return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::JetResUp, pat::MET::Raw),leps_[i]->p4()) );
+}
+const float reco::SkimEvent::dPhilPfMetJetResDn(size_t i) const {
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
+ return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::JetResDown, pat::MET::Raw),leps_[i]->p4()) );
+}
+const float reco::SkimEvent::dPhilPfMetMuonEnUp(size_t i) const {
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
+ return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::MuonEnUp, pat::MET::Raw),leps_[i]->p4()) );
+}
+const float reco::SkimEvent::dPhilPfMetMuonEnDn(size_t i) const {
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
+ return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::MuonEnDown, pat::MET::Raw),leps_[i]->p4()) );
+}
+const float reco::SkimEvent::dPhilPfMetElecEnUp(size_t i) const {
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
+ return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::ElectronEnUp, pat::MET::Raw),leps_[i]->p4()) );
+}
+const float reco::SkimEvent::dPhilPfMetElecEnDn(size_t i) const {
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
+ return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::ElectronEnDown, pat::MET::Raw),leps_[i]->p4()) );
+}
+const float reco::SkimEvent::dPhilPfMetUnclEnUp(size_t i) const {
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
+ return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::UnclusteredEnUp, pat::MET::Raw),leps_[i]->p4()) );
+}
+const float reco::SkimEvent::dPhilPfMetUnclEnDn(size_t i) const {
+ if( i >= std::min((uint) 2,(uint) leps_.size()) ) return defaultvalues::defaultFloat;
+ return fabs(ROOT::Math::VectorUtil::DeltaPhi(pfMet_->shiftedP4(pat::MET::UnclusteredEnDown, pat::MET::Raw),leps_[i]->p4()) );
 }
 
 const float reco::SkimEvent::dPhilMvaMet(size_t i) const {
