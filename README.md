@@ -91,11 +91,20 @@ Phys14:
                     globalTag=76X_mcRun2_asymptotic_v12 \
                     inputFiles=file:/tmp/amassiro/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root
 
+    
+    
     cmsRun weightDumper.py \
                     outputFile=weight_MC_ggHww.root \
                     inputFiles=file:/tmp/amassiro/C0BA7EF2-E898-E511-8B13-0CC47A4C8F26.root
 
 
+    python cmssw2latino.py stepB_MC_numEvent200.root
+    gardener.py  l2selfiller \
+                latino_stepB_MC_numEvent200.root \
+                /tmp/amassiro/latino_WWTo2L2Nu.root
+                
+                
+                
                     
     scp amassiro@cmsneu:/data/amassiro/CMSSWRoot/Phys14/miniAOD/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/C667E84D-9D18-E411-99D8-02163E00ECE6.root  /tmp/amassiro/
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    08CFEF83-586C-E411-8D7C-002590A2CCF2.root
