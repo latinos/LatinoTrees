@@ -461,6 +461,10 @@ else:
 
 ####################
 # run electron id ##
+# see twiki:
+#    https://twiki.cern.ch/twiki/bin/view/CMS/EgammaIDRecipesRun2
+# 
+#
 from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
 dataFormat = DataFormat.MiniAOD
 switchOnVIDElectronIdProducer(process, dataFormat)
@@ -506,8 +510,11 @@ for idmod in my_id_modules:
 
 ####################
 
-
-
+#
+# These selections are used to define the collection
+# of leptons and are defined in 
+# python/skimEventProducer_cfi.py
+#
 
 if options.selection == 'Tight':
     labelSetup = "TreeProducer"; muon = "slimmedMuons"; ele = "slimmedElectrons"; softmu = "slimmedMuons"; pho = "slimmedPhotons"; preSeq = cms.Sequence();

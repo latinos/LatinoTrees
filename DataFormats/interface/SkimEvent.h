@@ -213,6 +213,9 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
             //Jet variables
             const size_t indexJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID) const;
+            const size_t indexJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID,float dzCut) const;
+            const size_t indexSecondJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID) const;
+             
             const math::XYZTLorentzVector jet(size_t index, float minPt,float eta,int applyCorrection,int applyID) const;
             const int   nJets(float pt , int applyCorrection , int applyID) const;
             const int   nCentralJets(float pt , float eta,int applyCorrection=true, int applyID=0) const;

@@ -570,6 +570,100 @@ void reco::SkimEvent::setGenInfo(const edm::Handle<GenEventInfoProduct> &GenInfo
 
 
 
+/** Indexing: leptons, jets, second jet collection, ...
+ */
+
+const size_t reco::SkimEvent::indexJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ if( i >= jets_.size() ) return 9999; //--> big number then it will fail other tests later! good! -> we will ever have 9999 jets in an event !?!?!
+ //----                 NB: "9999" is used in other places, DO NOT change this number unless you propagate the changes everywhere
+ std::vector<indexValueStruct> a;
+ 
+ for(size_t j=0;j<jets_.size();++j) {
+  if(!(passJetID(jets_[j],applyID)) ) continue;
+  if( std::fabs(jets_[j]->eta()) >= eta) continue;
+  if( jetPt(j,applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(jets_[j])) continue;
+  a.push_back(indexValueStruct(jets_[j]->pt(),j));
+ }
+ 
+ std::sort(a.begin(),a.end(),highToLow);
+ 
+ if( i < a.size() ) return a[i].index;
+ else  return 9999;
+}
+
+
+const size_t reco::SkimEvent::indexJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
+ 
+ if( i >= jets_.size() ) return 9999; //--> big number then it will fail other tests later! good!
+ std::vector<indexValueStruct> a;
+ 
+ for(size_t j=0;j<jets_.size();++j) {
+  if(!(passJetID(jets_[j],applyID)) ) continue;
+  if( std::fabs(jets_[j]->eta()) >= eta) continue;
+  if( jetPt(j,applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(jets_[j])) continue;
+  if(jets_[j]->hasUserFloat("dz") && fabs(jets_[j]->userFloat("dz")) > dzCut) continue;
+  a.push_back(indexValueStruct(jets_[j]->pt(),j));
+ }
+ 
+ std::sort(a.begin(),a.end(),highToLow);
+ 
+ if( i < a.size() ) return a[i].index;
+ else  return 9999;
+}
+
+
+
+
+const size_t reco::SkimEvent::indexSecondJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID) const {
+ 
+ if( i >= secondJets_.size() ) return 9999; //--> big number then it will fail other tests later! good!
+ std::vector<indexValueStruct> a;
+ 
+ for(size_t j=0;j<secondJets_.size();++j) {
+  if(!(passJetID(secondJets_[j],applyID)) ) continue;
+  if( std::fabs(secondJets_[j]->eta()) >= eta) continue;
+  if( secondJetPt(j,applyCorrection) <= minPt) continue;
+  if(isThisJetALepton(secondJets_[j])) continue;
+  a.push_back(indexValueStruct(secondJets_[j]->pt(),j));
+ }
+ 
+ std::sort(a.begin(),a.end(),highToLow);
+ 
+ if( i < a.size() ) return a[i].index;
+ else  return 9999;
+}
+
+
+
+const size_t reco::SkimEvent::indexByPt(size_t i) const {
+ 
+ if( i >= leps_.size() ) return 9999; //--> big number then it will fail other tests later! good!
+ std::vector<indexValueStruct> a;
+ 
+ for(size_t j=0;j<leps_.size();++j) a.push_back(indexValueStruct(pt(j),j));
+ std::sort(a.begin(),a.end(),highToLow);
+ 
+ return a[i].index;
+}
+
+const size_t reco::SkimEvent::indexByIso(size_t i) const {
+ 
+ if( i >= leps_.size() ) return 9999;
+ std::vector<indexValueStruct> a;
+ 
+ for(size_t j=0;j<leps_.size();++j) a.push_back(indexValueStruct(allIso(j),j));
+ std::sort(a.begin(),a.end(),lowToHigh);
+ 
+ return a[i].index;
+}
+
+
+
+
+
 //Lepton variables
 
 const int reco::SkimEvent::nLep(float minPt) const {
@@ -618,43 +712,37 @@ const float reco::SkimEvent::jetSoftMuonPtByPt(size_t i = 0) const {
 
 const float reco::SkimEvent::jetSoftMuonPt(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
+ }
+ else { 
   //---- now check for the closest muon
-  if(++count > index) {
-   float minDR = 9999999.9;
-   int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-//      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet && dR < minDR) {
-       minDR = dR;
-       nMu = iMu;
-      }
+  float minDR = 9999999.9;
+  int nMu = -1;
+  for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+   //---- check if it is really a soft-muon
+   //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+    //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+    float muonPt = softMuons_[iMu]->pt();
+    if (muonPt >= minPtMuon) {
+     double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[index_jet_ordered]->p4()) );
+     if(dR < maxDrMuonJet && dR < minDR) {
+      minDR = dR;
+      nMu = iMu;
      }
     }
    }
-   if (nMu != -1) {
-    return softMuons_[nMu]->pt();
-   }
   }
-  
+  if (nMu != -1) {
+   return softMuons_[nMu]->pt();
+  }
+  else return defaultvalues::defaultFloat;
  }
- return defaultvalues::defaultFloat;
- 
+  
 }
-
+ 
 
 const float reco::SkimEvent::jetSoftMuonEtaByPt(size_t i = 0) const {
  return jetSoftMuonEta(i,_minPtSoftMuon, _maxDrSoftMuonJet, minPtForJets_, maxEtaForJets_, applyCorrectionForJets_, applyIDForJets_); 
@@ -662,40 +750,34 @@ const float reco::SkimEvent::jetSoftMuonEtaByPt(size_t i = 0) const {
 
 const float reco::SkimEvent::jetSoftMuonEta(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
+ }
+ else { 
   //---- now check for the closest muon
-  if(++count > index) {
-   float minDR = 9999999.9;
-   int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet && dR < minDR) {
-       minDR = dR;
-       nMu = iMu;
-      }
+  float minDR = 9999999.9;
+  int nMu = -1;
+  for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+   //---- check if it is really a soft-muon
+   //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+    //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+    float muonPt = softMuons_[iMu]->pt();
+    if (muonPt >= minPtMuon) {
+     double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[index_jet_ordered]->p4()) );
+     if(dR < maxDrMuonJet && dR < minDR) {
+      minDR = dR;
+      nMu = iMu;
      }
     }
    }
-   if (nMu != -1) {
-    return softMuons_[nMu]->eta();
-   }
   }
-  
+  if (nMu != -1) {
+   return softMuons_[nMu]->eta();
+  }
+  else return defaultvalues::defaultFloat;
  }
- return defaultvalues::defaultFloat;
  
 }
 
@@ -706,40 +788,34 @@ const float reco::SkimEvent::jetSoftMuonPhiByPt(size_t i = 0) const {
 
 const float reco::SkimEvent::jetSoftMuonPhi(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
+ }
+ else { 
   //---- now check for the closest muon
-  if(++count > index) {
-   float minDR = 9999999.9;
-   int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet && dR < minDR) {
-       minDR = dR;
-       nMu = iMu;
-      }
+  float minDR = 9999999.9;
+  int nMu = -1;
+  for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+   //---- check if it is really a soft-muon
+   //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+    //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+    float muonPt = softMuons_[iMu]->pt();
+    if (muonPt >= minPtMuon) {
+     double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[index_jet_ordered]->p4()) );
+     if(dR < maxDrMuonJet && dR < minDR) {
+      minDR = dR;
+      nMu = iMu;
      }
     }
    }
-   if (nMu != -1) {
-    return softMuons_[nMu]->phi();
-   }
   }
-  
+  if (nMu != -1) {
+   return softMuons_[nMu]->phi();
+  }
+  else return defaultvalues::defaultFloat;
  }
- return defaultvalues::defaultFloat;
  
 }
 
@@ -750,42 +826,36 @@ const float reco::SkimEvent::jetSoftMuonIsoByPt(size_t i = 0) const {
 
 const float reco::SkimEvent::jetSoftMuonIso(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
+ }
+ else { 
   //---- now check for the closest muon
-  if(++count > index) {
-   float minDR = 9999999.9;
-   int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet && dR < minDR) {
-       minDR = dR;
-       nMu = iMu;
-      }
+  float minDR = 9999999.9;
+  int nMu = -1;
+  for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+   //---- check if it is really a soft-muon
+   //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+    //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+    float muonPt = softMuons_[iMu]->pt();
+    if (muonPt >= minPtMuon) {
+     double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[index_jet_ordered]->p4()) );
+     if(dR < maxDrMuonJet && dR < minDR) {
+      minDR = dR;
+      nMu = iMu;
      }
     }
    }
-   if (nMu != -1) {
-    //---- isolation
-    return ((getMuon(softMuons_[nMu])->pfIsolationR04().sumChargedHadronPt+std::max(0.,getMuon(softMuons_[nMu])->pfIsolationR04().sumNeutralHadronEt+getMuon(softMuons_[nMu])->pfIsolationR04().sumPhotonEt-0.50*getMuon(softMuons_[nMu])->pfIsolationR04().sumPUPt))/getMuon(softMuons_[nMu])->pt());
-   }
   }
-  
+  if (nMu != -1) {
+   //---- isolation
+   return ((getMuon(softMuons_[nMu])->pfIsolationR04().sumChargedHadronPt+std::max(0.,getMuon(softMuons_[nMu])->pfIsolationR04().sumNeutralHadronEt+getMuon(softMuons_[nMu])->pfIsolationR04().sumPhotonEt-0.50*getMuon(softMuons_[nMu])->pfIsolationR04().sumPUPt))/getMuon(softMuons_[nMu])->pt());
+  }
+  else return defaultvalues::defaultFloat;
  }
- return defaultvalues::defaultFloat;
- 
+
 }
 
 
@@ -795,42 +865,37 @@ const float reco::SkimEvent::jetSoftMuonD0ByPt(size_t i = 0) const {
 
 const float reco::SkimEvent::jetSoftMuonD0(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
+ }
+ else { 
   //---- now check for the closest muon
-  if(++count > index) {
-   float minDR = 9999999.9;
-   int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet && dR < minDR) {
-       minDR = dR;
-       nMu = iMu;
-      }
+  float minDR = 9999999.9;
+  int nMu = -1;
+  for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+   //---- check if it is really a soft-muon
+   //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+    //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+    float muonPt = softMuons_[iMu]->pt();
+    if (muonPt >= minPtMuon) {
+     double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[index_jet_ordered]->p4()) );
+     if(dR < maxDrMuonJet && dR < minDR) {
+      minDR = dR;
+      nMu = iMu;
      }
     }
    }
-   if (nMu != -1) {
-    //---- d0
-    const reco::Vertex primaryVtx = highestPtVtx();
-    return (getMuon(softMuons_[nMu]))->muonBestTrack()->dxy(primaryVtx.position()); 
-   }
   }
-  
+  if (nMu != -1) {
+   //---- d0
+   const reco::Vertex primaryVtx = highestPtVtx();
+   return (getMuon(softMuons_[nMu]))->muonBestTrack()->dxy(primaryVtx.position()); 
+  }
+  else return defaultvalues::defaultFloat;
  }
- return defaultvalues::defaultFloat;
+ 
 }
 
 
@@ -840,42 +905,37 @@ const float reco::SkimEvent::jetSoftMuonDzByPt(size_t i = 0) const {
 
 const float reco::SkimEvent::jetSoftMuonDz(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
+ }
+ else { 
   //---- now check for the closest muon
-  if(++count > index) {
-   float minDR = 9999999.9;
-   int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-     //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet && dR < minDR) {
-       minDR = dR;
-       nMu = iMu;
-      }
+  float minDR = 9999999.9;
+  int nMu = -1;
+  for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+   //---- check if it is really a soft-muon
+   //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+    //      if (muon::isSoftMuon(static_cast<const pat::Muon*>(softMuons_[iMu].get()), highestPtVtx())) {
+    float muonPt = softMuons_[iMu]->pt();
+    if (muonPt >= minPtMuon) {
+     double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[index_jet_ordered]->p4()) );
+     if(dR < maxDrMuonJet && dR < minDR) {
+      minDR = dR;
+      nMu = iMu;
      }
     }
    }
-   if (nMu != -1) {
-    //---- dz
-    const reco::Vertex primaryVtx = highestPtVtx();
-    return (getMuon(softMuons_[nMu]))->muonBestTrack()->dz(primaryVtx.position()); 
-   }
   }
-  
+  if (nMu != -1) {
+   //---- dz
+   const reco::Vertex primaryVtx = highestPtVtx();
+   return (getMuon(softMuons_[nMu]))->muonBestTrack()->dz(primaryVtx.position()); 
+  }
+  else return defaultvalues::defaultFloat;
  }
- return defaultvalues::defaultFloat;
+ 
 }
 
 
@@ -887,38 +947,29 @@ const float reco::SkimEvent::jetSoftMuonCountingByPt(size_t i = 0) const {
 
 const float reco::SkimEvent::jetSoftMuonCounting(size_t index, float minPtMuon, float maxDrMuonJet, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  //---- get the correct jet index ...
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;  
-  if(isThisJetALepton(jets_[i])) continue;
-  
-  //---- now check all the soft muons that are close to the jet
-  if(++count > index) {
-   int numberOfMuons = 0;
-//    int nMu = -1;
-   for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
-    //---- check if it is really a soft-muon
-    //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
-    if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
-     float muonPt = softMuons_[iMu]->pt();
-     if (muonPt >= minPtMuon) {
-      double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[i]->p4()) );
-      if(dR < maxDrMuonJet) {
-       numberOfMuons++;
-      }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
+ }
+ else { 
+  int numberOfMuons = 0;
+  //    int nMu = -1;
+  for (size_t iMu=0; iMu<softMuons_.size(); iMu++) {
+   //---- check if it is really a soft-muon
+   //---- see https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonId2015
+   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[iMu].get())), highestPtVtx())) {
+    float muonPt = softMuons_[iMu]->pt();
+    if (muonPt >= minPtMuon) {
+     double dR = fabs(ROOT::Math::VectorUtil::DeltaR(softMuons_[iMu]->p4(),jets_[index_jet_ordered]->p4()) );
+     if (dR < maxDrMuonJet) {
+      numberOfMuons++;
      }
     }
    }
-
-   return 1. * numberOfMuons;
   }
-  
+  return 1. * numberOfMuons;
  }
- return defaultvalues::defaultFloat;
- 
+  
 }
 
 
@@ -1460,42 +1511,29 @@ const math::XYZTLorentzVector reco::SkimEvent::jet(size_t index, float minPt,flo
 
 const pat::Jet* reco::SkimEvent::leadingJet(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i].get();
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return new pat::Jet();
  }
- return new pat::Jet();
+ else {
+  return jets_[index_jet_ordered].get();
+ }
+ 
 }
 
 
 
 const float reco::SkimEvent::leadingJetPUid(size_t index, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-  if(++count > index) {
-//    std::cout << " jets_[" << i << "]->userFloat(pileupJetId:fullDiscriminant) = " << jets_[i]->userFloat("pileupJetId:fullDiscriminant") << std::endl;
-//    if (jets_[i]->userFloat("pileupJetId:fullDiscriminant") ) return jets_[i]->userFloat("pileupJetId:fullDiscriminant");
-//    if (jets_[i]->userFloat("pileupJetIdEvaluator:fullDiscriminant") ) return jets_[i]->userFloat("pileupJetIdEvaluator:fullDiscriminant");  
-//    if (jets_[i]->userFloat("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant") ) return jets_[i]->userFloat("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant");  
-   if (jets_[i]->userFloat(_name_puJetIdDiscriminant) ) return jets_[i]->userFloat(_name_puJetIdDiscriminant);  
-   
-   else return defaultvalues::defaultFloat;
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID, dzCut);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return defaultvalues::defaultFloat;
- 
+ else {
+  if (jets_[index_jet_ordered]->userFloat(_name_puJetIdDiscriminant) ) return jets_[index_jet_ordered]->userFloat(_name_puJetIdDiscriminant); 
+  else return defaultvalues::defaultFloat;  
+ }
+
 }
 
 
@@ -1506,20 +1544,13 @@ const float reco::SkimEvent::leadingJetPUid(size_t index) const {
 
 const float reco::SkimEvent::leadingJetPartonFlavour(size_t index, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-  if(++count > index) {
-//    std::cout << " partonFlavour = " << jets_[i]->partonFlavour() << " , hadronFlavour = " << jets_[i]->hadronFlavour() << std::endl;
-   return jets_[i]->partonFlavour();
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID, dzCut);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->partonFlavour();
+ }
  
 }
 
@@ -1531,21 +1562,16 @@ const float reco::SkimEvent::leadingJetPartonFlavour(size_t index) const {
 
 const float reco::SkimEvent::leadingJetHadronFlavour(size_t index, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-  if(++count > index) return jets_[i]->hadronFlavour();
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID, dzCut);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->hadronFlavour();
+ }
  
 }
-
-
+ 
 const float reco::SkimEvent::leadingJetHadronFlavour(size_t index) const { 
  return leadingJetHadronFlavour(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
 }
@@ -1554,18 +1580,13 @@ const float reco::SkimEvent::leadingJetHadronFlavour(size_t index) const {
 
 const float reco::SkimEvent::leadingJetBtag(size_t index, std::string discriminator, float minPt,float eta,int applyCorrection,int applyID, float dzCut) const {
 
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if( !(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(jets_[i]->hasUserFloat("dz") && fabs(jets_[i]->userFloat("dz")) > dzCut) continue;
-  if(++count > index) return jets_[i]->bDiscriminator(discriminator);
-  
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID, dzCut);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->bDiscriminator(discriminator);
+ }
  
 }
 
@@ -1573,80 +1594,67 @@ const float reco::SkimEvent::leadingJetBtag(size_t index, std::string discrimina
 
 const int reco::SkimEvent::leadingJetId(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->userInt("jetId");
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->userInt("jetId");
+ }
+ 
 }
-
+ 
 const float reco::SkimEvent::leadingJetMva(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->userFloat("jetMva");
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->userFloat("jetMva");
+ }
+ 
 }
-
 
 
 const float reco::SkimEvent::leadingSecondJetPt(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<secondJets_.size();++i) {
-  if(!(passJetID(secondJets_[i],applyID)) ) continue;
-  if( std::fabs(secondJets_[i]->eta()) >= eta) continue;
-  if( secondJetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(secondJets_[i])) continue;
-  if(++count > index) return secondJetPt(i,applyCorrection);
+ unsigned int index_jet_ordered = indexSecondJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return secondJetPt(index_jet_ordered,applyCorrection);
+ }
+
 }
 
 
 
 const float reco::SkimEvent::leadingSecondJetEta(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<secondJets_.size();++i) {
-  if(!(passJetID(secondJets_[i],applyID)) ) continue;
-  if( std::fabs(secondJets_[i]->eta()) >= eta) continue;
-  if( secondJetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(secondJets_[i])) continue;
-  if(++count > index) return secondJets_[i]->eta();
+ unsigned int index_jet_ordered = indexSecondJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return secondJets_[index_jet_ordered]->eta();
+ }
+ 
 }
 
 
 const float reco::SkimEvent::leadingSecondJetPhi(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<secondJets_.size();++i) {
-  if(!(passJetID(secondJets_[i],applyID)) ) continue;
-  if( std::fabs(secondJets_[i]->eta()) >= eta) continue;
-  if( secondJetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(secondJets_[i])) continue;
-  if(++count > index) return secondJets_[i]->phi();
+ unsigned int index_jet_ordered = indexSecondJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return secondJets_[index_jet_ordered]->phi();
+ }
+
 }
-
-
 
 
 const float reco::SkimEvent::leadingSecondJetPt(size_t index) const {
@@ -1681,82 +1689,65 @@ const float reco::SkimEvent::leadingJetMass(size_t index) const {
 
 
 const float reco::SkimEvent::leadingJetPt(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-//   std::cout << " >> jets_[" << i << "]->pt() = " << jets_[i]->pt() << " > " << minPt << std::endl;
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-//   std::cout << " >> jets_[" << i << "]->eta() = " << jets_[i]->eta() << " < " << eta << std::endl;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-//   std::cout << " >> isThisJetALepton(jets_[i]) = " << isThisJetALepton(jets_[i]) << std::endl;
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jetPt(i,applyCorrection);
+ 
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jetPt(index_jet_ordered,applyCorrection);
+ }
+ 
 }
 
 
 const float reco::SkimEvent::leadingJetMass(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->mass();
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->mass();
+ }
  
 }
 
 
 const float reco::SkimEvent::leadingJetPhi(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->phi();
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->phi();
+ }
  
 }
 
 const float reco::SkimEvent::leadingJetEta(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->eta();
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->eta();
+ }
  
 }
 
 
 const float reco::SkimEvent::leadingJetPtd(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   return jets_[i]->userFloat("ptd");
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->userFloat("ptd");
+ }
  
 }
 
@@ -1764,73 +1755,53 @@ const float reco::SkimEvent::leadingJetPtd(size_t index, float minPt,float eta,i
 
 const float reco::SkimEvent::leadingJetNChgQC(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   return jets_[i]->userFloat("nChgQC");
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->userFloat("nChgQC");
+ }
  
 }
 
 
 const float reco::SkimEvent::leadingJetNChgptCut(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   return jets_[i]->userFloat("nChgptCut");
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->userFloat("nChgptCut");
+ }
  
 }
 
 
 const float reco::SkimEvent::leadingJetNNeutralptCut(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   return jets_[i]->userFloat("nNeutralptCut");
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->userFloat("nNeutralptCut");
+ }
  
 }
 
 
 const float reco::SkimEvent::leadingJetPtD(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QCptD");
-   else return jets_[i]->userFloat("ptD");
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  if (QualityCut == 1) return jets_[index_jet_ordered]->userFloat("QCptD");
+  else                 return jets_[index_jet_ordered]->userFloat("ptD"); 
+ }
  
 }
 
@@ -1869,76 +1840,56 @@ const float reco::SkimEvent::leadingJetQGlikelihood(size_t index) const {
 
 const float reco::SkimEvent::leadingJetQGRmax(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QGTaggerAK4PFCHS:QCRmax");
-   else return jets_[i]->userFloat("QGTaggerAK4PFCHS:Rmax");
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
- 
+ else {
+  if (QualityCut == 1) return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:QCRmax");
+  else                 return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:Rmax"); 
+ }
+
 }
 
 
 const float reco::SkimEvent::leadingJetQGRMScand(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QGTaggerAK4PFCHS:QCRMScand");
-   else return jets_[i]->userFloat("QGTaggerAK4PFCHS:RMScand");
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
- 
+ else {
+  if (QualityCut == 1) return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:QCRMScand");
+  else                 return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:RMScand"); 
+ }
+
 }
 
 
 const float reco::SkimEvent::leadingJetQGaxis1(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QGTaggerAK4PFCHS:QCaxis1");
-   else return jets_[i]->userFloat("QGTaggerAK4PFCHS:axis1");
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  if (QualityCut == 1) return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:QCaxis1");
+  else                 return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:axis1"); 
+ }
  
 }
 
 
 const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   if (QualityCut == 1) return jets_[i]->userFloat("QGTaggerAK4PFCHS:QCaxis2");
-   else return jets_[i]->userFloat("QGTaggerAK4PFCHS:axis2");
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  if (QualityCut == 1) return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:QCaxis2");
+  else                 return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:axis2"); 
+ }
  
 }
 
@@ -1946,18 +1897,13 @@ const float reco::SkimEvent::leadingJetQGaxis2(size_t index, float minPt,float e
 
 const float reco::SkimEvent::leadingJetQGlikelihood(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) {
-   return jets_[i]->userFloat("QGTaggerAK4PFCHS:qgLikelihood");
-  }
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:qgLikelihood");
+ }
  
 }
 
@@ -1968,46 +1914,37 @@ const float reco::SkimEvent::leadingJetQGlikelihood(size_t index, float minPt,fl
 
 const float reco::SkimEvent::leadingJetChargedHadronMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->chargedHadronMultiplicity();
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->chargedHadronMultiplicity();
+ }
  
 }
 
 const float reco::SkimEvent::leadingJetNeutralHadronMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->neutralHadronMultiplicity();
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->neutralHadronMultiplicity();
+ }
  
 }
 
 const float reco::SkimEvent::leadingJetPhotonMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
  
- size_t count = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
-  if( jetPt(i,applyCorrection) <= minPt) continue;
-  
-  if(isThisJetALepton(jets_[i])) continue;
-  if(++count > index) return jets_[i]->photonMultiplicity();
+ unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+ if (index_jet_ordered >= jets_.size()) {
+  return defaultvalues::defaultFloat;
  }
- return -9999.9;
+ else {
+  return jets_[index_jet_ordered]->photonMultiplicity();
+ }
  
 }
 
@@ -2144,13 +2081,13 @@ const int reco::SkimEvent::nCentralJets(float minPt,float eta,int applyCorrectio
 }
 
 const bool reco::SkimEvent::passesDPhillJet(float ptMin, float eta,int applyCorrection,int applyID) const {
- if(leps_.size() < 2) return defaultvalues::defaultFloat;   
+ if (leps_.size() < 2) return defaultvalues::defaultFloat;   
  float dphi = 0, ptMax = 0;
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= eta) continue;
+ for (size_t i=0;i<jets_.size();++i) {
+  if (!(passJetID(jets_[i],applyID)) ) continue;
+  if ( std::fabs(jets_[i]->eta()) >= eta) continue;
   
-  if(isThisJetALepton(jets_[i])) continue;
+  if (isThisJetALepton(jets_[i])) continue;
   float pt = jetPt(i,applyCorrection);
   if (pt > ptMax) {
    ptMax = pt;
@@ -2195,10 +2132,10 @@ const float reco::SkimEvent::leadingJetCloseLeptonPt(size_t ilepton, float ptmin
   float minDR = 9999999.9;
   int numJet = -1;
   
- for(size_t i=0;i<jets_.size();++i) {
-  if(!(passJetID(jets_[i],applyID)) ) continue;
-  if( std::fabs(jets_[i]->eta()) >= etamaxjet) continue;
-  if( jetPt(i,applyCorrection) <= ptminjet) continue;
+ for (size_t i=0;i<jets_.size();++i) {
+  if (!(passJetID(jets_[i],applyID)) ) continue;
+  if ( std::fabs(jets_[i]->eta()) >= etamaxjet) continue;
+  if ( jetPt(i,applyCorrection) <= ptminjet) continue;
   
   //---- save the first jet closest to the lepton
   double dR = fabs(ROOT::Math::VectorUtil::DeltaR(leps_[ilepton]->p4(),jets_[i]->p4()) );
@@ -2344,24 +2281,6 @@ const float reco::SkimEvent::leadingJetCloseLeptonDR(size_t ilepton, float ptmin
 }
 
 
-
-
-
-
-
-// const int reco::SkimEvent::leadingJetIndex(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
-//   
-//     size_t count = 0;
-//     for(size_t i=0;i<jets_.size();++i) {
-//       if(!(passJetID(jets_[i],applyID)) ) continue;
-//       if( std::fabs(jets_[i]->eta()) >= eta) continue;
-//       if( jetPt(i,applyCorrection) <= minPt) continue;
-// 
-//       if(isThisJetALepton(jets_[i])) continue;
-//       if(++count > index) return i;
-//     }
-//     return -1;
-// }
 
 const float reco::SkimEvent::dPhilljetjet(float eta,int applyCorrection,int applyID) const {
  if(leps_.size() < 2) return defaultvalues::defaultFloat;
@@ -2601,6 +2520,7 @@ const float reco::SkimEvent::leadingFatJetPrunedTau4(float minPt,float eta,int a
  return -9999.9;
 }
 
+
 // Track jet variables
 float reco::SkimEvent::sumHtTrackJets() const {
     float sumHt=0;
@@ -2692,6 +2612,8 @@ float reco::SkimEvent::trackJetPhi(size_t i) const {
     else 
         return defaultvalues::defaultFloat;
 }
+
+
 
 //Event variables
 
@@ -3914,48 +3836,10 @@ const float reco::SkimEvent::allVeto(size_t i) const {
 }
 
 
-const size_t reco::SkimEvent::indexJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID) const {
- 
- if( i >= jets_.size() ) return 9999; //--> big number then it will fail other tests later! good!
- std::vector<indexValueStruct> a;
- 
- for(size_t j=0;j<jets_.size();++j) {
-  if(!(passJetID(jets_[j],applyID)) ) continue;
-  if( std::fabs(jets_[j]->eta()) >= eta) continue;
-  if( jetPt(j,applyCorrection) <= minPt) continue;
-  if(isThisJetALepton(jets_[j])) continue;
-  a.push_back(indexValueStruct(jets_[j]->pt(),j));
- }
- 
- std::sort(a.begin(),a.end(),highToLow);
- 
- if( i < a.size() ) return a[i].index;
- else  return 9999;
-}
 
 
-
-const size_t reco::SkimEvent::indexByPt(size_t i) const {
- 
- if( i >= leps_.size() ) return 9999; //--> big number then it will fail other tests later! good!
- std::vector<indexValueStruct> a;
- 
- for(size_t j=0;j<leps_.size();++j) a.push_back(indexValueStruct(pt(j),j));
- std::sort(a.begin(),a.end(),highToLow);
- 
- return a[i].index;
-}
-
-const size_t reco::SkimEvent::indexByIso(size_t i) const {
- 
- if( i >= leps_.size() ) return 9999;
- std::vector<indexValueStruct> a;
- 
- for(size_t j=0;j<leps_.size();++j) a.push_back(indexValueStruct(allIso(j),j));
- std::sort(a.begin(),a.end(),lowToHigh);
- 
- return a[i].index;
-}
+/** Functions
+ */
 
 const bool reco::SkimEvent::isEB(size_t i) const {
  
@@ -6395,7 +6279,6 @@ const float reco::SkimEvent::jetcmvaByPt(size_t i = 0) const {
 
 //---- Photon
 void reco::SkimEvent::setPhoton(const edm::Handle<edm::View<reco::RecoCandidate> > &h,size_t i){
-
  phos_.push_back( h->ptrAt(i) );
 }
 const pat::Photon * reco::SkimEvent::getPhoton(size_t i) const {
