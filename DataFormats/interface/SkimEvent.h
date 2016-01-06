@@ -1088,6 +1088,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
             //---- indexes
             mutable std::map<std::string, std::vector<indexValueStruct> > _index_jet; // ---> it can be changed in "const" methods
+            mutable std::map<std::string, std::vector<indexValueStruct> > _index_secondjet;
+            mutable std::map<std::string, std::vector<indexValueStruct> > _index_lep;
             
             
 

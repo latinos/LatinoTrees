@@ -610,19 +610,34 @@ const size_t reco::SkimEvent::indexJetByPt(size_t i, float minPt,float eta,int a
  if( i >= jets_.size() ) return 9999; //--> big number then it will fail other tests later! good!
  std::vector<indexValueStruct> a;
  
- for(size_t j=0;j<jets_.size();++j) {
-  if(!(passJetID(jets_[j],applyID)) ) continue;
-  if( std::fabs(jets_[j]->eta()) >= eta) continue;
-  if( jetPt(j,applyCorrection) <= minPt) continue;
-  if(isThisJetALepton(jets_[j])) continue;
-  if(jets_[j]->hasUserFloat("dz") && fabs(jets_[j]->userFloat("dz")) > dzCut) continue;
-  a.push_back(indexValueStruct(jets_[j]->pt(),j));
+ std::string nameIndex = "" + std::to_string(minPt) + "_" + std::to_string(eta) + "_" + std::to_string(applyCorrection) + "_" + std::to_string(applyID) + "_" + std::to_string(dzCut);
+ 
+ //---- save information in a map ... it should save time!
+ std::map<std::string, std::vector<indexValueStruct> >::const_iterator it = _index_jet.find(nameIndex);
+ 
+ if(it != _index_jet.end()) {
+  if( i < (it->second).size() ) return (it->second)[i].index;
+  else  return 9999;
+ }
+ else {
+  
+  for(size_t j=0;j<jets_.size();++j) {
+   if(!(passJetID(jets_[j],applyID)) ) continue;
+   if( std::fabs(jets_[j]->eta()) >= eta) continue;
+   if( jetPt(j,applyCorrection) <= minPt) continue;
+   if(isThisJetALepton(jets_[j])) continue;
+   if(jets_[j]->hasUserFloat("dz") && fabs(jets_[j]->userFloat("dz")) > dzCut) continue;
+   a.push_back(indexValueStruct(jets_[j]->pt(),j));
+  }
+  
+  std::sort(a.begin(),a.end(),highToLow);
+  
+  _index_jet.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
+  
+  if( i < a.size() ) return a[i].index;
+  else  return 9999;
  }
  
- std::sort(a.begin(),a.end(),highToLow);
- 
- if( i < a.size() ) return a[i].index;
- else  return 9999;
 }
 
 
@@ -633,18 +648,33 @@ const size_t reco::SkimEvent::indexSecondJetByPt(size_t i, float minPt,float eta
  if( i >= secondJets_.size() ) return 9999; //--> big number then it will fail other tests later! good!
  std::vector<indexValueStruct> a;
  
- for(size_t j=0;j<secondJets_.size();++j) {
-  if(!(passJetID(secondJets_[j],applyID)) ) continue;
-  if( std::fabs(secondJets_[j]->eta()) >= eta) continue;
-  if( secondJetPt(j,applyCorrection) <= minPt) continue;
-  if(isThisJetALepton(secondJets_[j])) continue;
-  a.push_back(indexValueStruct(secondJets_[j]->pt(),j));
+ std::string nameIndex = "" + std::to_string(minPt) + "_" + std::to_string(eta) + "_" + std::to_string(applyCorrection) + "_" + std::to_string(applyID);
+ 
+ //---- save information in a map ... it should save time!
+ std::map<std::string, std::vector<indexValueStruct> >::const_iterator it = _index_secondjet.find(nameIndex);
+ 
+ if(it != _index_secondjet.end()) {
+  if( i < (it->second).size() ) return (it->second)[i].index;
+  else  return 9999;
+ }
+ else {
+  
+  for(size_t j=0;j<secondJets_.size();++j) {
+   if(!(passJetID(secondJets_[j],applyID)) ) continue;
+   if( std::fabs(secondJets_[j]->eta()) >= eta) continue;
+   if( secondJetPt(j,applyCorrection) <= minPt) continue;
+   if(isThisJetALepton(secondJets_[j])) continue;
+   a.push_back(indexValueStruct(secondJets_[j]->pt(),j));
+  }
+  
+  std::sort(a.begin(),a.end(),highToLow);
+  
+  _index_secondjet.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
+  
+  if( i < a.size() ) return a[i].index;
+  else  return 9999;
  }
  
- std::sort(a.begin(),a.end(),highToLow);
- 
- if( i < a.size() ) return a[i].index;
- else  return 9999;
 }
 
 
@@ -654,10 +684,25 @@ const size_t reco::SkimEvent::indexByPt(size_t i) const {
  if( i >= leps_.size() ) return 9999; //--> big number then it will fail other tests later! good!
  std::vector<indexValueStruct> a;
  
- for(size_t j=0;j<leps_.size();++j) a.push_back(indexValueStruct(pt(j),j));
- std::sort(a.begin(),a.end(),highToLow);
+ std::string nameIndex = "lepton";
  
- return a[i].index;
+ //---- save information in a map ... it should save time!
+ std::map<std::string, std::vector<indexValueStruct> >::const_iterator it = _index_lep.find(nameIndex);
+ 
+ if(it != _index_lep.end()) {
+  if( i < (it->second).size() ) return (it->second)[i].index;
+  else  return 9999;
+ }
+ else {
+  
+  for(size_t j=0;j<leps_.size();++j) a.push_back(indexValueStruct(pt(j),j));
+  std::sort(a.begin(),a.end(),highToLow);
+  
+  _index_lep.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
+  
+  return a[i].index;
+ }
+ 
 }
 
 const size_t reco::SkimEvent::indexByIso(size_t i) const {
