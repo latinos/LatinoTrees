@@ -1087,7 +1087,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    double PhotonIDparams_[3][2][5];
 
             //---- indexes
-            std::map<std::string, std::vector<indexValueStruct>> index_jet;
+            mutable std::map<std::string, std::vector<indexValueStruct> > _index_jet; // ---> it can be changed in "const" methods
             
             
 

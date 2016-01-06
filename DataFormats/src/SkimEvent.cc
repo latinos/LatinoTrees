@@ -575,22 +575,33 @@ const size_t reco::SkimEvent::indexJetByPt(size_t i, float minPt,float eta,int a
  //----                 NB: "9999" is used in other places, DO NOT change this number unless you propagate the changes everywhere
  std::vector<indexValueStruct> a;
  
-//  std::string nameIndex = "" + minPt + "_" + eta + "_" + applyCorrection + "_" + applyID;
-//  if 
-//  index_jet
+ std::string nameIndex = "" + std::to_string(minPt) + "_" + std::to_string(eta) + "_" + std::to_string(applyCorrection) + "_" + std::to_string(applyID);
  
- for(size_t j=0;j<jets_.size();++j) {
-  if(!(passJetID(jets_[j],applyID)) ) continue;
-  if( std::fabs(jets_[j]->eta()) >= eta) continue;
-  if( jetPt(j,applyCorrection) <= minPt) continue;
-  if(isThisJetALepton(jets_[j])) continue;
-  a.push_back(indexValueStruct(jets_[j]->pt(),j));
+ //---- save information in a map ... it should save time!
+ std::map<std::string, std::vector<indexValueStruct> >::const_iterator it = _index_jet.find(nameIndex);
+ 
+ if(it != _index_jet.end()) {
+  if( i < (it->second).size() ) return (it->second)[i].index;
+  else  return 9999;
+ }
+ else {
+  for(size_t j=0;j<jets_.size();++j) {
+   if(!(passJetID(jets_[j],applyID)) ) continue;
+   if( std::fabs(jets_[j]->eta()) >= eta) continue;
+   if( jetPt(j,applyCorrection) <= minPt) continue;
+   if(isThisJetALepton(jets_[j])) continue;
+   a.push_back(indexValueStruct(jets_[j]->pt(),j));
+  }
+  
+  std::sort(a.begin(),a.end(),highToLow);
+  
+  _index_jet.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
+//   _index_jet[nameIndex] = a;
+  
+  if( i < a.size() ) return a[i].index;
+  else  return 9999;
  }
  
- std::sort(a.begin(),a.end(),highToLow);
- 
- if( i < a.size() ) return a[i].index;
- else  return 9999;
 }
 
 
