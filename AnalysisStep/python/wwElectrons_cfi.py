@@ -13,7 +13,36 @@ ELE_BASE = "( pt > 8 && abs(eta)<2.5 )"
 wwEleBase = selectedElectronsBase.clone( cut = ELE_BASE )
 
 
+########################
+# Spring15 recipe
+# https://twiki.cern.ch/twiki/bin/viewauth/CMS/CutBasedElectronIdentificationRun2#Spring15_selection_25ns
 
+# LOOSE without isolation Spring15 (relIsoWithEA, abs(d0) and abs(dz) cuts are neglected)
+
+ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+ 
+                       " && full5x5_sigmaIetaIeta < 0.0103" +
+                       " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.0105  " +
+                       " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.115  " +
+                       " && hadronicOverEm < 0.104" +
+                       " && abs(1./energy - 1/p) < 0.102 " +
+                       " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 2 "+
+                       " && passConversionVeto() " +                           
+                       " ) || " +
+                       "( (!isEB) " +
+                       " && full5x5_sigmaIetaIeta < 0.0301" +
+                       " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.00814  " +
+                       " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.182  " +
+                       " && hadronicOverEm < 0.0897" +
+                       " && abs(1./energy - 1/p) < 0.126 " +
+                       " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
+                       " && passConversionVeto() " +                           
+                       " ) " +
+                       ")")
+
+wwEleLooseNoIso = selectedElectronsBase.clone( cut = ELE_BASE + " && " + ELE_ID_LOOSE_NO_ISO )
+
+# END OF SPRING 15 RECIPES
+########################
 
 ########################
 # Phys14 recipe
@@ -22,35 +51,35 @@ wwEleBase = selectedElectronsBase.clone( cut = ELE_BASE )
 
 
 
-# LOOSE without isolation
+# LOOSE without isolation PHYS 14
 
-ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+ 
-                           " && full5x5_sigmaIetaIeta < 0.011" +
-                           " && hadronicOverEm < 0.08" +
-                           " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.04  " +
-                           " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.01  " +
-                           #" && abs(dB('PV2D')) < 0.035904  " +
-                           #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.075496 " +
-                           " && abs(1./energy - 1/p) < 0.01 " +
-                           " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 2 "+
-                           " && passConversionVeto() " +                           
-                           #" && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
-                           " ) || " +
-                   "( (!isEB) " +
-                           " && full5x5_sigmaIetaIeta < 0.031" +
-                           " && hadronicOverEm < 0.08" +
-                           " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.08  " +
-                           " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.01  " +
-                           #" && abs(dB('PV2D')) < 0.099266  " +
-                           #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.197897  " +
-                           " && abs(1./energy - 1/p) < 0.01 " +
-                           " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                           " && passConversionVeto() " +                           
-                           #" && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
-                           " ) " +
-                    ")")
+ELE_ID_LOOSE_NO_ISO_PHYS14 = ("  (( isEB "+ 
+                              " && full5x5_sigmaIetaIeta < 0.011" +
+                              " && hadronicOverEm < 0.08" +
+                              " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.04  " +
+                              " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.01  " +
+                              #" && abs(dB('PV2D')) < 0.035904  " +
+                              #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.075496 " +
+                              " && abs(1./energy - 1/p) < 0.01 " +
+                              " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 2 "+
+                              " && passConversionVeto() " +                           
+                              #" && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
+                              " ) || " +
+                              "( (!isEB) " +
+                              " && full5x5_sigmaIetaIeta < 0.031" +
+                              " && hadronicOverEm < 0.08" +
+                              " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.08  " +
+                              " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.01  " +
+                              #" && abs(dB('PV2D')) < 0.099266  " +
+                              #" && abs( sqrt( dB('PV3D')*dB('PV3D') - dB('PV2D')*dB('PV2D') ) ) < 0.197897  " +
+                              " && abs(1./energy - 1/p) < 0.01 " +
+                              " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
+                              " && passConversionVeto() " +                           
+                              #" && (abs(userFloat('convValueMapProd:dist')) > 0.02 || abs(userFloat('convValueMapProd:dcot')) > 0.02 )" +
+                              " ) " +
+                              ")")
 
-wwEleLooseNoIso = selectedElectronsBase.clone( cut = ELE_BASE + " && " + ELE_ID_LOOSE_NO_ISO )
+wwEleLooseNoIsoPhys14 = selectedElectronsBase.clone( cut = ELE_BASE + " && " + ELE_ID_LOOSE_NO_ISO_PHYS14 )
 
 
 
