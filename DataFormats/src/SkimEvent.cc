@@ -129,19 +129,6 @@ const bool reco::SkimEvent::passesSmurfMuonID() const {
  
 }
 
-struct indexValueStruct {
- indexValueStruct(const float &v, size_t i) : value(v), index(i) {}
- float value;
- size_t index;
-};
-
-bool lowToHigh(const indexValueStruct &a, const indexValueStruct &b) {
- return a.value < b.value;
-}
-
-bool highToLow(const indexValueStruct &a, const indexValueStruct &b) {
- return a.value > b.value;
-}
 
 // To be kept in synch with the enumerator definitions in SkimEvent.h file
 // const std::string reco::SkimEvent::hypoTypeNames[] = { "undefined", "WELNU", "WMUNU", "WWELEL", "WWELMU", "WWMUEL", "WWMUMU"};
@@ -573,11 +560,24 @@ void reco::SkimEvent::setGenInfo(const edm::Handle<GenEventInfoProduct> &GenInfo
 /** Indexing: leptons, jets, second jet collection, ...
  */
 
+
+bool lowToHigh(const indexValueStruct &a, const indexValueStruct &b) {
+ return a.value < b.value;
+}
+
+bool highToLow(const indexValueStruct &a, const indexValueStruct &b) {
+ return a.value > b.value;
+}
+
 const size_t reco::SkimEvent::indexJetByPt(size_t i, float minPt,float eta,int applyCorrection,int applyID) const {
  
  if( i >= jets_.size() ) return 9999; //--> big number then it will fail other tests later! good! -> we will ever have 9999 jets in an event !?!?!
  //----                 NB: "9999" is used in other places, DO NOT change this number unless you propagate the changes everywhere
  std::vector<indexValueStruct> a;
+ 
+//  std::string nameIndex = "" + minPt + "_" + eta + "_" + applyCorrection + "_" + applyID;
+//  if 
+//  index_jet
  
  for(size_t j=0;j<jets_.size();++j) {
   if(!(passJetID(jets_[j],applyID)) ) continue;

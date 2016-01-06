@@ -56,6 +56,18 @@ using std::size_t;
 const double Mw = 80.450;
 const double Mz = 91.188;
 
+
+//---- index struct
+
+struct indexValueStruct {
+ indexValueStruct(const float &v, size_t i) : value(v), index(i) {}
+ float value;
+ size_t index;
+};
+
+
+
+
 namespace reco {
 
     struct mwlSortByPtClass {
@@ -1074,6 +1086,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    double eaPhotonIso_[7][3];
 	    double PhotonIDparams_[3][2][5];
 
+            //---- indexes
+            std::map<std::string, std::vector<indexValueStruct>> index_jet;
+            
+            
 
     };
 

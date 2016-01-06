@@ -54,7 +54,7 @@ rm -rf latino_stepB_data_numEvent${EVENTS}.root
 
 cmsRun stepB.py print                   \
     is50ns=False                        \
-    isPromptRecoData=False              \
+    isPromptRecoData=True               \
     globalTag=76X_dataRun2_v15          \
     label=SingleElectron                \
     outputFile=stepB_data.root          \
