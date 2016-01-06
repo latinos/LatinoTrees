@@ -19,8 +19,12 @@ wwEleBase = selectedElectronsBase.clone( cut = ELE_BASE )
 
 # LOOSE without isolation Spring15 (relIsoWithEA, abs(d0) and abs(dz) cuts are neglected)
 
+# some values are adjusted to avoid them to be tighter than the ones in the fake/offline column at the WW Twiki:
+# https://twiki.cern.ch/twiki/bin/viewauth/CMS/WW2015Variables#Fakable_object_selection
+
 ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+ 
-                       " && full5x5_sigmaIetaIeta < 0.0103" +
+                       " && full5x5_sigmaIetaIeta < 0.011" +
+                       #originally was 0.0103
                        " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.0105  " +
                        " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.115  " +
                        " && hadronicOverEm < 0.104" +
@@ -29,8 +33,10 @@ ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+
                        " && passConversionVeto() " +                           
                        " ) || " +
                        "( (!isEB) " +
-                       " && full5x5_sigmaIetaIeta < 0.0301" +
-                       " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.00814  " +
+                       " && full5x5_sigmaIetaIeta < 0.031" +
+                       #originally was 0.0301
+                       " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.01  " +
+                       #originally was 0.00814
                        " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.182  " +
                        " && hadronicOverEm < 0.0897" +
                        " && abs(1./energy - 1/p) < 0.126 " +
