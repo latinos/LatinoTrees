@@ -16,7 +16,7 @@ wwMuoBase = selectedMuonsBase.clone( cut = MUO_BASE )
 
 ########################
 # Phys14 recipe
-# https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
+# https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideMuonId#Loose_Muon
 
 
 MUO_ID_TIGHT_NO_ISO = ("("+
