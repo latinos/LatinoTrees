@@ -935,11 +935,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float SoftMuonDxy(size_t i) const;
             const float SoftMuonDxyByPt(size_t i) const {return SoftMuonDxy(indexByPtSoftMuon(i)); }
 
-            const bool SoftMuonIsTrackerMuon(size_t i) const;
-            const bool SoftMuonIsTrackerMuonByPt(size_t i) const {return SoftMuonIsTrackerMuon(indexByPtSoftMuon(i)); }
+            const float SoftMuonIsTrackerMuon(size_t i) const;
+            const float SoftMuonIsTrackerMuonByPt(size_t i) const {return SoftMuonIsTrackerMuon(indexByPtSoftMuon(i)); }
 
-            //const float TMLastStationAngTightByPt(size_t i, float minPtMuon) const {return TMLastStationAngTight(indexByPtSoftMuon(i, minPtMuon), minPtMuon); }
-            //const float TMLastStationAngTight(size_t i, float minPtMuon) const;
+            const float TMLastStationAngTight(size_t i) const;
+            const float TMLastStationAngTightByPt(size_t i) const {return TMLastStationAngTight(indexByPtSoftMuon(i)); }
 
 
 	    const math::XYZTLorentzVector photon(size_t a) const;

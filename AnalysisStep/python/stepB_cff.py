@@ -3,7 +3,7 @@ import os
 #from WWAnalysis.AnalysisStep.wwMuons_cfi import Scenario6_ICHEP2012,Scenario2_KINK_MUONS,Scenario1_LP_MUONS
 #from WWAnalysis.AnalysisStep.wwElectrons_cfi import Scenario6_ICHEP,Scenario4_BDT_ELECTRONS,Scenario3_LH_ELECTRONS,Scenario2_LP_ELECTRONS,Scenario1_LP_ELECTRONS
 
-# NB: typedef ObjectMultiplicityCounter<reco::Vertex>    VertexMultiplicityCounter;
+# NB: typedef ObjectMUltiplicitycounterl<reco::Vertex>    VertexMultiplicityCounter;
 nverticesModule = cms.EDProducer("VertexMultiplicityCounter",
     probes = cms.InputTag("REPLACE_ME"),
     objects = cms.InputTag("offlineSlimmedPrimaryVertices"), # miniAOD goodPrimaryVertices
@@ -383,6 +383,7 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.std_vector_softMuDz      = cms.string("SoftMuonDzByPt")
         pt.variables.std_vector_softMuD0      = cms.string("SoftMuonDxyByPt")
         pt.variables.std_vector_softMuIsTrackerMuon = cms.string("SoftMuonIsTrackerMuonByPt")
+        pt.variables.std_vector_softMuTMLastStationAngTight = cms.string("TMLastStationAngTightByPt")
 
         pt.variables.jetcsvv2ivf1 = cms.string("leadingJetBtag(0,'pfCombinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
         pt.variables.jetcsvv2ivf2 = cms.string("leadingJetBtag(1,'pfCombinedInclusiveSecondaryVertexV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
