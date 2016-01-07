@@ -595,11 +595,11 @@ const size_t reco::SkimEvent::indexJetByPt(size_t i, float minPt,float eta,int a
   
   std::sort(a.begin(),a.end(),highToLow);
   
-  _index_jet.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
+  _index_jet.insert(std::pair<std::string, std::vector<indexValueStruct> >(nameIndex, a));
 //   _index_jet[nameIndex] = a;
   
-  if( i < a.size() ) return a[i].index;
-  else  return 9999;
+  if ( i < a.size() ) return a[i].index;
+  else                return 9999;
  }
  
 }
@@ -632,10 +632,10 @@ const size_t reco::SkimEvent::indexJetByPt(size_t i, float minPt,float eta,int a
   
   std::sort(a.begin(),a.end(),highToLow);
   
-  _index_jet.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
+  _index_jet.insert(std::pair<std::string, std::vector<indexValueStruct> >(nameIndex, a));
   
-  if( i < a.size() ) return a[i].index;
-  else  return 9999;
+  if ( i < a.size() ) return a[i].index;
+  else                return 9999;
  }
  
 }
@@ -669,10 +669,10 @@ const size_t reco::SkimEvent::indexSecondJetByPt(size_t i, float minPt,float eta
   
   std::sort(a.begin(),a.end(),highToLow);
   
-  _index_secondjet.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
+  _index_secondjet.insert(std::pair<std::string, std::vector<indexValueStruct> >(nameIndex, a));
   
-  if( i < a.size() ) return a[i].index;
-  else  return 9999;
+  if ( i < a.size() ) return a[i].index;
+  else                return 9999;
  }
  
 }
@@ -698,9 +698,10 @@ const size_t reco::SkimEvent::indexByPt(size_t i) const {
   for(size_t j=0;j<leps_.size();++j) a.push_back(indexValueStruct(pt(j),j));
   std::sort(a.begin(),a.end(),highToLow);
   
-  _index_lep.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
+  _index_lep.insert(std::pair<std::string, std::vector<indexValueStruct> >(nameIndex, a));
   
-  return a[i].index;
+  if ( i < a.size() ) return a[i].index;
+  else                return 9999;
  }
  
 }
@@ -726,16 +727,16 @@ const size_t reco::SkimEvent::indexByPtSoftMuon(size_t i) const {
      if( SoftMuonPt(j) < _minPtSoftMuon) continue;
      a.push_back(indexValueStruct(SoftMuonPt(j),j));
    }
-
-   if (i < a.size()){
-     std::sort(a.begin(),a.end(),highToLow);
-  
-     _index_softMuon.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
-     
-     return a[i].index;
-   }
-   else return 9999;
+   
+   std::sort(a.begin(),a.end(),highToLow);
+   
+   _index_softMuon.insert(std::pair<std::string, std::vector<indexValueStruct> >(nameIndex, a));
+   
+   if ( i < a.size() ) return a[i].index;
+   else                return 9999;
  }
+
+}
  /*
   for(size_t j=0;j<softMuons_.size();++j) 
     a.push_back(indexValueStruct(SoftMuonPt(j),j));
@@ -743,7 +744,7 @@ const size_t reco::SkimEvent::indexByPtSoftMuon(size_t i) const {
   
   return a[i].index;
  */
-}
+ 
 
 
 

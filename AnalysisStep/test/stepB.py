@@ -31,6 +31,12 @@ options.register ('skipEvents',
                   opts.VarParsing.varType.int, # string, int, or float
                   'Number of events to skip')
 
+options.register ('reportEvery',
+                  1000, # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.int, # string, int, or float
+                  'Write Begin processing the ... only every N events')
+
 options.register ('label',
                   'XXX',
                   opts.VarParsing.multiplicity.singleton,
@@ -234,7 +240,10 @@ process = cms.Process("stepB")
 # logger
 process.load("FWCore.MessageService.MessageLogger_cfi")
 process.MessageLogger.destinations = ['cout', 'cerr']
-process.MessageLogger.cerr.FwkReport.reportEvery = 1000
+#process.MessageLogger.cerr.FwkReport.reportEvery = 1000
+#process.MessageLogger.cerr.FwkReport.reportEvery = 1
+process.MessageLogger.cerr.FwkReport.reportEvery = options.reportEvery
+
 
 # accepting te duplicate is needed in case we have generated
 # privately some samples and the event number always starts from 0
@@ -257,6 +266,11 @@ process.source.inputCommands = cms.untracked.vstring( "keep *", "drop *_conditio
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(options.summary))
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(options.maxEvents) )
 
+## multithread (begin)
+#import os
+#CPUS = os.popen('grep -c ^processor /proc/cpuinfo').read()
+#process.options.numberOfThreads = cms.untracked.uint32(int(CPUS)-2)
+## multithread (end)
 
 #process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
@@ -645,7 +659,7 @@ if options.doSoftActivity:
     process.trackJetSequence = cms.Sequence(process.chargedPackedPFCandidates * process.ak4TrackJets)
     preSeq += process.trackJetSequence
 
-    # Make pat jets
+    # Make pat track-jets
     from PhysicsTools.PatAlgos.tools.jetTools import addJetCollection
 
     addJetCollection(   
@@ -692,7 +706,8 @@ if doTauEmbed == True:
 #addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True,"1")
 addEventHypothesis(process,labelSetup,muon,ele,softmu,pho,preSeq,True,doCut)
 
-process.options = cms.untracked.PSet( allowUnscheduled = cms.untracked.bool(True) )
+#process.options = cms.untracked.PSet( allowUnscheduled = cms.untracked.bool(True) )
+process.options.allowUnscheduled = cms.untracked.bool(True)
 
 if (wztth == True) or (doPDFvar == True):
     getattr(process,"ww%s"% (labelSetup)).mcGenEventInfoTag = "generator"
@@ -978,6 +993,12 @@ getattr(process,"Tree").cut = cms.string("1")
 #process.myoutputstep = cms.EndPath(process.outTemp+process.Tree)
 process.myoutputstep = cms.EndPath(process.Tree)
 #################
+
+####
+# remove complain about "filter in endpath" ...
+# this command is not required, but removes annoying message
+# cms.ignore(process.Tree)
+####
 
 #
 # dump cfg file: 

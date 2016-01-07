@@ -103,9 +103,24 @@ Phys14:
                 latino_stepB_MC_numEvent200.root \
                 /tmp/amassiro/latino_WWTo2L2Nu.root
                 
+    gardener.py  l2selfiller \
+        latino_stepB_data_numEvent100.root    \
+        latino_stepB_data_numEvent100_l2sel.root        
                 
+    gardener.py  l2selfiller \
+        latino_stepB_numEvent100.root    \
+        latino_stepB_numEvent100_l2sel.root        
+
+    gardener.py  l2selfiller \
+        latino_stepB_data_numEvent500.root    \
+        latino_stepB_data_numEvent500_l2sel.root        
                 
-                    
+    gardener.py  l2selfiller \
+        latino_stepB_numEvent500.root    \
+        latino_stepB_numEvent500_l2sel.root        
+    
+        
+        
     scp amassiro@cmsneu:/data/amassiro/CMSSWRoot/Phys14/miniAOD/GluGluToHToWWTo2LAndTau2Nu_M-125_13TeV-powheg-pythia6/C667E84D-9D18-E411-99D8-02163E00ECE6.root  /tmp/amassiro/
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    08CFEF83-586C-E411-8D7C-002590A2CCF2.root
     ln -s /tmp/amassiro/C667E84D-9D18-E411-99D8-02163E00ECE6.root    440AA9AF-9988-E411-9786-00266CFFA038.root

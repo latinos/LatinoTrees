@@ -17,6 +17,8 @@ export MYFILE=file:/afs/cern.ch/user/a/amassiro/public/xLatinos/76X/CC3AD3BC-E89
 rm -rf latino_stepB_numEvent${EVENTS}.root
 
 cmsRun stepB.py print                   \
+    reportEvery=10                      \
+    summary=false                       \
     is50ns=False                        \
     isPromptRecoData=False              \
     globalTag=76X_mcRun2_asymptotic_v12 \
@@ -53,6 +55,8 @@ export MYFILE=file:/afs/cern.ch/user/a/amassiro/public/xLatinos/76X/DATA_MuEG_1E
 rm -rf latino_stepB_data_numEvent${EVENTS}.root
 
 cmsRun stepB.py print                   \
+    reportEvery=10                      \
+    summary=false                       \
     is50ns=False                        \
     isPromptRecoData=True               \
     globalTag=76X_dataRun2_v15          \
