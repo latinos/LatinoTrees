@@ -137,7 +137,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     softMuonsT_    = consumes<edm::View<reco::RecoCandidate> > (softMuTag_);
     electronsT_    = consumes<edm::View<reco::RecoCandidate> > (elTag_);
     photonsT_      = consumes<edm::View<reco::RecoCandidate> > (phoTag_); // Photon
-    trackJetT_     = consumes<reco::PFJetCollection> (trackJetTag_);
+    trackJetT_     = consumes<pat::JetCollection> (trackJetTag_);
 
     if (_isMC){
       if ( !( dressedMuonTag_ == edm::InputTag("")) )
@@ -209,7 +209,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     edm::Handle<pat::JetCollection> secondTagJetH;
     if(!(secondJetTag_==edm::InputTag(""))) iEvent.getByToken(secondTagJetHT_,secondTagJetH);
     
-    edm::Handle<reco::PFJetCollection> tagTrackJetH;
+    edm::Handle<pat::JetCollection> tagTrackJetH;
     if(!(trackJetTag_==edm::InputTag(""))) iEvent.getByToken(trackJetT_,tagTrackJetH);    
     
     edm::Handle< std::vector<pat::MET> > pfMetH;

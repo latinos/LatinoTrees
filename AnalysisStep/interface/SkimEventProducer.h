@@ -177,7 +177,7 @@ struct JetInfo {
         edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerL1minPrescaleT_;
         edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerL1maxPrescaleT_;
         
-        edm::EDGetTokenT<reco::PFJetCollection> trackJetT_;
+        edm::EDGetTokenT<pat::JetCollection> trackJetT_;
         
         
         void addDYMVA(reco::SkimEvent* event);

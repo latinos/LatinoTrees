@@ -628,7 +628,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setFatJets(const edm::Handle<pat::JetCollection> &);
             void setTagJets(const edm::Handle<pat::JetCollection> &);
             void setSecondJets(const edm::Handle<pat::JetCollection> &);
-            void setTrackJets(const edm::Handle<reco::PFJetCollection> &);
+            void setTrackJets(const edm::Handle<pat::JetCollection> &);
             void setTCMet(const edm::Handle<reco::METCollection> &);
             void setPFMet(const edm::Handle< std::vector<pat::MET> > &);
             void setPFMetNoHf(const edm::Handle< std::vector<pat::MET> > &);
@@ -703,6 +703,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             float trackJetPt(size_t i) const;
             float trackJetEta(size_t i) const;
             float trackJetPhi(size_t i) const;
+	    float trackJetProbabilityB(size_t i) const;
             
             //Iso Functions
             const bool isEB(size_t a = 0) const;
@@ -1035,7 +1036,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             pat::JetRefVector fatJets_;
             pat::JetRefVector tagJets_;
             pat::JetRefVector secondJets_;
-            reco::PFJetRefVector trackJets_;
+            pat::JetRefVector trackJets_;
             reco::GenParticleRefVector genParticles_;
             reco::GenMETRef genMetRef_;
             reco::GenMET genMet_;

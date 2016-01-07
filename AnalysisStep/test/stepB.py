@@ -639,12 +639,40 @@ if options.doSoftActivity:
     # Add trackjets
     process.chargedPackedPFCandidates = cms.EDFilter("CandPtrSelector", src = cms.InputTag("packedPFCandidates"), cut = cms.string("charge != 0 && abs(eta) < 2.5 && pt > 0.3 && fromPV >= 2"))
 
-    from RecoJets.JetProducers.ak4PFJets_cfi import ak4PFJets
+    from RecoJets.JetProducers.ak4PFJets_cfi import ak4PFJets 
     process.ak4TrackJets = ak4PFJets.clone(src = cms.InputTag('chargedPackedPFCandidates'), jetPtMin = cms.double(1.0))
     
     process.trackJetSequence = cms.Sequence(process.chargedPackedPFCandidates * process.ak4TrackJets)
     preSeq += process.trackJetSequence
-    process.skimEventProducer.trackJetTag = cms.InputTag("ak4TrackJets")
+
+    # Make pat jets
+    from PhysicsTools.PatAlgos.tools.jetTools import addJetCollection
+
+    addJetCollection(   
+			process,
+			labelName = 'AK4PFTrack',
+			jetSource = cms.InputTag('ak4TrackJets'),
+			algo = 'AK',
+			rParam = 0.4,
+			jetCorrections = None, 
+			pfCandidates = cms.InputTag( 'packedPFCandidates' ),  
+			svSource = cms.InputTag( 'slimmedSecondaryVertices' ),  
+			genJetCollection = cms.InputTag( 'slimmedGenJets'),
+			pvSource = cms.InputTag( 'offlineSlimmedPrimaryVertices' ), 
+			btagDiscriminators = [
+				#'pfTrackCountingHighEffBJetTags',
+				#'pfTrackCountingHighPurBJetTags',
+				'pfJetProbabilityBJetTags'
+				#'pfJetBProbabilityBJetTags'
+			],
+			getJetMCFlavour = isMC,
+			genParticles = cms.InputTag('prunedGenParticles'),
+			outputModules = ['outputFile']
+		    )
+ 
+    getattr(process,'selectedPatJetsAK4PFTrack').cut = cms.string('pt > 1.0')
+    preSeq += getattr(process,'selectedPatJetsAK4PFTrack')
+    process.skimEventProducer.trackJetTag = cms.InputTag("selectedPatJetsAK4PFTrack")
     
 # create the EventHypothesis
 # and tweaks for special MC/data samples

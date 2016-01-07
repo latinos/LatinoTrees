@@ -399,12 +399,12 @@ void reco::SkimEvent::setTagJets(const edm::Handle<pat::JetCollection> & jH) {
  
 }
 
-void reco::SkimEvent::setTrackJets(const edm::Handle<reco::PFJetCollection> & jH) {
+void reco::SkimEvent::setTrackJets(const edm::Handle<pat::JetCollection> & jH) {
  
  trackJets_.clear();
  
  for(size_t i=0;i<jH->size();++i)
-  trackJets_.push_back(reco::PFJetRef(jH,i));
+  trackJets_.push_back(pat::JetRef(jH,i));
  
  //sortTagJetsByPt();
  
@@ -2699,7 +2699,12 @@ float reco::SkimEvent::trackJetPhi(size_t i) const {
         return defaultvalues::defaultFloat;
 }
 
-
+float reco::SkimEvent::trackJetProbabilityB(size_t i) const {
+    if( i < trackJets_.size() )
+        return trackJets_[i]->bDiscriminator("pfJetProbabilityBJetTags");
+    else 
+        return defaultvalues::defaultFloat;
+}
 
 //Event variables
 

@@ -549,6 +549,7 @@ def addSoftActivityVariables(process,pt):
          setattr(pt.variables, "std_vector_trackjet_pt",  cms.string("trackJetPt/50")),
          setattr(pt.variables, "std_vector_trackjet_eta",  cms.string("trackJetEta/50")),
          setattr(pt.variables, "std_vector_trackjet_phi",  cms.string("trackJetPhi/50")),
+         setattr(pt.variables, "std_vector_trackjet_probabilityB",  cms.string("trackJetProbabilityB/50")),
          
 
 def addExtraPUWeights(process,tree,X,seq):
