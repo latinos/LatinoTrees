@@ -705,6 +705,21 @@ const size_t reco::SkimEvent::indexByPt(size_t i) const {
  
 }
 
+
+const size_t reco::SkimEvent::indexByPtSoftMuon(size_t i) const {
+ 
+  if( i >= softMuons_.size() ) return 9999; //--> big number then it will fail other tests later! good!
+  std::vector<indexValueStruct> a;
+ 
+  for(size_t j=0;j<softMuons_.size();++j) 
+    a.push_back(indexValueStruct(SoftMuonPt(j),j));
+  std::sort(a.begin(),a.end(),highToLow);
+  
+  return a[i].index;
+}
+
+
+
 const size_t reco::SkimEvent::indexByIso(size_t i) const {
  
  if( i >= leps_.size() ) return 9999;
@@ -1029,16 +1044,12 @@ const float reco::SkimEvent::jetSoftMuonCounting(size_t index, float minPtMuon, 
 }
 
 
-const float reco::SkimEvent::SoftMuonPtByPt(size_t i = 0) const {
-  return SoftMuonPt(i,_minPtSoftMuon);
-}
-
-const float reco::SkimEvent::SoftMuonPt(size_t i, float minPtMuon) const {
+const float reco::SkimEvent::SoftMuonPt(size_t i) const {
 
   if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
     float muonPt = softMuons_[i]->pt();
-    if (muonPt >= minPtMuon) {
+    if (muonPt >= _minPtSoftMuon) {
       return muonPt;  
     }
     else 
@@ -1049,16 +1060,12 @@ const float reco::SkimEvent::SoftMuonPt(size_t i, float minPtMuon) const {
 }
 
 
-const float reco::SkimEvent::SoftMuonEtaByPt(size_t i = 0) const {
-  return SoftMuonEta(i,_minPtSoftMuon);
-}
-
-const float reco::SkimEvent::SoftMuonEta(size_t i, float minPtMuon) const {
+const float reco::SkimEvent::SoftMuonEta(size_t i) const {
   
   if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
     float muonPt = softMuons_[i]->pt();
-    if (muonPt >= minPtMuon) {
+    if (muonPt >= _minPtSoftMuon) {
       return softMuons_[i]->eta();  
     }
     else 
@@ -1069,15 +1076,11 @@ const float reco::SkimEvent::SoftMuonEta(size_t i, float minPtMuon) const {
 }
 
 
-const float reco::SkimEvent::SoftMuonPhiByPt(size_t i = 0) const {
-  return SoftMuonPhi(i,_minPtSoftMuon);
-}
-
-const float reco::SkimEvent::SoftMuonPhi(size_t i, float minPtMuon) const {
+const float reco::SkimEvent::SoftMuonPhi(size_t i) const {
   if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
     float muonPt = softMuons_[i]->pt();
-    if (muonPt >= minPtMuon) {
+    if (muonPt >= _minPtSoftMuon) {
       return softMuons_[i]->phi();  
     }
     else 
@@ -1088,15 +1091,11 @@ const float reco::SkimEvent::SoftMuonPhi(size_t i, float minPtMuon) const {
 }
 
 
-const float reco::SkimEvent::SoftMuonIsoByPt(size_t i = 0) const {
-  return SoftMuonIso(i,_minPtSoftMuon);
-}
-
-const float reco::SkimEvent::SoftMuonIso(size_t i, float minPtMuon) const {
+const float reco::SkimEvent::SoftMuonIso(size_t i) const {
   if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
     float muonPt = softMuons_[i]->pt();
-    if (muonPt >= minPtMuon) {
+    if (muonPt >= _minPtSoftMuon) {
       return ((getMuon(softMuons_[i])->pfIsolationR04().sumChargedHadronPt+std::max(0.,getMuon(softMuons_[i])->pfIsolationR04().sumNeutralHadronEt+getMuon(softMuons_[i])->pfIsolationR04().sumPhotonEt-0.50*getMuon(softMuons_[i])->pfIsolationR04().sumPUPt))/getMuon(softMuons_[i])->pt());
     }
     else 
@@ -1107,15 +1106,11 @@ const float reco::SkimEvent::SoftMuonIso(size_t i, float minPtMuon) const {
 }
 
 
-const float reco::SkimEvent::SoftMuonDzByPt(size_t i = 0) const {
-  return SoftMuonDz(i,_minPtSoftMuon);
-}
-
-const float reco::SkimEvent::SoftMuonDz(size_t i, float minPtMuon) const {
+const float reco::SkimEvent::SoftMuonDz(size_t i) const {
   if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
     float muonPt = softMuons_[i]->pt();
-    if (muonPt >= minPtMuon) {
+    if (muonPt >= _minPtSoftMuon) {
       const reco::Vertex primaryVtx = highestPtVtx();
       return (getMuon(softMuons_[i]))->muonBestTrack()->dz(primaryVtx.position()); 
     }
@@ -1127,15 +1122,11 @@ const float reco::SkimEvent::SoftMuonDz(size_t i, float minPtMuon) const {
 }
 
 
-const float reco::SkimEvent::SoftMuonDxyByPt(size_t i = 0) const {
-  return SoftMuonDxy(i,_minPtSoftMuon);
-}
-
-const float reco::SkimEvent::SoftMuonDxy(size_t i, float minPtMuon) const {
+const float reco::SkimEvent::SoftMuonDxy(size_t i) const {
   if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
     float muonPt = softMuons_[i]->pt();
-    if (muonPt >= minPtMuon) {
+    if (muonPt >= _minPtSoftMuon) {
       const reco::Vertex primaryVtx = highestPtVtx();
       return (getMuon(softMuons_[i]))->muonBestTrack()->dxy(primaryVtx.position()); 
     }
@@ -1147,21 +1138,33 @@ const float reco::SkimEvent::SoftMuonDxy(size_t i, float minPtMuon) const {
 }
 
 
-const bool reco::SkimEvent::SoftMuonIsTrackerMuonByPt(size_t i = 0) const {
-  return SoftMuonIsTrackerMuon(i,_minPtSoftMuon);
-}
-
-const bool reco::SkimEvent::SoftMuonIsTrackerMuon(size_t i, float minPtMuon) const {
+const bool reco::SkimEvent::SoftMuonIsTrackerMuon(size_t i) const {
   if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
   if (muon::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
     float muonPt = softMuons_[i]->pt();
-    if (muonPt >= minPtMuon) {
+    if (muonPt >= _minPtSoftMuon) {
       return softMuons_[i] -> isTrackerMuon();
     } 
     else return false;
   }
   else return false;
 }
+
+
+/*
+const float reco::SkimEvent::TMLastStationAngTight(size_t i) const {
+
+ if (i >= softMuons_.size()) return defaultvalues::defaultFloat;
+
+  if (reco::isSoftMuon(*(static_cast<const reco::Muon*>(softMuons_[i].get())), highestPtVtx())) {
+    return (softMuons_[i]->isGood("TMLastStationAngTight"));
+  } else{
+    return false;
+  }
+}
+
+*/
+
 
 
 const int reco::SkimEvent::flavour(size_t i) const {
