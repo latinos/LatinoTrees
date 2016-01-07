@@ -722,12 +722,19 @@ const size_t reco::SkimEvent::indexByPtSoftMuon(size_t i) const {
  }
  else {
   
-  for(size_t j=0;j<softMuons_.size();++j) a.push_back(indexValueStruct(SoftMuonPt(j),j));
-  std::sort(a.begin(),a.end(),highToLow);
+   for(size_t j=0;j<softMuons_.size();++j){ 
+     if( SoftMuonPt(j) < _minPtSoftMuon) continue;
+     a.push_back(indexValueStruct(SoftMuonPt(j),j));
+   }
+
+   if (i < a.size()){
+     std::sort(a.begin(),a.end(),highToLow);
   
-  _index_softMuon.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
-  
-  return a[i].index;
+     _index_softMuon.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
+     
+     return a[i].index;
+   }
+   else return 9999;
  }
  /*
   for(size_t j=0;j<softMuons_.size();++j) 
