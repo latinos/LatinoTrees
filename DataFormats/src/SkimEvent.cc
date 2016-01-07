@@ -711,11 +711,31 @@ const size_t reco::SkimEvent::indexByPtSoftMuon(size_t i) const {
   if( i >= softMuons_.size() ) return 9999; //--> big number then it will fail other tests later! good!
   std::vector<indexValueStruct> a;
  
+  std::string nameIndex = "softMuon";
+
+ //---- save information in a map ... it should save time!
+ std::map<std::string, std::vector<indexValueStruct> >::const_iterator it = _index_softMuon.find(nameIndex);
+ 
+ if(it != _index_softMuon.end()) {
+  if( i < (it->second).size() ) return (it->second)[i].index;
+  else  return 9999;
+ }
+ else {
+  
+  for(size_t j=0;j<softMuons_.size();++j) a.push_back(indexValueStruct(SoftMuonPt(j),j));
+  std::sort(a.begin(),a.end(),highToLow);
+  
+  _index_softMuon.insert(std::pair<std::string, std::vector<indexValueStruct>>(nameIndex, a));
+  
+  return a[i].index;
+ }
+ /*
   for(size_t j=0;j<softMuons_.size();++j) 
     a.push_back(indexValueStruct(SoftMuonPt(j),j));
   std::sort(a.begin(),a.end(),highToLow);
   
   return a[i].index;
+ */
 }
 
 
