@@ -19,20 +19,20 @@
 #	
 	
 
-samples['WJetsToLNu']                	= ['xsec=61526.7',     'kfact=1.000',		'ref=E']
+samples['WJetsToLNu']                	.extend( ['xsec=61526.7',     'kfact=1.000',		'ref=E'] )
 
-samples['GluGluHToWWTo2L2Nu_M125']   	= ['xsec=0.9913',      'kfact=1.000',		'ref=CF'] # 43.92*0.215*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_M125']   	.extend( ['xsec=0.9913',      'kfact=1.000',		'ref=CF'] ) # 43.92*0.215*0.108*0.108*9
 
 #WW 
-samples['WWTo2L2Nu']	             	= ['xsec= 12.178',     'kfact=1.000',		'ref=E']		
-samples['WWToLNuQQ']	             	= ['xsec= 49.997',     'kfact=1.000',		'ref=E']	
-samples['WWToLNuQQext']	             	= ['xsec= 49.997',     'kfact=1.000',		'ref=E']
-samples['WWTo4Q'] 	             	= ['xsec= 51.723',     'kfact=1.000',		'ref=E']
-samples['GluGluWWTo2L2Nu_MCFM']      	= ['xsec= 7.948',      'kfact=1.000',		'ref=E'] 
-samples['GluGluWWTo2L2NuHiggs_MCFM'] 	= ['xsec= 7.948',      'kfact=1.000',		'ref=X'] # Under discussion
+samples['WWTo2L2Nu']	             	.extend( ['xsec= 12.178',     'kfact=1.000',		'ref=E'] )		
+samples['WWToLNuQQ']	             	.extend( ['xsec= 49.997',     'kfact=1.000',		'ref=E'] )	
+samples['WWToLNuQQext']	             	.extend( ['xsec= 49.997',     'kfact=1.000',		'ref=E'] )
+samples['WWTo4Q'] 	             	.extend( ['xsec= 51.723',     'kfact=1.000',		'ref=E'] )
+samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec= 7.948',      'kfact=1.000',		'ref=E'] )
+samples['GluGluWWTo2L2NuHiggs_MCFM'] 	.extend( ['xsec= 7.948',      'kfact=1.000',		'ref=X'] ) # Under discussion
 
 #tt
-samples['TTTo2L2Nu'] 	             	= ['xsec= 87.31',     	'kfact=1.000',		'ref=B']		
+samples['TTTo2L2Nu'] 	             	.extend( ['xsec= 87.31',     	'kfact=1.000',		'ref=B'] )		
 	
 #HWW
-samples['GluGluHToWWTo2L2Nu_Mlarge']  	= ['xsec= 0.6818',     	'kfact=1.000',		'ref=X'] # 10GeV Higgs width 30.21*0.215*0.108*0.108*9	
+samples['GluGluHToWWTo2L2Nu_Mlarge']  	.extend( ['xsec= 0.6818',     	'kfact=1.000',		'ref=X'] ) # 10GeV Higgs width 30.21*0.215*0.108*0.108*9	
