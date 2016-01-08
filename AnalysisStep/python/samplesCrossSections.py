@@ -80,9 +80,26 @@ samples['GluGluHToWWTo2L2NuPowheg_M125']  = ['xsec=0.9913',      	'kfact=1.000',
 samples['GluGluHToWWToLNuQQ_M650']      = ['xsec=0.1259',     	'kfact=1.000',		'ref=LF'] # 1.0149*0.568*0.108*3*0.6741     
 samples['GluGluHToWWToLNuQQ_M1000']     = ['xsec=0.0029',     	'kfact=1.000',		'ref=LF'] # 0.11877*0.1128*0.108*3*0.6741     
 
+
+# W-H
 samples['HWminusJ_HToWW_M120']       	= ['xsec=0.0866',     	'kfact=1.000',		'ref=EF'] # 0.614 * 0.141
 samples['HWminusJ_HToWW_M125']  	= ['xsec=0.1160',     	'kfact=1.000',		'ref=EF'] # 0.539 * 0.215
 samples['HWminusJ_HToWW_M130'] 		= ['xsec=0.1430',     	'kfact=1.000',		'ref=EF'] # 0.472* 0.303
-samples['HWplusJ_HToWW_M120']          	= ['xsec=0.1350',       'kfact=1.000',	       'ref=EF'] # 0.956 * 0.141
-samples['HWplusJ_HToWW_M125']          	= ['xsec=0.1810',       'kfact=1.000',	       'ref=EF'] # 0.842 * 0.215
-samples['HWplusJ_HToWW_M130']          	= ['xsec=0.2250',       'kfact=1.000',	       'ref=EF'] # 0.743 * 0.303
+
+# W+H
+samples['HWplusJ_HToWW_M120']          	= ['xsec=0.1350',       'kfact=1.000',	       	'ref=EF'] # 0.956 * 0.141
+samples['HWplusJ_HToWW_M125']          	= ['xsec=0.1810',       'kfact=1.000',	       	'ref=EF'] # 0.842 * 0.215
+samples['HWplusJ_HToWW_M130']          	= ['xsec=0.2250',       'kfact=1.000',	       	'ref=EF'] # 0.743 * 0.303
+
+# ZH
+samples['HZJ_HToWW_M120']  	       	= ['xsec=0.121',       	'kfact=1.000',	      	'ref=EF'] # 0.855 * 0.141
+samples['HZJ_HToWW_M125']  	       	= ['xsec=0.187',       	'kfact=1.000',	      	'ref=EF'] # 0.8696* 0.215
+samples['HZJ_HToWW_M130']  	       	= ['xsec=0.202',       	'kfact=1.000',	      	'ref=EF'] # 0.667* 0.303
+
+
+
+
+
+
+
+
