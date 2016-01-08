@@ -238,7 +238,7 @@ samples['VBFHToWWToNuQQ_M1000']       = ['/VBF_HToWWToLNuQQ_M1000_13TeV_powheg_J
 ########
 # Additional global configuration
 ########
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/25Dec/MC/25ns/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/08Jan/MC/25ns/'
 pyCfgParams.append('globalTag=76X_mcRun2_asymptotic_v12')
 
 
