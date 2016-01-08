@@ -23,8 +23,6 @@
 
 samples['WJetsToLNu']                	= ['xsec=61526.7',     'kfact=1.000',		'ref=E']
 
-samples['GluGluHToWWTo2L2Nu_M125']   	= ['xsec=0.9913',      'kfact=1.000',		'ref=CF'] # 43.92*0.215*0.108*0.108*9
-
 # WW 
 samples['WWTo2L2Nu']	             	= ['xsec=12.178',     'kfact=1.000',		'ref=E']		
 samples['WWToLNuQQ']	             	= ['xsec=49.997',     'kfact=1.000',		'ref=E']	
@@ -45,7 +43,7 @@ samples['GluGluHToWWTo2L2Nu_alternative_M130']  = ['xsec=0.9081',     	'kfact=1.
 
 samples['GluGluHToWWTo2L2Nu_M120']  	= ['xsec=0.4768',     	'kfact=1.000',		'ref=KF'] # 32.21*0.141*0.108*0.108*9  
 samples['GluGluHToWWTo2L2Nu_M124']      = ['xsec=0.6353',     	'kfact=1.000',		'ref=KF'] # 30.41*0.199*0.108*0.108*9  
-samples['GluGluHToWWTo2L2Nu_M125']      = ['xsec=0.9913',      	'kfact=1.000',		'ref=CF'] # 43.92*0.215*0.108*0.108*9 
+samples['GluGluHToWWTo2L2Nu_M125']      = ['xsec=0.9913',      	'kfact=1.000',		'ref=CF'] # 43.92*0.215*0.108*0.108*9 Higgs LHC value
 samples['GluGluHToWWTo2L2Nu_M126']      = ['xsec=0.7171',     	'kfact=1.000',		'ref=KF'] # 29.57*0.231*0.108*0.108*9      
 samples['GluGluHToWWTo2L2Nu_M130']      = ['xsec=0.8906',     	'kfact=1.000',		'ref=KF'] # 28.00*0.303*0.108*0.108*9       
 samples['GluGluHToWWTo2L2Nu_M135']      = ['xsec=1.1006',     	'kfact=1.000',		'ref=KF'] # 26.21*0.400*0.108*0.108*9       
@@ -95,6 +93,32 @@ samples['HWplusJ_HToWW_M130']          	= ['xsec=0.2250',       'kfact=1.000',	 
 samples['HZJ_HToWW_M120']  	       	= ['xsec=0.121',       	'kfact=1.000',	      	'ref=EF'] # 0.855 * 0.141
 samples['HZJ_HToWW_M125']  	       	= ['xsec=0.187',       	'kfact=1.000',	      	'ref=EF'] # 0.8696* 0.215
 samples['HZJ_HToWW_M130']  	       	= ['xsec=0.202',       	'kfact=1.000',	      	'ref=EF'] # 0.667* 0.303
+
+
+# VBF
+samples['VBFHToWWTo2L2Nu_alternative_M120']    = ['xsec=0.0579',       	'kfact=1.000',	       	'ref=EF'] # 3.91 *  0.141*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_alternative_M125']    = ['xsec=0.0846',	'kfact=1.000',	   	'ref=EF'] # 3.75 * 0.215*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_alternative_M130']    = ['xsec=0.1148',        'kfact=1.000',	       	'ref=EF'] # 3.61 *  0.303*0.108*0.108*9
+
+samples['VBFHToWWTo2L2Nu_M125']   	= ['xsec=0.0846',	'kfact=1.000',	   	'ref=EF'] # 3.75*0.215*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_M126']   	= ['xsec=0.0907',     	'kfact=1.000',		'ref=KF'] # 3.74*0.231*0.108*0.108*9       
+samples['VBFHToWWTo2L2Nu_M130']   	= ['xsec=0.1151',     	'kfact=1.000',		'ref=KF'] # 3.62*0.303*0.108*0.108*9     
+samples['VBFHToWWTo2L2Nu_M135']         = ['xsec=0.1465',     	'kfact=1.000',		'ref=KF'] # 3.49*0.400*0.108*0.108*9       
+samples['VBFHToWWTo2L2Nu_M140']      	= ['xsec=0.1772',     	'kfact=1.000',		'ref=KF'] # 3.37*0.501*0.108*0.108*9      
+samples['VBFHToWWTo2L2Nu_M150']         = ['xsec=0.2301',     	'kfact=1.000',		'ref=KF'] # 3.15*0.696*0.108*0.108*9        
+samples['VBFHToWWTo2L2Nu_M155']         = ['xsec=0.2553',    	'kfact=1.000',		'ref=KF'] # 3.06*0.795*0.108*0.108*9 
+samples['VBFHToWWTo2L2Nu_M160']         = ['xsec=0.2859',     	'kfact=1.000',		'ref=KF'] # 3.00*0.908*0.108*0.108*9     
+samples['VBFHToWWTo2L2Nu_M175']         = ['xsec=0.2715',     	'kfact=1.000',		'ref=KF'] # 2.70*0.958*0.108*0.108*9        
+samples['VBFHToWWTo2L2Nu_M180']      	= ['xsec=0.2563',     	'kfact=1.000',		'ref=KF'] # 2.62*0.932*0.108*0.108*9        
+samples['VBFHToWWTo2L2Nu_M190']         = ['xsec=0.2013',     	'kfact=1.000',		'ref=KF'] # 2.44*0.786*0.108*0.108*9 
+samples['VBFHToWWTo2L2Nu_M200']     	= ['xsec=0.1781',     	'kfact=1.000',		'ref=KF'] # 2.29*0.741*0.108*0.108*9    
+
+
+samples['VBFHToWWTo2L2NuPowheg_M125'] 	= ['xsec=0.0846',	'kfact=1.000',	   	'ref=EF'] # 3.75*0.215*0.108*0.108*9
+samples['VBFHToWWTo2L2NuAMCNLO_M125'] 	= ['xsec=0.0846',	'kfact=1.000',	   	'ref=EF'] # 3.75*0.215*0.108*0.108*9
+
+samples['VBFHToWWToNuQQ_M1000']         = ['xsec=0.0031',     	'kfact=1.000',		'ref=LF'] # 0.125*0.1128*0.108*3*0.6741   
+
 
 
 
