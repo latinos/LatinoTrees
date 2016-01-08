@@ -216,23 +216,25 @@ samples['VBFHToWWToNuQQ_M1000']       = ['/VBF_HToWWToLNuQQ_M1000_13TeV_powheg_J
 
 
 ## VBS >> Jasper
-#samples['WpWpJJ_EWK_QCD']                = ['/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',             ['label=WpWpJJ_EWK_QCD',               'id=40001', 'doMCweights=True']]
-#samples['WpWpJJ_EWK']                    = ['/WpWpJJ_EWK_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                 ['label=WpWpJJ_EWK',                   'id=40002', 'doMCweights=True']]
+samples['WpWpJJ_EWK_QCD']                = ['/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',             ['label=WpWpJJ_EWK_QCD',               'id=40001', 'doMCweights=True']]
+samples['WpWpJJ_EWK']                    = ['/WpWpJJ_EWK_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                 ['label=WpWpJJ_EWK',                   'id=40002', 'doMCweights=True']]
 #samples['WpWpJJ_QCD']                    = ['/WpWpJJ_QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                 ['label=WpWpJJ_QCD',                   'id=40003', 'doMCweights=True']]
-#samples['WpWmJJ_EWK_QCD_noTop']          = ['/WWJJToLNuLNu_EWK_QCD_noTop_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',              ['label=WpWmJJ_EWK_QCD_noTop',         'id=40004', 'doMCweights=True']]
+samples['WpWmJJ_EWK_QCD_noTop']          = ['/WWJJToLNuLNu_EWK_QCD_noTop_13TeV-madgraph-pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',              ['label=WpWmJJ_EWK_QCD_noTop',         'id=40004', 'doMCweights=True']]
 ##samples['WpWmJJ_EWK_noTop']             = ['/WWJJToLNuLNu_EWK_noTop_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                  ['label=WpWmJJ_EWK_noTop',             'id=40005', 'doMCweights=True']]
 #samples['WpWmJJ_QCD_noTop']              = ['/WWJJToLNuLNu_QCD_noTop_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                  ['label=WpWmJJ_QCD_noTop',             'id=40006', 'doMCweights=True']]
 ##samples['WpWmJJ_EWK_QCD_noTop_noHiggs'] = ['/WWJJToLNuLNu_EWK_QCD_noTop-noHiggs_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',      ['label=WpWmJJ_EWK_QCD_noTop_noHiggs', 'id=40007', 'doMCweights=True']]
 ##samples['WpWmJJ_EWK']                   = ['/WWJJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                        ['label=WpWmJJ_EWK',                   'id=40008', 'doMCweights=True']]
 ##samples['TWJ']                          = ['/TWJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                         ['label=TWJ',                          'id=40009', 'doMCweights=True']]
-#samples['WLLJJToLNu_M-60_EWK_QCD']       = ['/WLLJJToLNu_M-60_EWK_QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',    ['label=WLLJJToLNu_M-60_EWK_QCD',      'id=40010', 'doMCweights=True']]
+samples['WLLJJToLNu_M-60_EWK_QCD']       = ['/WLLJJToLNu_M-60_EWK_QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',    ['label=WLLJJToLNu_M-60_EWK_QCD',      'id=40010', 'doMCweights=True']]
 #samples['WLLJJToLNu_M-60_EWK']           = ['/WLLJJToLNu_M-60_EWK_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                     ['label=WLLJJToLNu_M-60_EWK',          'id=40011', 'doMCweights=True']]
 #samples['WLLJJToLNu_M-60_QCD']           = ['/WLLJJToLNu_M-60_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                     ['label=WLLJJToLNu_M-60_QCD',          'id=40012', 'doMCweights=True']]
 #samples['WLLJJToLNu_M-4to60_EWK_QCD']    = ['/WLLJJToLNu_M-4to60_EWK_QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=WLLJJToLNu_M-4to60_EWK_QCD',   'id=40013', 'doMCweights=True']]
 #samples['WZJJ_EWK_QCD']                  = ['/WZJJ_EWK_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                            ['label=WZJJ_EWK_QCD',                 'id=40014', 'doMCweights=True']]
 ##samples['WZJJ_EWK']                     = ['/WZJJ_EWK_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                                ['label=WZJJ_EWK',                     'id=40015', 'doMCweights=True']]
-#samples['WZJJ_QCD']                      = ['/WZJJ_QCD_13TeV-madgraph-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                                ['label=WZJJ_QCD',                     'id=40016', 'doMCweights=True']]
-#samples['WW_DoubleScattering']           = ['/WW_DoubleScattering_13TeV-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM',                              ['label=WW_DoubleScattering',          'id=40017', 'doMCweights=True']]
+samples['WZJJ_QCD']                      = ['/WZJJ_QCD_13TeV-madgraph-pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                                ['label=WZJJ_QCD',                     'id=40016', 'doMCweights=True']]
+samples['WW_DoubleScattering']           = ['/WW_DoubleScattering_13TeV-pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                              ['label=WW_DoubleScattering',          'id=40017', 'doMCweights=True']]
+samples['DY2JetsToLL']           = ['/DY2JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                              ['label=DY2JetsToLL',          'id=40018', 'doMCweights=True']]
+#samples['WGJJ']
 
 
 ########
