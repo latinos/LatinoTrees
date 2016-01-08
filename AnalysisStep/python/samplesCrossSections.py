@@ -15,6 +15,7 @@
 #	I	https://twiki.cern.ch/twiki/bin/viewauth/CMS/HowToGenXSecAnalyzer		
 #	J	http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2015_099_v8.pdf
 #	K	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProductionMassScan (powheg numbers)
+#	L	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProduction (powheg numbers)
 #	X	Unknown! - Cross section not yet there
 #
 #	
@@ -73,4 +74,8 @@ samples['GluGluHToWWTo2L2Nu_M800']      = ['xsec=0.0218',     	'kfact=1.000',		'
 samples['GluGluHToWWTo2L2Nu_M900']      = ['xsec=0.0123',     	'kfact=1.000',		'ref=KF'] # 0.1920*0.609*0.108*0.108*9     
 samples['GluGluHToWWTo2L2Nu_M1000']     = ['xsec=0.0073',     	'kfact=1.000',		'ref=KF'] # 0.1128*0.621*0.108*0.108*9        
 
+samples['GluGluHToWWTo2L2NuAMCNLO_M125']  = ['xsec=0.9913',      	'kfact=1.000',		'ref=CF'] 
+samples['GluGluHToWWTo2L2NuPowheg_M125']  = ['xsec=0.9913',      	'kfact=1.000',		'ref=CF'] 
 
+samples['GluGluHToWWToLNuQQ_M650']        = ['xsec=0.1259',     	'kfact=1.000',		'ref=LF'] # 1.0149*0.568*0.108*3*0.6741     
+samples['GluGluHToWWToLNuQQ_M1000']       = ['xsec=0.0029',     	'kfact=1.000',		'ref=LF'] # 0.11877*0.1128*0.108*3*0.6741     
