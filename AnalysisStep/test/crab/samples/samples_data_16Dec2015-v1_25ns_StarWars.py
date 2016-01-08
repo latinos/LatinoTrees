@@ -9,23 +9,18 @@
 #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## NOT AVAILABLE ## samples['DoubleEG_Run2015B_25ns-16Dec2015-v1'] = ['/DoubleEG/Run2015B-16Dec2015-v1/MINIAOD',      ['label=DoubleEG']]
 samples['DoubleEG_Run2015C_25ns-16Dec2015-v1'] = ['/DoubleEG/Run2015C_25ns-16Dec2015-v1/MINIAOD', ['label=DoubleEG']]
 ## NOT AVAILABLE ## samples['DoubleEG_Run2015D_25ns-16Dec2015-v1'] = ['/DoubleEG/Run2015D-16Dec2015-v1/MINIAOD',      ['label=DoubleEG']]
 
-samples['DoubleMuon_Run2015B_25ns-16Dec2015-v1'] = ['/DoubleMuon/Run2015B-16Dec2015-v1/MINIAOD',      ['label=DoubleMuon']]
 ## NOT AVAILABLE ## samples['DoubleMuon_Run2015C_25ns-16Dec2015-v1'] = ['/DoubleMuon/Run2015C_25ns-16Dec2015-v1/MINIAOD', ['label=DoubleMuon']]
 ## NOT AVAILABLE ## samples['DoubleMuon_Run2015D_25ns-16Dec2015-v1'] = ['/DoubleMuon/Run2015D-16Dec2015-v1/MINIAOD',      ['label=DoubleMuon']]
 
-samples['MuonEG_Run2015B_25ns-16Dec2015-v1'] = ['/MuonEG/Run2015B-16Dec2015-v1/MINIAOD',      ['label=MuonEG']]
 samples['MuonEG_Run2015C_25ns-16Dec2015-v1'] = ['/MuonEG/Run2015C_25ns-16Dec2015-v1/MINIAOD', ['label=MuonEG']]
 ## NOT AVAILABLE ## samples['MuonEG_Run2015D_25ns-16Dec2015-v1'] = ['/MuonEG/Run2015D-16Dec2015-v1/MINIAOD',      ['label=MuonEG']]
 
-## NOT AVAILABLE ## samples['SingleElectron_Run2015B_25ns-16Dec2015-v1'] = ['/SingleElectron/Run2015B-16Dec2015-v1/MINIAOD',      ['label=SingleElectron']]
 samples['SingleElectron_Run2015C_25ns-16Dec2015-v1'] = ['/SingleElectron/Run2015C_25ns-16Dec2015-v1/MINIAOD', ['label=SingleElectron']]
 ## NOT AVAILABLE ## samples['SingleElectron_Run2015D_25ns-16Dec2015-v1'] = ['/SingleElectron/Run2015D-16Dec2015-v1/MINIAOD',      ['label=SingleElectron']]
 
-## NOT AVAILABLE ## samples['SingleMuon_Run2015B_25ns-16Dec2015-v1'] = ['/SingleMuon/Run2015B-16Dec2015-v1/MINIAOD',      ['label=SingleMuon']]
 samples['SingleMuon_Run2015C_25ns-16Dec2015-v1'] = ['/SingleMuon/Run2015C_25ns-16Dec2015-v1/MINIAOD', ['label=SingleMuon']]
 ## NOT AVAILABLE ## samples['SingleMuon_Run2015D_25ns-16Dec2015-v1'] = ['/SingleMuon/Run2015D-16Dec2015-v1/MINIAOD',      ['label=SingleMuon']]
 
