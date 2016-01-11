@@ -230,8 +230,8 @@ void reco::SkimEvent::setGenParticles(const edm::Handle<reco::GenParticleCollect
 
 void reco::SkimEvent::setGenLeptonIndices() {
   leptonIndices.clear();
-
-  std::vector<float> v_leptons_pt;
+  std::vector<std::pair<size_t, float>> genLeptonPair;
+ 
   const reco::Candidate* mcH = 0;
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
     int type = abs(genParticles_[gp]->pdgId());
@@ -239,12 +239,14 @@ void reco::SkimEvent::setGenLeptonIndices() {
         continue;
     
     mcH = &(*(genParticles_[gp]));
-    v_leptons_pt.push_back(mcH->pt());
-    leptonIndices.push_back(gp);
+    genLeptonPair.push_back(std::make_pair(gp, mcH->pt()));
   }
 
-  if (v_leptons_pt.size () > 0) {
-    std::sort(leptonIndices.rbegin(), leptonIndices.rend(), [&](unsigned int i1, unsigned int i2) { return v_leptons_pt[i1] < v_leptons_pt[i2];});
+  if (genLeptonPair.size () > 0) {
+    std::sort(genLeptonPair.begin(), genLeptonPair.end(), [](std::pair<size_t, float> const& a, std::pair<size_t, float> const& b) { return a.second > b.second;});
+
+    for( const auto& iPair : genLeptonPair )
+      leptonIndices.push_back(iPair.first);
   }
 }
 
