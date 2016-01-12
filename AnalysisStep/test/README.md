@@ -46,7 +46,7 @@ External documentation.
 *Do this only if you want to use a tag.*
 
     pushd LatinoTrees
-    git checkout tags/07Jan2016_StarWars
+    git checkout tags/12Jan2016_StarWars_genFix
     popd
 
 Test the latino tree production.
