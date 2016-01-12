@@ -120,3 +120,24 @@ samples['VBFHToWWTo2L2NuAMCNLO_M125'] 	.extend( ['xsec=0.0846',	'kfact=1.000',	 
 samples['VBFHToWWToNuQQ_M1000']         .extend( ['xsec=0.0031',     	'kfact=1.000',		'ref=LF'] ) # 0.125*0.1128*0.108*3*0.6741   
 
 
+# VBS
+samples['WpWpJJ_EWK_QCD']   		.extend( ['xsec=0.05004',	'kfact=1.000',	   	'ref=I'] )
+samples['WpWpJJ_EWK']   		.extend( ['xsec=0.02526',	'kfact=1.000',	   	'ref=I'] )
+samples['WpWpJJ_QCD']   		.extend( ['xsec=0.02474',	'kfact=1.000',	   	'ref=I'] )
+samples['WpWmJJ_EWK_QCD_noTop']   	.extend( ['xsec=2.66300',	'kfact=1.000',	   	'ref=I'] )
+samples['WpWmJJ_EWK_noTop']   		.extend( ['xsec=0.35000',	'kfact=1.000',	   	'ref=X'] )
+samples['WpWmJJ_QCD_noTop']   		.extend( ['xsec=2.42300',	'kfact=1.000',	   	'ref=I'] )
+samples['WpWmJJ_EWK_QCD_noTop_noHiggs'] .extend( ['xsec=2.65000',	'kfact=1.000',	   	'ref=X'] )
+samples['WpWmJJ_EWK'] 			.extend( ['xsec=0.55000',	'kfact=1.000',	   	'ref=X'] )
+samples['TWJ']   			.extend( ['xsec=0.28000',	'kfact=1.000',	   	'ref=X'] )
+samples['WLLJJToLNu_M-60_EWK_QCD']   	.extend( ['xsec=0.50000',	'kfact=1.000',	   	'ref=I'] )
+samples['WLLJJToLNu_M-60_EWK']   	.extend( ['xsec=0.04634',	'kfact=1.000',	   	'ref=I'] )
+samples['WLLJJToLNu_M-60_QCD']   	.extend( ['xsec=0.49480',	'kfact=1.000',	   	'ref=I'] )
+samples['WLLJJToLNu_M-4to60_EWK_QCD']  	.extend( ['xsec=0.50490',	'kfact=1.000',	   	'ref=I'] )
+samples['WZJJ_EWK_QCD']   		.extend( ['xsec=0.48910',	'kfact=1.000',	   	'ref=I'] )
+samples['WZJJ_EWK']   			.extend( ['xsec=0.03900',	'kfact=1.000',	   	'ref=X'] )
+samples['WZJJ_QCD']   			.extend( ['xsec=0.45850',	'kfact=1.000',	   	'ref=I'] )
+samples['WW_DoubleScattering']   	.extend( ['xsec=1.61400',	'kfact=1.000',	   	'ref=X'] )
+samples['DY2JetsToLL']   		.extend( ['xsec=333.300',	'kfact=1.000',	   	'ref=I'] )
+samples['WGJJ']   			.extend( ['xsec=0.00000',	'kfact=1.000',	   	'ref=X'] )
+
