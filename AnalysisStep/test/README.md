@@ -105,12 +105,12 @@ Check status.
 7. Run cmssw2latino
 ====
 
-You can choose between `multiCmssw2latino.py` and `multiLxbatchCmssw2latino.py`.
+You can choose between `multiLxbatchCmssw2latino.py` and `multiLxbatchCmssw2latino_split.py`.
     
-    python multiCmssw2latino.py        samples/listFiles50ns.py
-    python multiLxbatchCmssw2latino.py samples/listFiles50ns.py
+    python multiLxbatchCmssw2latino.py       samples/listFiles.py
+    python multiLxbatchCmssw2latino_split.py samples/listFiles.py [number of files per hadd, default is 200]
 
-    
+
 8. Postprocess the latino trees
 ====
 
