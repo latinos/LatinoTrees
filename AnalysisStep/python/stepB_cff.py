@@ -489,11 +489,12 @@ def addGenVariables(process,pt):
     else:
         raise addGenVariables, "In addGenVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 
-
-
+    
 def addMCweights(process,pt):
 
         if hasattr(pt,"variables"):
+          pt.variables.std_vector_LHE_weightID = cms.string("LHEMCweightID/30")
+
           pt.variables.std_vector_LHE_weight = cms.string("LHEMCweight/30")
           pt.variables.std_vector_GEN_weight = cms.string("GENMCweight/30")
           pt.variables.LHE_weight_SM = cms.string("LHEMCweight(-1)")

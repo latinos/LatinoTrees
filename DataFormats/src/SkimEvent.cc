@@ -275,6 +275,20 @@ const float reco::SkimEvent::LHEMCweight(int i) const {
 }
 
 
+const float reco::SkimEvent::LHEMCweightID(int i) const {
+ 
+  if (i == -1) return LHEInfoHandle_->originalXWGTUP();
+ 
+ int num_whichWeight = LHEInfoHandle_->weights().size();
+ if (i<num_whichWeight) {
+   return std::stod(LHEInfoHandle_->weights()[i].id);
+ }
+ else {
+   return LHEInfoHandle_->originalXWGTUP();
+ }
+}
+
+
 const float reco::SkimEvent::GENMCweight(int i) const {
  
  if (i == -1) return GenInfoHandle_.weight();
