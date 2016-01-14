@@ -26,7 +26,7 @@ samples['SingleMuon_Run2015C_25ns-16Dec2015-v1'] = ['/SingleMuon/Run2015C_25ns-1
 
 pyCfgParams.append('globalTag=76X_dataRun2_v15')
 pyCfgParams.append('is50ns=False')
-pyCfgParams.append('isPromptRecoData=False')
+pyCfgParams.append('isPromptRecoData=True')  # FIXME check for met filters
 
 ### https://hypernews.cern.ch/HyperNews/CMS/get/offline-dqm/547.html
 ### The plan is to release the final re-reco JSON files on January 29th in time for Moriond approvals. 

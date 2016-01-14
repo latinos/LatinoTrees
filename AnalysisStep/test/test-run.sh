@@ -20,7 +20,7 @@ cmsRun stepB.py print                   \
     reportEvery=10                      \
     summary=false                       \
     is50ns=False                        \
-    isPromptRecoData=False              \
+    isPromptRecoData=True               \
     globalTag=76X_mcRun2_asymptotic_v12 \
     label=ggH                           \
     outputFile=stepB.root               \
@@ -36,10 +36,7 @@ cmsRun stepB.py print                   \
     doMCweights=True                    \
     maxEvents=${EVENTS}                 \
     inputFiles=${MYFILE}
-
-
-# # #                     doNoFilter=True \
-#                     LHEweightSource=externalLHEProducer \
+#   LHEweightSource=externalLHEProducer \
                     
 python cmssw2latino.py stepB_numEvent${EVENTS}.root
 
@@ -50,7 +47,7 @@ rm -rf stepB_numEvent${EVENTS}.root
 ### Data example
 #####
 
-export MYFILE=file:/afs/cern.ch/user/a/amassiro/public/xLatinos/76X/DATA_MuEG_1ED2F05D-E8AF-E511-BDF3-0002C94D575E.root
+export MYFILE=file:/afs/cern.ch/work/p/piedra/public/store/data/Run2015D/DoubleMuon/MINIAOD/16Dec2015-v1/10000/00998A06-23A8-E511-902A-0025907B4F64.root
 
 rm -rf latino_stepB_data_numEvent${EVENTS}.root
 
@@ -60,7 +57,7 @@ cmsRun stepB.py print                   \
     is50ns=False                        \
     isPromptRecoData=True               \
     globalTag=76X_dataRun2_v15          \
-    label=SingleElectron                \
+    label=DoubleMuon                    \
     outputFile=stepB_data.root          \
     selection=LooseNoIso                \
     doNoFilter=False                    \
@@ -73,6 +70,8 @@ cmsRun stepB.py print                   \
     doLHE=False                         \
     maxEvents=${EVENTS}                 \
     inputFiles=${MYFILE}
+
+### FIXME isPromptRecoData is a bad name. How about isRecoLabel?
 
 python cmssw2latino.py stepB_data_numEvent${EVENTS}.root
 
