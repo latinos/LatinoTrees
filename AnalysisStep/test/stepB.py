@@ -565,7 +565,7 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              JETCorrPayload='AK4PFchs', JETCorrLevels = JEC, 
              miniAOD=True,
              runOnMC=isMC,
-             addNsub=False,  # was True      
+             addNsub=True,  # was True      
              #addPUJetID=False,
              addPUJetID=True,
              addPruning=False,
@@ -625,7 +625,7 @@ if options.runPUPPISequence:
              PUMethod='Puppi',
              miniAOD=True,
              runOnMC=isMC, 
-             addNsub=False,  # was True      
+             addNsub=True,  # was True      
              addPUJetID=False,
              #addPUJetID=True, ----> can't be puppi AND pujetid
              addPruning=False,
