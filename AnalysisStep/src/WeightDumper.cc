@@ -88,10 +88,12 @@ private:
  // ----------member data ---------------------------
  edm::InputTag mcLHEEventInfoTag_;
  edm::InputTag mcGenEventInfoTag_;
+ edm::InputTag mcLHERunInfoTag_;
  bool dumpWeights_;
  bool _debug;
  edm::EDGetTokenT<LHEEventProduct> productLHET_ ;
  edm::EDGetTokenT<GenEventInfoProduct> GenInfoT_ ;
+  //edm::EDGetTokenT<LHEEventProduct> productLHERun_ ;
  
  
  TTree* myTree_;
@@ -103,10 +105,14 @@ private:
  
  //---- MC qcd scale
  std::vector <double> _weightsLHE;
+  std::vector <std::string> _weightsLHEID;
+  std::vector <std::string> _weightsLHEIDExplained;
+  int list_size;
  double _weightNominalLHE;
  std::vector <double> _weights;
  double _weightSM;
- 
+ std::vector<TString> list;
+
 };
 
 //
@@ -125,10 +131,12 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  //now do what ever initialization is needed
  mcLHEEventInfoTag_      = iConfig.getParameter<edm::InputTag>("mcLHEEventInfoTag");
  mcGenEventInfoTag_      = iConfig.getParameter<edm::InputTag>("genEvtInfoTag");
+ //mcLHERunInfoTag_        = iConfig.getParameter<edm::InputTag>("mcLHERunInfoTag"); //---- "externalLHEProducer"
  _debug                  = iConfig.getUntrackedParameter< bool >("debug",false);
  
  productLHET_ = consumes<LHEEventProduct>(mcLHEEventInfoTag_);
  GenInfoT_    = consumes<GenEventInfoProduct>(mcGenEventInfoTag_);
+ //productLHERun_ = consumes<LHEEventProduct>(mcLHERunInfoTag_);
  
  
  edm::Service<TFileService> fs ;
@@ -141,6 +149,9 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  myTree_ = fs -> make <TTree>("myTree","myTree");
  
  myTree_ -> Branch("weightsLHE", "std::vector<double>", &_weightsLHE);
+ myTree_ -> Branch("weightsLHEID", "std::vector<std::string>", &_weightsLHEID);
+ myTree_ -> Branch("weightsLHEIDExplained", "std::vector<std::string>", &_weightsLHEIDExplained);
+ myTree_ -> Branch("list_size", &list_size);
 //  myTree_ -> Branch("weightsLHE", &_weightsLHE);
  myTree_ -> Branch("weightNominalLHE", &_weightNominalLHE, "weightNominalLHE/D");
  myTree_ -> Branch("weights", "std::vector<double>", &_weights);
@@ -168,7 +179,7 @@ void WeightDumper::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
  
  
  
- 
+  
  edm::Handle<GenEventInfoProduct> genEvtInfo;
 //  iEvent.getByLabel( mcGenEventInfoTag_, genEvtInfo );
  iEvent.getByToken( GenInfoT_, genEvtInfo );
@@ -197,7 +208,26 @@ void WeightDumper::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
   if (_debug) std::cout << " weightLHE[" << iWeight << "] = " << productLHEHandle->weights()[iWeight].wgt << std::endl;
  }
  _weightNominalLHE = productLHEHandle->originalXWGTUP();
+
+ _weightsLHEID.clear();
+ unsigned int num_whichWeightID = productLHEHandle->weights().size();
+ for (unsigned int iWeight = 0; iWeight < num_whichWeightID; iWeight++) {
+   _weightsLHEID.push_back( productLHEHandle->weights()[iWeight].id ); 
+   if (_debug) std::cout << " weightLHEID[" << iWeight << "] = " << productLHEHandle->weights()[iWeight].id << std::endl;
+ }
+
+
+ _weightsLHEIDExplained.clear();
+ for (unsigned int iWeight = 0; iWeight < num_whichWeightID; iWeight++) {
+   for (unsigned int j = 0; j < list.size(); ++j){
+     if (list.size() == 0)
+     if (list.at(j).Contains(productLHEHandle->weights()[iWeight].id))
+       _weightsLHEIDExplained.push_back(std::string(list.at(j))); 
+   }
+ }
  
+ list_size = list.size();
+
  if (_debug) std::cout << " weightNominalLHE = " << _weightNominalLHE << std::endl;
  if (_debug) std::cout << " ---------- " << std::endl; 
  
@@ -294,6 +324,28 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
 //   }
 //   std::cout << " " << std::endl;
 //  
+
+  edm::Handle<LHERunInfoProduct> run;
+  //iRun.getByLabel( mcLHERunInfoTag_, run );
+
+  typedef std::vector<LHERunInfoProduct::Header>::const_iterator headers_const_iterator;
+  
+  if (!(mcLHERunInfoTag_ == edm::InputTag(""))) {
+    LHERunInfoProduct myLHERunInfoProduct = *(run.product());
+  
+    for (headers_const_iterator iter=myLHERunInfoProduct.headers_begin(); iter!=myLHERunInfoProduct.headers_end(); iter++){
+      std::cout << "iter->tag():";
+      std::cout << iter->tag() << std::endl;
+      std::vector<std::string> lines = iter->lines();
+      for (unsigned int iLine = 0; iLine<lines.size(); iLine++) {
+	if (iter->tag() == "initrwgt"){
+	  TString a = lines.at(iLine);
+	  list.push_back(a);
+	}
+	std::cout << lines.at(iLine);
+      }
+    }
+  }
 }
 
 // ------------ method called when ending the processing of a run  ------------
