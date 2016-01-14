@@ -82,7 +82,8 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         #"200000-400000:HLT_IsoMu20_v*",   -> lowered
         #"200000-400000:HLT_IsoTkMu20_v*", -> lowered
         "200000-500000:HLT_IsoMu18_v*",
-        "200000-500000:HLT_IsoTkMu18_v*",
+        #"200000-500000:HLT_IsoTkMu18_v*", --> not active at the beginning of RunD
+        "200000-500000:HLT_IsoTkMu20_v*",
     ),
     doubleMuDataPaths = cms.vstring(
         #"1-165208:HLT_DoubleMu7_v*",
@@ -212,7 +213,6 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         # same as analysis triggers
         "HLT_IsoTkMu18_v*",
         "HLT_IsoMu18_v*",
-        
         
         ),
 
