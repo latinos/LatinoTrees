@@ -28,9 +28,6 @@ pyCfgParams.append('globalTag=76X_dataRun2_v15')
 pyCfgParams.append('is50ns=False')
 pyCfgParams.append('isPromptRecoData=True')  # FIXME check for met filters
 
-### https://hypernews.cern.ch/HyperNews/CMS/get/offline-dqm/547.html
-### The plan is to release the final re-reco JSON files on January 29th in time for Moriond approvals. 
-
 config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_v2.txt'
 config.Data.splitting     = 'LumiBased'
 config.Data.unitsPerJob   = 10
