@@ -93,7 +93,6 @@ private:
  bool _debug;
  edm::EDGetTokenT<LHEEventProduct> productLHET_ ;
  edm::EDGetTokenT<GenEventInfoProduct> GenInfoT_ ;
-  //edm::EDGetTokenT<LHEEventProduct> productLHERun_ ;
  
  
  TTree* myTree_;
@@ -131,12 +130,10 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  //now do what ever initialization is needed
  mcLHEEventInfoTag_      = iConfig.getParameter<edm::InputTag>("mcLHEEventInfoTag");
  mcGenEventInfoTag_      = iConfig.getParameter<edm::InputTag>("genEvtInfoTag");
- //mcLHERunInfoTag_        = iConfig.getParameter<edm::InputTag>("mcLHERunInfoTag"); //---- "externalLHEProducer"
  _debug                  = iConfig.getUntrackedParameter< bool >("debug",false);
  
  productLHET_ = consumes<LHEEventProduct>(mcLHEEventInfoTag_);
  GenInfoT_    = consumes<GenEventInfoProduct>(mcGenEventInfoTag_);
- //productLHERun_ = consumes<LHEEventProduct>(mcLHERunInfoTag_);
  
  
  edm::Service<TFileService> fs ;
@@ -219,11 +216,14 @@ void WeightDumper::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
  _weightsLHEIDExplained.clear();
  for (unsigned int iWeight = 0; iWeight < num_whichWeightID; iWeight++) {
+   int found = 0;
    for (unsigned int j = 0; j < list.size(); ++j){
-     if (list.size() == 0)
-     if (list.at(j).Contains(productLHEHandle->weights()[iWeight].id))
+     if (list.at(j).Contains(productLHEHandle->weights()[iWeight].id)){
        _weightsLHEIDExplained.push_back(std::string(list.at(j))); 
+       found = 1;
+     }
    }
+   if (found == 0) _weightsLHEIDExplained.push_back("Currently Unknown");
  }
  
  list_size = list.size();
@@ -268,7 +268,7 @@ WeightDumper::endJob()
 }
 
 // ------------ method called when starting to processes a run  ------------
-void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) { 
+void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
 
 //  FIXME
 //  This doesn't work anymore in 76X. See:
@@ -325,14 +325,33 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
 //   std::cout << " " << std::endl;
 //  
 
-  edm::Handle<LHERunInfoProduct> run;
-  //iRun.getByLabel( mcLHERunInfoTag_, run );
+  std::ifstream inFile;
+  inFile.open("weightList.txt", std::ios::in);
+  while (!inFile.eof()){
+    char dumpList[100];
+    inFile.getline(dumpList,100);
+    std::cout<<dumpList<<std::endl;
+    list.push_back(std::string(dumpList));
+  }
+  inFile.close();
 
+  /*
+  edm::Handle<LHERunInfoProduct> run;
+  //  LHERunInfoProduct        "externalLHEProducer"   ""                "LHE"     
+  //  edmDumpEventContent  /tmp/amassiro/180BFD9B-CDD0-E411-9330-0CC47A13D09C.root --run 
+ 
   typedef std::vector<LHERunInfoProduct::Header>::const_iterator headers_const_iterator;
   
   if (!(mcLHERunInfoTag_ == edm::InputTag(""))) {
-    LHERunInfoProduct myLHERunInfoProduct = *(run.product());
+    
+    std::cout<<"hola"<<std::endl;
   
+    iRun.getByLabel( mcLHERunInfoTag_, run );
+    
+    std::cout<<"hola"<<std::endl;  
+    LHERunInfoProduct myLHERunInfoProduct = *(run.product()); 
+    
+    std::cout<<"hola"<<std::endl;  
     for (headers_const_iterator iter=myLHERunInfoProduct.headers_begin(); iter!=myLHERunInfoProduct.headers_end(); iter++){
       std::cout << "iter->tag():";
       std::cout << iter->tag() << std::endl;
@@ -345,7 +364,37 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
 	std::cout << lines.at(iLine);
       }
     }
-  }
+  }  
+*/
+
+    /*  
+	const lhef::HEPRUP thisHeprup = run->heprup();
+	
+	std::cout << "HEPRUP \n" << std::endl;
+	std::cout << "IDBMUP " << std::setw(14) << std::fixed << thisHeprup.IDBMUP.first;
+	std::cout << std::setw(14) << std::fixed << thisHeprup.IDBMUP.second << std::endl;
+	std::cout << "EBMUP " << std::setw(14) << std::fixed << thisHeprup.EBMUP.first;
+	std::cout << std::setw(14) << std::fixed << thisHeprup.EBMUP.second << std::endl;
+	std::cout << "PDFGUP " << std::setw(14) << std::fixed << thisHeprup.PDFGUP.first;
+	std::cout << std::setw(14) << std::fixed << thisHeprup.PDFGUP.second << std::endl;
+	std::cout << "PDFSUP " << std::setw(14) << std::fixed << thisHeprup.PDFSUP.first;
+	std::cout << std::setw(14) << std::fixed << thisHeprup.PDFSUP.second << std::endl;
+	std::cout << "IDWTUP " << std::setw(14) << std::fixed << thisHeprup.IDWTUP << std::endl;
+	std::cout << "NPRUP " << std::setw(14) << std::fixed << thisHeprup.NPRUP << std::endl;
+	std::cout << " XSECUP " << std::setw(14) << std::fixed;
+	std::cout << " XERRUP " << std::setw(14) << std::fixed;
+	std::cout << " XMAXUP " << std::setw(14) << std::fixed;
+	std::cout << " LPRUP " << std::setw(14) << std::fixed << std::endl;
+	for ( unsigned int iSize = 0 ; iSize < thisHeprup.XSECUP.size() ; iSize++ ) {
+	std::cout << std::setw(14) << std::fixed << thisHeprup.XSECUP[iSize];
+	std::cout << std::setw(14) << std::fixed << thisHeprup.XERRUP[iSize];
+	std::cout << std::setw(14) << std::fixed << thisHeprup.XMAXUP[iSize];
+	std::cout << std::setw(14) << std::fixed << thisHeprup.LPRUP[iSize];
+	std::cout << std::endl;
+	}
+	std::cout << " " << std::endl;
+    */  
+    //} 
 }
 
 // ------------ method called when ending the processing of a run  ------------

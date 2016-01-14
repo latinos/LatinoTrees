@@ -1,0 +1,117 @@
+
+    <weightgroup combine="envelope" type="scale_variation">
+      <weight id="1001"> muR=0.10000E+01 muF=0.10000E+01 </weight>
+      <weight id="1002"> muR=0.10000E+01 muF=0.20000E+01 </weight>
+      <weight id="1003"> muR=0.10000E+01 muF=0.50000E+00 </weight>
+      <weight id="1004"> muR=0.20000E+01 muF=0.10000E+01 </weight>
+      <weight id="1005"> muR=0.20000E+01 muF=0.20000E+01 </weight>
+      <weight id="1006"> muR=0.20000E+01 muF=0.50000E+00 </weight>
+      <weight id="1007"> muR=0.50000E+00 muF=0.10000E+01 </weight>
+      <weight id="1008"> muR=0.50000E+00 muF=0.20000E+01 </weight>
+      <weight id="1009"> muR=0.50000E+00 muF=0.50000E+00 </weight>
+    </weightgroup>
+    <weightgroup combine="gaussian" type="PDF_variation">
+      <weight id="2001"> pdfset=292201 </weight>
+      <weight id="2002"> pdfset=292202 </weight>
+      <weight id="2003"> pdfset=292203 </weight>
+      <weight id="2004"> pdfset=292204 </weight>
+      <weight id="2005"> pdfset=292205 </weight>
+      <weight id="2006"> pdfset=292206 </weight>
+      <weight id="2007"> pdfset=292207 </weight>
+      <weight id="2008"> pdfset=292208 </weight>
+      <weight id="2009"> pdfset=292209 </weight>
+      <weight id="2010"> pdfset=292210 </weight>
+      <weight id="2011"> pdfset=292211 </weight>
+      <weight id="2012"> pdfset=292212 </weight>
+      <weight id="2013"> pdfset=292213 </weight>
+      <weight id="2014"> pdfset=292214 </weight>
+      <weight id="2015"> pdfset=292215 </weight>
+      <weight id="2016"> pdfset=292216 </weight>
+      <weight id="2017"> pdfset=292217 </weight>
+      <weight id="2018"> pdfset=292218 </weight>
+      <weight id="2019"> pdfset=292219 </weight>
+      <weight id="2020"> pdfset=292220 </weight>
+      <weight id="2021"> pdfset=292221 </weight>
+      <weight id="2022"> pdfset=292222 </weight>
+      <weight id="2023"> pdfset=292223 </weight>
+      <weight id="2024"> pdfset=292224 </weight>
+      <weight id="2025"> pdfset=292225 </weight>
+      <weight id="2026"> pdfset=292226 </weight>
+      <weight id="2027"> pdfset=292227 </weight>
+      <weight id="2028"> pdfset=292228 </weight>
+      <weight id="2029"> pdfset=292229 </weight>
+      <weight id="2030"> pdfset=292230 </weight>
+      <weight id="2031"> pdfset=292231 </weight>
+      <weight id="2032"> pdfset=292232 </weight>
+      <weight id="2033"> pdfset=292233 </weight>
+      <weight id="2034"> pdfset=292234 </weight>
+      <weight id="2035"> pdfset=292235 </weight>
+      <weight id="2036"> pdfset=292236 </weight>
+      <weight id="2037"> pdfset=292237 </weight>
+      <weight id="2038"> pdfset=292238 </weight>
+      <weight id="2039"> pdfset=292239 </weight>
+      <weight id="2040"> pdfset=292240 </weight>
+      <weight id="2041"> pdfset=292241 </weight>
+      <weight id="2042"> pdfset=292242 </weight>
+      <weight id="2043"> pdfset=292243 </weight>
+      <weight id="2044"> pdfset=292244 </weight>
+      <weight id="2045"> pdfset=292245 </weight>
+      <weight id="2046"> pdfset=292246 </weight>
+      <weight id="2047"> pdfset=292247 </weight>
+      <weight id="2048"> pdfset=292248 </weight>
+      <weight id="2049"> pdfset=292249 </weight>
+      <weight id="2050"> pdfset=292250 </weight>
+      <weight id="2051"> pdfset=292251 </weight>
+      <weight id="2052"> pdfset=292252 </weight>
+      <weight id="2053"> pdfset=292253 </weight>
+      <weight id="2054"> pdfset=292254 </weight>
+      <weight id="2055"> pdfset=292255 </weight>
+      <weight id="2056"> pdfset=292256 </weight>
+      <weight id="2057"> pdfset=292257 </weight>
+      <weight id="2058"> pdfset=292258 </weight>
+      <weight id="2059"> pdfset=292259 </weight>
+      <weight id="2060"> pdfset=292260 </weight>
+      <weight id="2061"> pdfset=292261 </weight>
+      <weight id="2062"> pdfset=292262 </weight>
+      <weight id="2063"> pdfset=292263 </weight>
+      <weight id="2064"> pdfset=292264 </weight>
+      <weight id="2065"> pdfset=292265 </weight>
+      <weight id="2066"> pdfset=292266 </weight>
+      <weight id="2067"> pdfset=292267 </weight>
+      <weight id="2068"> pdfset=292268 </weight>
+      <weight id="2069"> pdfset=292269 </weight>
+      <weight id="2070"> pdfset=292270 </weight>
+      <weight id="2071"> pdfset=292271 </weight>
+      <weight id="2072"> pdfset=292272 </weight>
+      <weight id="2073"> pdfset=292273 </weight>
+      <weight id="2074"> pdfset=292274 </weight>
+      <weight id="2075"> pdfset=292275 </weight>
+      <weight id="2076"> pdfset=292276 </weight>
+      <weight id="2077"> pdfset=292277 </weight>
+      <weight id="2078"> pdfset=292278 </weight>
+      <weight id="2079"> pdfset=292279 </weight>
+      <weight id="2080"> pdfset=292280 </weight>
+      <weight id="2081"> pdfset=292281 </weight>
+      <weight id="2082"> pdfset=292282 </weight>
+      <weight id="2083"> pdfset=292283 </weight>
+      <weight id="2084"> pdfset=292284 </weight>
+      <weight id="2085"> pdfset=292285 </weight>
+      <weight id="2086"> pdfset=292286 </weight>
+      <weight id="2087"> pdfset=292287 </weight>
+      <weight id="2088"> pdfset=292288 </weight>
+      <weight id="2089"> pdfset=292289 </weight>
+      <weight id="2090"> pdfset=292290 </weight>
+      <weight id="2091"> pdfset=292291 </weight>
+      <weight id="2092"> pdfset=292292 </weight>
+      <weight id="2093"> pdfset=292293 </weight>
+      <weight id="2094"> pdfset=292294 </weight>
+      <weight id="2095"> pdfset=292295 </weight>
+      <weight id="2096"> pdfset=292296 </weight>
+      <weight id="2097"> pdfset=292297 </weight>
+      <weight id="2098"> pdfset=292298 </weight>
+      <weight id="2099"> pdfset=292299 </weight>
+      <weight id="2100"> pdfset=292300 </weight>
+      <weight id="2101"> pdfset=292301 </weight>
+      <weight id="2102"> pdfset=292302 </weight>
+    </weightgroup>
+  <
