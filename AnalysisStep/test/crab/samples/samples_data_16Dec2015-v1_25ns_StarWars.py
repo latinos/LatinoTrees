@@ -11,6 +11,7 @@
 
 samples['DoubleEG_Run2015C_25ns-16Dec2015-v1'] = ['/DoubleEG/Run2015C_25ns-16Dec2015-v1/MINIAOD', ['label=DoubleEG']]
 ## NOT AVAILABLE ## samples['DoubleEG_Run2015D_25ns-16Dec2015-v1'] = ['/DoubleEG/Run2015D-16Dec2015-v1/MINIAOD',      ['label=DoubleEG']]
+## NOT AVAILABLE ## samples['DoubleEG_Run2015D_25ns-16Dec2015-v1'] = ['/DoubleEG/Run2015D-16Dec2015-v2/MINIAOD',      ['label=DoubleEG']]
 
 ## NOT AVAILABLE ## samples['DoubleMuon_Run2015C_25ns-16Dec2015-v1'] = ['/DoubleMuon/Run2015C_25ns-16Dec2015-v1/MINIAOD', ['label=DoubleMuon']]
 ## NOT AVAILABLE ## samples['DoubleMuon_Run2015D_25ns-16Dec2015-v1'] = ['/DoubleMuon/Run2015D-16Dec2015-v1/MINIAOD',      ['label=DoubleMuon']]
