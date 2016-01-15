@@ -130,6 +130,7 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  //now do what ever initialization is needed
  mcLHEEventInfoTag_      = iConfig.getParameter<edm::InputTag>("mcLHEEventInfoTag");
  mcGenEventInfoTag_      = iConfig.getParameter<edm::InputTag>("genEvtInfoTag");
+ mcLHERunInfoTag_        = iConfig.getParameter<edm::InputTag>("mcLHERunInfoTag"); //---- "externalLHEProducer"
  _debug                  = iConfig.getUntrackedParameter< bool >("debug",false);
  
  productLHET_ = consumes<LHEEventProduct>(mcLHEEventInfoTag_);
@@ -324,7 +325,7 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
 //   }
 //   std::cout << " " << std::endl;
 //  
-
+/*
   std::ifstream inFile;
   inFile.open("weightList.txt", std::ios::in);
   while (!inFile.eof()){
@@ -334,11 +335,9 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
     list.push_back(std::string(dumpList));
   }
   inFile.close();
-
-  /*
+*/
+  
   edm::Handle<LHERunInfoProduct> run;
-  //  LHERunInfoProduct        "externalLHEProducer"   ""                "LHE"     
-  //  edmDumpEventContent  /tmp/amassiro/180BFD9B-CDD0-E411-9330-0CC47A13D09C.root --run 
  
   typedef std::vector<LHERunInfoProduct::Header>::const_iterator headers_const_iterator;
   
@@ -361,11 +360,11 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
 	  TString a = lines.at(iLine);
 	  list.push_back(a);
 	}
-	std::cout << lines.at(iLine);
+	std::cout<<lines.at(iLine);
       }
     }
   }  
-*/
+
 
     /*  
 	const lhef::HEPRUP thisHeprup = run->heprup();
