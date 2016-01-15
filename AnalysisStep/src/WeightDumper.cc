@@ -52,8 +52,11 @@
 #include "DataFormats/Math/interface/deltaPhi.h"
 
 //---- for LHE information
-#include "SimDataFormats/GeneratorProducts/interface/LHEEventProduct.h"
+// LHE Run
 #include "SimDataFormats/GeneratorProducts/interface/LHERunInfoProduct.h"
+#include "GeneratorInterface/LHEInterface/interface/LHERunInfo.h"
+
+#include "SimDataFormats/GeneratorProducts/interface/LHEEventProduct.h"
 #include "SimDataFormats/GeneratorProducts/interface/LHEXMLStringProduct.h"
 #include <fstream> 
 
@@ -139,7 +142,7 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  
  productLHET_   = consumes<LHEEventProduct>     (mcLHEEventInfoTag_);
  GenInfoT_      = consumes<GenEventInfoProduct> (mcGenEventInfoTag_);
- mcLHERunInfoT_ = consumes<LHERunInfoProduct>   (mcLHERunInfoTag_);
+ mcLHERunInfoT_ = consumes<LHERunInfoProduct, edm::InRun>   (mcLHERunInfoTag_);
  
  edm::Service<TFileService> fs ;
  _MAXWEIGHTS = 200;
