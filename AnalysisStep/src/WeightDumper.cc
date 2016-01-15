@@ -349,8 +349,8 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
     
     std::cout<<"hola"<<std::endl;
   
-//     iRun.getByLabel( mcLHERunInfoTag_, run );
-    iRun.getByToken( mcLHERunInfoT_, run );
+    iRun.getByLabel( mcLHERunInfoTag_, run );
+//     iRun.getByToken( mcLHERunInfoT_, run );
     
     std::cout<<"hola"<<std::endl;  
     LHERunInfoProduct myLHERunInfoProduct = *(run.product()); 
