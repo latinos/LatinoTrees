@@ -93,6 +93,10 @@ private:
  bool _debug;
  edm::EDGetTokenT<LHEEventProduct> productLHET_ ;
  edm::EDGetTokenT<GenEventInfoProduct> GenInfoT_ ;
+ edm::EDGetTokenT<LHERunInfoProduct> mcLHERunInfoT_ ;
+ 
+ 
+ 
  
  
  TTree* myTree_;
@@ -133,9 +137,9 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  mcLHERunInfoTag_        = iConfig.getParameter<edm::InputTag>("mcLHERunInfoTag"); //---- "externalLHEProducer"
  _debug                  = iConfig.getUntrackedParameter< bool >("debug",false);
  
- productLHET_ = consumes<LHEEventProduct>(mcLHEEventInfoTag_);
- GenInfoT_    = consumes<GenEventInfoProduct>(mcGenEventInfoTag_);
- 
+ productLHET_   = consumes<LHEEventProduct>     (mcLHEEventInfoTag_);
+ GenInfoT_      = consumes<GenEventInfoProduct> (mcGenEventInfoTag_);
+ mcLHERunInfoT_ = consumes<LHERunInfoProduct>   (mcLHERunInfoTag_);
  
  edm::Service<TFileService> fs ;
  _MAXWEIGHTS = 200;
@@ -345,7 +349,8 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
     
     std::cout<<"hola"<<std::endl;
   
-    iRun.getByLabel( mcLHERunInfoTag_, run );
+//     iRun.getByLabel( mcLHERunInfoTag_, run );
+    iRun.getByToken( mcLHERunInfoT_, run );
     
     std::cout<<"hola"<<std::endl;  
     LHERunInfoProduct myLHERunInfoProduct = *(run.product()); 
