@@ -6355,6 +6355,9 @@ const float reco::SkimEvent::jettchpByPt(size_t i = 0) const {
 const float reco::SkimEvent::jetbjpbByPt(size_t i = 0) const {
  return leadingJetBtag(i,"pfJetBProbabilityBJetTags",                   minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
+const float reco::SkimEvent::jetbjpByPt(size_t i = 0) const {
+ return leadingJetBtag(i,"pfJetProbabilityBJetTags",                   minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
 const float reco::SkimEvent::jetcsvv2ivfByPt(size_t i = 0) const {
  return leadingJetBtag(i,"pfCombinedInclusiveSecondaryVertexV2BJetTags",minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
@@ -6367,8 +6370,8 @@ const float reco::SkimEvent::jetssvhbByPt(size_t i = 0) const {
 const float reco::SkimEvent::jetpfcsvByPt(size_t i = 0) const {
  return leadingJetBtag(i,"pfCombinedSecondaryVertexBJetTags",           minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
-const float reco::SkimEvent::jetcmvaByPt(size_t i = 0) const {
- return leadingJetBtag(i,"combinedMVABJetTags",                         minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_); 
+const float reco::SkimEvent::jetcmvav2ByPt(size_t i = 0) const {
+ return leadingJetBtag(i,"pfCombinedMVAV2BJetTags",                         minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_); 
 }
 
 //---- Photon

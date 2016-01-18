@@ -893,11 +893,12 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float jettcheByPt(size_t i) const;
             const float jettchpByPt(size_t i) const;
             const float jetbjpbByPt(size_t i) const;
+            const float jetbjpByPt(size_t i) const;
             const float jetcsvv2ivfByPt(size_t i) const;
             const float jetssvheByPt(size_t i) const;
             const float jetssvhbByPt(size_t i) const;
             const float jetpfcsvByPt(size_t i) const;
-            const float jetcmvaByPt(size_t i) const;
+            const float jetcmvav2ByPt(size_t i) const;
             
             const float jetSoftMuonPtByPt(size_t i) const;
             const float jetSoftMuonPt(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;
