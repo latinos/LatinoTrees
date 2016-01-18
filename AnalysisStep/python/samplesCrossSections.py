@@ -102,6 +102,8 @@ samples['VBFHToWWTo2L2Nu_alternative_M120']    .extend( ['xsec=0.0579',       	'
 samples['VBFHToWWTo2L2Nu_alternative_M125']    .extend( ['xsec=0.0846',	'kfact=1.000',	   	'ref=EF'] ) # 3.75 * 0.215*0.108*0.108*9
 samples['VBFHToWWTo2L2Nu_alternative_M130']    .extend( ['xsec=0.1148',        'kfact=1.000',	       	'ref=EF'] ) # 3.61 *  0.303*0.108*0.108*9
 
+samples['VBFHToWWTo2L2Nu_M115']   	.extend( ['xsec=0.0369',	'kfact=1.000',	   	'ref=EF'] ) # 4.09*0.0859*0.108*0.108*9  
+samples['VBFHToWWTo2L2Nu_M124']   	.extend( ['xsec=0.0794',	'kfact=1.000',	   	'ref=EF'] ) # 3.80*0.199*0.108*0.108*9  
 samples['VBFHToWWTo2L2Nu_M125']   	.extend( ['xsec=0.0846',	'kfact=1.000',	   	'ref=EF'] ) # 3.75*0.215*0.108*0.108*9
 samples['VBFHToWWTo2L2Nu_M126']   	.extend( ['xsec=0.0907',     	'kfact=1.000',		'ref=KF'] ) # 3.74*0.231*0.108*0.108*9       
 samples['VBFHToWWTo2L2Nu_M130']   	.extend( ['xsec=0.1151',     	'kfact=1.000',		'ref=KF'] ) # 3.62*0.303*0.108*0.108*9     
@@ -114,6 +116,11 @@ samples['VBFHToWWTo2L2Nu_M175']         .extend( ['xsec=0.2715',     	'kfact=1.0
 samples['VBFHToWWTo2L2Nu_M180']      	.extend( ['xsec=0.2563',     	'kfact=1.000',		'ref=KF'] ) # 2.62*0.932*0.108*0.108*9        
 samples['VBFHToWWTo2L2Nu_M190']         .extend( ['xsec=0.2013',     	'kfact=1.000',		'ref=KF'] ) # 2.44*0.786*0.108*0.108*9 
 samples['VBFHToWWTo2L2Nu_M200']     	.extend( ['xsec=0.1781',     	'kfact=1.000',		'ref=KF'] ) # 2.29*0.741*0.108*0.108*9    
+samples['VBFHToWWTo2L2Nu_M210']     	.extend( ['xsec=0.1655',     	'kfact=1.000',		'ref=KF'] ) # 2.18*0.723*0.108*0.108*9       
+samples['VBFHToWWTo2L2Nu_M230']     	.extend( ['xsec=0.1412',     	'kfact=1.000',		'ref=KF'] ) # 1.9*0.708*0.108*0.108*9         
+samples['VBFHToWWTo2L2Nu_M300']     	.extend( ['xsec=0.0960',     	'kfact=1.000',		'ref=KF'] ) # 1.322*0.692*0.108*0.108*9      
+samples['VBFHToWWTo2L2Nu_M650']     	.extend( ['xsec=0.0189',     	'kfact=1.000',		'ref=KF'] ) # 0.317*0.568*0.108*0.108*9       
+samples['VBFHToWWTo2L2Nu_M800']     	.extend( ['xsec=0.0189',     	'kfact=1.000',		'ref=KF'] ) # 0.200*0.594*0.108*0.108*9      
 
 
 samples['VBFHToWWTo2L2NuPowheg_M125'] 	.extend( ['xsec=0.0846',	'kfact=1.000',	   	'ref=EF'] ) # 3.75*0.215*0.108*0.108*9
