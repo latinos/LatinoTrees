@@ -101,6 +101,7 @@ private:
  TTree* myTree_;
  
  TH1F* _mcWeightExplained; 
+ TH1F* _mcWeightExplainedOrdered;
  TH1F* _mcWeightPos;
  TH1F* _mcWeightNeg;
  TH1F* _list_vectors_weights;
@@ -144,6 +145,7 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  
  edm::Service<TFileService> fs ;
  _MAXWEIGHTS = 200;
+ _mcWeightExplainedOrdered = fs -> make <TH1F>("mcWeightExplainedOrdered", "mcWeightExplainedOrdered", 2000, 0, 2000);
  _mcWeightExplained = fs -> make <TH1F>("mcWeightExplained", "mcWeightExplained", 10000, 0, 10000);
  _mcWeightPos = fs -> make <TH1F>("mcWeightPos","mcWeightPos", 1, 0, 1);
  _mcWeightNeg = fs -> make <TH1F>("mcWeightNeg","mcWeightNeg", 1, 0, 1);
@@ -290,24 +292,29 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
       //std::cout << "iter->tag():";
       //std::cout << iter->tag() << std::endl;
       std::vector<std::string> lines = iter->lines();
+      int counter = 0;
       for (unsigned int iLine = 0; iLine<lines.size(); iLine++) {
 	if (iter->tag() == "initrwgt"){
 	  TString a = lines.at(iLine);
 	  list.push_back(a);
 	  if (a.IsAlpha()) continue;
-	  std::cout<<a<<std::endl;
+          if (_debug) std::cout << a << std::endl;
 	  if (a.Contains("<weight id=")){
 	    int c = 0;
 	    TString b = a;
 	    b.Remove(0,12);
 	    b.Remove(4,b.Length()-4);
-	    std::cout<<"b = "<<b<<std::endl;
+            if (_debug) std::cout << "b = " << b << std::endl;
 	    if (b.IsDigit()){
 	      c = b.Atoi();
-	      std::cout<<"c = "<<c<<std::endl;	    
+              if (_debug) std::cout << "c = " << c <<std::endl;	    
 	      _mcWeightExplained -> GetXaxis() -> SetBinLabel(c, a);
 	      _mcWeightExplained -> Fill(c,1);
-	    }
+              
+              _mcWeightExplainedOrdered -> GetXaxis() -> SetBinLabel(counter, a);
+              _mcWeightExplainedOrdered -> Fill(counter,1);
+              counter++;
+            }
 	  }
 	}
 	//std::cout<<lines.at(iLine);
