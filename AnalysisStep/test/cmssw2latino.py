@@ -34,6 +34,8 @@ def probe2latino(chans,ifile,ofile):
   trmcweight = inputFile.Get("WeightDumperAnalyzer/myTree") 
   mcWeightPos = inputFile.Get("WeightDumperAnalyzer/mcWeightPos") 
   mcWeightNeg = inputFile.Get("WeightDumperAnalyzer/mcWeightNeg") 
+  mcWeightExplained = inputFile.Get("WeightDumperAnalyzer/mcWeightExplained") 
+  mcWeightExplainedOrdered = inputFile.Get("WeightDumperAnalyzer/mcWeightExplainedOrdered") 
   list_vectors_weights = inputFile.Get("WeightDumperAnalyzer/list_vectors_weights") 
   
   
@@ -74,6 +76,10 @@ def probe2latino(chans,ifile,ofile):
     mcWeightPos.Write()
   if mcWeightNeg :
     mcWeightNeg.Write()
+  if mcWeightExplained :
+    mcWeightExplained.Write()
+  if mcWeightExplainedOrdered :
+    mcWeightExplainedOrdered.Write()
   if list_vectors_weights :
     list_vectors_weights.Write()
     

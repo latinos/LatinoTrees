@@ -199,6 +199,12 @@ options.register ('LHEweightSource',
                    opts.VarParsing.varType.string,
                   'LHE weight source. It depends on sample and on how they were produced: pLHE, wMLHE, ... (suggested options  \'externalLHEProducer\' or \'source\')')
 
+options.register ('LHERunInfo',
+                  'externalLHEProducer', # default value
+                   opts.VarParsing.multiplicity.singleton,
+                   opts.VarParsing.varType.string,
+                  'LHE Info used at beginRun to dump weights explanations')
+
 options.register ('doSoftActivity',
                   True, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
@@ -563,7 +569,9 @@ if not isMC:
 
 jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',    
              JETCorrPayload='AK4PFchs', JETCorrLevels = JEC, 
-             miniAOD=True, runOnMC=isMC, addNsub=True,     
+             miniAOD=True,
+             runOnMC=isMC,
+             addNsub=True,  # was True      
              #addPUJetID=False,
 	     bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','pfCombinedMVAV2BJetTags'], 
              addPUJetID=True,
@@ -624,7 +632,7 @@ if options.runPUPPISequence:
              PUMethod='Puppi',
              miniAOD=True,
              runOnMC=isMC, 
-             addNsub=True,      
+             addNsub=True,  # was True      
              addPUJetID=False,
              #addPUJetID=True, ----> can't be puppi AND pujetid
              addPruning=False,
@@ -928,12 +936,12 @@ process.TriggerAnalyzerPath = cms.Path(process.TriggerAnalyzer)
 ##
 ##
 
-
 #####################################
 ## Weights dumper
 ##   dump weights with NO selections applied
 process.WeightDumperAnalyzer = cms.EDAnalyzer('WeightDumper',
      mcLHEEventInfoTag  = cms.InputTag(options.LHEweightSource),
+     mcLHERunInfoTag    = cms.InputTag(options.LHERunInfo),
      #mcLHEEventInfoTag  = cms.InputTag("externalLHEProducer"),
      #mcLHEEventInfoTag = cms.InputTag("source"),
      genEvtInfoTag      = cms.InputTag("generator"), 

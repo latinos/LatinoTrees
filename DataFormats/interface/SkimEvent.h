@@ -180,6 +180,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
             //---- MC weights: -1 for SM; 0,1,2,... for parameters variation
             const float LHEMCweight(int i) const ;
+            const float LHEMCweightID(int i) const ;
             const float GENMCweight(int i) const ;
             
             const float HEPMCweight() const ;
