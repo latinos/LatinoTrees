@@ -110,7 +110,8 @@ private:
  
  //---- MC qcd scale
  std::vector <double> _weightsLHE;
- std::vector <std::string> _weightsLHEID;
+  // std::vector <std::string> _weightsLHEID;
+ std::vector <int> _weightsLHEID;
   // std::vector <std::string> _weightsLHEIDExplained;
  int list_size;
  double _weightNominalLHE;
@@ -155,7 +156,8 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  myTree_ = fs -> make <TTree>("myTree","myTree");
  
  myTree_ -> Branch("weightsLHE", "std::vector<double>", &_weightsLHE);
- myTree_ -> Branch("weightsLHEID", "std::vector<std::string>", &_weightsLHEID);
+ // myTree_ -> Branch("weightsLHEID", "std::vector<std::string>", &_weightsLHEID);
+ myTree_ -> Branch("weightsLHEID", &_weightsLHEID);
  myTree_ -> Branch("list_size", &list_size);
  myTree_ -> Branch("weightNominalLHE", &_weightNominalLHE, "weightNominalLHE/D");
  myTree_ -> Branch("weights", "std::vector<double>", &_weights);
@@ -215,7 +217,7 @@ void WeightDumper::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
  _weightsLHEID.clear();
  unsigned int num_whichWeightID = productLHEHandle->weights().size();
  for (unsigned int iWeight = 0; iWeight < num_whichWeightID; iWeight++) {
-   _weightsLHEID.push_back( productLHEHandle->weights()[iWeight].id ); 
+   _weightsLHEID.push_back( TString(productLHEHandle->weights()[iWeight].id).Atoi() ); 
    if (_debug) std::cout << " weightLHEID[" << iWeight << "] = " << productLHEHandle->weights()[iWeight].id << std::endl;
  }
 
@@ -289,35 +291,34 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
     LHERunInfoProduct myLHERunInfoProduct = *(run.product()); 
     
     for (headers_const_iterator iter=myLHERunInfoProduct.headers_begin(); iter!=myLHERunInfoProduct.headers_end(); iter++){
-      //std::cout << "iter->tag():";
-      //std::cout << iter->tag() << std::endl;
       std::vector<std::string> lines = iter->lines();
       int counter = 0;
       for (unsigned int iLine = 0; iLine<lines.size(); iLine++) {
 	if (iter->tag() == "initrwgt"){
-	  TString a = lines.at(iLine);
-	  list.push_back(a);
-	  if (a.IsAlpha()) continue;
-          if (_debug) std::cout << a << std::endl;
-	  if (a.Contains("<weight id=")){
-	    int c = 0;
-	    TString b = a;
-	    b.Remove(0,12);
-	    b.Remove(4,b.Length()-4);
-            if (_debug) std::cout << "b = " << b << std::endl;
-	    if (b.IsDigit()){
-	      c = b.Atoi();
-              if (_debug) std::cout << "c = " << c <<std::endl;	    
-	      _mcWeightExplained -> GetXaxis() -> SetBinLabel(c, a);
-	      _mcWeightExplained -> Fill(c,1);
+	  TString lineDump = lines.at(iLine);
+	  list.push_back(lineDump);
+	  if (lineDump.IsAlpha()) continue;
+          if (_debug) std::cout << lineDump << std::endl;
+	  if (lineDump.Contains("<weight id=")){
+	    int IDint = 0;
+	    TString IDnum = lineDump;
+	    IDnum.Remove(0,12);
+	    IDnum.Remove(4,IDnum.Length()-4);
+            if (_debug) std::cout << "IDnum = " << IDnum << std::endl;
+	    if (IDnum.IsDigit()){
+	      IDint = IDnum.Atoi();
+              if (_debug) std::cout << "IDint = " << IDint <<std::endl;	    
+	      if (IDint  == 0) continue;
+	      _mcWeightExplained -> GetXaxis() -> SetBinLabel(IDint, lineDump);
+	      _mcWeightExplained -> Fill(IDint,1);
               
-              _mcWeightExplainedOrdered -> GetXaxis() -> SetBinLabel(counter, a);
-              _mcWeightExplainedOrdered -> Fill(counter,1);
+	      //[a] Fatal Root Error: @SUB=TAxis::SetBinLabel - Illegal bin number: 0 - (counter -> counter+1)
+              _mcWeightExplainedOrdered -> GetXaxis() -> SetBinLabel(counter+1, lineDump);
+              _mcWeightExplainedOrdered -> Fill(counter, 1);
               counter++;
             }
 	  }
 	}
-	//std::cout<<lines.at(iLine);
       }
     }
   }  
