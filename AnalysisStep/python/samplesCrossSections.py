@@ -61,6 +61,7 @@ samples['GluGluHToWWTo2L2Nu_M200']      .extend( ['xsec=1.0548',     	'kfact=1.0
 samples['GluGluHToWWTo2L2Nu_M210']      .extend( ['xsec=0.9639',     	'kfact=1.000',		'ref=KF'] ) # 12.70*0.723*0.108*0.108*9           
 samples['GluGluHToWWTo2L2Nu_M230']      .extend( ['xsec=0.8332',     	'kfact=1.000',		'ref=KF'] ) # 11.21*0.708*0.108*0.108*9              
 samples['GluGluHToWWTo2L2Nu_M250']      .extend( ['xsec=0.7270',     	'kfact=1.000',		'ref=KF'] ) # 9.88*0.701*0.108*0.108*9   
+samples['GluGluHToWWTo2L2Nu_M270']      .extend( ['xsec=0.6483',     	'kfact=1.000',		'ref=KF'] ) # 8.86*0.697*0.108*0.108*9   
 samples['GluGluHToWWTo2L2Nu_M300']      .extend( ['xsec=0.5731',     	'kfact=1.000',		'ref=KF'] ) # 7.89*0.692*0.108*0.108*9    
 samples['GluGluHToWWTo2L2Nu_M350']      .extend( ['xsec=0.5698',     	'kfact=1.000',		'ref=KF'] ) # 8.03*0.676*0.108*0.108*9      
 samples['GluGluHToWWTo2L2Nu_M400']      .extend( ['xsec=0.4360',     	'kfact=1.000',		'ref=KF'] ) # 7.136*0.582*0.108*0.108*9   
