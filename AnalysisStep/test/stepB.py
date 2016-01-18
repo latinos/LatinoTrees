@@ -573,6 +573,8 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              runOnMC=isMC,
              addNsub=True,  # was True      
              #addPUJetID=False,
+	     #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','pfCombinedMVAV2BJetTags'], 
+             #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'], 
              addPUJetID=True,
              addPruning=False,
              addTrimming=False,
@@ -580,7 +582,7 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              addHEPTopTagger=True,
              addMassDrop=True,
              addSoftDrop=False, 
-             addQGTagger=True,  # addSoftDrop=True  
+             addQGTagger=True,  # addSoftDrop=True
              ) #, addPrunedSubjets=True )
 
 

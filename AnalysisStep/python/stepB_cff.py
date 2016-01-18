@@ -354,8 +354,8 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.hardssvhb    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'pfSimpleSecondaryVertexHighPurBJetTags',"+jetId_WP+",%f,1)"%dzCut)
         pt.variables.softpfcsv    = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'pfCombinedSecondaryVertexBJetTags',"+jetId_WP+",%f)"%dzCut)
         pt.variables.hardpfcsv    = cms.string("highestBDiscRange("+CJVminPt+",999999.,'pfCombinedSecondaryVertexBJetTags',"+jetId_WP+",%f,1)"%dzCut)
-        pt.variables.softcmva     = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'combinedMVABJetTags',"+jetId_WP+",%f)"%dzCut)
-        pt.variables.hardcmva     = cms.string("highestBDiscRange("+CJVminPt+",999999.,'combinedMVABJetTags',"+jetId_WP+",%f,1)"%dzCut)
+        pt.variables.softcmvav2     = cms.string("highestBDiscRange("+minPtBVeto+","+CJVminPt+" ,'pfCombinedMVAV2BJetTags',"+jetId_WP+",%f)"%dzCut)
+        pt.variables.hardcmvav2     = cms.string("highestBDiscRange("+CJVminPt+",999999.,'pfCombinedMVAV2BJetTags',"+jetId_WP+",%f,1)"%dzCut)
 
         # FIXME: move the index of jets as last step and allow saving of jets as above
         #        no need to give information to skimeventproducer via 2 roads!
@@ -364,10 +364,12 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.std_vector_jet_ssvhe     = cms.string("jetssvheByPt")
         pt.variables.std_vector_jet_ssvhb     = cms.string("jetssvhbByPt")
         pt.variables.std_vector_jet_pfcsv     = cms.string("jetpfcsvByPt")
-        pt.variables.std_vector_jet_cmva      = cms.string("jetcmvaByPt")
+        pt.variables.std_vector_jet_cmvav2      = cms.string("jetcmvav2ByPt")
         pt.variables.std_vector_jet_tche      = cms.string("jettcheByPt")
         pt.variables.std_vector_jet_tchp      = cms.string("jettchpByPt")
         pt.variables.std_vector_jet_bjpb      = cms.string("jetbjpbByPt")
+        pt.variables.std_vector_jet_bjp      = cms.string("jetbjpByPt")
+
         pt.variables.std_vector_jet_softMuPt  = cms.string("jetSoftMuonPtByPt")
         pt.variables.std_vector_jet_softMuEta = cms.string("jetSoftMuonEtaByPt")
         pt.variables.std_vector_jet_softMuPhi = cms.string("jetSoftMuonPhiByPt")
@@ -393,8 +395,8 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.jetssvhb2 = cms.string("leadingJetBtag(1,'pfSimpleSecondaryVertexHighPurBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
         pt.variables.jetpfcsv1 = cms.string("leadingJetBtag(0,'pfCombinedSecondaryVertexBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
         pt.variables.jetpfcsv2 = cms.string("leadingJetBtag(1,'pfCombinedSecondaryVertexBJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
-        pt.variables.jetcmva1 = cms.string("leadingJetBtag(0,'combinedMVABJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
-        pt.variables.jetcmva2 = cms.string("leadingJetBtag(1,'combinedMVABJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
+        pt.variables.jetcmvav21 = cms.string("leadingJetBtag(0,'pfCombinedMVAV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
+        pt.variables.jetcmvav22 = cms.string("leadingJetBtag(1,'pfCombinedMVAV2BJetTags',0,"+CJVmaxEta+",1,1,%f)"%dzCut)
 
     else:
         raise RuntimeError, "In addBTaggingVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt

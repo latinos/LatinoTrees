@@ -41,6 +41,7 @@ samples['GluGluHToWWTo2L2Nu_alternative_M120']  .extend( ['xsec=0.9818',     	'k
 samples['GluGluHToWWTo2L2Nu_alternative_M125']  .extend( ['xsec=0.9913',      	'kfact=1.000',		'ref=CF'] ) 
 samples['GluGluHToWWTo2L2Nu_alternative_M130']  .extend( ['xsec=0.9081',     	'kfact=1.000',		'ref=X'] ) # 28.55(powheg)*0.303*0.108*0.108*9
 
+samples['GluGluHToWWTo2L2Nu_M115']  	.extend( ['xsec=0.3128',     	'kfact=1.000',		'ref=KF'] ) # 34.69*0.0859*0.108*0.108*9  
 samples['GluGluHToWWTo2L2Nu_M120']  	.extend( ['xsec=0.4768',     	'kfact=1.000',		'ref=KF'] ) # 32.21*0.141*0.108*0.108*9  
 samples['GluGluHToWWTo2L2Nu_M124']      .extend( ['xsec=0.6353',     	'kfact=1.000',		'ref=KF'] ) # 30.41*0.199*0.108*0.108*9  
 samples['GluGluHToWWTo2L2Nu_M125']      .extend( ['xsec=0.9913',      	'kfact=1.000',		'ref=CF'] ) # 43.92*0.215*0.108*0.108*9 Higgs LHC value
@@ -60,6 +61,7 @@ samples['GluGluHToWWTo2L2Nu_M200']      .extend( ['xsec=1.0548',     	'kfact=1.0
 samples['GluGluHToWWTo2L2Nu_M210']      .extend( ['xsec=0.9639',     	'kfact=1.000',		'ref=KF'] ) # 12.70*0.723*0.108*0.108*9           
 samples['GluGluHToWWTo2L2Nu_M230']      .extend( ['xsec=0.8332',     	'kfact=1.000',		'ref=KF'] ) # 11.21*0.708*0.108*0.108*9              
 samples['GluGluHToWWTo2L2Nu_M250']      .extend( ['xsec=0.7270',     	'kfact=1.000',		'ref=KF'] ) # 9.88*0.701*0.108*0.108*9   
+samples['GluGluHToWWTo2L2Nu_M270']      .extend( ['xsec=0.6483',     	'kfact=1.000',		'ref=KF'] ) # 8.86*0.697*0.108*0.108*9   
 samples['GluGluHToWWTo2L2Nu_M300']      .extend( ['xsec=0.5731',     	'kfact=1.000',		'ref=KF'] ) # 7.89*0.692*0.108*0.108*9    
 samples['GluGluHToWWTo2L2Nu_M350']      .extend( ['xsec=0.5698',     	'kfact=1.000',		'ref=KF'] ) # 8.03*0.676*0.108*0.108*9      
 samples['GluGluHToWWTo2L2Nu_M400']      .extend( ['xsec=0.4360',     	'kfact=1.000',		'ref=KF'] ) # 7.136*0.582*0.108*0.108*9   
