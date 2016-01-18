@@ -311,8 +311,8 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
 	      _mcWeightExplained -> GetXaxis() -> SetBinLabel(c, a);
 	      _mcWeightExplained -> Fill(c,1);
               
-              _mcWeightExplainedOrdered -> GetXaxis() -> SetBinLabel(counter, a);
-              _mcWeightExplainedOrdered -> Fill(counter,1);
+              _mcWeightExplainedOrdered -> GetXaxis() -> SetBinLabel(counter+1, a);
+              _mcWeightExplainedOrdered -> Fill(counter+1,1);
               counter++;
             }
 	  }
