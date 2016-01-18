@@ -72,9 +72,9 @@ samples['GluGluWWTo2L2NuHiggs_MCFM'] = ['/GluGluWWTo2L2Nu_HInt_MCFM_13TeV/RunIIF
 
 ## GluGluH
 #samples['GluGluHToWWTo2L2Nu_Mlarge']           = ['/GluGluHToWWTo2L2Nu_M125_W10_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=GluGluHToWWTo2L2Nu_Mlarge',           'id=01125', 'doMCweights=True']]
-#samples['GluGluHToWWTo2L2Nu_alternative_M120'] = ['/GluGluHToWWTo2L2Nu_M120_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=GluGluHToWWTo2L2Nu_alternative_M120', 'id=01120', 'doMCweights=True']]
-#samples['GluGluHToWWTo2L2Nu_alternative_M125'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=GluGluHToWWTo2L2Nu_alternative_M125', 'id=01125', 'doMCweights=True']]
-#samples['GluGluHToWWTo2L2Nu_alternative_M130'] = ['/GluGluHToWWTo2L2Nu_M130_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=GluGluHToWWTo2L2Nu_alternative_M130', 'id=01130', 'doMCweights=True']]
+samples['GluGluHToWWTo2L2Nu_alternative_M120'] = ['/GluGluHToWWTo2L2Nu_M120_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=GluGluHToWWTo2L2Nu_alternative_M120', 'id=01120', 'doMCweights=True']]
+samples['GluGluHToWWTo2L2Nu_alternative_M125'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=GluGluHToWWTo2L2Nu_alternative_M125', 'id=01125', 'doMCweights=True']]
+samples['GluGluHToWWTo2L2Nu_alternative_M130'] = ['/GluGluHToWWTo2L2Nu_M130_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=GluGluHToWWTo2L2Nu_alternative_M130', 'id=01130', 'doMCweights=True']]
 
 #samples['GluGluHToWWTo2L2Nu_M120']  = ['/GluGluHToWWTo2L2Nu_M120_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M120',  'id=01120', 'doMCweights=True']]
 #samples['GluGluHToWWTo2L2Nu_M124']  = ['/GluGluHToWWTo2L2Nu_M124_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M124',  'id=01124', 'doMCweights=True']]
