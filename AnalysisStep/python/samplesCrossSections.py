@@ -16,6 +16,7 @@
 #	J	http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2015_099_v8.pdf
 #	K	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProductionMassScan (powheg numbers)
 #	L	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProduction (powheg numbers)
+#       M       https://twiki.cern.ch/twiki/bin/view/CMS/DMAnalysis
 #	X	Unknown! - Cross section not yet there
 #
 #	
@@ -223,3 +224,13 @@ samples['ttDM0150pseudo0500'] .extend( ['xsec=0.000000057'   , 'kfact=1.000', 'r
 #samples['ttDM1000pseudo1000'] .extend( ['xsec=0.00000003933' , 'kfact=1.000', 'ref=J'] ) 
 #samples['ttDM1000pseudo1995'] .extend( ['xsec=0.000000003536', 'kfact=1.000', 'ref=J'] ) 
 #samples['ttDM1000pseudo2000'] .extend( ['xsec=0.000001103'   , 'kfact=1.000', 'ref=J'] )  
+
+## monoHiggs
+samples['monoH_2HDM_MZp-600_MA0-300']  .extend( ['xsec=0.004901329',	'kfact=1.000',	   	'ref=M'] ) #0.046690*9*(0.108)^2
+samples['monoH_2HDM_MZp-800_MA0-300']  .extend( ['xsec=0,005431458',	'kfact=1.000',	   	'ref=M'] ) #0.051740*9*(0.108)^2
+samples['monoH_2HDM_MZp-1000_MA0-300'] .extend( ['xsec=0.004405843',	'kfact=1.000',	   	'ref=M'] ) #0.041970*9*(0.108)^2
+samples['monoH_2HDM_MZp-1200_MA0-300'] .extend( ['xsec=0.003334038',	'kfact=1.000',	   	'ref=M'] ) #0.031760*9*(0.108)^2
+samples['monoH_2HDM_MZp-1400_MA0-300'] .extend( ['xsec=0.002473235',	'kfact=1.000',	   	'ref=M'] ) #0.023560*9*(0.108)^2
+samples['monoH_2HDM_MZp-1700_MA0-300'] .extend( ['xsec=0.001585138',	'kfact=1.000',	   	'ref=M'] ) #0.015100*9*(0.108)^2
+samples['monoH_2HDM_MZp-2000_MA0-300'] .extend( ['xsec=0.001021836',	'kfact=1.000',	   	'ref=M'] ) #0.009734*9*(0.108)^2
+samples['monoH_2HDM_MZp-2500_MA0-300'] .extend( ['xsec=0.000510183',	'kfact=1.000',	   	'ref=M'] ) #0.004860*9*(0.108)^2
