@@ -130,6 +130,18 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         
         nextra = cms.string("nExtraLep(10)"),
 
+	# ZGstar Gen-Level
+        Gen_ZGstar_mu1_pt  = cms.string("Gen_ZGstar_mu1_pt"),
+        Gen_ZGstar_mu1_eta = cms.string("Gen_ZGstar_mu1_eta"),
+        Gen_ZGstar_mu1_phi = cms.string("Gen_ZGstar_mu1_phi"),
+
+        Gen_ZGstar_mu2_pt  = cms.string("Gen_ZGstar_mu2_pt"),
+        Gen_ZGstar_mu2_eta = cms.string("Gen_ZGstar_mu2_eta"),
+        Gen_ZGstar_mu2_phi = cms.string("Gen_ZGstar_mu2_phi"),
+
+	Gen_ZGstar_mass = cms.string("Gen_ZGstar_mass"),
+	Gen_ZGstar_deltaR = cms.string("Gen_ZGstar_deltaR"),
+
         metPfRaw = cms.string("metPfRaw"),
         metPfRawJetEnUp = cms.string("metPfRawJetEnUp"),
         metPfRawJetEnDn = cms.string("metPfRawJetEnDn"),

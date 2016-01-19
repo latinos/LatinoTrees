@@ -228,6 +228,461 @@ void reco::SkimEvent::setGenParticles(const edm::Handle<reco::GenParticleCollect
  }
 }
 
+void reco::SkimEvent::setGenDiMuonFromZGstar(edm::Handle<reco::GenParticleCollection> genParticles)
+{
+  // Definition
+  GenInfo MomInfo;
+  const reco::Candidate* pMuMom(0);
+  const reco::Candidate* pDaught[4]={0};
+  const reco::Candidate* pMuonState1[4]={0};
+  int nMuFromW;
+  int nMuFromZ;
+  int nMuFromQ;
+  int nWFromQ;
+  int IdxDaughtMuon[4];
+  TLorentzVector muon4V_1;
+  TLorentzVector muon4V_2;
+  TLorentzVector tmp4V_1;
+  TLorentzVector tmp4V_2;
+  float tmpInvMass2Muon;
+
+  muon1FromGstar.pt  = defaultvalues::defaultFloat;
+  muon1FromGstar.eta = defaultvalues::defaultFloat;
+  muon1FromGstar.phi = defaultvalues::defaultFloat;
+  muon2FromGstar.pt  = defaultvalues::defaultFloat;
+  muon2FromGstar.eta = defaultvalues::defaultFloat;
+  muon2FromGstar.phi = defaultvalues::defaultFloat;
+
+  genDimuonMassZGstar = defaultvalues::defaultFloat;
+  _ZGstarDimu_DelaR   = defaultvalues::defaultFloat;
+
+  for (reco::GenParticleCollection::const_iterator genPart = genParticles->begin(); genPart != genParticles->end(); genPart++){
+    // Initialization
+    pMuMom=0;
+    MomInfo.id		=defaultvalues::defaultInt;
+    MomInfo.status	=defaultvalues::defaultInt;
+    MomInfo.nDaughters	=defaultvalues::defaultInt;
+    MomInfo.mass	=defaultvalues::defaultFloat;
+
+    // Check Mom of Muon
+    int id = abs(genPart->pdgId());
+    if (id == 13 && genPart->status()==1) { //---- mu
+      if(genPart->numberOfMothers() < 1) continue;
+      pMuMom = genPart->mother();
+      while(abs(pMuMom->pdgId()) == 13){
+        if(genPart->numberOfMothers() < 1) break;
+        pMuMom = pMuMom->mother();
+      };
+      MomInfo.id = pMuMom->pdgId();
+      MomInfo.nDaughters = pMuMom->numberOfDaughters();
+      //if(_debug) std::cout<<"muon mother pid "<<MomInfo.id<<"\t"<<"nDaughers: "<<MomInfo.nDaughters<<std::endl;
+    }
+
+    //Muon Mom is a W boson case
+    if(abs(MomInfo.id) == 24){
+      if(MomInfo.nDaughters != 4) continue;
+      nMuFromW=0;
+      for( int i(0); i<4;i++)
+      {
+	pDaught[i] = pMuMom->daughter(i);
+        //if(_debug) std::cout<<"W boson daughter "<<i<<"\t"<<"id is "<<pDaught[i]->pdgId()<<std::endl;
+	if(abs(pDaught[i]->pdgId()) == 13)
+	{
+	  IdxDaughtMuon[nMuFromW] = i;
+	  nMuFromW++;
+	}
+
+      }
+      if(nMuFromW == 2)
+      {
+	//if(_debug){
+	//  std::cout<<"nMuFromW is 2"<<std::endl;
+	//  std::cout<<pDaught[IdxDaughtMuon[0]]->pdgId()<<std::endl;
+	//  std::cout<<pDaught[IdxDaughtMuon[1]]->pdgId()<<std::endl;
+	//}
+	if(pDaught[IdxDaughtMuon[0]]->pdgId() * pDaught[IdxDaughtMuon[1]]->pdgId() > 0) continue;
+	//Looking for stat 1 daughter
+	pMuonState1[0] = pDaught[IdxDaughtMuon[0]];
+	pMuonState1[1] = pDaught[IdxDaughtMuon[1]];
+	//std::cout<<pMuonState1[0]->pdgId()<<std::endl;
+	//std::cout<<pMuonState1[1]->pdgId()<<std::endl;
+
+	while(pMuonState1[0]->status() != 1)
+	{
+	  if(pMuonState1[0]->numberOfDaughters() <= 0)
+	  {
+	    return;
+	  }
+	  for(unsigned int i(0);i<pMuonState1[0]->numberOfDaughters();i++)
+	  {
+	    if( abs(pMuonState1[0]->daughter(i)->pdgId()) == 13)
+	    {
+	      pMuonState1[0] = pMuonState1[0]->daughter(i);
+	      break;
+	    }
+	  }
+	}
+	while(pMuonState1[1]->status() != 1)
+	{
+	  if(pMuonState1[1]->numberOfDaughters() <= 0)
+	  {
+	    return;
+	  }
+	  for(unsigned int i(0);i<pMuonState1[1]->numberOfDaughters();i++)
+	  {
+	    if( abs(pMuonState1[1]->daughter(i)->pdgId()) == 13)
+	    {
+	      pMuonState1[1]= pMuonState1[1]->daughter(i);
+	      break;
+	    }
+	  }
+	}
+
+	//if(_debug){
+	//  std::cout<<"Checking two staus 1 muons from a W"<<std::endl;
+	//  std::cout<<"id: "<<pMuonState1[0]->pdgId()<<"\t"<<"status: "<<pMuonState1[0]->status()<<"\t"<<"pt: "<<pMuonState1[0]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pMuonState1[1]->pdgId()<<"\t"<<"status: "<<pMuonState1[1]->status()<<"\t"<<"pt: "<<pMuonState1[1]->pt()<<std::endl;
+	//}
+
+	muon1FromGstar.pt  = pMuonState1[0]->pt();
+	muon1FromGstar.eta = pMuonState1[0]->eta();
+	muon1FromGstar.phi = pMuonState1[0]->phi();
+
+	muon2FromGstar.pt  = pMuonState1[1]->pt();
+	muon2FromGstar.eta = pMuonState1[1]->eta();
+	muon2FromGstar.phi = pMuonState1[1]->phi();
+
+	muon4V_1.SetPtEtaPhiM(pMuonState1[0]->pt(),
+	                      pMuonState1[0]->eta(),
+	                      pMuonState1[0]->phi(),
+			      0.106);
+	muon4V_2.SetPtEtaPhiM(pMuonState1[1]->pt(),
+	                      pMuonState1[1]->eta(),
+	                      pMuonState1[1]->phi(),
+			      0.106);
+
+	genDimuonMassZGstar = (muon4V_1 + muon4V_2).M();
+	_ZGstarDimu_DelaR=
+	  sqrt(
+	      reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi) * reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi)
+	      +
+	      (muon1FromGstar.eta - muon2FromGstar.eta)             * (muon1FromGstar.eta - muon2FromGstar.eta)
+	      );
+
+	return;
+
+      }else if( nMuFromW == 3)
+      {
+	//if(_debug){
+	//  std::cout<<"nMuFromW is 3"<<std::endl;
+	//  std::cout<<pDaught[IdxDaughtMuon[0]]->pdgId()<<std::endl;
+	//  std::cout<<pDaught[IdxDaughtMuon[1]]->pdgId()<<std::endl;
+	//  std::cout<<pDaught[IdxDaughtMuon[2]]->pdgId()<<std::endl;
+	//}
+
+	//Looking for stat 1 daughter
+	pMuonState1[0] = pDaught[IdxDaughtMuon[0]];
+	pMuonState1[1] = pDaught[IdxDaughtMuon[1]];
+	pMuonState1[2] = pDaught[IdxDaughtMuon[2]];
+	//std::cout<<pMuonState1[0]->pdgId()<<std::endl;
+	//std::cout<<pMuonState1[1]->pdgId()<<std::endl;
+	while(pMuonState1[0]->status() != 1)
+	{
+	  if(pMuonState1[0]->numberOfDaughters() <= 0)
+	  {
+	    return;
+	  }
+	  for(unsigned int i(0);i<pMuonState1[0]->numberOfDaughters();i++)
+	  {
+	    if( abs(pMuonState1[0]->daughter(i)->pdgId()) == 13)
+	    {
+	      pMuonState1[0] = pMuonState1[0]->daughter(i);
+	      break;
+	    }
+	  }
+	}
+	while(pMuonState1[1]->status() != 1)
+	{
+	  if(pMuonState1[1]->numberOfDaughters() <= 0)
+	  {
+	    return;
+	  }
+	  for(unsigned int i(0);i<pMuonState1[1]->numberOfDaughters();i++)
+	  {
+	    if( abs(pMuonState1[1]->daughter(i)->pdgId()) == 13)
+	    {
+	      pMuonState1[1]= pMuonState1[1]->daughter(i);
+	      break;
+	    }
+	  }
+	}
+	while(pMuonState1[2]->status() != 1)
+	{
+	  if(pMuonState1[2]->numberOfDaughters() <= 0)
+	  {
+	    return;
+	  }
+	  for(unsigned int i(0);i<pMuonState1[2]->numberOfDaughters();i++)
+	  {
+	    if( abs(pMuonState1[2]->daughter(i)->pdgId()) == 13)
+	    {
+	      pMuonState1[2]= pMuonState1[2]->daughter(i);
+	      break;
+	    }
+	  }
+	}
+	//if(_debug){
+	//  std::cout<<"Checking three staus 1 muons from a W"<<std::endl;
+	//  std::cout<<"id: "<<pMuonState1[0]->pdgId()<<"\t"<<"status: "<<pMuonState1[0]->status()<<"\t"<<"pt: "<<pMuonState1[0]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pMuonState1[1]->pdgId()<<"\t"<<"status: "<<pMuonState1[1]->status()<<"\t"<<"pt: "<<pMuonState1[1]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pMuonState1[2]->pdgId()<<"\t"<<"status: "<<pMuonState1[2]->status()<<"\t"<<"pt: "<<pMuonState1[2]->pt()<<std::endl;
+	//}
+
+	genDimuonMassZGstar = 100000000.0;
+	for(int i(0); i<3; i++)
+	{
+	  for(int j(0); j<3; j++)
+	  {
+	    if(i >= j) continue;
+	    if(pMuonState1[i]->pdgId()*pMuonState1[j]->pdgId() > 0)continue;
+	    tmp4V_1.SetPtEtaPhiM(pMuonState1[i]->pt(),
+	                         pMuonState1[i]->eta(),
+	                         pMuonState1[i]->phi(),
+	    		      0.106);
+	    tmp4V_2.SetPtEtaPhiM(pMuonState1[j]->pt(),
+	                         pMuonState1[j]->eta(),
+	                         pMuonState1[j]->phi(),
+	    		      0.106);
+	    tmpInvMass2Muon = (tmp4V_1 + tmp4V_2).M();
+	    if(tmpInvMass2Muon < genDimuonMassZGstar )
+	    {
+	      muon1FromGstar.pt  = pMuonState1[i]->pt();
+	      muon1FromGstar.eta = pMuonState1[i]->eta();
+	      muon1FromGstar.phi = pMuonState1[i]->phi();
+
+	      muon2FromGstar.pt  = pMuonState1[j]->pt();
+	      muon2FromGstar.eta = pMuonState1[j]->eta();
+	      muon2FromGstar.phi = pMuonState1[j]->phi();
+
+	      genDimuonMassZGstar = tmpInvMass2Muon;
+	      _ZGstarDimu_DelaR=
+	        sqrt(
+	            reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi) * reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi)
+	            +
+	            (muon1FromGstar.eta - muon2FromGstar.eta)             * (muon1FromGstar.eta - muon2FromGstar.eta)
+	            );
+
+	      muon4V_1 = tmp4V_1;
+	      muon4V_2 = tmp4V_2;
+	    }
+	  }
+	}
+	//if(_debug)
+	//{
+	//  tmpInvMass2Muon = (muon4V_1 + muon4V_2).M();
+	//  std::cout<<"3 Muon from W case: InvMas from final muon candidates is "<<tmpInvMass2Muon<<"\t"<<"InvMass from roof: "<<genDimuonMassZGstar<<std::endl;
+	//}
+
+	return;
+      }else continue;
+    }
+    else if(abs(MomInfo.id) == 23){// Z0
+      if(MomInfo.nDaughters != 2) continue;
+      nMuFromZ=0;
+      for( int i(0); i<2;i++)
+      {
+	pDaught[i] = pMuMom->daughter(i);
+        //if(_debug) std::cout<<"Z boson daughter "<<i<<"\t"<<"id is "<<pDaught[i]->pdgId()<<std::endl;
+	if(abs(pDaught[i]->pdgId()) == 13)
+	{
+	  //IdxDaughtMuon[nMuFromW] = i;
+	  nMuFromZ++;
+	}
+
+      }
+      if(nMuFromZ == 2)
+      {
+	if(pDaught[0]->pdgId() * pDaught[1]->pdgId() > 0) continue;
+	//Looking for stat 1 daughter
+	pMuonState1[0] = pDaught[0];
+	pMuonState1[1] = pDaught[1];
+	//std::cout<<pMuonState1[0]->pdgId()<<std::endl;
+	//std::cout<<pMuonState1[1]->pdgId()<<std::endl;
+
+	while(pMuonState1[0]->status() != 1)
+	{
+	  if(pMuonState1[0]->numberOfDaughters() <= 0)
+	  {
+	    return;
+	  }
+	  for(unsigned int i(0);i<pMuonState1[0]->numberOfDaughters();i++)
+	  {
+	    if( abs(pMuonState1[0]->daughter(i)->pdgId()) == 13)
+	    {
+	      pMuonState1[0] = pMuonState1[0]->daughter(i);
+	      break;
+	    }
+	  }
+	}
+	while(pMuonState1[1]->status() != 1)
+	{
+	  if(pMuonState1[1]->numberOfDaughters() <= 0)
+	  {
+	    return;
+	  }
+	  for(unsigned int i(0);i<pMuonState1[1]->numberOfDaughters();i++)
+	  {
+	    if( abs(pMuonState1[1]->daughter(i)->pdgId()) == 13)
+	    {
+	      pMuonState1[1]= pMuonState1[1]->daughter(i);
+	      break;
+	    }
+	  }
+	}
+
+	//if(_debug){
+	//  std::cout<<"Checking two staus 1 muons from a Z"<<std::endl;
+	//  std::cout<<"id: "<<pMuonState1[0]->pdgId()<<"\t"<<"status: "<<pMuonState1[0]->status()<<"\t"<<"pt: "<<pMuonState1[0]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pMuonState1[1]->pdgId()<<"\t"<<"status: "<<pMuonState1[1]->status()<<"\t"<<"pt: "<<pMuonState1[1]->pt()<<std::endl;
+	//}
+
+	muon1FromGstar.pt  = pMuonState1[0]->pt();
+	muon1FromGstar.eta = pMuonState1[0]->eta();
+	muon1FromGstar.phi = pMuonState1[0]->phi();
+
+	muon2FromGstar.pt  = pMuonState1[1]->pt();
+	muon2FromGstar.eta = pMuonState1[1]->eta();
+	muon2FromGstar.phi = pMuonState1[1]->phi();
+
+	muon4V_1.SetPtEtaPhiM(pMuonState1[0]->pt(),
+	                      pMuonState1[0]->eta(),
+	                      pMuonState1[0]->phi(),
+			      0.106);
+	muon4V_2.SetPtEtaPhiM(pMuonState1[1]->pt(),
+	                      pMuonState1[1]->eta(),
+	                      pMuonState1[1]->phi(),
+			      0.106);
+	genDimuonMassZGstar = (muon4V_1 + muon4V_2).M();
+
+	_ZGstarDimu_DelaR=
+	  sqrt(
+	      reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi) * reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi)
+	      +
+	      (muon1FromGstar.eta - muon2FromGstar.eta)             * (muon1FromGstar.eta - muon2FromGstar.eta)
+	      );
+
+	//if(_debug)
+	//{
+	//  std::cout<<"2 Muon from Z case: InvMas from Status1 muon candidates is "<<genDimuonMassZGstar<<std::endl;
+	//}
+
+	return;
+
+      }else continue; // nMuon from Z0 should be 2
+    }else if( (abs(MomInfo.id) <= 6 && abs(MomInfo.id) >= 1) || abs(MomInfo.id)== 21)
+    {// Quark or gluon
+      nMuFromQ = 0;
+      nWFromQ = 0;
+      for( int i(0); i<MomInfo.nDaughters ; i++)
+      {
+	if(abs(pMuMom->daughter(i)->pdgId()) == 24) nWFromQ++;
+	if(abs(pMuMom->daughter(i)->pdgId()) == 13)
+	{
+	  pDaught[nMuFromQ] = pMuMom->daughter(i);
+	  nMuFromQ++;
+	}
+      }
+      //if(_debug){
+      //  std::cout<<"nMuFromQ: "<<nMuFromQ<<"\t"<<"nWFromQ: "<<nWFromQ<<std::endl;
+      //}
+      if(nMuFromQ == 2 && nWFromQ == 1)
+      {
+	//if(_debug){
+	//  std::cout<<"nMuFromQ is 2"<<std::endl;
+	//  std::cout<<pDaught[0]->pdgId()<<std::endl;
+	//  std::cout<<pDaught[1]->pdgId()<<std::endl;
+	//}
+	if(pDaught[0]->pdgId() * pDaught[1]->pdgId() > 0) continue;
+	//Looking for stat 1 daughter
+	pMuonState1[0] = pDaught[0];
+	pMuonState1[1] = pDaught[1];
+	//std::cout<<pMuonState1[0]->pdgId()<<std::endl;
+	//std::cout<<pMuonState1[1]->pdgId()<<std::endl;
+
+	while(pMuonState1[0]->status() != 1)
+	{
+	  if(pMuonState1[0]->numberOfDaughters() <= 0)
+	  {
+	    return;
+	  }
+	  for(unsigned int i(0);i<pMuonState1[0]->numberOfDaughters();i++)
+	  {
+	    if( abs(pMuonState1[0]->daughter(i)->pdgId()) == 13)
+	    {
+	      pMuonState1[0] = pMuonState1[0]->daughter(i);
+	      break;
+	    }
+	  }
+	}
+	while(pMuonState1[1]->status() != 1)
+	{
+	  if(pMuonState1[1]->numberOfDaughters() <= 0)
+	  {
+	    return;
+	  }
+	  for(unsigned int i(0);i<pMuonState1[1]->numberOfDaughters();i++)
+	  {
+	    if( abs(pMuonState1[1]->daughter(i)->pdgId()) == 13)
+	    {
+	      pMuonState1[1]= pMuonState1[1]->daughter(i);
+	      break;
+	    }
+	  }
+	}
+
+	//if(_debug){
+	//  std::cout<<"Checking two staus 1 muons from a Q"<<std::endl;
+	//  std::cout<<"id: "<<pMuonState1[0]->pdgId()<<"\t"<<"status: "<<pMuonState1[0]->status()<<"\t"<<"pt: "<<pMuonState1[0]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pMuonState1[1]->pdgId()<<"\t"<<"status: "<<pMuonState1[1]->status()<<"\t"<<"pt: "<<pMuonState1[1]->pt()<<std::endl;
+	//}
+
+	muon1FromGstar.pt  = pMuonState1[0]->pt();
+	muon1FromGstar.eta = pMuonState1[0]->eta();
+	muon1FromGstar.phi = pMuonState1[0]->phi();
+
+	muon2FromGstar.pt  = pMuonState1[1]->pt();
+	muon2FromGstar.eta = pMuonState1[1]->eta();
+	muon2FromGstar.phi = pMuonState1[1]->phi();
+
+	muon4V_1.SetPtEtaPhiM(pMuonState1[0]->pt(),
+	                      pMuonState1[0]->eta(),
+	                      pMuonState1[0]->phi(),
+			      0.106);
+	muon4V_2.SetPtEtaPhiM(pMuonState1[1]->pt(),
+	                      pMuonState1[1]->eta(),
+	                      pMuonState1[1]->phi(),
+			      0.106);
+	genDimuonMassZGstar = (muon4V_1 + muon4V_2).M();
+	//if(_debug)
+	//{
+	//  std::cout<<"InvM of dimuon from Q: "<<genDimuonMassZGstar<<std::endl;
+	//}
+
+	_ZGstarDimu_DelaR=
+	  sqrt(
+	      reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi) * reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi)
+	      +
+	      (muon1FromGstar.eta - muon2FromGstar.eta)             * (muon1FromGstar.eta - muon2FromGstar.eta)
+	      );
+
+	return; // Strop here to aboid doube checking from two muons
+
+      }else continue;
+
+    }else continue;
+  }
+  return;
+}
 void reco::SkimEvent::setGenLeptonIndices() {
   leptonIndices.clear();
   std::vector<std::pair<size_t, float>> genLeptonPair;

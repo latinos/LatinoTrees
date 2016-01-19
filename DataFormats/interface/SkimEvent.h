@@ -446,6 +446,17 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float chargedMetSmurfPhi() const{return chargedMetSmurf_.phi();}
             const float pfMetSignificance() const;
             const float pfMetMEtSig() const;
+	    // Gen ZGstar
+            const float Gen_ZGstar_mu1_pt()  const{ return muon1FromGstar.pt;}
+            const float Gen_ZGstar_mu1_eta() const{ return muon1FromGstar.eta;}
+            const float Gen_ZGstar_mu1_phi() const{ return muon1FromGstar.phi;}
+
+            const float Gen_ZGstar_mu2_pt()  const{ return muon2FromGstar.pt;}
+            const float Gen_ZGstar_mu2_eta() const{ return muon2FromGstar.eta;}
+            const float Gen_ZGstar_mu2_phi() const{ return muon2FromGstar.phi;}
+
+            const float Gen_ZGstar_mass() const{ return genDimuonMassZGstar;}
+            const float Gen_ZGstar_deltaR() const{ return _ZGstarDimu_DelaR;}
             //const float minMet() const;
             //const math::XYZTLorentzVector minMetP4() const;
             const float mll() const;
@@ -641,6 +652,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setVertex(const edm::Handle<reco::VertexCollection> &);
             void setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s);
             void setVtxSumPt2s(const edm::Handle<edm::ValueMap<float> > &s);
+
+            void setGenDiMuonFromZGstar( edm::Handle<reco::GenParticleCollection> genParticles);
             void setGenParticles(const edm::Handle<reco::GenParticleCollection> &h);
 	    void setGenLeptonIndices();
             void setDressedLepton(const edm::Handle<edm::View<reco::Candidate> > &h, size_t i);
@@ -1049,6 +1062,17 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             lhef::HEPEUP LHEhepeup_;
 
             const LHEEventProduct* LHEInfoHandle_;
+
+	    // for the Gen ZGstar
+            struct GenInfo{
+              int id, status, nDaughters;
+              float mass;
+              float pt, eta, phi;
+            };
+            GenInfo muon1FromGstar;
+            GenInfo muon2FromGstar;
+	    float genDimuonMassZGstar;
+	    float _ZGstarDimu_DelaR;
             
             
             std::vector< std::string > comments_LHE_;

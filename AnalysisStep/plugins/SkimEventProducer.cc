@@ -469,6 +469,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     if(genParticles.isValid()) {
      skimEvent->back().setGenParticles(genParticles);
      skimEvent->back().setGenLeptonIndices();
+     skimEvent->back().setGenDiMuonFromZGstar(genParticles);
+
     }
     if(!(mcGenWeightTag_ == edm::InputTag(""))) {
      skimEvent->back().setGenWeight(mcGenWeight);
