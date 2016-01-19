@@ -227,7 +227,7 @@ samples['ttDM0150pseudo0500'] .extend( ['xsec=0.000000057'   , 'kfact=1.000', 'r
 
 ## monoHiggs
 samples['monoH_2HDM_MZp-600_MA0-300']  .extend( ['xsec=0.004901329',	'kfact=1.000',	   	'ref=M'] ) #0.046690*9*(0.108)^2
-samples['monoH_2HDM_MZp-800_MA0-300']  .extend( ['xsec=0,005431458',	'kfact=1.000',	   	'ref=M'] ) #0.051740*9*(0.108)^2
+samples['monoH_2HDM_MZp-800_MA0-300']  .extend( ['xsec=0.005431458',	'kfact=1.000',	   	'ref=M'] ) #0.051740*9*(0.108)^2
 samples['monoH_2HDM_MZp-1000_MA0-300'] .extend( ['xsec=0.004405843',	'kfact=1.000',	   	'ref=M'] ) #0.041970*9*(0.108)^2
 samples['monoH_2HDM_MZp-1200_MA0-300'] .extend( ['xsec=0.003334038',	'kfact=1.000',	   	'ref=M'] ) #0.031760*9*(0.108)^2
 samples['monoH_2HDM_MZp-1400_MA0-300'] .extend( ['xsec=0.002473235',	'kfact=1.000',	   	'ref=M'] ) #0.023560*9*(0.108)^2
