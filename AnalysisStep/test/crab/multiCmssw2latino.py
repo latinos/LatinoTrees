@@ -1,5 +1,6 @@
 import os
 import sys
+import subprocess
 
 if __name__ == '__main__':
 
@@ -36,6 +37,10 @@ if __name__ == '__main__':
            inputFolder = value[0]
            pattern     = value[1]
            print " outputDirectory = ", outputDirectory
+           
+           # Check if inputfolder is full path
+           while subprocess.check_output("/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select ls " + inputFolder + " | grep " + pattern + " | wc -l", shell=True) == '0\n':
+             inputFolder += ('/' + subprocess.check_output("/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select ls " + inputFolder, shell=True)).rstrip('\n')
            
            # just print on screen
            if dryRun :
