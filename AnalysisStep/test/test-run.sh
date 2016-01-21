@@ -47,7 +47,10 @@ rm -rf stepB_numEvent${EVENTS}.root
 ### Data example
 #####
 
-export MYFILE=file:/afs/cern.ch/work/p/piedra/public/store/data/Run2015D/DoubleMuon/MINIAOD/16Dec2015-v1/10000/00998A06-23A8-E511-902A-0025907B4F64.root
+###export MYFILE=file:/afs/cern.ch/work/p/piedra/public/store/data/Run2015D/DoubleMuon/MINIAOD/16Dec2015-v1/10000/00998A06-23A8-E511-902A-0025907B4F64.root
+
+### Debugging exit code 139
+export MYFILE=file:/afs/cern.ch/work/p/piedra/public/store/data/Run2015D/DoubleMuon/MINIAOD/16Dec2015-v1/10000/926D0103-DBA7-E511-AE1C-24BE05C6E561.root
 
 rm -rf latino_stepB_data_numEvent${EVENTS}.root
 
@@ -63,11 +66,9 @@ cmsRun stepB.py print                   \
     doNoFilter=False                    \
     doMuonIsoId=True                    \
     doEleIsoId=True                     \
-    doPhotonID=True                     \
-    doGen=False                         \
     doBTag=True                         \
-    doFatJet=True                       \
-    doLHE=False                         \
+    runPUPPISequence=True               \
+    doPhotonID=True                     \
     maxEvents=${EVENTS}                 \
     inputFiles=${MYFILE}
 
@@ -76,4 +77,3 @@ cmsRun stepB.py print                   \
 python cmssw2latino.py stepB_data_numEvent${EVENTS}.root
 
 rm -rf stepB_data_numEvent${EVENTS}.root
-
