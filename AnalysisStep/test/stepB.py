@@ -450,11 +450,11 @@ if not isMC :
     setattr(stepBTree.variables, "std_vector_trigger_L1min_prescale",  cms.string("selectedRateTriggerL1minPrescale/50") )
     setattr(stepBTree.variables, "std_vector_trigger_L1max_prescale",  cms.string("selectedRateTriggerL1maxPrescale/50") )
     # special paths, e.g. metFilters. See skimEventProducer_cfi for the list
-    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/13") )
+    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
 if isMC :
     process.skimEventProducer.SelectedPaths = cms.vstring ("")
     # special paths always saved
-    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/13") )
+    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
 
 
 
