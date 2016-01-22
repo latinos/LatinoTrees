@@ -213,25 +213,40 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         # same as analysis triggers
         "HLT_IsoTkMu18_v*",
         "HLT_IsoMu18_v*",
-        
         ),
 
 
+# 74X
+#-----
+#    SpecialPaths = cms.vstring(
+#        "Flag_trackingFailureFilter",
+#        "Flag_goodVertices",
+#        "Flag_CSCTightHaloFilter",
+#        "Flag_trkPOGFilters",
+#        "Flag_trkPOG_logErrorTooManyClusters",
+#        "Flag_EcalDeadCellTriggerPrimitiveFilter",
+#        "Flag_ecalLaserCorrFilter",
+#        "Flag_trkPOG_manystripclus53X",
+#        "Flag_eeBadScFilter",
+#        "Flag_METFilters",
+#        "Flag_HBHENoiseFilter",
+#        "Flag_trkPOG_toomanystripclus53X",
+#        "Flag_hcalLaserEventFilter"
+#        ),
+
+
+# 76X
+#-----
     SpecialPaths = cms.vstring(
-        "Flag_trackingFailureFilter",
-        "Flag_goodVertices",
-        "Flag_CSCTightHaloFilter",
-        "Flag_trkPOGFilters",
-        "Flag_trkPOG_logErrorTooManyClusters",
-        "Flag_EcalDeadCellTriggerPrimitiveFilter",
-        "Flag_ecalLaserCorrFilter",
-        "Flag_trkPOG_manystripclus53X",
-        "Flag_eeBadScFilter",
-        "Flag_METFilters",
         "Flag_HBHENoiseFilter",
-        "Flag_trkPOG_toomanystripclus53X",
-        "Flag_hcalLaserEventFilter"
-    ),
+        "Flag_HBHENoiseIsoFilter",
+        "Flag_CSCTightHalo2015Filter",
+        "Flag_EcalDeadCellTriggerPrimitiveFilter",
+        "Flag_goodVertices",
+        "Flag_eeBadScFilter",
+        "Flag_chargedHadronTrackResolutionFilter",
+        "Flag_muonBadTrackFilter"
+        ),
     
 
     #looseMuSelection  = cms.string(PRESEL_MU + "&&" + MUON_ID_LOOSE),
