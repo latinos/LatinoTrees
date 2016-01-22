@@ -31,4 +31,6 @@ pyCfgParams.append('isPromptRecoData=True')  # FIXME check for met filters
 config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_v2.txt'
 config.Data.splitting     = 'LumiBased'
 config.Data.unitsPerJob   = 10
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/08Jan/data/25ns/'
+# config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/08Jan/data/25ns/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/22Jan/data/25ns/'
+

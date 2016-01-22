@@ -240,7 +240,8 @@ samples['DY2JetsToLL']           = ['/DY2JetsToLL_M-50_TuneCUETP8M1_13TeV-madgra
 ########
 # Additional global configuration
 ########
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/08Jan/MC/25ns/'
+#  config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/08Jan/MC/25ns/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/22Jan/MC/25ns/'
 pyCfgParams.append('globalTag=76X_mcRun2_asymptotic_v12')
 
 
