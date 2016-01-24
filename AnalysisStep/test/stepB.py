@@ -385,7 +385,7 @@ if '2015' in label: label = label[:label.find('2015')]
 
 
 # data
-if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG']:
+if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG', 'MET', 'SinglePhoton' ]:
     print " >> DATA:: ", label
     dataset = [label]
     id = options.id
