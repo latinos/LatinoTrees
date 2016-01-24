@@ -1,6 +1,6 @@
 ########
 
-outputDirectory = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/split/"
+outputDirectory = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/22Jan/data/25ns/LatinoTrees/"
 
 
 ########
