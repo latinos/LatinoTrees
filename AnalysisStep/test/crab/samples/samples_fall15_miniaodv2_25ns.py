@@ -295,5 +295,5 @@ samples['monoH_2HDM_MZp-2500_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HD
 ########
 # Additional global configuration
 ########
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/18Jan/MC/25ns/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/22Jan/MC/25ns/'
 pyCfgParams.append('globalTag=76X_mcRun2_asymptotic_v12')
