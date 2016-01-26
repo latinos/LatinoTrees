@@ -34,6 +34,15 @@ samples['QCD_Pt-50to80_EMEnriched']                   .extend( ['xsec=19800000',
 samples['QCD_Pt-30toInf_DoubleEMEnriched']            .extend( ['xsec=162060000',     'kfact=1.000',            'ref=N'] )
 
 
+
+## VVV
+samples['WWW']            .extend( ['xsec=0.18331',     'kfact=1.000',            'ref=H'] )
+samples['WWZ']            .extend( ['xsec=0.16510',     'kfact=1.000',            'ref=E'] )
+samples['WZZ']            .extend( ['xsec=0.05565',     'kfact=1.000',            'ref=E'] )
+samples['ZZZ']            .extend( ['xsec=0.01398',     'kfact=1.000',            'ref=E'] )
+
+
+
 # Wjets
 samples['WJetsToLNu']                	.extend( ['xsec=61526.7',     'kfact=1.000',		'ref=E'] )
 
@@ -42,8 +51,13 @@ samples['WWTo2L2Nu']	             	.extend( ['xsec=12.178',     'kfact=1.000',		
 samples['WWToLNuQQ']	             	.extend( ['xsec=49.997',     'kfact=1.000',		'ref=E'] )	
 samples['WWToLNuQQext']	             	.extend( ['xsec=49.997',     'kfact=1.000',		'ref=E'] )
 samples['WWTo4Q'] 	             	.extend( ['xsec=51.723',     'kfact=1.000',		'ref=E'] )
-samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec=7.948',      'kfact=1.000',		'ref=E'] ) 
-samples['GluGluWWTo2L2NuHiggs_MCFM'] 	.extend( ['xsec=7.948',      'kfact=1.000',		'ref=X'] ) # Under discussion
+samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec=0.8436',      'kfact=1.000',		'ref=E'] ) # 2*3.974*0.1086*.1086*9
+samples['GluGluWWTo2L2NuHiggs_MCFM'] 	.extend( ['xsec=1.8349',      'kfact=1.000',		'ref=X'] ) # Under discussion: 2*3.974*0.1086*.1086*9 + ggH125 (0.9913)
+
+
+
+ 
+
 
 # tt
 samples['TTTo2L2Nu'] 	             	.extend( ['xsec=87.31',     	'kfact=1.000',		'ref=B'] )		
