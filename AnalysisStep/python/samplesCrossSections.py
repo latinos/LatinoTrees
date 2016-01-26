@@ -17,11 +17,24 @@
 #	K	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProductionMassScan (powheg numbers)
 #	L	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProduction (powheg numbers)
 #       M       https://twiki.cern.ch/twiki/bin/view/CMS/DMAnalysis
+#       N       MCM
 #	X	Unknown! - Cross section not yet there
-#
+#       
 #	
 	
 
+
+## QCD
+samples['QCD_Pt-15to20_MuEnrichedPt5']                .extend( ['xsec=1273190000',    'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-20toInf_MuEnrichedPt15']              .extend( ['xsec=720648000',     'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-15to20_EMEnriched']                   .extend( ['xsec=1273000000',    'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-20to30_EMEnriched']                   .extend( ['xsec=557600000',     'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-30to50_EMEnriched']                   .extend( ['xsec=136000000',     'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-50to80_EMEnriched']                   .extend( ['xsec=19800000',      'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-30toInf_DoubleEMEnriched']            .extend( ['xsec=162060000',     'kfact=1.000',            'ref=N'] )
+
+
+# Wjets
 samples['WJetsToLNu']                	.extend( ['xsec=61526.7',     'kfact=1.000',		'ref=E'] )
 
 # WW 
