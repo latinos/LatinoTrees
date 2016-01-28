@@ -455,8 +455,17 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float Gen_ZGstar_mu2_eta() const{ return muon2FromGstar.eta;}
             const float Gen_ZGstar_mu2_phi() const{ return muon2FromGstar.phi;}
 
-            const float Gen_ZGstar_mass() const{ return genDimuonMassZGstar;}
-            const float Gen_ZGstar_deltaR() const{ return _ZGstarDimu_DelaR;}
+            const float Gen_ZGstar_mass() const{ return genDiLeptMassZGstar;}
+            const float Gen_ZGstar_deltaR() const{ return _ZGstarDiLept_DelaR;}
+
+            const float Gen_ZGstar_ele1_pt()  const{ return elec1FromGstar.pt;}
+            const float Gen_ZGstar_ele1_eta() const{ return elec1FromGstar.eta;}
+            const float Gen_ZGstar_ele1_phi() const{ return elec1FromGstar.phi;}
+
+            const float Gen_ZGstar_ele2_pt()  const{ return elec2FromGstar.pt;}
+            const float Gen_ZGstar_ele2_eta() const{ return elec2FromGstar.eta;}
+            const float Gen_ZGstar_ele2_phi() const{ return elec2FromGstar.phi;}
+
             //const float minMet() const;
             //const math::XYZTLorentzVector minMetP4() const;
             const float mll() const;
@@ -653,7 +662,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s);
             void setVtxSumPt2s(const edm::Handle<edm::ValueMap<float> > &s);
 
-            void setGenDiMuonFromZGstar( edm::Handle<reco::GenParticleCollection> genParticles);
+            void setGenDiLeptFromZGstar( edm::Handle<reco::GenParticleCollection> genParticles);
             void setGenParticles(const edm::Handle<reco::GenParticleCollection> &h);
 	    void setGenLeptonIndices();
             void setDressedLepton(const edm::Handle<edm::View<reco::Candidate> > &h, size_t i);
@@ -1071,8 +1080,12 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             };
             GenInfo muon1FromGstar;
             GenInfo muon2FromGstar;
-	    float genDimuonMassZGstar;
-	    float _ZGstarDimu_DelaR;
+
+            GenInfo elec1FromGstar;
+            GenInfo elec2FromGstar;
+
+	    float genDiLeptMassZGstar;
+	    float _ZGstarDiLept_DelaR;
             
             
             std::vector< std::string > comments_LHE_;

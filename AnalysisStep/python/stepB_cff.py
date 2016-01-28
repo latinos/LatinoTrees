@@ -139,6 +139,14 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         Gen_ZGstar_mu2_eta = cms.string("Gen_ZGstar_mu2_eta"),
         Gen_ZGstar_mu2_phi = cms.string("Gen_ZGstar_mu2_phi"),
 
+        Gen_ZGstar_ele1_pt  = cms.string("Gen_ZGstar_ele1_pt"),
+        Gen_ZGstar_ele1_eta = cms.string("Gen_ZGstar_ele1_eta"),
+        Gen_ZGstar_ele1_phi = cms.string("Gen_ZGstar_ele1_phi"),
+
+        Gen_ZGstar_ele2_pt  = cms.string("Gen_ZGstar_ele2_pt"),
+        Gen_ZGstar_ele2_eta = cms.string("Gen_ZGstar_ele2_eta"),
+        Gen_ZGstar_ele2_phi = cms.string("Gen_ZGstar_ele2_phi"),
+
 	Gen_ZGstar_mass = cms.string("Gen_ZGstar_mass"),
 	Gen_ZGstar_deltaR = cms.string("Gen_ZGstar_deltaR"),
 

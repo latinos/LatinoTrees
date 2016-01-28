@@ -228,23 +228,24 @@ void reco::SkimEvent::setGenParticles(const edm::Handle<reco::GenParticleCollect
  }
 }
 
-void reco::SkimEvent::setGenDiMuonFromZGstar(edm::Handle<reco::GenParticleCollection> genParticles)
+void reco::SkimEvent::setGenDiLeptFromZGstar(edm::Handle<reco::GenParticleCollection> genParticles)
 {
   // Definition
+  bool isMuon=false;
   GenInfo MomInfo;
-  const reco::Candidate* pMuMom(0);
+  const reco::Candidate* pLeptMom(0);
   const reco::Candidate* pDaught[4]={0};
-  const reco::Candidate* pMuonState1[4]={0};
-  int nMuFromW;
-  int nMuFromZ;
-  int nMuFromQ;
+  const reco::Candidate* pLeptState1[4]={0};
+  int nLeptFromW;
+  int nLeptFromZ;
+  int nLeptFromQ;
   int nWFromQ;
-  int IdxDaughtMuon[4];
-  TLorentzVector muon4V_1;
-  TLorentzVector muon4V_2;
+  int IdxDaughtLept[4];
+  TLorentzVector lept1_4V;
+  TLorentzVector lept2_4V;
   TLorentzVector tmp4V_1;
   TLorentzVector tmp4V_2;
-  float tmpInvMass2Muon;
+  float tmpInvM;
 
   muon1FromGstar.pt  = defaultvalues::defaultFloat;
   muon1FromGstar.eta = defaultvalues::defaultFloat;
@@ -253,12 +254,20 @@ void reco::SkimEvent::setGenDiMuonFromZGstar(edm::Handle<reco::GenParticleCollec
   muon2FromGstar.eta = defaultvalues::defaultFloat;
   muon2FromGstar.phi = defaultvalues::defaultFloat;
 
-  genDimuonMassZGstar = defaultvalues::defaultFloat;
-  _ZGstarDimu_DelaR   = defaultvalues::defaultFloat;
+  elec1FromGstar.pt  = defaultvalues::defaultFloat;
+  elec1FromGstar.eta = defaultvalues::defaultFloat;
+  elec1FromGstar.phi = defaultvalues::defaultFloat;
+  elec2FromGstar.pt  = defaultvalues::defaultFloat;
+  elec2FromGstar.eta = defaultvalues::defaultFloat;
+  elec2FromGstar.phi = defaultvalues::defaultFloat;
+
+  genDiLeptMassZGstar = defaultvalues::defaultFloat;
+  _ZGstarDiLept_DelaR   = defaultvalues::defaultFloat;
 
   for (reco::GenParticleCollection::const_iterator genPart = genParticles->begin(); genPart != genParticles->end(); genPart++){
     // Initialization
-    pMuMom=0;
+    pLeptMom=0;
+    isMuon = false;
     MomInfo.id		=defaultvalues::defaultInt;
     MomInfo.status	=defaultvalues::defaultInt;
     MomInfo.nDaughters	=defaultvalues::defaultInt;
@@ -266,73 +275,100 @@ void reco::SkimEvent::setGenDiMuonFromZGstar(edm::Handle<reco::GenParticleCollec
 
     // Check Mom of Muon
     int id = abs(genPart->pdgId());
-    if (id == 13 && genPart->status()==1) { //---- mu
+    if (id == 11 && genPart->status()==1) { //---- electron
       if(genPart->numberOfMothers() < 1) continue;
-      pMuMom = genPart->mother();
-      while(abs(pMuMom->pdgId()) == 13){
+      pLeptMom = genPart->mother();
+      while(abs(pLeptMom->pdgId()) == 11){
         if(genPart->numberOfMothers() < 1) break;
-        pMuMom = pMuMom->mother();
+        pLeptMom = pLeptMom->mother();
       };
-      MomInfo.id = pMuMom->pdgId();
-      MomInfo.nDaughters = pMuMom->numberOfDaughters();
+      isMuon = false;
+      MomInfo.id = pLeptMom->pdgId();
+      MomInfo.nDaughters = pLeptMom->numberOfDaughters();
       //if(_debug) std::cout<<"muon mother pid "<<MomInfo.id<<"\t"<<"nDaughers: "<<MomInfo.nDaughters<<std::endl;
-    }
+    }else if (id == 13 && genPart->status()==1) { //---- mu
+      if(genPart->numberOfMothers() < 1) continue;
+      pLeptMom = genPart->mother();
+      while(abs(pLeptMom->pdgId()) == 13){
+        if(genPart->numberOfMothers() < 1) break;
+        pLeptMom = pLeptMom->mother();
+      };
+      isMuon=true;
+      MomInfo.id = pLeptMom->pdgId();
+      MomInfo.nDaughters = pLeptMom->numberOfDaughters();
+      //if(_debug) std::cout<<"muon mother pid "<<MomInfo.id<<"\t"<<"nDaughers: "<<MomInfo.nDaughters<<std::endl;
+    }else continue;
 
     //Muon Mom is a W boson case
     if(abs(MomInfo.id) == 24){
       if(MomInfo.nDaughters != 4) continue;
-      nMuFromW=0;
+      nLeptFromW=0;
       for( int i(0); i<4;i++)
       {
-	pDaught[i] = pMuMom->daughter(i);
+	pDaught[i] = pLeptMom->daughter(i);
         //if(_debug) std::cout<<"W boson daughter "<<i<<"\t"<<"id is "<<pDaught[i]->pdgId()<<std::endl;
-	if(abs(pDaught[i]->pdgId()) == 13)
+	if(isMuon)if(abs(pDaught[i]->pdgId()) == 13)
 	{
-	  IdxDaughtMuon[nMuFromW] = i;
-	  nMuFromW++;
+	  IdxDaughtLept[nLeptFromW] = i;
+	  nLeptFromW++;
+	}
+	if(!isMuon)if(abs(pDaught[i]->pdgId()) == 11)
+	{
+	  IdxDaughtLept[nLeptFromW] = i;
+	  nLeptFromW++;
 	}
 
       }
-      if(nMuFromW == 2)
+      if(nLeptFromW == 2)
       {
 	//if(_debug){
-	//  std::cout<<"nMuFromW is 2"<<std::endl;
-	//  std::cout<<pDaught[IdxDaughtMuon[0]]->pdgId()<<std::endl;
-	//  std::cout<<pDaught[IdxDaughtMuon[1]]->pdgId()<<std::endl;
+	//  std::cout<<"nLeptFromW is 2"<<std::endl;
+	//  std::cout<<pDaught[IdxDaughtLept[0]]->pdgId()<<std::endl;
+	//  std::cout<<pDaught[IdxDaughtLept[1]]->pdgId()<<std::endl;
 	//}
-	if(pDaught[IdxDaughtMuon[0]]->pdgId() * pDaught[IdxDaughtMuon[1]]->pdgId() > 0) continue;
+	if(pDaught[IdxDaughtLept[0]]->pdgId() * pDaught[IdxDaughtLept[1]]->pdgId() > 0) continue;
 	//Looking for stat 1 daughter
-	pMuonState1[0] = pDaught[IdxDaughtMuon[0]];
-	pMuonState1[1] = pDaught[IdxDaughtMuon[1]];
-	//std::cout<<pMuonState1[0]->pdgId()<<std::endl;
-	//std::cout<<pMuonState1[1]->pdgId()<<std::endl;
+	pLeptState1[0] = pDaught[IdxDaughtLept[0]];
+	pLeptState1[1] = pDaught[IdxDaughtLept[1]];
+	//std::cout<<pLeptState1[0]->pdgId()<<std::endl;
+	//std::cout<<pLeptState1[1]->pdgId()<<std::endl;
 
-	while(pMuonState1[0]->status() != 1)
+	while(pLeptState1[0]->status() != 1)
 	{
-	  if(pMuonState1[0]->numberOfDaughters() <= 0)
+	  if(pLeptState1[0]->numberOfDaughters() <= 0)
 	  {
 	    return;
 	  }
-	  for(unsigned int i(0);i<pMuonState1[0]->numberOfDaughters();i++)
+	  for(unsigned int i(0);i<pLeptState1[0]->numberOfDaughters();i++)
 	  {
-	    if( abs(pMuonState1[0]->daughter(i)->pdgId()) == 13)
+	    if(isMuon)if( abs(pLeptState1[0]->daughter(i)->pdgId()) == 13)
 	    {
-	      pMuonState1[0] = pMuonState1[0]->daughter(i);
+	      pLeptState1[0] = pLeptState1[0]->daughter(i);
+	      break;
+	    }
+	    if(!isMuon)if( abs(pLeptState1[0]->daughter(i)->pdgId()) == 11)
+	    {
+	      pLeptState1[0] = pLeptState1[0]->daughter(i);
 	      break;
 	    }
 	  }
 	}
-	while(pMuonState1[1]->status() != 1)
+	while(pLeptState1[1]->status() != 1)
 	{
-	  if(pMuonState1[1]->numberOfDaughters() <= 0)
+	  if(pLeptState1[1]->numberOfDaughters() <= 0)
 	  {
 	    return;
 	  }
-	  for(unsigned int i(0);i<pMuonState1[1]->numberOfDaughters();i++)
+	  for(unsigned int i(0);i<pLeptState1[1]->numberOfDaughters();i++)
 	  {
-	    if( abs(pMuonState1[1]->daughter(i)->pdgId()) == 13)
+	    if(isMuon)if( abs(pLeptState1[1]->daughter(i)->pdgId()) == 13)
 	    {
-	      pMuonState1[1]= pMuonState1[1]->daughter(i);
+	      pLeptState1[1]= pLeptState1[1]->daughter(i);
+	      break;
+	    }
+	    if(!isMuon)if( abs(pLeptState1[1]->daughter(i)->pdgId()) == 11)
+	    {
+	      pLeptState1[1]= pLeptState1[1]->daughter(i);
 	      break;
 	    }
 	  }
@@ -340,147 +376,205 @@ void reco::SkimEvent::setGenDiMuonFromZGstar(edm::Handle<reco::GenParticleCollec
 
 	//if(_debug){
 	//  std::cout<<"Checking two staus 1 muons from a W"<<std::endl;
-	//  std::cout<<"id: "<<pMuonState1[0]->pdgId()<<"\t"<<"status: "<<pMuonState1[0]->status()<<"\t"<<"pt: "<<pMuonState1[0]->pt()<<std::endl;
-	//  std::cout<<"id: "<<pMuonState1[1]->pdgId()<<"\t"<<"status: "<<pMuonState1[1]->status()<<"\t"<<"pt: "<<pMuonState1[1]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pLeptState1[0]->pdgId()<<"\t"<<"status: "<<pLeptState1[0]->status()<<"\t"<<"pt: "<<pLeptState1[0]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pLeptState1[1]->pdgId()<<"\t"<<"status: "<<pLeptState1[1]->status()<<"\t"<<"pt: "<<pLeptState1[1]->pt()<<std::endl;
 	//}
 
-	muon1FromGstar.pt  = pMuonState1[0]->pt();
-	muon1FromGstar.eta = pMuonState1[0]->eta();
-	muon1FromGstar.phi = pMuonState1[0]->phi();
+	if(isMuon){
+	  muon1FromGstar.pt  = pLeptState1[0]->pt();
+	  muon1FromGstar.eta = pLeptState1[0]->eta();
+	  muon1FromGstar.phi = pLeptState1[0]->phi();
 
-	muon2FromGstar.pt  = pMuonState1[1]->pt();
-	muon2FromGstar.eta = pMuonState1[1]->eta();
-	muon2FromGstar.phi = pMuonState1[1]->phi();
-
-	muon4V_1.SetPtEtaPhiM(pMuonState1[0]->pt(),
-	                      pMuonState1[0]->eta(),
-	                      pMuonState1[0]->phi(),
+	  muon2FromGstar.pt  = pLeptState1[1]->pt();
+	  muon2FromGstar.eta = pLeptState1[1]->eta();
+	  muon2FromGstar.phi = pLeptState1[1]->phi();
+	  lept1_4V.SetPtEtaPhiM(pLeptState1[0]->pt(),
+	                      pLeptState1[0]->eta(),
+	                      pLeptState1[0]->phi(),
 			      0.106);
-	muon4V_2.SetPtEtaPhiM(pMuonState1[1]->pt(),
-	                      pMuonState1[1]->eta(),
-	                      pMuonState1[1]->phi(),
+	  lept2_4V.SetPtEtaPhiM(pLeptState1[1]->pt(),
+	                      pLeptState1[1]->eta(),
+	                      pLeptState1[1]->phi(),
 			      0.106);
+	}else{
+	  elec1FromGstar.pt  = pLeptState1[0]->pt();
+	  elec1FromGstar.eta = pLeptState1[0]->eta();
+	  elec1FromGstar.phi = pLeptState1[0]->phi();
 
-	genDimuonMassZGstar = (muon4V_1 + muon4V_2).M();
-	_ZGstarDimu_DelaR=
-	  sqrt(
-	      reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi) * reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi)
-	      +
-	      (muon1FromGstar.eta - muon2FromGstar.eta)             * (muon1FromGstar.eta - muon2FromGstar.eta)
-	      );
+	  elec2FromGstar.pt  = pLeptState1[1]->pt();
+	  elec2FromGstar.eta = pLeptState1[1]->eta();
+	  elec2FromGstar.phi = pLeptState1[1]->phi();
+
+	  lept1_4V.SetPtEtaPhiM(pLeptState1[0]->pt(),
+	                      pLeptState1[0]->eta(),
+	                      pLeptState1[0]->phi(),
+			      0.0005);
+	  lept2_4V.SetPtEtaPhiM(pLeptState1[1]->pt(),
+	                      pLeptState1[1]->eta(),
+	                      pLeptState1[1]->phi(),
+			      0.0005);
+	}
+
+	_ZGstarDiLept_DelaR=
+	    sqrt(
+	        reco::deltaPhi(pLeptState1[0]->phi(),pLeptState1[1]->phi()) * reco::deltaPhi(pLeptState1[0]->phi(),pLeptState1[1]->phi())
+	        +
+	        (pLeptState1[0]->eta() - pLeptState1[1]->eta()) * (pLeptState1[0]->eta() - pLeptState1[1]->eta())
+	        );
+	genDiLeptMassZGstar = (lept1_4V + lept2_4V).M();
+
+
 
 	return;
 
-      }else if( nMuFromW == 3)
+      }else if( nLeptFromW == 3)
       {
 	//if(_debug){
-	//  std::cout<<"nMuFromW is 3"<<std::endl;
-	//  std::cout<<pDaught[IdxDaughtMuon[0]]->pdgId()<<std::endl;
-	//  std::cout<<pDaught[IdxDaughtMuon[1]]->pdgId()<<std::endl;
-	//  std::cout<<pDaught[IdxDaughtMuon[2]]->pdgId()<<std::endl;
+	//  std::cout<<"nLeptFromW is 3"<<std::endl;
+	//  std::cout<<pDaught[IdxDaughtLept[0]]->pdgId()<<std::endl;
+	//  std::cout<<pDaught[IdxDaughtLept[1]]->pdgId()<<std::endl;
+	//  std::cout<<pDaught[IdxDaughtLept[2]]->pdgId()<<std::endl;
 	//}
 
 	//Looking for stat 1 daughter
-	pMuonState1[0] = pDaught[IdxDaughtMuon[0]];
-	pMuonState1[1] = pDaught[IdxDaughtMuon[1]];
-	pMuonState1[2] = pDaught[IdxDaughtMuon[2]];
-	//std::cout<<pMuonState1[0]->pdgId()<<std::endl;
-	//std::cout<<pMuonState1[1]->pdgId()<<std::endl;
-	while(pMuonState1[0]->status() != 1)
+	pLeptState1[0] = pDaught[IdxDaughtLept[0]];
+	pLeptState1[1] = pDaught[IdxDaughtLept[1]];
+	pLeptState1[2] = pDaught[IdxDaughtLept[2]];
+	//std::cout<<pLeptState1[0]->pdgId()<<std::endl;
+	//std::cout<<pLeptState1[1]->pdgId()<<std::endl;
+	while(pLeptState1[0]->status() != 1)
 	{
-	  if(pMuonState1[0]->numberOfDaughters() <= 0)
+	  if(pLeptState1[0]->numberOfDaughters() <= 0)
 	  {
 	    return;
 	  }
-	  for(unsigned int i(0);i<pMuonState1[0]->numberOfDaughters();i++)
+	  for(unsigned int i(0);i<pLeptState1[0]->numberOfDaughters();i++)
 	  {
-	    if( abs(pMuonState1[0]->daughter(i)->pdgId()) == 13)
+	    if(isMuon)if( abs(pLeptState1[0]->daughter(i)->pdgId()) == 13)
 	    {
-	      pMuonState1[0] = pMuonState1[0]->daughter(i);
+	      pLeptState1[0] = pLeptState1[0]->daughter(i);
+	      break;
+	    }
+	    if(!isMuon)if( abs(pLeptState1[0]->daughter(i)->pdgId()) == 11)
+	    {
+	      pLeptState1[0] = pLeptState1[0]->daughter(i);
 	      break;
 	    }
 	  }
 	}
-	while(pMuonState1[1]->status() != 1)
+	while(pLeptState1[1]->status() != 1)
 	{
-	  if(pMuonState1[1]->numberOfDaughters() <= 0)
+	  if(pLeptState1[1]->numberOfDaughters() <= 0)
 	  {
 	    return;
 	  }
-	  for(unsigned int i(0);i<pMuonState1[1]->numberOfDaughters();i++)
+	  for(unsigned int i(0);i<pLeptState1[1]->numberOfDaughters();i++)
 	  {
-	    if( abs(pMuonState1[1]->daughter(i)->pdgId()) == 13)
+	    if(isMuon)if( abs(pLeptState1[1]->daughter(i)->pdgId()) == 13)
 	    {
-	      pMuonState1[1]= pMuonState1[1]->daughter(i);
+	      pLeptState1[1]= pLeptState1[1]->daughter(i);
+	      break;
+	    }
+	    if(!isMuon)if( abs(pLeptState1[1]->daughter(i)->pdgId()) == 11)
+	    {
+	      pLeptState1[1]= pLeptState1[1]->daughter(i);
 	      break;
 	    }
 	  }
 	}
-	while(pMuonState1[2]->status() != 1)
+	while(pLeptState1[2]->status() != 1)
 	{
-	  if(pMuonState1[2]->numberOfDaughters() <= 0)
+	  if(pLeptState1[2]->numberOfDaughters() <= 0)
 	  {
 	    return;
 	  }
-	  for(unsigned int i(0);i<pMuonState1[2]->numberOfDaughters();i++)
+	  for(unsigned int i(0);i<pLeptState1[2]->numberOfDaughters();i++)
 	  {
-	    if( abs(pMuonState1[2]->daughter(i)->pdgId()) == 13)
+	    if(isMuon)if( abs(pLeptState1[2]->daughter(i)->pdgId()) == 13)
 	    {
-	      pMuonState1[2]= pMuonState1[2]->daughter(i);
+	      pLeptState1[2]= pLeptState1[2]->daughter(i);
+	      break;
+	    }
+	    if(!isMuon)if( abs(pLeptState1[2]->daughter(i)->pdgId()) == 11)
+	    {
+	      pLeptState1[2]= pLeptState1[2]->daughter(i);
 	      break;
 	    }
 	  }
 	}
 	//if(_debug){
 	//  std::cout<<"Checking three staus 1 muons from a W"<<std::endl;
-	//  std::cout<<"id: "<<pMuonState1[0]->pdgId()<<"\t"<<"status: "<<pMuonState1[0]->status()<<"\t"<<"pt: "<<pMuonState1[0]->pt()<<std::endl;
-	//  std::cout<<"id: "<<pMuonState1[1]->pdgId()<<"\t"<<"status: "<<pMuonState1[1]->status()<<"\t"<<"pt: "<<pMuonState1[1]->pt()<<std::endl;
-	//  std::cout<<"id: "<<pMuonState1[2]->pdgId()<<"\t"<<"status: "<<pMuonState1[2]->status()<<"\t"<<"pt: "<<pMuonState1[2]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pLeptState1[0]->pdgId()<<"\t"<<"status: "<<pLeptState1[0]->status()<<"\t"<<"pt: "<<pLeptState1[0]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pLeptState1[1]->pdgId()<<"\t"<<"status: "<<pLeptState1[1]->status()<<"\t"<<"pt: "<<pLeptState1[1]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pLeptState1[2]->pdgId()<<"\t"<<"status: "<<pLeptState1[2]->status()<<"\t"<<"pt: "<<pLeptState1[2]->pt()<<std::endl;
 	//}
 
-	genDimuonMassZGstar = 100000000.0;
+	genDiLeptMassZGstar = 100000000.0;
 	for(int i(0); i<3; i++)
 	{
 	  for(int j(0); j<3; j++)
 	  {
 	    if(i >= j) continue;
-	    if(pMuonState1[i]->pdgId()*pMuonState1[j]->pdgId() > 0)continue;
-	    tmp4V_1.SetPtEtaPhiM(pMuonState1[i]->pt(),
-	                         pMuonState1[i]->eta(),
-	                         pMuonState1[i]->phi(),
+	    if(pLeptState1[i]->pdgId()*pLeptState1[j]->pdgId() > 0)continue;
+	    if(isMuon){
+	      tmp4V_1.SetPtEtaPhiM(pLeptState1[i]->pt(),
+	                         pLeptState1[i]->eta(),
+	                         pLeptState1[i]->phi(),
 	    		      0.106);
-	    tmp4V_2.SetPtEtaPhiM(pMuonState1[j]->pt(),
-	                         pMuonState1[j]->eta(),
-	                         pMuonState1[j]->phi(),
+	      tmp4V_2.SetPtEtaPhiM(pLeptState1[j]->pt(),
+	                         pLeptState1[j]->eta(),
+	                         pLeptState1[j]->phi(),
 	    		      0.106);
-	    tmpInvMass2Muon = (tmp4V_1 + tmp4V_2).M();
-	    if(tmpInvMass2Muon < genDimuonMassZGstar )
+	    }else{
+	      tmp4V_1.SetPtEtaPhiM(pLeptState1[i]->pt(),
+	                         pLeptState1[i]->eta(),
+	                         pLeptState1[i]->phi(),
+	    		      0.0005);
+	      tmp4V_2.SetPtEtaPhiM(pLeptState1[j]->pt(),
+	                         pLeptState1[j]->eta(),
+	                         pLeptState1[j]->phi(),
+	    		      0.0005);
+	    }
+
+	    tmpInvM = (tmp4V_1 + tmp4V_2).M();
+	    if(tmpInvM < genDiLeptMassZGstar )
 	    {
-	      muon1FromGstar.pt  = pMuonState1[i]->pt();
-	      muon1FromGstar.eta = pMuonState1[i]->eta();
-	      muon1FromGstar.phi = pMuonState1[i]->phi();
+	      genDiLeptMassZGstar = tmpInvM;
 
-	      muon2FromGstar.pt  = pMuonState1[j]->pt();
-	      muon2FromGstar.eta = pMuonState1[j]->eta();
-	      muon2FromGstar.phi = pMuonState1[j]->phi();
+	      if(isMuon){
+		muon1FromGstar.pt  = pLeptState1[i]->pt();
+	        muon1FromGstar.eta = pLeptState1[i]->eta();
+	        muon1FromGstar.phi = pLeptState1[i]->phi();
 
-	      genDimuonMassZGstar = tmpInvMass2Muon;
-	      _ZGstarDimu_DelaR=
+	        muon2FromGstar.pt  = pLeptState1[j]->pt();
+	        muon2FromGstar.eta = pLeptState1[j]->eta();
+	        muon2FromGstar.phi = pLeptState1[j]->phi();
+	      }else{
+		elec1FromGstar.pt  = pLeptState1[i]->pt();
+	        elec1FromGstar.eta = pLeptState1[i]->eta();
+	        elec1FromGstar.phi = pLeptState1[i]->phi();
+
+	        elec2FromGstar.pt  = pLeptState1[j]->pt();
+	        elec2FromGstar.eta = pLeptState1[j]->eta();
+	        elec2FromGstar.phi = pLeptState1[j]->phi();
+	      }
+
+	      _ZGstarDiLept_DelaR=
 	        sqrt(
-	            reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi) * reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi)
+	            reco::deltaPhi(pLeptState1[i]->phi(),pLeptState1[j]->phi()) * reco::deltaPhi(pLeptState1[i]->phi(),pLeptState1[j]->phi())
 	            +
-	            (muon1FromGstar.eta - muon2FromGstar.eta)             * (muon1FromGstar.eta - muon2FromGstar.eta)
+	            (pLeptState1[i]->eta() - pLeptState1[j]->eta())             * (pLeptState1[i]->eta() - pLeptState1[j]->eta())
 	            );
 
-	      muon4V_1 = tmp4V_1;
-	      muon4V_2 = tmp4V_2;
+	      //lept1_4V = tmp4V_1;
+	      //lept2_4V = tmp4V_2;
 	    }
 	  }
 	}
 	//if(_debug)
 	//{
-	//  tmpInvMass2Muon = (muon4V_1 + muon4V_2).M();
-	//  std::cout<<"3 Muon from W case: InvMas from final muon candidates is "<<tmpInvMass2Muon<<"\t"<<"InvMass from roof: "<<genDimuonMassZGstar<<std::endl;
+	//  tmpInvM = (lept1_4V + lept2_4V).M();
+	//  std::cout<<"3 Muon from W case: InvMas from final muon candidates is "<<tmpInvM<<"\t"<<"InvMass from roof: "<<genDiLeptMassZGstar<<std::endl;
 	//}
 
 	return;
@@ -488,53 +582,68 @@ void reco::SkimEvent::setGenDiMuonFromZGstar(edm::Handle<reco::GenParticleCollec
     }
     else if(abs(MomInfo.id) == 23){// Z0
       if(MomInfo.nDaughters != 2) continue;
-      nMuFromZ=0;
+      nLeptFromZ=0;
       for( int i(0); i<2;i++)
       {
-	pDaught[i] = pMuMom->daughter(i);
+	pDaught[i] = pLeptMom->daughter(i);
         //if(_debug) std::cout<<"Z boson daughter "<<i<<"\t"<<"id is "<<pDaught[i]->pdgId()<<std::endl;
-	if(abs(pDaught[i]->pdgId()) == 13)
+	if(isMuon)if(abs(pDaught[i]->pdgId()) == 13)
 	{
-	  //IdxDaughtMuon[nMuFromW] = i;
-	  nMuFromZ++;
+	  //IdxDaughtLept[nLeptFromW] = i;
+	  nLeptFromZ++;
+	}
+	if(!isMuon)if(abs(pDaught[i]->pdgId()) == 11)
+	{
+	  //IdxDaughtLept[nLeptFromW] = i;
+	  nLeptFromZ++;
 	}
 
       }
-      if(nMuFromZ == 2)
+      if(nLeptFromZ == 2)
       {
 	if(pDaught[0]->pdgId() * pDaught[1]->pdgId() > 0) continue;
 	//Looking for stat 1 daughter
-	pMuonState1[0] = pDaught[0];
-	pMuonState1[1] = pDaught[1];
-	//std::cout<<pMuonState1[0]->pdgId()<<std::endl;
-	//std::cout<<pMuonState1[1]->pdgId()<<std::endl;
+	pLeptState1[0] = pDaught[0];
+	pLeptState1[1] = pDaught[1];
+	//std::cout<<pLeptState1[0]->pdgId()<<std::endl;
+	//std::cout<<pLeptState1[1]->pdgId()<<std::endl;
 
-	while(pMuonState1[0]->status() != 1)
+	while(pLeptState1[0]->status() != 1)
 	{
-	  if(pMuonState1[0]->numberOfDaughters() <= 0)
+	  if(pLeptState1[0]->numberOfDaughters() <= 0)
 	  {
 	    return;
 	  }
-	  for(unsigned int i(0);i<pMuonState1[0]->numberOfDaughters();i++)
+	  for(unsigned int i(0);i<pLeptState1[0]->numberOfDaughters();i++)
 	  {
-	    if( abs(pMuonState1[0]->daughter(i)->pdgId()) == 13)
+	    if(isMuon)if( abs(pLeptState1[0]->daughter(i)->pdgId()) == 13)
 	    {
-	      pMuonState1[0] = pMuonState1[0]->daughter(i);
+	      pLeptState1[0] = pLeptState1[0]->daughter(i);
+	      break;
+	    }
+	    if(!isMuon)if( abs(pLeptState1[0]->daughter(i)->pdgId()) == 11)
+	    {
+	      pLeptState1[0] = pLeptState1[0]->daughter(i);
 	      break;
 	    }
 	  }
 	}
-	while(pMuonState1[1]->status() != 1)
+	while(pLeptState1[1]->status() != 1)
 	{
-	  if(pMuonState1[1]->numberOfDaughters() <= 0)
+	  if(pLeptState1[1]->numberOfDaughters() <= 0)
 	  {
 	    return;
 	  }
-	  for(unsigned int i(0);i<pMuonState1[1]->numberOfDaughters();i++)
+	  for(unsigned int i(0);i<pLeptState1[1]->numberOfDaughters();i++)
 	  {
-	    if( abs(pMuonState1[1]->daughter(i)->pdgId()) == 13)
+	    if(isMuon)if( abs(pLeptState1[1]->daughter(i)->pdgId()) == 13)
 	    {
-	      pMuonState1[1]= pMuonState1[1]->daughter(i);
+	      pLeptState1[1]= pLeptState1[1]->daughter(i);
+	      break;
+	    }
+	    if(!isMuon)if( abs(pLeptState1[1]->daughter(i)->pdgId()) == 11)
+	    {
+	      pLeptState1[1]= pLeptState1[1]->daughter(i);
 	      break;
 	    }
 	  }
@@ -542,38 +651,59 @@ void reco::SkimEvent::setGenDiMuonFromZGstar(edm::Handle<reco::GenParticleCollec
 
 	//if(_debug){
 	//  std::cout<<"Checking two staus 1 muons from a Z"<<std::endl;
-	//  std::cout<<"id: "<<pMuonState1[0]->pdgId()<<"\t"<<"status: "<<pMuonState1[0]->status()<<"\t"<<"pt: "<<pMuonState1[0]->pt()<<std::endl;
-	//  std::cout<<"id: "<<pMuonState1[1]->pdgId()<<"\t"<<"status: "<<pMuonState1[1]->status()<<"\t"<<"pt: "<<pMuonState1[1]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pLeptState1[0]->pdgId()<<"\t"<<"status: "<<pLeptState1[0]->status()<<"\t"<<"pt: "<<pLeptState1[0]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pLeptState1[1]->pdgId()<<"\t"<<"status: "<<pLeptState1[1]->status()<<"\t"<<"pt: "<<pLeptState1[1]->pt()<<std::endl;
 	//}
 
-	muon1FromGstar.pt  = pMuonState1[0]->pt();
-	muon1FromGstar.eta = pMuonState1[0]->eta();
-	muon1FromGstar.phi = pMuonState1[0]->phi();
+	if(isMuon)
+	{
+	  muon1FromGstar.pt  = pLeptState1[0]->pt();
+	  muon1FromGstar.eta = pLeptState1[0]->eta();
+	  muon1FromGstar.phi = pLeptState1[0]->phi();
 
-	muon2FromGstar.pt  = pMuonState1[1]->pt();
-	muon2FromGstar.eta = pMuonState1[1]->eta();
-	muon2FromGstar.phi = pMuonState1[1]->phi();
+	  muon2FromGstar.pt  = pLeptState1[1]->pt();
+	  muon2FromGstar.eta = pLeptState1[1]->eta();
+	  muon2FromGstar.phi = pLeptState1[1]->phi();
 
-	muon4V_1.SetPtEtaPhiM(pMuonState1[0]->pt(),
-	                      pMuonState1[0]->eta(),
-	                      pMuonState1[0]->phi(),
+	  lept1_4V.SetPtEtaPhiM(pLeptState1[0]->pt(),
+	                      pLeptState1[0]->eta(),
+	                      pLeptState1[0]->phi(),
 			      0.106);
-	muon4V_2.SetPtEtaPhiM(pMuonState1[1]->pt(),
-	                      pMuonState1[1]->eta(),
-	                      pMuonState1[1]->phi(),
+	  lept2_4V.SetPtEtaPhiM(pLeptState1[1]->pt(),
+	                      pLeptState1[1]->eta(),
+	                      pLeptState1[1]->phi(),
 			      0.106);
-	genDimuonMassZGstar = (muon4V_1 + muon4V_2).M();
+	}else{
+	  elec1FromGstar.pt  = pLeptState1[0]->pt();
+	  elec1FromGstar.eta = pLeptState1[0]->eta();
+	  elec1FromGstar.phi = pLeptState1[0]->phi();
 
-	_ZGstarDimu_DelaR=
+	  elec2FromGstar.pt  = pLeptState1[1]->pt();
+	  elec2FromGstar.eta = pLeptState1[1]->eta();
+	  elec2FromGstar.phi = pLeptState1[1]->phi();
+
+	  lept1_4V.SetPtEtaPhiM(pLeptState1[0]->pt(),
+	                      pLeptState1[0]->eta(),
+	                      pLeptState1[0]->phi(),
+			      0.0005);
+	  lept2_4V.SetPtEtaPhiM(pLeptState1[1]->pt(),
+	                      pLeptState1[1]->eta(),
+	                      pLeptState1[1]->phi(),
+			      0.0005);
+	}
+
+	genDiLeptMassZGstar = (lept1_4V + lept2_4V).M();
+
+	_ZGstarDiLept_DelaR=
 	  sqrt(
-	      reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi) * reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi)
+	      reco::deltaPhi(pLeptState1[0]->phi(),pLeptState1[1]->phi()) * reco::deltaPhi(pLeptState1[0]->phi(),pLeptState1[1]->phi())
 	      +
-	      (muon1FromGstar.eta - muon2FromGstar.eta)             * (muon1FromGstar.eta - muon2FromGstar.eta)
+	      (pLeptState1[0]->eta() - pLeptState1[1]->eta()) * (pLeptState1[0]->eta() - pLeptState1[1]->eta())
 	      );
 
 	//if(_debug)
 	//{
-	//  std::cout<<"2 Muon from Z case: InvMas from Status1 muon candidates is "<<genDimuonMassZGstar<<std::endl;
+	//  std::cout<<"2 Muon from Z case: InvMas from Status1 muon candidates is "<<genDiLeptMassZGstar<<std::endl;
 	//}
 
 	return;
@@ -581,60 +711,75 @@ void reco::SkimEvent::setGenDiMuonFromZGstar(edm::Handle<reco::GenParticleCollec
       }else continue; // nMuon from Z0 should be 2
     }else if( (abs(MomInfo.id) <= 6 && abs(MomInfo.id) >= 1) || abs(MomInfo.id)== 21)
     {// Quark or gluon
-      nMuFromQ = 0;
+      nLeptFromQ = 0;
       nWFromQ = 0;
       for( int i(0); i<MomInfo.nDaughters ; i++)
       {
-	if(abs(pMuMom->daughter(i)->pdgId()) == 24) nWFromQ++;
-	if(abs(pMuMom->daughter(i)->pdgId()) == 13)
+	if(abs(pLeptMom->daughter(i)->pdgId()) == 24) nWFromQ++;
+	if(isMuon)if(abs(pLeptMom->daughter(i)->pdgId()) == 13)
 	{
-	  pDaught[nMuFromQ] = pMuMom->daughter(i);
-	  nMuFromQ++;
+	  pDaught[nLeptFromQ] = pLeptMom->daughter(i);
+	  nLeptFromQ++;
+	}
+	if(!isMuon)if(abs(pLeptMom->daughter(i)->pdgId()) == 11)
+	{
+	  pDaught[nLeptFromQ] = pLeptMom->daughter(i);
+	  nLeptFromQ++;
 	}
       }
       //if(_debug){
-      //  std::cout<<"nMuFromQ: "<<nMuFromQ<<"\t"<<"nWFromQ: "<<nWFromQ<<std::endl;
+      //  std::cout<<"nLeptFromQ: "<<nLeptFromQ<<"\t"<<"nWFromQ: "<<nWFromQ<<std::endl;
       //}
-      if(nMuFromQ == 2 && nWFromQ == 1)
+      if(nLeptFromQ == 2 && nWFromQ == 1)
       {
 	//if(_debug){
-	//  std::cout<<"nMuFromQ is 2"<<std::endl;
+	//  std::cout<<"nLeptFromQ is 2"<<std::endl;
 	//  std::cout<<pDaught[0]->pdgId()<<std::endl;
 	//  std::cout<<pDaught[1]->pdgId()<<std::endl;
 	//}
 	if(pDaught[0]->pdgId() * pDaught[1]->pdgId() > 0) continue;
 	//Looking for stat 1 daughter
-	pMuonState1[0] = pDaught[0];
-	pMuonState1[1] = pDaught[1];
-	//std::cout<<pMuonState1[0]->pdgId()<<std::endl;
-	//std::cout<<pMuonState1[1]->pdgId()<<std::endl;
+	pLeptState1[0] = pDaught[0];
+	pLeptState1[1] = pDaught[1];
+	//std::cout<<pLeptState1[0]->pdgId()<<std::endl;
+	//std::cout<<pLeptState1[1]->pdgId()<<std::endl;
 
-	while(pMuonState1[0]->status() != 1)
+	while(pLeptState1[0]->status() != 1)
 	{
-	  if(pMuonState1[0]->numberOfDaughters() <= 0)
+	  if(pLeptState1[0]->numberOfDaughters() <= 0)
 	  {
 	    return;
 	  }
-	  for(unsigned int i(0);i<pMuonState1[0]->numberOfDaughters();i++)
+	  for(unsigned int i(0);i<pLeptState1[0]->numberOfDaughters();i++)
 	  {
-	    if( abs(pMuonState1[0]->daughter(i)->pdgId()) == 13)
+	    if(isMuon)if( abs(pLeptState1[0]->daughter(i)->pdgId()) == 13)
 	    {
-	      pMuonState1[0] = pMuonState1[0]->daughter(i);
+	      pLeptState1[0] = pLeptState1[0]->daughter(i);
+	      break;
+	    }
+	    if(!isMuon)if( abs(pLeptState1[0]->daughter(i)->pdgId()) == 11)
+	    {
+	      pLeptState1[0] = pLeptState1[0]->daughter(i);
 	      break;
 	    }
 	  }
 	}
-	while(pMuonState1[1]->status() != 1)
+	while(pLeptState1[1]->status() != 1)
 	{
-	  if(pMuonState1[1]->numberOfDaughters() <= 0)
+	  if(pLeptState1[1]->numberOfDaughters() <= 0)
 	  {
 	    return;
 	  }
-	  for(unsigned int i(0);i<pMuonState1[1]->numberOfDaughters();i++)
+	  for(unsigned int i(0);i<pLeptState1[1]->numberOfDaughters();i++)
 	  {
-	    if( abs(pMuonState1[1]->daughter(i)->pdgId()) == 13)
+	    if(isMuon)if(abs(pLeptState1[1]->daughter(i)->pdgId()) == 13)
 	    {
-	      pMuonState1[1]= pMuonState1[1]->daughter(i);
+	      pLeptState1[1]= pLeptState1[1]->daughter(i);
+	      break;
+	    }
+	    if(!isMuon)if(abs(pLeptState1[1]->daughter(i)->pdgId()) == 11)
+	    {
+	      pLeptState1[1]= pLeptState1[1]->daughter(i);
 	      break;
 	    }
 	  }
@@ -642,38 +787,61 @@ void reco::SkimEvent::setGenDiMuonFromZGstar(edm::Handle<reco::GenParticleCollec
 
 	//if(_debug){
 	//  std::cout<<"Checking two staus 1 muons from a Q"<<std::endl;
-	//  std::cout<<"id: "<<pMuonState1[0]->pdgId()<<"\t"<<"status: "<<pMuonState1[0]->status()<<"\t"<<"pt: "<<pMuonState1[0]->pt()<<std::endl;
-	//  std::cout<<"id: "<<pMuonState1[1]->pdgId()<<"\t"<<"status: "<<pMuonState1[1]->status()<<"\t"<<"pt: "<<pMuonState1[1]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pLeptState1[0]->pdgId()<<"\t"<<"status: "<<pLeptState1[0]->status()<<"\t"<<"pt: "<<pLeptState1[0]->pt()<<std::endl;
+	//  std::cout<<"id: "<<pLeptState1[1]->pdgId()<<"\t"<<"status: "<<pLeptState1[1]->status()<<"\t"<<"pt: "<<pLeptState1[1]->pt()<<std::endl;
 	//}
+	  
+	if(isMuon)
+	{
+	  muon1FromGstar.pt  = pLeptState1[0]->pt();
+	  muon1FromGstar.eta = pLeptState1[0]->eta();
+	  muon1FromGstar.phi = pLeptState1[0]->phi();
 
-	muon1FromGstar.pt  = pMuonState1[0]->pt();
-	muon1FromGstar.eta = pMuonState1[0]->eta();
-	muon1FromGstar.phi = pMuonState1[0]->phi();
+	  muon2FromGstar.pt  = pLeptState1[1]->pt();
+	  muon2FromGstar.eta = pLeptState1[1]->eta();
+	  muon2FromGstar.phi = pLeptState1[1]->phi();
 
-	muon2FromGstar.pt  = pMuonState1[1]->pt();
-	muon2FromGstar.eta = pMuonState1[1]->eta();
-	muon2FromGstar.phi = pMuonState1[1]->phi();
-
-	muon4V_1.SetPtEtaPhiM(pMuonState1[0]->pt(),
-	                      pMuonState1[0]->eta(),
-	                      pMuonState1[0]->phi(),
+	  lept1_4V.SetPtEtaPhiM(pLeptState1[0]->pt(),
+	                      pLeptState1[0]->eta(),
+	                      pLeptState1[0]->phi(),
 			      0.106);
-	muon4V_2.SetPtEtaPhiM(pMuonState1[1]->pt(),
-	                      pMuonState1[1]->eta(),
-	                      pMuonState1[1]->phi(),
+	  lept2_4V.SetPtEtaPhiM(pLeptState1[1]->pt(),
+	                      pLeptState1[1]->eta(),
+	                      pLeptState1[1]->phi(),
 			      0.106);
-	genDimuonMassZGstar = (muon4V_1 + muon4V_2).M();
+	}else{
+	  elec1FromGstar.pt  = pLeptState1[0]->pt();
+	  elec1FromGstar.eta = pLeptState1[0]->eta();
+	  elec1FromGstar.phi = pLeptState1[0]->phi();
+
+	  elec2FromGstar.pt  = pLeptState1[1]->pt();
+	  elec2FromGstar.eta = pLeptState1[1]->eta();
+	  elec2FromGstar.phi = pLeptState1[1]->phi();
+
+	  lept1_4V.SetPtEtaPhiM(pLeptState1[0]->pt(),
+	                      pLeptState1[0]->eta(),
+	                      pLeptState1[0]->phi(),
+			      0.0005);
+	  lept2_4V.SetPtEtaPhiM(pLeptState1[1]->pt(),
+	                      pLeptState1[1]->eta(),
+	                      pLeptState1[1]->phi(),
+			      0.0005);
+	}
+
+	genDiLeptMassZGstar = (lept1_4V + lept2_4V).M();
+
+	_ZGstarDiLept_DelaR=
+	  sqrt(
+	      reco::deltaPhi(pLeptState1[0]->phi(),pLeptState1[1]->phi()) * reco::deltaPhi(pLeptState1[0]->phi(),pLeptState1[1]->phi())
+	      +
+	      (pLeptState1[0]->eta() - pLeptState1[1]->eta()) * (pLeptState1[0]->eta() - pLeptState1[1]->eta())
+	      );
+	  
+
 	//if(_debug)
 	//{
-	//  std::cout<<"InvM of dimuon from Q: "<<genDimuonMassZGstar<<std::endl;
+	//  std::cout<<"InvM of dimuon from Q: "<<genDiLeptMassZGstar<<std::endl;
 	//}
-
-	_ZGstarDimu_DelaR=
-	  sqrt(
-	      reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi) * reco::deltaPhi(muon1FromGstar.phi,muon2FromGstar.phi)
-	      +
-	      (muon1FromGstar.eta - muon2FromGstar.eta)             * (muon1FromGstar.eta - muon2FromGstar.eta)
-	      );
 
 	return; // Strop here to aboid doube checking from two muons
 
