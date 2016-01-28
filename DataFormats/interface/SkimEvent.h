@@ -89,7 +89,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             typedef edm::Ptr<reco::RecoCandidate> refToCand;
 
 //             enum hypoType {undefined = 0, WELNU = 1, WMUNU=2, WWELEL=3, WWELMU=4, WWMUEL=5, WWMUMU=6, hypoTypeSize=7};
-            enum primaryDatasetType {MC = 0, SingleMuon=1, SingleElectron=2, DoubleMuon=3, MuEG=4, DoubleEG=5, primaryDatasetTypeSize=6, AllEmbed=7};
+            enum primaryDatasetType {MC = 0, SingleMuon=1, SingleElectron=2, DoubleMuon=3, MuEG=4, DoubleEG=5, primaryDatasetTypeSize=6, AllEmbed=7, MET=8, SinglePhoton=9};
             //enum metType { TCMET=0, PFMET=1, CHMET=2, MINMET=3 };
             enum metType { TCMET=0, PFMET=1, CHMET=2};
 

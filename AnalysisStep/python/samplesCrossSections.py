@@ -16,11 +16,34 @@
 #	J	http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2015_099_v8.pdf
 #	K	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProductionMassScan (powheg numbers)
 #	L	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProduction (powheg numbers)
+#       M       https://twiki.cern.ch/twiki/bin/view/CMS/DMAnalysis
+#       N       MCM
 #	X	Unknown! - Cross section not yet there
-#
+#       
 #	
 	
 
+
+## QCD
+samples['QCD_Pt-15to20_MuEnrichedPt5']                .extend( ['xsec=1273190000',    'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-20toInf_MuEnrichedPt15']              .extend( ['xsec=720648000',     'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-15to20_EMEnriched']                   .extend( ['xsec=1273000000',    'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-20to30_EMEnriched']                   .extend( ['xsec=557600000',     'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-30to50_EMEnriched']                   .extend( ['xsec=136000000',     'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-50to80_EMEnriched']                   .extend( ['xsec=19800000',      'kfact=1.000',            'ref=N'] )
+samples['QCD_Pt-30toInf_DoubleEMEnriched']            .extend( ['xsec=162060000',     'kfact=1.000',            'ref=N'] )
+
+
+
+## VVV
+samples['WWW']            .extend( ['xsec=0.18331',     'kfact=1.000',            'ref=H'] )
+samples['WWZ']            .extend( ['xsec=0.16510',     'kfact=1.000',            'ref=E'] )
+samples['WZZ']            .extend( ['xsec=0.05565',     'kfact=1.000',            'ref=E'] )
+samples['ZZZ']            .extend( ['xsec=0.01398',     'kfact=1.000',            'ref=E'] )
+
+
+
+# Wjets
 samples['WJetsToLNu']                	.extend( ['xsec=61526.7',     'kfact=1.000',		'ref=E'] )
 
 # WW 
@@ -28,8 +51,13 @@ samples['WWTo2L2Nu']	             	.extend( ['xsec=12.178',     'kfact=1.000',		
 samples['WWToLNuQQ']	             	.extend( ['xsec=49.997',     'kfact=1.000',		'ref=E'] )	
 samples['WWToLNuQQext']	             	.extend( ['xsec=49.997',     'kfact=1.000',		'ref=E'] )
 samples['WWTo4Q'] 	             	.extend( ['xsec=51.723',     'kfact=1.000',		'ref=E'] )
-samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec=7.948',      'kfact=1.000',		'ref=E'] ) 
-samples['GluGluWWTo2L2NuHiggs_MCFM'] 	.extend( ['xsec=7.948',      'kfact=1.000',		'ref=X'] ) # Under discussion
+samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec=0.8436',      'kfact=1.000',		'ref=E'] ) # 2*3.974*0.1086*.1086*9
+samples['GluGluWWTo2L2NuHiggs_MCFM'] 	.extend( ['xsec=1.8349',      'kfact=1.000',		'ref=X'] ) # Under discussion: 2*3.974*0.1086*.1086*9 + ggH125 (0.9913)
+
+
+
+ 
+
 
 # tt
 samples['TTTo2L2Nu'] 	             	.extend( ['xsec=87.31',     	'kfact=1.000',		'ref=B'] )		
@@ -223,3 +251,13 @@ samples['ttDM0150pseudo0500'] .extend( ['xsec=0.000000057'   , 'kfact=1.000', 'r
 #samples['ttDM1000pseudo1000'] .extend( ['xsec=0.00000003933' , 'kfact=1.000', 'ref=J'] ) 
 #samples['ttDM1000pseudo1995'] .extend( ['xsec=0.000000003536', 'kfact=1.000', 'ref=J'] ) 
 #samples['ttDM1000pseudo2000'] .extend( ['xsec=0.000001103'   , 'kfact=1.000', 'ref=J'] )  
+
+## monoHiggs
+samples['monoH_2HDM_MZp-600_MA0-300']  .extend( ['xsec=0.004901329',	'kfact=1.000',	   	'ref=M'] ) #0.046690*9*(0.108)^2
+samples['monoH_2HDM_MZp-800_MA0-300']  .extend( ['xsec=0.005431458',	'kfact=1.000',	   	'ref=M'] ) #0.051740*9*(0.108)^2
+samples['monoH_2HDM_MZp-1000_MA0-300'] .extend( ['xsec=0.004405843',	'kfact=1.000',	   	'ref=M'] ) #0.041970*9*(0.108)^2
+samples['monoH_2HDM_MZp-1200_MA0-300'] .extend( ['xsec=0.003334038',	'kfact=1.000',	   	'ref=M'] ) #0.031760*9*(0.108)^2
+samples['monoH_2HDM_MZp-1400_MA0-300'] .extend( ['xsec=0.002473235',	'kfact=1.000',	   	'ref=M'] ) #0.023560*9*(0.108)^2
+samples['monoH_2HDM_MZp-1700_MA0-300'] .extend( ['xsec=0.001585138',	'kfact=1.000',	   	'ref=M'] ) #0.015100*9*(0.108)^2
+samples['monoH_2HDM_MZp-2000_MA0-300'] .extend( ['xsec=0.001021836',	'kfact=1.000',	   	'ref=M'] ) #0.009734*9*(0.108)^2
+samples['monoH_2HDM_MZp-2500_MA0-300'] .extend( ['xsec=0.000510183',	'kfact=1.000',	   	'ref=M'] ) #0.004860*9*(0.108)^2

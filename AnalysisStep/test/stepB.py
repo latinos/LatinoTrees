@@ -385,7 +385,7 @@ if '2015' in label: label = label[:label.find('2015')]
 
 
 # data
-if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG']:
+if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG', 'MET', 'SinglePhoton' ]:
     print " >> DATA:: ", label
     dataset = [label]
     id = options.id
@@ -450,11 +450,11 @@ if not isMC :
     setattr(stepBTree.variables, "std_vector_trigger_L1min_prescale",  cms.string("selectedRateTriggerL1minPrescale/50") )
     setattr(stepBTree.variables, "std_vector_trigger_L1max_prescale",  cms.string("selectedRateTriggerL1maxPrescale/50") )
     # special paths, e.g. metFilters. See skimEventProducer_cfi for the list
-    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/13") )
+    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
 if isMC :
     process.skimEventProducer.SelectedPaths = cms.vstring ("")
     # special paths always saved
-    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/13") )
+    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
 
 
 
@@ -573,8 +573,9 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              runOnMC=isMC,
              addNsub=True,  # was True      
              #addPUJetID=False,
-	     #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','pfCombinedMVAV2BJetTags'], 
+             #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','pfCombinedMVAV2BJetTags'], 
              #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'], 
+             #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'],              
              addPUJetID=True,
              addPruning=False,
              addTrimming=False,
