@@ -53,10 +53,8 @@ samples['WWToLNuQQext']	             	.extend( ['xsec=49.997',     'kfact=1.000'
 samples['WWTo4Q'] 	             	.extend( ['xsec=51.723',     'kfact=1.000',		'ref=E'] )
 samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec=0.8436',      'kfact=1.000',		'ref=E'] ) # 2*3.974*0.1086*.1086*9 --> 2 is a k-factor, 3.974 comes from the comment on the qqWW samples in reference E
 samples['GluGluWWTo2L2NuHiggs_MCFM'] 	.extend( ['xsec=1.3633',      'kfact=1.000',		'ref=X'] ) # 2*0.6817 --> 2 is the same k-factor, 0.6817 is 0.07574*9, first number comes from MCFM, 9 is the lepton combinations
+samples['WWTo2L2NuHerwigPS']	        .extend( ['xsec=12.178',     'kfact=1.000',		'ref=E'] )		
 
-
-
- 
 
 
 # tt
