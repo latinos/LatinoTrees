@@ -186,6 +186,10 @@ samples['VBFHToWWTo2L2NuHerwigPS_M125']	.extend( ['xsec=0.0846',	'kfact=1.000',	
 samples['VBFHToWWToNuQQ_M450']         	.extend( ['xsec=0.0031',     	'kfact=1.000',		'ref=LF'] ) # 0.685*0.551*0.108*3*0.6741   
 samples['VBFHToWWToNuQQ_M1000']         .extend( ['xsec=0.0082',     	'kfact=1.000',		'ref=LF'] ) # 0.125*0.1128*0.108*3*0.6741   
 
+samples['VBFHToTauTau_M120']         .extend( ['xsec=0.275264',         'kfact=1.000',	     'ref=EF'] ) # 3.91*0.0704
+samples['VBFHToTauTau_M125']         .extend( ['xsec=0.237000',         'kfact=1.000',	     'ref=EF'] ) # 3.75*0.0632
+samples['VBFHToTauTau_M130']         .extend( ['xsec=0.196745',         'kfact=1.000',	     'ref=EF'] ) # 3.61*0.0545
+
 # VBS
 samples['WpWpJJ_EWK_QCD']   		.extend( ['xsec=0.05004',	'kfact=1.000',	   	'ref=I'] )
 samples['WpWpJJ_EWK']   		.extend( ['xsec=0.02526',	'kfact=1.000',	   	'ref=I'] )
