@@ -46,15 +46,29 @@ samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec=0.8436',      'kfact=1.000
 samples['GluGluWWTo2L2NuHiggs_MCFM'] 	.extend( ['xsec=1.3633',      'kfact=1.000',		'ref=X'] ) # 2*0.6817 --> 2 is the same k-factor, 0.6817 is 0.07574*9, first number comes from MCFM, 9 is the lepton combinations
 samples['WWTo2L2NuHerwigPS']	        .extend( ['xsec=12.178',     'kfact=1.000',		'ref=E'] )		
 #ZZ
-samples['ZZ']                           .extend( ['xsec=16.523',     'kfact=1.000',            'ref=E'] )
+samples['ZZ']                           .extend( ['xsec=16.523',      'kfact=1.000',            'ref=E'] )
+samples['ZZTo2L2Q']                     .extend( ['xsec=3.22',        'kfact=1.000',            'ref=E'] )
+samples['ZZTo4L']                       .extend( ['xsec=1.212',       'kfact=1.000',            'ref=E'] )
+samples['ZZTo2L2Nu']                    .extend( ['xsec=0.564',       'kfact=1.000',            'ref=E'] )
+samples['ggZZ4e']                       .extend( ['xsec=0.001586',    'kfact=1.000',            'ref=E'] )
+samples['ggZZ4m']                       .extend( ['xsec=0.001586',    'kfact=1.000',            'ref=E'] )
+samples['ggZZ4t']                       .extend( ['xsec=0.001586',    'kfact=1.000',            'ref=E'] )
+samples['ggZZ2e2m']                     .extend( ['xsec=0.003194',    'kfact=1.000',            'ref=E'] )
+samples['ggZZ2e2t']                     .extend( ['xsec=0.003194',    'kfact=1.000',            'ref=E'] )
+samples['ggZZ2m2t']                     .extend( ['xsec=0.003194',    'kfact=1.000',            'ref=E'] )
 #single top
-samples['ST_t-channel_antitop']         .extend( ['xsec=26.38',     'kfact=1.000',             'ref=B'] )
-samples['ST_t-channel_top']             .extend( ['xsec=44.33',     'kfact=1.000',             'ref=B'] )
-samples['ST_t-channel']                 .extend( ['xsec=70.69',     'kfact=1.000',             'ref=B'] )
-samples['ST_tW_antitop']                .extend( ['xsec=35.6',      'kfact=1.000',             'ref=B'] )
+samples['ST_t-channel_antitop']         .extend( ['xsec=26.38',     'kfact=1.000',             'ref=E'] )
+samples['ST_t-channel_top']             .extend( ['xsec=44.33',     'kfact=1.000',             'ref=E'] )
+samples['ST_t-channel']                 .extend( ['xsec=70.69',     'kfact=1.000',             'ref=E'] )
+samples['ST_tW_antitop']                .extend( ['xsec=35.6',      'kfact=1.000',             'ref=E'] )
+samples['ST_tW_top']                    .extend( ['xsec=35.6',      'kfact=1.000',             'ref=E'] )
+samples['ST_s-channel']                 .extend( ['xsec=3.36',      'kfact=1.000',             'ref=E'] )
 # tt
-samples['TTTo2L2Nu'] 	             	.extend( ['xsec=87.31',      'kfact=1.000',	       'ref=B'] )		
-samples['TTWJetsToLNu']                 .extend( ['xsec=0.2043',     'kfact=1.000',            'ref=B'] )	
+samples['TT']                           .extend( ['xsec=831.76',     'kfact=1.000',            'ref=E'] )
+samples['TTJets']                       .extend( ['xsec=831.76',     'kfact=1.000',            'ref=E'] )
+samples['TTTo2L2Nu'] 	             	.extend( ['xsec=87.31',      'kfact=1.000',	       'ref=E'] )		
+samples['TTWJetsToLNu']                 .extend( ['xsec=0.2043',     'kfact=1.000',            'ref=E'] )	
+samples['TTZToLLNuNu_M-10']             .extend( ['xsec=0.2529',     'kfact=1.000',            'ref=E'] )
 # ggH,HWW
 samples['GluGluHToWWTo2L2Nu_Mlarge']  	.extend( ['xsec=0.6818',     'kfact=1.000',		'ref=X'] ) # 10GeV Higgs width 30.21(powheg)*0.215*0.108*0.108*9	
 
