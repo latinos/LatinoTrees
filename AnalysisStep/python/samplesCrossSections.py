@@ -262,7 +262,7 @@ samples['WLLJJToLNu_M-4to60_EWK_QCD']  		.extend( ['xsec=0.50490',	'kfact=1.000'
 samples['WZJJ_EWK_QCD']   			.extend( ['xsec=0.48910',	'kfact=1.000',	'ref=I'] )
 samples['WZJJ_EWK']   				.extend( ['xsec=0.03900',	'kfact=1.000',	'ref=X'] )
 samples['WZJJ_QCD']   				.extend( ['xsec=0.45850',	'kfact=1.000',	'ref=I'] )
-samples['WW_DoubleScattering']   		.extend( ['xsec=1.61400',	'kfact=1.000',	'ref=X'] )
+samples['WW_DoubleScattering']   		.extend( ['xsec=1.62000',	'kfact=1.000',	'ref=I'] )
 samples['DY2JetsToLL']   			.extend( ['xsec=333.300',	'kfact=1.000',	'ref=I'] )
 samples['WGJJ']   				.extend( ['xsec=0.00000',	'kfact=1.000',	'ref=X'] )
 
