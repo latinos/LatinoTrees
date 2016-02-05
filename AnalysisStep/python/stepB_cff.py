@@ -471,6 +471,7 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_leptonGen_isTauDecayProduct",                 cms.string("genLeptonIsTauDecayProduct")),
         setattr(pt.variables, "std_vector_leptonGen_isDirectHadronDecayProduct",        cms.string("genLeptonIsDirectHadronDecayProduct")),
         setattr(pt.variables, "std_vector_leptonGen_fromHardProcess",                   cms.string("genLeptonFromHardProcess")),
+        #setattr(pt.variables, "std_vector_leptonGen_fromHardProcessBeforeFSR", cms.string("genLeptonFromHardProcessBeforeFSR")),
 
         setattr(pt.variables, "std_vector_VBoson_pt",      cms.string("genVBosonPt/5")),
         setattr(pt.variables, "std_vector_VBoson_eta" ,    cms.string("genVBosonEta/5")),
@@ -478,6 +479,7 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_VBoson_mass",    cms.string("genVBosonMass/5")),
         setattr(pt.variables, "std_vector_VBoson_pid",     cms.string("genVBosonPID/5")),
         #setattr(pt.variables, "std_vector_VBoson_status",  cms.string("genVBosonStatus/5")),
+        #setattr(pt.variables, "std_vector_VBoson_fromHardProcessBeforeFSR", cms.string("genVBosonFromHardProcessBeforeFSR/5")),
 
         setattr(pt.variables, "std_vector_neutrinoGen_pt",      cms.string("leadingGenNeutrinoPt")),
         setattr(pt.variables, "std_vector_neutrinoGen_eta" ,    cms.string("leadingGenNeutrinoEta")),
@@ -485,7 +487,8 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_neutrinoGen_pid",     cms.string("leadingGenNeutrinoPID")),
         setattr(pt.variables, "std_vector_neutrinoGen_isPrompt",                          cms.string("leadingGenNeutrinoIsPrompt")),
         setattr(pt.variables, "std_vector_neutrinoGen_isDirectPromptTauDecayProduct",     cms.string("leadingGenNeutrinoIsDirectPromptTauDecayProduct")),
-
+        #setattr(pt.variables, "std_vector_neutrinoGen_fromHardProcessBeforeFSR", cms.string("leadingGenNeutrinoFromHardProcessBeforeFSR")),
+        
         setattr(pt.variables, "higgsGenpt" , cms.string("getHiggsPt()")),
         setattr(pt.variables, "higgsGeneta" , cms.string("getHiggsEta()")),
         setattr(pt.variables, "higgsGenphi" , cms.string("getHiggsPhi()")),
