@@ -14,8 +14,8 @@ export EVENTS=$1
 
 # export MYFILE=file:/afs/cern.ch/user/a/amassiro/public/xLatinos/76X/CC3AD3BC-E898-E511-8707-0025904C5182.root
 # xrdcp root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/GluGluHToWWTo2L2Nu_M125_13TeV_amcatnloFXFX_pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/20000/161321CF-5FB8-E511-8E6F-008CFA056400.root  /tmp/amassiro/
-export MYFILE=file:/tmp/amassiro/161321CF-5FB8-E511-8E6F-008CFA056400.root
-# export MYFILE=root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/GluGluHToWWTo2L2Nu_M125_13TeV_amcatnloFXFX_pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/20000/161321CF-5FB8-E511-8E6F-008CFA056400.root
+# export MYFILE=file:/tmp/amassiro/161321CF-5FB8-E511-8E6F-008CFA056400.root
+export MYFILE=root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/GluGluHToWWTo2L2Nu_M125_13TeV_amcatnloFXFX_pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/20000/161321CF-5FB8-E511-8E6F-008CFA056400.root
 
 
 
