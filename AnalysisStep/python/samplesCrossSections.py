@@ -76,8 +76,8 @@ samples['TTWJetsToLNu']                 .extend( ['xsec=0.2043',	'kfact=1.000',	
 samples['TTZToLLNuNu_M-10']             .extend( ['xsec=0.2529',	'kfact=1.000',		'ref=E'] )
 
 ## GluGluWW
-samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec=0.8436',	'kfact=1.000',		'ref=E'] ) # 2*3.974*0.1086*.1086*9 --> 2 is a k-factor, 3.974 comes from the comment on the qqWW samples in reference E
-samples['GluGluWWTo2L2NuHiggs_MCFM'] 	.extend( ['xsec=1.3633',	'kfact=1.000',		'ref=X'] ) # 2*0.6817 --> 2 is the same k-factor, 0.6817 is 0.07574*9, first number comes from MCFM, 9 is the lepton combinations
+samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec=0.5905',	'kfact=1.000',		'ref=E'] ) # 1.4*3.974*0.1086*.1086*9 --> 2 is a k-factor, 3.974 comes from the comment on the qqWW samples in reference E
+samples['GluGluWWTo2L2NuHiggs_MCFM'] 	.extend( ['xsec=0.9544',	'kfact=1.000',		'ref=X'] ) # 1.4*0.6817 --> 2 is the same k-factor, 0.6817 is 0.07574*9, first number comes from MCFM, 9 is the lepton combinations
 
 ## ggH,HWW
 samples['GluGluHToWWTo2L2Nu_Mlarge']  	.extend( ['xsec=0.6818',	'kfact=1.000',		'ref=X'] ) # 10GeV Higgs width 30.21(powheg)*0.215*0.108*0.108*9	
