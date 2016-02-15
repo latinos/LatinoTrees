@@ -951,6 +951,7 @@ process.WeightDumperAnalyzer = cms.EDAnalyzer('WeightDumper',
   )
 
 if isMC and doLHE :
+  #print "             ------------------------> running WeightDumperAnalyzer"
   process.WeightDumperAnalyzerPath = cms.Path(process.WeightDumperAnalyzer)
 ##
 ##
