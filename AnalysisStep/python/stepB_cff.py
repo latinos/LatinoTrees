@@ -67,11 +67,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         #hypo = cms.string("hypo()"),
         #lepton1_pt = cms.string("lepton(0).x()"),
         
-        # run, lumi, event
-        run  = cms.string("run()"),
-        lumi = cms.string("lumi()"),
-        evt  = cms.string("evt()"),
-        
         # leptons
         channel = cms.string("channel()"),
 
@@ -304,7 +299,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         # dphiveto       = cms.string("passesDPhillJet("+DphiJetVetominPt+","+DphiJetVetominEta+",1,"+jetId_WP+")"),
 
     ),
-    #addRunLumiInfo = cms.bool(True)  # Deprecated, run and lumi are already defined
+    addRunLumiInfo = cms.bool(True)
 )
 
 
