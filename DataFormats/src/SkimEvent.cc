@@ -1300,7 +1300,7 @@ const size_t reco::SkimEvent::indexSecondJetByPt(size_t i, float minPt,float eta
  else {
   
   for(size_t j=0;j<secondJets_.size();++j) {
-   if(!(passJetID(secondJets_[j],applyID)) ) continue;
+//   if(!(passJetID(secondJets_[j],applyID)) ) continue;  Jet ID is broken in 76 for Puppi jets in the forward region
    if( std::fabs(secondJets_[j]->eta()) >= eta) continue;
    if( secondJetPt(j,applyCorrection) <= minPt) continue;
    if(isThisJetALepton(secondJets_[j])) continue;
