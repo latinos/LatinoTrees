@@ -283,6 +283,8 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
  
  typedef std::vector<LHERunInfoProduct::Header>::const_iterator headers_const_iterator;
  
+//  std::cout << " >>> WeightDumper::beginRun " << std::endl;
+ 
  if (!(mcLHERunInfoTag_ == edm::InputTag(""))) {
   
   iRun.getByLabel( mcLHERunInfoTag_, run );
@@ -290,12 +292,16 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
   
   LHERunInfoProduct myLHERunInfoProduct = *(run.product()); 
   
-  for (headers_const_iterator iter=myLHERunInfoProduct.headers_begin(); iter!=myLHERunInfoProduct.headers_end(); iter++){
+//   std::cout << " >>> WeightDumper::beginRun after mcLHERunInfoTag check " << std::endl;
+  
+  for (headers_const_iterator iter = myLHERunInfoProduct.headers_begin(); iter != myLHERunInfoProduct.headers_end(); iter++){
    std::vector<std::string> lines = iter->lines();
    int counter = 0;
    for (unsigned int iLine = 0; iLine<lines.size(); iLine++) {
+//     std::cout << " lines[" << iLine << "] = " << lines.at(iLine) << std::endl;
     if (iter->tag() == "initrwgt"){
      TString dumpLine = lines.at(iLine);
+//      std::cout << " dumpLine = " << dumpLine << std::endl;
      list.push_back(dumpLine);
      if (dumpLine.IsAlpha()) continue;
      if (_debug) std::cout << dumpLine << std::endl;
