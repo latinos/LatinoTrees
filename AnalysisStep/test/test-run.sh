@@ -15,8 +15,11 @@ export EVENTS=$1
 # export MYFILE=file:/afs/cern.ch/user/a/amassiro/public/xLatinos/76X/CC3AD3BC-E898-E511-8707-0025904C5182.root
 # xrdcp root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/GluGluHToWWTo2L2Nu_M125_13TeV_amcatnloFXFX_pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/20000/161321CF-5FB8-E511-8E6F-008CFA056400.root  /tmp/amassiro/
 # export MYFILE=file:/tmp/amassiro/161321CF-5FB8-E511-8E6F-008CFA056400.root
-export MYFILE=root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/GluGluHToWWTo2L2Nu_M125_13TeV_amcatnloFXFX_pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/20000/161321CF-5FB8-E511-8E6F-008CFA056400.root
-
+# export MYFILE=root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/GluGluHToWWTo2L2Nu_M125_13TeV_amcatnloFXFX_pythia8/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/20000/161321CF-5FB8-E511-8E6F-008CFA056400.root
+# export MYFILE=root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/10000/18C46A5C-26C7-E511-B73B-002590A83308.root
+# xrdcp root://xrootd.unl.edu//store/mc/RunIIFall15MiniAODv2/ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1/MINIAODSIM/PU25nsData2015tic_v12-v1/10000/18C46A5C-26C7-E511-B73B-002590A83308.root  /tmp/amassiro/
+# export MYFILE=file:/tmp/amassiro/18C46A5C-26C7-E511-B73B-002590A83308.root
+export MYFILE=file:/tmp/amassiro/868297AD-26C7-E511-A4CC-002590A831CC.root
 
 
 rm -rf latino_stepB_numEvent${EVENTS}.root
@@ -40,8 +43,10 @@ cmsRun stepB.py print                   \
     doLHE=True                          \
     doMCweights=True                    \
     maxEvents=${EVENTS}                 \
-    inputFiles=${MYFILE}
+    inputFiles=${MYFILE}  \
+    LHEweightSource=source  LHERunInfo=source
 #   LHEweightSource=externalLHEProducer \
+                    
                     
 python cmssw2latino.py stepB_numEvent${EVENTS}.root
 

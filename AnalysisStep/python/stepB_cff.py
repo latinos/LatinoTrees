@@ -208,23 +208,6 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         # here we do apply a dz cut cause we are actually counting bjets
         nbjettche = cms.string("bTaggedJetsOver("+CJVminPt+",2.1,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+")"),
         nbjet     = cms.string("bTaggedJetsOver("+CJVminPt+",1.05,'pfJetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+")"),
-        # here we don't apply the dz cut, cause we just use the b-tag value of highest pt jets
-
-        #jetid1 = cms.string("leadingJetId(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetmva1 = cms.string("leadingJetMva(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetbjpb1 = cms.string("leadingJetBtag(0,'pfJetBProbabilityBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        #jettche1 = cms.string("leadingJetBtag(0,'pfTrackCountingHighEffBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        #jettchp1 = cms.string("leadingJetBtag(0,'pfTrackCountingHighPurBJetTags',0,"+CJVmaxEta+",1,"+jetId_WP+","+DzBVeto+")"),
-        #jetptd1 = cms.string("leadingJetPtd(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetCHM1 = cms.string("leadingJetChargedHadronMultiplicity(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetNHM1 = cms.string("leadingJetNeutralHadronMultiplicity(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetPhM1 = cms.string("leadingJetPhotonMultiplicity(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetNChgQC1 = cms.string("leadingJetNChgQC(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetNChgptCut1 = cms.string("leadingJetNChgptCut(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-        #jetNNeutralptCut1 = cms.string("leadingJetNNeutralptCut(0,0,"+CJVmaxEta+",1,"+jetId_WP+")"),
-
-        # FIXME: add all the previous jet observables into std_vector form
-        # add DZ on jets and b-jets
 
         jetRho = cms.string("getJetRhoIso()"),
 
