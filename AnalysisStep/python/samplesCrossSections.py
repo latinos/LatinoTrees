@@ -16,6 +16,7 @@
 #	L	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProduction (powheg numbers)
 #       M       https://twiki.cern.ch/twiki/bin/view/CMS/DMAnalysis
 #       N       MCM
+#       O       https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG/Higgs_XSBR_YR4_update.xlsx
 #	X	Unknown! - Cross section not yet there
 #
 
@@ -166,13 +167,16 @@ samples['HZJ_HToTauTau_M125']		.extend( ['xsec=0.0550',     	'kfact=1.000',		're
 samples['HZJ_HToTauTau_M130']		.extend( ['xsec=0.0363',     	'kfact=1.000',		'ref=EF'] ) # 0.667*0.0545
 
 ## ttH
-samples['ttHJetToNonbb_M120']		.extend( ['xsec=1.0000',     	'kfact=1.000',		'ref=X'] )
-samples['ttHJetToNonbb_M125']		.extend( ['xsec=0.2151',     	'kfact=1.000',		'ref=CEF'] ) # 0.5085*(1-0.577)
-samples['ttHJetToNonbb_M130']		.extend( ['xsec=1.0000',     	'kfact=1.000',		'ref=X'] )
-samples['ttHJetToNonbb_M125_A']		.extend( ['xsec=0.2151',     	'kfact=1.000',		'ref=CEF'] ) # 0.5085*(1-0.577)
-samples['ttHJetTobb_M120']		.extend( ['xsec=1.0000',     	'kfact=1.000',		'ref=X'] )
-samples['ttHJetTobb_M125']		.extend( ['xsec=0.2934',     	'kfact=1.000',		'ref=CEF'] ) # 0.5085*(0.577)
-samples['ttHJetTobb_M130']		.extend( ['xsec=1.0000',     	'kfact=1.000',		'ref=X'] )
+samples['ttHJetToNonbb_M120']		.extend( ['xsec=0.1971',     	'kfact=1.000',		'ref=OE'] ) # 0.5697*(1-0.654)
+samples['ttHJetToNonbb_M125']		.extend( ['xsec=0.2120',     	'kfact=1.000',		'ref=OE'] ) # 0.5071*(1-0.582)
+samples['ttHJetToNonbb_M130']		.extend( ['xsec=0.2279',     	'kfact=1.000',		'ref=OE'] ) # 0.4539*(1-0.498)
+samples['ttHJetToNonbb_M125_A']		.extend( ['xsec=0.2120',     	'kfact=1.000',		'ref=OE'] ) # 0.5071*(1-0.582)
+samples['ttHJetTobb_M120']		.extend( ['xsec=0.3726',     	'kfact=1.000',		'ref=OE'] ) # 0.5697*0.654
+samples['ttHJetTobb_M125']		.extend( ['xsec=0.2951',     	'kfact=1.000',		'ref=OE'] ) # 0.5071*0.582
+samples['ttHJetTobb_M130']		.extend( ['xsec=0.2260',     	'kfact=1.000',		'ref=OE'] ) # 0.4539*0.498
+samples['ttHJetTobb_M125_A']		.extend( ['xsec=0.2951',     	'kfact=1.000',		'ref=OE'] ) # 0.5071*0.582
+samples['ttHJetTobb_M125_B']		.extend( ['xsec=0.2951',     	'kfact=1.000',		'ref=OE'] ) # 0.5071*0.582
+samples['ttHJetTobb_M125_C']		.extend( ['xsec=0.2951',     	'kfact=1.000',		'ref=OE'] ) # 0.5071*0.582
 
 ## VBF
 samples['VBFHToWWTo2L2Nu_alternative_M120']	.extend( ['xsec=0.0579',	'kfact=1.000',	'ref=EF'] ) # 3.91*0.141*0.108*0.108*9
@@ -225,6 +229,16 @@ samples['VBFHToWWToNuQQ_M1000']         .extend( ['xsec=0.0170',     	'kfact=1.0
 samples['VBFHToTauTau_M120']		.extend( ['xsec=0.275264',	'kfact=1.000',		'ref=EF'] ) # 3.91*0.0704
 samples['VBFHToTauTau_M125']		.extend( ['xsec=0.237000',	'kfact=1.000',		'ref=EF'] ) # 3.75*0.0632
 samples['VBFHToTauTau_M130']		.extend( ['xsec=0.196745',	'kfact=1.000',		'ref=EF'] ) # 3.61*0.0545
+
+# ggZH
+samples['ggZH_HToWW_M120']		.extend( ['xsec=1.0000',	'kfact=1.000',		'ref=X'] )
+samples['ggZH_HToWW_M125']		.extend( ['xsec=1.0000',	'kfact=1.000',		'ref=X'] )
+samples['ggZH_HToWW_M130']		.extend( ['xsec=1.0000',	'kfact=1.000',		'ref=X'] )
+
+## ZH tautau
+samples['HZJ_HToTauTau_M120']		.extend( ['xsec=1.0000',	'kfact=1.000',		'ref=X'] )
+samples['HZJ_HToTauTau_M125']		.extend( ['xsec=1.0000',	'kfact=1.000',		'ref=X'] )
+samples['HZJ_HToTauTau_M130']		.extend( ['xsec=1.0000',	'kfact=1.000',		'ref=X'] )
 
 ## VVV
 samples['WWW']				.extend( ['xsec=0.18331',	'kfact=1.000',		'ref=H'] )
