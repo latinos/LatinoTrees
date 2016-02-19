@@ -580,7 +580,7 @@ void reco::SkimEvent::setGenDiLeptFromZGstar(edm::Handle<reco::GenParticleCollec
 	return;
       }else continue;
     }
-    else if(abs(MomInfo.id) == 23){// Z0
+    else if(abs(MomInfo.id) == 23 || abs(MomInfo.id) == 22){// Z0 or Gamma
       if(MomInfo.nDaughters != 2) continue;
       nLeptFromZ=0;
       for( int i(0); i<2;i++)
