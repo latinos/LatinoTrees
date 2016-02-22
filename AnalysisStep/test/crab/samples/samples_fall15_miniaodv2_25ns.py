@@ -187,11 +187,11 @@ samples['VBFHToWWTo2L2Nu_M145']         = ['/VBFHToWWTo2L2Nu_M145_13TeV_powheg_J
 samples['VBFHToWWTo2L2Nu_M150']         = ['/VBFHToWWTo2L2Nu_M150_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M150',     'id=05150', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M155']         = ['/VBFHToWWTo2L2Nu_M155_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M155',     'id=05155', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M160']         = ['/VBFHToWWTo2L2Nu_M160_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M160',     'id=05160', 'doMCweights=True']]
-#samples['VBFHToWWTo2L2Nu_M165']         = ['/VBFHToWWTo2L2Nu_M165_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M165',     'id=05165', 'doMCweights=True']]
+samples['VBFHToWWTo2L2Nu_M165']         = ['/VBFHToWWTo2L2Nu_M165_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M165',     'id=05165', 'doMCweights=True']]
 #samples['VBFHToWWTo2L2Nu_M170']         = ['/VBFHToWWTo2L2Nu_M170_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M170',     'id=05170', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M175']         = ['/VBFHToWWTo2L2Nu_M175_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M175',     'id=05175', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M180']         = ['/VBFHToWWTo2L2Nu_M180_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M180',     'id=05180', 'doMCweights=True']]
-#samples['VBFHToWWTo2L2Nu_M190']         = ['/VBFHToWWTo2L2Nu_M190_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M190',     'id=05190', 'doMCweights=True']]
+samples['VBFHToWWTo2L2Nu_M190']         = ['/VBFHToWWTo2L2Nu_M190_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v5/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M190',     'id=05190', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M200']         = ['/VBFHToWWTo2L2Nu_M200_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M200',     'id=05200', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M210']         = ['/VBFHToWWTo2L2Nu_M210_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M210',     'id=05210', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M230']         = ['/VBFHToWWTo2L2Nu_M230_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M230',     'id=05230', 'doMCweights=True']]
@@ -231,7 +231,7 @@ samples['ggZH_HToWW_M130']      = ['/GluGluZH_HToWW_M130_13TeV_powheg_pythia8/Ru
 # ZH tautau 
 samples['HZJ_HToTauTau_M120'] = ['/ZHToTauTau_M120_13TeV_powheg_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=HZJ_HToTauTau_M120', 'id=53120', 'doMCweights=True']]
 samples['HZJ_HToTauTau_M125'] = ['/ZHToTauTau_M125_13TeV_powheg_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=HZJ_HToTauTau_M125', 'id=53125', 'doMCweights=True']]
-samples['HZJ_HToTauTau_M130'] = ['/ZHToTauTau_M130_13TeV_powheg_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=HZJ_HToTauTau_M130', 'id=53130', 'doMCweights=True']]
+#samples['HZJ_HToTauTau_M130'] = ['/ZHToTauTau_M130_13TeV_powheg_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=HZJ_HToTauTau_M130', 'id=53130', 'doMCweights=True']]
 
 
 ## VVV
