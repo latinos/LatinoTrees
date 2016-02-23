@@ -150,6 +150,10 @@ WeightDumper::WeightDumper(const edm::ParameterSet& iConfig)
  _mcWeightExplained = fs -> make <TH1F>("mcWeightExplained", "mcWeightExplained", 10000, 0, 10000);
  _mcWeightPos = fs -> make <TH1F>("mcWeightPos","mcWeightPos", 1, 0, 1);
  _mcWeightNeg = fs -> make <TH1F>("mcWeightNeg","mcWeightNeg", 1, 0, 1);
+ 
+//  _mcWeightPDF = fs -> make <TH1F>("mcWeightPDF","mcWeightPDF", 200, 0, 200);
+//  _mcWeightQCD = fs -> make <TH1F>("mcWeightQCD","mcWeightQCD", 9, 0, 1);
+ 
  _list_vectors_weights = fs -> make <TH1F>("list_vectors_weights","list_vectors_weights", _MAXWEIGHTS, 0, _MAXWEIGHTS);
  
  
@@ -209,7 +213,9 @@ void WeightDumper::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
  _weightsLHE.clear();
  unsigned int num_whichWeight = productLHEHandle->weights().size();
  for (unsigned int iWeight = 0; iWeight < num_whichWeight; iWeight++) {
-  _weightsLHE.push_back( productLHEHandle->weights()[iWeight].wgt/productLHEHandle->originalXWGTUP() ); 
+  float weight_to_be_saved = productLHEHandle->weights()[iWeight].wgt/productLHEHandle->originalXWGTUP() ;
+  _mcWeightExplainedOrdered -> Fill(iWeight,weight_to_be_saved);
+  _weightsLHE.push_back( weight_to_be_saved ); 
   if (_debug) std::cout << " weightLHE[" << iWeight << "] = " << productLHEHandle->weights()[iWeight].wgt << std::endl;
  }
  _weightNominalLHE = productLHEHandle->originalXWGTUP();
@@ -241,8 +247,7 @@ if (found == 0) _weightsLHEIDExplained.push_back("Currently Unknown");
  if (_debug) std::cout << " ---------- " << std::endl; 
  
  myTree_->Fill();
- 
- 
+  
  if (_weightSM > 0) {
   _mcWeightPos->Fill(0.5); //---> histogram is filled with +1 event
   //   _mcWeightPos->Fill(0.5, _weightSM);
@@ -318,7 +323,7 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
 	_mcWeightExplained -> SetBinContent(IDint,1);
        
 	_mcWeightExplainedOrdered -> GetXaxis() -> SetBinLabel(counter+1, dumpLine);
-	_mcWeightExplainedOrdered -> Fill(counter,1);
+// 	_mcWeightExplainedOrdered -> Fill(counter,1);
 	counter++;
       }
      }
