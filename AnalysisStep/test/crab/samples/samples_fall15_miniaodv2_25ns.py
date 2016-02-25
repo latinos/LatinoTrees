@@ -261,7 +261,7 @@ samples['QCD_Pt-30toInf_DoubleEMEnriched'] = ['/QCD_Pt-30toInf_DoubleEMEnriched_
 
 ## ggH CUET variations
 samples['GluGluHToWWTo2L2Nu_M125_CUETUp']  = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8-CUETP8M1Up/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M125_CUETUp', 'id=10008', 'doMCweights=True']]
-#samples['GluGluHToWWTo2L2Nu_M125_CUETDown']  = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8-CUETP8M1Down/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M125_CUETDown', 'id=10009', 'doMCweights=True']]
+samples['GluGluHToWWTo2L2Nu_M125_CUETDown']  = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8-CUETP8M1Down/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M125_CUETDown', 'id=10009', 'doMCweights=True']]
 
 ## VBF CUET variations
 samples['VBFHToWWTo2L2Nu_M125_CUETUp']  = ['/VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8-CUETP8M1Up/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=VBFHToWWTo2L2Nu_M125_CUETUp', 'id=10010', 'doMCweights=True']]
