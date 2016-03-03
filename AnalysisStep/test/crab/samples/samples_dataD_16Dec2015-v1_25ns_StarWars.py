@@ -14,14 +14,14 @@ samples['DoubleMuon_Run2015D_25ns-16Dec2015-v1']     = ['/DoubleMuon/Run2015D-16
 samples['MuonEG_Run2015D_25ns-16Dec2015-v1']         = ['/MuonEG/Run2015D-16Dec2015-v1/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2015D_25ns-16Dec2015-v1'] = ['/SingleElectron/Run2015D-16Dec2015-v1/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2015D_25ns-16Dec2015-v1']     = ['/SingleMuon/Run2015D-16Dec2015-v1/MINIAOD',     ['label=SingleMuon']]
-samples['MET_Run2015D_25ns-16Dec2015-v1']            = ['/MET/Run2015D-16Dec2015-v1/MINIAOD',            ['label=MET']]           # For MET filter studies
-samples['SinglePhoton_Run2015D_25ns-16Dec2015-v1']   = ['/SinglePhoton/Run2015D-16Dec2015-v1/MINIAOD',   ['label=SinglePhoton']]  # For MET filter studies
+#samples['MET_Run2015D_25ns-16Dec2015-v1']           = ['/MET/Run2015D-16Dec2015-v1/MINIAOD',            ['label=MET']]           # For MET filter studies
+#samples['SinglePhoton_Run2015D_25ns-16Dec2015-v1']  = ['/SinglePhoton/Run2015D-16Dec2015-v1/MINIAOD',   ['label=SinglePhoton']]  # For MET filter studies
 
 pyCfgParams.append('globalTag=76X_dataRun2_v15')
 pyCfgParams.append('is50ns=False')
 pyCfgParams.append('isPromptRecoData=True')
 
-config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_v2.txt'
+config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Reprocessing/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_v2.txt'
 config.Data.splitting     = 'LumiBased'
 config.Data.unitsPerJob   = 5
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/03Mar/data/25ns/'
