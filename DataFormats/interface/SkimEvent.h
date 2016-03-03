@@ -780,6 +780,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float nBremByPt (size_t i = 0) const { return nBrem (indexByPt (i)); }
             const float ptByIso (size_t i = 0) const { return pt (indexByIso(i)); }
             const float etaByPt (size_t i = 0) const { return eta (indexByPt (i)); }
+            const float R9ByPt (size_t i = 0) const { return R9 (indexByPt (i)); }
+            const float full5x5R9ByPt (size_t i = 0) const { return full5x5R9 (indexByPt (i)); }
             const float etaByIso (size_t i = 0) const { return eta (indexByIso(i)); }
             const float etaSCByPt (size_t i = 0) const { return etaSC (indexByPt (i)); }
             const float etaSCByIso (size_t i = 0) const { return etaSC (indexByIso(i)); }
@@ -868,8 +870,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    const float expectedMissingInnerHits      (size_t i) const;
             const bool  passConversionVeto            (size_t i) const;
 	    const float hcalPFClusterIso              (size_t i) const;
-	    const float ecalPFClusterIso              (size_t i) const;
-
+            const float ecalPFClusterIso              (size_t i) const;
+            const float R9                            (size_t i) const;
+            const float full5x5R9                     (size_t i) const;
+            
             const float GetElectronEffectiveAreaByPt      (size_t i) const;
             const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx(indexByPt(i)); }          
             const float deltaPhiSuperClusterTrackAtVtxByPt(size_t i) const { return deltaPhiSuperClusterTrackAtVtx(indexByPt(i)); }

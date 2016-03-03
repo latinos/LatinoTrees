@@ -5145,6 +5145,22 @@ const float reco::SkimEvent::hcalPFClusterIso(size_t i) const {
 }
 
 
+const float reco::SkimEvent::R9(size_t i) const {
+ if (i >= leps_.size())  return defaultvalues::defaultFloat;
+ else if (isElectron(i)) return getElectron(i)->r9();
+ else return -999.0;
+}
+
+const float reco::SkimEvent::full5x5R9(size_t i) const {
+ if (i >= leps_.size())  return defaultvalues::defaultFloat;
+ else if (isElectron(i)) return getElectron(i)->full5x5_r9();
+ else return -999.0;
+}
+
+
+
+
+
 // Muon and electron isolation
 
 const float reco::SkimEvent::trackIso(size_t i) const  {
