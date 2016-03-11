@@ -38,7 +38,6 @@ samples['Run2015D_16Dec2015_SingleElectron_0003'] = ['/store/group/phys_higgs/cm
 samples['Run2015D_16Dec2015_SingleElectron_0004'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/03Mar/data/25ns/SingleElectron/crab_SingleElectron_Run2015D_25ns-16Dec2015-v1/160303_144124/0004/', 'stepB']
 samples['Run2015D_16Dec2015_SingleElectron_0005'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/03Mar/data/25ns/SingleElectron/crab_SingleElectron_Run2015D_25ns-16Dec2015-v1/160303_144124/0005/', 'stepB']
 samples['Run2015D_16Dec2015_SingleElectron_0006'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/03Mar/data/25ns/SingleElectron/crab_SingleElectron_Run2015D_25ns-16Dec2015-v1/160303_144124/0006/', 'stepB']
-samples['Run2015D_16Dec2015_SingleElectron_0007'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/03Mar/data/25ns/SingleElectron/crab_SingleElectron_Run2015D_25ns-16Dec2015-v1/160310_185940/0000/', 'stepB']
 
 samples['Run2015C_16Dec2015_SingleMuon_0000'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/03Mar/data/25ns/SingleMuon/crab_SingleMuon_Run2015C_25ns-16Dec2015-v1/160303_144420/0000/', 'stepB']
 samples['Run2015D_16Dec2015_SingleMuon_0000'] = ['/store/group/phys_higgs/cmshww/amassiro/RunII/03Mar/data/25ns/SingleMuon/crab_SingleMuon_Run2015D_25ns-16Dec2015-v1/160303_144141/0000/', 'stepB']
