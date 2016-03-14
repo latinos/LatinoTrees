@@ -279,7 +279,7 @@ void reco::SkimEvent::setGenDiLeptFromZGstar(edm::Handle<reco::GenParticleCollec
       if(genPart->numberOfMothers() < 1) continue;
       pLeptMom = genPart->mother();
       while(abs(pLeptMom->pdgId()) == 11){
-        if(genPart->numberOfMothers() < 1) break;
+        if(pLeptMom->numberOfMothers() < 1) break;
         pLeptMom = pLeptMom->mother();
       };
       isMuon = false;
@@ -290,7 +290,7 @@ void reco::SkimEvent::setGenDiLeptFromZGstar(edm::Handle<reco::GenParticleCollec
       if(genPart->numberOfMothers() < 1) continue;
       pLeptMom = genPart->mother();
       while(abs(pLeptMom->pdgId()) == 13){
-        if(genPart->numberOfMothers() < 1) break;
+        if(pLeptMom->numberOfMothers() < 1) break;
         pLeptMom = pLeptMom->mother();
       };
       isMuon=true;
@@ -6727,13 +6727,16 @@ const float reco::SkimEvent::genLeptonMotherPID(size_t index) const {
   // Loop over gen particles
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
 
-    int type = abs(genParticles_[gp]->pdgId());
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
+    int type = genParticles_[gp]->pdgId();
+    if( !(( abs(type) == 11 || abs(type) == 13) && genParticles_[gp]->status()==1 ) && !( abs(type) == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
 
     int motherPdgId = 0;
     const reco::Candidate* pMother = 0;
-    if (genParticles_[gp] -> mother()) {
-      pMother = genParticles_[gp]->mother();
+    pMother = genParticles_[gp]->mother();
+    motherPdgId = pMother->pdgId();
+    while (motherPdgId == type) {
+      if (pMother -> numberOfMothers() < 1) break;
+      pMother = pMother->mother();
       motherPdgId = pMother->pdgId();
     }
   
