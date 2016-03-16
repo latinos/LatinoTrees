@@ -118,10 +118,11 @@ samples['GluGluHToWWTo2L2Nu_M400']      .extend( ['xsec=0.4360',	'kfact=1.000',	
 samples['GluGluHToWWTo2L2Nu_M450']      .extend( ['xsec=0.2926',	'kfact=1.000',		'ref=KF'] ) # 5.059*0.551*0.108*0.108*9     
 samples['GluGluHToWWTo2L2Nu_M500']      .extend( ['xsec=0.1926',	'kfact=1.000',		'ref=KF'] ) # 3.360*0.546*0.108*0.108*9    
 samples['GluGluHToWWTo2L2Nu_M550']      .extend( ['xsec=0.1275',	'kfact=1.000',		'ref=KF'] ) # 2.209*0.550*0.108*0.108*9    
-samples['GluGluHToWWTo2L2Nu_M600']      .extend( ['xsec=0.8599',	'kfact=1.000',		'ref=KF'] ) # 1.468*0.558*0.108*0.108*9      
+samples['GluGluHToWWTo2L2Nu_M600']      .extend( ['xsec=0.08599',	'kfact=1.000',		'ref=KF'] ) # 1.468*0.558*0.108*0.108*9      
 samples['GluGluHToWWTo2L2Nu_M650']      .extend( ['xsec=0.0593',	'kfact=1.000',		'ref=KF'] ) # 0.994*0.568*0.108*0.108*9  
 samples['GluGluHToWWTo2L2Nu_M700']      .extend( ['xsec=0.0416',	'kfact=1.000',		'ref=KF'] ) # 0.687*0.577*0.108*0.108*9  
-samples['GluGluHToWWTo2L2Nu_M750']      .extend( ['xsec=0.0301',	'kfact=1.000',		'ref=KF'] ) # 0.490*0.586*0.108*0.108*9      
+samples['GluGluHToWWTo2L2Nu_M750']      .extend( ['xsec=0.0298',	'kfact=1.000',		'ref=KF'] ) # 0.485*0.586*0.108*0.108*9      
+samples['GluGluHToWWTo2L2Nu_M750_NWA']      .extend( ['xsec=0.0283',	'kfact=1.000',		'ref=KF'] ) # 0.460*0.586*0.108*0.108*9 - shall we keep the same BR for NWA?    
 samples['GluGluHToWWTo2L2Nu_M800']      .extend( ['xsec=0.0218',	'kfact=1.000',		'ref=KF'] ) # 0.3493*0.594*0.108*0.108*9     
 samples['GluGluHToWWTo2L2Nu_M900']      .extend( ['xsec=0.0123',	'kfact=1.000',		'ref=KF'] ) # 0.1920*0.609*0.108*0.108*9     
 samples['GluGluHToWWTo2L2Nu_M1000']     .extend( ['xsec=0.0073',	'kfact=1.000',		'ref=KF'] ) # 0.1128*0.621*0.108*0.108*9        
@@ -136,6 +137,8 @@ samples['GluGluHToWWTo2L2Nu_M125_CUETDown']  .extend( ['xsec=0.9913',	'kfact=1.0
 samples['GluGluHToWWToLNuQQ_M450']      .extend( ['xsec=0.5930',     	'kfact=1.000',		'ref=EF'] ) # 4.9279*0.551*0.108*3*0.6741
 samples['GluGluHToWWToLNuQQ_M650']      .extend( ['xsec=0.1259',     	'kfact=1.000',		'ref=EF'] ) # 1.0149*0.568*0.108*3*0.6741     
 samples['GluGluHToWWToLNuQQ_M1000']     .extend( ['xsec=0.0161',     	'kfact=1.000',		'ref=EF'] ) # 0.11877*0.621*0.108*3*0.6741     
+samples['GluGluHToWWToLNuQQ_M750']      .extend( ['xsec=0.0621',	'kfact=1.000',		'ref=KF'] ) # 0.485*0.586*0.108*3*0.6741      
+samples['GluGluHToWWToLNuQQQ_M750_NWA']      .extend( ['xsec=0.0589',	'kfact=1.000',		'ref=KF'] ) # 0.460*0.586*0.108*3*0.6741 - shall we keep the same BR for NWA?    
 
 samples['GluGluHToZZTo4L_M125']		.extend( ['xsec=0.0118',     	'kfact=1.000',		'ref=CF'] ) # 43.92*0.0264*0.033658*0.033658*9
 samples['GluGluHToTauTau_M120']		.extend( ['xsec=2.2676',     	'kfact=1.000',		'ref=KF'] ) # 32.21*0.0704
@@ -218,8 +221,10 @@ samples['VBFHToWWTo2L2Nu_M500']		.extend( ['xsec=0.0319',	'kfact=1.000',		'ref=K
 samples['VBFHToWWTo2L2Nu_M550']		.extend( ['xsec=0.0264',	'kfact=1.000',		'ref=KF'] ) # 0.457*0.550*0.108*0.108*9 
 samples['VBFHToWWTo2L2Nu_M600']		.extend( ['xsec=0.0221',	'kfact=1.000',		'ref=KF'] ) # 0.378*0.558*0.108*0.108*9  
 samples['VBFHToWWTo2L2Nu_M650']		.extend( ['xsec=0.0189',	'kfact=1.000',		'ref=KF'] ) # 0.317*0.568*0.108*0.108*9	   
-samples['VBFHToWWTo2L2Nu_M700']		.extend( ['xsec=0.0163',	'kfact=1.000',		'ref=KF'] ) # 0.269*0.577*0.108*0.108*9    
-samples['VBFHToWWTo2L2Nu_M800']		.extend( ['xsec=0.0189',	'kfact=1.000',		'ref=KF'] ) # 0.200*0.594*0.108*0.108*9	  
+samples['VBFHToWWTo2L2Nu_M700']		.extend( ['xsec=0.0163',	'kfact=1.000',		'ref=KF'] ) # 0.269*0.577*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_M750']		.extend( ['xsec=0.0142',	'kfact=1.000',		'ref=KF'] ) # 0.235*0.577*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_M750_NWA']		.extend( ['xsec=0.0113',	'kfact=1.000',		'ref=KF'] ) # 0.186*0.577*0.108*0.108*9 - shall we keep the same BR for NWA?
+samples['VBFHToWWTo2L2Nu_M800']		.extend( ['xsec=0.0125',	'kfact=1.000',		'ref=KF'] ) # 0.200*0.594*0.108*0.108*9	  
 samples['VBFHToWWTo2L2Nu_M900']		.extend( ['xsec=0.0099',	'kfact=1.000',		'ref=KF'] ) # 0.1547*0.609*0.108*0.108*9	  
 samples['VBFHToWWTo2L2Nu_M1000']	.extend( ['xsec=0.0080',	'kfact=1.000',		'ref=KF'] ) # 0.1228*0.621*0.108*0.108*9	     
 
@@ -233,6 +238,8 @@ samples['VBFHToWWTo2L2Nu_M125_CUETDown']		.extend( ['xsec=0.0846',	'kfact=1.000'
 samples['VBFHToWWToNuQQ_M450']         	.extend( ['xsec=0.0824',     	'kfact=1.000',		'ref=EF'] ) # 0.685*0.551*0.108*3*0.6741   
 samples['VBFHToWWToNuQQ_M650']         	.extend( ['xsec=0.0397',     	'kfact=1.000',		'ref=EF'] ) # 0.320*0.568*0.108*3*0.6741   
 samples['VBFHToWWToNuQQ_M1000']         .extend( ['xsec=0.0170',     	'kfact=1.000',		'ref=EF'] ) # 0.125*0.621*0.108*3*0.6741   
+samples['VBFHToWWToNuQQ_M750']         .extend( ['xsec=0.0319',     	'kfact=1.000',		'ref=EF'] ) # 0.235*0.621*0.108*3*0.6741   
+samples['VBFHToWWToNuQQ_M750_NWA']         .extend( ['xsec=0.0252',     	'kfact=1.000',		'ref=EF'] ) # 0.186*0.621*0.108*3*0.6741 - shall we keep the same BR for NWA?
 
 samples['VBFHToTauTau_M120']		.extend( ['xsec=0.275264',	'kfact=1.000',		'ref=EF'] ) # 3.91*0.0704
 samples['VBFHToTauTau_M125']		.extend( ['xsec=0.237000',	'kfact=1.000',		'ref=EF'] ) # 3.75*0.0632
