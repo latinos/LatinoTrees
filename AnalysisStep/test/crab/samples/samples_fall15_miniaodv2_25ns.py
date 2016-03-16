@@ -19,6 +19,9 @@ samples['DYJetsToLL_M-10to50ext3']   = ['/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV
 samples['DYJetsToLL_M-50']       = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=DYJetsToLL_M-50',       'id=00003', 'doMCweights=True']]
 #samples['DYJetsToLL_M-5to50-LO'] = ['/DYJetsToLL_M-5to50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',   ['label=DYJetsToLL_M-5to50-LO', 'id=30002', 'doMCweights=True']]
 samples['DYJetsToLL_M-50-LO']    = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',      ['label=DYJetsToLL_M-50-LO',    'id=30003', 'doMCweights=True']]
+samples['DYJetsToEE_Pow']       = ['/DYToEE_NNPDF30_13TeV-powheg-pythia8/RunIIFall15DR76-25nsFlat10to25TSG_76X_mcRun2_asymptotic_v11-v1/MINIAODSIM',     ['label=DYJetsToEE_Pow',       'id=00003', 'doMCweights=True']]
+
+
 
 ## VV
 samples['WWTo2L2Nu']    = ['/WWTo2L2Nu_13TeV-powheg/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',         ['label=WWTo2L2Nu',    'id=00004', 'doMCweights=True']]
