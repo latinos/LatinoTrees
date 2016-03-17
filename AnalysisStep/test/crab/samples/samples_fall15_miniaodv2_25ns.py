@@ -256,7 +256,7 @@ samples['WZZ'] = ['/WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2
 samples['Wg_AMCNLOFXFX']     = ['/WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',        ['label=Wg_AMCNLOFXFX',     'id=00000', 'doMCweights=True']]
 samples['Wg_MADGRAPHMLM']     = ['/WGToLNuG_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',        ['label=Wg_MADGRAPHMLM',     'id=00000', 'doMCweights=True']]
 samples['Wg500']  = ['/WGToLNuG_PtG-500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=Wg500',  'id=00000', 'doMCweights=True']]
-#samples['WgStar'] = ['',                                                                                                                       ['label=WgStar', 'id=00000', 'doMCweights=True']]
+samples['WgStarLNuMuMu'] = ['/WGstarToLNuMuMu_012Jets_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                                                                                                                       ['label=WgStarLNuMuMu', 'id=00000', 'doMCweights=True']]
 samples['Zg']     = ['/ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',         ['label=Zg',     'id=00000', 'doMCweights=True']]
 #samples['ZgStar'] = ['',                                                                                                                       ['label=ZgStar', 'id=00000', 'doMCweights=True']]
 
