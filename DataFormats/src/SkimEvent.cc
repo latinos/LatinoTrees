@@ -279,7 +279,7 @@ void reco::SkimEvent::setGenDiLeptFromZGstar(edm::Handle<reco::GenParticleCollec
       if(genPart->numberOfMothers() < 1) continue;
       pLeptMom = genPart->mother();
       while(abs(pLeptMom->pdgId()) == 11){
-        if(genPart->numberOfMothers() < 1) break;
+        if(pLeptMom->numberOfMothers() < 1) break;
         pLeptMom = pLeptMom->mother();
       };
       isMuon = false;
@@ -290,7 +290,7 @@ void reco::SkimEvent::setGenDiLeptFromZGstar(edm::Handle<reco::GenParticleCollec
       if(genPart->numberOfMothers() < 1) continue;
       pLeptMom = genPart->mother();
       while(abs(pLeptMom->pdgId()) == 13){
-        if(genPart->numberOfMothers() < 1) break;
+        if(pLeptMom->numberOfMothers() < 1) break;
         pLeptMom = pLeptMom->mother();
       };
       isMuon=true;
@@ -6721,25 +6721,32 @@ const float reco::SkimEvent::genLeptonMotherPID(size_t index) const {
 
   float pt_ofIndex = genLeptonPt(index);
   float motherPID  = defaultvalues::defaultFloat;
+  int   motherPID_int    = defaultvalues::defaultInt;
 
   const reco::Candidate* mcH = 0;
 
   // Loop over gen particles
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+    // Set default
+    //motherStatus_int = defaultvalues::defaultInt;
+    motherPID_int    = defaultvalues::defaultInt;
 
-    int type = abs(genParticles_[gp]->pdgId());
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
+    int type = genParticles_[gp]->pdgId();
+    if( !(( abs(type) == 11 || abs(type) == 13) && genParticles_[gp]->status()==1 ) && !( abs(type) == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
 
-    int motherPdgId = 0;
     const reco::Candidate* pMother = 0;
-    if (genParticles_[gp] -> mother()) {
-      pMother = genParticles_[gp]->mother();
-      motherPdgId = pMother->pdgId();
+    if (genParticles_[gp]-> numberOfMothers() < 1) continue;
+    pMother       = genParticles_[gp]->mother();
+    motherPID_int = pMother->pdgId();
+    while (motherPID_int == type) {
+      if (pMother -> numberOfMothers() < 1) break;
+      pMother       = pMother->mother();
+      motherPID_int = pMother->pdgId();
     }
   
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
-    motherPID = (float) motherPdgId;
+    motherPID = (float) motherPID_int;
     break;
   }
   
@@ -6750,27 +6757,42 @@ const float reco::SkimEvent::genLeptonMotherPID(size_t index) const {
 // Compatible with PYTHIA8
 const float reco::SkimEvent::genLeptonMotherStatus(size_t index) const {
 
-  float pt_ofIndex   = genLeptonPt(index);
-  float motherStatus = defaultvalues::defaultFloat;
+  float pt_ofIndex       = genLeptonPt(index);
+  float motherStatus     = defaultvalues::defaultFloat;
+  int   motherStatus_int = defaultvalues::defaultInt;
+  //float motherPID        = defaultvalues::defaultFloat;
+  int   motherPID_int    = defaultvalues::defaultInt;
 
   const reco::Candidate* mcH = 0;
 
   // Loop over gen particles
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
 
-    int type = abs(genParticles_[gp]->pdgId());
-    if( !((type == 11 || type == 13) && genParticles_[gp]->status()==1 ) && !(type == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
+    // Set default
+    motherStatus_int = defaultvalues::defaultInt;
+    motherPID_int    = defaultvalues::defaultInt;
 
-    int motherOriginalStatus = 0;
+    int type = genParticles_[gp]->pdgId();
+    if( !(( abs(type) == 11 || abs(type) == 13) && genParticles_[gp]->status()==1 ) && !( abs(type) == 15 && genParticles_[gp]->isPromptDecayed()) ) continue;
+
     const reco::Candidate* pMother = 0;
-    if (genParticles_[gp] -> mother()) {
-      pMother = genParticles_[gp]->mother();
-      motherOriginalStatus = originalStatus(pMother);
+    if (genParticles_[gp]-> numberOfMothers() < 1) continue;
+    pMother          = genParticles_[gp]->mother();
+    motherPID_int    = pMother->pdgId();
+    motherStatus_int = pMother->status();
+
+    while ( motherPID_int == type) {
+      //motherOriginalStatus = originalStatus(pMother);
+      if (pMother -> numberOfMothers() < 1) break;
+      pMother          = pMother->mother();
+      motherPID_int    = pMother->pdgId();
+      motherStatus_int = pMother->status();
     }
   
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
-    motherStatus = (float) motherOriginalStatus;
+    motherStatus = (float) motherStatus_int;
+    //motherStatus = (float) motherOriginalStatus;
     break;
   }
 
