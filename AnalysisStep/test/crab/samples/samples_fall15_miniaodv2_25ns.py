@@ -350,6 +350,13 @@ samples['monoH_2HDM_MZp-1700_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HD
 samples['monoH_2HDM_MZp-2000_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-2000_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=monoH_2HDM_MZp-2000_MA0-300', 'id=80007', 'doLHE=False']]
 samples['monoH_2HDM_MZp-2500_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-2500_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=monoH_2HDM_MZp-2500_MA0-300', 'id=80008', 'doLHE=False']]
 
+## monoHiggs with correct config file
+samples['monoH_2HDM_MZp-1000_MA0-500'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1000_MA0-500_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-1000_MA0-500', 'id=80010', 'doLHE=False']]
+samples['monoH_2HDM_MZp-1000_MA0-800'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1000_MA0-800_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-1000_MA0-800', 'id=80011', 'doLHE=False']]
+samples['monoH_2HDM_MZp-2500_MA0-600'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-2500_MA0-600_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-2500_MA0-600', 'id=80012', 'doLHE=False']]
+samples['monoH_2HDM_MZp-600_MA0-400'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-600_MA0-400_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-600_MA0-400', 'id=80013', 'doLHE=False']]
+samples['monoH_2HDM_MZp-800_MA0-600'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-800_MA0-600_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-800_MA0-600', 'id=80014', 'doLHE=False']]
+
 
 ## WW PS
 samples['WWTo2L2NuHerwigPS']    = ['/WWTo2L2Nu_13TeV-powheg-herwigpp/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',         ['label=WWTo2L2NuHerwigPS',    'id=00042', 'doMCweights=True']]
