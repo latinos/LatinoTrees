@@ -36,6 +36,8 @@ if __name__ == '__main__':
             inputFolder = value[0]
             pattern     = value[1]
             print " outputDirectory =", outputDirectory
+            print " inputFolder =", inputFolder
+            print " pattern =", pattern
 
             # here it goes
             os.system("rm -rf list_" + requestName + "*")
