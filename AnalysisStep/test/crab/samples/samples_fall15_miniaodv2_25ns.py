@@ -18,7 +18,10 @@ samples['DYJetsToLL_M-10to50']   = ['/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amc
 samples['DYJetsToLL_M-10to50ext3']   = ['/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12_ext3-v1/MINIAODSIM', 	['label=DYJetsToLL_M-10to50ext3',   'id=50002', 'doMCweights=True']]
 samples['DYJetsToLL_M-50']       = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=DYJetsToLL_M-50',       'id=00003', 'doMCweights=True']]
 #samples['DYJetsToLL_M-5to50-LO'] = ['/DYJetsToLL_M-5to50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',   ['label=DYJetsToLL_M-5to50-LO', 'id=30002', 'doMCweights=True']]
-#samples['DYJetsToLL_M-50-LO']    = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',      ['label=DYJetsToLL_M-50-LO',    'id=30003', 'doMCweights=True']]
+samples['DYJetsToLL_M-50-LO']    = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',      ['label=DYJetsToLL_M-50-LO',    'id=30003', 'doMCweights=True']]
+samples['DYJetsToEE_Pow']       = ['/DYToEE_NNPDF30_13TeV-powheg-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=DYJetsToEE_Pow',       'id=00003', 'doMCweights=True']]
+
+
 
 ## VV
 samples['WWTo2L2Nu']    = ['/WWTo2L2Nu_13TeV-powheg/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',         ['label=WWTo2L2Nu',    'id=00004', 'doMCweights=True']]
@@ -111,6 +114,7 @@ samples['GluGluHToWWTo2L2Nu_M600']  = ['/GluGluHToWWTo2L2Nu_M600_13TeV_powheg_JH
 samples['GluGluHToWWTo2L2Nu_M650']  = ['/GluGluHToWWTo2L2Nu_M650_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M650',  'id=01650', 'doMCweights=True']]
 samples['GluGluHToWWTo2L2Nu_M700']  = ['/GluGluHToWWTo2L2Nu_M700_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M700',  'id=01700', 'doMCweights=True']]
 samples['GluGluHToWWTo2L2Nu_M750']  = ['/GluGluHToWWTo2L2Nu_M750_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M750',  'id=01750', 'doMCweights=True']]
+samples['GluGluHToWWTo2L2Nu_M750_NWA']  = ['/GluGluHToWWTo2L2Nu_M750_NWA_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M750_NWA',  'id=017501', 'doMCweights=True']]
 samples['GluGluHToWWTo2L2Nu_M800']  = ['/GluGluHToWWTo2L2Nu_M800_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M800',  'id=01800', 'doMCweights=True']]
 samples['GluGluHToWWTo2L2Nu_M900']  = ['/GluGluHToWWTo2L2Nu_M900_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M900',  'id=01900', 'doMCweights=True']]
 samples['GluGluHToWWTo2L2Nu_M1000'] = ['/GluGluHToWWTo2L2Nu_M1000_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=GluGluHToWWTo2L2Nu_M1000', 'id=02000', 'doMCweights=True']]
@@ -122,6 +126,9 @@ samples['GluGluHToWWTo2L2NuHerwigPS_M125'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_po
 samples['GluGluHToWWToLNuQQ_M450']       = ['/GluGluHToWWToLNuQQ_M450_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                  ['label=GluGluHToWWToLNuQQ_M450',       'id=60450', 'doMCweights=True']]
 samples['GluGluHToWWToLNuQQ_M650']       = ['/GluGluHToWWToLNuQQ_M650_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=GluGluHToWWToLNuQQ_M650',       'id=60650', 'doMCweights=True']]
 samples['GluGluHToWWToLNuQQ_M1000']      = ['/GluGluHToWWToLNuQQ_M1000_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=GluGluHToWWToLNuQQ_M1000',      'id=61000', 'doMCweights=True']]
+samples['GluGluHToWWToLNuQQ_M750']      = ['/GluGluHToWWToLNuQQ_M750_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=GluGluHToWWToLNuQQ_M750',      'id=60750', 'doMCweights=True']]
+samples['GluGluHToWWToLNuQQ_M750_NWA']      = ['/GluGluHToWWToLNuQQ_M750_NWA_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=GluGluHToWWToLNuQQ_M750',      'id=607501', 'doMCweights=True']]
+
 
 #samples['GluGluHToZZTo4L_M125']          = ['/GluGluHToZZTo4L_M125_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                     ['label=GluGluHToZZTo4L_M125',          'id=11125', 'doMCweights=True']]
 samples['GluGluHToTauTau_M120']          = ['/GluGluHToTauTau_M120_13TeV_powheg_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                            ['label=GluGluHToTauTau_M120',          'id=21120', 'doMCweights=True']]
@@ -175,7 +182,7 @@ samples['VBFHToWWTo2L2Nu_alternative_M125'] = ['/VBFHToWWTo2L2Nu_M125_13TeV_powh
 samples['VBFHToWWTo2L2Nu_alternative_M130'] = ['/VBFHToWWTo2L2Nu_M130_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_alternative_M130', 'id=05130', 'doMCweights=True']]
 
 samples['VBFHToWWTo2L2Nu_M115']         = ['/VBFHToWWTo2L2Nu_M115_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M115', 'id=05115', 'doMCweights=True']]
-#samples['VBFHToWWTo2L2Nu_M120']         = ['', ['label=VBFHToWWTo2L2Nu_M120', 'id=05120', 'doMCweights=True']]
+samples['VBFHToWWTo2L2Nu_M120']         = ['/VBFHToWWTo2L2Nu_M120_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M120', 'id=05120', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M124']         = ['/VBFHToWWTo2L2Nu_M124_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M124', 'id=05124', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M125']         = ['/VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M125',     'id=05125', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M126']         = ['/VBFHToWWTo2L2Nu_M126_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M126',     'id=05126', 'doMCweights=True']]
@@ -205,6 +212,8 @@ samples['VBFHToWWTo2L2Nu_M550']         = ['/VBFHToWWTo2L2Nu_M550_13TeV_powheg_J
 samples['VBFHToWWTo2L2Nu_M600']         = ['/VBFHToWWTo2L2Nu_M600_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M600',     'id=05600', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M650']         = ['/VBFHToWWTo2L2Nu_M650_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M650',     'id=05650', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M700']         = ['/VBFHToWWTo2L2Nu_M700_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M700',     'id=05700', 'doMCweights=True']]
+samples['VBFHToWWTo2L2Nu_M750']         = ['/VBFHToWWTo2L2Nu_M750_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M750',     'id=05750', 'doMCweights=True']]
+samples['VBFHToWWTo2L2Nu_M750_NWA']         = ['/VBFHToWWTo2L2Nu_M750_NWA_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M750_NWA',     'id=057501', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M800']         = ['/VBFHToWWTo2L2Nu_M800_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M800',     'id=05800', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M900']         = ['/VBFHToWWTo2L2Nu_M900_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M900',     'id=05900', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_M1000']         = ['/VBFHToWWTo2L2Nu_M1000_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_M1000',     'id=051000', 'doMCweights=True']]
@@ -216,6 +225,8 @@ samples['VBFHToWWTo2L2NuHerwigPS_M125'] = ['/VBFHToWWTo2L2Nu_M125_13TeV_powheg_J
 samples['VBFHToWWToNuQQ_M450']          = ['/VBF_HToWWToLNuQQ_M450_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=VBFHToWWToNuQQ_M450',      'id=7450', 'doMCweights=True']]
 samples['VBFHToWWToNuQQ_M650']          = ['/VBF_HToWWToLNuQQ_M650_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=VBFHToWWToNuQQ_M650',      'id=7650', 'doMCweights=True']]
 samples['VBFHToWWToNuQQ_M1000']         = ['/VBF_HToWWToLNuQQ_M1000_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=VBFHToWWToNuQQ_M1000',      'id=71000', 'doMCweights=True']]
+samples['VBFHToWWToNuQQ_M750']         = ['/VBFHToWWToLNuQQ_M750_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=VBFHToWWToNuQQ_M750',      'id=77500', 'doMCweights=True']]
+samples['VBFHToWWToNuQQ_M750_NWA']         = ['/VBFHToWWToLNuQQ_M750_NWA_13TeV_powheg_JHUgenv628_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',  ['label=VBFHToWWToNuQQ_M750_NWA',      'id=775001', 'doMCweights=True']]
 
 samples['VBFHToTauTau_M120']            = ['/VBFHToTauTau_M120_13TeV_powheg_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',           ['label=VBFHToTauTau_M120',          'id=51120', 'doMCweights=True']]
 samples['VBFHToTauTau_M125']            = ['/VBFHToTauTau_M125_13TeV_powheg_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',           ['label=VBFHToTauTau_M125',          'id=51125', 'doMCweights=True']]
@@ -245,7 +256,7 @@ samples['WZZ'] = ['/WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2
 samples['Wg_AMCNLOFXFX']     = ['/WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',        ['label=Wg_AMCNLOFXFX',     'id=00000', 'doMCweights=True']]
 samples['Wg_MADGRAPHMLM']     = ['/WGToLNuG_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',        ['label=Wg_MADGRAPHMLM',     'id=00000', 'doMCweights=True']]
 samples['Wg500']  = ['/WGToLNuG_PtG-500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=Wg500',  'id=00000', 'doMCweights=True']]
-#samples['WgStar'] = ['',                                                                                                                       ['label=WgStar', 'id=00000', 'doMCweights=True']]
+samples['WgStarLNuMuMu'] = ['/WGstarToLNuMuMu_012Jets_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                                                                                                                       ['label=WgStarLNuMuMu', 'id=00000', 'doMCweights=True']]
 samples['Zg']     = ['/ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',         ['label=Zg',     'id=00000', 'doMCweights=True']]
 #samples['ZgStar'] = ['',                                                                                                                       ['label=ZgStar', 'id=00000', 'doMCweights=True']]
 
@@ -292,7 +303,9 @@ samples['WZJJ_EWK_QCD']                 = ['/WZJJ_EWK_QCD_13TeV-madgraph-pythia8
 samples['WZJJ_QCD']                     = ['/WZJJ_QCD_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                             ['label=WZJJ_QCD',                     'id=40016', 'doMCweights=True']]
 samples['WW_DoubleScattering']          = ['/WW_DoubleScattering_13TeV-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                           ['label=WW_DoubleScattering',          'id=40017', 'doLHE=False']]
 samples['DY2JetsToLL']                  = ['/DY2JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=DY2JetsToLL',                  'id=40018', 'doMCweights=True']]
-#samples['WGJJ']
+samples['WGJJ']			= ['/WGJJToLNu_EWK_QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=WGJJ',                  	'id=40019', 'doMCweights=True']]
+samples['EWKZ2Jets']			= ['/EWKZ2Jets_ZToLL_M-50_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=EWKZ2Jets',                  	'id=40020', 'doMCweights=True']]
+
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
