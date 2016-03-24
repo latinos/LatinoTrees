@@ -296,7 +296,8 @@ samples['WZJJ_EWK']   				.extend( ['xsec=0.03900',	'kfact=1.000',	'ref=X'] )
 samples['WZJJ_QCD']   				.extend( ['xsec=0.45850',	'kfact=1.000',	'ref=I'] )
 samples['WW_DoubleScattering']   		.extend( ['xsec=1.62000',	'kfact=1.000',	'ref=I'] )
 samples['DY2JetsToLL']   			.extend( ['xsec=333.300',	'kfact=1.000',	'ref=I'] )
-samples['WGJJ']   				.extend( ['xsec=0.00000',	'kfact=1.000',	'ref=X'] )
+samples['WGJJ']   				.extend( ['xsec=5.66200',	'kfact=1.000',	'ref=I'] )
+samples['EWKZ2Jets']				.extend( ['xsec=3.99800',	'kfact=1.000',	'ref=I'] )
 
 # ttDM
 samples['ttDM0001scalar0010'] .extend( ['xsec=19.59'         , 'kfact=1.000', 'ref=J'] )
