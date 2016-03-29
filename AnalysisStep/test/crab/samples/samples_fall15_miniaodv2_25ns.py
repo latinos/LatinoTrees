@@ -363,9 +363,7 @@ samples['monoH_2HDM_MZp-1000_MA0-500'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HD
 samples['monoH_2HDM_MZp-1000_MA0-600'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1000_MA0-600_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-1000_MA0-600', 'id=80015', 'doLHE=False']]
 samples['monoH_2HDM_MZp-1000_MA0-700'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1000_MA0-700_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-1000_MA0-700', 'id=80016', 'doLHE=False']]
 samples['monoH_2HDM_MZp-1000_MA0-800'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1000_MA0-800_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-1000_MA0-800', 'id=80011', 'doLHE=False']]
-samples['monoH_2HDM_MZp-1200_MA0-400'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1200_MA0-400_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-
-
-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-1200_MA0-400', 'id=80029', 'doLHE=False']]
+samples['monoH_2HDM_MZp-1200_MA0-400'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1200_MA0-400_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-1200_MA0-400', 'id=80029', 'doLHE=False']]
 samples['monoH_2HDM_MZp-1200_MA0-500'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1200_MA0-500_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-1200_MA0-500', 'id=80030', 'doLHE=False']]
 samples['monoH_2HDM_MZp-1200_MA0-600'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1200_MA0-600_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-1200_MA0-600', 'id=80031', 'doLHE=False']]
 samples['monoH_2HDM_MZp-1200_MA0-700'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-1200_MA0-700_13TeV-madgraph/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM', ['label=monoH_2HDM_MZp-1200_MA0-700', 'id=80017', 'doLHE=False']]
