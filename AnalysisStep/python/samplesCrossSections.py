@@ -17,6 +17,7 @@
 #       M       https://twiki.cern.ch/twiki/bin/view/CMS/DMAnalysis
 #       N       MCM
 #       O       https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG/Higgs_XSBR_YR4_update.xlsx
+#       P       https://drive.google.com/file/d/0B7mfFpGbPaMvb0ZtMlJfdXhJb2M/view
 #	X	Unknown! - Cross section not yet there
 #
 
@@ -296,7 +297,8 @@ samples['WZJJ_EWK']   				.extend( ['xsec=0.03900',	'kfact=1.000',	'ref=X'] )
 samples['WZJJ_QCD']   				.extend( ['xsec=0.45850',	'kfact=1.000',	'ref=I'] )
 samples['WW_DoubleScattering']   		.extend( ['xsec=1.62000',	'kfact=1.000',	'ref=I'] )
 samples['DY2JetsToLL']   			.extend( ['xsec=333.300',	'kfact=1.000',	'ref=I'] )
-samples['WGJJ']   				.extend( ['xsec=0.00000',	'kfact=1.000',	'ref=X'] )
+samples['WGJJ']   				.extend( ['xsec=5.66200',	'kfact=1.000',	'ref=I'] )
+samples['EWKZ2Jets']				.extend( ['xsec=3.99800',	'kfact=1.000',	'ref=I'] )
 
 # ttDM
 samples['ttDM0001scalar0010'] .extend( ['xsec=19.59'         , 'kfact=1.000', 'ref=J'] )
@@ -381,3 +383,47 @@ samples['monoH_2HDM_MZp-1700_MA0-300'] .extend( ['xsec=0.001585138',	'kfact=1.00
 samples['monoH_2HDM_MZp-2000_MA0-300'] .extend( ['xsec=0.001021836',	'kfact=1.000',	   	'ref=M'] ) #0.009734*9*(0.108)^2
 samples['monoH_2HDM_MZp-2500_MA0-300'] .extend( ['xsec=0.000510183',	'kfact=1.000',	   	'ref=M'] ) #0.004860*9*(0.108)^2
 
+samples['monoH_2HDM_MZp-600_MA0-400']  .extend( ['xsec=0.000744308',    'kfact=1.000',	   	'ref=M'] ) #0.0070903*9*(0.108)^2
+samples['monoH_2HDM_MZp-800_MA0-400']  .extend( ['xsec=0.001888595',	'kfact=1.000',	   	'ref=M'] ) #0.0179907*9*(0.108)^2
+samples['monoH_2HDM_MZp-1000_MA0-400'] .extend( ['xsec=0.001848780',	'kfact=1.000',	   	'ref=M'] ) #0.0176115*9*(0.108)^2
+samples['monoH_2HDM_MZp-1200_MA0-400'] .extend( ['xsec=0.001499988',	'kfact=1.000',	   	'ref=M'] ) #0.0142889*9*(0.108)^2
+samples['monoH_2HDM_MZp-1400_MA0-400'] .extend( ['xsec=0.001148523',	'kfact=1.000',	   	'ref=M'] ) #0.0109408*9*(0.108)^2
+samples['monoH_2HDM_MZp-1700_MA0-400'] .extend( ['xsec=0.000744270',	'kfact=1.000',	   	'ref=M'] ) #0.0070899*9*(0.108)^2
+samples['monoH_2HDM_MZp-2000_MA0-400'] .extend( ['xsec=0.000481072',	'kfact=1.000',	   	'ref=M'] ) #0.0045827*9*(0.108)^2
+samples['monoH_2HDM_MZp-2500_MA0-400'] .extend( ['xsec=0.000238609',	'kfact=1.000',	   	'ref=M'] ) #0.0022730*9*(0.108)^2
+
+samples['monoH_2HDM_MZp-600_MA0-500']  .extend( ['xsec=0.000041381',	'kfact=1.000',	   	'ref=M'] ) #0.0003942*9*(0.108)^2
+samples['monoH_2HDM_MZp-800_MA0-500']  .extend( ['xsec=0.000758198',	'kfact=1.000',	   	'ref=M'] ) #0.0072226*9*(0.108)^2
+samples['monoH_2HDM_MZp-1000_MA0-500'] .extend( ['xsec=0.001080736',	'kfact=1.000',	   	'ref=M'] ) #0.0102951*9*(0.108)^2
+samples['monoH_2HDM_MZp-1200_MA0-500'] .extend( ['xsec=0.001012224',	'kfact=1.000',	   	'ref=M'] ) #0.0096424*9*(0.108)^2
+samples['monoH_2HDM_MZp-1400_MA0-500'] .extend( ['xsec=0.000833376',	'kfact=1.000',	   	'ref=M'] ) #0.0079387*9*(0.108)^2
+samples['monoH_2HDM_MZp-1700_MA0-500'] .extend( ['xsec=0.000573219',	'kfact=1.000',	   	'ref=M'] ) #0.0054605*9*(0.108)^2
+samples['monoH_2HDM_MZp-2000_MA0-500'] .extend( ['xsec=0.000381968',	'kfact=1.000',	   	'ref=M'] ) #0.0036386*9*(0.108)^2
+samples['monoH_2HDM_MZp-2500_MA0-500'] .extend( ['xsec=0.000193795',	'kfact=1.000',	   	'ref=M'] ) #0.0018461*9*(0.108)^2
+
+samples['monoH_2HDM_MZp-600_MA0-600']  .extend( ['xsec=0.000010034',	'kfact=1.000',	   	'ref=M'] ) #0.0000956*9*(0.108)^2
+samples['monoH_2HDM_MZp-800_MA0-600']  .extend( ['xsec=0.000201656',	'kfact=1.000',	   	'ref=M'] ) #0.0019210*9*(0.108)^2
+samples['monoH_2HDM_MZp-1000_MA0-600'] .extend( ['xsec=0.000597502',	'kfact=1.000',	   	'ref=M'] ) #0.0056918*9*(0.108)^2
+samples['monoH_2HDM_MZp-1200_MA0-600'] .extend( ['xsec=0.000697179',	'kfact=1.000',	   	'ref=M'] ) #0.0066413*9*(0.108)^2
+samples['monoH_2HDM_MZp-1400_MA0-600'] .extend( ['xsec=0.000635332',	'kfact=1.000',	   	'ref=M'] ) #0.0060522*9*(0.108)^2
+samples['monoH_2HDM_MZp-1700_MA0-600'] .extend( ['xsec=0.000471214',	'kfact=1.000',	   	'ref=M'] ) #0.0044888*9*(0.108)^2
+samples['monoH_2HDM_MZp-2000_MA0-600'] .extend( ['xsec=0.000326838',	'kfact=1.000',	   	'ref=M'] ) #0.0031134*9*(0.108)^2
+samples['monoH_2HDM_MZp-2500_MA0-600'] .extend( ['xsec=0.000171051',	'kfact=1.000',	   	'ref=M'] ) #0.0016294*9*(0.108)^2
+
+samples['monoH_2HDM_MZp-600_MA0-700']  .extend( ['xsec=0.000004138',	'kfact=1.000',	   	'ref=M'] ) #0.0000394*9*(0.108)^2
+samples['monoH_2HDM_MZp-800_MA0-700']  .extend( ['xsec=0.000029943',	'kfact=1.000',	   	'ref=M'] ) #0.0002852*9*(0.108)^2
+samples['monoH_2HDM_MZp-1000_MA0-700'] .extend( ['xsec=0.000268298',	'kfact=1.000',	   	'ref=M'] ) #0.0025558*9*(0.108)^2
+samples['monoH_2HDM_MZp-1200_MA0-700'] .extend( ['xsec=0.000443280',	'kfact=1.000',	   	'ref=M'] ) #0.0023796*9*(0.108)^2
+samples['monoH_2HDM_MZp-1400_MA0-700'] .extend( ['xsec=0.000467678',	'kfact=1.000',	   	'ref=M'] ) #0.0030913*9*(0.108)^2
+samples['monoH_2HDM_MZp-1700_MA0-700'] .extend( ['xsec=0.000384830',	'kfact=1.000',	   	'ref=M'] ) #0.0036659*9*(0.108)^2
+samples['monoH_2HDM_MZp-2000_MA0-700'] .extend( ['xsec=0.000280141',	'kfact=1.000',	   	'ref=M'] ) #0.0026686*9*(0.108)^2
+samples['monoH_2HDM_MZp-2500_MA0-700'] .extend( ['xsec=0.000152441',	'kfact=1.000',	   	'ref=M'] ) #0.0014522*9*(0.108)^2
+
+samples['monoH_2HDM_MZp-600_MA0-800']  .extend( ['xsec=0.000002090',	'kfact=1.000',	   	'ref=M'] ) #0.0000199*9*(0.108)^2
+samples['monoH_2HDM_MZp-800_MA0-800']  .extend( ['xsec=0.000010176',	'kfact=1.000',	   	'ref=M'] ) #0.0000969*9*(0.108)^2
+samples['monoH_2HDM_MZp-1000_MA0-800'] .extend( ['xsec=0.000083163',	'kfact=1.000',	   	'ref=M'] ) #0.0007922*9*(0.108)^2
+samples['monoH_2HDM_MZp-1200_MA0-800'] .extend( ['xsec=0.000249803',	'kfact=1.000',	   	'ref=M'] ) #0.0023796*9*(0.108)^2
+samples['monoH_2HDM_MZp-1400_MA0-800'] .extend( ['xsec=0.000324510',	'kfact=1.000',	   	'ref=M'] ) #0.0030913*9*(0.108)^2
+samples['monoH_2HDM_MZp-1700_MA0-800'] .extend( ['xsec=0.000306269',	'kfact=1.000',	   	'ref=M'] ) #0.0029175*9*(0.108)^2
+samples['monoH_2HDM_MZp-2000_MA0-800'] .extend( ['xsec=0.000237731',	'kfact=1.000',	   	'ref=M'] ) #0.0022646*9*(0.108)^2
+samples['monoH_2HDM_MZp-2500_MA0-800'] .extend( ['xsec=0.000136006',	'kfact=1.000',	   	'ref=M'] ) #0.0012956*9*(0.108)^2
