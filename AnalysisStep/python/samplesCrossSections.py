@@ -266,6 +266,8 @@ samples['ZZZ']				.extend( ['xsec=0.01398',	'kfact=1.000',		'ref=E'] )
 samples['Wg_AMCNLOFXFX']		.extend( ['xsec=586.000',	'kfact=1.000',		'ref=Rafael'] ) #NNLO
 samples['Wg_MADGRAPHMLM']		.extend( ['xsec=405.271',	'kfact=1.000',		'ref=E'] ) #LO
 samples['Wg500']			.extend( ['xsec=1.00000',	'kfact=1.000',		'ref=X'] )
+samples['WgStarLNuMuMu']		.extend( ['xsec=1.00000',	'kfact=1.000',		'ref=X'] )
+samples['WgStarLNuEE']			.extend( ['xsec=1.00000',	'kfact=1.000',		'ref=X'] )
 samples['Zg']				.extend( ['xsec=131.300',	'kfact=1.000',		'ref=Rafael'] ) #NNLO
 samples['ZgStar']			.extend( ['xsec=1.00000',	'kfact=1.000',		'ref=X'] )
 
