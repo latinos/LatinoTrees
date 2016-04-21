@@ -11,15 +11,16 @@
 #	G	https://twiki.cern.ch/twiki/bin/view/CMS/GenXsecTaskForce		
 #	H	http://arxiv.org/pdf/1307.7403v1.pdf		
 #	I	https://twiki.cern.ch/twiki/bin/viewauth/CMS/HowToGenXSecAnalyzer		
-#	J	http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2015_099_v8.pdf
+#	J	https://svnweb.cern.ch/cern/wsvn/LHCDMF/trunk/doc/tex/TTBar_Xsecs_Appendix.tex
 #	K	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProductionMassScan (powheg numbers)
 #	L	https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWW13TeVProduction (powheg numbers)
 #       M       https://twiki.cern.ch/twiki/bin/view/CMS/DMAnalysis
 #       N       MCM
 #       O       https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG/Higgs_XSBR_YR4_update.xlsx
 #       P       https://drive.google.com/file/d/0B7mfFpGbPaMvb0ZtMlJfdXhJb2M/view
+#	R	https://cms-pdmv.cern.ch/mcm/requests?page=0&prepid=B2G-RunIISummer15GS*&dataset_name=TTbarDMJets_*scalar_Mchi-*_Mphi-10000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
 #	X	Unknown! - Cross section not yet there
-#
+
 
 ## W+jets
 samples['WJetsToLNu']                	.extend( ['xsec=61526.7',	'kfact=1.00',		'ref=E'] )
@@ -302,78 +303,83 @@ samples['DY2JetsToLL']   			.extend( ['xsec=333.300',	'kfact=1.000',	'ref=I'] )
 samples['WGJJ']   				.extend( ['xsec=5.66200',	'kfact=1.000',	'ref=I'] )
 samples['EWKZ2Jets']				.extend( ['xsec=3.99800',	'kfact=1.000',	'ref=I'] )
 
-# ttDM
-samples['ttDM0001scalar0010'] .extend( ['xsec=19.59'         , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0001scalar0020'] .extend( ['xsec=10.48'         , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0001scalar0050'] .extend( ['xsec=2.941'         , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0001scalar0100'] .extend( ['xsec=0.6723'        , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0001scalar0200'] .extend( ['xsec=0.09327'       , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0001scalar0300'] .extend( ['xsec=0.0295'        , 'kfact=1.000', 'ref=J'] ) 
-samples['ttDM0001scalar0500'] .extend( ['xsec=0.00518'       , 'kfact=1.000', 'ref=J'] )  
-#samples['ttDM0001scalar1000'] .extend( ['xsec=0.0003687'     , 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM0001scalar2000'] .extend( ['xsec=0.00001034'    , 'kfact=1.000', 'ref=J'] )  
-#samples['ttDM0001scalar5000'] .extend( ['xsec=0.0000000617'  , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0010scalar0010'] .extend( ['xsec=0.09487'       , 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM0010scalar0015'] .extend( ['xsec=0.1202'        , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0010scalar0050'] .extend( ['xsec=2.942'         , 'kfact=1.000', 'ref=J'] )  
-samples['ttDM0010scalar0100'] .extend( ['xsec=0.6732'        , 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM0010scalar5000'] .extend( ['xsec=0.00000006138' , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0050scalar0010'] .extend( ['xsec=0.001906'      , 'kfact=1.000', 'ref=J'] ) 
-samples['ttDM0050scalar0050'] .extend( ['xsec=0.002329'      , 'kfact=1.000', 'ref=J'] )  
-#samples['ttDM0050scalar0095'] .extend( ['xsec=0.006558'      , 'kfact=1.000', 'ref=J'] ) 
-samples['ttDM0050scalar0200'] .extend( ['xsec=0.09224'       , 'kfact=1.000', 'ref=J'] )  
-samples['ttDM0050scalar0300'] .extend( ['xsec=0.02901'       , 'kfact=1.000', 'ref=J'] )  
-#samples['ttDM0050scalar5000'] .extend( ['xsec=0.00000005616' , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0150scalar0010'] .extend( ['xsec=0.00008634'    , 'kfact=1.000', 'ref=J'] )  
-samples['ttDM0150scalar0200'] .extend( ['xsec=0.00013'       , 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM0150scalar0295'] .extend( ['xsec=0.000394'      , 'kfact=1.000', 'ref=J'] )  
-#samples['ttDM0150scalar0500'] .extend( ['xsec=0.003754'      , 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM0150scalar5000'] .extend( ['xsec=0.00000004162' , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0500scalar0010'] .extend( ['xsec=0.0000007356'  , 'kfact=1.000', 'ref=J'] )  
-samples['ttDM0500scalar0500'] .extend( ['xsec=0.0000009894'  , 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM0500scalar0995'] .extend( ['xsec=0.0000073'     , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0500scalar2000'] .extend( ['xsec=0.000005808'   , 'kfact=1.000', 'ref=J'] )  
-#samples['ttDM0500scalar5000'] .extend( ['xsec=0.000001048'   , 'kfact=1.000', 'ref=J'] )  
-#samples['ttDM1000scalar0010'] .extend( ['xsec=0.000000006607', 'kfact=1.000', 'ref=J'] )  
-#samples['ttDM1000scalar1000'] .extend( ['xsec=0.000000009433', 'kfact=1.000', 'ref=J'] )
-#samples['ttDM1000scalar1995'] .extend( ['xsec=0.0000001108'  , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM1000scalar2000'] .extend( ['xsec=0.0000000017'  , 'kfact=1.000', 'ref=J'] )
 
-samples['ttDM0001pseudo0010'] .extend( ['xsec=0.4409'        , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0001pseudo0020'] .extend( ['xsec=0.3992'        , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0001pseudo0050'] .extend( ['xsec=0.3032'        , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0001pseudo0100'] .extend( ['xsec=0.1909'        , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0001pseudo0200'] .extend( ['xsec=0.0836'        , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0001pseudo0300'] .extend( ['xsec=0.03999'       , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0001pseudo0500'] .extend( ['xsec=0.005408'      , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0001pseudo1000'] .extend( ['xsec=0.0003973'     , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0001pseudo2000'] .extend( ['xsec=0.00001087'    , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0001pseudo5000'] .extend( ['xsec=0.00000007022' , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0010pseudo0010'] .extend( ['xsec=0.01499'       , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0010pseudo0015'] .extend( ['xsec=0.3034'        , 'kfact=1.000', 'ref=J'] )
-#samplesttDM0010pseudo0050'] .extend( ['xsec=0.1901'        , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0010pseudo0100'] .extend( ['xsec=0.00000007023' , 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM0010pseudo5000'] .extend( ['xsec=0.01863'       , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0050pseudo0010'] .extend( ['xsec=0.002444'      , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0050pseudo0050'] .extend( ['xsec=0.002979'      , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0050pseudo0095'] .extend( ['xsec=0.08382'       , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0050pseudo0200'] .extend( ['xsec=0.03989'       , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0050pseudo0300'] .extend( ['xsec=0.00000006831' , 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM0050pseudo5000'] .extend( ['xsec=0.01067'       , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0150pseudo0010'] .extend( ['xsec=0.0002364'     , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0150pseudo0200'] .extend( ['xsec=0.0004124'     , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0150pseudo0295'] .extend( ['xsec=0.004611'      , 'kfact=1.000', 'ref=J'] )
-samples['ttDM0150pseudo0500'] .extend( ['xsec=0.000000057'   , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0150pseudo5000'] .extend( ['xsec=0.003365'      , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0500pseudo0010'] .extend( ['xsec=0.000002279'   , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0500pseudo0500'] .extend( ['xsec=0.000003275'   , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0500pseudo0995'] .extend( ['xsec=0.000007611'   , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM0500pseudo2000'] .extend( ['xsec=0.00000001867' , 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM0500pseudo5000'] .extend( ['xsec=0.00006171'    , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM1000pseudo0010'] .extend( ['xsec=0.000000026'   , 'kfact=1.000', 'ref=J'] )
-#samples['ttDM1000pseudo1000'] .extend( ['xsec=0.00000003933' , 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM1000pseudo1995'] .extend( ['xsec=0.000000003536', 'kfact=1.000', 'ref=J'] ) 
-#samples['ttDM1000pseudo2000'] .extend( ['xsec=0.000001103'   , 'kfact=1.000', 'ref=J'] )  
+
+
+# ttDM
+# -----------------------------------------------------------------------------------------
+
+samples['ttDM0001scalar00010'] .extend( ['xsec=19.59'           , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001scalar00020'] .extend( ['xsec=10.48'           , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001scalar00050'] .extend( ['xsec=2.941'           , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001scalar00100'] .extend( ['xsec=0.6723'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001scalar00200'] .extend( ['xsec=0.09327'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001scalar00300'] .extend( ['xsec=0.0295'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001scalar00500'] .extend( ['xsec=0.00518'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001scalar01000'] .extend( ['xsec=0.0003687'       , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001scalar10000'] .extend( ['xsec=0.000000003342'  , 'kfact=1.000', 'ref=R'] )
+samples['ttDM0010scalar00010'] .extend( ['xsec=0.09487'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0010scalar00015'] .extend( ['xsec=0.1202'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0010scalar00050'] .extend( ['xsec=2.942'           , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0010scalar00100'] .extend( ['xsec=0.6732'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0010scalar10000'] .extend( ['xsec=0.0000000033'    , 'kfact=1.000', 'ref=R'] )
+samples['ttDM0050scalar00010'] .extend( ['xsec=0.001906'        , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0050scalar00050'] .extend( ['xsec=0.002329'        , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0050scalar00095'] .extend( ['xsec=0.006558'        , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0050scalar00200'] .extend( ['xsec=0.09224'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0050scalar00300'] .extend( ['xsec=0.02901'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0050scalar10000'] .extend( ['xsec=0.000000002945'  , 'kfact=1.000', 'ref=R'] )
+samples['ttDM0150scalar00010'] .extend( ['xsec=0.00008634'      , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0150scalar00200'] .extend( ['xsec=0.00013'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0150scalar00295'] .extend( ['xsec=0.000394'        , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0150scalar00500'] .extend( ['xsec=0.003754'        , 'kfact=1.000', 'ref=J'] )
+
+samples['ttDM0150scalar10000'] .extend( ['xsec=0.000000002076'  , 'kfact=1.000', 'ref=R'] )
+samples['ttDM0500scalar00010'] .extend( ['xsec=0.0000007356'    , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0500scalar00500'] .extend( ['xsec=0.0000009894'    , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0500scalar00995'] .extend( ['xsec=0.0000073'       , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0500scalar10000'] .extend( ['xsec=0.0000000004421' , 'kfact=1.000', 'ref=R'] )
+samples['ttDM1000scalar00010'] .extend( ['xsec=0.000000006607'  , 'kfact=1.000', 'ref=J'] )
+samples['ttDM1000scalar01000'] .extend( ['xsec=0.000000009433'  , 'kfact=1.000', 'ref=J'] )
+samples['ttDM1000scalar10000'] .extend( ['xsec=0.00000000003886', 'kfact=1.000', 'ref=R'] )
+
+
+samples['ttDM0001pseudo00010'] .extend( ['xsec=0.4409'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001pseudo00020'] .extend( ['xsec=0.3992'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001pseudo00050'] .extend( ['xsec=0.3032'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001pseudo00100'] .extend( ['xsec=0.1909'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001pseudo00200'] .extend( ['xsec=0.0836'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001pseudo00300'] .extend( ['xsec=0.03999'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001pseudo00500'] .extend( ['xsec=0.005408'        , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001pseudo01000'] .extend( ['xsec=0.0003973'       , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001pseudo10000'] .extend( ['xsec=0.000000003814'  , 'kfact=1.000', 'ref=R'] )
+samples['ttDM0010pseudo00010'] .extend( ['xsec=0.01499'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0010pseudo00015'] .extend( ['xsec=0.01863'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0010pseudo00050'] .extend( ['xsec=0.3034'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0010pseudo00100'] .extend( ['xsec=0.1901'          , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0010pseudo10000'] .extend( ['xsec=0.000000003722'  , 'kfact=1.000', 'ref=R'] )
+samples['ttDM0050pseudo00010'] .extend( ['xsec=0.002444'        , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0050pseudo00050'] .extend( ['xsec=0.002979'        , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0050pseudo00095'] .extend( ['xsec=0.01067'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0050pseudo00200'] .extend( ['xsec=0.08382'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0050pseudo00300'] .extend( ['xsec=0.03989'         , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0050pseudo10000'] .extend( ['xsec=0.00000000365'   , 'kfact=1.000', 'ref=R'] )
+samples['ttDM0150pseudo00010'] .extend( ['xsec=0.0002364'       , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0150pseudo00200'] .extend( ['xsec=0.0004124'       , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0150pseudo00295'] .extend( ['xsec=0.003365'        , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0150pseudo00500'] .extend( ['xsec=0.004611'        , 'kfact=1.000', 'ref=J'] )
+
+samples['ttDM0150pseudo10000'] .extend( ['xsec=0.00000000296'   , 'kfact=1.000', 'ref=R'] )
+samples['ttDM0500pseudo00010'] .extend( ['xsec=0.000002279'     , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0500pseudo00500'] .extend( ['xsec=0.000003275'     , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0500pseudo00995'] .extend( ['xsec=0.00006171'      , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0500pseudo10000'] .extend( ['xsec=0.0000000008437' , 'kfact=1.000', 'ref=R'] )
+samples['ttDM1000pseudo00010'] .extend( ['xsec=0.00000002595'   , 'kfact=1.000', 'ref=J'] )
+samples['ttDM1000pseudo01000'] .extend( ['xsec=0.00000003933'   , 'kfact=1.000', 'ref=J'] )
+samples['ttDM1000pseudo10000'] .extend( ['xsec=0.0000000001039' , 'kfact=1.000', 'ref=R'] )
+
+# -----------------------------------------------------------------------------------------
+
 
 ## monoHiggs
 samples['monoH_2HDM_MZp-600_MA0-300']  .extend( ['xsec=0.004901329',	'kfact=1.000',	   	'ref=M'] ) #0.046690*9*(0.108)^2
