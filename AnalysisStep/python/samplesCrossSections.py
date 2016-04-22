@@ -302,6 +302,7 @@ samples['WW_DoubleScattering']   		.extend( ['xsec=1.62000',	'kfact=1.000',	'ref
 samples['DY2JetsToLL']   			.extend( ['xsec=333.300',	'kfact=1.000',	'ref=I'] )
 samples['WGJJ']   				.extend( ['xsec=5.66200',	'kfact=1.000',	'ref=I'] )
 samples['EWKZ2Jets']				.extend( ['xsec=3.99800',	'kfact=1.000',	'ref=I'] )
+samples['TTToSemiLeptonic']                     .extend( ['xsec=364.350',	'kfact=1.000',	'ref=E'] )
 
 
 
