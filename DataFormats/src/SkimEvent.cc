@@ -232,8 +232,8 @@ void reco::SkimEvent::setGenDiLeptFromZGstar(edm::Handle<reco::GenParticleCollec
 {
   // Definition
   bool isMuon=false;
-  GenInfo MomInfo;
   const reco::Candidate* pLeptMom(0);
+  const reco::Candidate* pLeptMomInit(0);
   const reco::Candidate* pDaught[4]={0};
   const reco::Candidate* pLeptState1[4]={0};
   int nLeptFromW;
@@ -264,12 +264,19 @@ void reco::SkimEvent::setGenDiLeptFromZGstar(edm::Handle<reco::GenParticleCollec
   genDiLeptMassZGstar = defaultvalues::defaultFloat;
   _ZGstarDiLept_DelaR   = defaultvalues::defaultFloat;
 
+  MomInfo.id		=defaultvalues::defaultInt;
+  MomInfo.status	=defaultvalues::defaultInt;
+  MomInfo.initStatus	=defaultvalues::defaultInt;
+  MomInfo.nDaughters	=defaultvalues::defaultInt;
+  MomInfo.mass	 	=defaultvalues::defaultFloat;
+
   for (reco::GenParticleCollection::const_iterator genPart = genParticles->begin(); genPart != genParticles->end(); genPart++){
     // Initialization
     pLeptMom=0;
     isMuon = false;
     MomInfo.id		=defaultvalues::defaultInt;
     MomInfo.status	=defaultvalues::defaultInt;
+    MomInfo.initStatus	=defaultvalues::defaultInt;
     MomInfo.nDaughters	=defaultvalues::defaultInt;
     MomInfo.mass	=defaultvalues::defaultFloat;
 
@@ -280,22 +287,55 @@ void reco::SkimEvent::setGenDiLeptFromZGstar(edm::Handle<reco::GenParticleCollec
       pLeptMom = genPart->mother();
       while(abs(pLeptMom->pdgId()) == 11){
         if(pLeptMom->numberOfMothers() < 1) break;
-        pLeptMom = pLeptMom->mother();
+        pLeptMom     = pLeptMom->mother();
+        //pLeptMomCopy = pLeptMom;
       };
       isMuon = false;
       MomInfo.id = pLeptMom->pdgId();
+      MomInfo.status = pLeptMom->status();
+      MomInfo.initStatus = pLeptMom->status();
       MomInfo.nDaughters = pLeptMom->numberOfDaughters();
+      if(pLeptMom->numberOfMothers() >= 1){
+	pLeptMomInit = pLeptMom->mother();
+	while(pLeptMomInit->pdgId() == MomInfo.id){
+	  MomInfo.initStatus = pLeptMomInit->status();
+	  if(pLeptMomInit->numberOfMothers() < 1) break;
+	  pLeptMomInit = pLeptMomInit->mother();
+	}
+      }
+      //while(pLeptMomCopy->pdgId() == MomInfo.id){
+      //  MomInfo.initStatus = pLeptMomCopy->status();
+      //  if(pLeptMomCopy->numberOfMothers() < 1) break;
+      //  pLeptMomCopy = pLeptMomCopy->mother();
+      //}
       //if(_debug) std::cout<<"muon mother pid "<<MomInfo.id<<"\t"<<"nDaughers: "<<MomInfo.nDaughters<<std::endl;
     }else if (id == 13 && genPart->status()==1) { //---- mu
       if(genPart->numberOfMothers() < 1) continue;
       pLeptMom = genPart->mother();
       while(abs(pLeptMom->pdgId()) == 13){
         if(pLeptMom->numberOfMothers() < 1) break;
-        pLeptMom = pLeptMom->mother();
+        pLeptMom     = pLeptMom->mother();
+        //pLeptMomCopy = pLeptMom;
       };
       isMuon=true;
       MomInfo.id = pLeptMom->pdgId();
+      MomInfo.status = pLeptMom->status();
+      MomInfo.initStatus = pLeptMom->status();
       MomInfo.nDaughters = pLeptMom->numberOfDaughters();
+      if(pLeptMom->numberOfMothers() >= 1){
+	pLeptMomInit = pLeptMom->mother();
+	while(pLeptMomInit->pdgId() == MomInfo.id){
+	  MomInfo.initStatus = pLeptMomInit->status();
+	  if(pLeptMomInit->numberOfMothers() < 1) break;
+	  pLeptMomInit = pLeptMomInit->mother();
+	}
+      }
+
+      //while(pLeptMomCopy->pdgId() == MomInfo.id){
+      //  MomInfo.initStatus = pLeptMomCopy->status();
+      //  if(pLeptMomCopy->numberOfMothers() < 1) break;
+      //  pLeptMomCopy = pLeptMomCopy->mother();
+      //}
       //if(_debug) std::cout<<"muon mother pid "<<MomInfo.id<<"\t"<<"nDaughers: "<<MomInfo.nDaughters<<std::endl;
     }else continue;
 

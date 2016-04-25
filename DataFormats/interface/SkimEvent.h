@@ -455,6 +455,10 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float Gen_ZGstar_mu2_eta() const{ return muon2FromGstar.eta;}
             const float Gen_ZGstar_mu2_phi() const{ return muon2FromGstar.phi;}
 
+            const float Gen_ZGstar_MomId() const{ return MomInfo.id;}
+            const float Gen_ZGstar_MomStatus() const{ return MomInfo.status;}
+            const float Gen_ZGstar_MomInitStatus() const{ return MomInfo.initStatus;}
+
             const float Gen_ZGstar_mass() const{ return genDiLeptMassZGstar;}
             const float Gen_ZGstar_deltaR() const{ return _ZGstarDiLept_DelaR;}
 
@@ -1079,6 +1083,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 	    // for the Gen ZGstar
             struct GenInfo{
               int id, status, nDaughters;
+	      int initStatus;
               float mass;
               float pt, eta, phi;
             };
@@ -1087,6 +1092,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
 
             GenInfo elec1FromGstar;
             GenInfo elec2FromGstar;
+
+            GenInfo MomInfo;
 
 	    float genDiLeptMassZGstar;
 	    float _ZGstarDiLept_DelaR;

@@ -264,6 +264,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         Gen_ZGstar_mass = cms.string("Gen_ZGstar_mass"),
         Gen_ZGstar_deltaR = cms.string("Gen_ZGstar_deltaR"),
 
+        Gen_ZGstar_MomId	= cms.string("Gen_ZGstar_MomId"),
+        Gen_ZGstar_MomStatus	= cms.string("Gen_ZGstar_MomStatus"),
+        Gen_ZGstar_MomInitStatus= cms.string("Gen_ZGstar_MomInitStatus"),
 
     ),
     flags = cms.PSet(
