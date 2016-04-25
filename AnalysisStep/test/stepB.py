@@ -432,7 +432,8 @@ if isMC :
   #process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
 elif options.isPromptRecoData :
-  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","RECO")
+  print "\n >> Warning, testing reRECO label for RelVal MET filters\n"
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","reRECO")
 else : 
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
 
