@@ -8,7 +8,7 @@ fi
 export EVENTS=$1
 
 # dataset = /WW_TuneCUETP8M1_13TeV-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM
-export MYFILE=
+export MYFILE=root://xrootd.unl.edu//store/mc/RunIISpring16MiniAODv1/WW_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/00000/B8F93EDE-EF03-E611-B569-002590A370B2.root
 
 rm -rf latino_stepB_mc_numEvent${EVENTS}.root
 
@@ -24,9 +24,12 @@ cmsRun stepB.py print                   \
     doNoFilter=False                    \
     doMuonIsoId=True                    \
     doEleIsoId=True                     \
-    doBTag=False                        \
+    doBTag=True                         \
     runPUPPISequence=True               \
     doPhotonID=True                     \
+    doGen=False                         \
+    doLHE=False                         \
+    doMCweights=False                   \
     maxEvents=${EVENTS}                 \
     inputFiles=${MYFILE}
 

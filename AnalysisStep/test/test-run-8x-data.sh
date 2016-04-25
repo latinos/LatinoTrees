@@ -24,7 +24,7 @@ cmsRun stepB.py print                   \
     doNoFilter=False                    \
     doMuonIsoId=True                    \
     doEleIsoId=True                     \
-    doBTag=False                        \
+    doBTag=True                         \
     runPUPPISequence=True               \
     doPhotonID=True                     \
     maxEvents=${EVENTS}                 \
