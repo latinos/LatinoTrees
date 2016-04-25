@@ -1,35 +1,35 @@
 if [ $# -lt 1 ]; then
     echo "  "
-    echo "  ./test-run.sh EVENTS"
+    echo "  ./test-run-8x-mc.sh EVENTS"
     echo "  "
     exit -1
 fi
 
 export EVENTS=$1
 
-# dataset = /DoubleMuon/CMSSW_8_0_0-80X_dataRun2_relval_v0_RelVal_doubMu2015D-v1/MINIAOD
-export MYFILE=root://xrootd.unl.edu//store/relval/CMSSW_8_0_0/DoubleMuon/MINIAOD/80X_dataRun2_relval_v0_RelVal_doubMu2015D-v1/10000/42F381A3-97DA-E511-9077-0CC47A4D76CC.root
+# dataset = /WW_TuneCUETP8M1_13TeV-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM
+export MYFILE=
 
-rm -rf latino_stepB_data_numEvent${EVENTS}.root
+rm -rf latino_stepB_mc_numEvent${EVENTS}.root
 
 cmsRun stepB.py print                   \
     reportEvery=10                      \
     summary=false                       \
     is50ns=False                        \
-    isPromptRecoData=True               \
+    isPromptRecoData=False              \
     globalTag=80X_mcRun2_asymptotic_v10 \
-    label=DoubleMuon                    \
-    outputFile=stepB_data.root          \
+    label=WW                            \
+    outputFile=stepB_mc.root            \
     selection=LooseNoIso                \
     doNoFilter=False                    \
     doMuonIsoId=True                    \
     doEleIsoId=True                     \
     doBTag=False                        \
-    runPUPPISequence=False              \
+    runPUPPISequence=True               \
     doPhotonID=True                     \
     maxEvents=${EVENTS}                 \
     inputFiles=${MYFILE}
 
-python cmssw2latino.py stepB_data_numEvent${EVENTS}.root
+python cmssw2latino.py stepB_mc_numEvent${EVENTS}.root
 
-rm -rf stepB_data_numEvent${EVENTS}.root
+rm -rf stepB_mc_numEvent${EVENTS}.root
