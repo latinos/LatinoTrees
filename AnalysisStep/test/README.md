@@ -102,19 +102,12 @@ Check status.
     brilcalc lumi -u /pb -i missingLumiSummary.json
 
     
-New luminosity for Moriond:
+The luminosity for Moriond is 2.318/fb.
         
-    Lumi = 2.318/fb
-    /afs/cern.ch/user/l/lumipro/public/normtag_file/moriond16_normtag.json
-    
-    
     brilcalc lumi --begin 254230 --end 999999 -u /fb \
-          --normtag /afs/cern.ch/user/l/lumipro/public/normtag_file/moriond16_normtag.json \
-          -i  /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Reprocessing/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON.txt
-    
-    
-     
-    
+        --normtag /afs/cern.ch/user/l/lumipro/public/normtag_file/moriond16_normtag.json \
+        -i /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Reprocessing/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON.txt
+
 
 7. Run cmssw2latino
 ====
