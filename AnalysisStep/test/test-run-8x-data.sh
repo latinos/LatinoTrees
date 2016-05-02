@@ -17,7 +17,7 @@ cmsRun stepB.py print                   \
     summary=false                       \
     is50ns=False                        \
     isPromptRecoData=True               \
-    globalTag=80X_mcRun2_asymptotic_v10 \
+    globalTag=80X_mcRun2_asymptotic_2016_miniAODv2 \
     label=DoubleMuon                    \
     outputFile=stepB_data.root          \
     selection=LooseNoIso                \
@@ -33,3 +33,4 @@ cmsRun stepB.py print                   \
 python cmssw2latino.py stepB_data_numEvent${EVENTS}.root
 
 rm -rf stepB_data_numEvent${EVENTS}.root
+

@@ -675,26 +675,26 @@ if options.doSoftActivity:
     from PhysicsTools.PatAlgos.tools.jetTools import addJetCollection
 
     addJetCollection(   
-			process,
-			labelName = 'AK4PFTrack',
-			jetSource = cms.InputTag('ak4TrackJets'),
-			algo = 'AK',
-			rParam = 0.4,
-			jetCorrections = None, 
-			pfCandidates = cms.InputTag( 'packedPFCandidates' ),  
-			svSource = cms.InputTag( 'slimmedSecondaryVertices' ),  
-			genJetCollection = cms.InputTag( 'slimmedGenJets'),
-			pvSource = cms.InputTag( 'offlineSlimmedPrimaryVertices' ), 
-			btagDiscriminators = [
-				#'pfTrackCountingHighEffBJetTags',
-				#'pfTrackCountingHighPurBJetTags',
-				'pfJetProbabilityBJetTags'
-				#'pfJetBProbabilityBJetTags'
-			],
-			getJetMCFlavour = isMC,
-			genParticles = cms.InputTag('prunedGenParticles'),
-			outputModules = ['outputFile']
-		    )
+        process,
+        labelName = 'AK4PFTrack',
+        jetSource = cms.InputTag('ak4TrackJets'),
+        algo = 'AK',
+        rParam = 0.4,
+        jetCorrections = None, 
+        pfCandidates = cms.InputTag( 'packedPFCandidates' ),  
+        svSource = cms.InputTag( 'slimmedSecondaryVertices' ),  
+        genJetCollection = cms.InputTag( 'slimmedGenJets'),
+        pvSource = cms.InputTag( 'offlineSlimmedPrimaryVertices' ), 
+        btagDiscriminators = [
+                #'pfTrackCountingHighEffBJetTags',
+                #'pfTrackCountingHighPurBJetTags',
+                'pfJetProbabilityBJetTags'
+                #'pfJetBProbabilityBJetTags'
+        ],
+        getJetMCFlavour = isMC,
+        genParticles = cms.InputTag('prunedGenParticles'),
+        outputModules = ['outputFile']
+    )
  
     getattr(process,'selectedPatJetsAK4PFTrack').cut = cms.string('pt > 1.0')
     preSeq += getattr(process,'selectedPatJetsAK4PFTrack')

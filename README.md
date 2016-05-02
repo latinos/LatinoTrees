@@ -67,6 +67,7 @@ Phys14:
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_6_1/src/ 
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_6_2/src/ 
     /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_7_6_3/src/ 
+    /afs/cern.ch/user/a/amassiro/work/Latinos/Framework/CMSSW_8_0_5/src/    --> for 2016
     
     
     RunIIFall15
