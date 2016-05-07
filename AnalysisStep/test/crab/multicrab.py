@@ -15,7 +15,7 @@ pyCfgParams = ['outputFile=stepB.root',
 
 config.section_('General')
 config.General.transferLogs = True
-config.General.workArea     = 'crab_projects_22Jan'  # Make sure you set this parameter
+config.General.workArea     = 'crab_projects_7May'  # Make sure you set this parameter
 
 config.section_('JobType')
 config.JobType.pluginName       = 'Analysis'
@@ -28,7 +28,7 @@ config.section_('Data')
 config.Data.inputDBS      = 'global'
 config.Data.splitting     = 'LumiBased'
 config.Data.unitsPerJob   = 150
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/22Jan/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/arun/latino_VH_Fall15/'
 
 config.section_('Site')
 config.Site.storageSite = 'T2_CH_CERN'
