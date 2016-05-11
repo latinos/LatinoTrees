@@ -223,12 +223,17 @@ options.register ('isPromptRecoData',
                   opts.VarParsing.varType.bool,
                   'Switch between PAT and RECO process names for the MET filters (can be \'True\' or \'False\')')
 
-
 options.register ('metNoHF',
                   'slimmedMETsNoHF', # default value
                    opts.VarParsing.multiplicity.singleton,
                    opts.VarParsing.varType.string,
                   'metNoHF. Only in miniAOD v2 (set as empty if collection to be skipped)')
+
+options.register ('doCorrectMet',
+                  False, # default value
+                  opts.VarParsing.multiplicity.singleton,
+                  opts.VarParsing.varType.string,
+                  'Turn on MET Type-1 correction')
  
 
 
@@ -438,10 +443,16 @@ else :
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
 
 
-# set metNoHF tag (fix for miniAOD older version)
+# Set metNoHF tag (fix for miniAOD older version)
 process.skimEventProducer.pfMetNoHfTag = cms.InputTag(options.metNoHF)
 
 
+#
+# The lines below work in CMSSW_8_0_5
+#
+if options.doCorrectMet :
+    from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
+    runMetCorAndUncFromMiniAOD(process, isData=(not isMC))
 
 
 # save triggers only in DATA
