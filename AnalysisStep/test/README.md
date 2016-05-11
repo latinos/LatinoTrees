@@ -53,9 +53,10 @@ Test the latino tree production.
 
     scram b -j 10
     cd LatinoTrees/AnalysisStep/test/
-    ./test-run.sh 100
+
+    ./test-run.sh         100
     ./test-run-8x-data.sh 100
-    ./test-run-8x-mc.sh 100
+    ./test-run-8x-mc.sh   100
 
 
 4. Setup CRAB
