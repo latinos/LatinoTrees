@@ -7,8 +7,10 @@ fi
 
 export EVENTS=$1
 
-# dataset = /DoubleMuon/CMSSW_8_0_0-80X_dataRun2_relval_v0_RelVal_doubMu2015D-v1/MINIAOD
-export MYFILE=root://xrootd.unl.edu//store/relval/CMSSW_8_0_0/DoubleMuon/MINIAOD/80X_dataRun2_relval_v0_RelVal_doubMu2015D-v1/10000/42F381A3-97DA-E511-9077-0CC47A4D76CC.root
+
+# dataset = /DoubleMuon/CMSSW_8_0_5-80X_dataRun2_relval_v9_RelVal_doubMu2015D-v1/MINIAOD
+export MYFILE=root://xrootd.unl.edu//store/relval/CMSSW_8_0_5/DoubleMuon/MINIAOD/80X_dataRun2_relval_v9_RelVal_doubMu2015D-v1/00000/C0DD3955-A108-E611-957B-0025905B858E.root
+
 
 rm -rf latino_stepB_data_numEvent${EVENTS}.root
 
