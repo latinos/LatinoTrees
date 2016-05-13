@@ -5808,11 +5808,11 @@ const float reco::SkimEvent::getSusyStopMass() const {
  for(size_t gp=0; gp<genParticles_.size();++gp){
   
   int pdgId = genParticles_[gp] -> pdgId();
-  int status = genParticles_[gp] -> status();
+  //int status = genParticles_[gp] -> status();
   // std::cout << " pdgId = " << pdgId << " ~~ status = " << status << std::endl;
   
   // Stop1 {1000006} Stop2 {2000006}
-  if( (abs(pdgId) == 1000006 || abs(pdgId) == 2000006) && (status == 3) ) {
+  if( (abs(pdgId) == 1000006 || abs(pdgId) == 2000006) && (genParticles_[gp]->isHardProcess()) ) {
    mcStop = &(*(genParticles_[gp]));
    mass = mcStop->mass();
   }
@@ -5832,10 +5832,10 @@ const float reco::SkimEvent::getSusyLSPMass() const {
  for(size_t gp=0; gp<genParticles_.size();++gp){
   
   int pdgId = genParticles_[gp] -> pdgId();
-  int status = genParticles_[gp] -> status();
+  //int status = genParticles_[gp] -> status();
   
   // LSP {1000022, 1000023, 1000025, 1000035}
-  if( (abs(pdgId) == 1000022 || abs(pdgId) == 1000023 || abs(pdgId) == 1000025 || abs(pdgId) == 1000035) && (status == 3) ) {
+  if( (abs(pdgId) == 1000022 || abs(pdgId) == 1000023 || abs(pdgId) == 1000025 || abs(pdgId) == 1000035) && (genParticles_[gp]->isHardProcess()) ) {
    mcChi = &(*(genParticles_[gp]));
    mass = mcChi->mass();
   }
