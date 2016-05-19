@@ -6971,6 +6971,87 @@ const float reco::SkimEvent::leadingGenNeutrinoPhi(size_t index) const {
  return particlePhi;
 }
 
+
+const float reco::SkimEvent::leadingGenNeutrinoMotherPID(size_t index) const {
+
+  float pt_ofIndex = leadingGenNeutrinoPt(index);
+  float motherPID  = defaultvalues::defaultFloat;
+  int   motherPID_int    = defaultvalues::defaultInt;
+  
+  const reco::Candidate* mcH = 0;
+  
+  // Loop over gen particles
+  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+    // Set default
+    motherPID_int    = defaultvalues::defaultInt;
+    
+    int type = genParticles_[gp]->pdgId();
+    if( !(( abs(type) == 12 || abs(type) == 14 || abs(type) == 16) && genParticles_[gp]->status()==1 ) ) continue;
+    
+    const reco::Candidate* pMother = 0;
+    if (genParticles_[gp]-> numberOfMothers() < 1) continue;
+    pMother       = genParticles_[gp]->mother();
+    motherPID_int = pMother->pdgId();
+    while ( motherPID_int == type) {
+      if (pMother -> numberOfMothers() < 1) break;
+      pMother       = pMother->mother();
+      motherPID_int = pMother->pdgId();
+    }
+    
+    mcH = &(*(genParticles_[gp]));
+    std::cout<<"mcH->pt(): "<<mcH->pt()<<", pt_ofIndex: "<<pt_ofIndex<<std::endl;
+    if (mcH->pt() != pt_ofIndex) continue;
+    motherPID = (float) motherPID_int;
+    break;
+  }
+  std::cout<<"mother ID: "<<motherPID<<std::endl;
+  return motherPID;
+}
+
+// Compatible with PYTHIA8 
+const float reco::SkimEvent::leadingGenNeutrinoMotherStatus(size_t index) const {
+
+  float pt_ofIndex       = leadingGenNeutrinoPt(index);
+  float motherStatus     = defaultvalues::defaultFloat;
+  int   motherStatus_int = defaultvalues::defaultInt;
+
+  int   motherPID_int    = defaultvalues::defaultInt;
+
+  const reco::Candidate* mcH = 0;
+
+  // Loop over gen particles 
+  for (size_t gp=0; gp<genParticles_.size(); ++gp) {
+    // Set default
+    motherStatus_int = defaultvalues::defaultInt;
+    motherPID_int    = defaultvalues::defaultInt;
+
+    int type = genParticles_[gp]->pdgId();
+    if( !(( abs(type) == 12 || abs(type) == 14 || abs(type) == 16) && genParticles_[gp]->status()==1 ) ) continue;
+
+    const reco::Candidate* pMother = 0;
+    if (genParticles_[gp]-> numberOfMothers() < 1) continue;
+    pMother          = genParticles_[gp]->mother();
+    motherPID_int    = pMother->pdgId();
+    motherStatus_int = pMother->status();
+    while ( motherPID_int == type) {
+      if (pMother -> numberOfMothers() < 1) break;
+      pMother          = pMother->mother();
+      motherPID_int    = pMother->pdgId();
+      motherStatus_int = pMother->status();
+    }
+
+    mcH = &(*(genParticles_[gp]));
+    std::cout<<"mcH->pt(): "<<mcH->pt()<<", pt_ofIndex: "<<pt_ofIndex<<std::endl;
+    if (mcH->pt() != pt_ofIndex) continue;
+    motherStatus = (float) motherStatus_int;
+    break;
+  }
+  std::cout<<"mother status: "<<motherStatus<<std::endl;
+  return motherStatus;
+}
+
+
+
 const float reco::SkimEvent::genMetPt() const {
  float pT = -9999.9;
  if(genMetRef_.isNonnull()) pT = genMetRef_->pt();

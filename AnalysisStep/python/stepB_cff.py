@@ -478,6 +478,8 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_neutrinoGen_pid",     cms.string("leadingGenNeutrinoPID")),
         setattr(pt.variables, "std_vector_neutrinoGen_isPrompt",                          cms.string("leadingGenNeutrinoIsPrompt")),
         setattr(pt.variables, "std_vector_neutrinoGen_isDirectPromptTauDecayProduct",     cms.string("leadingGenNeutrinoIsDirectPromptTauDecayProduct")),
+        setattr(pt.variables, "std_vector_neutrinoGen_MotherPID",      cms.string("leadingGenNeutrinoMotherPID")),
+        setattr(pt.variables, "std_vector_neutrinoGen_MotherStatus",      cms.string("leadingGenNeutrinoMotherStatus")),
         #setattr(pt.variables, "std_vector_neutrinoGen_fromHardProcessBeforeFSR", cms.string("leadingGenNeutrinoFromHardProcessBeforeFSR")),
         
         setattr(pt.variables, "higgsGenpt" , cms.string("getHiggsPt()")),
