@@ -16,8 +16,8 @@ samples['DoubleMuon_Run2016B-PromptReco-v2']     = ['/DoubleMuon/Run2016B-Prompt
 samples['MuonEG_Run2016B-PromptReco-v2']         = ['/MuOnia/Run2016B-PromptReco-v2/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016B-PromptReco-v2'] = ['/SingleElectron/Run2016B-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016B-PromptReco-v2']     = ['/SingleMuon/Run2016B-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
-samples['MET_Run2016B-PromptReco-v2']            = ['/MET/Run2016B-PromptReco-v2/MINIAOD',            ['label=MET']]           # For MET filter studies and for trigger studies
-samples['SinglePhoton_Run2016B-PromptReco-v2']   = ['/SinglePhoton/Run2016B-PromptReco-v2/MINIAOD',   ['label=SinglePhoton']]  # For MET filter studies
+#samples['MET_Run2016B-PromptReco-v2']           = ['/MET/Run2016B-PromptReco-v2/MINIAOD',            ['label=MET']]           # For MET filter studies and for trigger studies
+#samples['SinglePhoton_Run2016B-PromptReco-v2']  = ['/SinglePhoton/Run2016B-PromptReco-v2/MINIAOD',   ['label=SinglePhoton']]  # For MET filter studies
 
 pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 pyCfgParams.append('is50ns=False')

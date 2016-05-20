@@ -631,6 +631,12 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float leadingGenJetEta(size_t a) const;
             const float leadingGenJetPhi(size_t a) const;
 
+            const float genPhotonPt           (size_t a) const;
+            const float genPhotonPhi          (size_t a) const;
+            const float genPhotonEta          (size_t a) const;
+            const float genPhotonMotherPID    (size_t a) const;
+            const float genPhotonMotherStatus (size_t a) const;
+
             const float genMetPt() const;
             const float genMetPhi() const;
             const float genMetEta() const;
