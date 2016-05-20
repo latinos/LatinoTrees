@@ -40,6 +40,13 @@ samples['DYJetsToLL_M-10to50ext3']      .extend( ['xsec=18610.0',	'kfact=1.000',
 samples['DYJetsToLL_M-50']        	.extend( ['xsec=6025.20',	'kfact=1.000',		'ref=E'] )
 samples['DYJetsToLL_M-5to50-LO']      	.extend( ['xsec=71310.0',	'kfact=1.000',		'ref=E'] )
 samples['DYJetsToLL_M-50-LO']      	.extend( ['xsec=6025.20',	'kfact=1.000',		'ref=E'] )
+samples['DYJetsToLL_M-50_HT-100to200_MLM']      .extend(['xsec=1',	'kfact=1.000',		'ref=X'])
+samples['DYJetsToLL_M-50_HT-100to200_MLM_ext']  .extend(['xsec=1',	'kfact=1.000',		'ref=X'])
+samples['DYJetsToLL_M-50_HT-200to400_MLM']      .extend(['xsec=1',	'kfact=1.000',		'ref=X'])
+samples['DYJetsToLL_M-50_HT-400to600_MLM']      .extend(['xsec=1',	'kfact=1.000',		'ref=X'])
+samples['DYJetsToLL_M-50_HT-400to600_MLM_ext']  .extend(['xsec=1',	'kfact=1.000',		'ref=X'])
+samples['DYJetsToLL_M-50_HT-600toInf_MLM']      .extend(['xsec=1',	'kfact=1.000',		'ref=X'])
+samples['DYJetsToLL_M-50_HT-600toInf_MLM_ext']  .extend(['xsec=1',	'kfact=1.000',		'ref=X']) 
 
 ## VV 
 samples['WWTo2L2Nu']	             	.extend( ['xsec=12.178',	'kfact=1.000',		'ref=E'] )		

@@ -191,6 +191,14 @@ samples['GluGluHZ_HToWW_M125'] = ['/GluGluZH_HToWWTo2L2Nu_ZTo2L_M125_13TeV_powhe
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Khakim
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## DY HT binned
+samples['DYJetsToLL_M-50_HT-100to200_MLM'] = ['/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=DYJetsToLL_M-50_HT-100to200_MLM', 'id=100200', 'doMCweights=True']]
+samples['DYJetsToLL_M-50_HT-100to200_MLM_ext'] = ['/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12_ext1-v1/MINIAODSIM', ['label=DYJetsToLL_M-50_HT-100to200_MLM_ext', 'id=1002001', 'doMCweights=True']]
+samples['DYJetsToLL_M-50_HT-200to400_MLM'] = ['/DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=DYJetsToLL_M-50_HT-200to400_MLM', 'id=200400', 'doMCweights=True']]
+samples['DYJetsToLL_M-50_HT-400to600_MLM'] = ['/DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=DYJetsToLL_M-50_HT-400to600_MLM', 'id=400600', 'doMCweights=True']]
+samples['DYJetsToLL_M-50_HT-400to600_MLM_ext'] = ['/DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12_ext1-v1/MINIAODSIM', ['label=DYJetsToLL_M-50_HT-400to600_MLM_ext', 'id=4006001', 'doMCweights=True']]
+samples['DYJetsToLL_M-50_HT-600toInf_MLM'] = ['/DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=DYJetsToLL_M-50_HT-600toInf_MLM', 'id=600000', 'doMCweights=True']]
+samples['DYJetsToLL_M-50_HT-600toInf_MLM_ext'] = ['/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12_ext1-v1/MINIAODSIM', ['label=DYJetsToLL_M-50_HT-600toInf_MLM_ext', 'id=6000001', 'doMCweights=True']]
 ## VBFH
 samples['VBFHToWWTo2L2Nu_alternative_M120'] = ['/VBFHToWWTo2L2Nu_M120_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_alternative_M120', 'id=05120', 'doMCweights=True']]
 samples['VBFHToWWTo2L2Nu_alternative_M125'] = ['/VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=VBFHToWWTo2L2Nu_alternative_M125', 'id=05125', 'doMCweights=True']]
