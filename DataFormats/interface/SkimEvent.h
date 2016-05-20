@@ -788,6 +788,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float etaByPt (size_t i = 0) const { return eta (indexByPt (i)); }
             const float R9ByPt (size_t i = 0) const { return R9 (indexByPt (i)); }
             const float full5x5R9ByPt (size_t i = 0) const { return full5x5R9 (indexByPt (i)); }
+
+            const float FbremByPt      (size_t i = 0) const { return Fbrem (indexByPt (i)); }
+            const float SeedEnergyByPt (size_t i = 0) const { return SeedEnergy (indexByPt (i)); }
+            const float Energy5x5ByPt  (size_t i = 0) const { return Energy5x5 (indexByPt (i)); }
+            
             const float etaByIso (size_t i = 0) const { return eta (indexByIso(i)); }
             const float etaSCByPt (size_t i = 0) const { return etaSC (indexByPt (i)); }
             const float etaSCByIso (size_t i = 0) const { return etaSC (indexByIso(i)); }
@@ -879,7 +884,11 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float ecalPFClusterIso              (size_t i) const;
             const float R9                            (size_t i) const;
             const float full5x5R9                     (size_t i) const;
-            
+
+            const float Fbrem                         (size_t i) const;
+            const float SeedEnergy                    (size_t i) const;
+            const float Energy5x5                     (size_t i) const;
+
             const float GetElectronEffectiveAreaByPt      (size_t i) const;
             const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx(indexByPt(i)); }          
             const float deltaPhiSuperClusterTrackAtVtxByPt(size_t i) const { return deltaPhiSuperClusterTrackAtVtx(indexByPt(i)); }

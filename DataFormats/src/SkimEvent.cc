@@ -5199,6 +5199,24 @@ const float reco::SkimEvent::full5x5R9(size_t i) const {
 
 
 
+const float reco::SkimEvent::Fbrem(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->fbrem();
+  else return -999.0;
+}
+
+const float reco::SkimEvent::SeedEnergy(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->seed()->energy();
+  else return -999.0;
+}
+
+const float reco::SkimEvent::Energy5x5(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->e5x5();
+  else return -999.0;
+}
+
 
 
 // Muon and electron isolation
