@@ -437,8 +437,7 @@ if isMC :
   #process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
 elif options.isPromptRecoData :
-  #print "\n >> Warning, testing reRECO label for RelVal MET filters\n"
-  #process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","reRECO")
+  #process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","RECO")
   print "\n >> Data has HLT from edmDumpEventContent\n"
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
 else : 
