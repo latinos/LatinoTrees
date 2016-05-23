@@ -50,10 +50,10 @@ export EVENTS=$1
 
 
 # dataset=/MuonEG/Run2016B-PromptReco-v2/MINIAOD
-# export MYFILE=root://eoscms.cern.ch//store/data/Run2016B/MuonEG/MINIAOD/PromptReco-v2/000/273/158/00000/26281378-291A-E611-AE69-02163E011E9B.root
+export MYFILE=root://eoscms.cern.ch//store/data/Run2016B/MuonEG/MINIAOD/PromptReco-v2/000/273/158/00000/26281378-291A-E611-AE69-02163E011E9B.root
 
 # dataset=/DoubleMuon/Run2016B-PromptReco-v2/MINIAOD
-export MYFILE=root://eoscms.cern.ch//store/data/Run2016B/DoubleMuon/MINIAOD/PromptReco-v2/000/273/158/00000/2C8772DF-F319-E611-AEC1-02163E014122.root
+# export MYFILE=root://eoscms.cern.ch//store/data/Run2016B/DoubleMuon/MINIAOD/PromptReco-v2/000/273/158/00000/2C8772DF-F319-E611-AEC1-02163E014122.root
 
 
 

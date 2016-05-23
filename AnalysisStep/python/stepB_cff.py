@@ -329,6 +329,9 @@ def addEleIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_electron_full5x5R9",         cms.string("full5x5R9ByPt")),
         setattr(pt.variables, "std_vector_electron_R9",                cms.string("R9ByPt")),
         
+        setattr(pt.variables, "std_vector_electron_fbrem",             cms.string("FbremByPt")),
+        setattr(pt.variables, "std_vector_electron_seedEnergy",        cms.string("SeedEnergyByPt")),
+        setattr(pt.variables, "std_vector_electron_energy5x5",         cms.string("Energy5x5ByPt")),
         
 
     else:
@@ -482,6 +485,12 @@ def addGenVariables(process,pt):
         setattr(pt.variables, "std_vector_neutrinoGen_MotherStatus",      cms.string("leadingGenNeutrinoMotherStatus")),
         #setattr(pt.variables, "std_vector_neutrinoGen_fromHardProcessBeforeFSR", cms.string("leadingGenNeutrinoFromHardProcessBeforeFSR")),
         
+        setattr(pt.variables, "std_vector_photonGen_pt",   cms.string("genPhotonPt")),
+        setattr(pt.variables, "std_vector_photonGen_phi",  cms.string("genPhotonPhi")),
+        setattr(pt.variables, "std_vector_photonGen_eta",  cms.string("genPhotonEta")),
+        setattr(pt.variables, "std_vector_photonGen_MotherPID",  cms.string("genPhotonMotherPID")),
+        setattr(pt.variables, "std_vector_photonGen_MotherStatus",  cms.string("genPhotonMotherStatus")),
+
         setattr(pt.variables, "higgsGenpt" , cms.string("getHiggsPt()")),
         setattr(pt.variables, "higgsGeneta" , cms.string("getHiggsEta()")),
         setattr(pt.variables, "higgsGenphi" , cms.string("getHiggsPhi()")),
