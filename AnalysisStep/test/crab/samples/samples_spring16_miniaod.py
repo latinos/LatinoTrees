@@ -494,7 +494,12 @@ samples['WW_DoubleScattering']           = ['/WW_DoubleScattering_13TeV-pythia8/
 # Additional global configuration
 ########
 #  config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/08Jan/MC/25ns/'
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/03May/MC/25ns/'
+#config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/03May/MC/25ns/'
+
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/May13/MC/25ns/'
+# this name is used partially in the post-processing.
+# Let's try not to change it for a given production era
+
 pyCfgParams.append('globalTag=80X_mcRun2_asymptotic_2016_miniAODv2')
 
 

@@ -94,8 +94,11 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         #"190456-999999:HLT_Mu17_Mu8_v*",
         #"190456-999999:HLT_Mu17_TkMu8_v*",
 # Run II
-        "200000-500000:HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v*",
-        "200000-500000:HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*",
+        "200000-271034:HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v*",
+        "200000-271034:HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*",
+# in 2016
+        "271035-500000:HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v*",
+        "271035-500000:HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v*",
     ),
     doubleElDataPaths = cms.vstring(
         #"1-170901:HLT_Ele17_CaloIdL_CaloIsoVL_Ele8_CaloIdL_CaloIsoVL_v*",
@@ -114,9 +117,18 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         #"190456-999999:HLT_Mu17_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*",
         #"190456-999999:HLT_Mu8_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*",
 # Run II
-
         "200000-500000:HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v*",
         "200000-500000:HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*"
+        
+        #HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v
+        #HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v
+        
+        #HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v
+        
+        #HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v
+        #HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_v
+        
+        
     ),
     singleElDataPaths = cms.vstring(
         #"1-164237:HLT_Ele27_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v*",
