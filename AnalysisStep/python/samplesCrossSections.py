@@ -60,6 +60,8 @@ samples['WZ']			        .extend( ['xsec=47.130',	'kfact=1.000',		'ref=E'] )
 samples['WZTo3LNu']		        .extend( ['xsec=4.42965',	'kfact=1.000',		'ref=E'] )
 samples['WZJets']		        .extend( ['xsec=5.2890',	'kfact=1.000',		'ref=E'] ) #https://indico.cern.ch/event/448517/session/0/contribution/16/attachments/1164999/1679225/Long_Generators_WZxsec_05_10_15.pdf
 samples['WZTo2L2Q']		        .extend( ['xsec=5.5950',	'kfact=1.000',		'ref=E'] )
+samples['WZTo1L3Nu']		        .extend( ['xsec=3.033',	        'kfact=1.000',		'ref=E'] ) # err 0.00206
+samples['WZTo1L1Nu2Q']		        .extend( ['xsec=10.71',	        'kfact=1.000',		'ref=E'] )
 samples['VVTo2L2Nu']		        .extend( ['xsec=11.950',	'kfact=1.000',		'ref=E'] )
 
 ## ZZ
