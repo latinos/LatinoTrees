@@ -58,6 +58,7 @@ Test the latino tree production.
     ./test-run-8x-data.sh 100
     ./test-run-8x-mc.sh   100
 
+For 76X 2015 data and MC the frozen version is *18Jan2016_StarWars_v3_frozenFor76x*
 
 4. Setup CRAB
 ====
