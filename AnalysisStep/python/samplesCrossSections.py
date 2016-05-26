@@ -440,3 +440,32 @@ samples['monoH_2HDM_MZp-1400_MA0-800'] .extend( ['xsec=0.000324510',	'kfact=1.00
 samples['monoH_2HDM_MZp-1700_MA0-800'] .extend( ['xsec=0.000306269',	'kfact=1.000',	   	'ref=M'] ) #0.0029175*9*(0.108)^2
 samples['monoH_2HDM_MZp-2000_MA0-800'] .extend( ['xsec=0.000237731',	'kfact=1.000',	   	'ref=M'] ) #0.0022646*9*(0.108)^2
 samples['monoH_2HDM_MZp-2500_MA0-800'] .extend( ['xsec=0.000136006',	'kfact=1.000',	   	'ref=M'] ) #0.0012956*9*(0.108)^2
+
+# Stop T2tt FullSim
+samples['T2tt_mStop425_mLSP325'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop500_mLSP325'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop850_mLSP100'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+# Stop T2tt FastSim Scans
+samples['T2tt_mStop100-125_mLSP1to50'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop150-175_mLSP1to100'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop200_mLSP1to125'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop225_mLSP25to150'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop250_mLSP1to175'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop275_mLSP75to200'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop183to291_mLSP1to100'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop300to375_mLSP1to300'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop400to475_mLSP1to400'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop500-525-550_mLSP1to425-325to450-1to475'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tt_mStop600-950_mLSP1to450'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+# Stop T2tb FastSim Scans
+samples['T2tb_mStop200to325_mLSP0to150']= .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] ) 
+samples['T2tb_mStop200to625_mLSP50to475']= .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tb_mStop350to400_mLSP0to225']= .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tb_mStop425to600_mLSP0to425']= .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tb_mStop625to850_mLSP0to450']= .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2tb_mStop875to1125_mLSP0to475']= .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+# Stop T2bW FastSim Scans
+samples['T2bW_X05_mStop125to275_mLSP0to150']= .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2bW_X05_mStop300to400_mLSP0to275']= .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2bW_X05_mStop425to600_mLSP0to375']= .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['T2bW_X05_mStop625to950_mLSP0to350']= .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )

@@ -251,6 +251,40 @@ samples['monoH_2HDM_MZp-2000_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HD
 samples['monoH_2HDM_MZp-2500_MA0-300'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-2500_MA0-300_13TeV-madgraph/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=monoH_2HDM_MZp-2500_MA0-300', 'id=80008', 'doLHE=False']]
 
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Luca
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Stop T2tt FullSim
+samples['T2tt_mStop425_mLSP325']= ['/SMS-T2tt_mStop-425_mLSP-325_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-Asympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop425mLSP325', 'id=00389', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop500_mLSP325']= ['/SMS-T2tt_mStop-500_mLSP-325_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop500mLSP325', 'id=00180', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop850_mLSP100']= ['/SMS-T2tt_mStop-500_mLSP-325_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop850mLSP100', 'id=00174', 'doLHE=False', 'doSusy=True']]
+# Stop T2tt FastSim Scans
+samples['T2tt_mStop100-125_mLSP1to50']= ['/SMS-T2tt_mStop-100-125_mLSP-1to50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v2/MINIAODSIM', ['label=T2ttmStop100-125mLSP1to50', 'id=00302', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop150-175_mLSP1to100']= ['/SMS-T2tt_mStop-150-175_mLSP-1to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop150-175mLSP1to100', 'id=00321', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop200_mLSP1to125']= ['/SMS-T2tt_mStop-200_mLSP-1to125_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop200mLSP1to125', 'id=00286', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop225_mLSP25to150']= ['/SMS-T2tt_mStop-225_mLSP-25to150_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop225mLSP25to150', 'id=00276', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop250_mLSP1to175']= ['/SMS-T2tt_mStop-250_mLSP-1to175_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop250mLSP1to175', 'id=00303', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop275_mLSP75to200']= ['/SMS-T2tt_mStop-275_mLSP-75to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop275mLSP75to200', 'id=00277', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop183to291_mLSP1to100']= ['/SMS-T2tt_extension_mStop183to291_mLSP1to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop183to291mLSP1to100', 'id=00481', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop300to375_mLSP1to300']= ['/SMS-T2tt_mStop-300to375_mLSP-1to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop300to375mLSP1to300', 'id=00322', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop400to475_mLSP1to400']= ['/SMS-T2tt_mStop-400to475_mLSP-1to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop400to475mLSP1to400', 'id=00278', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop500-525-550_mLSP1to425-325to450-1to475']= ['/SMS-T2tt_mStop-500-525-550_mLSP-1to425-325to450-1to475_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop500-525-550mLSP1to425-325to450-1to475', 'id=00287', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop600-950_mLSP1to450']= ['/SMS-T2tt_mStop-600-950_mLSP-1to450_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2ttmStop600-950mLSP1to450', 'id=00296', 'doLHE=False', 'doSusy=True']]
+## /eos/cms/store/group/phys_susy/LHE/private_samples/FSPremix74X/SMS-T2tt/  (mStop=170,172,173; mLSP=1) y (mStop=175, mLSP=1), (mStop=300, mLSP=125), (mStop=500, mLSP=325 FullSim)
+##FullSim samples for the (175,1) and (300,125) points are available on EOS at the following path: /store/group/phys_susy/LHE/private_samples/FullSim74X/SMS-T2tt/
+## Stop T2tb
+samples['T2tb_mStop200to325_mLSP0to150']= ['/SMS-T2tb_mStop-200to325_0to150_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2tbmStop200to325mLSP0to150', 'id=00417', 'doLHE=False', 'doSusy=True']]
+samples['T2tb_mStop200to625_mLSP50to475']= ['/SMS-T2tb_mStop-200to625_50to475_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2tbmStop200to625mLSP50to475', 'id=00432', 'doLHE=False', 'doSusy=True']]
+samples['T2tb_mStop350to400_mLSP0to225']= ['/SMS-T2tb_mStop-350to400_0to225_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2tbmStop350to400mLSP0to225', 'id=00334', 'doLHE=False', 'doSusy=True']]
+samples['T2tb_mStop425to600_mLSP0to425']= ['/SMS-T2tb_mStop-425to600_0to425_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2tbmStop425to600mLSP0to425', 'id=00366', 'doLHE=False', 'doSusy=True']]
+samples['T2tb_mStop625to850_mLSP0to450']= ['/SMS-T2tb_mStop-625to850_0to450_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2tbmStop625to850mLSP0to450', 'id=00333', 'doLHE=False', 'doSusy=True']]
+samples['T2tb_mStop875to1125_mLSP0to475']= ['/SMS-T2tb_mStop-875to1125_0to475_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2tbmStop875to1125mLSP0to475', 'id=00335', 'doLHE=False', 'doSusy=True']]
+## Stop T2bW
+samples['T2bW_X05_mStop125to275_mLSP0to150']= ['/SMS-T2bW_X05_mStop-125to275_mLSP-0to150_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2bWX05mStop125to275mLSP0to150', 'id=00387', 'doLHE=False', 'doSusy=True']]
+samples['T2bW_X05_mStop300to400_mLSP0to275']= ['/SMS-T2bW_X05_mStop-300to400_mLSP-0to275_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2bWX05mStop300to400mLSP0to275', 'id=00330', 'doLHE=False', 'doSusy=True']]
+samples['T2bW_X05_mStop425to600_mLSP0to375']= ['/SMS-T2bW_X05_mStop-425to600_mLSP-0to375_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2bWX05mStop425to600mLSP0to375', 'id=00331', 'doLHE=False', 'doSusy=True']]
+samples['T2bW_X05_mStop625to950_mLSP0to350']= ['/SMS-T2bW_X05_mStop-625to950_0to350_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15MiniAODv2-FastAsympt25ns_74X_mcRun2_asymptotic_v2-v1/MINIAODSIM', ['label=T2bWX05mStop625to950mLSP0to350', 'id=00332', 'doLHE=False', 'doSusy=True']]
+
 ########
 # Additional global configuration
 ########
