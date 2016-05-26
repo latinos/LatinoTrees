@@ -5223,7 +5223,11 @@ const float reco::SkimEvent::Energy5x5(size_t i) const {
   else return -999.0;
 }
 
-
+const float reco::SkimEvent::tripleChargeAgreement(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->chargeInfo().isGsfCtfScPixConsistent;
+  else return -999.0;
+}
 
 // Muon and electron isolation
 

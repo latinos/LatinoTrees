@@ -798,6 +798,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float FbremByPt      (size_t i = 0) const { return Fbrem (indexByPt (i)); }
             const float SeedEnergyByPt (size_t i = 0) const { return SeedEnergy (indexByPt (i)); }
             const float Energy5x5ByPt  (size_t i = 0) const { return Energy5x5 (indexByPt (i)); }
+
+            const float tripleChargeAgreementByPt  (size_t i = 0) const { return tripleChargeAgreement (indexByPt (i)); }
             
             const float etaByIso (size_t i = 0) const { return eta (indexByIso(i)); }
             const float etaSCByPt (size_t i = 0) const { return etaSC (indexByPt (i)); }
@@ -895,6 +897,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float Fbrem                         (size_t i) const;
             const float SeedEnergy                    (size_t i) const;
             const float Energy5x5                     (size_t i) const;
+
+            const float tripleChargeAgreement         (size_t i) const;	   
 
             const float GetElectronEffectiveAreaByPt      (size_t i) const;
             

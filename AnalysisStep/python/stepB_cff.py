@@ -333,7 +333,8 @@ def addEleIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_electron_fbrem",             cms.string("FbremByPt")),
         setattr(pt.variables, "std_vector_electron_seedEnergy",        cms.string("SeedEnergyByPt")),
         setattr(pt.variables, "std_vector_electron_energy5x5",         cms.string("Energy5x5ByPt")),
-        
+
+	setattr(pt.variables, "std_vector_electron_tripleChargeAgreement",    cms.string("tripleChargeAgreementByPt")),        
 
     else:
         raise RuntimeError, "In addEleIdIsoVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
