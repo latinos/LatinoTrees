@@ -876,6 +876,7 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             void InitEffectiveAreasElectrons();
 
             const float GetElectronEffectiveArea      (size_t i, bool apply50nsValues) const;
+            const float deltaEtaSeedClusterTrackAtCalo(size_t i) const;           
             const float deltaEtaSuperClusterTrackAtVtx(size_t i) const;           
             const float deltaPhiSuperClusterTrackAtVtx(size_t i) const;          
             const float full5x5_sigmaIetaIeta         (size_t i) const;
@@ -896,6 +897,8 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float Energy5x5                     (size_t i) const;
 
             const float GetElectronEffectiveAreaByPt      (size_t i) const;
+            
+            const float deltaEtaSeedClusterTrackAtCaloByPt(size_t i) const { return deltaEtaSeedClusterTrackAtCalo(indexByPt(i)); }          
             const float deltaEtaSuperClusterTrackAtVtxByPt(size_t i) const { return deltaEtaSuperClusterTrackAtVtx(indexByPt(i)); }          
             const float deltaPhiSuperClusterTrackAtVtxByPt(size_t i) const { return deltaPhiSuperClusterTrackAtVtx(indexByPt(i)); }
             const float full5x5_sigmaIetaIetaByPt         (size_t i) const { return full5x5_sigmaIetaIeta         (indexByPt(i)); }

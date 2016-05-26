@@ -5106,6 +5106,12 @@ const float reco::SkimEvent::SIP3D(size_t i) const {
 
 
 // Electron cut based ID
+const float reco::SkimEvent::deltaEtaSeedClusterTrackAtCalo(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->deltaEtaSeedClusterTrackAtCalo();
+  else return -999.0;
+}
+
 const float reco::SkimEvent::deltaEtaSuperClusterTrackAtVtx(size_t i) const {
   if (i >= leps_.size())  return defaultvalues::defaultFloat;
   else if (isElectron(i)) return getElectron(i)->deltaEtaSuperClusterTrackAtVtx();
