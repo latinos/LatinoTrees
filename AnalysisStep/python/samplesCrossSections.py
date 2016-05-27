@@ -60,8 +60,6 @@ samples['WZ']			        .extend( ['xsec=47.130',	'kfact=1.000',		'ref=E'] )
 samples['WZTo3LNu']		        .extend( ['xsec=4.42965',	'kfact=1.000',		'ref=E'] )
 samples['WZJets']		        .extend( ['xsec=5.2890',	'kfact=1.000',		'ref=E'] ) #https://indico.cern.ch/event/448517/session/0/contribution/16/attachments/1164999/1679225/Long_Generators_WZxsec_05_10_15.pdf
 samples['WZTo2L2Q']		        .extend( ['xsec=5.5950',	'kfact=1.000',		'ref=E'] )
-samples['WZTo1L3Nu']		        .extend( ['xsec=3.033',	        'kfact=1.000',		'ref=E'] ) # err 0.00206
-samples['WZTo1L1Nu2Q']		        .extend( ['xsec=10.71',	        'kfact=1.000',		'ref=E'] )
 samples['VVTo2L2Nu']		        .extend( ['xsec=11.950',	'kfact=1.000',		'ref=E'] )
 
 ## ZZ
@@ -90,7 +88,6 @@ samples['TTJets']                       .extend( ['xsec=831.76',	'kfact=1.000',	
 samples['TTTo2L2Nu'] 	             	.extend( ['xsec=87.310',	'kfact=1.000',		'ref=E'] )		
 samples['TTWJetsToLNu']                 .extend( ['xsec=0.2043',	'kfact=1.000',		'ref=E'] )	
 samples['TTZToLLNuNu_M-10']             .extend( ['xsec=0.2529',	'kfact=1.000',		'ref=E'] )
-samples['TTZToQQ']                      .extend( ['xsec=0.5297',	'kfact=1.000',		'ref=E'] )
 
 ## GluGluWW
 samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec=0.5905',	'kfact=1.000',		'ref=E'] ) # 1.4*3.974*0.1086*.1086*9 --> 1.4 is a k-factor, 3.974 comes from the comment on the qqWW samples in reference E
@@ -387,86 +384,57 @@ samples['ttDM1000pseudo10000'] .extend( ['xsec=0.0000000001039' , 'kfact=1.000',
 # -----------------------------------------------------------------------------------------
 
 
-## monoHiggs
-samples['monoH_2HDM_MZp-600_MA0-300']  .extend( ['xsec=0.004901329',	'kfact=1.000',	   	'ref=M'] ) #0.046690*9*(0.108)^2
-samples['monoH_2HDM_MZp-800_MA0-300']  .extend( ['xsec=0.005431458',	'kfact=1.000',	   	'ref=M'] ) #0.051740*9*(0.108)^2
-samples['monoH_2HDM_MZp-1000_MA0-300'] .extend( ['xsec=0.004405843',	'kfact=1.000',	   	'ref=M'] ) #0.041970*9*(0.108)^2
-samples['monoH_2HDM_MZp-1200_MA0-300'] .extend( ['xsec=0.003334038',	'kfact=1.000',	   	'ref=M'] ) #0.031760*9*(0.108)^2
-samples['monoH_2HDM_MZp-1400_MA0-300'] .extend( ['xsec=0.002473235',	'kfact=1.000',	   	'ref=M'] ) #0.023560*9*(0.108)^2
-samples['monoH_2HDM_MZp-1700_MA0-300'] .extend( ['xsec=0.001585138',	'kfact=1.000',	   	'ref=M'] ) #0.015100*9*(0.108)^2
-samples['monoH_2HDM_MZp-2000_MA0-300'] .extend( ['xsec=0.001021836',	'kfact=1.000',	   	'ref=M'] ) #0.009734*9*(0.108)^2
-samples['monoH_2HDM_MZp-2500_MA0-300'] .extend( ['xsec=0.000510183',	'kfact=1.000',	   	'ref=M'] ) #0.004860*9*(0.108)^2
+## monoHiggs (gZ = 0.8)
+samples['monoH_2HDM_MZp-600_MA0-300']  .extend( ['xsec=0.0474669979',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-800_MA0-300']  .extend( ['xsec=0.0291465864',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1000_MA0-300'] .extend( ['xsec=0.0150986981',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1200_MA0-300'] .extend( ['xsec=0.0079205442',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1400_MA0-300'] .extend( ['xsec=0.004325851',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1700_MA0-300'] .extend( ['xsec=0.0018671031',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2000_MA0-300'] .extend( ['xsec=0.0008641309',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2500_MA0-300'] .extend( ['xsec=0.0002672479',	'kfact=1.000',	   	'ref=M'] ) 
 
-samples['monoH_2HDM_MZp-600_MA0-400']  .extend( ['xsec=0.000744308',    'kfact=1.000',	   	'ref=M'] ) #0.0070903*9*(0.108)^2
-samples['monoH_2HDM_MZp-800_MA0-400']  .extend( ['xsec=0.001888595',	'kfact=1.000',	   	'ref=M'] ) #0.0179907*9*(0.108)^2
-samples['monoH_2HDM_MZp-1000_MA0-400'] .extend( ['xsec=0.001848780',	'kfact=1.000',	   	'ref=M'] ) #0.0176115*9*(0.108)^2
-samples['monoH_2HDM_MZp-1200_MA0-400'] .extend( ['xsec=0.001499988',	'kfact=1.000',	   	'ref=M'] ) #0.0142889*9*(0.108)^2
-samples['monoH_2HDM_MZp-1400_MA0-400'] .extend( ['xsec=0.001148523',	'kfact=1.000',	   	'ref=M'] ) #0.0109408*9*(0.108)^2
-samples['monoH_2HDM_MZp-1700_MA0-400'] .extend( ['xsec=0.000744270',	'kfact=1.000',	   	'ref=M'] ) #0.0070899*9*(0.108)^2
-samples['monoH_2HDM_MZp-2000_MA0-400'] .extend( ['xsec=0.000481072',	'kfact=1.000',	   	'ref=M'] ) #0.0045827*9*(0.108)^2
-samples['monoH_2HDM_MZp-2500_MA0-400'] .extend( ['xsec=0.000238609',	'kfact=1.000',	   	'ref=M'] ) #0.0022730*9*(0.108)^2
+samples['monoH_2HDM_MZp-600_MA0-400']  .extend( ['xsec=0.006709646',    'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-800_MA0-400']  .extend( ['xsec=0.009565833',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1000_MA0-400'] .extend( ['xsec=0.0061751082',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1200_MA0-400'] .extend( ['xsec=0.0035732781',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1400_MA0-400'] .extend( ['xsec=0.0020584744',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1700_MA0-400'] .extend( ['xsec=0.0009286807',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2000_MA0-400'] .extend( ['xsec=0.0004402064',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2500_MA0-400'] .extend( ['xsec=0.0001390512',	'kfact=1.000',	   	'ref=M'] ) 
 
-samples['monoH_2HDM_MZp-600_MA0-500']  .extend( ['xsec=0.000041381',	'kfact=1.000',	   	'ref=M'] ) #0.0003942*9*(0.108)^2
-samples['monoH_2HDM_MZp-800_MA0-500']  .extend( ['xsec=0.000758198',	'kfact=1.000',	   	'ref=M'] ) #0.0072226*9*(0.108)^2
-samples['monoH_2HDM_MZp-1000_MA0-500'] .extend( ['xsec=0.001080736',	'kfact=1.000',	   	'ref=M'] ) #0.0102951*9*(0.108)^2
-samples['monoH_2HDM_MZp-1200_MA0-500'] .extend( ['xsec=0.001012224',	'kfact=1.000',	   	'ref=M'] ) #0.0096424*9*(0.108)^2
-samples['monoH_2HDM_MZp-1400_MA0-500'] .extend( ['xsec=0.000833376',	'kfact=1.000',	   	'ref=M'] ) #0.0079387*9*(0.108)^2
-samples['monoH_2HDM_MZp-1700_MA0-500'] .extend( ['xsec=0.000573219',	'kfact=1.000',	   	'ref=M'] ) #0.0054605*9*(0.108)^2
-samples['monoH_2HDM_MZp-2000_MA0-500'] .extend( ['xsec=0.000381968',	'kfact=1.000',	   	'ref=M'] ) #0.0036386*9*(0.108)^2
-samples['monoH_2HDM_MZp-2500_MA0-500'] .extend( ['xsec=0.000193795',	'kfact=1.000',	   	'ref=M'] ) #0.0018461*9*(0.108)^2
+samples['monoH_2HDM_MZp-600_MA0-500']  .extend( ['xsec=0.0004928518',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-800_MA0-500']  .extend( ['xsec=0.0038526192',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1000_MA0-500'] .extend( ['xsec=0.0036017266',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1200_MA0-500'] .extend( ['xsec=0.0024076246',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1400_MA0-500'] .extend( ['xsec=0.0014932836',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1700_MA0-500'] .extend( ['xsec=0.0007161568',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2000_MA0-500'] .extend( ['xsec=0.0003507248',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2500_MA0-500'] .extend( ['xsec=0.0001139934',	'kfact=1.000',	   	'ref=M'] ) 
 
-samples['monoH_2HDM_MZp-600_MA0-600']  .extend( ['xsec=0.000010034',	'kfact=1.000',	   	'ref=M'] ) #0.0000956*9*(0.108)^2
-samples['monoH_2HDM_MZp-800_MA0-600']  .extend( ['xsec=0.000201656',	'kfact=1.000',	   	'ref=M'] ) #0.0019210*9*(0.108)^2
-samples['monoH_2HDM_MZp-1000_MA0-600'] .extend( ['xsec=0.000597502',	'kfact=1.000',	   	'ref=M'] ) #0.0056918*9*(0.108)^2
-samples['monoH_2HDM_MZp-1200_MA0-600'] .extend( ['xsec=0.000697179',	'kfact=1.000',	   	'ref=M'] ) #0.0066413*9*(0.108)^2
-samples['monoH_2HDM_MZp-1400_MA0-600'] .extend( ['xsec=0.000635332',	'kfact=1.000',	   	'ref=M'] ) #0.0060522*9*(0.108)^2
-samples['monoH_2HDM_MZp-1700_MA0-600'] .extend( ['xsec=0.000471214',	'kfact=1.000',	   	'ref=M'] ) #0.0044888*9*(0.108)^2
-samples['monoH_2HDM_MZp-2000_MA0-600'] .extend( ['xsec=0.000326838',	'kfact=1.000',	   	'ref=M'] ) #0.0031134*9*(0.108)^2
-samples['monoH_2HDM_MZp-2500_MA0-600'] .extend( ['xsec=0.000171051',	'kfact=1.000',	   	'ref=M'] ) #0.0016294*9*(0.108)^2
+samples['monoH_2HDM_MZp-600_MA0-600']  .extend( ['xsec=0.0001252049',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-800_MA0-600']  .extend( ['xsec=0.0010603626',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1000_MA0-600'] .extend( ['xsec=0.0019913947',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1200_MA0-600'] .extend( ['xsec=0.0016547367',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1400_MA0-600'] .extend( ['xsec=0.0011360503',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1700_MA0-600'] .extend( ['xsec=0.0005894297',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2000_MA0-600'] .extend( ['xsec=0.0003011866',	'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2500_MA0-600'] .extend( ['xsec=0.0001015968',	'kfact=1.000',	   	'ref=M'] ) 
 
-samples['monoH_2HDM_MZp-600_MA0-700']  .extend( ['xsec=0.000004138',	'kfact=1.000',	   	'ref=M'] ) #0.0000394*9*(0.108)^2
-samples['monoH_2HDM_MZp-800_MA0-700']  .extend( ['xsec=0.000029943',	'kfact=1.000',	   	'ref=M'] ) #0.0002852*9*(0.108)^2
-samples['monoH_2HDM_MZp-1000_MA0-700'] .extend( ['xsec=0.000268298',	'kfact=1.000',	   	'ref=M'] ) #0.0025558*9*(0.108)^2
-samples['monoH_2HDM_MZp-1200_MA0-700'] .extend( ['xsec=0.000443280',	'kfact=1.000',	   	'ref=M'] ) #0.0023796*9*(0.108)^2
-samples['monoH_2HDM_MZp-1400_MA0-700'] .extend( ['xsec=0.000467678',	'kfact=1.000',	   	'ref=M'] ) #0.0030913*9*(0.108)^2
-samples['monoH_2HDM_MZp-1700_MA0-700'] .extend( ['xsec=0.000384830',	'kfact=1.000',	   	'ref=M'] ) #0.0036659*9*(0.108)^2
-samples['monoH_2HDM_MZp-2000_MA0-700'] .extend( ['xsec=0.000280141',	'kfact=1.000',	   	'ref=M'] ) #0.0026686*9*(0.108)^2
-samples['monoH_2HDM_MZp-2500_MA0-700'] .extend( ['xsec=0.000152441',	'kfact=1.000',	   	'ref=M'] ) #0.0014522*9*(0.108)^2
+samples['monoH_2HDM_MZp-600_MA0-700']  .extend( ['xsec=0.00005205444912','kfact=1.000', 	'ref=M'] ) 
+samples['monoH_2HDM_MZp-800_MA0-700']  .extend( ['xsec=0.0001818709',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1000_MA0-700'] .extend( ['xsec=0.0009004421',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1200_MA0-700'] .extend( ['xsec=0.0010526993',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1400_MA0-700'] .extend( ['xsec=0.0008362283',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1700_MA0-700'] .extend( ['xsec=0.0004810315',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2000_MA0-700'] .extend( ['xsec=0.0002587763',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2500_MA0-700'] .extend( ['xsec=0.00009132177168','kfact=1.000',	        'ref=M'] ) 
 
-samples['monoH_2HDM_MZp-600_MA0-800']  .extend( ['xsec=0.000002090',	'kfact=1.000',	   	'ref=M'] ) #0.0000199*9*(0.108)^2
-samples['monoH_2HDM_MZp-800_MA0-800']  .extend( ['xsec=0.000010176',	'kfact=1.000',	   	'ref=M'] ) #0.0000969*9*(0.108)^2
-samples['monoH_2HDM_MZp-1000_MA0-800'] .extend( ['xsec=0.000083163',	'kfact=1.000',	   	'ref=M'] ) #0.0007922*9*(0.108)^2
-samples['monoH_2HDM_MZp-1200_MA0-800'] .extend( ['xsec=0.000249803',	'kfact=1.000',	   	'ref=M'] ) #0.0023796*9*(0.108)^2
-samples['monoH_2HDM_MZp-1400_MA0-800'] .extend( ['xsec=0.000324510',	'kfact=1.000',	   	'ref=M'] ) #0.0030913*9*(0.108)^2
-samples['monoH_2HDM_MZp-1700_MA0-800'] .extend( ['xsec=0.000306269',	'kfact=1.000',	   	'ref=M'] ) #0.0029175*9*(0.108)^2
-samples['monoH_2HDM_MZp-2000_MA0-800'] .extend( ['xsec=0.000237731',	'kfact=1.000',	   	'ref=M'] ) #0.0022646*9*(0.108)^2
-samples['monoH_2HDM_MZp-2500_MA0-800'] .extend( ['xsec=0.000136006',	'kfact=1.000',	   	'ref=M'] ) #0.0012956*9*(0.108)^2
-
-# Stop T2tt FullSim
-samples['T2tt_mStop425_mLSP325'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop500_mLSP325'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop850_mLSP100'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-# Stop T2tt FastSim Scans
-samples['T2tt_mStop100-125_mLSP1to50'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop150-175_mLSP1to100'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop200_mLSP1to125'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop225_mLSP25to150'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop250_mLSP1to175'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop275_mLSP75to200'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop183to291_mLSP1to100'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop300to375_mLSP1to300'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop400to475_mLSP1to400'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop500-525-550_mLSP1to425-325to450-1to475'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tt_mStop600-950_mLSP1to450'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-# Stop T2tb FastSim Scans
-samples['T2tb_mStop200to325_mLSP0to150'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] ) 
-samples['T2tb_mStop200to625_mLSP50to475'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tb_mStop350to400_mLSP0to225'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tb_mStop425to600_mLSP0to425'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tb_mStop625to850_mLSP0to450'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2tb_mStop875to1125_mLSP0to475'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-# Stop T2bW FastSim Scans
-samples['T2bW_X05_mStop125to275_mLSP0to150'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2bW_X05_mStop300to400_mLSP0to275'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2bW_X05_mStop425to600_mLSP0to375'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
-samples['T2bW_X05_mStop625to950_mLSP0to350'] .extend( ['xsec=1.000',	'kfact=1.000',	   	'ref=X'] )
+samples['monoH_2HDM_MZp-600_MA0-800']  .extend( ['xsec=0.00002611173024','kfact=1.000',	        'ref=M'] ) 
+samples['monoH_2HDM_MZp-800_MA0-800']  .extend( ['xsec=0.000062847',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1000_MA0-800'] .extend( ['xsec=0.0002885055',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1200_MA0-800'] .extend( ['xsec=0.0005936393',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1400_MA0-800'] .extend( ['xsec=0.000579688',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-1700_MA0-800'] .extend( ['xsec=0.0003835508',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2000_MA0-800'] .extend( ['xsec=0.0002202501',	 'kfact=1.000',	   	'ref=M'] ) 
+samples['monoH_2HDM_MZp-2500_MA0-800'] .extend( ['xsec=0.0000819442656', 'kfact=1.000',	        'ref=M'] ) 
