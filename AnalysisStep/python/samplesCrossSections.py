@@ -60,6 +60,8 @@ samples['WZ']			        .extend( ['xsec=47.130',	'kfact=1.000',		'ref=E'] )
 samples['WZTo3LNu']		        .extend( ['xsec=4.42965',	'kfact=1.000',		'ref=E'] )
 samples['WZJets']		        .extend( ['xsec=5.2890',	'kfact=1.000',		'ref=E'] ) #https://indico.cern.ch/event/448517/session/0/contribution/16/attachments/1164999/1679225/Long_Generators_WZxsec_05_10_15.pdf
 samples['WZTo2L2Q']		        .extend( ['xsec=5.5950',	'kfact=1.000',		'ref=E'] )
+samples['WZTo1L3Nu']                    .extend( ['xsec=3.033',         'kfact=1.000',          'ref=E'] ) # err 0.00206
+samples['WZTo1L1Nu2Q']                  .extend( ['xsec=10.71',         'kfact=1.000',          'ref=E'] )
 samples['VVTo2L2Nu']		        .extend( ['xsec=11.950',	'kfact=1.000',		'ref=E'] )
 
 ## ZZ
@@ -88,6 +90,7 @@ samples['TTJets']                       .extend( ['xsec=831.76',	'kfact=1.000',	
 samples['TTTo2L2Nu'] 	             	.extend( ['xsec=87.310',	'kfact=1.000',		'ref=E'] )		
 samples['TTWJetsToLNu']                 .extend( ['xsec=0.2043',	'kfact=1.000',		'ref=E'] )	
 samples['TTZToLLNuNu_M-10']             .extend( ['xsec=0.2529',	'kfact=1.000',		'ref=E'] )
+samples['TTZToQQ']                      .extend( ['xsec=0.5297',        'kfact=1.000',          'ref=E'] )
 
 ## GluGluWW
 samples['GluGluWWTo2L2Nu_MCFM']      	.extend( ['xsec=0.5905',	'kfact=1.000',		'ref=E'] ) # 1.4*3.974*0.1086*.1086*9 --> 1.4 is a k-factor, 3.974 comes from the comment on the qqWW samples in reference E
@@ -438,3 +441,33 @@ samples['monoH_2HDM_MZp-1400_MA0-800'] .extend( ['xsec=0.000579688',	 'kfact=1.0
 samples['monoH_2HDM_MZp-1700_MA0-800'] .extend( ['xsec=0.0003835508',	 'kfact=1.000',	   	'ref=M'] ) 
 samples['monoH_2HDM_MZp-2000_MA0-800'] .extend( ['xsec=0.0002202501',	 'kfact=1.000',	   	'ref=M'] ) 
 samples['monoH_2HDM_MZp-2500_MA0-800'] .extend( ['xsec=0.0000819442656', 'kfact=1.000',	        'ref=M'] ) 
+
+
+# Stop T2tt FullSim
+samples['T2tt_mStop425_mLSP325']     .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop500_mLSP325']     .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop850_mLSP100']     .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+# Stop T2tt FastSim Scans
+samples['T2tt_mStop100-125_mLSP1to50']   .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop150-175_mLSP1to100']  .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop200_mLSP1to125']      .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop225_mLSP25to150']     .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop250_mLSP1to175']      .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop275_mLSP75to200']     .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop183to291_mLSP1to100'] .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop300to375_mLSP1to300'] .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop400to475_mLSP1to400'] .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop500-525-550_mLSP1to425-325to450-1to475'] .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tt_mStop600-950_mLSP1to450']  .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+# Stop T2tb FastSim Scans
+samples['T2tb_mStop200to325_mLSP0to150']  .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] ) 
+samples['T2tb_mStop200to625_mLSP50to475'] .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tb_mStop350to400_mLSP0to225']  .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tb_mStop425to600_mLSP0to425']  .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tb_mStop625to850_mLSP0to450']  .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2tb_mStop875to1125_mLSP0to475'] .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+# Stop T2bW FastSim Scans
+samples['T2bW_X05_mStop125to275_mLSP0to150'] .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2bW_X05_mStop300to400_mLSP0to275'] .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2bW_X05_mStop425to600_mLSP0to375'] .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
+samples['T2bW_X05_mStop625to950_mLSP0to350'] .extend( ['xsec=1.000','kfact=1.000',   'ref=X'] )
