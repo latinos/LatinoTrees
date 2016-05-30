@@ -333,6 +333,15 @@ samples['WGJJ']                         = ['/WGJJToLNu_EWK_QCD_TuneCUETP8M1_13Te
 samples['EWKZ2Jets']                    = ['/EWKZ2Jets_ZToLL_M-50_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=EWKZ2Jets',                  	'id=40020', 'doMCweights=True']]
 samples['TTToSemiLeptonic']             = ['/TTToSemiLeptonic_13TeV-powheg/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12_ext1-v1/MINIAODSIM',     ['label=TTToSemiLeptonic',                  	'id=40021', 'doMCweights=True']]
 
+## QCD
+samples['QCD_Pt_15to20_bcToE']             = ['/QCD_Pt_15to20_bcToE_TuneCUETP8M1_13TeV_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=QCD_Pt_15to20_bcToE',                  	'id=40022', 'doMCweights=True']]
+samples['QCD_Pt_20to30_bcToE']             = ['/QCD_Pt_20to30_bcToE_TuneCUETP8M1_13TeV_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=QCD_Pt_20to30_bcToE',                  	'id=40023', 'doMCweights=True']]
+samples['QCD_Pt_30to80_bcToE']             = ['/QCD_Pt_30to80_bcToE_TuneCUETP8M1_13TeV_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM',     ['label=QCD_Pt_30to80_bcToE',                  	'id=40024', 'doMCweights=True']]
+samples['QCD_Pt_80to170_bcToE']             = ['/QCD_Pt_80to170_bcToE_TuneCUETP8M1_13TeV_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=QCD_Pt_80to170_bcToE',                  'id=40025', 'doMCweights=True']]
+samples['QCD_Pt_170to250_bcToE']             = ['/QCD_Pt_170to250_bcToE_TuneCUETP8M1_13TeV_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=QCD_Pt_170to250_bcToE',                  'id=40026', 'doMCweights=True']]
+samples['QCD_Pt_250toInf_bcToE']             = ['/QCD_Pt_250toInf_bcToE_TuneCUETP8M1_13TeV_pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=QCD_Pt_250toInf_bcToE',                  'id=40027', 'doMCweights=True']]
+
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Juan
