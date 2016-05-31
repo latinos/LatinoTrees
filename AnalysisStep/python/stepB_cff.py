@@ -243,6 +243,8 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         # mc info
         mctruth = cms.string("-1"),
 
+	# Vertex Information
+	nGoodVtx     = cms.string("nGoodVertices"),
 
         # ZGstar Gen-Level
         Gen_ZGstar_mu1_pt  = cms.string("Gen_ZGstar_mu1_pt"),
