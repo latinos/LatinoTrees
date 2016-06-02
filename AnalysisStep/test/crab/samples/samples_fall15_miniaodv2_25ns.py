@@ -270,10 +270,10 @@ samples['HZJ_HToTauTau_M130'] = ['/ZHToTauTau_M130_13TeV_powheg_pythia8/RunIIFal
 
 
 ## VVV
-#samples['WWW'] = ['',                                                                                                       ['label=WWW', 'id=00000', 'doMCweights=True']]
-samples['WZZ'] = ['/WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=WZZ', 'id=00000', 'doMCweights=True']]
-#samples['WWZ'] = ['/WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=WWZ', 'id=00000', 'doMCweights=True']]
-#samples['ZZZ'] = ['/ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=ZZZ', 'id=00000', 'doMCweights=True']]
+samples['WWW'] = ['/WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v3/MINIAODSIM ', ['label=WWW', 'id=0000001', 'doMCweights=True']]
+samples['WZZ'] = ['/WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=WZZ', 'id=0000002', 'doMCweights=True']]
+samples['WWZ'] = ['/WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM ', ['label=WWZ', 'id=0000003', 'doMCweights=True']]
+samples['ZZZ'] = ['/ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM ', ['label=ZZZ', 'id=0000004', 'doMCweights=True']]
 # WWW, WWZ and ZZZ at LHE level
 
 
