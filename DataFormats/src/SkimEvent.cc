@@ -1121,6 +1121,102 @@ void reco::SkimEvent::setGenMet(const edm::Handle<reco::GenMETCollection> & mH) 
  genMetRef_ = reco::GenMETRef(mH,0);
 }
 
+void reco::SkimEvent::set_XYshift_counts(
+	int hEtaPlus_counts, int hEtaMinus_counts, int h0Barrel_counts,
+	int h0EndcapPlus_counts, int h0EndcapMinus_counts, int gammaBarrel_counts,
+	int gammaEndcapPlus_counts, int gammaEndcapMinus_counts, int hHFPlus_counts,
+	int hHFMinus_counts, int egammaHFPlus_counts, int egammaHFMinus_counts )
+{
+  hEtaPlus_counts_ = hEtaPlus_counts; hEtaMinus_counts_ = hEtaMinus_counts; h0Barrel_counts_ = h0Barrel_counts;
+  h0EndcapPlus_counts_ = h0EndcapPlus_counts; h0EndcapMinus_counts_ = h0EndcapMinus_counts; gammaBarrel_counts_ = gammaBarrel_counts;
+  gammaEndcapPlus_counts_ = gammaEndcapPlus_counts; gammaEndcapMinus_counts_ = gammaEndcapMinus_counts; hHFPlus_counts_ = hHFPlus_counts;
+  hHFMinus_counts_ = hHFMinus_counts; egammaHFPlus_counts_ = egammaHFPlus_counts; egammaHFMinus_counts_ = egammaHFMinus_counts;
+}
+void reco::SkimEvent::set_XYshift_sumPt(
+	double hEtaPlus_sumPt, double hEtaMinus_sumPt, double h0Barrel_sumPt,
+	double h0EndcapPlus_sumPt, double h0EndcapMinus_sumPt, double gammaBarrel_sumPt,
+	double gammaEndcapPlus_sumPt, double gammaEndcapMinus_sumPt, double hHFPlus_sumPt,
+	double hHFMinus_sumPt, double egammaHFPlus_sumPt, double egammaHFMinus_sumPt )
+{
+  hEtaPlus_sumPt_ = hEtaPlus_sumPt; hEtaMinus_sumPt_ = hEtaMinus_sumPt; h0Barrel_sumPt_ = h0Barrel_sumPt;
+  h0EndcapPlus_sumPt_ = h0EndcapPlus_sumPt; h0EndcapMinus_sumPt_ = h0EndcapMinus_sumPt; gammaBarrel_sumPt_ = gammaBarrel_sumPt;
+  gammaEndcapPlus_sumPt_ = gammaEndcapPlus_sumPt; gammaEndcapMinus_sumPt_ = gammaEndcapMinus_sumPt; hHFPlus_sumPt_ = hHFPlus_sumPt;
+  hHFMinus_sumPt_ = hHFMinus_sumPt; egammaHFPlus_sumPt_ = egammaHFPlus_sumPt; egammaHFMinus_sumPt_ = egammaHFMinus_sumPt;
+}
+
+const int reco::SkimEvent::hEtaPlus_counts() const {
+ return hEtaPlus_counts_;
+}
+const int reco::SkimEvent::hEtaMinus_counts() const {
+ return hEtaMinus_counts_;
+}
+const int reco::SkimEvent::h0Barrel_counts() const {
+ return h0Barrel_counts_;
+}
+const int reco::SkimEvent::h0EndcapPlus_counts() const {
+ return h0EndcapPlus_counts_;
+}
+const int reco::SkimEvent::h0EndcapMinus_counts() const {
+ return h0EndcapMinus_counts_;
+}
+const int reco::SkimEvent::gammaBarrel_counts() const {
+ return gammaBarrel_counts_;
+}
+const int reco::SkimEvent::gammaEndcapPlus_counts() const {
+ return gammaEndcapPlus_counts_;
+}
+const int reco::SkimEvent::gammaEndcapMinus_counts() const {
+ return gammaEndcapMinus_counts_;
+}
+const int reco::SkimEvent::hHFPlus_counts() const {
+ return hHFPlus_counts_;
+}
+const int reco::SkimEvent::hHFMinus_counts() const {
+ return hHFMinus_counts_;
+}
+const int reco::SkimEvent::egammaHFPlus_counts() const {
+ return egammaHFPlus_counts_;
+}
+const int reco::SkimEvent::egammaHFMinus_counts() const {
+ return egammaHFMinus_counts_;
+}
+
+const double reco::SkimEvent::hEtaPlus_sumPt() const {
+ return hEtaPlus_sumPt_;
+}
+const double reco::SkimEvent::hEtaMinus_sumPt() const {
+ return hEtaMinus_sumPt_;
+}
+const double reco::SkimEvent::h0Barrel_sumPt() const {
+ return h0Barrel_sumPt_;
+}
+const double reco::SkimEvent::h0EndcapPlus_sumPt() const {
+ return h0EndcapPlus_sumPt_;
+}
+const double reco::SkimEvent::h0EndcapMinus_sumPt() const {
+ return h0EndcapMinus_sumPt_;
+}
+const double reco::SkimEvent::gammaBarrel_sumPt() const {
+ return gammaBarrel_sumPt_;
+}
+const double reco::SkimEvent::gammaEndcapPlus_sumPt() const {
+ return gammaEndcapPlus_sumPt_;
+}
+const double reco::SkimEvent::gammaEndcapMinus_sumPt() const {
+ return gammaEndcapMinus_sumPt_;
+}
+const double reco::SkimEvent::hHFPlus_sumPt() const {
+ return hHFPlus_sumPt_;
+}
+const double reco::SkimEvent::hHFMinus_sumPt() const {
+ return hHFMinus_sumPt_;
+}
+const double reco::SkimEvent::egammaHFPlus_sumPt() const {
+ return egammaHFPlus_sumPt_;
+}
+const double reco::SkimEvent::egammaHFMinus_sumPt() const {
+ return egammaHFMinus_sumPt_;
+}
 
 // void reco::SkimEvent::addElectronId(const edm::Handle<edm::ValueMap<bool> > &valueMapEleId, std::string name) {
 //  

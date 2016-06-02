@@ -67,6 +67,8 @@ struct JetInfo {
 
         reco::MET computeTrkMet(const reco::Vertex &pv,
 	    edm::Handle<pat::PackedCandidateCollection> pfCandsH);
+        void SetMetXYshiftVariables(edm::Handle<pat::PackedCandidateCollection> pfCandsH);
+        int  translateTypeToAbsPdgId( reco::PFCandidate::ParticleType type );
  
 	bool   applyCorrectionForJets_;
 	bool   apply50nsValues_;
@@ -78,6 +80,32 @@ struct JetInfo {
         
         double _maxDrSoftMuonJet;
         double _minPtSoftMuon;
+
+	// MET XY shift variables
+	int     hEtaPlus_counts;
+	double  hEtaPlus_sumPt;
+	int     hEtaMinus_counts;
+	double  hEtaMinus_sumPt;
+	int     h0Barrel_counts;
+	double  h0Barrel_sumPt;
+	int     h0EndcapPlus_counts;
+	double  h0EndcapPlus_sumPt;
+	int     h0EndcapMinus_counts;
+	double  h0EndcapMinus_sumPt;
+	int     gammaBarrel_counts;
+	double  gammaBarrel_sumPt;
+	int     gammaEndcapPlus_counts;
+	double  gammaEndcapPlus_sumPt;
+	int     gammaEndcapMinus_counts;
+	double  gammaEndcapMinus_sumPt;
+	int     hHFPlus_counts;
+	double  hHFPlus_sumPt;
+	int     hHFMinus_counts;
+	double  hHFMinus_sumPt;
+	int     egammaHFPlus_counts;
+	double  egammaHFPlus_sumPt;
+	int     egammaHFMinus_counts;
+	double  egammaHFMinus_sumPt;
         
         
         std::string name_puJetIdDiscriminant_;

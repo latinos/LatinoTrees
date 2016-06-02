@@ -197,6 +197,35 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         predmet = cms.string("-9999"),
         mpmet = cms.string("min(metPfProj,projChargedMetSmurf)"), ##note: min of proj and proj of min are not the same
         imet = cms.string("min(metPfProj,projChargedMetSmurf)*cos(metPfRawPhi-chargedMetSmurfPhi)"),
+	hEtaPlus_counts = cms.string("hEtaPlus_counts"),
+	hEtaMinus_counts = cms.string("hEtaMinus_counts"),
+	h0Barrel_counts = cms.string("h0Barrel_counts"),
+	h0EndcapPlus_counts = cms.string("h0EndcapPlus_counts"),
+	h0EndcapMinus_counts = cms.string("h0EndcapMinus_counts"),
+	gammaBarrel_counts = cms.string("gammaBarrel_counts"),
+	gammaEndcapPlus_counts = cms.string("gammaEndcapPlus_counts"),
+	gammaEndcapMinus_counts = cms.string("gammaEndcapMinus_counts"),
+	hHFPlus_counts = cms.string("hHFPlus_counts"),
+	hHFMinus_counts = cms.string("hHFMinus_counts"),
+	egammaHFPlus_counts = cms.string("egammaHFPlus_counts"),
+	egammaHFMinus_counts = cms.string("egammaHFMinus_counts"),
+
+	hEtaPlus_sumPt = cms.string("hEtaPlus_sumPt"),
+	hEtaMinus_sumPt = cms.string("hEtaMinus_sumPt"),
+	h0Barrel_sumPt = cms.string("h0Barrel_sumPt"),
+	h0EndcapPlus_sumPt = cms.string("h0EndcapPlus_sumPt"),
+	h0EndcapMinus_sumPt = cms.string("h0EndcapMinus_sumPt"),
+	gammaBarrel_sumPt = cms.string("gammaBarrel_sumPt"),
+	gammaEndcapPlus_sumPt = cms.string("gammaEndcapPlus_sumPt"),
+	gammaEndcapMinus_sumPt = cms.string("gammaEndcapMinus_sumPt"),
+	hHFPlus_sumPt = cms.string("hHFPlus_sumPt"),
+	hHFMinus_sumPt = cms.string("hHFMinus_sumPt"),
+	egammaHFPlus_sumPt = cms.string("egammaHFPlus_sumPt"),
+	egammaHFMinus_sumPt = cms.string("egammaHFMinus_sumPt"),
+
+
+
+
         #gammaMRStar = cms.string("gammaMRStar"),
         njet = cms.string("nCentralJets("+CJVminPt+","+CJVmaxEta+",1,"+jetId_WP+")"),
         njetid = cms.string("nCentralJets("+CJVminPt+","+CJVmaxEta+",1,0)"),
@@ -245,6 +274,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 
 	# Vertex Information
 	nGoodVtx     = cms.string("nGoodVertices"),
+
 
         # ZGstar Gen-Level
         Gen_ZGstar_mu1_pt  = cms.string("Gen_ZGstar_mu1_pt"),
