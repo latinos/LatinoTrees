@@ -446,6 +446,46 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             const float chargedMetSmurfPhi() const{return chargedMetSmurf_.phi();}
             const float pfMetSignificance() const;
             const float pfMetMEtSig() const;
+
+	    // MET XYshift
+            const int hEtaPlus_counts() const;
+            const int hEtaMinus_counts() const;
+            const int h0Barrel_counts() const;
+            const int h0EndcapPlus_counts() const;
+            const int h0EndcapMinus_counts() const;
+            const int gammaBarrel_counts() const;
+            const int gammaEndcapPlus_counts() const;
+            const int gammaEndcapMinus_counts() const;
+            const int hHFPlus_counts() const;
+            const int hHFMinus_counts() const;
+            const int egammaHFPlus_counts() const;
+            const int egammaHFMinus_counts() const;
+
+            const double hEtaPlus_sumPt() const;
+            const double hEtaMinus_sumPt() const;
+            const double h0Barrel_sumPt() const;
+            const double h0EndcapPlus_sumPt() const;
+            const double h0EndcapMinus_sumPt() const;
+            const double gammaBarrel_sumPt() const;
+            const double gammaEndcapPlus_sumPt() const;
+            const double gammaEndcapMinus_sumPt() const;
+            const double hHFPlus_sumPt() const;
+            const double hHFMinus_sumPt() const;
+            const double egammaHFPlus_sumPt() const;
+            const double egammaHFMinus_sumPt() const;
+
+            void set_XYshift_sumPt(
+	       double hEtaPlus_sumPt, double inhEtaMinus_sumPt, double h0Barrel_sumPt,
+	       double h0EndcapPlus_sumPt, double h0EndcapMinus_sumPt, double gammaBarrel_sumPt,
+	       double gammaEndcapPlus_sumPt, double gammaEndcapMinus_sumPt, double hHFPlus_sumPt,
+	       double hHFMinus_sumPt, double egammaHFPlus_sumPt, double egammaHFMinus_sumPt );
+
+            void set_XYshift_counts(
+	       int hEtaPlus_counts, int hEtaMinus_counts, int h0Barrel_counts,
+	       int h0EndcapPlus_counts, int h0EndcapMinus_counts, int gammaBarrel_counts,
+	       int gammaEndcapPlus_counts, int gammaEndcapMinus_counts, int hHFPlus_counts,
+	       int hHFMinus_counts, int egammaHFPlus_counts, int egammaHFMinus_counts );
+
 	    // Gen ZGstar
             const float Gen_ZGstar_mu1_pt()  const{ return muon1FromGstar.pt;}
             const float Gen_ZGstar_mu1_eta() const{ return muon1FromGstar.eta;}
@@ -1078,6 +1118,18 @@ bool operator() ( pat::JetRef a, pat::JetRef b) { return a.get()->pt() > b.get()
             reco::PFMET mvaMet_;
             reco::PFMET chargedMet_;
             reco::MET chargedMetSmurf_;
+
+	    // MET XYshift
+	    int hEtaPlus_counts_, hEtaMinus_counts_, h0Barrel_counts_;
+	    int h0EndcapPlus_counts_, h0EndcapMinus_counts_, gammaBarrel_counts_;
+	    int gammaEndcapPlus_counts_, gammaEndcapMinus_counts_, hHFPlus_counts_;
+	    int hHFMinus_counts_, egammaHFPlus_counts_, egammaHFMinus_counts_;
+
+	    double hEtaPlus_sumPt_, hEtaMinus_sumPt_, h0Barrel_sumPt_;
+	    double h0EndcapPlus_sumPt_, h0EndcapMinus_sumPt_, gammaBarrel_sumPt_;
+	    double gammaEndcapPlus_sumPt_, gammaEndcapMinus_sumPt_, hHFPlus_sumPt_;
+	    double hHFMinus_sumPt_, egammaHFPlus_sumPt_, egammaHFMinus_sumPt_;
+
             std::vector<refToCand> leps_;
             std::vector<refToCand> extraLeps_;
             std::vector<refToCand> softMuons_;

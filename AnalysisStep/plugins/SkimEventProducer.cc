@@ -496,6 +496,24 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     reco::MET trkMet = computeTrkMet(*pv, pfCandsH);
     //std::cout<<"trkMetOut: "<<trkMet.pt()<<std::endl;
     skimEvent->back().setTrkMet(trkMet);
+
+
+    // MET XY shift variables
+    SetMetXYshiftVariables(pfCandsH);
+
+    skimEvent->back().set_XYshift_counts(
+	hEtaPlus_counts, hEtaMinus_counts, h0Barrel_counts,
+	h0EndcapPlus_counts, h0EndcapMinus_counts, gammaBarrel_counts,
+	gammaEndcapPlus_counts, gammaEndcapMinus_counts, hHFPlus_counts,
+	hHFMinus_counts, egammaHFPlus_counts, egammaHFMinus_counts );
+
+
+    skimEvent->back().set_XYshift_sumPt(
+	hEtaPlus_sumPt, hEtaMinus_sumPt, h0Barrel_sumPt,
+	h0EndcapPlus_sumPt, h0EndcapMinus_sumPt, gammaBarrel_sumPt,
+	gammaEndcapPlus_sumPt, gammaEndcapMinus_sumPt, hHFPlus_sumPt,
+	hHFMinus_sumPt, egammaHFPlus_sumPt, egammaHFMinus_sumPt );
+
     
     if(!(genJetTag_==edm::InputTag(""))) {
      skimEvent->back().setGenJets(genJetH);
@@ -612,7 +630,19 @@ bool SkimEventProducer::isGoodElectron( const edm::Ptr<reco::RecoCandidate> elec
   
 }
 
-
+int SkimEventProducer::translateTypeToAbsPdgId( reco::PFCandidate::ParticleType type ) {
+  switch( type ) {
+    case reco::PFCandidate::ParticleType::h: return 211; // pi+
+    case reco::PFCandidate::ParticleType::e: return 11;
+    case reco::PFCandidate::ParticleType::mu: return 13;
+    case reco::PFCandidate::ParticleType::gamma: return 22;
+    case reco::PFCandidate::ParticleType::h0: return 130; // K_L0
+    case reco::PFCandidate::ParticleType::h_HF: return 1; // dummy pdg code
+    case reco::PFCandidate::ParticleType::egamma_HF: return 2; // dummy pdg code
+    case reco::PFCandidate::ParticleType::X:
+    default: return 0;
+  }
+}
 
 reco::MET SkimEventProducer::computeTrkMet(const reco::Vertex &pv,
                       edm::Handle<pat::PackedCandidateCollection> candsH
@@ -632,6 +662,113 @@ reco::MET SkimEventProducer::computeTrkMet(const reco::Vertex &pv,
  reco::Candidate::LorentzVector invertedP4(-totalP4);
  reco::MET met(invertedP4,reco::Candidate::Point(0,0,0));
  return met;
+}
+
+void SkimEventProducer::SetMetXYshiftVariables(
+                      edm::Handle<pat::PackedCandidateCollection> pfCandsH)
+{
+    hEtaPlus_counts=0;
+    hEtaPlus_sumPt=0;
+    hEtaMinus_counts=0;
+    hEtaMinus_sumPt=0;
+    h0Barrel_counts=0;
+    h0Barrel_sumPt=0;
+    h0EndcapPlus_counts=0;
+    h0EndcapPlus_sumPt=0;
+    h0EndcapMinus_counts=0;
+    h0EndcapMinus_sumPt=0;
+    gammaBarrel_counts=0;
+    gammaBarrel_sumPt=0;
+    gammaEndcapPlus_counts=0;
+    gammaEndcapPlus_sumPt=0;
+    gammaEndcapMinus_counts=0;
+    gammaEndcapMinus_sumPt=0;
+    hHFPlus_counts=0;
+    hHFPlus_sumPt=0;
+    hHFMinus_counts=0;
+    hHFMinus_sumPt=0;
+    egammaHFPlus_counts=0;
+    egammaHFPlus_sumPt=0;
+    egammaHFMinus_counts=0;
+    egammaHFMinus_sumPt=0;
+
+    for( unsigned i(0); i <  pfCandsH->size() ; ++i){
+    //for( pat::PackedCandidateCollection::const_iterator it= pfCandsH->begin(), ed =pfCandsH->end(); it != ed; ++it)
+      const reco::Candidate& c = pfCandsH->at(i);
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 1 ))) {
+	if ( (c.eta()>0) and (c.eta()< 2.7) ){
+	  hEtaPlus_counts +=1;
+	  hEtaPlus_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 1 ))) {
+	if ( (c.eta()> -2.7) and (c.eta()< 0.) ){
+	  hEtaMinus_counts +=1;
+	  hEtaMinus_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 5 ))) {
+	if ( (c.eta()> -1.392) and (c.eta()< 1.392) ){
+	  h0Barrel_counts +=1;
+	  h0Barrel_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 5 ))) {
+	if ( (c.eta()> 1.392) and (c.eta()< 3.) ){
+	  h0EndcapPlus_counts +=1;
+	  h0EndcapPlus_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 5 ))) {
+	if ( (c.eta()> -3.) and (c.eta()< -1.392) ){
+	  h0EndcapMinus_counts +=1;
+	  h0EndcapMinus_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 4 ))) {
+	if ( (c.eta()> -1.479) and (c.eta()< 1.479) ){
+	  gammaBarrel_counts +=1;
+	  gammaBarrel_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 4 ))) {
+	if ( (c.eta()> 1.479) and (c.eta()< 3.0) ){
+	  gammaEndcapPlus_counts +=1;
+	  gammaEndcapPlus_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 4 ))) {
+	if ( (c.eta()> -3.0) and (c.eta()< -1.479) ){
+	  gammaEndcapMinus_counts +=1;
+	  gammaEndcapMinus_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 6 ))) {
+	if ( (c.eta()> 2.901376) and (c.eta()< 5.2) ){
+	  hHFPlus_counts +=1;
+	  hHFPlus_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 6 ))) {
+	if ( (c.eta()> -5.2) and (c.eta()< -2.901376) ){
+	  hHFMinus_counts +=1;
+	  hHFMinus_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 7 ))) {
+	if ( (c.eta()> 2.901376) and (c.eta()< 5.2) ){
+	  egammaHFPlus_counts +=1;
+	  egammaHFPlus_sumPt  +=c.pt();
+	}
+      }
+      if (abs(c.pdgId())== translateTypeToAbsPdgId(reco::PFCandidate::ParticleType( 7 ))) {
+	if ( (c.eta()> -5.2) and (c.eta()< -2.901376) ){
+	  egammaHFMinus_counts +=1;
+	  egammaHFMinus_sumPt  +=c.pt();
+	}
+      }
+    }
+
 }
 
 reco::MET SkimEventProducer::doChMET(edm::Handle<reco::CandidateView> candsH,
