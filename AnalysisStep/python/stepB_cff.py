@@ -234,6 +234,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         nbjet     = cms.string("bTaggedJetsOver("+CJVminPt+",1.05,'pfJetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+")"),
 
         jetRho = cms.string("getJetRhoIso()"),
+        jetRhoCalo = cms.string("getJetRhoCaloIso()"),
 
         #eleIdVeto1   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto\",\"\",0)"),
         #eleIdLoose1  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose\",\"\",0)"),
@@ -347,7 +348,10 @@ def addMuonIdIsoVariables(process,pt):
 def addEleIdIsoVariables(process,pt):
     if hasattr(pt,"variables"):      
         setattr(pt.variables, "std_vector_electron_dEtaSeedCalo" ,            cms.string("deltaEtaSeedClusterTrackAtCaloByPt")),
+        setattr(pt.variables, "std_vector_electron_dEtaClusterCalo" ,         cms.string("deltaEtaEleClusterTrackAtCaloByPt")),
         setattr(pt.variables, "std_vector_electron_dEtaIn" ,                  cms.string("deltaEtaSuperClusterTrackAtVtxByPt")),
+        setattr(pt.variables, "std_vector_electron_dPhiSeedCalo" ,            cms.string("deltaPhiSeedClusterTrackAtCaloByPt")),
+        setattr(pt.variables, "std_vector_electron_dPhiClusterCalo" ,         cms.string("deltaPhiEleClusterTrackAtCaloByPt")),
         setattr(pt.variables, "std_vector_electron_dPhiIn" ,                  cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
         setattr(pt.variables, "std_vector_electron_full5x5_sigmaIetaIeta",    cms.string("full5x5_sigmaIetaIetaByPt")),
         setattr(pt.variables, "std_vector_electron_hOverE" ,                  cms.string("hcalOverEcalByPt")),
