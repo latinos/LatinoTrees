@@ -7479,6 +7479,16 @@ const float reco::SkimEvent::jetpfcsvByPt(size_t i = 0) const {
 const float reco::SkimEvent::jetcmvav2ByPt(size_t i = 0) const {
   return leadingJetBtag(i,"pfCombinedMVAV2BJetTags",                         minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_); 
 }
+const float reco::SkimEvent::jetpfCombinedCvsLJetTagsByPt(size_t i = 0) const {
+  return leadingJetBtag(i,"pfCombinedCvsLJetTags",           minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
+const float reco::SkimEvent::jetpfCombinedCvsBJetTagsByPt(size_t i = 0) const {
+  return leadingJetBtag(i,"pfCombinedCvsBJetTags",           minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
+
+
+
+
 
 //---- Photon
 void reco::SkimEvent::setPhoton(const edm::Handle<edm::View<reco::RecoCandidate> > &h,size_t i){
