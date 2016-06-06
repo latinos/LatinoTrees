@@ -57,6 +57,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     sptTag = cms.InputTag("vertexMapProd","sumPt"),
     spt2Tag = cms.InputTag("vertexMapProd","sumPt2"),
     rhoTag = cms.InputTag("fixedGridRhoFastjetAll"), # miniAOD
+    rhoCaloTag = cms.InputTag("fixedGridRhoFastjetAllCalo"), # miniAOD
     trackJetTag = cms.InputTag(""),
     # branchAlias = cms.string("wwelmu"),
     #hypoType = cms.string("WWELMU"),
@@ -81,9 +82,12 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
 # Run II
         #"200000-400000:HLT_IsoMu20_v*",   -> lowered
         #"200000-400000:HLT_IsoTkMu20_v*", -> lowered
-        "200000-500000:HLT_IsoMu18_v*",
+        "200000-271034:HLT_IsoMu18_v*",
         #"200000-500000:HLT_IsoTkMu18_v*", --> not active at the beginning of RunD
-        "200000-500000:HLT_IsoTkMu20_v*",
+        "200000-271034:HLT_IsoTkMu20_v*",
+# in 2016
+        "271035-500000:HLT_IsoMu20_v*",
+        "271035-500000:HLT_IsoTkMu20_v*",
     ),
     doubleMuDataPaths = cms.vstring(
         #"1-165208:HLT_DoubleMu7_v*",
@@ -182,7 +186,6 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
         "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
 
-
         "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v*",
         "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v*",
         "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*",
@@ -225,6 +228,24 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         # same as analysis triggers
         "HLT_IsoTkMu18_v*",
         "HLT_IsoMu18_v*",
+        
+        # Add new triggers always at the end, to preserve backcompatibility
+        # new ones in 2016
+        "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_v*",
+
+        "HLT_IsoTkMu22_v*",
+        "HLT_IsoMu22_v*",
+        "HLT_IsoTkMu24_v*",
+        "HLT_IsoMu24_v*",
+        
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+        "HLT_Ele27_WPLoose_Gsf_v*",
+
+        # for fakes
+        "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+        "HLT_Ele17_CaloIdL_TrackIdL_IsoVL_v*",
+        "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_v*",
+
         ),
 
 

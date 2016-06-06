@@ -197,6 +197,35 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         predmet = cms.string("-9999"),
         mpmet = cms.string("min(metPfProj,projChargedMetSmurf)"), ##note: min of proj and proj of min are not the same
         imet = cms.string("min(metPfProj,projChargedMetSmurf)*cos(metPfRawPhi-chargedMetSmurfPhi)"),
+	hEtaPlus_counts = cms.string("hEtaPlus_counts"),
+	hEtaMinus_counts = cms.string("hEtaMinus_counts"),
+	h0Barrel_counts = cms.string("h0Barrel_counts"),
+	h0EndcapPlus_counts = cms.string("h0EndcapPlus_counts"),
+	h0EndcapMinus_counts = cms.string("h0EndcapMinus_counts"),
+	gammaBarrel_counts = cms.string("gammaBarrel_counts"),
+	gammaEndcapPlus_counts = cms.string("gammaEndcapPlus_counts"),
+	gammaEndcapMinus_counts = cms.string("gammaEndcapMinus_counts"),
+	hHFPlus_counts = cms.string("hHFPlus_counts"),
+	hHFMinus_counts = cms.string("hHFMinus_counts"),
+	egammaHFPlus_counts = cms.string("egammaHFPlus_counts"),
+	egammaHFMinus_counts = cms.string("egammaHFMinus_counts"),
+
+	hEtaPlus_sumPt = cms.string("hEtaPlus_sumPt"),
+	hEtaMinus_sumPt = cms.string("hEtaMinus_sumPt"),
+	h0Barrel_sumPt = cms.string("h0Barrel_sumPt"),
+	h0EndcapPlus_sumPt = cms.string("h0EndcapPlus_sumPt"),
+	h0EndcapMinus_sumPt = cms.string("h0EndcapMinus_sumPt"),
+	gammaBarrel_sumPt = cms.string("gammaBarrel_sumPt"),
+	gammaEndcapPlus_sumPt = cms.string("gammaEndcapPlus_sumPt"),
+	gammaEndcapMinus_sumPt = cms.string("gammaEndcapMinus_sumPt"),
+	hHFPlus_sumPt = cms.string("hHFPlus_sumPt"),
+	hHFMinus_sumPt = cms.string("hHFMinus_sumPt"),
+	egammaHFPlus_sumPt = cms.string("egammaHFPlus_sumPt"),
+	egammaHFMinus_sumPt = cms.string("egammaHFMinus_sumPt"),
+
+
+
+
         #gammaMRStar = cms.string("gammaMRStar"),
         njet = cms.string("nCentralJets("+CJVminPt+","+CJVmaxEta+",1,"+jetId_WP+")"),
         njetid = cms.string("nCentralJets("+CJVminPt+","+CJVmaxEta+",1,0)"),
@@ -205,6 +234,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         nbjet     = cms.string("bTaggedJetsOver("+CJVminPt+",1.05,'pfJetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+")"),
 
         jetRho = cms.string("getJetRhoIso()"),
+        jetRhoCalo = cms.string("getJetRhoCaloIso()"),
 
         #eleIdVeto1   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto\",\"\",0)"),
         #eleIdLoose1  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose\",\"\",0)"),
@@ -245,6 +275,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 
 	# Vertex Information
 	nGoodVtx     = cms.string("nGoodVertices"),
+
 
         # ZGstar Gen-Level
         Gen_ZGstar_mu1_pt  = cms.string("Gen_ZGstar_mu1_pt"),
@@ -317,7 +348,10 @@ def addMuonIdIsoVariables(process,pt):
 def addEleIdIsoVariables(process,pt):
     if hasattr(pt,"variables"):      
         setattr(pt.variables, "std_vector_electron_dEtaSeedCalo" ,            cms.string("deltaEtaSeedClusterTrackAtCaloByPt")),
+        setattr(pt.variables, "std_vector_electron_dEtaClusterCalo" ,         cms.string("deltaEtaEleClusterTrackAtCaloByPt")),
         setattr(pt.variables, "std_vector_electron_dEtaIn" ,                  cms.string("deltaEtaSuperClusterTrackAtVtxByPt")),
+        setattr(pt.variables, "std_vector_electron_dPhiSeedCalo" ,            cms.string("deltaPhiSeedClusterTrackAtCaloByPt")),
+        setattr(pt.variables, "std_vector_electron_dPhiClusterCalo" ,         cms.string("deltaPhiEleClusterTrackAtCaloByPt")),
         setattr(pt.variables, "std_vector_electron_dPhiIn" ,                  cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
         setattr(pt.variables, "std_vector_electron_full5x5_sigmaIetaIeta",    cms.string("full5x5_sigmaIetaIetaByPt")),
         setattr(pt.variables, "std_vector_electron_hOverE" ,                  cms.string("hcalOverEcalByPt")),
@@ -380,11 +414,11 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.std_vector_jet_ssvhe     = cms.string("jetssvheByPt")
         pt.variables.std_vector_jet_ssvhb     = cms.string("jetssvhbByPt")
         pt.variables.std_vector_jet_pfcsv     = cms.string("jetpfcsvByPt")
-        pt.variables.std_vector_jet_cmvav2      = cms.string("jetcmvav2ByPt")
+        pt.variables.std_vector_jet_cmvav2    = cms.string("jetcmvav2ByPt")
         pt.variables.std_vector_jet_tche      = cms.string("jettcheByPt")
         pt.variables.std_vector_jet_tchp      = cms.string("jettchpByPt")
-        pt.variables.std_vector_jet_bjpb      = cms.string("jetbjpbByPt")
-        pt.variables.std_vector_jet_bjp      = cms.string("jetbjpByPt")
+        pt.variables.std_vector_jet_cCVSLjet  = cms.string("jetpfCombinedCvsLJetTagsByPt")
+        pt.variables.std_vector_jet_cCVSBjet  = cms.string("jetpfCombinedCvsBJetTagsByPt")
 
         pt.variables.std_vector_jet_softMuPt  = cms.string("jetSoftMuonPtByPt")
         pt.variables.std_vector_jet_softMuEta = cms.string("jetSoftMuonEtaByPt")
