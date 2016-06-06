@@ -325,6 +325,7 @@ samples['TTToSemiLeptonic']                     .extend( ['xsec=364.350',	'kfact
 
 # ttDM
 samples['ttDM0001scalar00010'] .extend( ['xsec=19.59'           , 'kfact=1.000', 'ref=J'] )
+samples['ttDM0001scalar0010'] .extend( ['xsec=19.59'           , 'kfact=1.000', 'ref=J'] )
 samples['ttDM0001scalar00020'] .extend( ['xsec=10.48'           , 'kfact=1.000', 'ref=J'] )
 samples['ttDM0001scalar00050'] .extend( ['xsec=2.941'           , 'kfact=1.000', 'ref=J'] )
 samples['ttDM0001scalar00100'] .extend( ['xsec=0.6723'          , 'kfact=1.000', 'ref=J'] )
