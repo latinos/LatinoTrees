@@ -5292,6 +5292,20 @@ const float reco::SkimEvent::expectedMissingInnerHits(size_t i) const {
   else return -999.9;
 }
 
+const float reco::SkimEvent::expectedMissingOuterHits(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfHits(reco::HitPattern::MISSING_OUTER_HITS);
+  else return -999.9;
+}
+
+const float reco::SkimEvent::expectedMissingTrackHits(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfHits(reco::HitPattern::TRACK_HITS);
+  else return -999.9;
+}
+
+
+
 const bool reco::SkimEvent::passConversionVeto(size_t i) const {
   if (i >= leps_.size())  return false;
   else if (isElectron(i)) return getElectron(i)->passConversionVeto();
@@ -5350,6 +5364,30 @@ const float reco::SkimEvent::tripleChargeAgreement(size_t i) const {
   else if (isElectron(i)) return getElectron(i)->chargeInfo().isGsfCtfScPixConsistent;
   else return -999.0;
 }
+
+
+
+const float reco::SkimEvent::gsfchi2(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->chi2();
+  else return -999.0;
+}
+
+
+const float reco::SkimEvent::gsfndof(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->ndof();
+  else return -999.0;
+}
+
+
+const float reco::SkimEvent::gsfnormalizedchi2(size_t i) const {
+  if (i >= leps_.size())  return defaultvalues::defaultFloat;
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->normalizedChi2();
+  else return -999.0;
+}
+
+
 
 // Muon and electron isolation
 

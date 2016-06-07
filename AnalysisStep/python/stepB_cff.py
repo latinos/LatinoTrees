@@ -359,9 +359,16 @@ def addEleIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_electron_effectiveArea",            cms.string("GetElectronEffectiveAreaByPt")),
         setattr(pt.variables, "std_vector_electron_scEta",                    cms.string("etaSCByPt")),
         setattr(pt.variables, "std_vector_electron_expectedMissingInnerHits", cms.string("expectedMissingInnerHitsByPt")),
+        setattr(pt.variables, "std_vector_electron_expectedMissingOuterHits", cms.string("expectedMissingOuterHitsByPt")),
+        setattr(pt.variables, "std_vector_electron_expectedMissingTrackHits", cms.string("expectedMissingTrackHitsByPt")),
         setattr(pt.variables, "std_vector_electron_passConversionVeto",       cms.string("passConversionVetoByPt")),
         setattr(pt.variables, "std_vector_electron_ecalPFClusterIso",         cms.string("ecalPFClusterIsoByPt")),
         setattr(pt.variables, "std_vector_electron_hcalPFClusterIso",         cms.string("hcalPFClusterIsoByPt")),
+        # tracker
+        setattr(pt.variables, "std_vector_electron_gsfchi2",                  cms.string("gsfchi2ByPt")),
+        setattr(pt.variables, "std_vector_electron_gsfndof",                  cms.string("gsfndofByPt")),
+        setattr(pt.variables, "std_vector_electron_gsfnormalizedchi2",        cms.string("gsfnormalizedchi2ByPt")),
+
         # ECAL
         setattr(pt.variables, "std_vector_electron_full5x5R9",         cms.string("full5x5R9ByPt")),
         setattr(pt.variables, "std_vector_electron_R9",                cms.string("R9ByPt")),

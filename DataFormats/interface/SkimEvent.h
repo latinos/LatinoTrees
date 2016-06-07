@@ -934,11 +934,16 @@ namespace reco {
     const float d0                            (size_t i) const;
     const float dz                            (size_t i) const;
     const float expectedMissingInnerHits      (size_t i) const;
+    const float expectedMissingOuterHits      (size_t i) const;
+    const float expectedMissingTrackHits      (size_t i) const;
     const bool  passConversionVeto            (size_t i) const;
     const float hcalPFClusterIso              (size_t i) const;
     const float ecalPFClusterIso              (size_t i) const;
     const float R9                            (size_t i) const;
     const float full5x5R9                     (size_t i) const;
+    const float gsfchi2                       (size_t i) const;
+    const float gsfndof                       (size_t i) const;
+    const float gsfnormalizedchi2             (size_t i) const;
     
     const float Fbrem                         (size_t i) const;
     const float SeedEnergy                    (size_t i) const;
@@ -961,9 +966,16 @@ namespace reco {
     const float d0ByPt                            (size_t i) const { return d0                            (indexByPt(i)); }
     const float dzByPt                            (size_t i) const { return dz                            (indexByPt(i)); }
     const float expectedMissingInnerHitsByPt      (size_t i) const { return expectedMissingInnerHits      (indexByPt(i)); }
+    const float expectedMissingOuterHitsByPt      (size_t i) const { return expectedMissingOuterHits      (indexByPt(i)); }
+    const float expectedMissingTrackHitsByPt      (size_t i) const { return expectedMissingTrackHits      (indexByPt(i)); }
+    
     const bool  passConversionVetoByPt            (size_t i) const { return passConversionVeto            (indexByPt(i)); }
     const float hcalPFClusterIsoByPt              (size_t i) const { return hcalPFClusterIso              (indexByPt(i)); }   
     const float ecalPFClusterIsoByPt              (size_t i) const { return ecalPFClusterIso              (indexByPt(i)); }   
+    const float gsfchi2ByPt                       (size_t i) const { return gsfchi2                       (indexByPt(i)); }   
+    const float gsfndofByPt                       (size_t i) const { return gsfndof                       (indexByPt(i)); }   
+    const float gsfnormalizedchi2ByPt             (size_t i) const { return gsfnormalizedchi2             (indexByPt(i)); }   
+    
     
     
     // Muon and electron isolation
