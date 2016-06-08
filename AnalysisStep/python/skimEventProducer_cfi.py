@@ -144,7 +144,11 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         #"190456-999999:HLT_Ele27_WP80_v*",
 # Run II
         #"200000-400000:HLT_Ele27_eta2p1_WPLoose_Gsf_v*" ---> lower and better
-        "200000-500000:HLT_Ele23_WPLoose_Gsf_v*"
+        "200000-274313:HLT_Ele23_WPLoose_Gsf_v*",
+# unfortunately the previous got prescaled in June 2016, Wed 1st of June, from Run 274314   
+        "274314-500000:HLT_Ele25_WPTight_Gsf_v*",
+        
+        
     ),
     AllEmbedPaths = cms.vstring(
         "1-999999:HLT_*",
@@ -245,6 +249,17 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
         "HLT_Ele17_CaloIdL_TrackIdL_IsoVL_v*",
         "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_v*",
+        
+        # new for fakes
+
+        "HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",
+        "HLT_Ele17_CaloIdM_TrackIdM_PFJet30_v*",
+        "HLT_Ele17_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",       
+        
+        # new for higher luminosity
+        "HLT_Ele25_WPTight_Gsf_v*",
+
+
 
         ),
 
