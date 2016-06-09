@@ -241,7 +241,7 @@ samples['ttHJetToNonbb_M125']   = ['/ttHToNonbb_M125_13TeV_powheg_pythia8/RunIIS
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### bbH
-samples['bbHToWWTo2L2Nu_M125_yb2'] = ['/bbHToWWTo2L2Nu_M-125_4FS_yb2_13TeV_amcatnlo/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=bbHToWWTo2L2Nu_M125_yb2','id=051198', 'doMCweights=True']]
+samples['bbHToWWTo2L2Nu_M125_yb2'] = ['/bbHToWWTo2L2Nu_M-125_4FS_yb2_13TeV_amcatnlo/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=bbHToWWTo2L2Nu_M125_yb2','id=051198', 'doMCweights=True','LHEweightSource=source', 'LHERunInfo=source']]
 #samples['bbHToWWTo2L2Nu_M125_ybyt'] = ['', 'id=051199', 'doMCweights=True']]
 
 #### VBFH >> Khakim
