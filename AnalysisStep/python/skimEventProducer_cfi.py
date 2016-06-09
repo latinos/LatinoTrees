@@ -146,7 +146,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         #"200000-400000:HLT_Ele27_eta2p1_WPLoose_Gsf_v*" ---> lower and better
         "200000-274313:HLT_Ele23_WPLoose_Gsf_v*",
 # unfortunately the previous got prescaled in June 2016, Wed 1st of June, from Run 274314   
-        "274314-500000:HLT_Ele25_WPTight_Gsf_v*",
+        "274314-500000:HLT_Ele35_WPLoose_Gsf_v*",
         
         
     ),
@@ -258,8 +258,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         
         # new for higher luminosity
         "HLT_Ele25_WPTight_Gsf_v*",
-
-
+        "HLT_Ele35_WPLoose_Gsf_v*",
 
         ),
 
