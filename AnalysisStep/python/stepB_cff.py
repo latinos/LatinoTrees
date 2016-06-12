@@ -234,6 +234,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         nbjet     = cms.string("bTaggedJetsOver("+CJVminPt+",1.05,'pfJetBProbabilityBJetTags',"+jetId_WP+","+DzBVeto+")"),
 
         jetRho = cms.string("getJetRhoIso()"),
+        jetRhoCalo = cms.string("getJetRhoCaloIso()"),
 
         #eleIdVeto1   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto\",\"\",0)"),
         #eleIdLoose1  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose\",\"\",0)"),
@@ -347,7 +348,10 @@ def addMuonIdIsoVariables(process,pt):
 def addEleIdIsoVariables(process,pt):
     if hasattr(pt,"variables"):      
         setattr(pt.variables, "std_vector_electron_dEtaSeedCalo" ,            cms.string("deltaEtaSeedClusterTrackAtCaloByPt")),
+        setattr(pt.variables, "std_vector_electron_dEtaClusterCalo" ,         cms.string("deltaEtaEleClusterTrackAtCaloByPt")),
         setattr(pt.variables, "std_vector_electron_dEtaIn" ,                  cms.string("deltaEtaSuperClusterTrackAtVtxByPt")),
+        setattr(pt.variables, "std_vector_electron_dPhiSeedCalo" ,            cms.string("deltaPhiSeedClusterTrackAtCaloByPt")),
+        setattr(pt.variables, "std_vector_electron_dPhiClusterCalo" ,         cms.string("deltaPhiEleClusterTrackAtCaloByPt")),
         setattr(pt.variables, "std_vector_electron_dPhiIn" ,                  cms.string("deltaPhiSuperClusterTrackAtVtxByPt")),
         setattr(pt.variables, "std_vector_electron_full5x5_sigmaIetaIeta",    cms.string("full5x5_sigmaIetaIetaByPt")),
         setattr(pt.variables, "std_vector_electron_hOverE" ,                  cms.string("hcalOverEcalByPt")),
@@ -355,9 +359,16 @@ def addEleIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_electron_effectiveArea",            cms.string("GetElectronEffectiveAreaByPt")),
         setattr(pt.variables, "std_vector_electron_scEta",                    cms.string("etaSCByPt")),
         setattr(pt.variables, "std_vector_electron_expectedMissingInnerHits", cms.string("expectedMissingInnerHitsByPt")),
+        setattr(pt.variables, "std_vector_electron_expectedMissingOuterHits", cms.string("expectedMissingOuterHitsByPt")),
+        setattr(pt.variables, "std_vector_electron_expectedMissingTrackHits", cms.string("expectedMissingTrackHitsByPt")),
         setattr(pt.variables, "std_vector_electron_passConversionVeto",       cms.string("passConversionVetoByPt")),
         setattr(pt.variables, "std_vector_electron_ecalPFClusterIso",         cms.string("ecalPFClusterIsoByPt")),
         setattr(pt.variables, "std_vector_electron_hcalPFClusterIso",         cms.string("hcalPFClusterIsoByPt")),
+        # tracker
+        setattr(pt.variables, "std_vector_electron_gsfchi2",                  cms.string("gsfchi2ByPt")),
+        setattr(pt.variables, "std_vector_electron_gsfndof",                  cms.string("gsfndofByPt")),
+        setattr(pt.variables, "std_vector_electron_gsfnormalizedchi2",        cms.string("gsfnormalizedchi2ByPt")),
+
         # ECAL
         setattr(pt.variables, "std_vector_electron_full5x5R9",         cms.string("full5x5R9ByPt")),
         setattr(pt.variables, "std_vector_electron_R9",                cms.string("R9ByPt")),
@@ -410,11 +421,11 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.std_vector_jet_ssvhe     = cms.string("jetssvheByPt")
         pt.variables.std_vector_jet_ssvhb     = cms.string("jetssvhbByPt")
         pt.variables.std_vector_jet_pfcsv     = cms.string("jetpfcsvByPt")
-        pt.variables.std_vector_jet_cmvav2      = cms.string("jetcmvav2ByPt")
+        pt.variables.std_vector_jet_cmvav2    = cms.string("jetcmvav2ByPt")
         pt.variables.std_vector_jet_tche      = cms.string("jettcheByPt")
         pt.variables.std_vector_jet_tchp      = cms.string("jettchpByPt")
-        pt.variables.std_vector_jet_bjpb      = cms.string("jetbjpbByPt")
-        pt.variables.std_vector_jet_bjp      = cms.string("jetbjpByPt")
+        pt.variables.std_vector_jet_cCVSLjet  = cms.string("jetpfCombinedCvsLJetTagsByPt")
+        pt.variables.std_vector_jet_cCVSBjet  = cms.string("jetpfCombinedCvsBJetTagsByPt")
 
         pt.variables.std_vector_jet_softMuPt  = cms.string("jetSoftMuonPtByPt")
         pt.variables.std_vector_jet_softMuEta = cms.string("jetSoftMuonEtaByPt")

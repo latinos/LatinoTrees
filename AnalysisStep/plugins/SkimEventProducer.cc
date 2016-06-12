@@ -66,6 +66,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     chCandsTag_        = cfg.getParameter<edm::InputTag>("chCandsTag" );
     pfCandsTag_        = cfg.getParameter<edm::InputTag>("pfCandsTag" );
     rhoTag_            = cfg.getParameter<edm::InputTag>("rhoTag" );
+    rhoCaloTag_        = cfg.getParameter<edm::InputTag>("rhoCaloTag" );
     phoTag_	       = cfg.getParameter<edm::InputTag>("phoTag"); //Photon
     trackJetTag_       = cfg.getParameter<edm::InputTag>("trackJetTag");
     dressedMuonTag_    = cfg.getParameter<edm::InputTag>("dressedMuonTag");
@@ -110,6 +111,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     fatJetHT_      = consumes<pat::JetCollection>(fatJetTag_);
     jetHT_         = consumes<pat::JetCollection>(jetTag_);
     rhoT_          = consumes<double>(rhoTag_);
+    rhoCaloT_      = consumes<double>(rhoCaloTag_);
     tagJetHT_      = consumes<pat::JetCollection>(tagJetTag_);
     secondTagJetHT_= consumes<pat::JetCollection>(secondJetTag_);
     pfMetHT_       = consumes<std::vector<pat::MET> >(pfMetTag_);
@@ -203,6 +205,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     edm::Handle<double> rhoJetIso;
     iEvent.getByToken(rhoT_,rhoJetIso);
 
+    edm::Handle<double> rhoCalo;
+    iEvent.getByToken(rhoCaloT_,rhoCalo);
+    
     edm::Handle<pat::JetCollection> tagJetH;
     if(!(tagJetTag_==edm::InputTag(""))) iEvent.getByToken(tagJetHT_,tagJetH);
 
@@ -454,6 +459,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     skimEvent->back().setJets(jetH);
     skimEvent->back().setFatJets(fatJetH);
     skimEvent->back().setJetRhoIso(rhoJetIso);
+    skimEvent->back().setJetRhoCaloIso(rhoCalo);
+    
     skimEvent->back().setPFMet(pfMetH);
     if (pfMetNoHfH.isValid() ) skimEvent->back().setPFMetNoHf(pfMetNoHfH);
     if (pupMetH.isValid() ) skimEvent->back().setPUpMet(pupMetH);

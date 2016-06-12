@@ -18,7 +18,9 @@ export EVENTS=$1
 
 
 # dataset = /RelValTTbar_13/CMSSW_8_0_5-PU25ns_80X_mcRun2_asymptotic_v12_gs7120p2-v1/MINIAODSIM
-export MYFILE=root://eoscms.cern.ch//store/relval/CMSSW_8_0_5/RelValTTbar_13/MINIAODSIM/PU25ns_80X_mcRun2_asymptotic_v12_gs7120p2-v1/00000/C8D488AF-F308-E611-8C6B-0025905A607E.root
+# export MYFILE=root://eoscms.cern.ch//store/relval/CMSSW_8_0_5/RelValTTbar_13/MINIAODSIM/PU25ns_80X_mcRun2_asymptotic_v12_gs7120p2-v1/00000/C8D488AF-F308-E611-8C6B-0025905A607E.root
+# dataset = /WWTo2L2Nu_13TeV-powheg/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM
+export MYFILE=root://eoscms.cern.ch//store/mc/RunIISpring16MiniAODv1/WWTo2L2Nu_13TeV-powheg/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/50000/7A35BF96-9009-E611-A4DF-0090FAA57E94.root
 
 
 rm -rf latino_stepB_mc_numEvent${EVENTS}.root

@@ -161,7 +161,8 @@ struct JetInfo {
         edm::InputTag sptTag_;
         edm::InputTag spt2Tag_;
         edm::InputTag rhoTag_;
-	edm::InputTag phoTag_; //PHOTON
+        edm::InputTag rhoCaloTag_;
+        edm::InputTag phoTag_; //PHOTON
         edm::InputTag trackJetTag_;
         edm::InputTag dressedMuonTag_;
         edm::InputTag dressedElectronTag_;
@@ -174,7 +175,8 @@ struct JetInfo {
 	edm::EDGetTokenT<pat::JetCollection> fatJetHT_ ;
 	edm::EDGetTokenT<pat::JetCollection> jetHT_ ;
 	edm::EDGetTokenT<double> rhoT_  ;
-	edm::EDGetTokenT<pat::JetCollection> tagJetHT_ ;
+        edm::EDGetTokenT<double> rhoCaloT_  ;
+        edm::EDGetTokenT<pat::JetCollection> tagJetHT_ ;
         edm::EDGetTokenT<pat::JetCollection> secondTagJetHT_ ;
 	edm::EDGetTokenT<std::vector<pat::MET> > pfMetHT_;
 	edm::EDGetTokenT<std::vector<pat::MET> > pfMetNoHfHT_;

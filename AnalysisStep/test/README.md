@@ -46,7 +46,7 @@ External documentation.
 *Do this only if you want to use a tag.*
 
     pushd LatinoTrees
-    git checkout tags/13May2016_MoneyMonster_v1
+    git checkout tags/3June2016_NinjaTurtles_v3
     popd
 
 Test the latino tree production.
