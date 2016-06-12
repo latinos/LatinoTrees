@@ -157,6 +157,11 @@ This step, to be applied on both data and MC, requires two good leptons and remo
     gardener.py l2selfiller -r input_folder output_folder
 
 
+    Making XYshift corrected MET
+    gardener.py  metXYshift -c 809 -p Spring16_V0_MET_MC_XYshiftMC_PfType1MetLocal.txt latino_stepB_mc_numEvent10000.root latino_MetCorrected_mc_numEvent10000.root
+    This will add the XYshift corrected met and phi at latinoTree: corrPfType1Met, corrPfType1Phi
+
+
 9. Example of file copy from EOS
 ====
 
