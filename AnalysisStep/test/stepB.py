@@ -353,6 +353,10 @@ dy = False
 import LatinoTrees.AnalysisStep.globalVariables as globalVariables
 
 
+# Use for debugging memory leaks
+### process.SimpleMemoryCheck = cms.Service("SimpleMemoryCheck",ignoreTotal = cms.untracked.int32(1))
+
+
 # SkimEventProducer is where the objects are defined
 #  and all configurations and parameters are defined too
 process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
