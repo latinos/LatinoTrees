@@ -110,7 +110,9 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
 # end of 2011 Data
         #"190456-999999:HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*",
 # Run II
-        "200000-500000:HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*",        
+        "200000-271034:HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*",        
+# in 2016
+        "271035-500000:HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*",
     ),
     muEGDataPaths = cms.vstring(
         #"1-175972:HLT_Mu17_Ele8_CaloIdL_v*",
@@ -144,9 +146,10 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         #"190456-999999:HLT_Ele27_WP80_v*",
 # Run II
         #"200000-400000:HLT_Ele27_eta2p1_WPLoose_Gsf_v*" ---> lower and better
-        "200000-274313:HLT_Ele23_WPLoose_Gsf_v*",
+        "200000-271034:HLT_Ele23_WPLoose_Gsf_v*",
 # unfortunately the previous got prescaled in June 2016, Wed 1st of June, from Run 274314   
-        "274314-500000:HLT_Ele35_WPLoose_Gsf_v*",
+# so we consider directly only the Ele35 for sake of simplicity from the beginning of 2016 datataking
+        "271034-500000:HLT_Ele35_WPLoose_Gsf_v*",
         
         
     ),
