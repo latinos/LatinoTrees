@@ -318,6 +318,8 @@ samples['QCD_Pt_250toInf_bcToE']    		.extend( ['xsec=720.1',		'kfact=1.000',	'r
 samples['WpWpJJ_EWK_QCD']   			.extend( ['xsec=0.05004',	'kfact=1.000',	'ref=I'] )
 samples['WpWpJJ_EWK']   			.extend( ['xsec=0.02526',	'kfact=1.000',	'ref=I'] )
 samples['WpWpJJ_QCD']   			.extend( ['xsec=0.02474',	'kfact=1.000',	'ref=I'] )
+samples['WpWpJJ_EWK_powheg']			.extend( ['xsec=0.007868',	'kfact=1.000',	'ref=I'] )
+samples['WmWmJJ_EWK_powheg']			.extend( ['xsec=0.007868',	'kfact=1.000',	'ref=I'] )
 samples['WpWmJJ_EWK_QCD_noTop']   		.extend( ['xsec=2.66300',	'kfact=1.000',	'ref=I'] )
 samples['WpWmJJ_EWK_noTop']   			.extend( ['xsec=0.35000',	'kfact=1.000',	'ref=X'] )
 samples['WpWmJJ_QCD_noTop']   			.extend( ['xsec=2.42300',	'kfact=1.000',	'ref=I'] )
@@ -338,6 +340,7 @@ samples['DY4JetsToLL']   			.extend( ['xsec=54.22',		'kfact=1.000',	'ref=I'] )
 samples['WGJJ']   				.extend( ['xsec=5.66200',	'kfact=1.000',	'ref=I'] )
 samples['EWKZ2Jets']				.extend( ['xsec=3.99800',	'kfact=1.000',	'ref=I'] )
 samples['TTToSemiLeptonic']                     .extend( ['xsec=364.350',	'kfact=1.000',	'ref=E'] )
+
 
 # ttDM
 samples['ttDM0001scalar00010'] .extend( ['xsec=19.59'           , 'kfact=1.000', 'ref=J'] )
