@@ -150,6 +150,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
 # unfortunately the previous got prescaled in June 2016, Wed 1st of June, from Run 274314   
 # so we consider directly only the Ele35 for sake of simplicity from the beginning of 2016 datataking
         "271034-500000:HLT_Ele35_WPLoose_Gsf_v*",
+        "271034-500000:HLT_Ele27_eta2p1_WPLoose_Gsf_v*",
         
         
     ),
