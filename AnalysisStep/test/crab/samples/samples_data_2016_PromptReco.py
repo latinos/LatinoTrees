@@ -23,16 +23,30 @@ pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 pyCfgParams.append('is50ns=False')
 pyCfgParams.append('isPromptRecoData=True')
 
-# ~~~ First pass
-#config.Data.lumiMask     = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
-# ~~~ Second pass, 218.042/pb
-# https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2648.html
-#config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-273450_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt'
-# ~~~ Third pass, 804.2/pb
-# https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2657.html
-config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-274240_13TeV_PromptReco_Collisions16_JSON.txt'
+
+### ~~~ First pass
+### config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
+### ~~~ Second pass, 0.218/fb
+### https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2648.html
+### config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-273450_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt'
+### ~~~ Third pass, 0.804/fb
+### https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2657.html
+### config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-274240_13TeV_PromptReco_Collisions16_JSON.txt'
+###  ~~~ Fourth pass, 2.583/fb
+### brilcalc lumi -b "STABLE BEAMS" -u /fb -i /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-274443_13TeV_PromptReco_Collisions16_JSON.txt
+### +-------+------+-------+-------+-------------------+------------------+
+### | nfill | nrun | nls   | ncms  | totdelivered(/fb) | totrecorded(/fb) |
+### +-------+------+-------+-------+-------------------+------------------+
+### | 23    | 65   | 29211 | 29206 | 2.693             | 2.583            |
+### +-------+------+-------+-------+-------------------+------------------+
+### #Check JSON:
+### #(run,ls) in json but not in results: [(273158, 10), (274094, 105), (274094, 106), (274094, 107)]
+
+
+config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-274443_13TeV_PromptReco_Collisions16_JSON.txt'
 config.Data.splitting     = 'LumiBased'
 config.Data.unitsPerJob   = 4
 #config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/May20/data/25ns/'
 #config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jun03/data/25ns/'
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jun07/data/25ns/'
+#config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jun07/data/25ns/'
+config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jun21/data/25ns/'
