@@ -218,8 +218,8 @@ samples['ttHJetTobb_M125_B']		.extend( ['xsec=0.2951',     	'kfact=1.000',		'ref
 samples['ttHJetTobb_M125_C']		.extend( ['xsec=0.2951',     	'kfact=1.000',		'ref=OE'] ) # 0.5071*0.582
 
 #### bbH
-samples['bbHToWWTo2L2Nu_M125_yb2']      .extend( ['xsec=0.3909',	 'kfact=1.000',		'ref=N'] ) # 0.0115 = 0.5116*0.215*0.108*0.108*9 Higgs LHC value
-samples['bbHToWWTo2L2Nu_M125_ybyt']     .extend( ['xsec=0.03293',        'kfact=1.000',         'ref=N'] ) # from bbWW AN it has to be negative
+samples['bbHToWWTo2L2Nu_M125_yb2']      .extend( ['xsec=0.00882255',	 'kfact=1.000',		'ref=N'] ) # 0.00882255 = 0.3909*0.215*0.108*0.108*9
+samples['bbHToWWTo2L2Nu_M125_ybyt']     .extend( ['xsec=0.000743225',    'kfact=1.000',         'ref=N'] ) # 0.000743225 = -0.03293*0.215*0.108*0.108*9
 
 
 ## VBF
