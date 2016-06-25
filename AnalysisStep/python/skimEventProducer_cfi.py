@@ -86,8 +86,8 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         #"200000-500000:HLT_IsoTkMu18_v*", --> not active at the beginning of RunD
         "200000-271034:HLT_IsoTkMu20_v*",
 # in 2016
-        "271035-500000:HLT_IsoMu20_v*",
-        "271035-500000:HLT_IsoTkMu20_v*",
+        "271035-500000:HLT_IsoMu22_v*",
+        "271035-500000:HLT_IsoTkMu22_v*",
     ),
     doubleMuDataPaths = cms.vstring(
         #"1-165208:HLT_DoubleMu7_v*",
