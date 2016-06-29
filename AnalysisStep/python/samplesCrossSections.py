@@ -52,7 +52,7 @@ samples['DYJetsToLL_M-50_HT-600toInf']      .extend(['xsec=2.198',	'kfact=1.2308
 samples['DYJetsToLL_M-50_HT-600toInf_ext1']  .extend(['xsec=2.198',	'kfact=1.230889',		'ref=E']) 
 
 samples['DYJetsToEE_Pow']               .extend( ['xsec=1997',       'kfact=1.000',          'ref=E'] )
-
+samples['DYJetsToTT_MuEle_M-50']        .extend( ['xsec=248.849',       'kfact=1.000',          'ref=E'] ) # (6025.20/3)*(0.352)^2
 
 ## VV 
 samples['WW-LO']                        .extend( ['xsec=114.726',       'kfact=1.000',          'ref=E'] )   # 118.7 from E - 3.974 still from E              
