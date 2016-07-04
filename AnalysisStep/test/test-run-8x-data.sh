@@ -80,5 +80,3 @@ cmsRun stepB.py print                \
 python cmssw2latino.py stepB_data_numEvent${EVENTS}.root
 
 rm -rf stepB_data_numEvent${EVENTS}.root
-
-

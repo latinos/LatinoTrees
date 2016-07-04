@@ -25,35 +25,36 @@ pyCfgParams.append('isPromptRecoData=True')
 
 
 ### ~~~ First pass
-### config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
-###
+# config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
+#
 ### ~~~ Second pass, 0.218/fb
-### https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2648.html
-### config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-273450_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt'
-###
+# https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2648.html
+# config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-273450_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt'
+#
 ### ~~~ Third pass, 0.804/fb
-### https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2657.html
-### config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-274240_13TeV_PromptReco_Collisions16_JSON.txt'
-###
-###  ~~~ Fourth pass, 2.583/fb
-### brilcalc lumi -b "STABLE BEAMS" -u /fb -i /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-274443_13TeV_PromptReco_Collisions16_JSON.txt
-### +-------+------+-------+-------+-------------------+------------------+
-### | nfill | nrun | nls   | ncms  | totdelivered(/fb) | totrecorded(/fb) |
-### +-------+------+-------+-------+-------------------+------------------+
-### | 23    | 65   | 29211 | 29206 | 2.693             | 2.583            |
-### +-------+------+-------+-------+-------------------+------------------+
-### #Check JSON:
-### #(run,ls) in json but not in results: [(273158, 10), (274094, 105), (274094, 106), (274094, 107)]
-###
-###  ~~~ Fifth pass, 3.997/fb
-### brilcalc lumi -b "STABLE BEAMS" -u /fb -i /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-275125_13TeV_PromptReco_Collisions16_JSON.txt 
-### +-------+------+-------+-------+-------------------+------------------+
-### | nfill | nrun | nls   | ncms  | totdelivered(/fb) | totrecorded(/fb) |
-### +-------+------+-------+-------+-------------------+------------------+
-### | 28    | 83   | 40530 | 40525 | 4.167             | 3.997            |
-### +-------+------+-------+-------+-------------------+------------------+
-### #Check JSON:
-### #(run,ls) in json but not in results: [(273158, 10)]
+# https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2657.html
+# config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-274240_13TeV_PromptReco_Collisions16_JSON.txt'
+#
+### ~~~ Fourth pass, 2.583/fb
+# brilcalc lumi -b "STABLE BEAMS" -u /fb -i /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-274443_13TeV_PromptReco_Collisions16_JSON.txt
+# +-------+------+-------+-------+-------------------+------------------+
+# | nfill | nrun | nls   | ncms  | totdelivered(/fb) | totrecorded(/fb) |
+# +-------+------+-------+-------+-------------------+------------------+
+# | 23    | 65   | 29211 | 29206 | 2.693             | 2.583            |
+# +-------+------+-------+-------+-------------------+------------------+
+# #Check JSON:
+# #(run,ls) in json but not in results: [(273158, 10), (274094, 105), (274094, 106), (274094, 107)]
+#
+### ~~~ Fifth pass, 4.011/fb
+# brilcalc lumi -b "STABLE BEAMS" \
+#               --normtag /afs/cern.ch/user/l/lumipro/public/normtag_file/normtag_DATACERT.json \
+#               -u /fb \
+#               -i /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-275125_13TeV_PromptReco_Collisions16_JSON.txt
+# +-------+------+-------+-------+-------------------+------------------+
+# | nfill | nrun | nls   | ncms  | totdelivered(/fb) | totrecorded(/fb) |
+# +-------+------+-------+-------+-------------------+------------------+
+# | 28    | 83   | 40546 | 40541 | 4.182             | 4.011            |
+# +-------+------+-------+-------+-------------------+------------------+
 
 
 config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-275125_13TeV_PromptReco_Collisions16_JSON.txt'
