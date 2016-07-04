@@ -179,91 +179,94 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     SelectedPaths = cms.vstring(
         
         # Physics paths: needed to choose a posteriori the soup
-        "HLT_Ele27_eta2p1_WPLoose_Gsf_v*",        
-        "HLT_Ele23_WPLoose_Gsf_v*",
-        "HLT_Ele22_eta2p1_WPLoose_Gsf_v*",        
-        "HLT_Ele27_eta2p1_WPTight_Gsf_v*",
-         
-         
-        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
-        "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+        "HLT_Ele27_eta2p1_WPLoose_Gsf_v*",                                    # 0
+        "HLT_Ele23_WPLoose_Gsf_v*",                                           # 1
+        "HLT_Ele22_eta2p1_WPLoose_Gsf_v*",                                    # 2
+        "HLT_Ele27_eta2p1_WPTight_Gsf_v*",                                    # 3
+                                                                                
+                                                                                
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v*",                          # 4
+        "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*",                       # 5
      
      
-        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v*",
-        "HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v*",
-        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
-        "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v*",                  # 6
+        "HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v*",                  # 7
+        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",                 # 8
+        "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",                 # 9
 
-        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v*",
-        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v*",
-        "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*",
-        "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v*",
-        "HLT_Mu27_TkMu8_v*",
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v*",                             # 10
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v*",                                # 11
+        "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*",                           # 12
+        "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v*",                              # 13
+        "HLT_Mu27_TkMu8_v*",                                                  # 14
 
-        "HLT_IsoMu27_v*",
-        "HLT_IsoMu20_v*",
-        "HLT_IsoTkMu20_v*",
+        "HLT_IsoMu27_v*",                                                     # 15
+        "HLT_IsoMu20_v*",                                                     # 16
+        "HLT_IsoTkMu20_v*",                                                   # 17
 
 
         # Muon (8 paths)
-        "HLT_Mu8_v*",
-        "HLT_Mu17_v*",
-        "HLT_Mu24_v*",
-        "HLT_Mu34_v*",
-        "HLT_Mu8_TrkIsoVVL_v*",
-        "HLT_Mu17_TrkIsoVVL_v*",
-        "HLT_Mu24_TrkIsoVVL_v*",
-        "HLT_Mu34_TrkIsoVVL_v*",
+        "HLT_Mu8_v*",                                                         # 18
+        "HLT_Mu17_v*",                                                        # 19
+        "HLT_Mu24_v*",                                                        # 20
+        "HLT_Mu34_v*",                                                        # 21
+        "HLT_Mu8_TrkIsoVVL_v*",                                               # 22
+        "HLT_Mu17_TrkIsoVVL_v*",                                              # 23
+        "HLT_Mu24_TrkIsoVVL_v*",                                              # 24
+        "HLT_Mu34_TrkIsoVVL_v*",                                              # 25
 
         # EG (9 paths)
-        "HLT_Ele8_CaloIdM_TrackIdM_PFJet30_v*",
-        "HLT_Ele12_CaloIdM_TrackIdM_PFJet30_v*",
-        "HLT_Ele18_CaloIdM_TrackIdM_PFJet30_v*",
-        "HLT_Ele23_CaloIdM_TrackIdM_PFJet30_v*",
-        "HLT_Ele33_CaloIdM_TrackIdM_PFJet30_v*",
-        "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",
-        "HLT_Ele18_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",
-        "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",
-        "HLT_Ele33_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",
+        "HLT_Ele8_CaloIdM_TrackIdM_PFJet30_v*",                               # 26
+        "HLT_Ele12_CaloIdM_TrackIdM_PFJet30_v*",                              # 27
+        "HLT_Ele18_CaloIdM_TrackIdM_PFJet30_v*",                              # 28
+        "HLT_Ele23_CaloIdM_TrackIdM_PFJet30_v*",                              # 29
+        "HLT_Ele33_CaloIdM_TrackIdM_PFJet30_v*",                              # 30
+        "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",                        # 31
+        "HLT_Ele18_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",                        # 32
+        "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",                        # 33
+        "HLT_Ele33_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",                        # 34
         
         
         # 3 lepton triggers        
-        "HLT_TripleMu_12_10_5_v*",
-        "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_v*",
-        "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v*",
-        "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_v*",
+        "HLT_TripleMu_12_10_5_v*",                                            # 35
+        "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_v*",                                 # 36
+        "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v*",                                # 37
+        "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_v*",                           # 38
         
         # same as analysis triggers
-        "HLT_IsoTkMu18_v*",
-        "HLT_IsoMu18_v*",
+        "HLT_IsoTkMu18_v*",                                                   # 39
+        "HLT_IsoMu18_v*",                                                     # 40
         
         # Add new triggers always at the end, to preserve backcompatibility
         # new ones in 2016
-        "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_v*",
+        "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_v*",                  # 41
 
-        "HLT_IsoTkMu22_v*",
-        "HLT_IsoMu22_v*",
-        "HLT_IsoTkMu24_v*",
-        "HLT_IsoMu24_v*",
+        "HLT_IsoTkMu22_v*",                                                   # 42
+        "HLT_IsoMu22_v*",                                                     # 43
+        "HLT_IsoTkMu24_v*",                                                   # 44
+        "HLT_IsoMu24_v*",                                                     # 45
         
-        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*",
-        "HLT_Ele27_WPLoose_Gsf_v*",
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v*",                       # 46
+        "HLT_Ele27_WPLoose_Gsf_v*",                                           # 47
 
         # for fakes
-        "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
-        "HLT_Ele17_CaloIdL_TrackIdL_IsoVL_v*",
-        "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_v*",
+        "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_v*",                                # 48
+        "HLT_Ele17_CaloIdL_TrackIdL_IsoVL_v*",                                # 49
+        "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_v*",                                # 50
         
         # new for fakes
 
-        "HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",
-        "HLT_Ele17_CaloIdM_TrackIdM_PFJet30_v*",
-        "HLT_Ele17_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",       
+        "HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",                         # 51
+        "HLT_Ele17_CaloIdM_TrackIdM_PFJet30_v*",                              # 52
+        "HLT_Ele17_CaloIdL_TrackIdL_IsoVL_PFJet30_v*",                        # 53
         
         # new for higher luminosity
-        "HLT_Ele25_WPTight_Gsf_v*",
-        "HLT_Ele35_WPLoose_Gsf_v*",
+        "HLT_Ele25_WPTight_Gsf_v*",                                           # 54
+        "HLT_Ele35_WPLoose_Gsf_v*",                                           # 55
 
+        # and even higher!
+        "HLT_Ele45_WPLoose_Gsf_v*",                                           # 56
+        
         ),
 
 
