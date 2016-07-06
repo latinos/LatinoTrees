@@ -180,7 +180,7 @@ samples['GluGluHToWWTo2L2Nu_M800']       = ['/GluGluHToWWTo2L2Nu_M800_13TeV_powh
 samples['GluGluHToWWTo2L2Nu_M900']       = ['/GluGluHToWWTo2L2Nu_M900_13TeV_powheg_JHUgenv628_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M900',       'id=01900', 'doMCweights=True']]
 samples['GluGluHToWWTo2L2Nu_M1000']      = ['/GluGluHToWWTo2L2Nu_M1000_13TeV_powheg_JHUgenv628_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM', ['label=GluGluHToWWTo2L2Nu_M1000',      'id=02000', 'doMCweights=True']]
 
-
+samples['GluGluHToWWTo2L2Nu_M750_NWA']   = ['/GluGluHToWWTo2L2Nu_M750_NWA_13TeV_powheg_JHUgenv628_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M750_NWA',       'id=017501', 'doMCweights=True']]
 
 
 
