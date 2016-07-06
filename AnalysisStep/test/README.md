@@ -4,6 +4,7 @@
 Latino's twiki and indico pages.
 
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkFor2015
+    https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkTutorials
     https://indico.cern.ch/category/3374/
 
 External documentation.
