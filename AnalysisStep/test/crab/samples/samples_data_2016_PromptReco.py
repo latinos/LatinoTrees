@@ -11,6 +11,7 @@
 #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
 samples['DoubleEG_Run2016B-PromptReco-v2']       = ['/DoubleEG/Run2016B-PromptReco-v2/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016B-PromptReco-v2']     = ['/DoubleMuon/Run2016B-PromptReco-v2/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016B-PromptReco-v2']         = ['/MuonEG/Run2016B-PromptReco-v2/MINIAOD',         ['label=MuEG']]
@@ -35,7 +36,7 @@ pyCfgParams.append('isPromptRecoData=True')
 # https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2657.html
 # config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-274240_13TeV_PromptReco_Collisions16_JSON.txt'
 #
-### ~~~ Fourth pass, 2.597/fb
+### ~~~ Fourth pass, 2.790/fb
 # brilcalc lumi -b "STABLE BEAMS" \
 #               --normtag /afs/cern.ch/user/l/lumipro/public/normtag_file/normtag_DATACERT.json \
 #               -u /fb \
@@ -43,13 +44,10 @@ pyCfgParams.append('isPromptRecoData=True')
 # +-------+------+-------+-------+-------------------+------------------+
 # | nfill | nrun | nls   | ncms  | totdelivered(/fb) | totrecorded(/fb) |
 # +-------+------+-------+-------+-------------------+------------------+
-# | 23    | 65   | 29227 | 29222 | 2.707             | 2.597            |
+# | 23    | 65   | 29190 | 29185 | 2.909             | 2.790            |
 # +-------+------+-------+-------+-------------------+------------------+
 #
-# Warning: problems found in merging -i and --normtag selections:
-#   run 274094, [[103, 104], [108, 338]] is not a superset of [[105, 332]]
-#
-### ~~~ Fifth pass, 4.011/fb
+### ~~~ Fifth pass, 4.336/fb
 # brilcalc lumi -b "STABLE BEAMS" \
 #               --normtag /afs/cern.ch/user/l/lumipro/public/normtag_file/normtag_DATACERT.json \
 #               -u /fb \
@@ -57,7 +55,7 @@ pyCfgParams.append('isPromptRecoData=True')
 # +-------+------+-------+-------+-------------------+------------------+
 # | nfill | nrun | nls   | ncms  | totdelivered(/fb) | totrecorded(/fb) |
 # +-------+------+-------+-------+-------------------+------------------+
-# | 28    | 83   | 40546 | 40541 | 4.182             | 4.011            |
+# | 28    | 83   | 40509 | 40504 | 4.521             | 4.336            |
 # +-------+------+-------+-------+-------------------+------------------+
 
 
@@ -70,4 +68,4 @@ config.Data.unitsPerJob    = 6
 #config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jun21/data/25ns/'
 config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jul05/data/25ns/'
 config.Data.runRange       = '274444-275125'
-config.JobType.maxMemoryMB = 3000
+config.JobType.maxMemoryMB = 2500
