@@ -117,51 +117,13 @@ The luminosity for Moriond is 2.318/fb.
 7. Run cmssw2latino
 ====
 
-You can choose between `multiLxbatchCmssw2latino.py` and `multiLxbatchCmssw2latino_split.py`.
-    
-    python multiLxbatchCmssw2latino.py       samples/listFiles.py
     python multiLxbatchCmssw2latino_split.py samples/listFiles.py [number of files per hadd, default is 200]
 
 
 8. Postprocess the latino trees
 ====
 
-To add the PU weight in the MC latino trees we need to be provided with a PU json file. Once we have it one person should produce and share the `pudata.root` file.
-
-    pushd /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV
-    pileupCalc.py \
-        -i Cert_246908-258750_13TeV_PromptReco_Collisions15_25ns_JSON.txt \
-        --inputLumiJSON=PileUp/pileup_latest.txt \
-        --calcMode=true \
-        --minBiasXsec=69000 \
-        --maxPileupBin=50 \
-        --numPileupBins=50 \
-        /afs/cern.ch/user/p/piedra/work/pudata.root
-    popd
-
-Steps to be followed (in this order) for MC. Please have a look at the Gardener [README](https://github.com/latinos/LatinoAnalysis/blob/master/Gardener/test/README.md) for detailed instructions.
-
-    gardener.py mcweightsfiller -r input_folder output_folder
-
-    gardener.py puadder -r input_folder output_folder \
-        --data=pudata.root \
-        --HistName=pileup \
-        --branch=puW \
-        --kind=trpu
-
-    gardener.py adder -v 'baseW/F=<number from google doc>' latino_input.root latino_output.root  
-
-    gardener.py wwNLLcorrections -m 'powheg' latino_WW.root latino_WW_NLL.root
-
-This step, to be applied on both data and MC, requires two good leptons and removes them from the jet collection.
-
-    gardener.py l2selfiller -r input_folder output_folder
-
-
-Making XYshift corrected MET
-
-    gardener.py  metXYshift -c 809 -p Spring16_V0_MET_MC_XYshiftMC_PfType1MetLocal.txt latino_stepB_mc_numEvent10000.root latino_MetCorrected_mc_numEvent10000.root
-    This will add the XYshift corrected met and phi at latinoTree: corrPfType1Met, corrPfType1Phi
+Done centrally by Xavier.
 
 
 9. Example of file copy from EOS
