@@ -117,7 +117,11 @@ The luminosity for Moriond is 2.318/fb.
 7. Run cmssw2latino
 ====
 
-    python multiLxbatchCmssw2latino_split.py samples/listFiles.py [number of files per hadd, default is 200]
+The default number of files per hadd is 200. *Please change it to smaller values if the output file size is bigger than 1 GB.*
+
+    python multiLxbatchCmssw2latino_split.py samples/listFiles.py 200
+
+*Do not forget to delete all stepB.root files from old latino productions. We have a limited eos space.*
 
 
 8. Postprocess the latino trees
