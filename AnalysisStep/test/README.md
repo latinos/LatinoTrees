@@ -69,7 +69,7 @@ The CRAB client can be sourced using the command below.
 
     source /cvmfs/cms.cern.ch/crab3/crab.sh
 
-Or the new, preferred way. (Both commands have to be executed after cmsenv.)
+Or the new, preferred way. *Both commands have to be executed after cmsenv.*
 
     source /cvmfs/cms.cern.ch/crab3/crab_light.sh
 
@@ -122,40 +122,15 @@ The luminosity for Moriond is 2.318/fb.
 7. Run cmssw2latino
 ====
 
-The default number of files per hadd is 200. *Please change it to smaller values if the output file size is bigger than 1 GB.*
+The default number of files per *hadd* is 100. Please change it to smaller values if the output file size is bigger than 1 GB.
 
-    python multiLxbatchCmssw2latino_split.py samples/listFiles.py 200
+    python multiLxbatchCmssw2latino_split.py samples/listFiles.py 100
 
-*Do not forget to delete all stepB.root files from old latino productions. We have a limited eos space.*
+Do not forget to delete all stepB.root files from old latino productions. We have a limited eos space.
 
 
 8. Postprocess the latino trees
 ====
 
 Done centrally by Xavier.
-
-
-9. Example of file copy from EOS
-====
-
-Mount eos if you need to rearrange the source files.
-
-    ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
-    eosmount  eos
-    eosumount eos
-
-Verify the location of the source files.
-
-    eos ls /eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/Run2015D_PromptReco
-
-Login to gridui.
-
-    ssh -Y gridui.ifca.es -o ServerAliveInterval=240
-    cd /gpfs/csic_projects/cms/piedra/work/CMSSW_7_5_3/src
-    source /cvmfs/cms.cern.ch/cmsset_default.sh
-    cmsenv
-
-Go to the destination folder and copy all the files from the source directory.
-
-    xrdcp --recursive root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/21Oct/data/25ns/Run2015D_PromptReco .
 
