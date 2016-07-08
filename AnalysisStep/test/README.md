@@ -132,5 +132,5 @@ Do not forget to delete all stepB.root files from old latino productions. We hav
 8. Postprocess the latino trees
 ====
 
-Done centrally by Xavier.
+    https://twiki.cern.ch/twiki/bin/view/CMS/LatinosTreesRun2
 
