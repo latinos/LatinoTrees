@@ -134,3 +134,14 @@ Do not forget to delete all stepB.root files from old latino productions. We hav
 
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosTreesRun2
 
+
+A. Combine
+====
+
+This page documents the CombineHarvester framework for the production and
+analysis of datacards for use with the CMS combine tool. The central part of
+this framework is the CombineHarvester class, which provides a representation
+of the text-format datacards and the associated shape input.
+
+    http://cms-analysis.github.io/CombineHarvester/
+
