@@ -6,10 +6,10 @@ if __name__ == '__main__':
     print sys.argv
     if len(sys.argv) <= 1 :
         print "No arguments?"
-        print "Usage to submit:     python multiLxbatchCmssw2latino_split.py file.py [number of files per hadd, default is 500]"
+        print "Usage to submit:     python multiLxbatchCmssw2latino_split.py file.py [number of files per hadd, default is 100]"
         exit()
 
-    nfiles_hadd = '500'
+    nfiles_hadd = '100'
     if len(sys.argv) == 3 :
         nfiles_hadd = sys.argv[2]
 
