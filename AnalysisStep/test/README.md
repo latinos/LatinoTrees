@@ -55,18 +55,23 @@ Test the latino tree production.
     scram b -j 10
     cd LatinoTrees/AnalysisStep/test/
 
-    ./test-run.sh         100
     ./test-run-8x-data.sh 100
     ./test-run-8x-mc.sh   100
 
-For 76X 2015 data and MC the frozen version is *18Jan2016_StarWars_v3_frozenFor76x*
+For 76x 2015 data and MC the frozen version is *18Jan2016_StarWars_v3_frozenFor76x*.
 
 4. Setup CRAB
 ====
 
     cd LatinoTrees/AnalysisStep/test/crab
 
+The CRAB client can be sourced using the command below.
+
     source /cvmfs/cms.cern.ch/crab3/crab.sh
+
+Or the new, preferred way. (Both commands have to be executed after cmsenv.)
+
+    source /cvmfs/cms.cern.ch/crab3/crab_light.sh
 
 Check if you have writing permissions in the common area.
 
