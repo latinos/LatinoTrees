@@ -65,11 +65,7 @@ For 76x 2015 data and MC the frozen version is *18Jan2016_StarWars_v3_frozenFor7
 
     cd LatinoTrees/AnalysisStep/test/crab
 
-The CRAB client can be sourced using the command below.
-
-    source /cvmfs/cms.cern.ch/crab3/crab.sh
-
-Or the new, preferred way. *Both commands have to be executed after cmsenv.*
+The CRAB client can be sourced using the command below *after cmsenv*.
 
     source /cvmfs/cms.cern.ch/crab3/crab_light.sh
 

@@ -15,7 +15,7 @@ pyCfgParams = ['outputFile=stepB.root',
 
 config.section_('General')
 config.General.transferLogs = True
-config.General.workArea     = 'crabdir'  # Make sure you set this parameter
+config.General.workArea     = 'crabdir_Jul08'  # Make sure you set this parameter
 
 config.section_('JobType')
 config.JobType.pluginName       = 'Analysis'
