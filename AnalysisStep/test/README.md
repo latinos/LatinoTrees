@@ -81,7 +81,6 @@ Submit jobs.
 
     python multicrab.py samples/samples_spring15_miniaodv2_25ns.py
     python multicrab.py samples/samples_dataD_05Oct2015_25ns.py
-    python multicrab.py samples/samples_dataD_PromptReco_25ns.py
 
 Resubmit jobs.
 
@@ -89,9 +88,8 @@ Resubmit jobs.
 
 Check status.
     
-    crab status crab_projects_21October/crab_Run2015D_PromptReco_25ns_DoubleMuon
-
     python multicrab.py crab_projects_21October status
+
 
 6. How much luminosity?
 ====
@@ -107,7 +105,6 @@ Check status.
 
     brilcalc lumi -u /pb -i missingLumiSummary.json
 
-    
 The luminosity for Moriond is 2.318/fb.
         
     brilcalc lumi --begin 254230 --end 999999 -u /fb \
