@@ -291,28 +291,29 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
 
 # 76X (2015 data)
 #-----------------
-    SpecialPaths = cms.vstring(
-        "Flag_HBHENoiseFilter",
-        "Flag_HBHENoiseIsoFilter",
-        "Flag_CSCTightHalo2015Filter",
-        "Flag_EcalDeadCellTriggerPrimitiveFilter",
-        "Flag_goodVertices",
-        "Flag_eeBadScFilter",
-        "Flag_chargedHadronTrackResolutionFilter",
-        "Flag_muonBadTrackFilter"
-        ),
-
-
-# 80x (2016 data)
-#-----------------
 #    SpecialPaths = cms.vstring(
 #        "Flag_HBHENoiseFilter",
 #        "Flag_HBHENoiseIsoFilter",
+#        "Flag_CSCTightHalo2015Filter",
 #        "Flag_EcalDeadCellTriggerPrimitiveFilter",
 #        "Flag_goodVertices",
 #        "Flag_eeBadScFilter",
-#        "Flag_globalTightHalo2016Filter"
+#        "Flag_chargedHadronTrackResolutionFilter",
+#        "Flag_muonBadTrackFilter"
 #        ),
+
+
+# 80x (2016 data)
+# Activated from run 275784 (July11_NoL1T latino processing)
+#-----------------
+    SpecialPaths = cms.vstring(
+        "Flag_HBHENoiseFilter",
+        "Flag_HBHENoiseIsoFilter",
+        "Flag_EcalDeadCellTriggerPrimitiveFilter",
+        "Flag_goodVertices",
+        "Flag_eeBadScFilter",
+        "Flag_globalTightHalo2016Filter"
+        ),
 
 
     #looseMuSelection  = cms.string(PRESEL_MU + "&&" + MUON_ID_LOOSE),
