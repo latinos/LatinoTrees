@@ -58,14 +58,14 @@ pyCfgParams.append('isPromptRecoData=True')
 ### Jul15_DCSONLY
 #
 # json_DCSONLY.txt
-# config.Data.runRange = '276098-276811'
+# config.Data.runRange = '276098-276581'
 
 
 config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
 config.Data.splitting      = 'LumiBased'
 config.Data.unitsPerJob    = 6
 config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jul15_DCSONLY/data/25ns/'
-config.Data.runRange       = '276098-276811'
+config.Data.runRange       = '276098-276581'
 config.JobType.maxMemoryMB = 2500
 
 
