@@ -4,8 +4,7 @@
 #
 # Reading Run2016*-PromptReco-v* processing, produced with CMSSW 8_0_5
 #
-# DAS query: dataset=/*/Run2016B-PromptReco-v*/MINIAOD
-# https://cmsweb.cern.ch/das/request?view=list&limit=50&instance=prod%2Fglobal&input=dataset%3D%2F*%2FRun2016B-PromptReco-v*%2FMINIAOD
+# DAS query: dataset=/*/Run2016*-PromptReco-v*/MINIAOD
 #
 # For GT and more, see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD
 #
@@ -23,6 +22,12 @@ samples['DoubleMuon_Run2016C-PromptReco-v2']     = ['/DoubleMuon/Run2016C-Prompt
 samples['MuonEG_Run2016C-PromptReco-v2']         = ['/MuonEG/Run2016C-PromptReco-v2/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016C-PromptReco-v2'] = ['/SingleElectron/Run2016C-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016C-PromptReco-v2']     = ['/SingleMuon/Run2016C-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
+
+samples['DoubleEG_Run2016D-PromptReco-v2']       = ['/DoubleEG/Run2016D-PromptReco-v2/MINIAOD',       ['label=DoubleEG']]
+samples['DoubleMuon_Run2016D-PromptReco-v2']     = ['/DoubleMuon/Run2016D-PromptReco-v2/MINIAOD',     ['label=DoubleMuon']]
+samples['MuonEG_Run2016D-PromptReco-v2']         = ['/MuonEG/Run2016D-PromptReco-v2/MINIAOD',         ['label=MuEG']]
+samples['SingleElectron_Run2016D-PromptReco-v2'] = ['/SingleElectron/Run2016D-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
+samples['SingleMuon_Run2016D-PromptReco-v2']     = ['/SingleMuon/Run2016D-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
 
 
 pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
@@ -50,13 +55,17 @@ pyCfgParams.append('isPromptRecoData=True')
 # Cert_271036-276097_13TeV_PromptReco_Collisions16_JSON_NoL1T_v2.txt
 # config.Data.runRange = '275784-276097'
 #
+### Jul15_DCSONLY
+#
+# json_DCSONLY.txt
+# config.Data.runRange = '276098-276811'
 
 
-config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-276097_13TeV_PromptReco_Collisions16_JSON_NoL1T_v2.txt'
+config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/DCSOnly/json_DCSONLY.txt'
 config.Data.splitting      = 'LumiBased'
 config.Data.unitsPerJob    = 6
-config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jul11_NoL1T/data/25ns/'
-config.Data.runRange       = '275784-276097'
+config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jul15_DCSONLY/data/25ns/'
+config.Data.runRange       = '276098-276811'
 config.JobType.maxMemoryMB = 2500
 
 
