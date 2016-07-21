@@ -74,7 +74,8 @@ config.JobType.maxMemoryMB = 2500
 #   ----------+----------+--------
 #    Run2016B |   272007 | 275376
 #    Run2016C |   275657 | 276283
-#    Run2016D |   276315 |
+#    Run2016D |   276315 | 276811
+#    Run2016E |   276831 |
 #   ------------------------------
 #
 # https://twiki.cern.ch/twiki/bin/view/CMS/PdmV2016Analysis
