@@ -328,10 +328,10 @@ samples['QCD_Pt_170to250_bcToE']    		.extend( ['xsec=2607',		'kfact=1.000',	're
 samples['QCD_Pt_250toInf_bcToE']    		.extend( ['xsec=720.1',		'kfact=1.000',	'ref=I'] )
 
 # VBS
-samples['WpWpJJ_EWK_QCD']   			.extend( ['xsec=0.05004',	'kfact=1.000',	'ref=I'] )
+samples['WpWpJJ_EWK_QCD']   			.extend( ['xsec=0.05454',	'kfact=1.000',	'ref=I'] )
 samples['WpWpJJ_EWK']   			.extend( ['xsec=0.02526',	'kfact=1.000',	'ref=I'] )
 samples['WpWpJJ_QCD']   			.extend( ['xsec=0.02474',	'kfact=1.000',	'ref=I'] )
-samples['WpWpJJ_EWK_powheg']			.extend( ['xsec=0.007868',	'kfact=1.000',	'ref=I'] )
+samples['WpWpJJ_EWK_powheg']			.extend( ['xsec=0.02093',	'kfact=1.000',	'ref=I'] )
 samples['WmWmJJ_EWK_powheg']			.extend( ['xsec=0.007868',	'kfact=1.000',	'ref=I'] )
 samples['WpWmJJ_EWK_QCD_noTop']   		.extend( ['xsec=2.66300',	'kfact=1.000',	'ref=I'] )
 samples['WpWmJJ_EWK_noTop']   			.extend( ['xsec=0.34520',	'kfact=1.000',	'ref=I'] )
