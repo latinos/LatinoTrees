@@ -35,7 +35,7 @@ process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 
 ####### Input file
 process.source = cms.Source("PoolSource",
-                            fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/RunIISpring16MiniAODv2/WZ_TuneCUETP8M1_13TeV-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/60000/16A554A2-861B-E611-80BC-90B11C0BCC58.root'),
+                            fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/RunIISpring16MiniAODv2/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-800_MA0-400_13TeV-madgraph/MINIAODSIM/PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/70000/0C3C5A5E-F625-E611-B229-008CFA111188.root'),
                             skipEvents = cms.untracked.uint32(4)
                             )
 
