@@ -502,6 +502,26 @@ samples['ttDM0050pseudo00300'] = ['/TTbarDMJets_pseudoscalar_Mchi-50_Mphi-300_Tu
 ##samples['monoH_2HDM_MZp-2500_MA0-800'] = ['/ZprimeToA0hToA0chichihWWTollnunu_2HDM_MZp-2500_MA0-800_13TeV-madgraph/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=monoH_2HDM_MZp-2500_MA0-800', 'id=80042', 'doLHE=False']]
 
 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Luca
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+####### Stop 80X
+##### T2tt
+### FullSim
+samples['T2tt_mStop425_mLSP325'] = ['/SMS-T2tt_mStop-425_mLSP-325_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=T2tt_mStop425_mLSP325', 'id=00061', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop500_mLSP325'] = ['/SMS-T2tt_mStop-500_mLSP-325_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v2/MINIAODSIM', ['label=T2tt_mStop500_mLSP325', 'id=00062', 'doLHE=False', 'doSusy=True']]
+samples['T2tt_mStop850_mLSP100'] = ['/SMS-T2tt_mStop-850_mLSP-100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=T2tt_mStop850_mLSP100', 'id=00063', 'doLHE=False', 'doSusy=True']]
+### FastSim mass scans
+samples['T2tt_mStop150to250'] = ['/SMS-T2tt_mStop-150to250_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=T2tt_mStop150to250', 'id=00197', 'doLHE=False', 'doSusy=True', 'isFastSim=True']]
+samples['T2tt_mStop250to350'] = ['/SMS-T2tt_mStop-250to350_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=T2tt_mStop250to350', 'id=00149', 'doLHE=False', 'doSusy=True', 'isFastSim=True']]
+samples['T2tt_mStop350to400'] = ['/SMS-T2tt_mStop-350to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=T2tt_mStop350to400', 'id=00145', 'doLHE=False', 'doSusy=True', 'isFastSim=True']]
+samples['T2tt_mStop400to1200'] = ['/SMS-T2tt_mStop-400to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=T2tt_mStop400to1200', 'id=00135', 'doLHE=False', 'doSusy=True', 'isFastSim=True']]
+### FastSim dM
+samples['T2tt_dM10to80'] = ['/SMS-T2tt_dM-10to80_2Lfilter_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=T2tt_dM10to80', 'id=00148', 'doLHE=False', 'doSusy=True', 'isFastSim=True']]
+samples['T2tt_dM10to80_genHT160_genMET80'] = ['/SMS-T2tt_dM-10to80_genHT-160_genMET-80_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=T2tt_dM10to80_genHT160_genMET80', 'id=00210', 'doLHE=False', 'doSusy=True', 'isFastSim=True']]
+##### T2bW
+samples['T2bW'] = ['/SMS-T2bW_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=T2bW', 'id=00147', 'doLHE=False', 'doSusy=True', 'isFastSim=True']]
+
 ########
 # Additional global configuration
 ########
