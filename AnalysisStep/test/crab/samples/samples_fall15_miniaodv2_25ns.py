@@ -1,4 +1,4 @@
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+v#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Alicia
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## W+jets
@@ -69,7 +69,7 @@ samples['TT']                = ['/TT_TuneCUETP8M1_13TeV-powheg-pythia8/RunIIFall
 samples['TTJets']            = ['/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',               ['label=TTJets',           'id=00018', 'doMCweights=True']]
 samples['TTTo2L2Nu']         = ['/TTTo2L2Nu_13TeV-powheg/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                       ['label=TTTo2L2Nu',        'id=00019', 'doMCweights=True']]
 samples['TTWJetsToLNu']      = ['/TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=TTWJetsToLNu',     'id=00020', 'doMCweights=True']]
-#samples['TTZToLLNuNu_M-10']  = ['/TTZToLLNuNu_M-10_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v2/MINIAODSIM',         ['label=TTZToLLNuNu_M-10', 'id=00021', 'doMCweights=True']]
+samples['TTZToLLNuNu_M-10']  = ['/TTZToLLNuNu_M-10_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',         ['label=TTZToLLNuNu_M-10', 'id=00021', 'doMCweights=True']]
 samples['TTZToQQ'] = ['/TTZToQQ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=TTZToQQ', 'id=00022', 'doMCweights=True']]
 
 
@@ -314,13 +314,13 @@ samples['WWTo2L2Nu_CUETDown']  = ['/WWTo2L2Nu_13TeV-powheg-CUETP8M1Down/RunIIFal
 samples['WpWpJJ_EWK_QCD']               = ['/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',          ['label=WpWpJJ_EWK_QCD',               'id=40001', 'doMCweights=True']]
 samples['WpWpJJ_EWK']                   = ['/WpWpJJ_EWK_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',              ['label=WpWpJJ_EWK',                   'id=40002', 'doMCweights=True']]
 samples['WpWpJJ_QCD']                   = ['/WpWpJJ_QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                              ['label=WpWpJJ_QCD',                   'id=40003', 'doMCweights=True']]
-samples['WpWpJJ_EWK_powheg']         	= ['/WpWpJJ_13TeV-powheg-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=WpWpJJ_EWK_powheg',     'id=40030', 'doLHE=False']]
-samples['WmWmJJ_EWK_powheg']     	= ['/WmWmJJ_13TeV-powheg-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=WmWmJJ_EWK_powheg',     'id=40031', 'doLHE=False']]
+samples['WpWpJJ_EWK_powheg']         	= ['/WpWpJJ_13TeV-powheg-pythia8_TuneCUETP8M1/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=WpWpJJ_EWK_powheg',     'id=40030', 'doLHE=False']]
+samples['WmWmJJ_EWK_powheg']     	= ['/WmWmJJ_13TeV-powheg-pythia8_TuneCUETP8M1/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',     ['label=WmWmJJ_EWK_powheg',     'id=40031', 'doLHE=False']]
 samples['WpWmJJ_EWK_QCD_noTop']         = ['/WWJJToLNuLNu_EWK_QCD_noTop_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',           ['label=WpWmJJ_EWK_QCD_noTop',         'id=40004', 'doMCweights=True']]
-#samples['WpWmJJ_EWK_noTop']             = ['/WWJJToLNuLNu_EWK_noTop_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                               ['label=WpWmJJ_EWK_noTop',             'id=40005', 'doMCweights=True']]
+samples['WpWmJJ_EWK_noTop']             = ['/WWJJToLNuLNu_EWK_noTop_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                               ['label=WpWmJJ_EWK_noTop',             'id=40005', 'doMCweights=True']]
 samples['WpWmJJ_QCD_noTop']             = ['/WWJJToLNuLNu_QCD_noTop_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                               ['label=WpWmJJ_QCD_noTop',             'id=40006', 'doMCweights=True']]
 #samples['WpWmJJ_EWK_QCD_noTop_noHiggs'] = ['/WWJJToLNuLNu_EWK_QCD_noTop-noHiggs_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                   ['label=WpWmJJ_EWK_QCD_noTop_noHiggs', 'id=40007', 'doMCweights=True']]
-#samples['WpWmJJ_EWK']                   = ['/WWJJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                                     ['label=WpWmJJ_EWK',                   'id=40008', 'doMCweights=True']]
+samples['WpWmJJ_EWK']                   = ['/WWJJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                                     ['label=WpWmJJ_EWK',                   'id=40008', 'doMCweights=True']]
 #samples['TWJ']                          = ['/TWJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                                      ['label=TWJ',                          'id=40009', 'doMCweights=True']]
 samples['WLLJJToLNu_M-60_EWK_QCD']      = ['/WLLJJToLNu_M-60_EWK_QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM', ['label=WLLJJToLNu_M-60_EWK_QCD',      'id=40010', 'doMCweights=True']]
 samples['WLLJJToLNu_M-60_EWK']          = ['/WLLJJToLNu_M-60_EWK_13TeV-madgraph-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                                  ['label=WLLJJToLNu_M-60_EWK',          'id=40011', 'doMCweights=True']]

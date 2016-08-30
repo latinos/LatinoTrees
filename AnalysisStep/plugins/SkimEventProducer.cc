@@ -547,7 +547,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     //----     max DR between jet and soft muon
     skimEvent->back().setMaxDrSoftMuonJet(_maxDrSoftMuonJet);
     //----     min pt of soft muon
-    skimEvent->back().setMaxDrSoftMuonJet(_minPtSoftMuon);
+    skimEvent->back().setMinPtSoftMuon(_minPtSoftMuon);
 
     if (_isMC) {
       if (!(dressedMuonTag_ == edm::InputTag(""))){
