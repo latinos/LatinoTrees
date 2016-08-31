@@ -67,7 +67,7 @@ For 76x 2015 data and MC the frozen version is *18Jan2016_StarWars_v3_frozenFor7
 
 The CRAB client can be sourced using the command below *after cmsenv*.
 
-    source /cvmfs/cms.cern.ch/crab3/crab_light.sh
+    source /cvmfs/cms.cern.ch/crab3/crab.sh
 
 Check if you have writing permissions in the common area.
 

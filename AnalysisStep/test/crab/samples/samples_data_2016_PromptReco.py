@@ -23,11 +23,11 @@ samples['SingleMuon_Run2016B-PromptReco-v2']     = ['/SingleMuon/Run2016B-Prompt
 #samples['SingleElectron_Run2016C-PromptReco-v2'] = ['/SingleElectron/Run2016C-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
 #samples['SingleMuon_Run2016C-PromptReco-v2']     = ['/SingleMuon/Run2016C-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
 
-samples['DoubleEG_Run2016D-PromptReco-v2']       = ['/DoubleEG/Run2016D-PromptReco-v2/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016D-PromptReco-v2']     = ['/DoubleMuon/Run2016D-PromptReco-v2/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016D-PromptReco-v2']         = ['/MuonEG/Run2016D-PromptReco-v2/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016D-PromptReco-v2'] = ['/SingleElectron/Run2016D-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016D-PromptReco-v2']     = ['/SingleMuon/Run2016D-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
+#samples['DoubleEG_Run2016D-PromptReco-v2']       = ['/DoubleEG/Run2016D-PromptReco-v2/MINIAOD',       ['label=DoubleEG']]
+#samples['DoubleMuon_Run2016D-PromptReco-v2']     = ['/DoubleMuon/Run2016D-PromptReco-v2/MINIAOD',     ['label=DoubleMuon']]
+#samples['MuonEG_Run2016D-PromptReco-v2']         = ['/MuonEG/Run2016D-PromptReco-v2/MINIAOD',         ['label=MuEG']]
+#samples['SingleElectron_Run2016D-PromptReco-v2'] = ['/SingleElectron/Run2016D-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
+#samples['SingleMuon_Run2016D-PromptReco-v2']     = ['/SingleMuon/Run2016D-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
 
 
 pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
@@ -66,11 +66,13 @@ pyCfgParams.append('isPromptRecoData=True')
 # config.Data.runRange = '276582-276811'
 
 
-config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt'
+#config.Data.lumiMask      = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt'
+config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-274443_13TeV_PromptReco_Collisions16_JSON.txt'
 config.Data.splitting      = 'LumiBased'
 config.Data.unitsPerJob    = 6
-config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jul26/data/25ns/'
-config.Data.runRange       = '276582-276811'
+config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jun21_v2/data/25ns/'
+#config.Data.runRange      = '276582-276811'
+config.Data.runRange       = '271036-274443'
 config.JobType.maxMemoryMB = 2500
 
 
