@@ -21,8 +21,8 @@ External documentation.
     bash -l
 
     export SCRAM_ARCH=slc6_amd64_gcc530
-    cmsrel CMSSW_8_0_5
-    cd CMSSW_8_0_5/src/
+    cmsrel CMSSW_8_0_17
+    cd CMSSW_8_0_17/src/
     cmsenv
 
 
