@@ -619,40 +619,40 @@ if options.isFastSim:
     dbfile=options.jecDBFileFastSim
     print "\nUsing private SQLite file", dbfile, "\n"
     process.jec = cms.ESSource("PoolDBESSource",CondDBSetup,
-		    connect = cms.string( "sqlite:"+dbfile+'.db'),
-		    toGet =  cms.VPSet(
-			    cms.PSet(
-				    record = cms.string("JetCorrectionsRecord"),
-				    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK4PF"),
-				    label= cms.untracked.string("AK4PF")
-				    ),
-			    cms.PSet(
-				    record = cms.string("JetCorrectionsRecord"),
-				    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK4PFchs"),
-				    label= cms.untracked.string("AK4PFchs")
-				    ),
-			    #cms.PSet(
-				#    record = cms.string("JetCorrectionsRecord"),
-				#    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK4PFPuppi"),
-				#    label= cms.untracked.string("AK4PFPuppi")
-				#    ),
-			    cms.PSet(
-				    record = cms.string("JetCorrectionsRecord"),
-				    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK8PF"),
-				    label= cms.untracked.string("AK8PF")
-				    ),
-			    cms.PSet(
-				    record = cms.string("JetCorrectionsRecord"),
-				    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK8PFchs"),
-				    label= cms.untracked.string("AK8PFchs")
-				    )
-			    #cms.PSet(
-				#    record = cms.string("JetCorrectionsRecord"),
-				#    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK8PFPuppi"),
-				#    label= cms.untracked.string("AK8PFPuppi")
-				#    )
-			    )
-		    )
+                    connect = cms.string( "sqlite:"+dbfile+'.db'),
+                    toGet =  cms.VPSet(
+                            cms.PSet(
+                                    record = cms.string("JetCorrectionsRecord"),
+                                    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK4PF"),
+                                    label= cms.untracked.string("AK4PF")
+                                    ),
+                            cms.PSet(
+                                    record = cms.string("JetCorrectionsRecord"),
+                                    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK4PFchs"),
+                                    label= cms.untracked.string("AK4PFchs")
+                                    ),
+                            #cms.PSet(
+                                #    record = cms.string("JetCorrectionsRecord"),
+                                #    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK4PFPuppi"),
+                                #    label= cms.untracked.string("AK4PFPuppi")
+                                #    ),
+                            cms.PSet(
+                                    record = cms.string("JetCorrectionsRecord"),
+                                    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK8PF"),
+                                    label= cms.untracked.string("AK8PF")
+                                    ),
+                            cms.PSet(
+                                    record = cms.string("JetCorrectionsRecord"),
+                                    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK8PFchs"),
+                                    label= cms.untracked.string("AK8PFchs")
+                                    )
+                            #cms.PSet(
+                                #    record = cms.string("JetCorrectionsRecord"),
+                                #    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK8PFPuppi"),
+                                #    label= cms.untracked.string("AK8PFPuppi")
+                                #    )
+                            )
+                    )
     process.es_prefer_jec = cms.ESPrefer("PoolDBESSource",'jec')
 
 
