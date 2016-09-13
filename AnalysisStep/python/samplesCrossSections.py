@@ -159,6 +159,24 @@ samples['GluGluHToWWTo2L2Nu_M800']      .extend( ['xsec=0.0218',	'kfact=1.000',	
 samples['GluGluHToWWTo2L2Nu_M900']      .extend( ['xsec=0.0123',	'kfact=1.000',		'ref=KF'] ) # 0.1920*0.609*0.108*0.108*9     
 samples['GluGluHToWWTo2L2Nu_M1000']     .extend( ['xsec=0.0073',	'kfact=1.000',		'ref=KF'] ) # 0.1128*0.621*0.108*0.108*9        
 
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M300']      .extend( ['xsec=0.5731',      'kfact=1.000',          'ref=KF'] ) # 7.89*0.692*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M350']      .extend( ['xsec=0.5698',      'kfact=1.000',          'ref=KF'] ) # 8.03*0.676*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M400']      .extend( ['xsec=0.4360',      'kfact=1.000',          'ref=KF'] ) # 7.136*0.582*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M450']      .extend( ['xsec=0.2926',      'kfact=1.000',          'ref=KF'] ) # 5.059*0.551*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M500']      .extend( ['xsec=0.1926',      'kfact=1.000',          'ref=KF'] ) # 3.360*0.546*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M550']      .extend( ['xsec=0.1275',      'kfact=1.000',          'ref=KF'] ) # 2.209*0.550*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M600']      .extend( ['xsec=0.08599',     'kfact=1.000',          'ref=KF'] ) # 1.468*0.558*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M650']      .extend( ['xsec=0.0593',      'kfact=1.000',          'ref=KF'] ) # 0.994*0.568*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M700']      .extend( ['xsec=0.0416',      'kfact=1.000',          'ref=KF'] ) # 0.687*0.577*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M750']      .extend( ['xsec=0.0298',      'kfact=1.000',          'ref=KF'] ) # 0.485*0.586*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M800']      .extend( ['xsec=0.0218',      'kfact=1.000',          'ref=KF'] ) # 0.3493*0.594*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M900']      .extend( ['xsec=0.0123',      'kfact=1.000',          'ref=KF'] ) # 0.1920*0.609*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M1000']     .extend( ['xsec=0.0073',      'kfact=1.000',          'ref=KF'] ) # 0.1128*0.621*0.108*0.108*9
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M1500']     .extend( ['xsec=0.00096',        'kfact=1.000',          'ref=KF'] ) # 0.01465*0.621*0.108*0.108*9        
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M2000']     .extend( ['xsec=0.00041',        'kfact=1.000',          'ref=KF'] ) # 0.006227*0.621*0.108*0.108*9        
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M2500']     .extend( ['xsec=0.00016',        'kfact=1.000',          'ref=KF'] ) # 0.002515*0.621*0.108*0.108*9  
+samples['GluGluHToWWTo2L2Nu_JHUGen698_M3000']     .extend( ['xsec=0.000078',        'kfact=1.000',          'ref=KF'] ) # 0.001186*0.621*0.108*0.108*9
+
 samples['GluGluHToWWTo2L2NuAMCNLO_M125']   .extend( ['xsec=0.9913',	'kfact=1.000',		'ref=CF'] ) # 43.92*0.215*0.108*0.108*9
 samples['GluGluHToWWTo2L2NuPowheg_M125']   .extend( ['xsec=0.9913',	'kfact=1.000',		'ref=CF'] ) # 43.92*0.215*0.108*0.108*9
 samples['GluGluHToWWTo2L2NuHerwigPS_M125'] .extend( ['xsec=0.9913',	'kfact=1.000',		'ref=CF'] ) # 43.92*0.215*0.108*0.108*9
@@ -265,6 +283,25 @@ samples['VBFHToWWTo2L2Nu_M750_NWA']	.extend( ['xsec=0.0113',	'kfact=1.000',		're
 samples['VBFHToWWTo2L2Nu_M800']		.extend( ['xsec=0.0125',	'kfact=1.000',		'ref=KF'] ) # 0.200*0.594*0.108*0.108*9	  
 samples['VBFHToWWTo2L2Nu_M900']		.extend( ['xsec=0.0099',	'kfact=1.000',		'ref=KF'] ) # 0.1547*0.609*0.108*0.108*9	  
 samples['VBFHToWWTo2L2Nu_M1000']	.extend( ['xsec=0.0080',	'kfact=1.000',		'ref=KF'] ) # 0.1228*0.621*0.108*0.108*9	     
+
+samples['VBFHToWWTo2L2Nu_JHUGen698_M300']               .extend( ['xsec=0.0960',        'kfact=1.000',          'ref=KF'] ) # 1.322*0.692*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M350']               .extend( ['xsec=0.0734',        'kfact=1.000',          'ref=KF'] ) # 1.035*0.676*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M400']               .extend( ['xsec=0.0514',        'kfact=1.000',          'ref=KF'] ) # 0.841*0.582*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M450']               .extend( ['xsec=0.0397',        'kfact=1.000',          'ref=KF'] ) # 0.686*0.551*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M500']               .extend( ['xsec=0.0319',        'kfact=1.000',          'ref=KF'] ) # 0.557*0.546*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M550']               .extend( ['xsec=0.0264',        'kfact=1.000',          'ref=KF'] ) # 0.457*0.550*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M600']               .extend( ['xsec=0.0221',        'kfact=1.000',          'ref=KF'] ) # 0.378*0.558*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M650']               .extend( ['xsec=0.0189',        'kfact=1.000',          'ref=KF'] ) # 0.317*0.568*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M700']               .extend( ['xsec=0.0163',        'kfact=1.000',          'ref=KF'] ) # 0.269*0.577*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M750']               .extend( ['xsec=0.0142',        'kfact=1.000',          'ref=KF'] ) # 0.235*0.577*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M800']               .extend( ['xsec=0.0125',        'kfact=1.000',          'ref=KF'] ) # 0.200*0.594*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M900']               .extend( ['xsec=0.0099',        'kfact=1.000',          'ref=KF'] ) # 0.1547*0.609*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M1000']              .extend( ['xsec=0.0080',        'kfact=1.000',          'ref=KF'] ) # 0.1228*0.621*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M1500']              .extend( ['xsec=0.0029',        'kfact=1.000',          'ref=KF'] ) # 0.04471*0.621*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M2000']              .extend( ['xsec=0.0023',        'kfact=1.000',          'ref=KF'] ) # 0.03488*0.621*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M2500']              .extend( ['xsec=0.0015',        'kfact=1.000',          'ref=KF'] ) # 0.02165*0.621*0.108*0.108*9
+samples['VBFHToWWTo2L2Nu_JHUGen698_M3000']              .extend( ['xsec=0.00092',        'kfact=1.000',          'ref=KF'] ) # 0.01413*0.621*0.108*0.108*9
+
 
 samples['VBFHToWWTo2L2NuPowheg_M125'] 	.extend( ['xsec=0.0846',	'kfact=1.000',	   	'ref=EF'] ) # 3.75*0.215*0.108*0.108*9
 samples['VBFHToWWTo2L2NuAMCNLO_M125'] 	.extend( ['xsec=0.0846',	'kfact=1.000',	   	'ref=EF'] ) # 3.75*0.215*0.108*0.108*9
