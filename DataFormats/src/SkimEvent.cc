@@ -262,23 +262,23 @@ void reco::SkimEvent::setGenDiLeptFromZGstar(edm::Handle<reco::GenParticleCollec
   elec2FromGstar.phi = defaultvalues::defaultFloat;
   
   genDiLeptMassZGstar = defaultvalues::defaultFloat;
-  _ZGstarDiLept_DelaR   = defaultvalues::defaultFloat;
+  _ZGstarDiLept_DelaR = defaultvalues::defaultFloat;
   
-  MomInfo.id            =defaultvalues::defaultInt;
-  MomInfo.status        =defaultvalues::defaultInt;
-  MomInfo.initStatus    =defaultvalues::defaultInt;
-  MomInfo.nDaughters    =defaultvalues::defaultInt;
-  MomInfo.mass          =defaultvalues::defaultFloat;
+  MomInfo.id         = defaultvalues::defaultInt;
+  MomInfo.status     = defaultvalues::defaultInt;
+  MomInfo.initStatus = defaultvalues::defaultInt;
+  MomInfo.nDaughters = defaultvalues::defaultInt;
+  MomInfo.mass       = defaultvalues::defaultFloat;
   
   for (reco::GenParticleCollection::const_iterator genPart = genParticles->begin(); genPart != genParticles->end(); genPart++){
     // Initialization
     pLeptMom=0;
     isMuon = false;
-    MomInfo.id          =defaultvalues::defaultInt;
-    MomInfo.status      =defaultvalues::defaultInt;
-    MomInfo.initStatus  =defaultvalues::defaultInt;
-    MomInfo.nDaughters  =defaultvalues::defaultInt;
-    MomInfo.mass        =defaultvalues::defaultFloat;
+    MomInfo.id         = defaultvalues::defaultInt;
+    MomInfo.status     = defaultvalues::defaultInt;
+    MomInfo.initStatus = defaultvalues::defaultInt;
+    MomInfo.nDaughters = defaultvalues::defaultInt;
+    MomInfo.mass       = defaultvalues::defaultFloat;
     
     // Check Mom of Muon
     int id = abs(genPart->pdgId());
