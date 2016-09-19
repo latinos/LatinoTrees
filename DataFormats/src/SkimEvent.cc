@@ -2234,9 +2234,9 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
     else return false;
   }
   
-  else if(applyID == 7) { //---- first Run II jet ID: LOOSE
+  else if(applyID == 7) { //---- recommended Run II jet ID: LOOSE
     //---- see https://twiki.cern.ch/twiki/bin/view/CMS/JetID
-    if( abs(jet->eta()) < 3. ) {
+    if( abs(jet->eta()) <= 2.7 ) {
       if (jet->neutralHadronEnergyFraction() >=0.99) return false;
       if (jet->neutralEmEnergyFraction() >=0.99) return false;
       
@@ -2250,6 +2250,10 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
         if ( jet->chargedEmEnergyFraction() >= 0.99 ) return false;
       }
     }
+    else if( abs(jet->eta()) <= 3.0 ){
+      if( jet->neutralEmEnergyFraction() >= 0.90 ) return false;
+      if( jet->neutralMultiplicity() <= 2 ) return false;
+    }
     else {
       if( jet->neutralEmEnergyFraction() >= 0.90 ) return false;
       if( jet->neutralMultiplicity() <= 10 ) return false;
@@ -2258,9 +2262,9 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
     return true;  
   }
   
-  else if(applyID == 8) { //---- first Run II jet ID: TIGHT
+  else if(applyID == 8) { //---- recommended Run II jet ID: TIGHT
     //---- see https://twiki.cern.ch/twiki/bin/view/CMS/JetID
-    if( abs(jet->eta()) < 3. ) {
+    if( abs(jet->eta()) <= 2.7 ) {
       if (jet->neutralHadronEnergyFraction() >=0.90) return false;
       if (jet->neutralEmEnergyFraction() >=0.90) return false;
       
@@ -2273,6 +2277,10 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
         if ( jet->chargedMultiplicity() <= 0 ) return false;
         if ( jet->chargedEmEnergyFraction() >= 0.99 ) return false;
       }
+    }
+    else if( abs(jet->eta()) <= 3.0 ){
+      if( jet->neutralEmEnergyFraction() >= 0.90 ) return false;
+      if( jet->neutralMultiplicity() <= 2 ) return false;
     }
     else {
       if( jet->neutralEmEnergyFraction() >= 0.90 ) return false;
