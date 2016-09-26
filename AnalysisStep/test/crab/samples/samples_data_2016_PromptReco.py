@@ -21,49 +21,49 @@ samples['MuonEG_Run2016B-PromptReco-v2']         = ['/MuonEG/Run2016B-PromptReco
 samples['SingleElectron_Run2016B-PromptReco-v2'] = ['/SingleElectron/Run2016B-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016B-PromptReco-v2']     = ['/SingleMuon/Run2016B-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
 
-samples['DoubleEG_Run2016C-PromptReco-v2']       = ['/DoubleEG/Run2016C-PromptReco-v2/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016C-PromptReco-v2']     = ['/DoubleMuon/Run2016C-PromptReco-v2/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016C-PromptReco-v2']         = ['/MuonEG/Run2016C-PromptReco-v2/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016C-PromptReco-v2'] = ['/SingleElectron/Run2016C-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016C-PromptReco-v2']     = ['/SingleMuon/Run2016C-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
+#samples['DoubleEG_Run2016C-PromptReco-v2']       = ['/DoubleEG/Run2016C-PromptReco-v2/MINIAOD',       ['label=DoubleEG']]
+#samples['DoubleMuon_Run2016C-PromptReco-v2']     = ['/DoubleMuon/Run2016C-PromptReco-v2/MINIAOD',     ['label=DoubleMuon']]
+#samples['MuonEG_Run2016C-PromptReco-v2']         = ['/MuonEG/Run2016C-PromptReco-v2/MINIAOD',         ['label=MuEG']]
+#samples['SingleElectron_Run2016C-PromptReco-v2'] = ['/SingleElectron/Run2016C-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
+#samples['SingleMuon_Run2016C-PromptReco-v2']     = ['/SingleMuon/Run2016C-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
 
-samples['DoubleEG_Run2016D-PromptReco-v2']       = ['/DoubleEG/Run2016D-PromptReco-v2/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016D-PromptReco-v2']     = ['/DoubleMuon/Run2016D-PromptReco-v2/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016D-PromptReco-v2']         = ['/MuonEG/Run2016D-PromptReco-v2/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016D-PromptReco-v2'] = ['/SingleElectron/Run2016D-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016D-PromptReco-v2']     = ['/SingleMuon/Run2016D-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
+#samples['DoubleEG_Run2016D-PromptReco-v2']       = ['/DoubleEG/Run2016D-PromptReco-v2/MINIAOD',       ['label=DoubleEG']]
+#samples['DoubleMuon_Run2016D-PromptReco-v2']     = ['/DoubleMuon/Run2016D-PromptReco-v2/MINIAOD',     ['label=DoubleMuon']]
+#samples['MuonEG_Run2016D-PromptReco-v2']         = ['/MuonEG/Run2016D-PromptReco-v2/MINIAOD',         ['label=MuEG']]
+#samples['SingleElectron_Run2016D-PromptReco-v2'] = ['/SingleElectron/Run2016D-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
+#samples['SingleMuon_Run2016D-PromptReco-v2']     = ['/SingleMuon/Run2016D-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
 
-samples['DoubleEG_Run2016E-PromptReco-v2']       = ['/DoubleEG/Run2016E-PromptReco-v2/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016E-PromptReco-v2']     = ['/DoubleMuon/Run2016E-PromptReco-v2/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016E-PromptReco-v2']         = ['/MuonEG/Run2016E-PromptReco-v2/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016E-PromptReco-v2'] = ['/SingleElectron/Run2016E-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016E-PromptReco-v2']     = ['/SingleMuon/Run2016E-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
+#samples['DoubleEG_Run2016E-PromptReco-v2']       = ['/DoubleEG/Run2016E-PromptReco-v2/MINIAOD',       ['label=DoubleEG']]
+#samples['DoubleMuon_Run2016E-PromptReco-v2']     = ['/DoubleMuon/Run2016E-PromptReco-v2/MINIAOD',     ['label=DoubleMuon']]
+#samples['MuonEG_Run2016E-PromptReco-v2']         = ['/MuonEG/Run2016E-PromptReco-v2/MINIAOD',         ['label=MuEG']]
+#samples['SingleElectron_Run2016E-PromptReco-v2'] = ['/SingleElectron/Run2016E-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
+#samples['SingleMuon_Run2016E-PromptReco-v2']     = ['/SingleMuon/Run2016E-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
 
-samples['DoubleEG_Run2016F-PromptReco-v1']       = ['/DoubleEG/Run2016F-PromptReco-v1/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016F-PromptReco-v1']     = ['/DoubleMuon/Run2016F-PromptReco-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016F-PromptReco-v1']         = ['/MuonEG/Run2016F-PromptReco-v1/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016F-PromptReco-v1'] = ['/SingleElectron/Run2016F-PromptReco-v1/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016F-PromptReco-v1']     = ['/SingleMuon/Run2016F-PromptReco-v1/MINIAOD',     ['label=SingleMuon']]
+#samples['DoubleEG_Run2016F-PromptReco-v1']       = ['/DoubleEG/Run2016F-PromptReco-v1/MINIAOD',       ['label=DoubleEG']]
+#samples['DoubleMuon_Run2016F-PromptReco-v1']     = ['/DoubleMuon/Run2016F-PromptReco-v1/MINIAOD',     ['label=DoubleMuon']]
+#samples['MuonEG_Run2016F-PromptReco-v1']         = ['/MuonEG/Run2016F-PromptReco-v1/MINIAOD',         ['label=MuEG']]
+#samples['SingleElectron_Run2016F-PromptReco-v1'] = ['/SingleElectron/Run2016F-PromptReco-v1/MINIAOD', ['label=SingleElectron']]
+#samples['SingleMuon_Run2016F-PromptReco-v1']     = ['/SingleMuon/Run2016F-PromptReco-v1/MINIAOD',     ['label=SingleMuon']]
 
 
-pyCfgParams.append('globalTag=80X_dataRun2_v17')
+pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 pyCfgParams.append('is50ns=False')
 pyCfgParams.append('isPromptRecoData=True')
 
 
-### Jun21
+### Jun21 [ Run2016B ] There is v2
 #
 # pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 # Cert_271036-274443_13TeV_PromptReco_Collisions16_JSON.txt
 # config.Data.runRange = '271036-274443'
 #
-### Jul05
+### Jul05 [ Run2016B ] v2 in progress
 #
 # pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 # Cert_271036-275125_13TeV_PromptReco_Collisions16_JSON.txt
 # config.Data.runRange = '274444-275125'
 #
-### Jul08
+### Jul08 [ Run2016B and Run2016C] Needs v2
 #
 # pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 # Cert_271036-275783_13TeV_PromptReco_Collisions16_JSON.txt
@@ -98,8 +98,8 @@ pyCfgParams.append('isPromptRecoData=True')
 config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-279116_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt'
 config.Data.splitting      = 'LumiBased'
 config.Data.unitsPerJob    = 6
-config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Aug31/data/25ns/'
-config.Data.runRange       = '276831-278808'
+config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Jul05_v2/data/25ns/'
+config.Data.runRange       = '274444-275125'
 config.JobType.maxMemoryMB = 2500
 
 

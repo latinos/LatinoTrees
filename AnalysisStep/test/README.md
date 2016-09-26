@@ -29,6 +29,8 @@ External documentation.
 2. Get the material
 ====
 
+First you need to [generate an SSH key](https://help.github.com/articles/generating-an-ssh-key/).
+
     git cms-init
     git clone --branch 13TeV git@github.com:latinos/setup.git LatinosSetup
     source LatinosSetup/Setup.sh
