@@ -472,10 +472,10 @@ if options.doCorrectMet :
 
 # save triggers only in DATA
 if not isMC :
-    setattr(stepBTree.variables, "std_vector_trigger",           cms.string("selectedRateTrigger/60") )
-    setattr(stepBTree.variables, "std_vector_trigger_prescale",  cms.string("selectedRateTriggerPrescale/60") )
-    setattr(stepBTree.variables, "std_vector_trigger_L1min_prescale",  cms.string("selectedRateTriggerL1minPrescale/60") )
-    setattr(stepBTree.variables, "std_vector_trigger_L1max_prescale",  cms.string("selectedRateTriggerL1maxPrescale/60") )
+    setattr(stepBTree.variables, "std_vector_trigger",                 cms.string("selectedRateTrigger/95") )
+    setattr(stepBTree.variables, "std_vector_trigger_prescale",        cms.string("selectedRateTriggerPrescale/95") )
+    setattr(stepBTree.variables, "std_vector_trigger_L1min_prescale",  cms.string("selectedRateTriggerL1minPrescale/95") )
+    setattr(stepBTree.variables, "std_vector_trigger_L1max_prescale",  cms.string("selectedRateTriggerL1maxPrescale/95") )
     # special paths, e.g. metFilters. See skimEventProducer_cfi for the list
     setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
 if isMC :

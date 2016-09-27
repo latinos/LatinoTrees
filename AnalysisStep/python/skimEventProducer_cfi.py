@@ -273,6 +273,42 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",               # 58
         
         
+        # Orthogonal triggers added on September 27th
+        # Available from run 278820 [ Run2016G ] which corresponds to the Sep27_NoL1T latino processing
+        "HLT_CaloMHTNoPU90_PFMET90_PFMHT90_IDTight_BTagCSV_p067_v*",          # 59
+        "HLT_CaloMHTNoPU90_PFMET90_PFMHT90_IDTight_v*",                       # 60
+        "HLT_DiCentralPFJet55_PFMET110_v*",                                   # 61
+        "HLT_DoubleMu3_PFMET50_v*",                                           # 62
+        "HLT_MET200_v*",                                                      # 63
+        "HLT_MET250_v*",                                                      # 64
+        "HLT_MET300_v*",                                                      # 65
+        "HLT_MET600_v*",                                                      # 66
+        "HLT_MET60_IsoTrk35_Loose_v*",                                        # 67
+        "HLT_MET700_v*",                                                      # 68
+        "HLT_MET75_IsoTrk50_v*",                                              # 69
+        "HLT_MET90_IsoTrk50_v*",                                              # 70
+        "HLT_MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight_v*",        # 71
+        "HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_v*",        # 72
+        "HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_v*",        # 73
+        "HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight_v*",          # 74
+        "HLT_Mu14er_PFMET100_v*",                                             # 75
+        "HLT_Mu3er_PFHT140_PFMET125_v*",                                      # 76
+        "HLT_Mu6_PFHT200_PFMET100_v*",                                        # 77
+        "HLT_Mu6_PFHT200_PFMET80_BTagCSV_p067_v*",                            # 78
+        "HLT_PFMET100_PFMHT100_IDTight_v*",                                   # 79
+        "HLT_PFMET110_PFMHT110_IDTight_v*",                                   # 80
+        "HLT_PFMET120_BTagCSV_p067_v*",                                       # 81
+        "HLT_PFMET120_Mu5_v*",                                                # 82
+        "HLT_PFMET120_PFMHT120_IDTight_v*",                                   # 83
+        "HLT_PFMET300_v*",                                                    # 84
+        "HLT_PFMET400_v*",                                                    # 85
+        "HLT_PFMET500_v*",                                                    # 86
+        "HLT_PFMET600_v*",                                                    # 87
+        "HLT_PFMET90_PFMHT90_IDTight_v*",                                     # 88
+        "HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_v*",                           # 89
+        "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_v*",                           # 90
+        "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_v*",                           # 91
+        "HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*",                             # 92
         ),
 
 
