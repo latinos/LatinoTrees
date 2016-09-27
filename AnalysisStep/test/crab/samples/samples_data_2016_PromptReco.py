@@ -71,25 +71,25 @@ samples['MET_Run2016G-PromptReco-v1']            = ['/MET/Run2016G-PromptReco-v1
 # Cert_271036-275783_13TeV_PromptReco_Collisions16_JSON.txt
 # config.Data.runRange = '275126-275783'
 #
-### Jul11_NoL1T
+### Jul11_NoL1T [ Run2016C ]
 #
 # pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 # Cert_271036-276097_13TeV_PromptReco_Collisions16_JSON_NoL1T_v2.txt
 # config.Data.runRange = '275784-276097'
 #
-### Jul15_DCSONLY
+### Jul15_DCSONLY [ Run2016C and Run2016D ]
 #
 # pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 # json_DCSONLY.txt
 # config.Data.runRange = '276098-276581'
 #
-### Jul26
+### Jul26 [ Run2016D ]
 #
 # pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 # Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt
 # config.Data.runRange = '276582-276811'
 #
-### Aug31
+### Aug31 [ Run2016E and Run2016F ]
 #
 # pyCfgParams.append('globalTag=80X_dataRun2_v17')
 # Cert_271036-279116_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt
