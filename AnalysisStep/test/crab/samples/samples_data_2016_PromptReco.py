@@ -50,6 +50,7 @@ samples['DoubleMuon_Run2016G-PromptReco-v1']     = ['/DoubleMuon/Run2016G-Prompt
 samples['MuonEG_Run2016G-PromptReco-v1']         = ['/MuonEG/Run2016G-PromptReco-v1/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016G-PromptReco-v1'] = ['/SingleElectron/Run2016G-PromptReco-v1/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016G-PromptReco-v1']     = ['/SingleMuon/Run2016G-PromptReco-v1/MINIAOD',     ['label=SingleMuon']]
+samples['MET_Run2016G-PromptReco-v1']            = ['/MET/Run2016G-PromptReco-v1/MINIAOD',            ['label=MET']]  # For orthogonal triggers
 
 
 ### Jun21 [ Run2016B ] There is v2
