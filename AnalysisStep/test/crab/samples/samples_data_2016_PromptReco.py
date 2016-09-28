@@ -99,7 +99,7 @@ samples['MET_Run2016G-PromptReco-v1']            = ['/MET/Run2016G-PromptReco-v1
 #
 # pyCfgParams.append('globalTag=80X_dataRun2_v17')
 # Cert_271036-279116_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt
-# config.Data.runRange = '278820-280385'
+# config.Data.runRange = '278820-279931'
 #
 
 
@@ -111,7 +111,7 @@ config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certificatio
 config.Data.splitting      = 'LumiBased'
 config.Data.unitsPerJob    = 6
 config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Sep27_NoL1T/data/25ns/'
-config.Data.runRange       = '278820-280385'
+config.Data.runRange       = '278820-279931'
 config.JobType.maxMemoryMB = 2500
 
 
