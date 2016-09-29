@@ -24,8 +24,9 @@ export MYFILE=root://eoscms.cern.ch//store/data/Run2016E/MuonEG/MINIAOD/PromptRe
 rm -rf latino_stepB_data_numEvent${EVENTS}.root
 
 cmsRun stepB.py print                \
+    doCorrectMet=False               \
     reportEvery=10                   \
-    summary=false                    \
+    summary=False                    \
     is50ns=False                     \
     isPromptRecoData=True            \
     globalTag=80X_dataRun2_v17       \
