@@ -242,7 +242,7 @@ options.register ('metNoHF',
                   'metNoHF. Only in miniAOD v2 (set as empty if collection to be skipped)')
 
 options.register ('doCorrectMet',
-                  False, # default value
+                  True, # default value
                   opts.VarParsing.multiplicity.singleton,
                   opts.VarParsing.varType.string,
                   'Turn on MET Type-1 correction')
