@@ -59,13 +59,13 @@ samples['MET_Run2016G-PromptReco-v1']            = ['/MET/Run2016G-PromptReco-v1
 # Cert_271036-274443_13TeV_PromptReco_Collisions16_JSON.txt
 # config.Data.runRange = '271036-274443'
 #
-### Jul05 [ Run2016B ] v2 in progress
+### Jul05 [ Run2016B ] There is v2
 #
 # pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 # Cert_271036-275125_13TeV_PromptReco_Collisions16_JSON.txt
 # config.Data.runRange = '274444-275125'
 #
-### Jul08 [ Run2016B and Run2016C] Needs v2
+### Jul08 [ Run2016B and Run2016C] v2 in progress
 #
 # pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v8')
 # Cert_271036-275783_13TeV_PromptReco_Collisions16_JSON.txt
@@ -123,7 +123,7 @@ config.JobType.maxMemoryMB = 2500
 #    Run2016D |   276315 | 276811
 #    Run2016E |   276831 | 277420
 #    Run2016F |   277772 | 278808
-#    Run2016G |   278820 |
+#    Run2016G |   278820 | 280385
 #    Run2016H |   280919 |
 #   ------------------------------
 #
