@@ -108,6 +108,8 @@ samples['TTZToLLNuNu_M-10']             .extend( ['xsec=0.2529',	'kfact=1.000',	
 samples['TTZToQQ']                      .extend( ['xsec=0.5297',        'kfact=1.000',          'ref=E'] )
 samples['TTZjets']                      .extend( ['xsec=1.0000',        'kfact=1.000',          'ref=X'] )
 samples['TTWJetsToQQ']                  .extend( ['xsec=0.4062',        'kfact=1.000',          'ref=E'] )      
+samples['TTTo2L2Nu_alphaS01108']        .extend( ['xsec=87.310',	'kfact=1.000',		'ref=E'] )
+samples['TTToSemiLeptonic_alphaS01108'] .extend( ['xsec=1.000',	        'kfact=1.000',		'ref=E'] )  # TO BE UPDATED
 
 
 
