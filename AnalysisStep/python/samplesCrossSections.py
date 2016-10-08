@@ -354,13 +354,13 @@ samples['WWG']                          .extend( ['xsec=0.2147',        'kfact=1
 
 
 ## Vg
-samples['Wg_AMCNLOFXFX']		.extend( ['xsec=586.000',	'kfact=1.000',		'ref=Rafael'] )  # NNLO
-samples['Wg_MADGRAPHMLM']		.extend( ['xsec=405.271',	'kfact=1.000',		'ref=E'] )       # LO
-samples['Wg500']			.extend( ['xsec=1.00000',	'kfact=1.000',		'ref=X'] )
-samples['WgStarLNuMuMu']		.extend( ['xsec=2.793',		'kfact=1.000',		'ref=X'] )
-samples['WgStarLNuEE']			.extend( ['xsec=3.526',		'kfact=1.000',		'ref=X'] )
-samples['Zg']				.extend( ['xsec=131.300',	'kfact=1.000',		'ref=Rafael'] )  # NNLO
-samples['ZgStar']			.extend( ['xsec=1.00000',	'kfact=1.000',		'ref=X'] )
+samples['Wg_AMCNLOFXFX']  .extend( ['xsec=586.000',  'kfact=1.000',  'ref=Rafael'] )  # NNLO
+samples['Wg_MADGRAPHMLM'] .extend( ['xsec=405.271',  'kfact=1.000',  'ref=E'] )       # LO
+samples['Wg500']          .extend( ['xsec=1.00000',  'kfact=1.000',  'ref=X'] )
+samples['WgStarLNuMuMu']  .extend( ['xsec=2.793',    'kfact=1.000',  'ref=X'] )
+samples['WgStarLNuEE']    .extend( ['xsec=3.526',    'kfact=1.000',  'ref=X'] )
+samples['Zg']             .extend( ['xsec=131.300',  'kfact=1.000',  'ref=Rafael'] )  # NNLO
+samples['ZgStar']         .extend( ['xsec=1.00000',  'kfact=1.000',  'ref=X'] )
 
 
 ## QCD
@@ -381,8 +381,8 @@ samples['QCD_Pt_250toInf_bcToE']    		.extend( ['xsec=720.1',		'kfact=1.000',	'r
 
 # VBS
 samples['WpWpJJ_EWK_QCD']   			.extend( ['xsec=0.05454',	'kfact=1.000',	'ref=I'] )
-samples['WpWpJJ_EWK']   			.extend( ['xsec=0.02526',	'kfact=1.000',	'ref=I'] )
-samples['WpWpJJ_QCD']   			.extend( ['xsec=0.02474',	'kfact=1.000',	'ref=I'] )
+samples['WpWpJJ_EWK']                           .extend( ['xsec=0.02526',       'kfact=1.000',  'ref=I'] )
+samples['WpWpJJ_QCD']                           .extend( ['xsec=0.02474',       'kfact=1.000',  'ref=I'] )
 samples['WpWpJJ_EWK_powheg']			.extend( ['xsec=0.02093',	'kfact=1.000',	'ref=I'] )
 samples['WmWmJJ_EWK_powheg']			.extend( ['xsec=0.007868',	'kfact=1.000',	'ref=I'] )
 samples['WpWmJJ_EWK_QCD_noTop']   		.extend( ['xsec=2.66300',	'kfact=1.000',	'ref=I'] )
