@@ -388,7 +388,7 @@ samples['WmWmJJ_EWK_powheg']			.extend( ['xsec=0.007868',	'kfact=1.000',	'ref=I'
 samples['WpWmJJ_EWK_QCD_noTop']   		.extend( ['xsec=2.66300',	'kfact=1.000',	'ref=I'] )
 samples['WpWmJJ_EWK_noTop']   			.extend( ['xsec=0.34520',	'kfact=1.000',	'ref=I'] )
 samples['WpWmJJ_QCD_noTop']   			.extend( ['xsec=2.42300',	'kfact=1.000',	'ref=I'] )
-samples['WpWmJJ_EWK_QCD_noTop_noHiggs'] 	.extend( ['xsec=2.65000',	'kfact=1.000',	'ref=X'] )
+samples['WpWmJJ_EWK_QCD_noTop_noHiggs']         .extend( ['xsec=2.65000',       'kfact=1.000',  'ref=X'] )
 samples['WpWmJJ_EWK'] 				.extend( ['xsec=0.50310',	'kfact=1.000',	'ref=I'] )
 samples['TWJ']   				.extend( ['xsec=0.28000',	'kfact=1.000',	'ref=X'] )
 samples['WLLJJToLNu_M-60_EWK_QCD']   		.extend( ['xsec=0.5295',	'kfact=1.000',	'ref=N'] )
