@@ -6702,7 +6702,7 @@ const float reco::SkimEvent::genVBosonPID(size_t index) const {
   for (size_t gp=0; gp<genParticles_.size(); ++gp) {
     int type = genParticles_[gp]->pdgId();
     
-    if ( !((type == 23 || type == 24) && genParticles_[gp]->isHardProcess()) ) continue;
+    if ( !((abs(type) == 23 || abs(type) == 24) && genParticles_[gp]->isHardProcess()) ) continue;
     
     mcH = &(*(genParticles_[gp]));
     if (mcH->pt() != pt_ofIndex) continue;
