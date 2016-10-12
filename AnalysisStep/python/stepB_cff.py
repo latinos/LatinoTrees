@@ -105,6 +105,10 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_lepton_neutralHadronIso   =     cms.string("neutralHadronIsoByPt"),
         std_vector_lepton_photonIso          =     cms.string("photonIsoByPt"),
         std_vector_lepton_sumPUPt            =     cms.string("sumPUPtByPt"), 
+        std_vector_lepton_chargedHadronMiniIso =   cms.string("chargedHadronMiniIsoByPt"),
+        std_vector_lepton_chargedPileUpMiniIso =   cms.string("chargedPileUpMiniIsoByPt"),
+        std_vector_lepton_neutralHadronMiniIso =   cms.string("neutralHadronMiniIsoByPt"),
+        std_vector_lepton_photonMiniIso        =   cms.string("photonMiniIsoByPt"),
 
 
         std_vector_lepton_PfIsoDeltaBeta= cms.string("allIsoByPt"),
@@ -117,6 +121,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_jet_eta  = cms.string("leadingJetEta"),
         std_vector_jet_phi  = cms.string("leadingJetPhi"),
         std_vector_jet_mass = cms.string("leadingJetMass"),
+
+        std_vector_jet_pt_raw = cms.string("leadingJetPtRaw"),
+        std_vector_jet_pt_L1  = cms.string("leadingJetPtL1"),
 
         peaking = cms.string("peaking"),
         trigger = cms.string("guillelmoTrigger('DATASET')"),
