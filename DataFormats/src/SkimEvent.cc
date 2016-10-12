@@ -6732,36 +6732,61 @@ const float reco::SkimEvent::higgsLHEmass() const {
 //---- end LHE information
 
 
-const float reco::SkimEvent::leadingGenJetPartonPt(size_t index) const {
-  std::vector<float> v_jets_pt ;
-  
+//------------------------------------------------------------------------------
+// leadingGenJetPartonPt
+//------------------------------------------------------------------------------
+const float reco::SkimEvent::leadingGenJetPartonPt(size_t index) const
+{
+  std::vector<float> v_jets_pt;
+
   float pt = defaultvalues::defaultFloat;
-  
+
   const reco::Candidate* mcH = 0;
-  
-  // loop over gen particles
-  for(size_t gp=0; gp<genParticles_.size();++gp){
-    int type = abs( genParticles_[gp] -> pdgId() );
-    
-    // Stop {1000006}
-    if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt())) {
-      mcH = &(*(genParticles_[gp]));
-      v_jets_pt.push_back( mcH->pt() );
-    }
-  } // loop over gen particles
-  
-  if (v_jets_pt.size () > 0) {
-    std::sort (v_jets_pt.rbegin (), v_jets_pt.rend ()) ;
+
+  // Loop over gen particles
+  for (size_t gp=0; gp<genParticles_.size();++gp) {
+
+    int type = abs(genParticles_[gp]->pdgId());
+
+    if (type < 1) continue;
+    if (type > 8 && type != 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && !genParticles_[gp]->statusFlags().isPrompt()) continue;
+    if (!genParticles_[gp]->isHardProcess() && type == 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && type  <  5) continue;
+
+    int ndaughters = genParticles_[gp]->numberOfDaughters();
+
+    bool rejectMe = false;
+
+    if (!genParticles_[gp]->isHardProcess())
+      {
+        for (int id=0; id<ndaughters; id++)
+          {
+            if ((genParticles_[gp]->daughter(id))->pdgId() == genParticles_[gp]->pdgId()) rejectMe = true;
+          }
+      }
+
+    if (rejectMe) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    v_jets_pt.push_back(mcH->pt());
   }
-  //---- now return ----
+
+  if (v_jets_pt.size () > 0) std::sort(v_jets_pt.rbegin(), v_jets_pt.rend());
+
   size_t count = 0;
-  for(size_t i=0;i<v_jets_pt.size();++i) {
-    if(++count > index) return v_jets_pt.at(i);
+
+  for (size_t i=0;i<v_jets_pt.size();++i) {
+    if (++count > index) return v_jets_pt.at(i);
   }
-  
+
   return pt;
 }
 
+
+//------------------------------------------------------------------------------
+// leadingGenJetPartonPID
+//------------------------------------------------------------------------------
 const float reco::SkimEvent::leadingGenJetPartonPID(size_t index) const {
   float pt_ofIndex = leadingGenJetPartonPt(index);
   float particleID= defaultvalues::defaultFloat;
@@ -6769,16 +6794,39 @@ const float reco::SkimEvent::leadingGenJetPartonPID(size_t index) const {
   // loop over gen particles
   for(size_t gp=0; gp<genParticles_.size();++gp){
     int type = abs( genParticles_[gp] -> pdgId() );
-    if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt()) ) {
-      mcH = &(*(genParticles_[gp]));
-      if( mcH->pt() != pt_ofIndex) continue;
-      particleID = (float) type;
-      break;
-    }
+
+    if (type < 1) continue;
+    if (type > 8 && type != 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && !genParticles_[gp]->statusFlags().isPrompt()) continue;
+    if (!genParticles_[gp]->isHardProcess() && type == 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && type  <  5) continue;
+
+    int ndaughters = genParticles_[gp]->numberOfDaughters();
+
+    bool rejectMe = false;
+
+    if (!genParticles_[gp]->isHardProcess())
+      {
+	for (int id=0; id<ndaughters; id++)
+	  {
+	    if ((genParticles_[gp]->daughter(id))->pdgId() == genParticles_[gp]->pdgId()) rejectMe = true;
+	  }
+      }
+
+    if (rejectMe) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if( mcH->pt() != pt_ofIndex) continue;
+    particleID = (float) genParticles_[gp]->pdgId();
+    break;
   } // loop over gen particles
   return particleID;
 }
 
+
+//------------------------------------------------------------------------------
+// leadingGenJetPartonEta
+//------------------------------------------------------------------------------
 const float reco::SkimEvent::leadingGenJetPartonEta(size_t index) const {
   float pt_ofIndex = leadingGenJetPartonPt(index);
   float particleEta= defaultvalues::defaultFloat;
@@ -6786,16 +6834,39 @@ const float reco::SkimEvent::leadingGenJetPartonEta(size_t index) const {
   // loop over gen particles
   for(size_t gp=0; gp<genParticles_.size();++gp){
     int type = abs( genParticles_[gp] -> pdgId() );
-    if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt()) ) {
-      mcH = &(*(genParticles_[gp]));
-      if( mcH->pt() != pt_ofIndex) continue;
-      particleEta = (float) mcH->eta();
-      break;
-    }
+
+    if (type < 1) continue;
+    if (type > 8 && type != 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && !genParticles_[gp]->statusFlags().isPrompt()) continue;
+    if (!genParticles_[gp]->isHardProcess() && type == 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && type  <  5) continue;
+
+    int ndaughters = genParticles_[gp]->numberOfDaughters();
+
+    bool rejectMe = false;
+
+    if (!genParticles_[gp]->isHardProcess())
+      {
+	for (int id=0; id<ndaughters; id++)
+	  {
+	    if ((genParticles_[gp]->daughter(id))->pdgId() == genParticles_[gp]->pdgId()) rejectMe = true;
+	  }
+      }
+
+    if (rejectMe) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if( mcH->pt() != pt_ofIndex) continue;
+    particleEta = (float) mcH->eta();
+    break;
   } // loop over gen particles
   return particleEta;
 }
 
+
+//------------------------------------------------------------------------------
+// leadingGenJetPartonPhi
+//------------------------------------------------------------------------------
 const float reco::SkimEvent::leadingGenJetPartonPhi(size_t index) const {
   float pt_ofIndex = leadingGenJetPartonPt(index);
   float particlePhi= defaultvalues::defaultFloat;
@@ -6803,16 +6874,39 @@ const float reco::SkimEvent::leadingGenJetPartonPhi(size_t index) const {
   // loop over gen particles
   for(size_t gp=0; gp<genParticles_.size();++gp){
     int type = abs( genParticles_[gp] -> pdgId() );
-    if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt()) ) {
-      mcH = &(*(genParticles_[gp]));
-      if( mcH->pt() != pt_ofIndex) continue;
-      particlePhi = (float) mcH->phi();
-      break;
-    }
+
+    if (type < 1) continue;
+    if (type > 8 && type != 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && !genParticles_[gp]->statusFlags().isPrompt()) continue;
+    if (!genParticles_[gp]->isHardProcess() && type == 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && type  <  5) continue;
+
+    int ndaughters = genParticles_[gp]->numberOfDaughters();
+
+    bool rejectMe = false;
+
+    if (!genParticles_[gp]->isHardProcess())
+      {
+	for (int id=0; id<ndaughters; id++)
+	  {
+	    if ((genParticles_[gp]->daughter(id))->pdgId() == genParticles_[gp]->pdgId()) rejectMe = true;
+	  }
+      }
+
+    if (rejectMe) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if( mcH->pt() != pt_ofIndex) continue;
+    particlePhi = (float) mcH->phi();
+    break;
   } // loop over gen particles
   return particlePhi;
 }
 
+
+//------------------------------------------------------------------------------
+// leadingGenJetPartonIsPrompt
+//------------------------------------------------------------------------------
 const float reco::SkimEvent::leadingGenJetPartonIsPrompt(size_t index) const {
   float pt_ofIndex = leadingGenJetPartonPt(index);
   float flag= defaultvalues::defaultFloat;
@@ -6820,16 +6914,39 @@ const float reco::SkimEvent::leadingGenJetPartonIsPrompt(size_t index) const {
   // loop over gen particles
   for(size_t gp=0; gp<genParticles_.size();++gp){
     int type = abs( genParticles_[gp] -> pdgId() );
-    if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt()) ) {
-      mcH = &(*(genParticles_[gp]));
-      if( mcH->pt() != pt_ofIndex) continue;
-      flag = (float) genParticles_[gp]->statusFlags().isPrompt();
-      break;
-    }
+
+    if (type < 1) continue;
+    if (type > 8 && type != 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && !genParticles_[gp]->statusFlags().isPrompt()) continue;
+    if (!genParticles_[gp]->isHardProcess() && type == 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && type  <  5) continue;
+
+    int ndaughters = genParticles_[gp]->numberOfDaughters();
+
+    bool rejectMe = false;
+
+    if (!genParticles_[gp]->isHardProcess())
+      {
+	for (int id=0; id<ndaughters; id++)
+	  {
+	    if ((genParticles_[gp]->daughter(id))->pdgId() == genParticles_[gp]->pdgId()) rejectMe = true;
+	  }
+      }
+
+    if (rejectMe) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if( mcH->pt() != pt_ofIndex) continue;
+    flag = (float) genParticles_[gp]->statusFlags().isPrompt();
+    break;
   } // loop over gen particles
   return flag;
 }
 
+
+//------------------------------------------------------------------------------
+// leadingGenJetPartonIsHardProcess
+//------------------------------------------------------------------------------
 const float reco::SkimEvent::leadingGenJetPartonIsHardProcess(size_t index) const {
   float pt_ofIndex = leadingGenJetPartonPt(index);
   float flag= defaultvalues::defaultFloat;
@@ -6837,15 +6954,35 @@ const float reco::SkimEvent::leadingGenJetPartonIsHardProcess(size_t index) cons
   // loop over gen particles
   for(size_t gp=0; gp<genParticles_.size();++gp){
     int type = abs( genParticles_[gp] -> pdgId() );
-    if( ((type < 9 && type > 0) || type == 21) && (genParticles_[gp]->isHardProcess() || genParticles_[gp]->statusFlags().isPrompt()) ) {
-      mcH = &(*(genParticles_[gp]));
-      if( mcH->pt() != pt_ofIndex) continue;
-      flag = (float) genParticles_[gp]->statusFlags().isHardProcess();
-      break;
-    }
+
+    if (type < 1) continue;
+    if (type > 8 && type != 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && !genParticles_[gp]->statusFlags().isPrompt()) continue;
+    if (!genParticles_[gp]->isHardProcess() && type == 21) continue;
+    if (!genParticles_[gp]->isHardProcess() && type  <  5) continue;
+
+    int ndaughters = genParticles_[gp]->numberOfDaughters();
+
+    bool rejectMe = false;
+
+    if (!genParticles_[gp]->isHardProcess())
+      {
+	for (int id=0; id<ndaughters; id++)
+	  {
+	    if ((genParticles_[gp]->daughter(id))->pdgId() == genParticles_[gp]->pdgId()) rejectMe = true;
+	  }
+      }
+
+    if (rejectMe) continue;
+
+    mcH = &(*(genParticles_[gp]));
+    if( mcH->pt() != pt_ofIndex) continue;
+    flag = (float) genParticles_[gp]->statusFlags().isHardProcess();
+    break;
   } // loop over gen particles
   return flag;
 }
+
 
 //---- Vector Bosons
 
