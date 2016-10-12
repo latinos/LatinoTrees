@@ -498,12 +498,12 @@ def addLHEVariables(process,pt):
 # gen information
 def addGenVariables(process,pt):
     if hasattr(pt,"variables"):
-        setattr(pt.variables, "std_vector_partonGen_pt",      cms.string("leadingGenJetPartonPt")),
-        setattr(pt.variables, "std_vector_partonGen_eta" ,    cms.string("leadingGenJetPartonEta")),
-        setattr(pt.variables, "std_vector_partonGen_phi",     cms.string("leadingGenJetPartonPhi")),
-        setattr(pt.variables, "std_vector_partonGen_pid",     cms.string("leadingGenJetPartonPID")),
-        setattr(pt.variables, "std_vector_partonGen_isPrompt",     cms.string("leadingGenJetPartonIsPrompt")),
-        setattr(pt.variables, "std_vector_partonGen_isHardProcess",     cms.string("leadingGenJetPartonIsHardProcess")),
+        setattr(pt.variables, "std_vector_partonGen_pt",            cms.string("leadingGenJetPartonPt/15")),
+        setattr(pt.variables, "std_vector_partonGen_eta" ,          cms.string("leadingGenJetPartonEta/15")),
+        setattr(pt.variables, "std_vector_partonGen_phi",           cms.string("leadingGenJetPartonPhi/15")),
+        setattr(pt.variables, "std_vector_partonGen_pid",           cms.string("leadingGenJetPartonPID/15")),
+        setattr(pt.variables, "std_vector_partonGen_isPrompt",      cms.string("leadingGenJetPartonIsPrompt/15")),
+        setattr(pt.variables, "std_vector_partonGen_isHardProcess", cms.string("leadingGenJetPartonIsHardProcess/15")),
 
         setattr(pt.variables, "std_vector_leptonGen_pt",                            cms.string("genLeptonPt")),
         setattr(pt.variables, "std_vector_leptonGen_eta" ,                          cms.string("genLeptonEta")),
