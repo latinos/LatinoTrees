@@ -391,7 +391,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     skimEvent->push_back( *(new reco::SkimEvent() ) );
 
     skimEvent->back().setEventInfo(iEvent);
-    
+
+    skimEvent->back().setPFCollection(pfCandsH);
+
     //---- list of electron ids
     //----    save directly as vectors of "bool"
     //----    see: https://github.com/ikrav/EgammaWork/blob/ntupler_and_VID_demos/ElectronNtupler/plugins/ElectronNtuplerVIDDemo.cc

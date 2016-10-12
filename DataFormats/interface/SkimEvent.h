@@ -243,6 +243,9 @@ namespace reco {
     const float leadingJetEta(size_t a) const;
     const float leadingJetPhi(size_t a) const;
     const float leadingJetMass(size_t a) const;
+
+    const float leadingJetPtRaw(size_t a) const;
+    const float leadingJetPtL1 (size_t a) const;
     
     const float leadingJetPt(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
     const float leadingJetEta(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
@@ -694,6 +697,8 @@ namespace reco {
     void setLepton     (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
     void setSoftMuon   (const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
     void setExtraLepton(const edm::Handle<edm::View<reco::RecoCandidate> > &h, size_t i);
+
+    void setPFCollection(const edm::Handle<pat::PackedCandidateCollection> &);
     
     void setTaus(const edm::Handle<pat::TauCollection> &);
     
@@ -985,6 +990,10 @@ namespace reco {
     const float neutralHadronIso  (size_t i = 0) const;
     const float photonIso         (size_t i = 0) const;
     const float sumPUPt           (size_t i = 0) const;
+    const float chargedHadronMiniIso(size_t i = 0) const;
+    const float chargedPileUpMiniIso(size_t i = 0) const;
+    const float neutralHadronMiniIso(size_t i = 0) const;
+    const float photonMiniIso       (size_t i = 0) const;
     
     const float trackIsoByPt          (size_t i = 0) const { return trackIso          (indexByPt(i)); }
     const float chargedHadronIsoByPt  (size_t i = 0) const { return chargedHadronIso  (indexByPt(i)); }
@@ -992,6 +1001,10 @@ namespace reco {
     const float neutralHadronIsoByPt  (size_t i = 0) const { return neutralHadronIso  (indexByPt(i)); }
     const float photonIsoByPt         (size_t i = 0) const { return photonIso         (indexByPt(i)); }
     const float sumPUPtByPt           (size_t i = 0) const { return sumPUPt           (indexByPt(i)); }
+    const float chargedHadronMiniIsoByPt(size_t i = 0) const { return chargedHadronMiniIso(indexByPt(i)); }
+    const float chargedPileUpMiniIsoByPt(size_t i = 0) const { return chargedPileUpMiniIso(indexByPt(i)); }
+    const float neutralHadronMiniIsoByPt(size_t i = 0) const { return neutralHadronMiniIso(indexByPt(i)); }
+    const float photonMiniIsoByPt       (size_t i = 0) const { return photonMiniIso       (indexByPt(i)); }
     
     
     //Matt's
@@ -1160,6 +1173,8 @@ namespace reco {
     //edm::RefToBaseVector<reco::RecoCandidate> leps_;
     //edm::RefToBaseVector<reco::RecoCandidate> extraLeps_;
     //edm::RefToBaseVector<reco::RecoCandidate> softMuons_;
+
+    pat::PackedCandidateCollection pfcollection_;
     
     pat::TauCollection taus_;
     

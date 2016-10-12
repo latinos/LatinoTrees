@@ -1019,6 +1019,12 @@ void reco::SkimEvent::setSoftMuon(const edm::Handle<edm::View<reco::RecoCandidat
 // void reco::SkimEvent::setSoftMuon(const pat::Muon& mu){
 // softMuons_.push_back(mu);
 // }
+void reco::SkimEvent::setPFCollection(const edm::Handle<pat::PackedCandidateCollection> & h) {
+  
+  for(size_t i=0;i<h->size();++i)
+    pfcollection_.push_back(h->at(i));
+  
+}
 
 
 void reco::SkimEvent::setTaus(const edm::Handle<pat::TauCollection> & jH) {
@@ -2556,6 +2562,28 @@ const float reco::SkimEvent::leadingJetPhi(size_t index) const {
 
 const float reco::SkimEvent::leadingJetMass(size_t index) const { 
   return leadingJetMass(minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,index);
+}
+
+const float reco::SkimEvent::leadingJetPtRaw(size_t index) const { 
+  unsigned int index_jet_ordered = indexJetByPt(index, minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+  if (index_jet_ordered >= jets_.size()) {
+    return defaultvalues::defaultFloat;
+  } else if (jets_[index_jet_ordered]->currentJECLevel()!="ERROR") {
+    return jets_[index_jet_ordered]->correctedJet("Uncorrected").pt();
+  } else {
+    return jets_[index_jet_ordered]->pt(); //---- the jet is already "uncorrected"
+  }
+}
+
+const float reco::SkimEvent::leadingJetPtL1(size_t index) const { 
+  unsigned int index_jet_ordered = indexJetByPt(index, minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+  if (index_jet_ordered >= jets_.size()) {
+    return defaultvalues::defaultFloat;
+  } else if (jets_[index_jet_ordered]->currentJECLevel()!="ERROR") {
+    return jets_[index_jet_ordered]->correctedJet("L1FastJet").pt();
+  } else {
+    return -999.;
+  }
 }
 
 
@@ -5440,6 +5468,193 @@ const float reco::SkimEvent::sumPUPt(size_t i) const {
   else if (isElectron(i))     return getElectron(i)->pfIsolationVariables().sumPUPt;
   else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumPUPt;
   else                        return -999.0;
+}
+
+// https://github.com/cms-analysis/MuonAnalysis-TagAndProbe/blob/80X/python/common_modules_cff.py
+// https://github.com/cms-analysis/MuonAnalysis-TagAndProbe/blob/80X/plugins/MuonMiniIso.cc
+// https://github.com/susy2015/SusyAnaTools/blob/master/SkimsAUX/plugins/common.cc
+const float reco::SkimEvent::chargedHadronMiniIso(size_t i) const {
+  
+  if      (i >= leps_.size()) return defaultvalues::defaultFloat;
+  else if (!isElectron(i) && !isMuon(i)) return -999.0;
+  else {
+
+    float CandPtThreshold = 0.0, dRCandProbeVeto = 0.0;
+    if (isMuon(i)) {
+      CandPtThreshold = 0.0; // 0.5? 0.0 reproduces the results of  getMuon(i)->pfIsolationR04().sumChargedHadronPt
+      dRCandProbeVeto = 0.0001;
+    } else {
+      CandPtThreshold = 0.0;
+      if (fabs(leps_[i]->eta())>1.479) dRCandProbeVeto = 0.015;
+    }
+
+    double RadiusIso = std::max(0.05, std::min(0.2, 10./leps_[i]->pt()));
+
+    float sumChargedHadronMiniIso = 0.;
+
+    for(size_t pfc = 0; pfc<pfcollection_.size() ; ++pfc) {
+
+      // https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2016
+      if (pfcollection_.at(pfc).fromPV()>1) {
+
+	const reco::Candidate& c = pfcollection_.at(pfc);
+     
+	if (abs(c.pdgId())==211) {
+	
+	  // check pf candidate threshold
+	  if(c.pt() < CandPtThreshold) continue; 
+	  
+	  double dr = fabs(ROOT::Math::VectorUtil::DeltaR(leps_[i]->p4(), c.p4()));
+	  if (dr < dRCandProbeVeto) continue; 
+	  
+	  if (dr<RadiusIso) 
+	    sumChargedHadronMiniIso += c.pt();
+	  
+	}
+	
+      }
+      
+    }
+ 
+    return sumChargedHadronMiniIso;
+    
+  }
+  
+}
+
+const float reco::SkimEvent::chargedPileUpMiniIso(size_t i) const {
+
+  if      (i >= leps_.size()) return defaultvalues::defaultFloat;
+  else if (!isElectron(i) && !isMuon(i)) return -999.0;
+  else {
+
+    float CandPtThreshold = 0.0, dRCandProbeVeto = 0.0;
+    if (isMuon(i)) {
+      CandPtThreshold = 0.5; // 0.0 in muon T&P code. 0.5 reproduces the results of getMuon(i)->pfIsolationR04().sumPUPt
+      dRCandProbeVeto = 0.01; // 0.0001  in muon T&P code
+    } else {
+      CandPtThreshold = 0.0;
+      if (fabs(leps_[i]->eta())>1.479) dRCandProbeVeto = 0.015;
+    }
+
+    double RadiusIso = std::max(0.05, std::min(0.2, 10./leps_[i]->pt()));
+
+    float sumChargedPileUpMiniIso = 0.;
+
+    for(size_t pfc = 0; pfc<pfcollection_.size() ; ++pfc) {
+
+      if (pfcollection_.at(pfc).fromPV()<=1) {
+
+	const reco::Candidate& c = pfcollection_.at(pfc);
+     
+	if (c.charge()!=0) {
+	
+	  // check pf candidate threshold
+	  if(c.pt() < CandPtThreshold) continue; 
+	  
+	  double dr = fabs(ROOT::Math::VectorUtil::DeltaR(leps_[i]->p4(), c.p4()));
+	  if (dr < dRCandProbeVeto) continue; 
+	  
+	  if (dr<RadiusIso) 
+	    sumChargedPileUpMiniIso += c.pt();
+	  
+	}
+	
+      }
+
+    }
+    
+    return sumChargedPileUpMiniIso;
+  
+  }
+  
+}
+
+const float reco::SkimEvent::neutralHadronMiniIso(size_t i) const {
+  
+  if      (i >= leps_.size()) return defaultvalues::defaultFloat;
+  else if (!isElectron(i) && !isMuon(i)) return -999.0;
+  else {
+  
+    float CandPtThreshold = 0.0, dRCandProbeVeto = 0.0;
+    if (isMuon(i)) {
+      CandPtThreshold = 0.5; // 1.0 in muon T&P code. 0.5 reproduces the results of getMuon(i)->pfIsolationR04().sumNeutralHadronEt
+      dRCandProbeVeto = 0.01;
+    } else {
+      CandPtThreshold = 0.0;
+    }
+
+    double RadiusIso = std::max(0.05, std::min(0.2, 10./leps_[i]->pt()));
+    
+    float sumNeutralHadronMiniIso = 0.;
+
+    for(size_t pfc = 0; pfc<pfcollection_.size() ; ++pfc) { 
+      
+      const reco::Candidate& c = pfcollection_.at(pfc);
+      
+      if (abs(c.pdgId())==130) {
+
+	// check pf candidate threshold
+	if(c.pt() < CandPtThreshold) continue;
+
+	double dr = fabs(ROOT::Math::VectorUtil::DeltaR(leps_[i]->p4(), c.p4()));
+	if (dr < dRCandProbeVeto) continue;
+	
+	if (dr<RadiusIso)
+	  sumNeutralHadronMiniIso += c.pt();
+	
+      }
+
+    }
+    
+    return sumNeutralHadronMiniIso;
+    
+  }
+  
+}
+
+const float reco::SkimEvent::photonMiniIso(size_t i) const {
+
+  if      (i >= leps_.size()) return defaultvalues::defaultFloat;
+  else if (!isElectron(i) && !isMuon(i)) return -999.0;
+  else {
+
+    float CandPtThreshold = 0.0, dRCandProbeVeto = 0.0;
+    if (isMuon(i)) {
+      CandPtThreshold = 0.5;
+      dRCandProbeVeto = 0.01;
+    } else {
+      CandPtThreshold = 0.0;
+      if (fabs(leps_[i]->eta())>1.479) dRCandProbeVeto = 0.08;
+    }
+
+    double RadiusIso = std::max(0.05, std::min(0.2, 10./leps_[i]->pt()));
+
+    float sumPhotonMiniIso = 0.;
+    
+    for(size_t pfc = 0; pfc<pfcollection_.size() ; ++pfc) {
+      
+      const reco::Candidate& c = pfcollection_.at(pfc);
+
+      if (abs(c.pdgId())==22) {
+
+	// check pf candidate threshold
+	if(c.pt() < CandPtThreshold) continue; 
+      
+	double dr = fabs(ROOT::Math::VectorUtil::DeltaR(leps_[i]->p4(), c.p4()));
+	if (dr < dRCandProbeVeto) continue; 
+	
+	if (dr<RadiusIso)
+	  sumPhotonMiniIso += c.pt();
+	
+      }
+      
+    }
+   
+    return sumPhotonMiniIso;
+    
+  }
+  
 }
 
 
