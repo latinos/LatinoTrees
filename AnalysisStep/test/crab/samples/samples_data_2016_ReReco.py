@@ -31,31 +31,36 @@ samples['MuonEG_Run2016D-23Sep2016-v1']         = ['/MuonEG/Run2016D-23Sep2016-v
 samples['SingleElectron_Run2016D-23Sep2016-v1'] = ['/SingleElectron/Run2016D-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
 #samples['SingleMuon_Run2016D-23Sep2016-v1']     = ['/SingleMuon/Run2016D-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
 
-samples['DoubleEG_Run2016E-23Sep2016-v1']       = ['/DoubleEG/Run2016E-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016E-23Sep2016-v1']     = ['/DoubleMuon/Run2016E-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016E-23Sep2016-v1']         = ['/MuonEG/Run2016E-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016E-23Sep2016-v1'] = ['/SingleElectron/Run2016E-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016E-23Sep2016-v1']     = ['/SingleMuon/Run2016E-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
 
-samples['DoubleEG_Run2016F-23Sep2016-v1']       = ['/DoubleEG/Run2016F-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016F-23Sep2016-v1']     = ['/DoubleMuon/Run2016F-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016F-23Sep2016-v1']         = ['/MuonEG/Run2016F-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016F-23Sep2016-v1'] = ['/SingleElectron/Run2016F-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016F-23Sep2016-v1']     = ['/SingleMuon/Run2016F-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
+## Post ICHEP
+## samples['DoubleEG_Run2016E-23Sep2016-v1']       = ['/DoubleEG/Run2016E-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
+## samples['DoubleMuon_Run2016E-23Sep2016-v1']     = ['/DoubleMuon/Run2016E-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
+## samples['MuonEG_Run2016E-23Sep2016-v1']         = ['/MuonEG/Run2016E-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
+## samples['SingleElectron_Run2016E-23Sep2016-v1'] = ['/SingleElectron/Run2016E-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
+## samples['SingleMuon_Run2016E-23Sep2016-v1']     = ['/SingleMuon/Run2016E-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
 
-samples['DoubleEG_Run2016G-23Sep2016-v1']       = ['/DoubleEG/Run2016G-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016G-23Sep2016-v1']     = ['/DoubleMuon/Run2016G-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016G-23Sep2016-v1']         = ['/MuonEG/Run2016G-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
-#samples['SingleElectron_Run2016G-23Sep2016-v1'] = ['/SingleElectron/Run2016G-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
-#samples['SingleMuon_Run2016G-23Sep2016-v1']     = ['/SingleMuon/Run2016G-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
-samples['MET_Run2016G-23Sep2016-v1']            = ['/MET/Run2016G-23Sep2016-v1/MINIAOD',            ['label=MET']]  # For orthogonal triggers
+## samples['DoubleEG_Run2016F-23Sep2016-v1']       = ['/DoubleEG/Run2016F-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
+## samples['DoubleMuon_Run2016F-23Sep2016-v1']     = ['/DoubleMuon/Run2016F-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
+## samples['MuonEG_Run2016F-23Sep2016-v1']         = ['/MuonEG/Run2016F-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
+## samples['SingleElectron_Run2016F-23Sep2016-v1'] = ['/SingleElectron/Run2016F-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
+## samples['SingleMuon_Run2016F-23Sep2016-v1']     = ['/SingleMuon/Run2016F-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
+
+## samples['DoubleEG_Run2016G-23Sep2016-v1']       = ['/DoubleEG/Run2016G-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
+## samples['DoubleMuon_Run2016G-23Sep2016-v1']     = ['/DoubleMuon/Run2016G-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
+## samples['MuonEG_Run2016G-23Sep2016-v1']         = ['/MuonEG/Run2016G-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
+## #samples['SingleElectron_Run2016G-23Sep2016-v1'] = ['/SingleElectron/Run2016G-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
+## #samples['SingleMuon_Run2016G-23Sep2016-v1']     = ['/SingleMuon/Run2016G-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
+## samples['MET_Run2016G-23Sep2016-v1']            = ['/MET/Run2016G-23Sep2016-v1/MINIAOD',            ['label=MET']]  # For orthogonal triggers
 
 
 pyCfgParams.append('globalTag=80X_dataRun2_2016SeptRepro_v4')
 pyCfgParams.append('is50ns=False')
 pyCfgParams.append('isPromptRecoData=True') #RECO TriggerResults
 
-config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-280385_13TeV_PromptReco_Collisions16_JSON.txt'
+#ICHEP data
+config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt'
+#All data 27.66/fb
+#config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-280385_13TeV_PromptReco_Collisions16_JSON.txt'
 config.Data.splitting      = 'LumiBased'
 config.Data.unitsPerJob    = 6
 config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/23Sep2016/data/25ns/'
