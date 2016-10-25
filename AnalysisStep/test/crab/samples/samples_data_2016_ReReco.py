@@ -14,10 +14,10 @@
 
 
 samples['DoubleEG_Run2016B-23Sep2016-v2']       = ['/DoubleEG/Run2016B-23Sep2016-v2/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016B-23Sep2016-v2']     = ['/DoubleMuon/Run2016B-23Sep2016-v2/MINIAOD',     ['label=DoubleMuon']]
+#samples['DoubleMuon_Run2016B-23Sep2016-v2']     = ['/DoubleMuon/Run2016B-23Sep2016-v2/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016B-23Sep2016-v2']         = ['/MuonEG/Run2016B-23Sep2016-v2/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016B-23Sep2016-v2'] = ['/SingleElectron/Run2016B-23Sep2016-v2/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016B-23Sep2016-v2']     = ['/SingleMuon/Run2016B-23Sep2016-v2/MINIAOD',     ['label=SingleMuon']]
+#samples['SingleMuon_Run2016B-23Sep2016-v2']     = ['/SingleMuon/Run2016B-23Sep2016-v2/MINIAOD',     ['label=SingleMuon']]
 
 samples['DoubleEG_Run2016C-23Sep2016-v1']       = ['/DoubleEG/Run2016C-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016C-23Sep2016-v1']     = ['/DoubleMuon/Run2016C-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
@@ -29,7 +29,7 @@ samples['DoubleEG_Run2016D-23Sep2016-v1']       = ['/DoubleEG/Run2016D-23Sep2016
 samples['DoubleMuon_Run2016D-23Sep2016-v1']     = ['/DoubleMuon/Run2016D-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016D-23Sep2016-v1']         = ['/MuonEG/Run2016D-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016D-23Sep2016-v1'] = ['/SingleElectron/Run2016D-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016D-23Sep2016-v1']     = ['/SingleMuon/Run2016D-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
+#samples['SingleMuon_Run2016D-23Sep2016-v1']     = ['/SingleMuon/Run2016D-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
 
 samples['DoubleEG_Run2016E-23Sep2016-v1']       = ['/DoubleEG/Run2016E-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016E-23Sep2016-v1']     = ['/DoubleMuon/Run2016E-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
@@ -46,8 +46,8 @@ samples['SingleMuon_Run2016F-23Sep2016-v1']     = ['/SingleMuon/Run2016F-23Sep20
 samples['DoubleEG_Run2016G-23Sep2016-v1']       = ['/DoubleEG/Run2016G-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016G-23Sep2016-v1']     = ['/DoubleMuon/Run2016G-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016G-23Sep2016-v1']         = ['/MuonEG/Run2016G-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016G-23Sep2016-v1'] = ['/SingleElectron/Run2016G-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016G-23Sep2016-v1']     = ['/SingleMuon/Run2016G-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
+#samples['SingleElectron_Run2016G-23Sep2016-v1'] = ['/SingleElectron/Run2016G-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
+#samples['SingleMuon_Run2016G-23Sep2016-v1']     = ['/SingleMuon/Run2016G-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
 samples['MET_Run2016G-23Sep2016-v1']            = ['/MET/Run2016G-23Sep2016-v1/MINIAOD',            ['label=MET']]  # For orthogonal triggers
 
 
