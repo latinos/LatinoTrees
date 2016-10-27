@@ -469,6 +469,13 @@ if options.doCorrectMet :
     from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
     runMetCorAndUncFromMiniAOD(process, isData=(not isMC))
 
+    from PhysicsTools.PatAlgos.slimming.puppiForMET_cff import makePuppiesFromMiniAOD
+    makePuppiesFromMiniAOD( process, True )
+    runMetCorAndUncFromMiniAOD(process,
+                           isData=(not isMC),
+                           metType="Puppi",
+                           postfix="Puppi"
+                           )
 
 # save triggers only in DATA
 if not isMC :
