@@ -5530,8 +5530,8 @@ const float reco::SkimEvent::chargedPileUpMiniIso(size_t i) const {
 
     float CandPtThreshold = 0.0, dRCandProbeVeto = 0.0;
     if (isMuon(i)) {
-      CandPtThreshold = 0.5; // 0.0 in muon T&P code. 0.5 reproduces the results of getMuon(i)->pfIsolationR04().sumPUPt
-      dRCandProbeVeto = 0.01; // 0.0001  in muon T&P code
+      CandPtThreshold = 0.0; // as in muon T&P code. 0.5 reproduces the results of getMuon(i)->pfIsolationR04().sumPUPt
+      dRCandProbeVeto = 0.0001; // as in muon T&P code; 0.01 in standard 0.4 iso
     } else {
       CandPtThreshold = 0.0;
       if (fabs(leps_[i]->eta())>1.479) dRCandProbeVeto = 0.015;
@@ -5578,7 +5578,7 @@ const float reco::SkimEvent::neutralHadronMiniIso(size_t i) const {
   
     float CandPtThreshold = 0.0, dRCandProbeVeto = 0.0;
     if (isMuon(i)) {
-      CandPtThreshold = 0.5; // 1.0 in muon T&P code. 0.5 reproduces the results of getMuon(i)->pfIsolationR04().sumNeutralHadronEt
+      CandPtThreshold = 1.0; // as in muon T&P code. 0.5 reproduces the results of getMuon(i)->pfIsolationR04().sumNeutralHadronEt
       dRCandProbeVeto = 0.01;
     } else {
       CandPtThreshold = 0.0;
