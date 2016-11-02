@@ -239,10 +239,8 @@ samples['HWplusJ_HToTauTau_M130']  = ['/WplusHToTauTau_M130_13TeV_powheg_pythia8
 
 #### WH Exclusive=================
 
-samples['HWminusJ_HToWWTo2L2Nu_M125']     = ['/HWminusJ_HToWWTo2L2Nu_WToLNu_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',  ['label=HWminusJ_HToWWTo2L2Nu_M125',     'id=02110', 'doMCweights=True']]
-
-samples['HWplusJ_HToWWTo2L2Nu_M125']     = ['/HWplusJ_HToWWTo2L2Nu_WToLNu_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',  ['label=HWplusJ_HToWWTo2L2Nu_M125',     'id=02115', 'doMCweights=True']]
-
+samples['HWminusJ_HToWWTo2L2Nu_M125']     = ['/HWminusJ_HToWWTo2L2Nu_WToLNu_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v2/MINIAODSIM',  ['label=HWminusJ_HToWWTo2L2Nu_M125',     'id=02110', 'doMCweights=True']]
+samples['HWplusJ_HToWWTo2L2Nu_M125']     = ['/HWplusJ_HToWWTo2L2Nu_WToLNu_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v2/MINIAODSIM',  ['label=HWplusJ_HToWWTo2L2Nu_M125',     'id=02115', 'doMCweights=True']]
 
 #### ZH Inclusive ======== 
 
