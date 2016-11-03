@@ -587,6 +587,10 @@ def addTau(process,pt):
           pt.variables.std_vector_tau_eta = cms.string("leadingTauEta")
           pt.variables.std_vector_tau_phi = cms.string("leadingTauPhi")
 
+          pt.variables.std_vector_tau_vlooseIso_mva_new = cms.string("leadingTauVLooseIsoMvaNew")
+          pt.variables.std_vector_tau_vlooseIso_mva_old = cms.string("leadingTauVLooseIsoMvaOld")
+          pt.variables.std_vector_tau_looseIso_dbeta    = cms.string("leadingTauLooseIsoDbeta")
+
 
 def addFatJets(process,pt):
 

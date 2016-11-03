@@ -603,6 +603,10 @@ namespace reco {
     const float leadingTauPt (size_t a) const;
     const float leadingTauEta(size_t a) const;
     const float leadingTauPhi(size_t a) const;
+
+    const float leadingTauVLooseIsoMvaNew(size_t a) const;
+    const float leadingTauVLooseIsoMvaOld(size_t a) const;
+    const float leadingTauLooseIsoDbeta (size_t a) const;
     
     
     
