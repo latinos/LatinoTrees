@@ -246,7 +246,7 @@ options.register ('doCorrectMet',
                   opts.VarParsing.multiplicity.singleton,
                   opts.VarParsing.varType.string,
                   'Turn on MET Type-1 correction')
- 
+
 
 
 
@@ -307,7 +307,7 @@ globalTag = options.globalTag
 #
 #process.load('Configuration.StandardSequences.Geometry_cff')
 #process.load("Geometry.TrackerGeometryBuilder.trackerGeometryDB_cfi")
- 
+
 #process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff')
 process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
 
@@ -315,12 +315,12 @@ process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
 #process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
 
 #process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi") #---> not working in 74???
- 
+
 #process.load("Configuration.StandardSequences.GeometryDB_cff")
 #process.load("Configuration.Geometry.GeometryRecoDB_cff")
-process.load("Configuration.StandardSequences.GeometryRecoDB_cff")  
+process.load("Configuration.StandardSequences.GeometryRecoDB_cff")
 process.load("Geometry.TrackerGeometryBuilder.trackerGeometryDB_cfi")
- 
+
 #process.load("Configuration.EventContent.EventContent_cff")
 process.load('Configuration.StandardSequences.Services_cff')
 
@@ -377,13 +377,13 @@ process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 if options.is50ns :
     process.skimEventProducer.apply50nsValues = cms.bool(True)
 else :
-    process.skimEventProducer.apply50nsValues = cms.bool(False) 
+    process.skimEventProducer.apply50nsValues = cms.bool(False)
 
 
 # Default parameters for jets
 process.skimEventProducer.maxEtaForJets = cms.double(4.7)
 process.skimEventProducer.minPtForJets = cms.double(0)
-process.skimEventProducer.applyCorrectionForJets = cms.bool(True) 
+process.skimEventProducer.applyCorrectionForJets = cms.bool(True)
 process.skimEventProducer.applyIDForJets = cms.int32(int(globalVariables.jetId_WP))
 # 7 Run II jetID LOOSE
 # 8 Run II jetID TIGHT
@@ -454,7 +454,7 @@ if isMC :
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
 elif options.isPromptRecoData :
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","RECO")
-else : 
+else :
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
 
 
@@ -517,7 +517,7 @@ else:
 # run electron id ##
 # see twiki:
 #    https://twiki.cern.ch/twiki/bin/view/CMS/EgammaIDRecipesRun2
-# 
+#
 #
 from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
 dataFormat = DataFormat.MiniAOD
@@ -566,7 +566,7 @@ for idmod in my_id_modules:
 
 #
 # These selections are used to define the collection
-# of leptons and are defined in 
+# of leptons and are defined in
 # python/skimEventProducer_cfi.py
 #
 
@@ -579,7 +579,7 @@ elif options.selection == 'Loose':
     #labelSetup = "Scenario7"; muon = "wwMuScenario7"; ele = "wwEleScenario5"; softmu = "wwMu4VetoScenario6"; pho = "wwPhoScenario1"; preSeq = cms.Sequence();
 elif options.selection == 'LooseNoIso':
     process.skimEventProducer.applyJetCleaning = cms.int32(0)  # don't apply jet cleaning, since leptons are not-isolated here
-    labelSetup = "TreeProducer"; muon = "wwMuoTightNoIso"; ele = "wwEleLooseNoIso"; softmu = "wwMuoForVeto"; pho = "slimmedPhotons"; preSeq = cms.Sequence(); 
+    labelSetup = "TreeProducer"; muon = "wwMuoTightNoIso"; ele = "wwEleLooseNoIso"; softmu = "wwMuoForVeto"; pho = "slimmedPhotons"; preSeq = cms.Sequence();
 else:
     raise ValueError('selection must be either Tight or Loose')
 
@@ -601,22 +601,22 @@ JEC = ['L1FastJet','L2Relative','L3Absolute']
 if not isMC:
     JEC += ['L2L3Residual']
 
-jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',    
-             JETCorrPayload='AK4PFchs', JETCorrLevels = JEC, 
+jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
+             JETCorrPayload='AK4PFchs', JETCorrLevels = JEC,
              miniAOD=True,
              runOnMC=isMC,
-             addNsub=True,  # was True      
+             addNsub=True,  # was True
              #addPUJetID=False,
-             #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','pfCombinedMVAV2BJetTags'], 
-             #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'], 
-             #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'],              
+             #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','pfCombinedMVAV2BJetTags'],
+             #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'],
+             #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'],
              addPUJetID=True,
              addPruning=False,
              addTrimming=False,
              addCMSTopTagger=True,
              addHEPTopTagger=True,
              addMassDrop=True,
-             addSoftDrop=False, 
+             addSoftDrop=False,
              addQGTagger=True,  # addSoftDrop=True
              ) #, addPrunedSubjets=True )
 
@@ -694,7 +694,7 @@ if isMC:
 # add puppi calculated from miniAOD
 #   since puppi must be run as first
 #   we include puppi in the "preSequence"
-#   it's not possible to add it afterwards, 
+#   it's not possible to add it afterwards,
 #   unless we transform everything into a sequence
 #   and let cmssw do the rest ...
 if options.runPUPPISequence:
@@ -704,22 +704,22 @@ if options.runPUPPISequence:
 
     jetPuppiR = 0.4
     #makePuppiAlgo(process) ## call puppi producer and puppi met
-    
-    jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',    
-             JETCorrPayload='AK4PFPuppi', JETCorrLevels = JEC, 
+
+    jetToolbox( process, 'ak4', 'myPuppiJetSequence', 'outTemp',
+             JETCorrPayload='AK4PFPuppi', JETCorrLevels = JEC,
              PUMethod='Puppi',
              miniAOD=True,
-             runOnMC=isMC, 
-             addNsub=True,  # was True      
+             runOnMC=isMC,
+             addNsub=True,  # was True
              addPUJetID=False,
              #addPUJetID=True, ----> can't be puppi AND pujetid
              addPruning=False,
              addTrimming=False,
              addCMSTopTagger=True,
-             addHEPTopTagger=True, 
+             addHEPTopTagger=True,
              addMassDrop=True,
-             addSoftDrop=False, 
-             addQGTagger=True,  
+             addSoftDrop=False,
+             addQGTagger=True,
              #addSoftDrop=True
              ) #, addPrunedSubjets=True )
 
@@ -736,30 +736,30 @@ if options.runPUPPISequence:
     process.skimEventProducer.secondJetTag = cms.InputTag("selectedPatJetsAK4PFPuppi")
     #process.skimEventProducer.secondJetTag = cms.InputTag("patJetsAK4selectedPatJetsPuppi")
 
-if options.doSoftActivity:   
+if options.doSoftActivity:
     # Add trackjets
     process.chargedPackedPFCandidates = cms.EDFilter("CandPtrSelector", src = cms.InputTag("packedPFCandidates"), cut = cms.string("charge != 0 && abs(eta) < 2.5 && pt > 0.3 && fromPV >= 2"))
 
-    from RecoJets.JetProducers.ak4PFJets_cfi import ak4PFJets 
+    from RecoJets.JetProducers.ak4PFJets_cfi import ak4PFJets
     process.ak4TrackJets = ak4PFJets.clone(src = cms.InputTag('chargedPackedPFCandidates'), jetPtMin = cms.double(1.0))
-    
+
     process.trackJetSequence = cms.Sequence(process.chargedPackedPFCandidates * process.ak4TrackJets)
     preSeq += process.trackJetSequence
 
     # Make pat track-jets
     from PhysicsTools.PatAlgos.tools.jetTools import addJetCollection
 
-    addJetCollection(   
+    addJetCollection(
         process,
         labelName = 'AK4PFTrack',
         jetSource = cms.InputTag('ak4TrackJets'),
         algo = 'AK',
         rParam = 0.4,
-        jetCorrections = None, 
-        pfCandidates = cms.InputTag( 'packedPFCandidates' ),  
-        svSource = cms.InputTag( 'slimmedSecondaryVertices' ),  
+        jetCorrections = None,
+        pfCandidates = cms.InputTag( 'packedPFCandidates' ),
+        svSource = cms.InputTag( 'slimmedSecondaryVertices' ),
         genJetCollection = cms.InputTag( 'slimmedGenJets'),
-        pvSource = cms.InputTag( 'offlineSlimmedPrimaryVertices' ), 
+        pvSource = cms.InputTag( 'offlineSlimmedPrimaryVertices' ),
         btagDiscriminators = [
                 #'pfTrackCountingHighEffBJetTags',
                 #'pfTrackCountingHighPurBJetTags',
@@ -770,11 +770,11 @@ if options.doSoftActivity:
         genParticles = cms.InputTag('prunedGenParticles'),
         outputModules = ['outputFile']
     )
- 
+
     getattr(process,'selectedPatJetsAK4PFTrack').cut = cms.string('pt > 1.0')
     preSeq += getattr(process,'selectedPatJetsAK4PFTrack')
     process.skimEventProducer.trackJetTag = cms.InputTag("selectedPatJetsAK4PFTrack")
-    
+
 # create the EventHypothesis
 # and tweaks for special MC/data samples
 
@@ -810,8 +810,8 @@ if doGen == True :
     #getattr(process,"ww%s"% (labelSetup)).genMetTag = "slimmedMETs" # "genMetTrue"
     getattr(process,"ww%s"% (labelSetup)).genJetTag = "slimmedGenJets"
     #cms.InputTag("ak5GenJetsNoElNoMuNoNu","","Yield")
-    getattr(process,"ww%s"% (labelSetup)).dressedMuonTag     = "dressedMuons01" 
-    getattr(process,"ww%s"% (labelSetup)).dressedElectronTag = "dressedElectrons01" 
+    getattr(process,"ww%s"% (labelSetup)).dressedMuonTag     = "dressedMuons01"
+    getattr(process,"ww%s"% (labelSetup)).dressedElectronTag = "dressedElectrons01"
 
 #if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
     #getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
@@ -834,13 +834,13 @@ setattr(process, 'TreeSequence', seq)
 setattr(process, "Nvtx", nverticesModule.clone(probes = cms.InputTag("skim%s"% (labelSetup))))
 seq += getattr(process, "Nvtx")
 tree.variables.nvtx = cms.InputTag("Nvtx")
-if doIsoStudy: 
+if doIsoStudy:
     addIsoStudyVariables(process,tree)
 
 
 # pile-up
 nPU = cms.EDProducer("PileUpMultiplicityCounter",
-    puLabel = cms.InputTag(options.puInformation),  # v1 miniaod addPileupInfo 
+    puLabel = cms.InputTag(options.puInformation),  # v1 miniaod addPileupInfo
     src = cms.InputTag("")
 )
 
@@ -875,7 +875,7 @@ if doEleIsoId:
 # PHOTON VARIABLES
 if options.doPhotonID:
   addPhotonIDVariables(process,tree)
- 
+
 addPhotonVariables(process,tree)
 
 # LHE information dumper
@@ -918,7 +918,7 @@ if doLHE:
 if doGen: addGenVariables(process,tree)
 
 # add QG likelihood
-addQGJets(process,tree)   
+addQGJets(process,tree)
 
 # add fatjets
 if options.doFatJet :
@@ -1022,7 +1022,7 @@ process.WeightDumperAnalyzer = cms.EDAnalyzer('WeightDumper',
      mcLHERunInfoTag    = cms.InputTag(options.LHERunInfo),
      #mcLHEEventInfoTag  = cms.InputTag("externalLHEProducer"),
      #mcLHEEventInfoTag = cms.InputTag("source"),
-     genEvtInfoTag      = cms.InputTag("generator"), 
+     genEvtInfoTag      = cms.InputTag("generator"),
      debug              = cms.untracked.bool(False)
   )
 
@@ -1037,7 +1037,7 @@ if isMC and doLHE :
 ## pileup dumper
 ##   dump pileup with NO selections applied
 process.PileUpDumperAnalyzer = cms.EDAnalyzer('PileUpDumper',
-    puLabel = cms.InputTag(options.puInformation),  # v1 miniaod addPileupInfo 
+    puLabel = cms.InputTag(options.puInformation),  # v1 miniaod addPileupInfo
     debug   = cms.untracked.bool(False)
   )
 
@@ -1056,7 +1056,7 @@ if isMC :
 if doSameSign:
     getattr(process,"Tree").cut = cms.string("q(0)*q(1) > 0 && !isSTA(0) && !isSTA(1) && leptEtaCut(2.4,2.5) && ptMax > 20 && ptMin > 10")
 
-if options.doSoftActivity: 
+if options.doSoftActivity:
     addSoftActivityVariables(process,tree)
 
 # Save events
@@ -1069,7 +1069,7 @@ else :
         getattr(process,"skim%s"% (labelSetup)).cut = cms.string("nLep >= 1")
     else :
         print ">> Accept events with ", doCut
-     
+
 
 # TTree producer ends up in the endPath, then it's NOT a filter anymore
 # then applying a cut here has no effect
@@ -1089,7 +1089,7 @@ process.myoutputstep = cms.EndPath(process.Tree)
 ####
 
 #
-# dump cfg file: 
+# dump cfg file:
 # to do it do: python stepB.py
 # decomment *if* needed
 #
