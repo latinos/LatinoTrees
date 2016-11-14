@@ -641,6 +641,7 @@ samples['T2bW'] = ['/SMS-T2bW_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Adrian
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## other spin/parity Higgs
 
 samples['H0ph_ToWWTo2L2Nu']  = ['/Higgs0PHToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0ph_ToWWTo2L2Nu','id=83451','doMCweights=False']]
 samples['H0m_ToWWTo2L2Nu']   = ['/Higgs0MToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0m_ToWWTo2L2Nu','id=83452','doMCweights=False']]
