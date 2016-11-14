@@ -638,6 +638,16 @@ samples['T2tt_dM10to80_genHT160_genMET80'] = ['/SMS-T2tt_dM-10to80_genHT-160_gen
 ##### T2bW
 samples['T2bW'] = ['/SMS-T2bW_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16Fast_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=T2bW', 'id=00147', 'doLHE=False', 'doSusy=True', 'isFastSim=True']]
 
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Adrian
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+samples['H0ph_ToWWTo2L2Nu']  = ['/Higgs0PHToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0ph_ToWWTo2L2Nu','id=83451','doMCweights=False']]
+samples['H0m_ToWWTo2L2Nu']   = ['/Higgs0MToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0m_ToWWTo2L2Nu','id=83452','doMCweights=False']]
+samples['H0pm_ToWWTo2L2Nu']  = ['/Higgs0PMToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0pm_ToWWTo2L2Nu','id=83453','doMCweights=False']]
+samples['H0L1_ToWWTo2L2Nu']  = ['/Higgs0L1ToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0L1_ToWWTo2L2Nu','id=83454','doMCweights=False']]
+
+
 ########
 # Additional global configuration
 ########
