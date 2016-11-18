@@ -643,11 +643,21 @@ samples['T2bW'] = ['/SMS-T2bW_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## other spin/parity Higgs
 
-samples['H0ph_ToWWTo2L2Nu']  = ['/Higgs0PHToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0ph_ToWWTo2L2Nu','id=83451','doMCweights=False']]
-samples['H0m_ToWWTo2L2Nu']   = ['/Higgs0MToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0m_ToWWTo2L2Nu','id=83452','doMCweights=False']]
-samples['H0pm_ToWWTo2L2Nu']  = ['/Higgs0PMToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0pm_ToWWTo2L2Nu','id=83453','doMCweights=False']]
-samples['H0L1_ToWWTo2L2Nu']  = ['/Higgs0L1ToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0L1_ToWWTo2L2Nu','id=83454','doMCweights=False']]
+# Renaming to:
+# H0ph_ToWWTo2L2Nu -> GluGluH0PH_HToWWTo2L2Nu_M125
+# H0m_ToWWTo2L2Nu -> GluGluH0M_HToWWTo2L2Nu_M125
+# H0pm_ToWWTo2L2Nu -> GluGluH0PM_HToWWTo2L2Nu_M125
+# H0L1_ToWWTo2L2Nu -> GluGluH0L1_HToWWTo2L2Nu_M125
 
+#samples['H0ph_ToWWTo2L2Nu']  = ['/Higgs0PHToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0ph_ToWWTo2L2Nu','id=83451','doMCweights=False']]
+#samples['H0m_ToWWTo2L2Nu']   = ['/Higgs0MToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0m_ToWWTo2L2Nu','id=83452','doMCweights=False']]
+#samples['H0pm_ToWWTo2L2Nu']  = ['/Higgs0PMToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0pm_ToWWTo2L2Nu','id=83453','doMCweights=False']]
+#samples['H0L1_ToWWTo2L2Nu']  = ['/Higgs0L1ToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0L1_ToWWTo2L2Nu','id=83454','doMCweights=False']]
+
+samples['GluGluH0PH_HToWWTo2L2Nu_M125']  = ['/Higgs0PHToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0ph_ToWWTo2L2Nu','id=83451','doMCweights=False']]
+samples['GluGluH0M_HToWWTo2L2Nu_M125']   = ['/Higgs0MToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0m_ToWWTo2L2Nu','id=83452','doMCweights=False']]
+samples['GluGluH0PM_HToWWTo2L2Nu_M125']  = ['/Higgs0PMToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0pm_ToWWTo2L2Nu','id=83453','doMCweights=False']]
+samples['GluGluH0L1_HToWWTo2L2Nu_M125']  = ['/Higgs0L1ToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',['label=H0L1_ToWWTo2L2Nu','id=83454','doMCweights=False']]
 
 ########
 # Additional global configuration
