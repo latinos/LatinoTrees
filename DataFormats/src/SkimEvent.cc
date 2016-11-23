@@ -1224,6 +1224,30 @@ const double reco::SkimEvent::egammaHFMinus_sumPt() const {
   return egammaHFMinus_sumPt_;
 }
 
+const float reco::SkimEvent::dmZllReco() const {
+  float dmll = abs(defaultvalues::defaultFloat);
+  unsigned int i1=0, i2=0;
+  for( unsigned int iLep1=0; iLep1 < leps_.size(); ++iLep1 )
+  {
+      i1 = indexByPt(iLep1);
+      for( unsigned int iLep2=iLep1+1; iLep2 < leps_.size(); ++iLep2 )
+      {  
+          i2 = indexByPt(iLep2);
+          if( leps_[i2]->pt() < 10. )
+              break;
+            
+          // check opposite charge and same flavour
+          if( leps_[i1]->pdgId() == -1 * leps_[i2]->pdgId() )
+          {
+              float dmll_temp = abs( (leps_[i1]->p4() + leps_[i2]->p4()).mass() - 91.1876 );
+              if( dmll_temp < dmll )
+                  dmll = dmll_temp;
+          }
+      }
+  }
+  return dmll;
+}
+
 // void reco::SkimEvent::addElectronId(const edm::Handle<edm::ValueMap<bool> > &valueMapEleId, std::string name) {
 //  
 //  if (_electronIdsMap.find( name ) != _electronIdsMap.end()) {

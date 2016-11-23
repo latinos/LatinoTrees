@@ -230,8 +230,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 	egammaHFPlus_sumPt = cms.string("egammaHFPlus_sumPt"),
 	egammaHFMinus_sumPt = cms.string("egammaHFMinus_sumPt"),
 
-
-
+	dmZllReco = cms.string("dmZllReco"),
 
         #gammaMRStar = cms.string("gammaMRStar"),
         njet = cms.string("nCentralJets("+CJVminPt+","+CJVmaxEta+",1,"+jetId_WP+")"),
