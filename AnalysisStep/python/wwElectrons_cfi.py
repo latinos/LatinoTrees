@@ -35,7 +35,7 @@ ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+
                        "( (!isEB) " +
                        " && full5x5_sigmaIetaIeta < 0.031" +
                        #originally was 0.0301
-                       " && abs(deltaEtaSuperClusterTrackAtVtx) < 0.01  " +
+                       #" && abs(deltaEtaSuperClusterTrackAtVtx) < 0.01  " +
                        #originally was 0.00814
                        " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.182  " +
                        " && hadronicOverEm < 0.0897" +
