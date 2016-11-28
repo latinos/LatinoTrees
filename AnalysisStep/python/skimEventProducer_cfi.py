@@ -309,6 +309,29 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_v*",                           # 90
         "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_v*",                           # 91
         "HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*",                             # 92
+        
+        # Trigger update for Rereco data
+        "HLT_Ele27_WPTight_Gsf_v*",                                           # 93
+        "HLT_Ele32_WPTight_Gsf_v*",                                           # 94
+        "HLT_Ele32_eta2p1_WPTight_Gsf_v*",                                    # 95
+        
+        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v*",                 # 96
+        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",              # 97
+        "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_v*",               # 98
+        
+        "HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v*",                            # 99
+        "HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*",                         # 100
+        
+        "HLT_Mu20_v*",                                                        # 101
+        "HLT_Mu27_v*",                                                        # 102
+        "HLT_Mu50_v*",                                                        # 103
+        "HLT_Mu55_v*",                                                        # 104
+        "HLT_Mu24_eta2p1_v*",                                                 # 105
+        "HLT_Mu45_eta2p1_v*",                                                 # 106
+        "HLT_IsoMu22_eta2p1_v*",                                              # 107
+        "HLT_IsoMu24_eta2p1_v*",                                              # 108
+        "HLT_IsoTkMu22_eta2p1_v*",                                            # 109
+        "HLT_IsoTkMu24_eta2p1_v*",                                            # 110
         ),
 
 

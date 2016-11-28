@@ -478,6 +478,8 @@ namespace reco {
     const double hHFMinus_sumPt() const;
     const double egammaHFPlus_sumPt() const;
     const double egammaHFMinus_sumPt() const;
+
+    const float dmZllReco() const;
     
     void set_XYshift_sumPt(
       double hEtaPlus_sumPt, double inhEtaMinus_sumPt, double h0Barrel_sumPt,
@@ -603,6 +605,10 @@ namespace reco {
     const float leadingTauPt (size_t a) const;
     const float leadingTauEta(size_t a) const;
     const float leadingTauPhi(size_t a) const;
+
+    const float leadingTauVLooseIsoMvaNew(size_t a) const;
+    const float leadingTauVLooseIsoMvaOld(size_t a) const;
+    const float leadingTauLooseIsoDbeta (size_t a) const;
     
     
     

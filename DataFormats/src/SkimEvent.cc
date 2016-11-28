@@ -1224,6 +1224,30 @@ const double reco::SkimEvent::egammaHFMinus_sumPt() const {
   return egammaHFMinus_sumPt_;
 }
 
+const float reco::SkimEvent::dmZllReco() const {
+  float dmll = abs(defaultvalues::defaultFloat);
+  unsigned int i1=0, i2=0;
+  for( unsigned int iLep1=0; iLep1 < leps_.size(); ++iLep1 )
+  {
+      i1 = indexByPt(iLep1);
+      for( unsigned int iLep2=iLep1+1; iLep2 < leps_.size(); ++iLep2 )
+      {  
+          i2 = indexByPt(iLep2);
+          if( leps_[i2]->pt() < 10. )
+              break;
+            
+          // check opposite charge and same flavour
+          if( leps_[i1]->pdgId() == -1 * leps_[i2]->pdgId() )
+          {
+              float dmll_temp = abs( (leps_[i1]->p4() + leps_[i2]->p4()).mass() - 91.1876 );
+              if( dmll_temp < dmll )
+                  dmll = dmll_temp;
+          }
+      }
+  }
+  return dmll;
+}
+
 // void reco::SkimEvent::addElectronId(const edm::Handle<edm::ValueMap<bool> > &valueMapEleId, std::string name) {
 //  
 //  if (_electronIdsMap.find( name ) != _electronIdsMap.end()) {
@@ -2129,6 +2153,7 @@ void reco::SkimEvent::setupJEC(const std::string &l2File, const std::string &l3F
 
 
 
+// Tau variables
 
 const float reco::SkimEvent::leadingTauPt(size_t index) const {
   
@@ -2137,9 +2162,7 @@ const float reco::SkimEvent::leadingTauPt(size_t index) const {
     if(++count > index) return taus_[i].pt();
   }
   return -9999.9;
-  
 }
-
 
 
 const float reco::SkimEvent::leadingTauEta(size_t index) const {
@@ -2149,9 +2172,7 @@ const float reco::SkimEvent::leadingTauEta(size_t index) const {
     if(++count > index) return taus_[i].eta();
   }
   return -9999.9;
-  
 }
-
 
 
 const float reco::SkimEvent::leadingTauPhi(size_t index) const {
@@ -2161,12 +2182,37 @@ const float reco::SkimEvent::leadingTauPhi(size_t index) const {
     if(++count > index) return taus_[i].phi();
   }
   return -9999.9;
-  
 }
 
 
+const float reco::SkimEvent::leadingTauVLooseIsoMvaNew(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byVLooseIsolationMVArun2v1DBnewDMwLT");
+  }
+  return -9999.9;  
+}
 
 
+const float reco::SkimEvent::leadingTauVLooseIsoMvaOld(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byVLooseIsolationMVArun2v1DBoldDMwLT");
+  }
+  return -9999.9;
+}
+
+
+const float reco::SkimEvent::leadingTauLooseIsoDbeta(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byLooseCombinedIsolationDeltaBetaCorr3Hits");
+  }
+  return -9999.9; 
+}
 
 
 // void reco::SkimEvent::setupJEC(const JetCorrector *c) {
@@ -5530,8 +5576,8 @@ const float reco::SkimEvent::chargedPileUpMiniIso(size_t i) const {
 
     float CandPtThreshold = 0.0, dRCandProbeVeto = 0.0;
     if (isMuon(i)) {
-      CandPtThreshold = 0.5; // 0.0 in muon T&P code. 0.5 reproduces the results of getMuon(i)->pfIsolationR04().sumPUPt
-      dRCandProbeVeto = 0.01; // 0.0001  in muon T&P code
+      CandPtThreshold = 0.0; // as in muon T&P code. 0.5 reproduces the results of getMuon(i)->pfIsolationR04().sumPUPt
+      dRCandProbeVeto = 0.0001; // as in muon T&P code; 0.01 in standard 0.4 iso
     } else {
       CandPtThreshold = 0.0;
       if (fabs(leps_[i]->eta())>1.479) dRCandProbeVeto = 0.015;
@@ -5578,7 +5624,7 @@ const float reco::SkimEvent::neutralHadronMiniIso(size_t i) const {
   
     float CandPtThreshold = 0.0, dRCandProbeVeto = 0.0;
     if (isMuon(i)) {
-      CandPtThreshold = 0.5; // 1.0 in muon T&P code. 0.5 reproduces the results of getMuon(i)->pfIsolationR04().sumNeutralHadronEt
+      CandPtThreshold = 1.0; // as in muon T&P code. 0.5 reproduces the results of getMuon(i)->pfIsolationR04().sumNeutralHadronEt
       dRCandProbeVeto = 0.01;
     } else {
       CandPtThreshold = 0.0;

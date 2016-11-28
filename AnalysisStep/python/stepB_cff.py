@@ -230,8 +230,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 	egammaHFPlus_sumPt = cms.string("egammaHFPlus_sumPt"),
 	egammaHFMinus_sumPt = cms.string("egammaHFMinus_sumPt"),
 
-
-
+	dmZllReco = cms.string("dmZllReco"),
 
         #gammaMRStar = cms.string("gammaMRStar"),
         njet = cms.string("nCentralJets("+CJVminPt+","+CJVmaxEta+",1,"+jetId_WP+")"),
@@ -586,6 +585,10 @@ def addTau(process,pt):
           pt.variables.std_vector_tau_pt  = cms.string("leadingTauPt")
           pt.variables.std_vector_tau_eta = cms.string("leadingTauEta")
           pt.variables.std_vector_tau_phi = cms.string("leadingTauPhi")
+
+          pt.variables.std_vector_tau_vlooseIso_mva_new = cms.string("leadingTauVLooseIsoMvaNew")
+          pt.variables.std_vector_tau_vlooseIso_mva_old = cms.string("leadingTauVLooseIsoMvaOld")
+          pt.variables.std_vector_tau_looseIso_dbeta    = cms.string("leadingTauLooseIsoDbeta")
 
 
 def addFatJets(process,pt):
