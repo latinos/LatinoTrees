@@ -2118,9 +2118,17 @@ const float reco::SkimEvent::eta(size_t i) const {
 }
 
 const float reco::SkimEvent::etaSC(size_t i) const {
-  if(i >= leps_.size()) return defaultvalues::defaultFloat;
-  if( isElectron(i) ) return getElectron(i)->superCluster()->eta();
-  else return leps_[i]->eta();
+  if(i < leps_.size() && isElectron(i) && getElectron(i)->superCluster().isNonnull()) 
+	return getElectron(i)->superCluster()->eta();
+  else 
+	return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::etaSCSeed(size_t i) const {
+  if(i < leps_.size() && isElectron(i) && getElectron(i)->superCluster()->seed().isNonnull())
+	return getElectron(i)->superCluster()->seed()->eta();
+  else 
+	return defaultvalues::defaultFloat;
 }
 
 const float reco::SkimEvent::nBrem(size_t i) const {
@@ -8107,14 +8115,15 @@ void reco::SkimEvent::InitEffectiveAreasElectrons()
   _eaElectronIso[5][1] = 0.2425;
   _eaElectronIso[6][1] = 0.2935;
   
+  // 80X: https://github.com/ikrav/cmssw/blob/egm_id_80X_v1/RecoEgamma/ElectronIdentification/data/Summer16/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_80X.txt
   // 25ns
-  _eaElectronIso[0][0] = 0.1752;
-  _eaElectronIso[1][0] = 0.1862;
-  _eaElectronIso[2][0] = 0.1411;
-  _eaElectronIso[3][0] = 0.1534;
-  _eaElectronIso[4][0] = 0.1903;
-  _eaElectronIso[5][0] = 0.2243;
-  _eaElectronIso[6][0] = 0.2687;
+  _eaElectronIso[0][0] = 0.1703;
+  _eaElectronIso[1][0] = 0.1715;
+  _eaElectronIso[2][0] = 0.1213;
+  _eaElectronIso[3][0] = 0.1230;
+  _eaElectronIso[4][0] = 0.1635;
+  _eaElectronIso[5][0] = 0.1937;
+  _eaElectronIso[6][0] = 0.2393;
 }
 
 

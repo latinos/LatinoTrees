@@ -364,6 +364,7 @@ def addEleIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_electron_ooEmooP",                  cms.string("ooEmooPByPt")),
         setattr(pt.variables, "std_vector_electron_effectiveArea",            cms.string("GetElectronEffectiveAreaByPt")),
         setattr(pt.variables, "std_vector_electron_scEta",                    cms.string("etaSCByPt")),
+        setattr(pt.variables, "std_vector_electron_scSeedEta",                cms.string("etaSCSeedByPt")),
         setattr(pt.variables, "std_vector_electron_expectedMissingInnerHits", cms.string("expectedMissingInnerHitsByPt")),
         setattr(pt.variables, "std_vector_electron_expectedMissingOuterHits", cms.string("expectedMissingOuterHitsByPt")),
         setattr(pt.variables, "std_vector_electron_expectedMissingTrackHits", cms.string("expectedMissingTrackHitsByPt")),

@@ -216,7 +216,8 @@ namespace reco {
     const float ptMin() const { return ptByPt(1); }
     const float eta(size_t a = 0) const;
     const float nBrem(size_t a = 0) const;
-    const float etaSC(size_t a = 0) const; //returns isMuon ? eta : ele.sc.eta
+    const float etaSC(size_t a = 0) const; //returns isMuon ? defaultFloat : ele.sc.eta
+    const float etaSCSeed(size_t a = 0) const;
     const float phi(size_t a = 0) const;
     const int   q(size_t a = 0) const;
     
@@ -857,6 +858,7 @@ namespace reco {
     
     const float etaByIso (size_t i = 0) const { return eta (indexByIso(i)); }
     const float etaSCByPt (size_t i = 0) const { return etaSC (indexByPt (i)); }
+    const float etaSCSeedByPt (size_t i = 0) const { return etaSCSeed (indexByPt (i)); }
     const float etaSCByIso (size_t i = 0) const { return etaSC (indexByIso(i)); }
     const float phiByPt (size_t i = 0) const { return phi (indexByPt (i)); }
     const float phiByIso (size_t i = 0) const { return phi (indexByIso(i)); }
