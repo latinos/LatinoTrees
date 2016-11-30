@@ -5488,6 +5488,13 @@ const float reco::SkimEvent::trackIso(size_t i) const  {
   else                        return -999.0;
 }
 
+const float reco::SkimEvent::trackIso03(size_t i) const  {
+  if(i >= leps_.size()) return defaultvalues::defaultFloat;  
+  else if (isElectron(i))     return getElectron(i)->dr03TkSumPt();
+  else if (isMuon(i))         return getMuon(i)->isolationR03().sumPt;
+  else                        return -999.0;
+}
+
 
 const float reco::SkimEvent::chargedHadronIso(size_t i) const {
   if      (i >= leps_.size()) return defaultvalues::defaultFloat;

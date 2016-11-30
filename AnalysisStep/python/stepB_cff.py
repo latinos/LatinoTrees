@@ -375,6 +375,7 @@ def addEleIdIsoVariables(process,pt):
         setattr(pt.variables, "std_vector_electron_gsfchi2",                  cms.string("gsfchi2ByPt")),
         setattr(pt.variables, "std_vector_electron_gsfndof",                  cms.string("gsfndofByPt")),
         setattr(pt.variables, "std_vector_electron_gsfnormalizedchi2",        cms.string("gsfnormalizedchi2ByPt")),
+        setattr(pt.variables, "std_vector_lepton_trackIso03",                 cms.string("trackIso03ByPt")),
 
         # ECAL
         setattr(pt.variables, "std_vector_electron_full5x5R9",         cms.string("full5x5R9ByPt")),

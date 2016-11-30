@@ -993,6 +993,7 @@ namespace reco {
     
     // Muon and electron isolation
     const float trackIso          (size_t i = 0) const;
+    const float trackIso03        (size_t i = 0) const;
     const float chargedHadronIso  (size_t i = 0) const;
     const float chargedParticleIso(size_t i = 0) const;
     const float neutralHadronIso  (size_t i = 0) const;
@@ -1004,6 +1005,7 @@ namespace reco {
     const float photonMiniIso       (size_t i = 0) const;
     
     const float trackIsoByPt          (size_t i = 0) const { return trackIso          (indexByPt(i)); }
+    const float trackIso03ByPt        (size_t i = 0) const { return trackIso03        (indexByPt(i)); }
     const float chargedHadronIsoByPt  (size_t i = 0) const { return chargedHadronIso  (indexByPt(i)); }
     const float chargedParticleIsoByPt(size_t i = 0) const { return chargedParticleIso(indexByPt(i)); }
     const float neutralHadronIsoByPt  (size_t i = 0) const { return neutralHadronIso  (indexByPt(i)); }
