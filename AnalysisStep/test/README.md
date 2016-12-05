@@ -142,3 +142,14 @@ of the text-format datacards and the associated shape input.
 
     http://cms-analysis.github.io/CombineHarvester/
 
+
+B. Share IT EOS space
+====
+
+Please follow the steps below to share your (cernbox) IT EOS space with the latino community.
+
+1. Login to [cernbox](cernbox.cern.ch).
+2. Create a HWW2016 folder.
+3. Click on the "share" icon (it looks like a "<" sign) for that folder.
+4. Share it in read-only mode with the latinos-hep e-group.
+5. Share it in write+read mode with these users: janssen, jlauwers, ddicroce, amassiro, calderon.
