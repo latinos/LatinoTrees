@@ -527,36 +527,17 @@ switchOnVIDElectronIdProducer(process, dataFormat)
  #)
 
 # define which IDs we want to produce
-if options.is50ns :
-    my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_50ns_V1_cff',
-                     'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
 
-    process.skimEventProducer.electronIds = cms.vstring(
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-veto",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-loose",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-medium",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-50ns-V1-standalone-tight",
-        )
+my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff',
+                 'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Summer16_80X_V1_cff']
 
-    stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","50ns")
-    stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","50ns")
-    stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","50ns")
-    stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","50ns")
-else :
-    my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',
-                     'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff']
-
-    process.skimEventProducer.electronIds = cms.vstring(
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium",
-        "egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight",
-        )
-
-    stepBTree.variables.std_vector_lepton_eleIdVeto   = stepBTree.variables.std_vector_lepton_eleIdVeto  .value().replace("FREQUENCY","25ns")
-    stepBTree.variables.std_vector_lepton_eleIdLoose  = stepBTree.variables.std_vector_lepton_eleIdLoose .value().replace("FREQUENCY","25ns")
-    stepBTree.variables.std_vector_lepton_eleIdMedium = stepBTree.variables.std_vector_lepton_eleIdMedium.value().replace("FREQUENCY","25ns")
-    stepBTree.variables.std_vector_lepton_eleIdTight  = stepBTree.variables.std_vector_lepton_eleIdTight .value().replace("FREQUENCY","25ns")
+process.skimEventProducer.electronIds = cms.vstring(
+    "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto",
+    "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose",
+    "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium",
+    "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight",
+    "egmGsfElectronIDs:cutBasedElectronHLTPreselection-Summer16-V1",
+    )
 
 # add them to the VID producer
 for idmod in my_id_modules:
