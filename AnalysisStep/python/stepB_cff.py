@@ -248,11 +248,14 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         #eleIdTight1  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight\",\"\",0)"),
 
         #                                                                              FREQUENCY will be replaced to 25ns/50ns in stepB.py
-        std_vector_lepton_eleIdVeto   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto\",\"\""),
-        std_vector_lepton_eleIdLoose  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose\",\"\""),
-        std_vector_lepton_eleIdMedium = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium\",\"\""),
-        std_vector_lepton_eleIdTight  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight\",\"\""),
-        std_vector_lepton_eleIdHLT    = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronHLTPreselection-Summer16-V1\",\"\""),
+        std_vector_lepton_eleIdVeto    = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto\",\"\""),
+        std_vector_lepton_eleIdLoose   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose\",\"\""),
+        std_vector_lepton_eleIdMedium  = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium\",\"\""),
+        std_vector_lepton_eleIdTight   = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight\",\"\""),
+        std_vector_lepton_eleIdHLT     = cms.string("leptIdByPt(\"egmGsfElectronIDs:cutBasedElectronHLTPreselection-Summer16-V1\",\"\""),
+        std_vector_lepton_eleIdMvaWp90 = cms.string("leptIdByPt(\"egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp90\",\"\""),
+        std_vector_lepton_eleIdMvaWp80 = cms.string("leptIdByPt(\"egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp80\",\"\""),
+#        std_vector_lepton_eleIdMvaValue = cms.string("leptIdByPt(\"electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values\",\"\""),
 
         # in the 2012 selection, 2 BJet algorithms are used: softtche and hardbjpb !
         # softbdisc = cms.string("highestBDiscRange(10.0,30.0,'pfTrackCountingHighEffBJetTags',"+jetId_WP+","+DzBVeto+")"),

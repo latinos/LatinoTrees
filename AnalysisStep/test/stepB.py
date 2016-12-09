@@ -529,7 +529,8 @@ switchOnVIDElectronIdProducer(process, dataFormat)
 # define which IDs we want to produce
 
 my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff',
-                 'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Summer16_80X_V1_cff']
+                 'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Summer16_80X_V1_cff',
+                 'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring16_GeneralPurpose_V1_cff']
 
 process.skimEventProducer.electronIds = cms.vstring(
     "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto",
@@ -537,6 +538,9 @@ process.skimEventProducer.electronIds = cms.vstring(
     "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium",
     "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight",
     "egmGsfElectronIDs:cutBasedElectronHLTPreselection-Summer16-V1",
+    "egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp90",
+    "egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp80",
+#    "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values",
     )
 
 # add them to the VID producer
