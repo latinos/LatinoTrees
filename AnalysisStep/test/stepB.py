@@ -540,7 +540,9 @@ process.skimEventProducer.electronIds = cms.vstring(
     "egmGsfElectronIDs:cutBasedElectronHLTPreselection-Summer16-V1",
     "egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp90",
     "egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp80",
-#    "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values",
+    )
+process.skimEventProducer.electronMvaIds = cms.vstring(
+    "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values",
     )
 
 # add them to the VID producer

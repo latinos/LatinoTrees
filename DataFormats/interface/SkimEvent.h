@@ -378,7 +378,7 @@ namespace reco {
     void setElectronIds( const std::vector <std::string> &);
     void addElectronId (const std::vector<bool> &s, std::string name);
     //             void addElectronId (const edm::Handle<edm::ValueMap<bool> > &s, std::string name);
-    
+    void addElectronMvaId (const std::vector<float> &s, std::string name);
     
     const float met(metType metToUse=TCMET) const;
     
@@ -1259,6 +1259,7 @@ namespace reco {
     float _eaElectronIso[7][2];
     std::vector <std::string> _electronIds;
     std::map <std::string, std::vector<bool> > _electronIdsMap;
+    std::map <std::string, std::vector<float> > _electronMvaIdsMap;
     
     // GEN
     std::vector<unsigned int> leptonIndices;

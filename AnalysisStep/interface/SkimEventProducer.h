@@ -231,7 +231,8 @@ struct JetInfo {
         
         std::vector< edm::EDGetTokenT<edm::ValueMap<bool> > > _vector_electronIdsTags;
         std::vector <std::string> _electronIds;
-        
+        std::vector< edm::EDGetTokenT<edm::ValueMap<float> > > _vector_electronMvaIdsTags;
+        std::vector <std::string> _electronMvaIds;
         
         //---- global variables to be saved
         TH1F* _selectedTriggers;

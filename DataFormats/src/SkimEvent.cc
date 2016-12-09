@@ -1276,6 +1276,15 @@ void reco::SkimEvent::addElectronId(const std::vector<bool> &EleId, std::string 
   
 }
 
+void reco::SkimEvent::addElectronMvaId(const std::vector<float> &EleId, std::string name) {
+  
+  if (_electronMvaIdsMap.find( name ) != _electronMvaIdsMap.end()) {
+    _electronMvaIdsMap[name].clear();
+  }
+  _electronMvaIdsMap[name] = EleId;
+  
+}
+
 void reco::SkimEvent::setVtxSumPts(const edm::Handle<edm::ValueMap<float> > &s) {
   
   for(size_t i=0;i<vtxs_.size();++i) sumPts_.push_back( (*s)[vtxs_[i]] );
@@ -2087,8 +2096,19 @@ const float reco::SkimEvent::leptId(std::string idele, std::string idmu, size_t 
     //   std::cout << " >> getElectron(i)->userFloat(" << idele << ") = " << getElectron(i)->userFloat(idele) << std::endl;
     //   return getElectron(i)->userFloat(idele); //---- "idele" is the name of the id for electrons
     //   std::cout << " _electronIdsMap[" << idele << "].at(" << i << ") = " << (_electronIdsMap.at(idele)).at(i) << std::endl;
-    if ((_electronIdsMap.at(idele)).at(i)) return 1;
-    else                                   return 0;
+
+    if (_electronIdsMap.find( idele ) != _electronIdsMap.end()) {
+      if ((_electronIdsMap.at(idele)).at(i)) return 1;
+      else                                   return 0;
+    }
+    else if(_electronMvaIdsMap.find( idele ) != _electronMvaIdsMap.end()) {
+      return _electronMvaIdsMap.at(idele).at(i);
+    }
+    else
+    {
+       std::cerr << "\nError: Electon ID name not defined: " << idele << "\n\n";
+       throw 1;
+    } 
   }
   else {
     if (idmu != "") {
