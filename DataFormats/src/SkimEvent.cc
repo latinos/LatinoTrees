@@ -2660,6 +2660,17 @@ const float reco::SkimEvent::leadingJetPtL1(size_t index) const {
   }
 }
 
+const float reco::SkimEvent::leadingJetPtL3Absolute(size_t index) const { 
+  unsigned int index_jet_ordered = indexJetByPt(index, minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+  if (index_jet_ordered >= jets_.size()) {
+    return defaultvalues::defaultFloat;
+  } else if (jets_[index_jet_ordered]->currentJECLevel()!="ERROR") {
+    return jets_[index_jet_ordered]->correctedJet("L3Absolute").pt();
+  } else {
+    return -999.;
+  }
+}
+
 
 const float reco::SkimEvent::leadingJetPt(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
   
@@ -6334,6 +6345,226 @@ const float reco::SkimEvent::getSusyLSPMass() const {
   } // loop over gen particles
   
   return mass;
+}
+
+
+const float reco::SkimEvent::susyParticlePt(size_t index) const {
+  
+  int jndex = -1;
+
+  // loop over gen particles
+  for(size_t gp=0; gp<genParticles_.size();++gp) {
+    
+    int pdgId = genParticles_[gp] -> pdgId();
+    //int status = genParticles_[gp] -> status();
+    
+    if (abs(pdgId) == 1000006 || abs(pdgId) == 2000006) { // Stop
+      
+      bool DecayToLSP = false;
+      
+      int ndaughters = genParticles_[gp]->numberOfDaughters();
+     
+      for (int id=0; id<ndaughters; id++) {
+	
+	int pdgIdDaughter = (genParticles_[gp]->daughter(id))->pdgId();
+	
+	if (abs(pdgIdDaughter)==1000022 || abs(pdgIdDaughter)==1000023 || abs(pdgIdDaughter)==1000025 || abs(pdgIdDaughter)==1000035) {
+	  
+	  DecayToLSP = true;
+	  continue;
+	  
+	}
+	
+      }
+      
+      if (DecayToLSP) jndex++;
+      
+    } else if (abs(pdgId) == 1000022 || abs(pdgId) == 1000023 || abs(pdgId) == 1000025 || abs(pdgId) == 1000035) { // LSP
+      
+      if (genParticles_[gp]-> numberOfMothers() < 1) continue;
+      int pdgIdMother = (genParticles_[gp]->mother())->pdgId();
+      if (abs(pdgIdMother)==1000006 || abs(pdgIdMother)==2000006)
+	jndex++;
+      
+    }
+    
+    if (jndex>=0 && abs(jndex)==index) {
+      
+      const reco::Candidate* mcP = &(*(genParticles_[gp]));
+      return mcP->pt();
+      
+    }
+
+  } // loop over gen particles
+  
+  if (jndex<0) return -999.;
+  else return -100.*(jndex+1);
+  
+}
+
+
+const float reco::SkimEvent::susyParticleEta(size_t index) const {
+  
+  int jndex = -1;
+
+  // loop over gen particles
+  for(size_t gp=0; gp<genParticles_.size();++gp) {
+    
+    int pdgId = genParticles_[gp] -> pdgId();
+    //int status = genParticles_[gp] -> status();
+    
+    if (abs(pdgId) == 1000006 || abs(pdgId) == 2000006) { // Stop
+      
+      bool DecayToLSP = false;
+      
+      int ndaughters = genParticles_[gp]->numberOfDaughters();
+     
+      for (int id=0; id<ndaughters; id++) {
+	
+	int pdgIdDaughter = (genParticles_[gp]->daughter(id))->pdgId();
+	
+	if (abs(pdgIdDaughter)==1000022 || abs(pdgIdDaughter)==1000023 || abs(pdgIdDaughter)==1000025 || abs(pdgIdDaughter)==1000035) {
+	  
+	  DecayToLSP = true;
+	  continue;
+	  
+	}
+	
+      }
+      
+      if (DecayToLSP) jndex++;
+      
+    } else if (abs(pdgId) == 1000022 || abs(pdgId) == 1000023 || abs(pdgId) == 1000025 || abs(pdgId) == 1000035) { // LSP
+      
+      if (genParticles_[gp]-> numberOfMothers() < 1) continue;
+      int pdgIdMother = (genParticles_[gp]->mother())->pdgId();
+      if (abs(pdgIdMother)==1000006 || abs(pdgIdMother)==2000006)
+	jndex++;
+      
+    }
+    
+    if (jndex>=0 && abs(jndex)==index) {
+      
+      const reco::Candidate* mcP = &(*(genParticles_[gp]));
+      return mcP->eta();
+      
+    }
+
+  } // loop over gen particles
+  
+  if (jndex<0) return -999.;
+  else return -100.*(jndex+1);
+  
+}
+
+
+const float reco::SkimEvent::susyParticlePhi(size_t index) const {
+  
+  int jndex = -1;
+
+  // loop over gen particles
+  for(size_t gp=0; gp<genParticles_.size();++gp) {
+    
+    int pdgId = genParticles_[gp] -> pdgId();
+    //int status = genParticles_[gp] -> status();
+    
+    if (abs(pdgId) == 1000006 || abs(pdgId) == 2000006) { // Stop
+      
+      bool DecayToLSP = false;
+      
+      int ndaughters = genParticles_[gp]->numberOfDaughters();
+     
+      for (int id=0; id<ndaughters; id++) {
+	
+	int pdgIdDaughter = (genParticles_[gp]->daughter(id))->pdgId();
+	
+	if (abs(pdgIdDaughter)==1000022 || abs(pdgIdDaughter)==1000023 || abs(pdgIdDaughter)==1000025 || abs(pdgIdDaughter)==1000035) {
+	  
+	  DecayToLSP = true;
+	  continue;
+	  
+	}
+	
+      }
+      
+      if (DecayToLSP) jndex++;
+      
+    } else if (abs(pdgId) == 1000022 || abs(pdgId) == 1000023 || abs(pdgId) == 1000025 || abs(pdgId) == 1000035) { // LSP
+      
+      if (genParticles_[gp]-> numberOfMothers() < 1) continue;
+      int pdgIdMother = (genParticles_[gp]->mother())->pdgId();
+      if (abs(pdgIdMother)==1000006 || abs(pdgIdMother)==2000006)
+	jndex++;
+      
+    }
+    
+    if (jndex>=0 && abs(jndex)==index) {
+      
+      const reco::Candidate* mcP = &(*(genParticles_[gp]));
+      return mcP->phi();
+      
+    }
+
+  } // loop over gen particles
+  
+  if (jndex<0) return -999.;
+  else return -100.*(jndex+1);
+
+}
+
+
+const int reco::SkimEvent::susyParticleID(size_t index) const {
+  
+  int jndex = -1;
+
+  // loop over gen particles
+  for(size_t gp=0; gp<genParticles_.size();++gp) {
+    
+    int pdgId = genParticles_[gp] -> pdgId();
+    //int status = genParticles_[gp] -> status();
+    
+    if (abs(pdgId) == 1000006 || abs(pdgId) == 2000006) { // Stop
+      
+      bool DecayToLSP = false;
+      
+      int ndaughters = genParticles_[gp]->numberOfDaughters();
+     
+      for (int id=0; id<ndaughters; id++) {
+	
+	int pdgIdDaughter = (genParticles_[gp]->daughter(id))->pdgId();
+	
+	if (abs(pdgIdDaughter)==1000022 || abs(pdgIdDaughter)==1000023 || abs(pdgIdDaughter)==1000025 || abs(pdgIdDaughter)==1000035) {
+	  
+	  DecayToLSP = true;
+	  continue;
+	  
+	}
+	
+      }
+      
+      if (DecayToLSP) jndex++;
+      
+    } else if (abs(pdgId) == 1000022 || abs(pdgId) == 1000023 || abs(pdgId) == 1000025 || abs(pdgId) == 1000035) { // LSP
+      
+      if (genParticles_[gp]-> numberOfMothers() < 1) continue;
+      int pdgIdMother = (genParticles_[gp]->mother())->pdgId();
+      if (abs(pdgIdMother)==1000006 || abs(pdgIdMother)==2000006)
+	jndex++;
+      
+    }
+    
+    if (jndex>=0 && abs(jndex)==index) {
+      
+      const reco::Candidate* mcP = &(*(genParticles_[gp]));
+      return pdgId;
+      
+    }
+
+  } // loop over gen particles
+  
+  if (jndex<0) return -999.;
+  else return -100.*(jndex+1);
+
 }
 
 

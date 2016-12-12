@@ -194,6 +194,10 @@ namespace reco {
     const float getHiggsPhi() const;
     const float getSusyStopMass() const;
     const float getSusyLSPMass() const;
+    const float susyParticlePt (size_t i) const;
+    const float susyParticleEta(size_t i) const;
+    const float susyParticlePhi(size_t i) const;
+    const int   susyParticleID (size_t i) const;
     
     const float getPDFscalePDF() const;
     const float getPDFx1() const;
@@ -247,6 +251,7 @@ namespace reco {
 
     const float leadingJetPtRaw(size_t a) const;
     const float leadingJetPtL1 (size_t a) const;
+    const float leadingJetPtL3Absolute (size_t a) const;
     
     const float leadingJetPt(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
     const float leadingJetEta(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;

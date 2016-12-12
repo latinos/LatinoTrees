@@ -941,6 +941,7 @@ if wztth == True:
 if doSusy == True :
     tree.variables.susyMstop = cms.string("getSusyStopMass()")
     tree.variables.susyMLSP = cms.string("getSusyLSPMass()")
+    addSusyParticleVariables(tree)
 
 if doHiggs == True :
     tree.variables.MHiggs = cms.string("getHiggsMass()")

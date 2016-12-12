@@ -124,6 +124,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 
         std_vector_jet_pt_raw = cms.string("leadingJetPtRaw"),
         std_vector_jet_pt_L1  = cms.string("leadingJetPtL1"),
+        std_vector_jet_pt_L3Absolute  = cms.string("leadingJetPtL3Absolute"),
 
         peaking = cms.string("peaking"),
         trigger = cms.string("guillelmoTrigger('DATASET')"),
@@ -409,6 +410,14 @@ def addFakeRateVariables(pt):
         pt.variables.std_vector_lepton_closejet_phi           = cms.string("leadingJetCloseLeptonPhi")
         pt.variables.std_vector_lepton_closejet_PartonFlavour = cms.string("leadingJetCloseLeptonFlavour")
         pt.variables.std_vector_lepton_closejet_drlj          = cms.string("leadingJetCloseLeptonDR")
+
+def addSusyParticleVariables(pt):
+    if hasattr(pt,"variables"):
+
+        pt.variables.std_vector_susy_pt           = cms.string("susyParticlePt/4")
+        pt.variables.std_vector_susy_eta          = cms.string("susyParticleEta/4")
+        pt.variables.std_vector_susy_phi          = cms.string("susyParticlePhi/4")
+        pt.variables.std_vector_susy_id           = cms.string("susyParticleID/4")
 
 
 
