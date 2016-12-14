@@ -1045,6 +1045,7 @@ namespace reco {
     const float jetcmvav2ByPt(size_t i) const;
     const float jetpfCombinedCvsLJetTagsByPt(size_t i) const;
     const float jetpfCombinedCvsBJetTagsByPt(size_t i) const;
+    const float jetDeepCSVBByPt(size_t i) const;
         
     const float jetSoftMuonPtByPt(size_t i) const;
     const float jetSoftMuonPt(size_t a, float minPtMuon, float maxDrMuonJet, float pt ,float eta,int applyCorrection, int applyID) const;

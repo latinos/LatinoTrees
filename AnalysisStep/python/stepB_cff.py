@@ -447,6 +447,7 @@ def addBTaggingVariables(pt,dzCut=99999):
         pt.variables.std_vector_jet_tchp      = cms.string("jettchpByPt")
         pt.variables.std_vector_jet_cCVSLjet  = cms.string("jetpfCombinedCvsLJetTagsByPt")
         pt.variables.std_vector_jet_cCVSBjet  = cms.string("jetpfCombinedCvsBJetTagsByPt")
+        pt.variables.std_vector_jet_DeepCSVB  = cms.string("jetDeepCSVBByPt")
 
         pt.variables.std_vector_jet_softMuPt  = cms.string("jetSoftMuonPtByPt")
         pt.variables.std_vector_jet_softMuEta = cms.string("jetSoftMuonEtaByPt")
