@@ -597,6 +597,7 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','pfCombinedMVAV2BJetTags'],
              #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'],
              #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'],
+             bTagDiscriminators = ['pfJetBProbabilityBJetTags','pfJetProbabilityBJetTags','pfTrackCountingHighPurBJetTags','pfTrackCountingHighEffBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','softPFMuonBJetTags','softPFElectronBJetTags','pfCombinedMVAV2BJetTags','pfCombinedCvsBJetTags','pfCombinedCvsLJetTags','deepFlavourJetTags:probb','deepFlavourJetTags:probbb'],
              addPUJetID=True,
              addPruning=False,
              addTrimming=False,
@@ -607,6 +608,7 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              addQGTagger=True,  # addSoftDrop=True
              ) #, addPrunedSubjets=True )
 
+process.jetTracksAssociatorAtVertexAK4PFCHS.tracks = cms.InputTag("unpackedTracksAndVertices")
 
 if options.isFastSim:
     from CondCore.DBCommon.CondDBSetup_cfi import *

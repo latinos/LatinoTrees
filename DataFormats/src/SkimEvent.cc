@@ -8195,6 +8195,9 @@ const float reco::SkimEvent::jetpfCombinedCvsLJetTagsByPt(size_t i = 0) const {
 const float reco::SkimEvent::jetpfCombinedCvsBJetTagsByPt(size_t i = 0) const {
   return leadingJetBtag(i,"pfCombinedCvsBJetTags",           minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
 }
+const float reco::SkimEvent::jetDeepCSVBByPt(size_t i = 0) const {
+  return leadingJetBtag(i,"deepFlavourJetTags:probb",           minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_) + leadingJetBtag(i,"deepFlavourJetTags:probbb",           minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,dzCutForBtagJets_);
+}
 
 
 
