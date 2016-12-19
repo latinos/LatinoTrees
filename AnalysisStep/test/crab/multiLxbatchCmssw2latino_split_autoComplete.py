@@ -34,13 +34,18 @@ if __name__ == '__main__':
     print sys.argv
     if len(sys.argv) <= 1 :
         print "No arguments?"
-        print "Usage to submit:     python multiLxbatchCmssw2latino_split.py file.py [number of files per hadd, default is 100]"
+        print "Usage to submit:     python multiLxbatchCmssw2latino_split.py file.py [0/1 = dryRun/exec, default dryRun]"
         exit()
 
-    # default is 100 files per hadd
-    nfiles_hadd = '100'
-    if len(sys.argv) == 3 :
-        nfiles_hadd = sys.argv[2]
+    # default is 50 files per hadd
+    nfiles_hadd = '50'
+    
+    dryRun = True
+    if len(sys.argv) > 2:
+       if (sys.argv[2]) == '0' :
+         dryRun = True
+       if (sys.argv[2]) == '1' :
+         dryRun = False 
 
     samples = {}
     SamplesFile = sys.argv[1]
@@ -94,9 +99,10 @@ if __name__ == '__main__':
                 target.write("rm latino_" + requestName_i + ".root\n")
                 target.close()
                 os.system("chmod +x " + filename)
-                os.system("bsub -q 1nd < " + filename)
+                if not dryRun:
+                    os.system("bsub -q 1nd < " + filename)
 
-            os.system("rm -rf list_" + requestName + "*")
+            os.system("rm list_" + requestName + "*")
 
     else :
         print "Error: ", SamplesFile, " does not exist "
