@@ -2331,8 +2331,9 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
       }
     }
     else if( abs(jet->eta()) <= 3.0 ){
-      if( jet->neutralEmEnergyFraction() >= 0.90 ) return false;
+      if( jet->neutralEmEnergyFraction() <= 0.01 ) return false;
       if( jet->neutralMultiplicity() <= 2 ) return false;
+      if (jet->neutralHadronEnergyFraction() >= 0.98) return false;
     }
     else {
       if( jet->neutralEmEnergyFraction() >= 0.90 ) return false;
@@ -2359,8 +2360,9 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
       }
     }
     else if( abs(jet->eta()) <= 3.0 ){
-      if( jet->neutralEmEnergyFraction() >= 0.90 ) return false;
+      if( jet->neutralEmEnergyFraction() <= 0.01 ) return false;
       if( jet->neutralMultiplicity() <= 2 ) return false;
+      if (jet->neutralHadronEnergyFraction() >= 0.98) return false;
     }
     else {
       if( jet->neutralEmEnergyFraction() >= 0.90 ) return false;
