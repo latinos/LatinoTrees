@@ -514,10 +514,17 @@ else:
 
 
 ####################
+
+# Run EGMRegression ##
+#    https://twiki.cern.ch/twiki/bin/view/CMS/EGMRegression
+
+#process.load('EgammaAnalysis.ElectronTools.regressionApplication_cff')
+#preSeq += process.regressionApplication
+
 # run electron id ##
 # see twiki:
-#    https://twiki.cern.ch/twiki/bin/view/CMS/EgammaIDRecipesRun2
-#
+#    https://twiki.cern.ch/twiki/bin/viewauth/CMS/CutBasedElectronIdentificationRun2#Working_points_for_2016_data_for
+#    https://twiki.cern.ch/twiki/bin/view/CMS/MultivariateElectronIdentificationRun2#Recommended_MVA_recipes_for_2016
 #
 from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
 dataFormat = DataFormat.MiniAOD

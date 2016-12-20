@@ -29,8 +29,8 @@ ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+
                        " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.115  " +
                        " && hadronicOverEm < 0.104" +
                        " && abs(1./energy - 1/p) < 0.102 " +
-                       " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 2 "+
-                       " && passConversionVeto() " +                           
+                       #" && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 2 "+
+                       #" && passConversionVeto() " +                           
                        " ) || " +
                        "( (!isEB) " +
                        " && full5x5_sigmaIetaIeta < 0.031" +
@@ -40,8 +40,8 @@ ELE_ID_LOOSE_NO_ISO = ("  (( isEB "+
                        " && abs(deltaPhiSuperClusterTrackAtVtx) < 0.182  " +
                        " && hadronicOverEm < 0.0897" +
                        " && abs(1./energy - 1/p) < 0.126 " +
-                       " && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
-                       " && passConversionVeto() " +                           
+                       #" && gsfTrack.isAvailable() && gsfTrack.hitPattern().numberOfLostHits(\'MISSING_INNER_HITS\') <= 1 "+
+                       #" && passConversionVeto() " +                           
                        " ) " +
                        ")")
 
