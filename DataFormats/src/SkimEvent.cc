@@ -2662,6 +2662,17 @@ const float reco::SkimEvent::leadingJetPtL1(size_t index) const {
   }
 }
 
+const float reco::SkimEvent::leadingJetPtL2(size_t index) const { 
+  unsigned int index_jet_ordered = indexJetByPt(index, minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+  if (index_jet_ordered >= jets_.size()) {
+    return defaultvalues::defaultFloat;
+  } else if (jets_[index_jet_ordered]->currentJECLevel()!="ERROR") {
+    return jets_[index_jet_ordered]->correctedJet("L2Relative").pt();
+  } else {
+    return -999.;
+  }
+}
+
 const float reco::SkimEvent::leadingJetPtL3Absolute(size_t index) const { 
   unsigned int index_jet_ordered = indexJetByPt(index, minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
   if (index_jet_ordered >= jets_.size()) {
@@ -2673,6 +2684,15 @@ const float reco::SkimEvent::leadingJetPtL3Absolute(size_t index) const {
   }
 }
 
+const float reco::SkimEvent::leadingJetArea(size_t index) const { 
+  unsigned int index_jet_ordered = indexJetByPt(index, minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+  if (index_jet_ordered >= jets_.size()) {
+    return defaultvalues::defaultFloat;
+  } 
+  else {
+    return jets_[index_jet_ordered]->jetArea();
+  }
+}
 
 const float reco::SkimEvent::leadingJetPt(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
   
@@ -6557,7 +6577,7 @@ const int reco::SkimEvent::susyParticleID(size_t index) const {
     
     if (jndex>=0 && abs(jndex)==index) {
       
-      const reco::Candidate* mcP = &(*(genParticles_[gp]));
+   //   const reco::Candidate* mcP = &(*(genParticles_[gp]));
       return pdgId;
       
     }

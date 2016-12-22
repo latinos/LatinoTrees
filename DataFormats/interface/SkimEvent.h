@@ -251,7 +251,9 @@ namespace reco {
 
     const float leadingJetPtRaw(size_t a) const;
     const float leadingJetPtL1 (size_t a) const;
+    const float leadingJetPtL2 (size_t a) const;
     const float leadingJetPtL3Absolute (size_t a) const;
+    const float leadingJetArea (size_t a) const;
     
     const float leadingJetPt(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
     const float leadingJetEta(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;

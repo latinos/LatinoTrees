@@ -124,7 +124,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
 
         std_vector_jet_pt_raw = cms.string("leadingJetPtRaw"),
         std_vector_jet_pt_L1  = cms.string("leadingJetPtL1"),
+        std_vector_jet_pt_L2  = cms.string("leadingJetPtL2"),
         std_vector_jet_pt_L3Absolute  = cms.string("leadingJetPtL3Absolute"),
+        std_vector_jet_area  = cms.string("leadingJetArea"),
 
         peaking = cms.string("peaking"),
         trigger = cms.string("guillelmoTrigger('DATASET')"),
