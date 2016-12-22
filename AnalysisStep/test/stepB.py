@@ -518,8 +518,8 @@ else:
 # Run EGMRegression ##
 #    https://twiki.cern.ch/twiki/bin/view/CMS/EGMRegression
 
-#process.load('EgammaAnalysis.ElectronTools.regressionApplication_cff')
-#preSeq += process.regressionApplication
+process.load('EgammaAnalysis.ElectronTools.regressionApplication_cff')
+process.EGMenergyCorrection = cms.Path(process.regressionApplication)
 
 # run electron id ##
 # see twiki:
