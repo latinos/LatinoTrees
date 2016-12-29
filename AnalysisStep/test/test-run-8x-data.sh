@@ -28,7 +28,7 @@ cmsRun stepB.py print          \
     summary=False              \
     is50ns=False               \
     isPromptRecoData=True      \
-    globalTag=80X_dataRun2_2016SeptRepro_v4 \
+    globalTag=80X_dataRun2_2016SeptRepro_v6 \
     label=MuEG                 \
     outputFile=stepB_data.root \
     selection=LooseNoIso       \
