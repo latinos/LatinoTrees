@@ -8304,7 +8304,51 @@ const float reco::SkimEvent::photonid_phiByPt(size_t i, int WP) const
   return phos_[indexByPtPho(i)]->phi();
 }
 
+
+
+const size_t reco::SkimEvent::indexByPtPho(size_t i) const {
+  
+  if( i >= phos_.size() ) return 9999; //--> big number then it will fail other tests later! good!
+  std::vector<indexValueStruct> a;
+  
+  for(size_t j=0;j<phos_.size();++j) a.push_back(indexValueStruct(pt(j),j));
+  std::sort(a.begin(),a.end(),highToLow);
+  
+  return a[i].index;
+}
+const int reco::SkimEvent::nPhos() const{
+  return (const int) phos_.size();
+}
+
+const float reco::SkimEvent::mllg() const{
+  if( phos_.size() < 1 || leps_.size() < 2 ) return 0;
+  else{
+    math::XYZTLorentzVector pho = phos_[indexByPtPho (0)]->p4();
+    math::XYZTLorentzVector lep1 = leps_[indexByPt (0)]->p4();
+    math::XYZTLorentzVector lep2 = leps_[indexByPt (1)]->p4();
+    math::XYZTLorentzVector HCand = pho + lep1 + lep2;
+    return HCand.M();
+  }
+}
+
+const float reco::SkimEvent::mllgid(int WP) const{
+  if( Pho_n_ID(WP) < 1 || leps_.size() < 2 ) return 0;
+  else{
+    math::XYZTLorentzVector pho = photon_id(0, WP);
+    math::XYZTLorentzVector lep1 = leps_[indexByPt (0)]->p4();
+    math::XYZTLorentzVector lep2 = leps_[indexByPt (1)]->p4();
+    math::XYZTLorentzVector HCand = pho + lep1 + lep2;
+    return HCand.M();
+  }
+}
+
+
+
+
+//---- dressed
+
 //dressed leptons
+
 void reco::SkimEvent::setDressedLepton(const edm::Handle<edm::View<reco::Candidate> > &h,size_t i){
   dressedLeptons_.push_back( h->ptrAt(i) );
 }
@@ -8345,41 +8389,7 @@ const float reco::SkimEvent::dressed_pdgId(size_t i) const {
   return dressedLeptons_[i]->pdgId();
 }
 
-const size_t reco::SkimEvent::indexByPtPho(size_t i) const {
-  
-  if( i >= phos_.size() ) return 9999; //--> big number then it will fail other tests later! good!
-  std::vector<indexValueStruct> a;
-  
-  for(size_t j=0;j<phos_.size();++j) a.push_back(indexValueStruct(pt(j),j));
-  std::sort(a.begin(),a.end(),highToLow);
-  
-  return a[i].index;
-}
-const int reco::SkimEvent::nPhos() const{
-  return (const int) phos_.size();
-}
 
-const float reco::SkimEvent::mllg() const{
-  if( phos_.size() < 1 || leps_.size() < 2 ) return 0;
-  else{
-    math::XYZTLorentzVector pho = phos_[indexByPtPho (0)]->p4();
-    math::XYZTLorentzVector lep1 = leps_[indexByPt (0)]->p4();
-    math::XYZTLorentzVector lep2 = leps_[indexByPt (1)]->p4();
-    math::XYZTLorentzVector HCand = pho + lep1 + lep2;
-    return HCand.M();
-  }
-}
-
-const float reco::SkimEvent::mllgid(int WP) const{
-  if( Pho_n_ID(WP) < 1 || leps_.size() < 2 ) return 0;
-  else{
-    math::XYZTLorentzVector pho = photon_id(0, WP);
-    math::XYZTLorentzVector lep1 = leps_[indexByPt (0)]->p4();
-    math::XYZTLorentzVector lep2 = leps_[indexByPt (1)]->p4();
-    math::XYZTLorentzVector HCand = pho + lep1 + lep2;
-    return HCand.M();
-  }
-}
 
 
 //--- electrons
@@ -8476,6 +8486,29 @@ const int reco::SkimEvent::Pho_HasPixelSeed(size_t i) const {
   return getPhoton(i)->hasPixelSeed();
   //else return -999.0;
 }
+
+const float reco::SkimEvent::Pho_puChargedHadronIso(size_t i) const {
+  if(i >= phos_.size()) return defaultvalues::defaultFloat;
+  else return getPhoton(i)->puChargedHadronIso();
+}
+
+const float reco::SkimEvent::Pho_patParticleIso(size_t i) const {
+  if(i >= phos_.size()) return defaultvalues::defaultFloat;
+  else return getPhoton(i)->patParticleIso();
+}
+
+const float reco::SkimEvent::Pho_e3x3(size_t i) const {
+  if(i >= phos_.size()) return defaultvalues::defaultFloat;
+  else return getPhoton(i)->e3x3();
+}
+
+const float reco::SkimEvent::Pho_R9(size_t i) const {
+  if(i >= phos_.size()) return defaultvalues::defaultFloat;
+  else return getPhoton(i)->r9();
+}
+
+
+
 
 double reco::SkimEvent::ChoosePhotonEffectiveArea(int type, double phoEta) const {
   if(type > 2) {
@@ -8694,4 +8727,5 @@ const bool reco::SkimEvent::Pho_IsIdIso(size_t i, int wp) const { //wp = 0 (loos
   
   return true;
 }
-//END photon -----------
+// END photon -----------
+

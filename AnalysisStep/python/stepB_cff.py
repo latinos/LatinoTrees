@@ -691,12 +691,27 @@ def addPhotonVariables(process,pt):
         setattr(pt.variables, "std_vector_photon_pt",    cms.string("photon_ptByPt")),
         setattr(pt.variables, "std_vector_photon_eta",   cms.string("photon_etaByPt")),
         setattr(pt.variables, "std_vector_photon_phi",   cms.string("photon_phiByPt")),
-        setattr(pt.variables, "std_vector_photonid_pt",  cms.string("photonid_ptByPt")),
-        setattr(pt.variables, "std_vector_photonid_eta", cms.string("photonid_etaByPt")),
-        setattr(pt.variables, "std_vector_photonid_phi", cms.string("photonid_phiByPt")),
 
-        setattr(pt.variables, "nPhos",    cms.string("nPhos()")),
-        setattr(pt.variables, "pho_n_id", cms.string("Pho_n_ID()")),
+        setattr(pt.variables, "std_vector_photon_sigmaIetaIeta",               cms.string("photon_sigmaIetaIetaByPt")),     
+        setattr(pt.variables, "std_vector_photon_hadronicOverEm",              cms.string("photon_hadronicOverEmByPt")),    
+        setattr(pt.variables, "std_vector_photon_ChargedHadronIso",            cms.string("photon_ChargedHadronIsoByPt")),  
+        setattr(pt.variables, "std_vector_photon_NeutralHadronIso",            cms.string("photon_NeutralHadronIsoByPt")),  
+        setattr(pt.variables, "std_vector_photon_PhotonIso",                   cms.string("photon_PhotonIsoByPt")),         
+        setattr(pt.variables, "std_vector_photon_PassElectronVeto",            cms.string("photon_PassElectronVetoByPt")),  
+        setattr(pt.variables, "std_vector_photon_HasPixelSeed",                cms.string("photon_HasPixelSeedByPt")),      
+        setattr(pt.variables, "std_vector_photon_puChargedHadronIso",          cms.string("photon_puChargedHadronIsoByPt")),
+        setattr(pt.variables, "std_vector_photon_patParticleIso",              cms.string("photon_patParticleIsoByPt")),    
+        setattr(pt.variables, "std_vector_photon_e3x3",                        cms.string("photon_e3x3ByPt")),              
+        setattr(pt.variables, "std_vector_photon_R9",                          cms.string("photon_R9ByPt")),                
+         
+        #setattr(pt.variables, "std_vector_photonid_pt",  cms.string("photonid_ptByPt")),
+        #setattr(pt.variables, "std_vector_photonid_eta", cms.string("photonid_etaByPt")),
+        #setattr(pt.variables, "std_vector_photonid_phi", cms.string("photonid_phiByPt")),
+
+
+
+        #setattr(pt.variables, "nPhos",    cms.string("nPhos()")),
+        #setattr(pt.variables, "pho_n_id", cms.string("Pho_n_ID()")),
         setattr(pt.variables, "mllg",     cms.string("mllg()")),
         setattr(pt.variables, "mllgid",   cms.string("mllg()")),
 

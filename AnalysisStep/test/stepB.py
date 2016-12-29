@@ -868,10 +868,11 @@ if doMuonIsoId:
 if doEleIsoId:
   addEleIdIsoVariables(process,tree)
 
-# PHOTON VARIABLES
+# Photon id variables
 if options.doPhotonID:
   addPhotonIDVariables(process,tree)
 
+# save photons
 addPhotonVariables(process,tree)
 
 # LHE information dumper

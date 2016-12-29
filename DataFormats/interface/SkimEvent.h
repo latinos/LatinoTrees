@@ -1101,13 +1101,20 @@ namespace reco {
     const pat::Photon * getPhoton(size_t a) const;
     const pat::Photon * getPhoton(const refToCand&) const;
     // Photon ID Variables
-    const float Pho_sigmaIetaIeta(size_t i) const;
-    const float Pho_hadronicOverEm(size_t i) const;
-    const float Pho_ChargedHadronIso(size_t i) const;
-    const float Pho_NeutralHadronIso(size_t i) const;
-    const float Pho_PhotonIso(size_t i) const;
-    const int   Pho_PassElectronVeto(size_t i) const;
-    const int   Pho_HasPixelSeed(size_t i) const;
+    const float Pho_sigmaIetaIeta      (size_t i) const;
+    const float Pho_hadronicOverEm     (size_t i) const;
+    const float Pho_ChargedHadronIso   (size_t i) const;
+    const float Pho_NeutralHadronIso   (size_t i) const;
+    const float Pho_PhotonIso          (size_t i) const;
+    const int   Pho_PassElectronVeto   (size_t i) const;
+    const int   Pho_HasPixelSeed       (size_t i) const;
+    const float Pho_puChargedHadronIso (size_t i) const;
+    const float Pho_patParticleIso     (size_t i) const;
+    const float Pho_e3x3               (size_t i) const;
+    const float Pho_R9                 (size_t i) const;
+    
+    
+    
     
     void InitEffectiveAreasPhoton();
     void InitIDPhoton();
@@ -1121,6 +1128,19 @@ namespace reco {
     const float photon_ptByPt   (size_t i) const;
     const float photon_etaByPt  (size_t i) const;
     const float photon_phiByPt  (size_t i) const;
+    const float photon_sigmaIetaIetaByPt          (size_t i) const  { return    Pho_sigmaIetaIeta         ( indexByPtPho(i) )  ;  }
+    const float photon_hadronicOverEmByPt         (size_t i) const  { return    Pho_hadronicOverEm        ( indexByPtPho(i) )  ;  }
+    const float photon_ChargedHadronIsoByPt       (size_t i) const  { return    Pho_ChargedHadronIso      ( indexByPtPho(i) )  ;  }
+    const float photon_NeutralHadronIsoByPt       (size_t i) const  { return    Pho_NeutralHadronIso      ( indexByPtPho(i) )  ;  }
+    const float photon_PhotonIsoByPt              (size_t i) const  { return    Pho_PhotonIso             ( indexByPtPho(i) )  ;  }
+    const float photon_PassElectronVetoByPt       (size_t i) const  { return    Pho_PassElectronVeto      ( indexByPtPho(i) )  ;  }
+    const float photon_HasPixelSeedByPt           (size_t i) const  { return    Pho_HasPixelSeed          ( indexByPtPho(i) )  ;  }
+    const float photon_puChargedHadronIsoByPt     (size_t i) const  { return    Pho_puChargedHadronIso    ( indexByPtPho(i) )  ;  }
+    const float photon_patParticleIsoByPt         (size_t i) const  { return    Pho_patParticleIso        ( indexByPtPho(i) )  ;  }
+    const float photon_e3x3ByPt                   (size_t i) const  { return    Pho_e3x3                  ( indexByPtPho(i) )  ;  }
+    const float photon_R9ByPt                     (size_t i) const  { return    Pho_R9                    ( indexByPtPho(i) )  ;  }
+    
+    
     const float photonid_ptByPt (size_t i, int WP = 1) const;
     const float photonid_etaByPt(size_t i, int WP = 1) const;
     const float photonid_phiByPt(size_t i, int WP = 1) const;
