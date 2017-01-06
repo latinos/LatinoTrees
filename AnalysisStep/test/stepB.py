@@ -674,6 +674,25 @@ if options.doFatJet :
 
 
 # QG tagger
+qgDatabaseVersion = '80X' # check https://twiki.cern.ch/twiki/bin/viewauth/CMS/QGDataBaseVersion
+
+from CondCore.DBCommon.CondDBSetup_cfi import *
+QGPoolDBESSource = cms.ESSource("PoolDBESSource",
+      CondDBSetup,
+      toGet = cms.VPSet(),
+      connect = cms.string('sqlite:QGL_80X.db'),
+)
+
+for type in ['AK4PFchs','AK4PFchs_antib']:
+  QGPoolDBESSource.toGet.extend(cms.VPSet(cms.PSet(
+    record = cms.string('QGLikelihoodRcd'),
+    tag    = cms.string('QGLikelihoodObject_'+qgDatabaseVersion+'_'+type),
+    label  = cms.untracked.string('QGL_'+type)
+  )))
+
+process.qgLikelihood = QGPoolDBESSource
+process.es_prefer_qgLikelihood = cms.ESPrefer('PoolDBESSource','qgLikelihood')
+
 # it will be soon included in jettoolbox
 #process.load('RecoJets.JetProducers.QGTagger_cfi')
 #process.QGTagger.srcJets          = cms.InputTag('corJets')        # Could be reco::PFJetCollection or pat::JetCollection (both AOD and miniAOD)
