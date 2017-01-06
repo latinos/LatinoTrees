@@ -23,7 +23,7 @@ config.JobType.psetName         = '../stepB.py'
 config.JobType.maxJobRuntimeMin = 2750
 config.JobType.outputFiles      = ['stepB.root']
 config.JobType.allowUndistributedCMSSW = True
-config.JobType.sendExternalFolder = True  # For Electron MVA ID
+config.JobType.sendExternalFolder = True  # For Electron MVA ID and the QG likelihood DB
 
 config.section_('Data')    
 config.Data.inputDBS      = 'global'
