@@ -622,6 +622,7 @@ if options.isFastSim:
     dbfile=options.jecDBFileFastSim
     print "\nUsing private SQLite file", dbfile, "\n"
     process.jec = cms.ESSource("PoolDBESSource",CondDBSetup,
+                    timetype = cms.string('runnumber'),
                     connect = cms.string( "sqlite:"+dbfile+'.db'),
                     toGet =  cms.VPSet(
                             cms.PSet(
@@ -634,11 +635,11 @@ if options.isFastSim:
                                     tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK4PFchs"),
                                     label= cms.untracked.string("AK4PFchs")
                                     ),
-                            #cms.PSet(
-                                #    record = cms.string("JetCorrectionsRecord"),
-                                #    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK4PFPuppi"),
-                                #    label= cms.untracked.string("AK4PFPuppi")
-                                #    ),
+                            cms.PSet(
+                                    record = cms.string("JetCorrectionsRecord"),
+                                    tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK4PFPuppi"),
+                                    label= cms.untracked.string("AK4PFPuppi")
+                                    ),
                             cms.PSet(
                                     record = cms.string("JetCorrectionsRecord"),
                                     tag = cms.string("JetCorrectorParametersCollection_"+dbfile+"_AK8PF"),
