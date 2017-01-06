@@ -623,7 +623,7 @@ if options.isFastSim:
     print "\nUsing private SQLite file", dbfile, "\n"
     process.jec = cms.ESSource("PoolDBESSource",CondDBSetup,
                     timetype = cms.string('runnumber'),
-                    connect = cms.string( "sqlite:"+dbfile+'.db'),
+                    connect = cms.string( "sqlite:../external/"+dbfile+'.db'),
                     toGet =  cms.VPSet(
                             cms.PSet(
                                     record = cms.string("JetCorrectionsRecord"),
@@ -680,7 +680,7 @@ from CondCore.DBCommon.CondDBSetup_cfi import *
 QGPoolDBESSource = cms.ESSource("PoolDBESSource",
       CondDBSetup,
       toGet = cms.VPSet(),
-      connect = cms.string('sqlite:QGL_80X.db'),
+      connect = cms.string('sqlite:../external/QGL_80X.db'),
 )
 
 for type in ['AK4PFchs','AK4PFchs_antib']:
