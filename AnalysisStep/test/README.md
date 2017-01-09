@@ -3,14 +3,9 @@
 
 Latino's twiki and indico pages.
 
-    https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkFor2015
+    https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkFor2017
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkTutorials
     https://indico.cern.ch/category/3374/
-
-External documentation.
-
-    https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3ConfigurationFile
-    https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3FAQ
 
 
 1. Everything begins here
@@ -39,14 +34,14 @@ First you need to [generate an SSH key](https://help.github.com/articles/generat
 3. Produce latino trees
 ====
 
-Do this only if you want to **create** a tag.
+*Do this only if you want to create a tag.*
 
     pushd LatinoTrees
     git tag -a 21October2015_v2 -m '1.28/fb miniAODv2 latino production'
     git push origin 21October2015_v2
     popd
 
-Do this only if you want to **use** a tag. For 76x 2015 data and MC the frozen version is **18Jan2016_StarWars_v3_frozenFor76x**. Last tag that works with 8_0_1X is **26Oct2016_last801X**.
+*Do this only if you want to use a tag.*
 
     pushd LatinoTrees
     git checkout tags/6Jan2017_RogueOne_v2
@@ -59,6 +54,11 @@ Test the latino tree production.
 
     ./test-run-8x-data.sh 100
     ./test-run-8x-mc.sh   100
+
+Old tags.
+
+    18Jan2016_StarWars_v3_frozenFor76xFor -- frozen tag for 76x 2015 data and MC
+    26Oct2016_last801X                    -- last tag that works with 8_0_1X
 
 
 4. Setup CRAB
@@ -118,7 +118,8 @@ The luminosity for Moriond is 2.318/fb.
 
 The default number of files per *hadd* is 100. Please change it to smaller values if the output file size is bigger than 1 GB.
 
-    python multiLxbatchCmssw2latino_split.py samples/listFiles.py 100
+    python translate_samples_config.py samples/samples_data_2016_ReReco.py list_data_2016_ReReco.py
+    python multiLxbatchCmssw2latino_split_autoComplete.py list_data_2016_ReReco.py 100
 
 Do not forget to delete all stepB.root files from old latino productions. We have a limited eos space.
 
