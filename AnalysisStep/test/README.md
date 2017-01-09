@@ -116,11 +116,13 @@ The luminosity for Moriond is 2.318/fb.
 7. Run cmssw2latino
 ====
 
-The default number of files per *hadd* is 100. Please change it to smaller values if the output file size is bigger than 1 GB.
+The script *translate_samples_config.py* can be used on any samples_*.py file in LatinoTrees/AnalysisStep/test/crab/samples/. It will create the input file for the cmssw2latino step.
 
     python translate_samples_config.py samples/samples_data_2016_ReReco.py list_data_2016_ReReco.py
 
-    python multiLxbatchCmssw2latino_split_autoComplete.py list_data_2016_ReReco.py 100
+The default number of files per *hadd* is 50. Please change it to smaller values if the output file size is bigger than 1 GB.
+
+    python multiLxbatchCmssw2latino_split_autoComplete.py list_data_2016_ReReco.py [0/1 = dryRun/exec, default dryRun]
 
 Do not forget to delete all stepB.root files from old latino productions. We have a limited eos space.
 

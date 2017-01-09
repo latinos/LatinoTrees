@@ -34,7 +34,7 @@ if __name__ == '__main__':
     print sys.argv
     if len(sys.argv) <= 1 :
         print "No arguments?"
-        print "Usage to submit:     python multiLxbatchCmssw2latino_split.py file.py [0/1 = dryRun/exec, default dryRun]"
+        print "Usage to submit:     python multiLxbatchCmssw2latino_split_autoComplete.py file.py [0/1 = dryRun/exec, default dryRun]"
         exit()
 
     # default is 50 files per hadd
