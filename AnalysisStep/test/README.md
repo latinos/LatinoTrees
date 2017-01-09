@@ -116,7 +116,7 @@ The luminosity for Moriond is 2.318/fb.
 7. Run cmssw2latino
 ====
 
-The script *translate_samples_config.py* can be used on any samples*.py file in AnalysisStep/test/crab/samples/. It will create the input file for the cmssw2latino step.
+The script *translate_samples_config.py* can be used on any samples*.py file in AnalysisStep/test/crab/samples/ and it will create the input file for the cmssw2latino step.
 
     python translate_samples_config.py samples/samples_data_2016_ReReco.py list_data_2016_ReReco.py
 
