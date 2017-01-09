@@ -46,7 +46,7 @@ Do this only if you want to **create** a tag.
     git push origin 21October2015_v2
     popd
 
-Do this only if you want to **use** a tag. For 76x 2015 data and MC the frozen version is *18Jan2016_StarWars_v3_frozenFor76x*. Last tag that works with 8_0_1X (f.e. 8_0_17) is *26Oct2016_last801X*.
+Do this only if you want to **use** a tag. For 76x 2015 data and MC the frozen version is **18Jan2016_StarWars_v3_frozenFor76x**. Last tag that works with 8_0_1X is **26Oct2016_last801X**.
 
     pushd LatinoTrees
     git checkout tags/6Jan2017_RogueOne_v1
