@@ -101,13 +101,10 @@ Check status.
 
     export PATH=$HOME/.local/bin:/afs/cern.ch/cms/lumi/brilconda-1.0.3/bin:$PATH
 
-    brilcalc lumi --begin 256630 --end 258158 -u /fb -i Cert_246908-258750_13TeV_PromptReco_Collisions15_25ns_JSON.txt
-    brilcalc lumi --begin 258159 --end 999999 -u /fb -i Cert_246908-258750_13TeV_PromptReco_Collisions15_25ns_JSON.txt
-
     brilcalc lumi -u /pb -i missingLumiSummary.json
 
-The luminosity for Moriond is 2.318/fb.
-        
+The luminosity for Moriond 2016 was 2.318/fb.
+
     brilcalc lumi --begin 254230 --end 999999 -u /fb \
         --normtag /afs/cern.ch/user/l/lumipro/public/normtag_file/moriond16_normtag.json \
         -i /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Reprocessing/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON.txt
