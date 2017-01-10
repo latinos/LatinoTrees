@@ -12,19 +12,21 @@
 # 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
+# Xavier
 samples['DoubleEG_Run2016B-23Sep2016-v3']       = ['/DoubleEG/Run2016B-23Sep2016-v3/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016B-23Sep2016-v3']     = ['/DoubleMuon/Run2016B-23Sep2016-v3/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016B-23Sep2016-v3']         = ['/MuonEG/Run2016B-23Sep2016-v3/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016B-23Sep2016-v3'] = ['/SingleElectron/Run2016B-23Sep2016-v3/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016B-23Sep2016-v3']     = ['/SingleMuon/Run2016B-23Sep2016-v3/MINIAOD',     ['label=SingleMuon']]
 
+# Davide
 samples['DoubleEG_Run2016C-23Sep2016-v1']       = ['/DoubleEG/Run2016C-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016C-23Sep2016-v1']     = ['/DoubleMuon/Run2016C-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016C-23Sep2016-v1']         = ['/MuonEG/Run2016C-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016C-23Sep2016-v1'] = ['/SingleElectron/Run2016C-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016C-23Sep2016-v1']     = ['/SingleMuon/Run2016C-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
 
+# Davide
 samples['DoubleEG_Run2016D-23Sep2016-v1']       = ['/DoubleEG/Run2016D-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016D-23Sep2016-v1']     = ['/DoubleMuon/Run2016D-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016D-23Sep2016-v1']         = ['/MuonEG/Run2016D-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
@@ -33,18 +35,22 @@ samples['SingleMuon_Run2016D-23Sep2016-v1']     = ['/SingleMuon/Run2016D-23Sep20
 
 
 # Post ICHEP
+
+# Davide
 samples['DoubleEG_Run2016E-23Sep2016-v1']       = ['/DoubleEG/Run2016E-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016E-23Sep2016-v1']     = ['/DoubleMuon/Run2016E-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016E-23Sep2016-v1']         = ['/MuonEG/Run2016E-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016E-23Sep2016-v1'] = ['/SingleElectron/Run2016E-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016E-23Sep2016-v1']     = ['/SingleMuon/Run2016E-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
 
+# WHO ???
 samples['DoubleEG_Run2016F-23Sep2016-v1']       = ['/DoubleEG/Run2016F-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016F-23Sep2016-v1']     = ['/DoubleMuon/Run2016F-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016F-23Sep2016-v1']         = ['/MuonEG/Run2016F-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016F-23Sep2016-v1'] = ['/SingleElectron/Run2016F-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016F-23Sep2016-v1']     = ['/SingleMuon/Run2016F-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
 
+# WHO ??
 samples['DoubleEG_Run2016G-23Sep2016-v1']       = ['/DoubleEG/Run2016G-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016G-23Sep2016-v1']     = ['/DoubleMuon/Run2016G-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016G-23Sep2016-v1']         = ['/MuonEG/Run2016G-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
@@ -53,9 +59,11 @@ samples['SingleMuon_Run2016G-23Sep2016-v1']     = ['/SingleMuon/Run2016G-23Sep20
 samples['MET_Run2016G-23Sep2016-v1']            = ['/MET/Run2016G-23Sep2016-v1/MINIAOD',            ['label=MET']]  # For orthogonal triggers
 
 
-pyCfgParams.append('globalTag=80X_dataRun2_2016SeptRepro_v4')
+pyCfgParams.append('globalTag=80X_dataRun2_2016SeptRepro_v6')
 pyCfgParams.append('is50ns=False')
 pyCfgParams.append('isPromptRecoData=True') #RECO TriggerResults
+pyCfgParams.append('isFastSim=True')
+pyCfgParams.append('jecDBFileFastSim=Spring16_23Sep2016AllV2_DATA')
 
 #ICHEP data
 #config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt'
