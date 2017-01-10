@@ -43,14 +43,14 @@ samples['MuonEG_Run2016E-23Sep2016-v1']         = ['/MuonEG/Run2016E-23Sep2016-v
 samples['SingleElectron_Run2016E-23Sep2016-v1'] = ['/SingleElectron/Run2016E-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016E-23Sep2016-v1']     = ['/SingleMuon/Run2016E-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
 
-# WHO ???
+# Rocio
 samples['DoubleEG_Run2016F-23Sep2016-v1']       = ['/DoubleEG/Run2016F-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016F-23Sep2016-v1']     = ['/DoubleMuon/Run2016F-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016F-23Sep2016-v1']         = ['/MuonEG/Run2016F-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016F-23Sep2016-v1'] = ['/SingleElectron/Run2016F-23Sep2016-v1/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016F-23Sep2016-v1']     = ['/SingleMuon/Run2016F-23Sep2016-v1/MINIAOD',     ['label=SingleMuon']]
 
-# WHO ??
+# Jonatan
 samples['DoubleEG_Run2016G-23Sep2016-v1']       = ['/DoubleEG/Run2016G-23Sep2016-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016G-23Sep2016-v1']     = ['/DoubleMuon/Run2016G-23Sep2016-v1/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016G-23Sep2016-v1']         = ['/MuonEG/Run2016G-23Sep2016-v1/MINIAOD',         ['label=MuEG']]
