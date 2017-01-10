@@ -72,7 +72,7 @@ pyCfgParams.append('jecDBFileFastSim=Spring16_23Sep2016AllV2_DATA')
 # 36.42/fb
 config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Final/Cert_271036-284044_13TeV_PromptReco_Collisions16_JSON.txt'
 config.Data.splitting      = 'LumiBased'
-config.Data.unitsPerJob    = 5
+config.Data.unitsPerJob    = 4
 config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Dec2016/data/25ns/'
 #config.Data.runRange       = '278820-279931'
 config.JobType.maxMemoryMB = 2500
