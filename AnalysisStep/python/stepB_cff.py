@@ -509,6 +509,16 @@ def addLHEVariables(process,pt):
         setattr(pt.variables, "higgsLHEphi" , cms.string("higgsLHEPhi()")),
         setattr(pt.variables, "higgsLHEmass", cms.string("higgsLHEmass()")),
 
+        setattr(pt.variables, "topLHEpt"  , cms.string("partonLHEPt(6)")),
+        setattr(pt.variables, "topLHEeta" , cms.string("partonLHEEta(6)")),
+        setattr(pt.variables, "topLHEphi" , cms.string("partonLHEPhi(6)")),
+        setattr(pt.variables, "topLHEmass", cms.string("partonLHEmass(6)")),
+
+        setattr(pt.variables, "antitopLHEpt"  , cms.string("partonLHEPt(-6)")),
+        setattr(pt.variables, "antitopLHEeta" , cms.string("partonLHEEta(-6)")),
+        setattr(pt.variables, "antitopLHEphi" , cms.string("partonLHEPhi(-6)")),
+        setattr(pt.variables, "antitopLHEmass", cms.string("partonLHEmass(-6)")),
+
     else:
         raise addLHEVariables, "In addLHEVariables, %s doesn't look like a ProbeTreeProducer object, it has no 'variables' attribute." % pt
 

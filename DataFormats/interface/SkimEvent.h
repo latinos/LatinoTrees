@@ -644,6 +644,11 @@ namespace reco {
     const float higgsLHEEta() const;
     const float higgsLHEPhi() const;
     const float higgsLHEmass() const;
+
+    const float partonLHEPt(int id) const;
+    const float partonLHEEta(int id) const;
+    const float partonLHEPhi(int id) const;
+    const float partonLHEmass(int id) const;
     
     const float leadingGenJetPartonPt(size_t a) const;
     const float leadingGenJetPartonPID(size_t a) const;

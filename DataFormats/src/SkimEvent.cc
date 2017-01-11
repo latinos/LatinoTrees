@@ -7062,7 +7062,106 @@ const float reco::SkimEvent::higgsLHEmass() const {
   return -9999.9; //if no Higgs was found
 }
 
+const float reco::SkimEvent::partonLHEPt(int id) const {
+  std::vector<float> v_jetsLHE_pt ;
+  // loop over particles in the event
+  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
+    //   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+    int  thisID= LHEhepeup_.IDUP.at (iPart) ;
+    if (thisID == id) { //---- Higgs
+      v_jetsLHE_pt.push_back (
+        sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
+        LHEhepeup_.PUP.at (iPart) [1] * LHEhepeup_.PUP.at (iPart) [1]) // py
+      );
+    }
+  }
+  if (v_jetsLHE_pt.size () > 0) {
+    std::sort (v_jetsLHE_pt.rbegin (), v_jetsLHE_pt.rend ()) ;
+  }
+  //---- now return ----
+  if ( 0 < v_jetsLHE_pt.size() ) return v_jetsLHE_pt.at(0);
 
+  return -9999.9; //if no particle was found
+}
+
+
+const float reco::SkimEvent::partonLHEEta(int id) const {
+  std::vector<float> v_particleLHE_eta ;
+  std::vector<float> v_jetsLHE_pt;
+  // loop over particles in the event
+  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
+    //   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+    int thisID = LHEhepeup_.IDUP.at (iPart) ;
+    if (thisID == id) { //---- Higgs
+      TVector3 temp_vector(LHEhepeup_.PUP.at (iPart) [0], LHEhepeup_.PUP.at (iPart) [1], LHEhepeup_.PUP.at (iPart) [2] ); // pass px, py, pz
+      if (temp_vector.Pt() > 0) {
+        v_particleLHE_eta.push_back(temp_vector.Eta());
+        v_jetsLHE_pt.push_back(temp_vector.Pt());
+      } else {
+        v_particleLHE_eta.push_back(-9999.9);
+        v_jetsLHE_pt.push_back(-9999.9); 
+      }
+    }
+  }
+  //---- now return ----
+  if ( 0 < v_particleLHE_eta.size() ) {
+    int maxptpos = std::distance(v_jetsLHE_pt.begin(), std::max_element(v_jetsLHE_pt.begin(), v_jetsLHE_pt.end()));
+    return v_particleLHE_eta.at(maxptpos);
+  }
+  return -9999.9; //if no particle was found
+}
+
+
+const float reco::SkimEvent::partonLHEPhi(int id) const {
+  std::vector<float> v_particleLHE_phi ;
+  std::vector<float> v_jetsLHE_pt;
+  // loop over particles in the event
+  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
+    //   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+    int thisID = LHEhepeup_.IDUP.at (iPart) ;
+    if (thisID == id) { //---- Higgs
+      TVector3 temp_vector(LHEhepeup_.PUP.at (iPart) [0], LHEhepeup_.PUP.at (iPart) [1], LHEhepeup_.PUP.at (iPart) [2] ); // pass px, py, pz
+      if (temp_vector.Pt() > 0) {
+        v_particleLHE_phi.push_back(temp_vector.Phi());
+        v_jetsLHE_pt.push_back(temp_vector.Pt());
+      }
+      else {
+        v_particleLHE_phi.push_back(-9999.9);
+        v_jetsLHE_pt.push_back(-9999.9);
+      }  
+    }
+  }
+  //---- now return ----
+  if ( 0 < v_particleLHE_phi.size() ) {
+    int maxptpos = std::distance(v_jetsLHE_pt.begin(), std::max_element(v_jetsLHE_pt.begin(), v_jetsLHE_pt.end()));
+    return v_particleLHE_phi.at(maxptpos);
+  }
+  return -9999.9; //if no particle was found
+}
+
+
+const float reco::SkimEvent::partonLHEmass(int id) const {
+  std::vector<float> v_particleLHE_mass ;
+  std::vector<float> v_jetsLHE_pt;
+  // loop over particles in the event
+  for (unsigned int iPart = 0 ; iPart < LHEhepeup_.IDUP.size (); ++iPart) {
+    //   if (LHEhepeup_.ISTUP.at (iPart) != 1) continue ;
+    int thisID = (LHEhepeup_.IDUP.at (iPart)) ;
+    //   std::cout << " type = " << type << std::endl;
+    if (thisID == id) { //---- Higgs
+      v_particleLHE_mass.push_back(LHEhepeup_.PUP.at (iPart) [4]); //---- mass
+      TVector3 temp_vector(LHEhepeup_.PUP.at (iPart) [0], LHEhepeup_.PUP.at (iPart) [1], LHEhepeup_.PUP.at (iPart) [2] ); // pass px, py, pz
+      v_jetsLHE_pt.push_back(temp_vector.Pt());
+      //---- see http://home.thep.lu.se/~leif/LHEF/classLHEF_1_1HEPEUP.html
+    }
+  }
+  //---- now return ----
+  if ( 0 < v_particleLHE_mass.size() ) {
+    int maxptpos = std::distance(v_jetsLHE_pt.begin(), std::max_element(v_jetsLHE_pt.begin(), v_jetsLHE_pt.end()));
+    return v_particleLHE_mass.at(maxptpos);
+  }
+  return -9999.9; //if no particle was found
+}
 //---- end LHE information
 
 
