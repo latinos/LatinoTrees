@@ -538,15 +538,14 @@ samples['monoH_ZpBaryonic_MZp-10000_MChi-1000'] = ['/MonoHWWllnunu_ZpBaryonic_MZ
 
 
 ### ZH -> vv/ll WW -> vv lv lv 
-# noHLT version is working now
 
-samples['GluGluZH_HToWWTo2L2Nu_M125_noHLT'] = ['/GluGluZH_HToWWTo2L2Nu_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M125_noHLT', 'id=80113', 'doLHE=False']]
-samples['GluGluZH_HToWWTo2L2Nu_M120_noHLT'] = ['/GluGluZH_HToWWTo2L2Nu_M120_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M120_noHLT', 'id=80114', 'doLHE=False']]
-samples['GluGluZH_HToWWTo2L2Nu_M130_noHLT'] = ['/GluGluZH_HToWWTo2L2Nu_M130_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M130_noHLT', 'id=80115', 'doLHE=False']]
+samples['GluGluZH_HToWWTo2L2Nu_M125'] = ['/GluGluZH_HToWWTo2L2Nu_M125_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M125', 'id=80113', 'doLHE=False']]
+samples['GluGluZH_HToWWTo2L2Nu_M120'] = ['/GluGluZH_HToWWTo2L2Nu_M120_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M120', 'id=80114', 'doLHE=False']]
+samples['GluGluZH_HToWWTo2L2Nu_M130'] = ['/GluGluZH_HToWWTo2L2Nu_M130_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M130', 'id=80115', 'doLHE=False']]
 
-samples['HZJ_HToWWTo2L2Nu_M125_noHLT'] = ['/HZJ_HToWWTo2L2Nu_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=HZJ_HToWWTo2L2Nu_M125_noHLT', 'id=80103', 'doLHE=False']]
-samples['HZJ_HToWWTo2L2Nu_M120_noHLT'] = ['/HZJ_HToWWTo2L2Nu_M120_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=HZJ_HToWWTo2L2Nu_M120_noHLT', 'id=80104', 'doLHE=False']]
-samples['HZJ_HToWWTo2L2Nu_M130_noHLT'] = ['/HZJ_HToWWTo2L2Nu_M130_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM', ['label=HZJ_HToWWTo2L2Nu_M130_noHLT', 'id=80105', 'doLHE=False']]
+samples['HZJ_HToWWTo2L2Nu_M125'] = ['/HZJ_HToWWTo2L2Nu_M125_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=HZJ_HToWWTo2L2Nu_M125', 'id=80103', 'doLHE=False']]
+samples['HZJ_HToWWTo2L2Nu_M120'] = ['/HZJ_HToWWTo2L2Nu_M120_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=HZJ_HToWWTo2L2Nu_M120', 'id=80104', 'doLHE=False']]
+samples['HZJ_HToWWTo2L2Nu_M130'] = ['/HZJ_HToWWTo2L2Nu_M130_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=HZJ_HToWWTo2L2Nu_M130', 'id=80105', 'doLHE=False']]
 
 
 # samples['HZJ_HToWWTo2L2Nu_M125'] = ['/HZJ_HToWWTo2L2Nu_M125_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM', ['label=HZJ_HToWWTo2L2Nu_M125', 'id=80100','doLHE=False']]
