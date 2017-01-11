@@ -6673,7 +6673,7 @@ const float reco::SkimEvent::leadingLHEJetPID(size_t index) const {
         float iPart_Pt = sqrt (LHEhepeup_.PUP.at (iPart) [0] * LHEhepeup_.PUP.at (iPart) [0] + // px
         LHEhepeup_.PUP.at (iPart) [1] * LHEhepeup_.PUP.at (iPart) [1]); // py
         if(iPart_Pt!=pt_ofIndex) continue;
-        particleID = (float) type;
+        particleID = (float) LHEhepeup_.IDUP.at (iPart);
       }
     }
   }
