@@ -554,6 +554,8 @@ def addGenVariables(process,pt):
         #setattr(pt.variables, "std_vector_VBoson_status",  cms.string("genVBosonStatus/5")),
         #setattr(pt.variables, "std_vector_VBoson_fromHardProcessBeforeFSR", cms.string("genVBosonFromHardProcessBeforeFSR/5")),
 
+        setattr(pt.variables, "std_vector_DarkMatterGen_pt",    cms.string("DarkMatterPt")),
+
         setattr(pt.variables, "std_vector_neutrinoGen_pt",      cms.string("leadingGenNeutrinoPt")),
         setattr(pt.variables, "std_vector_neutrinoGen_eta" ,    cms.string("leadingGenNeutrinoEta")),
         setattr(pt.variables, "std_vector_neutrinoGen_phi",     cms.string("leadingGenNeutrinoPhi")),

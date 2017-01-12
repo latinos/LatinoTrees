@@ -681,6 +681,8 @@ namespace reco {
     const float genVBosonStatus      (size_t a) const;
     const float genVBosonIsHardProcess(size_t a) const;
     const float genVBosonFromHardProcessBeforeFSR(size_t a) const;
+
+    const float DarkMatterPt(size_t a) const;
     
     const float leadingGenNeutrinoPt(size_t a) const;
     const float leadingGenNeutrinoPID(size_t a) const;
