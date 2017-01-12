@@ -332,6 +332,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "HLT_IsoMu24_eta2p1_v*",                                              # 108
         "HLT_IsoTkMu22_eta2p1_v*",                                            # 109
         "HLT_IsoTkMu24_eta2p1_v*",                                            # 110
+        "HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_v*",                           # 111
         ),
 
 
