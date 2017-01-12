@@ -7822,7 +7822,7 @@ const float reco::SkimEvent::genLeptonMotherStatus(size_t index) const {
 
 //---- Dark Matter, Ferrero fecit
 
-const float reco::SkimEvent::DarkMatterPt(size_t index) const {
+const float reco::SkimEvent::GenDarkMatterPt(size_t index) const {
   std::vector<float> v_DM_pt ;
   float pt = -9999.9;
   const reco::Candidate* cDM = 0;
