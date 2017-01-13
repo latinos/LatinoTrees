@@ -18,7 +18,8 @@ export EVENTS=$1
 
 
 #export MYFILE=root://eoscms.cern.ch//store/mc/RunIISpring16MiniAODv2/TTTo2L2Nu_13TeV-powheg/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/60000/0005201C-D41B-E611-8E37-002481E0D398.root
-export MYFILE=root://eoscms.cern.ch//store/mc/RunIISpring16MiniAODv2/GluGluToContinToZZTo4e_13TeV_MCFM701_pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/60000/3C5F44A8-D31B-E611-8707-0026B93F48E7.root
+#export MYFILE=root://eoscms.cern.ch//store/mc/RunIISpring16MiniAODv2/GluGluToContinToZZTo4e_13TeV_MCFM701_pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/60000/3C5F44A8-D31B-E611-8707-0026B93F48E7.root
+export MYFILE=root://eoscms.cern.ch//store/mc/RunIISummer16MiniAODv2/GluGluToContinToZZTo4e_13TeV_MCFM701_pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/50000/44EA758A-6EC5-E611-BA84-34E6D7BDDEE8.root
 
 rm -rf latino_stepB_mc_numEvent${EVENTS}.root
 

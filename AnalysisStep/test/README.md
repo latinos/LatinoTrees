@@ -143,6 +143,7 @@ this framework is the CombineHarvester class, which provides a representation
 of the text-format datacards and the associated shape input.
 
     http://cms-analysis.github.io/CombineHarvester/
+    https://twiki.cern.ch/twiki/bin/view/CMS/HWWCombineTools
 
 
 B. Share IT EOS space
