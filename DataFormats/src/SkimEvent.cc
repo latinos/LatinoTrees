@@ -7820,6 +7820,36 @@ const float reco::SkimEvent::genLeptonMotherStatus(size_t index) const {
   return motherStatus;
 }
 
+//---- Dark Matter, Ferrero fecit
+
+const float reco::SkimEvent::GenDarkMatterPt(size_t index) const {
+  std::vector<float> v_DM_pt ;
+  float pt = -9999.9;
+  const reco::Candidate* cDM = 0;
+  
+  // loop over gen particles
+  for(size_t gp=0; gp<genParticles_.size();++gp){
+    int type = abs( genParticles_[gp] -> pdgId() );
+    //int status = genParticles_[gp] -> status();
+    
+    if( type == 9100000 ) {
+      cDM = &(*(genParticles_[gp]));
+      v_DM_pt.push_back( cDM->pt() );
+    }
+  } // loop over gen particles
+  
+  if (v_DM_pt.size () > 0) {
+    std::sort (v_DM_pt.rbegin (), v_DM_pt.rend ()) ;
+  }
+  //---- now return ----
+  size_t count = 0;
+  for(size_t i=0;i<v_DM_pt.size();++i) {
+    if(++count > index) return v_DM_pt.at(i);
+  }
+  
+  return pt;
+}
+
 //---- neutrinos
 
 const float reco::SkimEvent::leadingGenNeutrinoIsPrompt(size_t index) const {

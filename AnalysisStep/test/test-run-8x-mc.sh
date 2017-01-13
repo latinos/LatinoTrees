@@ -27,7 +27,7 @@ cmsRun stepB.py print                   \
     summary=false                       \
     is50ns=False                        \
     isPromptRecoData=False              \
-    globalTag=80X_mcRun2_asymptotic_v12 \
+    globalTag=80X_mcRun2_asymptotic_2016_TrancheIV_v7 \
     label=ggZZ                          \
     outputFile=stepB_mc.root            \
     selection=LooseNoIso                \
