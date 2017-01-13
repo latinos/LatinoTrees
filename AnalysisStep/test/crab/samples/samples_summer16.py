@@ -125,7 +125,6 @@ samples['ST_s-channel']         = ['/ST_s-channel_4f_leptonDecays_13TeV-amcatnlo
 samples['ST_tW_antitop_noHad']            = ['/ST_tW_antitop_5f_NoFullyHadronicDecays_13TeV-powheg_TuneCUETP8M1/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',     ['label=ST_tW_antitop_noHad',      'id=00024', 'doMCweights=True']]#there is also the v6_ext1-v1 version
 samples['ST_tW_top_noHad']            = ['/ST_tW_top_5f_NoFullyHadronicDecays_13TeV-powheg_TuneCUETP8M1/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',     ['label=ST_tW_top_noHad',      'id=00025', 'doMCweights=True']]#there is also the v6_ext1-v1 version
 
-#------------------------------------ samples above this line have been updated if found (Adrian)
 
 
 
