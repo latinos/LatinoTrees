@@ -2,15 +2,8 @@
 #
 # Look for samples via:
 #
-#    https://cmsweb.cern.ch/das/request?view=list&limit=50&instance=prod%2Fglobal&input=dataset%3D%2F*%2FRunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_*%2FMINIAODSIM
-#    https://cmsweb.cern.ch/das/request?view=plain&limit=150&instance=prod%2Fglobal&input=dataset%3D%2F*%2FRunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_*%2FMINIAODSIM
-#    https://cmsweb.cern.ch/das/request?view=plain&limit=150&instance=prod%2Fglobal&input=dataset%3D%2F*%2FRunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_*%2FMINIAODSIM
+#    https://cmsweb.cern.ch/das/request?view=list&limit=150&instance=prod%2Fglobal&input=dataset%3D%2F*%2FRunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_*%2FMINIAODSIM
 #
-# And for signals:
-#   https://cmsweb.cern.ch/das/request?view=plain&limit=150&instance=prod%2Fglobal&input=dataset%3D%2F*%2FRunIISpring16MiniAODv2*mcRun2_asymptotic_2016_*%2FMINIAODSIM       
-#
-# Only 125:
-#   https://cmsweb.cern.ch/das/request?view=plain&limit=150&instance=prod%2Fglobal&input=dataset%3D%2FGluGlu*125*%2FRunIISpring16MiniAODv2*mcRun2_asymptotic_2016_*%2FMINIAODSIM
 #
 # For GT and more, see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD
 #
