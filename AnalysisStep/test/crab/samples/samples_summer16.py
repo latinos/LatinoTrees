@@ -136,8 +136,12 @@ samples['ST_tW_top_noHad_ext1']            = ['/ST_tW_top_5f_NoFullyHadronicDeca
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #samples['TT']                          = ['/TT_TuneCUETP8M1_13TeV-powheg-pythia8/RunIIFall15MiniAODv1-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM',                                   ['label=TT',                           'id=00017', 'doMCweights=True']]
+
+
 samples['TTJets']                       = ['/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',              ['label=TTJets',                       'id=00018', 'doMCweights=True']]
 samples['TTJets_ext1']                       = ['/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM',              ['label=TTJets_ext1',                       'id=00018', 'doMCweights=True']]
+samples['TTJets_more']                       = ['/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8/RunIISummer16MiniAODv2-PUMoriond17_backup_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',              ['label=TTJets_more',                       'id=00018', 'doMCweights=True']]
+
 samples['TTTo2L2Nu']                    = ['/TTTo2L2Nu_TuneCUETP8M2_ttHtranche3_13TeV-powheg-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',      ['label=TTTo2L2Nu',                    'id=00019', 'doMCweights=True']]
 #samples['TTTo2L2Nu']                   = ['/TTTo2L2Nu_13TeV-powheg/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/MINIAODSIM',                                            ['label=TTTo2L2Nu',                    'id=00019', 'doMCweights=True']]
 #samples['TTTo2L2Nu_ext1']               = ['/TTTo2L2Nu_13TeV-powheg/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM',                                 ['label=TTTo2L2Nu',                    'id=00019', 'doMCweights=True']] #summer16 sample not found
