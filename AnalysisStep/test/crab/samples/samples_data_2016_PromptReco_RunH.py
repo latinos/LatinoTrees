@@ -18,12 +18,14 @@ samples['DoubleMuon_Run2016H-PromptReco-v2']     = ['/DoubleMuon/Run2016H-Prompt
 samples['MuonEG_Run2016H-PromptReco-v2']         = ['/MuonEG/Run2016H-PromptReco-v2/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016H-PromptReco-v2'] = ['/SingleElectron/Run2016H-PromptReco-v2/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016H-PromptReco-v2']     = ['/SingleMuon/Run2016H-PromptReco-v2/MINIAOD',     ['label=SingleMuon']]
+samples['MET_Run2016H-PromptReco-v2']     = ['/MET/Run2016H-PromptReco-v2/MINIAOD',     ['label=MET']]
 
 samples['DoubleEG_Run2016H-PromptReco-v3']       = ['/DoubleEG/Run2016H-PromptReco-v3/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016H-PromptReco-v3']     = ['/DoubleMuon/Run2016H-PromptReco-v3/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016H-PromptReco-v3']         = ['/MuonEG/Run2016H-PromptReco-v3/MINIAOD',         ['label=MuEG']]
 samples['SingleElectron_Run2016H-PromptReco-v3'] = ['/SingleElectron/Run2016H-PromptReco-v3/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016H-PromptReco-v3']     = ['/SingleMuon/Run2016H-PromptReco-v3/MINIAOD',     ['label=SingleMuon']]
+samples['MET_Run2016H-PromptReco-v3']     = ['/MET/Run2016H-PromptReco-v3/MINIAOD',     ['label=MET']]
 
 
 
