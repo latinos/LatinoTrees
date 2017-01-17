@@ -69,7 +69,7 @@ samples['DYJetsToTT_MuEle_M-50_ext1']       = ['/DYJetsToTauTau_ForcedMuEleDecay
 samples['WW-LO']        = ['/WW_TuneCUETP8M1_13TeV-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=WW-LO',        'id=00004', 'doMCweights=True']]
 samples['WWTo2L2Nu']    = ['/WWTo2L2Nu_13TeV-powheg/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',        ['label=WWTo2L2Nu',    'id=00004', 'doMCweights=True']]
 samples['WWToLNuQQ']    = ['/WWToLNuQQ_13TeV-powheg/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',        ['label=WWToLNuQQ',    'id=00031', 'doMCweights=True']]
-samples['WWToLNuQQext'] = ['/WWToLNuQQ_13TeV-powheg/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM', 'id=00033', 'doMCweights=True']]
+samples['WWToLNuQQext'] = ['/WWToLNuQQ_13TeV-powheg/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM',   ['label=WWToLNuQQext', 'id=00033', 'doMCweights=True']]
 samples['WWTo4Q']       = ['/WWTo4Q_13TeV-powheg/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',           ['label=WWTo4Q',       'id=00034', 'doMCweights=True']]
 
  
