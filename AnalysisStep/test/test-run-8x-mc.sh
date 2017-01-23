@@ -17,8 +17,15 @@ export EVENTS=$1
 #
 
 
-#export MYFILE=root://eoscms.cern.ch//store/mc/RunIISpring16MiniAODv2/TTTo2L2Nu_13TeV-powheg/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/60000/0005201C-D41B-E611-8E37-002481E0D398.root
-export MYFILE=root://eoscms.cern.ch//store/mc/RunIISpring16MiniAODv2/GluGluToContinToZZTo4e_13TeV_MCFM701_pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/60000/3C5F44A8-D31B-E611-8707-0026B93F48E7.root
+#export MYFILE=root://eoscms.cern.ch//store/mc/RunIISpring16MiniAODv2/GluGluToContinToZZTo4e_13TeV_MCFM701_pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/60000/3C5F44A8-D31B-E611-8707-0026B93F48E7.root
+### Type              Module     Label   Process
+### LHEEventProduct   "source"   ""      "LHEFile"
+
+
+export MYFILE=root://eoscms.cern.ch//store/mc/RunIISpring16MiniAODv2/DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/00000/A8330680-0C27-E611-8F06-008CFA1C64A0.root
+### Type              Module                  Label   Process
+### LHEEventProduct   "externalLHEProducer"   ""      "LHE"
+
 
 rm -rf latino_stepB_mc_numEvent${EVENTS}.root
 
@@ -28,7 +35,7 @@ cmsRun stepB.py print                   \
     is50ns=False                        \
     isPromptRecoData=False              \
     globalTag=80X_mcRun2_asymptotic_2016_TrancheIV_v7 \
-    label=ggZZ                          \
+    label=DYJetsToLL_M-50_HT-600toInf   \
     outputFile=stepB_mc.root            \
     selection=LooseNoIso                \
     doNoFilter=False                    \
@@ -42,7 +49,7 @@ cmsRun stepB.py print                   \
     doMCweights=True                    \
     maxEvents=${EVENTS}                 \
     inputFiles=${MYFILE}                \
-    LHEweightSource=source              \
+    LHEweightSource=externalLHEProducer \
     LHERunInfo=""
 
 python cmssw2latino.py stepB_mc_numEvent${EVENTS}.root

@@ -44,7 +44,7 @@ First you need to [generate an SSH key](https://help.github.com/articles/generat
 *Do this only if you want to use a tag.*
 
     pushd LatinoTrees
-    git checkout tags/6Jan2017_RogueOne_v3
+    git checkout tags/6Jan2017_RogueOne_v5
     popd
 
 Test the latino tree production.
@@ -143,6 +143,7 @@ this framework is the CombineHarvester class, which provides a representation
 of the text-format datacards and the associated shape input.
 
     http://cms-analysis.github.io/CombineHarvester/
+    https://twiki.cern.ch/twiki/bin/view/CMS/HWWCombineTools
 
 
 B. Share IT EOS space
