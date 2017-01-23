@@ -154,7 +154,7 @@ samples['TTZToQQ']                      = ['/TTZToQQ_TuneCUETP8M1_13TeV-amcatnlo
 samples['TTZjets']                      = ['/ttZJets_13TeV_madgraphMLM/RunIISummer16MiniAODv2-80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                                               ['label=TTZjets',                      'id=00027', 'doMCweights=True']]
 #samples['TTTo2L2Nu_alphaS01108']        = ['/TTTo2L2Nu_TuneCUETP8M1T4_alphaS01108_13TeV-powheg-pythia8/RunIISpring16MiniAODv2-premix_withHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',              ['label=TTTo2L2Nu_alphaS01108',        'id=00028', 'doMCweights=True']]     #alphaS0110 not found in a summer16 sample
 #samples['TTToSemiLeptonic_alphaS01108'] = ['/TTToSemiLeptonic_TuneCUETP8M1T4_alphaS01108_13TeV-powheg-pythia8/RunIISpring16MiniAODv2-premix_withHLT_80X_mcRun2_asymptotic_v14-v1/MINIAODSIM',       ['label=TTToSemiLeptonic_alphaS01108', 'id=00029', 'doMCweights=True']]     #alphaS0110 not found in a summer16 sample
-
+samples['TTToSemiLepton']                = ['/TTToSemilepton_TuneCUETP8M2_ttHtranche3_13TeV-powheg-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',       ['label=TTToSemiLepton', 'id=00029', 'doMCweights=True']]
 
 
 
