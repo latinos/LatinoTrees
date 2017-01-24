@@ -37,8 +37,8 @@ if __name__ == '__main__':
     f = open(outputFile, 'w')
     f.write('# Automatically created input for latino tree creation script starting from ' + inputFile + "\n\n")
     
-    outDir = config.Data.outLFNDirBase.rstrip('/') + "/LatinoTrees/\n\n"
-    f.write('outputDirectory = '+ outDir)
+    outDir = config.Data.outLFNDirBase.rstrip('/') + "/LatinoTrees/"
+    f.write('outputDirectory = "'+ outDir + '"\n\n')
     
     for key, value in samples.iteritems():
         value[0] = config.Data.outLFNDirBase.rstrip('/') + '/' + value[0].split('/')[1] + '/crab_' + key +'/'
