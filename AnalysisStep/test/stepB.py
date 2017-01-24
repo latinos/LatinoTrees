@@ -707,6 +707,28 @@ if isMC:
   process.load("LatinoTrees.AnalysisStep.dressedLeptons_cff")
   preSeq += process.dressedLeptonsSequence
 
+
+#add the template cross section sequence
+if isMC and doHiggs:
+  process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
+  process.mergedGenParticles = cms.EDProducer("MergedGenParticleProducer",
+    inputPruned = cms.InputTag("prunedGenParticles"),
+    inputPacked = cms.InputTag("packedGenParticles"),
+  )
+  process.myGenerator = cms.EDProducer("GenParticles2HepMCConverterHTXS",
+    genParticles = cms.InputTag("mergedGenParticles"),
+    genEventInfo = cms.InputTag("generator"),
+  )
+  process.rivetProducerHTXS = cms.EDProducer('HTXSRivetProducer',
+    HepMCCollection = cms.InputTag('myGenerator','unsmeared'),
+    LHERunInfo = cms.InputTag("externalLHEProducer"),
+    ProductionMode = cms.string('AUTO'),
+  )
+
+  process.HTXSsequence = cms.Sequence(process.mergedGenParticles*process.myGenerator*process.rivetProducerHTXS)
+  preSeq += process.HTXSsequence
+ 
+
 # add puppi calculated from miniAOD
 #   since puppi must be run as first
 #   we include puppi in the "preSequence"
@@ -829,6 +851,9 @@ if doGen == True :
     getattr(process,"ww%s"% (labelSetup)).dressedMuonTag     = "dressedMuons01"
     getattr(process,"ww%s"% (labelSetup)).dressedElectronTag = "dressedElectrons01"
 
+if doHiggs == True:
+  getattr(process,"ww%s"% (labelSetup)).HTXSTag = cms.InputTag("rivetProducerHTXS", "HiggsClassification")
+  
 #if id in ["036", "037", "037c0", "037c1", "037c2", "037c3", "037c4", "037c5", "037c6", "037c7", "037c8", "037c9", "042", "043", "045", "046" ]: # DY-Madgraph sample
     #getattr(process,"ww%s"% (labelSetup)).genParticlesTag = "prunedGen"
 
@@ -977,6 +1002,10 @@ if doHiggs == True :
     tree.variables.MHiggs = cms.string("getHiggsMass()")
     tree.variables.PtHiggs = cms.string("getHiggsPt()")
     tree.variables.HEPMCweight = cms.string("HEPMCweight()")
+    tree.variables.HTXS_stage0 = cms.string("HTXS_stage0()")
+    tree.variables.HTXS_stage1_pTjet30GeV = cms.string("HTXS_stage1_pTjet30GeV()")
+    tree.variables.HTXS_stage1_pTjet25GeV = cms.string("HTXS_stage1_pTjet25GeV()")
+
 
 if doPDFvar == True :
     tree.variables.pdfscalePDF = cms.string("getPDFscalePDF()")

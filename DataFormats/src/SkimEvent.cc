@@ -171,6 +171,8 @@ sumPts_(0)/*, jec_(0), vtxPoint_(0,0,0) */{
   
   _maxDrSoftMuonJet = 0.3;
   _minPtSoftMuon = 5;
+
+  htxs_=0;
   
 }
 
@@ -8518,7 +8520,31 @@ const float reco::SkimEvent::dressed_pdgId(size_t i) const {
   return dressedLeptons_[i]->pdgId();
 }
 
+//--- HTXS
+void reco::SkimEvent::setHTXS(const edm::Handle<HTXS::HiggsClassification>& htxsH){
+  htxs_ = htxsH.product(); 
+}
 
+const float reco::SkimEvent::HTXS_stage0() const{
+  if (htxs_)
+    return htxs_->stage0_cat;
+  else
+    return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::HTXS_stage1_pTjet30GeV() const{
+  if (htxs_)
+    return htxs_->stage1_cat_pTjet30GeV;
+  else
+    return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::HTXS_stage1_pTjet25GeV() const{
+  if (htxs_)
+    return htxs_->stage1_cat_pTjet25GeV;
+  else
+    return defaultvalues::defaultFloat;
+}
 
 
 //--- electrons

@@ -36,6 +36,9 @@
 #include "FWCore/Common/interface/TriggerNames.h"
 #include "DataFormats/PatCandidates/interface/PackedTriggerPrescales.h"
 #include "TH1F.h"
+
+//---- Template cross sections
+#include "SimDataFormats/HTXS/interface/HiggsTemplateCrossSections.h"
 //---- for auto-tree
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
@@ -164,6 +167,7 @@ struct JetInfo {
         edm::InputTag rhoCaloTag_;
         edm::InputTag phoTag_; //PHOTON
         edm::InputTag trackJetTag_;
+        edm::InputTag htxsTag_;
         edm::InputTag dressedMuonTag_;
         edm::InputTag dressedElectronTag_;
         
@@ -209,7 +213,9 @@ struct JetInfo {
         
         edm::EDGetTokenT<pat::JetCollection> trackJetT_;
         
-        
+        edm::EDGetTokenT<HTXS::HiggsClassification> htxsT_;
+
+
         void addDYMVA(reco::SkimEvent* event);
         std::vector<std::pair<LorentzVector,double> > lPFInfo;
         std::vector<Vector> lVtxInfo;

@@ -69,6 +69,7 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     rhoCaloTag_        = cfg.getParameter<edm::InputTag>("rhoCaloTag" );
     phoTag_	       = cfg.getParameter<edm::InputTag>("phoTag"); //Photon
     trackJetTag_       = cfg.getParameter<edm::InputTag>("trackJetTag");
+    htxsTag_           = cfg.getParameter<edm::InputTag>("HTXSTag");
     dressedMuonTag_    = cfg.getParameter<edm::InputTag>("dressedMuonTag");
     dressedElectronTag_= cfg.getParameter<edm::InputTag>("dressedElectronTag");
     
@@ -147,6 +148,9 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
         dressedMuonT_     = consumes<edm::View<reco::Candidate> > (dressedMuonTag_    );  
       if ( !( dressedElectronTag_ == edm::InputTag("")) )  
         dressedElectronT_ = consumes<edm::View<reco::Candidate> > (dressedElectronTag_);  
+
+      if (!(htxsTag_ == edm::InputTag("")) ) 
+        htxsT_ = consumes<HTXS::HiggsClassification>(htxsTag_); 
     }
 
 
@@ -195,11 +199,14 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     edm::Handle<reco::CandidateView> dressedMuonsH;
     edm::Handle<reco::CandidateView> dressedElectronsH;
+    edm::Handle<HTXS::HiggsClassification> htxs;
     if (_isMC){
       if (!(dressedMuonTag_ == edm::InputTag("")))
         iEvent.getByToken(dressedMuonT_, dressedMuonsH);
       if (!(dressedElectronTag_ == edm::InputTag("")))  
         iEvent.getByToken(dressedElectronT_, dressedElectronsH);
+      if (!(htxsTag_ == edm::InputTag("")))
+        iEvent.getByToken(htxsT_,htxs);
     }
 
     
@@ -591,7 +598,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
         for(size_t k=0; k<dressedElectronsH->size();++k){
           skimEvent->back().setDressedLepton(dressedElectronsH, k);
         }  
-      }    
+      }
+      if (!(htxsTag_ == edm::InputTag("")))
+        skimEvent->back().setHTXS(htxs);
     }
     
     iEvent.put(skimEvent);

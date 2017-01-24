@@ -26,6 +26,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     minPtSoftMuon         = cms.double(3),
     dressedMuonTag        = cms.InputTag(""), 
     dressedElectronTag    = cms.InputTag(""),
+    HTXSTag               = cms.InputTag(""),
     #
     #
     mcLHEEventInfoTag = cms.InputTag(""),

@@ -29,6 +29,7 @@
 #include "DataFormats/TrackReco/interface/Track.h"
 #include "DataFormats/VertexReco/interface/Vertex.h"
 
+#include "SimDataFormats/HTXS/interface/HiggsTemplateCrossSections.h"
 
 //---- pat
 #include <DataFormats/PatCandidates/interface/MET.h>
@@ -747,6 +748,7 @@ namespace reco {
     void setGenParticles(const edm::Handle<reco::GenParticleCollection> &h);
     void setGenLeptonIndices();
     void setDressedLepton(const edm::Handle<edm::View<reco::Candidate> > &h, size_t i);
+    void setHTXS(const edm::Handle<HTXS::HiggsClassification>& htxsH);
     
     // void setGenWeight(const edm::Handle<double> &s);
     void setGenWeight(const edm::Handle<GenFilterInfo> &s);
@@ -896,7 +898,10 @@ namespace reco {
     const float dressedLepton_etaByPt(size_t i = 0)   const { return dressed_eta   (dressed_indexByPt (i)); }
     const float dressedLepton_phiByPt(size_t i = 0)   const { return dressed_phi   (dressed_indexByPt (i)); }
     const float dressedLepton_pdgIdByPt(size_t i = 0) const { return dressed_pdgId (dressed_indexByPt (i)); }
-    
+    // HTXS 
+    const float HTXS_stage0() const;
+    const float HTXS_stage1_pTjet30GeV() const;
+    const float HTXS_stage1_pTjet25GeV() const;
     
     const int vtxSize() const { return vtxs_.size(); }
     const int nGoodVertices() const;
@@ -1215,6 +1220,7 @@ namespace reco {
     std::vector<refToCand> extraLeps_;
     std::vector<refToCand> softMuons_;
     std::vector<edm::Ptr<reco::Candidate> > dressedLeptons_;
+    const HTXS::HiggsClassification* htxs_;
     //edm::RefToBaseVector<reco::RecoCandidate> leps_;
     //edm::RefToBaseVector<reco::RecoCandidate> extraLeps_;
     //edm::RefToBaseVector<reco::RecoCandidate> softMuons_;
