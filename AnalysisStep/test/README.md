@@ -121,9 +121,15 @@ The script *translate_samples_config.py* can be used on any samples*.py file in 
 
     python translate_samples_config.py samples/samples_data_2016_ReReco.py list_data_2016_ReReco.py
 
-The default number of files per *hadd* is 50. Please change it to smaller values if the output file size is bigger than 1 GB.
+The next step submits jobs for producing the latino trees with a maximum size of 1GB. In order to work on different T2s it makes use of the batchTools that are also used in the post-processing which requires the following steps:
 
-    python multiLxbatchCmssw2latino_split_autoComplete.py list_data_2016_ReReco.py
+    - Go to LatinosAnalysis/Tools/python
+    - cp userConfig_TEMPLATE.py userConfig.py
+    - Edit userConfig.py 'baseDir' variable (You need a location with some reasonable space for job log files) 
+
+By default the python script doesn't submit jobs so you can check if it correctly finds all the samples and directories. To submit the jobs run the command with "1" as the last argument:
+
+    python multiLxbatchCmssw2latino_split_autoComplete.py list_data_2016_ReReco.py [0 = no jobs are submitted (default) / 1 = submit jobs ]
 
 Do not forget to delete all stepB.root files from old latino productions. We have a limited eos space.
 
