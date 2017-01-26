@@ -378,7 +378,14 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe)  {
       lenghtVector_nameVariable_int = _map_variables_vectorLength.at(it->first);
     }
     for (int i=0; i<lenghtVector_nameVariable_int; i++) {
-      it->second->fillStdVector(varsMap_["_VECTORVARIABLETEMP_" + it->first +"_"+std::to_string(i+1)+"_"]->internal_value(), i);
+      float value_to_be_put = varsMap_["_VECTORVARIABLETEMP_" + it->first +"_"+std::to_string(i+1)+"_"]->internal_value();
+      //---- if it reaches the "default value" the saving of the std::vector STOPS! By doing this we save space and time!    
+      ////----                but it is important that the default value is set to -9999.0 !
+      if (value_to_be_put != defaultvalues::defaultFloat) {
+        it->second->fillStdVectorVariableLength(value_to_be_put, i);
+      } else {
+        break;
+      }  
     }
    }   
    
