@@ -2,7 +2,7 @@
 #include "LatinoTrees/AnalysisStep/interface/BaseGenericTreeFiller.h"
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
-
+#include <chrono>
 // #include "PhysicsTools/TagAndProbe/interface/ColinsSoperVariables.h"
 
 #include <TList.h>
@@ -105,12 +105,12 @@ void tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterS
     for (std::vector<std::string>::const_iterator it = stringVars.begin(), ed = stringVars.end(); it != ed; ++it) {
         //---- TLorentzVectors
         if (std::strncmp((branchNamePrefix + *it).c_str(), "v_", strlen("v_")) == 0) {
-         vars_.push_back(tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_x_", variables.getParameter<std::string>(*it)+".x()"));
-         vars_.push_back(tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_y_", variables.getParameter<std::string>(*it)+".y()"));
-         vars_.push_back(tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_z_", variables.getParameter<std::string>(*it)+".z()"));
-         vars_.push_back(tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_t_", variables.getParameter<std::string>(*it)+".t()"));
+         varsMap_["_TEMP_"+branchNamePrefix + *it+"_x_"] = new tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_x_", variables.getParameter<std::string>(*it)+".x()");
+         varsMap_["_TEMP_"+branchNamePrefix + *it+"_y_"] = new tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_y_", variables.getParameter<std::string>(*it)+".y()");
+         varsMap_["_TEMP_"+branchNamePrefix + *it+"_z_"] = new tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_z_", variables.getParameter<std::string>(*it)+".z()");
+         varsMap_["_TEMP_"+branchNamePrefix + *it+"_t_"] = new tnp::ProbeVariable("_TEMP_"+branchNamePrefix + *it+"_t_", variables.getParameter<std::string>(*it)+".t()");
 
-         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));
+         varsMap_[branchNamePrefix + *it]                = new tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it));
         }
         //---- std::vector <float>
         else if (std::strncmp((branchNamePrefix + *it).c_str(), "std_vector_", strlen("std_vector_")) == 0) {
@@ -131,14 +131,14 @@ void tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterS
           //---- if I call "pt" it will do "pt(0)", "pt(1)", ...
           //---- if I call "pt(ggg" it will do "pt(ggg,0)", "pt(ggg,1)", ...
           if (nameVariable.find("(") != std::string::npos) {
-           vars_.push_back(tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+","+std::to_string(i)+")"));
+           varsMap_["_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_"] = new tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+","+std::to_string(i)+")");
           }
           else {
-           vars_.push_back(tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+"("+std::to_string(i)+")"));
+           varsMap_["_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_"] = new tnp::ProbeVariable("_VECTORTEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+"("+std::to_string(i)+")");
           }
          }
          //--->                                                     the second field is NOT used!
-         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, branchNamePrefix + *it));
+         varsMap_[branchNamePrefix + *it]  = new tnp::ProbeVariable(branchNamePrefix + *it, branchNamePrefix + *it);
 //          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, nameVariable));        
          }
         //---- std::vector <float> with variable length
@@ -159,27 +159,27 @@ void tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterS
           //---- if I call "pt" it will do "pt(0)", "pt(1)", ...
           //---- if I call "pt(ggg" it will do "pt(ggg,0)", "pt(ggg,1)", ...
           if (nameVariable.find("(") != std::string::npos) {
-           vars_.push_back(tnp::ProbeVariable("_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+","+std::to_string(i)+")"));
+           varsMap_["_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_"] = new tnp::ProbeVariable("_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+","+std::to_string(i)+")");
           }
           else {
-           vars_.push_back(tnp::ProbeVariable("_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+"("+std::to_string(i)+")"));           
+           varsMap_["_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_"] = new tnp::ProbeVariable("_VECTORVARIABLETEMP_"+branchNamePrefix + *it+"_"+std::to_string(i+1)+"_", nameVariable+"("+std::to_string(i)+")");           
           }
          }
          //--->                                                     the second field is NOT used!
-         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, branchNamePrefix + *it));
+         varsMap_[branchNamePrefix + *it] = new tnp::ProbeVariable(branchNamePrefix + *it, branchNamePrefix + *it);
 //          vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, nameVariable));        
         }
         
         //---- simple variable
         else {
-         vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it)));
+         varsMap_[branchNamePrefix + *it] = new tnp::ProbeVariable(branchNamePrefix + *it, variables.getParameter<std::string>(*it));
         }
     }
         
     //.. the ones that are InputTags
     std::vector<std::string> inputTagVars = variables.getParameterNamesForType<edm::InputTag>();
     for (std::vector<std::string>::const_iterator it = inputTagVars.begin(), ed = inputTagVars.end(); it != ed; ++it) {
-        vars_.push_back(tnp::ProbeVariable(branchNamePrefix + *it, iC.consumes<edm::ValueMap<float> >(variables.getParameter<edm::InputTag>(*it))));
+        varsMap_[branchNamePrefix + *it] = new tnp::ProbeVariable(branchNamePrefix + *it, iC.consumes<edm::ValueMap<float> >(variables.getParameter<edm::InputTag>(*it)));
     }
     // set up flags
     edm::ParameterSet flags = iConfig.getParameter<edm::ParameterSet>("flags");
@@ -200,29 +200,29 @@ void tnp::BaseGenericTreeFiller::addBranches_(TTree *tree, const edm::ParameterS
 //     }
 
     // then make all the FLOAT and 4D variables in the trees
-    for (std::vector<tnp::ProbeVariable>::iterator it = vars_.begin(), ed = vars_.end(); it != ed; ++it) {
-     if (std::strncmp(it->name().c_str(), "_TEMP_", strlen("_TEMP_")) != 0
-      && std::strncmp(it->name().c_str(), "_VECTORTEMP_", strlen("_VECTORTEMP_")) != 0         
-      && std::strncmp(it->name().c_str(), "_VECTORVARIABLETEMP_", strlen("_VECTORVARIABLETEMP_")) != 0         
+    for (std::map<std::string,tnp::ProbeVariable*>::iterator it = varsMap_.begin(), ed = varsMap_.end(); it != ed; ++it) {
+     if (std::strncmp(it->first.c_str(), "_TEMP_", strlen("_TEMP_")) != 0
+      && std::strncmp(it->first.c_str(), "_VECTORTEMP_", strlen("_VECTORTEMP_")) != 0         
+      && std::strncmp(it->first.c_str(), "_VECTORVARIABLETEMP_", strlen("_VECTORVARIABLETEMP_")) != 0         
      ) { //---- only *not* temporary variables  
       //---- TLorentzVectors
       
-      if (std::strncmp(it->name().c_str(), "v_", strlen("v_")) == 0) {
-       tree->Branch(it->name().c_str(), "math::XYZTLorentzVector", it->address4D());
+      if (std::strncmp(it->first.c_str(), "v_", strlen("v_")) == 0) {
+       tree->Branch(it->first.c_str(), "math::XYZTLorentzVector", it->second->address4D());
       }
       //---- std::vector <float>
-      else if (std::strncmp(it->name().c_str(), "std_vector_", strlen("std_vector_")) == 0) {
-       tree->Branch(it->name().c_str(), it->address_std_vector());
+      else if (std::strncmp(it->first.c_str(), "std_vector_", strlen("std_vector_")) == 0) {
+       tree->Branch(it->first.c_str(), it->second->address_std_vector());
 //        tree->Branch(it->name().c_str(), "std::vector<float>", it->address_std_vector());       
       }     
       //---- std::vector <float>  with variable length
-      else if (std::strncmp(it->name().c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) {
-       tree->Branch(it->name().c_str(), it->address_std_vector_variable_length());
+      else if (std::strncmp(it->first.c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) {
+       tree->Branch(it->first.c_str(), it->second->address_std_vector_variable_length());
        //        tree->Branch(it->name().c_str(), "std::vector<float>", it->address_std_vector_variable_length());       
       } 
       //---- float
       else {
-       tree->Branch(it->name().c_str(), it->address(), (it->name()+"/F").c_str());
+       tree->Branch(it->first.c_str(), it->second->address(), (it->first+"/F").c_str());
       }
      }
     }
@@ -241,9 +241,10 @@ void tnp::BaseGenericTreeFiller::init(const edm::Event &iEvent) const {
     lumi_ = iEvent.id().luminosityBlock();
     event_ = iEvent.id().event();
 
-    for (std::vector<tnp::ProbeVariable>::const_iterator it = vars_.begin(), ed = vars_.end(); it != ed; ++it) {
-        it->init(iEvent);
+    for (std::map<std::string,tnp::ProbeVariable*>::const_iterator it = varsMap_.begin(), ed = varsMap_.end(); it != ed; ++it) {
+        it->second->init(iEvent);
     }
+
     for (std::vector<tnp::ProbeFlag>::const_iterator it = flags_.begin(), ed = flags_.end(); it != ed; ++it) {
         it->init(iEvent);
     }
@@ -330,89 +331,63 @@ void tnp::BaseGenericTreeFiller::init(const edm::Event &iEvent) const {
 
 }
 
-void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const {
-  
- for (std::vector<tnp::ProbeVariable>::const_iterator it = vars_.begin(), ed = vars_.end(); it != ed; ++it) {
-  if (std::strncmp(it->name().c_str(), "v_", strlen("v_")) != 0 &&
-      std::strncmp(it->name().c_str(), "std_vector_", strlen("std_vector_")) != 0 &&
-      std::strncmp(it->name().c_str(), "std_variable_vector_", strlen("std_variable_vector_")) != 0
+void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe)  {
+ //auto startTime = std::chrono::high_resolution_clock::now();
+
+ for (std::map<std::string,tnp::ProbeVariable*>::const_iterator it = varsMap_.begin(), ed = varsMap_.end(); it != ed; ++it) {
+  if (std::strncmp(it->first.c_str(), "v_", strlen("v_")) != 0 &&
+      std::strncmp(it->first.c_str(), "std_vector_", strlen("std_vector_")) != 0 &&
+      std::strncmp(it->first.c_str(), "std_variable_vector_", strlen("std_variable_vector_")) != 0
   ) { //---- first normal variables  
-    it->fill(probe);
+    it->second->fill(probe);
   }
  }
- 
- for (std::vector<tnp::ProbeVariable>::const_iterator it = vars_.begin(), ed = vars_.end(); it != ed; ++it) {
+ //auto endTime = std::chrono::high_resolution_clock::now();
+ //std::cout << "time in filling normal variables: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime-startTime).count() << " ms" << std::endl ;
+
+ //startTime = std::chrono::high_resolution_clock::now(); 
+ for (std::map<std::string,tnp::ProbeVariable*>::const_iterator it = varsMap_.begin(), ed = varsMap_.end(); it != ed; ++it) {
   if (
-   std::strncmp(it->name().c_str(), "_TEMP_", strlen("_TEMP_")) != 0 &&
-   std::strncmp(it->name().c_str(), "_VECTORTEMP_", strlen("_VECTORTEMP_")) != 0 &&
-   std::strncmp(it->name().c_str(), "_VECTORVARIABLETEMP_", strlen("_VECTORVARIABLETEMP_")) != 0
+   std::strncmp(it->first.c_str(), "_TEMP_", strlen("_TEMP_")) != 0 &&
+   std::strncmp(it->first.c_str(), "_VECTORTEMP_", strlen("_VECTORTEMP_")) != 0 &&
+   std::strncmp(it->first.c_str(), "_VECTORVARIABLETEMP_", strlen("_VECTORVARIABLETEMP_")) != 0
   ) { //---- only *not* temporary variables  
-   if (std::strncmp(it->name().c_str(), "v_", strlen("v_")) == 0) { //---- now the vectors
+   if (std::strncmp(it->first.c_str(), "v_", strlen("v_")) == 0) { //---- now the vectors
     float x = 0;
     float y = 0;
     float z = 0;
-    float t = 0;   
-    for (std::vector<tnp::ProbeVariable>::const_iterator it2 = vars_.begin(), ed2 = vars_.end(); it2 != ed2; ++it2) {
-     if (std::strncmp(it2->name().c_str(), std::string("_TEMP_" + it->name() +"_x_").c_str(), strlen(it2->name().c_str())) == 0) {
-      x = it2->internal_value();
-     }
-     if (std::strncmp(it2->name().c_str(), std::string("_TEMP_" + it->name() +"_y_").c_str(), strlen(it2->name().c_str())) == 0) {
-      y = it2->internal_value();
-     }
-     if (std::strncmp(it2->name().c_str(), std::string("_TEMP_" + it->name() +"_z_").c_str(), strlen(it2->name().c_str())) == 0) {
-      z = it2->internal_value();
-     }
-     if (std::strncmp(it2->name().c_str(), std::string("_TEMP_" + it->name() +"_z_").c_str(), strlen(it2->name().c_str())) == 0) {
-      t = it2->internal_value();
-     }
-    }
-    it->fill4D(x,y,z,t);
+    float t = 0; 
+    x = varsMap_[std::string("_TEMP_" + it->first +"_x_")]->internal_value();
+    y = varsMap_[std::string("_TEMP_" + it->first +"_y_")]->internal_value();
+    z = varsMap_[std::string("_TEMP_" + it->first +"_z_")]->internal_value();
+    t = varsMap_[std::string("_TEMP_" + it->first +"_t_")]->internal_value();
+    it->second->fill4D(x,y,z,t);
    }
-   else if (std::strncmp(it->name().c_str(), "std_vector_", strlen("std_vector_")) == 0) { //---- now the std::vector <float>
-    for (std::vector<tnp::ProbeVariable>::const_iterator it2 = vars_.begin(), ed2 = vars_.end(); it2 != ed2; ++it2) {
-     //---- get max length for this vector
-     int lenghtVector_nameVariable_int;
-     lenghtVector_nameVariable_int = _maxStdVector;     
-     if (_map_vectorLength.find( it->name() )  != _map_vectorLength.end()) {
-      lenghtVector_nameVariable_int = _map_vectorLength.at(it->name());
-     }
-     for (int i=0; i<lenghtVector_nameVariable_int; i++) {
-      if (std::strncmp(it2->name().c_str(), std::string("_VECTORTEMP_" + it->name() +"_"+std::to_string(i+1)+"_").c_str(), strlen(it2->name().c_str())) == 0) {
-       it->fillStdVector(it2->internal_value(),i);
-      }
-     }
+   else if (std::strncmp(it->first.c_str(), "std_vector_", strlen("std_vector_")) == 0) { //---- now the std::vector <float>
+    int lenghtVector_nameVariable_int = _maxStdVector;
+    if (_map_vectorLength.find( it->first )  != _map_vectorLength.end()) {
+      lenghtVector_nameVariable_int = _map_vectorLength.at(it->first);
+    }
+    for (int i=0; i<lenghtVector_nameVariable_int; i++) {
+      it->second->fillStdVector(varsMap_["_VECTORTEMP_" + it->first +"_"+std::to_string(i+1)+"_"]->internal_value(),i);
     }
    }
-   else if (std::strncmp(it->name().c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) { //---- now the std::vector <float> with variable length
-    for (std::vector<tnp::ProbeVariable>::const_iterator it2 = vars_.begin(), ed2 = vars_.end(); it2 != ed2; ++it2) {
-     
-     //---- get max length for this vector
-     int lenghtVector_nameVariable_int;
-     lenghtVector_nameVariable_int = _maxStdVector;     
-     if (_map_variables_vectorLength.find( it->name() )  != _map_variables_vectorLength.end()) {
-      lenghtVector_nameVariable_int = _map_variables_vectorLength.at(it->name());
-     }
-     
-     for (int i=0; i<lenghtVector_nameVariable_int; i++) {
-      if (std::strncmp(it2->name().c_str(), std::string("_VECTORVARIABLETEMP_" + it->name() +"_"+std::to_string(i+1)+"_").c_str(), strlen(it2->name().c_str())) == 0) {
-       float value_to_be_put = it2->internal_value();
-       if (value_to_be_put != defaultvalues::defaultFloat) { //---- -9999.0
-        //---- if it reaches the "default value" the saving of the std::vector STOPS! By doing this we save space and time!    
-        //----                but it is important that the default value is set to -9999.0 !
-        it->fillStdVectorVariableLength(value_to_be_put,i);
-       }
-       else {
-        break;
-       }
-      }
-     }
+   else if (std::strncmp(it->first.c_str(), "std_variable_vector_", strlen("std_variable_vector_")) == 0) { //---- now the std::vector <float> with variable length
+    int lenghtVector_nameVariable_int = _maxStdVector;
+    if (_map_variables_vectorLength.find( it->first )  != _map_variables_vectorLength.end()) {
+      lenghtVector_nameVariable_int = _map_variables_vectorLength.at(it->first);
+    }
+    for (int i=0; i<lenghtVector_nameVariable_int; i++) {
+      it->second->fillStdVector(varsMap_["_VECTORVARIABLETEMP_" + it->first +"_"+std::to_string(i+1)+"_"]->internal_value(), i);
     }
    }   
    
   }
  }
+ //endTime = std::chrono::high_resolution_clock::now();
+ //std::cout << "time in filling other variables: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime-startTime).count() << " ms" << std::endl ;
  
- 
+ //startTime = std::chrono::high_resolution_clock::now(); 
  for (std::vector<tnp::ProbeFlag>::const_iterator it = flags_.begin(), ed = flags_.end(); it != ed; ++it) {
   if (ignoreExceptions_)  {
    try{ it->fill(probe); } catch(cms::Exception &ex ){}
@@ -420,8 +395,14 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe) const
    it->fill(probe);
   }
  }
- 
+ //endTime = std::chrono::high_resolution_clock::now();
+ //std::cout << "time in filling flag variables: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime-startTime).count() << " ms" << std::endl ;
+
+   
+ //startTime = std::chrono::high_resolution_clock::now(); 
  if (tree_) tree_->Fill();
+ //endTime = std::chrono::high_resolution_clock::now();
+ //std::cout << "time in filling tree: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime-startTime).count() << " ms" << std::endl ;
  
 }
 

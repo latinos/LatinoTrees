@@ -220,14 +220,18 @@ class BaseGenericTreeFiller : boost::noncopyable {
         void init(const edm::Event &iEvent) const ;
 
         /// To be called once per probe, to fill the values for this probe
-        void fill(const reco::CandidateBaseRef &probe) const ;
+        void fill(const reco::CandidateBaseRef &probe) ;
 
         /// Write a string dump of this PSet into the TTree header.
         /// see macro in test directory for how to retrieve it from the output root file
         void writeProvenance(const edm::ParameterSet &pset) const ;
     protected:
 
-        std::vector<ProbeVariable> vars_;
+        std::map<std::string, ProbeVariable *> varsMap_;
+        //std::vector<ProbeVariable> vars_;
+        //std::vector<ProbeVariable> varsTEMP_;
+        //std::vector<ProbeVariable> varsVECTORTEMP_;
+        //std::vector<ProbeVariable> varsVECTORVARIABLETEMP_;
         std::vector<ProbeFlag>     flags_;
                 
         /// How event weights are defined: 'None' = no weights, 'Fixed' = one value specified in cfg file, 'External' = read weight from the event (as double)
