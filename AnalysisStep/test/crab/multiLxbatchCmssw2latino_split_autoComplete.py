@@ -104,10 +104,15 @@ if __name__ == '__main__':
         print " nfiles =", nfiles
         
         # Create the job scripts and submit
-        if not dryRun:      
+        if not dryRun:     
+            TargeList=[]
             for i in range(0, nfiles) :
                 requestName_i = requestName + "__part" + str(i)
-                jobs = batchJobs('probeTreeToLatino',requestName_i,["All"],["All"],"Step,Target")
+                TargeList.append(requestName_i) 
+            jobs = batchJobs('probeTreeToLatino',requestName,["All"],TargeList,"Step,Target")
+            for i in range(0, nfiles) :
+                requestName_i = requestName + "__part" + str(i)
+                #jobs = batchJobs('probeTreeToLatino',requestName_i,["All"],["All"],"Step,Target")
                 
                 command = ''
                 latino_directory = os.getcwd()
@@ -117,12 +122,12 @@ if __name__ == '__main__':
                 outputFileName = "latino_" + requestName_i + ".root"
                 command += "python " + latino_directory + "/../cmssw2latino.py " + requestName_i + ".root -o " + outputFileName + "\n"
                 command += "rm " + requestName_i + ".root\n"
-                jobs.Add("All","All",command)
+                jobs.Add("All",requestName_i,command)
                 
-                jobs.AddCopy("All","All",outputFileName, outputDirectory+'/'+outputFileName)
-                jobs.Add("All","All","rm latino_" + requestName_i + ".root\n")
+                jobs.AddCopy("All",requestName_i,outputFileName, outputDirectory+'/'+outputFileName)
+                jobs.Add("All",requestName_i,"rm latino_" + requestName_i + ".root\n")
 
-                jobs.Sub('1nh','1:00:00')
+            jobs.Sub('1nh','1:00:00')
 
         os.system("rm list_" + requestName + "*")
 
