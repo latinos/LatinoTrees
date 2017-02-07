@@ -59,6 +59,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     spt2Tag = cms.InputTag("vertexMapProd","sumPt2"),
     rhoTag = cms.InputTag("fixedGridRhoFastjetAll"), # miniAOD
     rhoCaloTag = cms.InputTag("fixedGridRhoFastjetAllCalo"), # miniAOD
+    rhoCentralNeutralTag = cms.InputTag("fixedGridRhoFastjetCentralNeutral"), # miniAOD
     trackJetTag = cms.InputTag(""),
     # branchAlias = cms.string("wwelmu"),
     #hypoType = cms.string("WWELMU"),

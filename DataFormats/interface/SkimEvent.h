@@ -255,6 +255,8 @@ namespace reco {
     const float leadingJetPtL2 (size_t a) const;
     const float leadingJetPtL3Absolute (size_t a) const;
     const float leadingJetArea (size_t a) const;
+
+    const float leadingJetChargedHadronFraction (size_t a) const;
     
     const float leadingJetPt(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
     const float leadingJetEta(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
@@ -314,6 +316,7 @@ namespace reco {
     const float leadingJetPhotonMultiplicity(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
     const float getJetRhoIso() const ;
     const float getJetRhoCaloIso() const ;
+    const float getJetRhoCentralNeutralIso() const ;
     
     const int   leadingJetId(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
     const float leadingJetMva(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
@@ -726,6 +729,7 @@ namespace reco {
     
     void setJetRhoIso(const edm::Handle<double> & h);
     void setJetRhoCaloIso(const edm::Handle<double> & h);
+    void setJetRhoCentralNeutralIso(const edm::Handle<double> & h);
     
     void setJets(const edm::Handle<pat::JetCollection> &);
     void setFatJets(const edm::Handle<pat::JetCollection> &);
@@ -1018,6 +1022,10 @@ namespace reco {
     const float neutralHadronIso  (size_t i = 0) const;
     const float photonIso         (size_t i = 0) const;
     const float sumPUPt           (size_t i = 0) const;
+    const float chargedHadronIso03  (size_t i = 0) const;
+    const float neutralHadronIso03  (size_t i = 0) const;
+    const float photonIso03         (size_t i = 0) const;
+    const float sumPUPt03           (size_t i = 0) const;
     const float chargedHadronMiniIso(size_t i = 0) const;
     const float chargedPileUpMiniIso(size_t i = 0) const;
     const float neutralHadronMiniIso(size_t i = 0) const;
@@ -1030,6 +1038,10 @@ namespace reco {
     const float neutralHadronIsoByPt  (size_t i = 0) const { return neutralHadronIso  (indexByPt(i)); }
     const float photonIsoByPt         (size_t i = 0) const { return photonIso         (indexByPt(i)); }
     const float sumPUPtByPt           (size_t i = 0) const { return sumPUPt           (indexByPt(i)); }
+    const float chargedHadronIso03ByPt  (size_t i = 0) const { return chargedHadronIso03  (indexByPt(i)); }
+    const float neutralHadronIso03ByPt  (size_t i = 0) const { return neutralHadronIso03  (indexByPt(i)); }
+    const float photonIso03ByPt         (size_t i = 0) const { return photonIso03         (indexByPt(i)); }
+    const float sumPUPt03ByPt           (size_t i = 0) const { return sumPUPt03           (indexByPt(i)); }
     const float chargedHadronMiniIsoByPt(size_t i = 0) const { return chargedHadronMiniIso(indexByPt(i)); }
     const float chargedPileUpMiniIsoByPt(size_t i = 0) const { return chargedPileUpMiniIso(indexByPt(i)); }
     const float neutralHadronMiniIsoByPt(size_t i = 0) const { return neutralHadronMiniIso(indexByPt(i)); }
@@ -1271,7 +1283,8 @@ namespace reco {
     
     double rhoJetIso_;
     double rhoCaloJetIso_;
-    
+    double rhoCentralNeutralJetIso_;
+
     unsigned int run_;
     unsigned int lumi_;
     unsigned int evt_;

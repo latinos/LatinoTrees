@@ -2696,6 +2696,16 @@ const float reco::SkimEvent::leadingJetArea(size_t index) const {
   }
 }
 
+const float reco::SkimEvent::leadingJetChargedHadronFraction(size_t index) const { 
+  unsigned int index_jet_ordered = indexJetByPt(index, minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+  if (index_jet_ordered >= jets_.size()) {
+    return defaultvalues::defaultFloat;
+  } 
+  else {
+    return jets_[index_jet_ordered]->chargedHadronEnergyFraction();
+  }
+}
+
 const float reco::SkimEvent::leadingJetPt(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
   
   unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
@@ -2966,12 +2976,21 @@ void reco::SkimEvent::setJetRhoCaloIso(const edm::Handle<double> & h) {
   rhoCaloJetIso_ = (double) (*h);
 }
 
+void reco::SkimEvent::setJetRhoCentralNeutralIso(const edm::Handle<double> & h) {
+   rhoCentralNeutralJetIso_ = (double) (*h);
+}
+
+
 const float reco::SkimEvent::getJetRhoIso() const {
   return rhoJetIso_;
 }
 
 const float reco::SkimEvent::getJetRhoCaloIso() const {
   return rhoCaloJetIso_;
+}
+
+const float reco::SkimEvent::getJetRhoCentralNeutralIso() const {
+  return rhoCentralNeutralJetIso_;
 }
 //
 
@@ -5583,6 +5602,30 @@ const float reco::SkimEvent::sumPUPt(size_t i) const {
   if      (i >= leps_.size()) return defaultvalues::defaultFloat;
   else if (isElectron(i))     return getElectron(i)->pfIsolationVariables().sumPUPt;
   else if (isMuon(i))         return getMuon(i)->pfIsolationR04().sumPUPt;
+  else                        return -999.0;
+}
+
+const float reco::SkimEvent::chargedHadronIso03(size_t i) const {
+  if      (i >= leps_.size()) return defaultvalues::defaultFloat;
+  else if (isMuon(i))         return getMuon(i)->pfIsolationR03().sumChargedHadronPt;
+  else                        return -999.0;
+}
+
+const float reco::SkimEvent::neutralHadronIso03(size_t i) const {
+  if      (i >= leps_.size()) return defaultvalues::defaultFloat;
+  else if (isMuon(i))         return getMuon(i)->pfIsolationR03().sumNeutralHadronEt;
+  else                        return -999.0;
+}
+
+const float reco::SkimEvent::photonIso03(size_t i) const {
+  if      (i >= leps_.size()) return defaultvalues::defaultFloat;
+  else if (isMuon(i))         return getMuon(i)->pfIsolationR03().sumPhotonEt;
+  else                        return -999.0;
+}
+
+const float reco::SkimEvent::sumPUPt03(size_t i) const {
+  if      (i >= leps_.size()) return defaultvalues::defaultFloat;
+  else if (isMuon(i))         return getMuon(i)->pfIsolationR03().sumPUPt;
   else                        return -999.0;
 }
 
