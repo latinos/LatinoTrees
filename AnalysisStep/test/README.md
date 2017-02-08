@@ -16,8 +16,8 @@ Latino's twiki and indico pages.
     bash -l
 
     export SCRAM_ARCH=slc6_amd64_gcc530
-    cmsrel CMSSW_8_0_24_patch1
-    cd CMSSW_8_0_24_patch1/src/
+    cmsrel CMSSW_8_0_26_patch1
+    cd CMSSW_8_0_26_patch1/src/
     cmsenv
 
 

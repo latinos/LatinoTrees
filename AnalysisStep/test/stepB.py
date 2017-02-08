@@ -518,6 +518,8 @@ else:
 # Run EGMRegression ##
 #    https://twiki.cern.ch/twiki/bin/view/CMS/EGMRegression
 
+from EgammaAnalysis.ElectronTools.regressionWeights_cfi import regressionWeights
+process = regressionWeights(process)
 process.load('EgammaAnalysis.ElectronTools.regressionApplication_cff')
 process.EGMenergyCorrection = cms.Path(process.regressionApplication)
 
