@@ -486,7 +486,8 @@ if not isMC :
     # special paths, e.g. metFilters. See skimEventProducer_cfi for the list
     setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
 if isMC :
-    process.skimEventProducer.SelectedPaths = cms.vstring ("")
+    #process.skimEventProducer.SelectedPaths = cms.vstring ("")
+    setattr(stepBTree.variables, "std_vector_trigger",                 cms.string("selectedRateTrigger/120") )
     # special paths always saved
     setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
 
