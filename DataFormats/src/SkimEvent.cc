@@ -2319,26 +2319,24 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
   else if(applyID == 7) { //---- recommended Run II jet ID: LOOSE
     //---- see https://twiki.cern.ch/twiki/bin/view/CMS/JetID
     if( abs(jet->eta()) <= 2.7 ) {
-      if (jet->neutralHadronEnergyFraction() >=0.99) return false;
-      if (jet->neutralEmEnergyFraction() >=0.99) return false;
+      if (jet->neutralHadronEnergy() / jet->correctedP4(0).E() >=0.99) return false;
+      if (jet->neutralEmEnergy() / jet->correctedP4(0).E() >=0.99) return false;
       
-      unsigned int multiplicity = jet->chargedMultiplicity() + jet->neutralMultiplicity();
-      if ( multiplicity <= 1) return false;
-      //    if ( jet->muonEnergyFraction() >= 0.8) return false;
+      if ( jet->numberOfDaughters() <= 1) return false;
       
       if(fabs(jet->eta())<=2.4) {
-        if ( jet->chargedHadronEnergyFraction() <= 0 ) return false;
+        if ( jet->chargedHadronEnergy() / jet->correctedP4(0).E() <= 0 ) return false;
         if ( jet->chargedMultiplicity() <= 0 ) return false;
-        if ( jet->chargedEmEnergyFraction() >= 0.99 ) return false;
+        if ( jet->chargedEmEnergy() / jet->correctedP4(0).E() >= 0.99 ) return false;
       }
     }
     else if( abs(jet->eta()) <= 3.0 ){
-      if( jet->neutralEmEnergyFraction() <= 0.01 ) return false;
+      if( jet->neutralEmEnergy() / jet->correctedP4(0).E() <= 0.01 ) return false;
       if( jet->neutralMultiplicity() <= 2 ) return false;
-      if (jet->neutralHadronEnergyFraction() >= 0.98) return false;
+      if (jet->neutralHadronEnergy() / jet->correctedP4(0).E() >= 0.98) return false;
     }
     else {
-      if( jet->neutralEmEnergyFraction() >= 0.90 ) return false;
+      if( jet->neutralEmEnergy() / jet->correctedP4(0).E() >= 0.90 ) return false;
       if( jet->neutralMultiplicity() <= 10 ) return false;
     }
     
@@ -2348,26 +2346,24 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
   else if(applyID == 8) { //---- recommended Run II jet ID: TIGHT
     //---- see https://twiki.cern.ch/twiki/bin/view/CMS/JetID
     if( abs(jet->eta()) <= 2.7 ) {
-      if (jet->neutralHadronEnergyFraction() >=0.90) return false;
-      if (jet->neutralEmEnergyFraction() >=0.90) return false;
+      if (jet->neutralHadronEnergy() / jet->correctedP4(0).E() >=0.9) return false;
+      if (jet->neutralEmEnergy() / jet->correctedP4(0).E() >=0.9) return false;
       
-      unsigned int multiplicity = jet->chargedMultiplicity() + jet->neutralMultiplicity();
-      if ( multiplicity <= 1) return false;
-      //  if ( jet->muonEnergyFraction() >= 0.8) return false;
+      if ( jet->numberOfDaughters() <= 1) return false;
       
       if(fabs(jet->eta())<=2.4) {
-        if ( jet->chargedHadronEnergyFraction() <= 0 ) return false;
+        if ( jet->chargedHadronEnergy() / jet->correctedP4(0).E() <= 0 ) return false;
         if ( jet->chargedMultiplicity() <= 0 ) return false;
-        if ( jet->chargedEmEnergyFraction() >= 0.99 ) return false;
+        if ( jet->chargedEmEnergy() / jet->correctedP4(0).E() >= 0.99 ) return false;
       }
     }
     else if( abs(jet->eta()) <= 3.0 ){
-      if( jet->neutralEmEnergyFraction() <= 0.01 ) return false;
+      if( jet->neutralEmEnergy() / jet->correctedP4(0).E() <= 0.01 ) return false;
       if( jet->neutralMultiplicity() <= 2 ) return false;
-      if (jet->neutralHadronEnergyFraction() >= 0.98) return false;
+      if (jet->neutralHadronEnergy() / jet->correctedP4(0).E() >= 0.98) return false;
     }
     else {
-      if( jet->neutralEmEnergyFraction() >= 0.90 ) return false;
+      if( jet->neutralEmEnergy() / jet->correctedP4(0).E() >= 0.90 ) return false;
       if( jet->neutralMultiplicity() <= 10 ) return false;
     }
     
