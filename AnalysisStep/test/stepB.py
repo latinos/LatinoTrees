@@ -677,13 +677,13 @@ if options.doFatJet :
 
 
 # QG tagger
-qgDatabaseVersion = '80X' # check https://twiki.cern.ch/twiki/bin/viewauth/CMS/QGDataBaseVersion
+qgDatabaseVersion = 'cmssw8020_v2' # from reading sqlite file
 
 from CondCore.DBCommon.CondDBSetup_cfi import *
 QGPoolDBESSource = cms.ESSource("PoolDBESSource",
       CondDBSetup,
       toGet = cms.VPSet(),
-      connect = cms.string('sqlite_fip:LatinoTrees/AnalysisStep/data/QGL_80X.db'),
+      connect = cms.string('sqlite_fip:LatinoTrees/AnalysisStep/data/QGL_cmssw8020_v2.db'),
 )
 
 for type in ['AK4PFchs','AK4PFchs_antib']:
