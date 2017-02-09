@@ -17,7 +17,7 @@ export EVENTS=$1
 
 
 # dataset=/MuonEG/Run2016C-23Sep2016-v1/MINIAOD
-export MYFILE=root://cms-xrd-global.cern.ch//store/data/Run2016C/MuonEG/MINIAOD/23Sep2016-v1/70000/0059AB0D-2289-E611-B1A2-00269E95B1BC.root
+export MYFILE=root://cms-xrd-global.cern.ch//store/data/Run2016C/MuonEG/MINIAOD/03Feb2017-v1/110000/0AEA5448-35EC-E611-B1AF-A0369F310374.root
 
 
 rm -rf latino_stepB_data_numEvent${EVENTS}.root
@@ -28,7 +28,7 @@ cmsRun stepB.py print          \
     summary=False              \
     is50ns=False               \
     isPromptRecoData=True      \
-    globalTag=80X_dataRun2_2016SeptRepro_v6 \
+    globalTag=80X_dataRun2_2016SeptRepro_v7 \
     label=MuEG                 \
     outputFile=stepB_data.root \
     selection=LooseNoIso       \
