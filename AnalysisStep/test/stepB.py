@@ -218,7 +218,7 @@ options.register ('LHERunInfo',
                   'LHE Info used at beginRun to dump weights explanations')
 
 options.register ('doSoftActivity',
-                  True, # default value
+                  False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
                   'Turn on soft activity variables (can be \'True\' or \'False\')')
