@@ -44,7 +44,7 @@ First you need to [generate an SSH key](https://help.github.com/articles/generat
 *Do this only if you want to use a tag.*
 
     pushd LatinoTrees
-    git checkout tags/6Jan2017_RogueOne_v6
+    git checkout tags/Feb2017_TheGreatWall_v1
     popd
 
 Test the latino tree production.
