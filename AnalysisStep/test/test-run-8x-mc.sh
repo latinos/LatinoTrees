@@ -27,7 +27,7 @@ export EVENTS=$1
 ### LHEEventProduct   "externalLHEProducer"   ""      "LHE"
 
 
-export MYFILE=root://eoscms.cern.ch//store/mc/RunIISummer16MiniAODv2/DYToLL_1J_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/100000/682F25BD-40E4-E611-B8E8-7845C4FC3B69.root
+export MYFILE=root://eoscms.cern.ch//store/mc/RunIISummer16MiniAODv2/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v2/80000/F283191C-11C4-E611-973D-00215E2EB74E.root
 ### Type              Module                  Label   Process
 ### LHEEventProduct   "externalLHEProducer"   ""      "LHE"
 
