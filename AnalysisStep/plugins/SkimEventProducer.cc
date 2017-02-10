@@ -36,7 +36,9 @@ SkimEventProducer::SkimEventProducer(const edm::ParameterSet& cfg) :
     FakeRate_Mu_     ( cfg.getParameter<std::vector<std::string> >("FakeRateMuPaths") ),
     //---- selected paths
     SelectedPaths_   ( cfg.getParameter<std::vector<std::string> >("SelectedPaths") ),
-    SpecialPaths_   ( cfg.getParameter<std::vector<std::string> >("SpecialPaths") )     //---- no prescale options
+    SpecialPaths_   ( cfg.getParameter<std::vector<std::string> >("SpecialPaths") ),    //---- no prescale options
+    BadChCandFilterToken_(consumes<bool>(cfg.getParameter<edm::InputTag>("BadChargedCandidateFilterTag"))),
+    BadPFMuonFilterToken_(consumes<bool>(cfg.getParameter<edm::InputTag>("BadPFMuonFilterTag")))
 {
     triggerSpecialTag_  = cfg.getParameter<edm::InputTag>("triggerSpecialTag");
     triggerPrescaleTag_ = cfg.getParameter<edm::InputTag>("triggerPrescaleTag");
@@ -295,7 +297,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     std::vector<float> prescaleL1minBitsSelected;
     std::vector<float> prescaleL1maxBitsSelected;
     const edm::TriggerNames &names = iEvent.triggerNames(*triggerResults);
-    
+
     for (unsigned int iPath = 0; iPath < SelectedPaths_.size(); iPath++) {
      bool foundPath = false;
 
@@ -369,6 +371,20 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
       }
      }
     }
+
+    edm::Handle<bool> ifilterbadChCand;
+    iEvent.getByToken(BadChCandFilterToken_, ifilterbadChCand);
+    bool  filterbadChCandidate = *ifilterbadChCand;
+    
+    if (filterbadChCandidate) passBitsSpecial.push_back (1);
+    else passBitsSpecial.push_back (0);
+
+    edm::Handle<bool> ifilterbadPFMuon;
+    iEvent.getByToken(BadPFMuonFilterToken_, ifilterbadPFMuon);
+    bool filterbadPFMuon = *ifilterbadPFMuon;
+
+    if (filterbadPFMuon) passBitsSpecial.push_back (1);
+    else passBitsSpecial.push_back (0);
     
     
     

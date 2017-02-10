@@ -450,8 +450,8 @@ stepBTree.variables.dataset = str(idn)
 # Change TriggerResults process name (for the MET filters) according to MC/PromptRecoData/17Jul2015Data
 # https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2015#ETmiss_filters
 if isMC :
-  #process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
-  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
+  #process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
 elif options.isPromptRecoData :
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","RECO")
 else :
@@ -484,12 +484,12 @@ if not isMC :
     setattr(stepBTree.variables, "std_vector_trigger_L1min_prescale",  cms.string("selectedRateTriggerL1minPrescale/120") )
     setattr(stepBTree.variables, "std_vector_trigger_L1max_prescale",  cms.string("selectedRateTriggerL1maxPrescale/120") )
     # special paths, e.g. metFilters. See skimEventProducer_cfi for the list
-    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
+    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/10") )
 if isMC :
     #process.skimEventProducer.SelectedPaths = cms.vstring ("")
     setattr(stepBTree.variables, "std_vector_trigger",                 cms.string("selectedRateTrigger/120") )
     # special paths always saved
-    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
+    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/10") )
 
 
 
@@ -704,6 +704,17 @@ process.es_prefer_qgLikelihood = cms.ESPrefer('PoolDBESSource','qgLikelihood')
 #process.QGTagger.systematicsLabel = cms.string('')     # Produce systematic smearings (not yet available, keep empty)
 
 #process.patJets.userData.userFloats.src += ['QGTagger:qgLikelihood']
+
+# Configurations for bad muons and bad charged hadron filters for MET
+process.load('RecoMET.METFilters.BadPFMuonFilter_cfi')
+process.BadPFMuonFilter.muons = cms.InputTag("slimmedMuons")
+process.BadPFMuonFilter.PFCandidates = cms.InputTag("packedPFCandidates")
+process.BadPFMuonFilter.taggingMode = cms.bool(True)
+
+process.load('RecoMET.METFilters.BadChargedCandidateFilter_cfi')
+process.BadChargedCandidateFilter.muons = cms.InputTag("slimmedMuons")
+process.BadChargedCandidateFilter.PFCandidates = cms.InputTag("packedPFCandidates")
+process.BadChargedCandidateFilter.taggingMode   = cms.bool(True)
 
 #add dressed leptons sequence
 if isMC:
@@ -1129,7 +1140,8 @@ getattr(process,"Tree").cut = cms.string("1")
 # very important!
 # needed otherwise the "unschedule" approach does not work
 #process.myoutputstep = cms.EndPath(process.outTemp+process.Tree)
-process.myoutputstep = cms.EndPath(process.Tree)
+process.myoutputstep = cms.EndPath(process.BadPFMuonFilter * # Bad muons and bad charged hadron filters for MET
+                                   process.BadChargedCandidateFilter * process.Tree)
 #################
 
 ####

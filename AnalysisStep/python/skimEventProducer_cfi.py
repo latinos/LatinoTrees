@@ -63,6 +63,9 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     trackJetTag = cms.InputTag(""),
     # branchAlias = cms.string("wwelmu"),
     #hypoType = cms.string("WWELMU"),
+
+    BadChargedCandidateFilterTag = cms.InputTag("BadChargedCandidateFilter"),
+    BadPFMuonFilterTag = cms.InputTag("BadPFMuonFilter"),
     
     triggerTag = cms.InputTag("TriggerResults","","HLT"),
     triggerSpecialTag = cms.InputTag("TriggerResults","","PAT"),

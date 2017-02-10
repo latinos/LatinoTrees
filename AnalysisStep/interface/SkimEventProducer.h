@@ -217,6 +217,9 @@ struct JetInfo {
         
         edm::EDGetTokenT<HTXS::HiggsClassification> htxsT_;
 
+	edm::EDGetTokenT<bool> BadChCandFilterToken_;
+	edm::EDGetTokenT<bool> BadPFMuonFilterToken_;
+
 
         void addDYMVA(reco::SkimEvent* event);
         std::vector<std::pair<LorentzVector,double> > lPFInfo;
