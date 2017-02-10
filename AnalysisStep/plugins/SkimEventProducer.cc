@@ -297,6 +297,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     std::vector<float> prescaleL1minBitsSelected;
     std::vector<float> prescaleL1maxBitsSelected;
     const edm::TriggerNames &names = iEvent.triggerNames(*triggerResults);
+
     for (unsigned int iPath = 0; iPath < SelectedPaths_.size(); iPath++) {
      bool foundPath = false;
 
