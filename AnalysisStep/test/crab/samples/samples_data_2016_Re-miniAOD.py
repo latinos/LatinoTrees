@@ -13,13 +13,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Xavier
-# Do we need ver1 ??
-samples['DoubleEG_Run2016B-03Feb2017_ver1-v1']       = ['/DoubleEG/Run2016B-03Feb2017_ver1-v1/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016B-03Feb2017_ver1-v1']     = ['/DoubleMuon/Run2016B-03Feb2017_ver1-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016B-03Feb2017_ver1-v1']         = ['/MuonEG/Run2016B-03Feb2017_ver1-v1/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016B-03Feb2017_ver1-v1'] = ['/SingleElectron/Run2016B-03Feb2017_ver1-v1/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016B-03Feb2017_ver1-v1']     = ['/SingleMuon/Run2016B-03Feb2017_ver1-v1/MINIAOD',     ['label=SingleMuon']]
-samples['MET_Run2016B-03Feb2017_ver1-v1']            = ['/MET/Run2016B-03Feb2017_ver1-v1/MINIAOD',     ['label=MET']]
 
 samples['DoubleEG_Run2016B-03Feb2017_ver2-v2']       = ['/DoubleEG/Run2016B-03Feb2017_ver2-v2/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016B-03Feb2017_ver2-v2']     = ['/DoubleMuon/Run2016B-03Feb2017_ver2-v2/MINIAOD',     ['label=DoubleMuon']]
