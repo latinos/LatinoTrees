@@ -628,10 +628,10 @@ samples['H0L1f05_ToWWTo2L2Nu'] = ['/Higgs0L1f05ph0ToWWTo2L2Nu_M-125_13TeV-powheg
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Feb2017/MC/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2017/6Jan_RogueOne/MC/'
 # this name is used partially in the post-processing.
 # Let's try not to change it for a given production era
 
-pyCfgParams.append('globalTag=80X_mcRun2_asymptotic_2016_TrancheIV_v8')
+pyCfgParams.append('globalTag=80X_mcRun2_asymptotic_2016_TrancheIV_v7')
      
 
