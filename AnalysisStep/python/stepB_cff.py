@@ -184,6 +184,7 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         metPfType1SumEt = cms.string("metPfType1SumEt"),
 
         metPfNoHf = cms.string("metPfNoHf"),
+        metPfUncorr = cms.string("metPfUncorr"),
 
         metPfProj = cms.string("metPfProj"),
         metPfProjJetEnUp = cms.string("metPfProjJetEnUp"),

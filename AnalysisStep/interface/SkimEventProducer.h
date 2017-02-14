@@ -154,6 +154,7 @@ struct JetInfo {
         edm::InputTag secondJetTag_;
         edm::InputTag tagJetTag_;
         edm::InputTag pfMetTag_;
+        edm::InputTag pfUncorrMetTag_;
         edm::InputTag pfMetNoHfTag_;
         edm::InputTag pupMetTag_;
         edm::InputTag tcMetTag_;
@@ -186,6 +187,7 @@ struct JetInfo {
         edm::EDGetTokenT<pat::JetCollection> secondTagJetHT_ ;
 	edm::EDGetTokenT<std::vector<pat::MET> > pfMetHT_;
 	edm::EDGetTokenT<std::vector<pat::MET> > pfMetNoHfHT_;
+        edm::EDGetTokenT<std::vector<pat::MET> > pfUncorrMetHT_;
 	edm::EDGetTokenT<std::vector<pat::MET> > pupMetHT_;
 	edm::EDGetTokenT<reco::VertexCollection> vtxHT_;
 	edm::EDGetTokenT<reco::CandidateView> candsHT_;

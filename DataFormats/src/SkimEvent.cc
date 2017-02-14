@@ -1106,6 +1106,10 @@ void reco::SkimEvent::setPFMetNoHf(const edm::Handle< std::vector<pat::MET> > & 
   pfMetNoHf_ = pat::METRef(mH,0);
 }
 
+void reco::SkimEvent::setUncorrPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
+  pfUncorrMet_ = pat::METRef(mH,0);
+}
+
 void reco::SkimEvent::setPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
   pfMet_ = pat::METRef(mH,0);
 }
@@ -3660,6 +3664,12 @@ float reco::SkimEvent::trackJetProbabilityB(size_t i) const {
 const float reco::SkimEvent::metPfNoHf() const {
   
   if(pfMetNoHf_.isNonnull()) return pfMetNoHf_->pt();
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfUncorr() const {
+  
+  if(pfUncorrMet_.isNonnull()) return pfUncorrMet_->pt();
   else return defaultvalues::defaultFloat;
 }
 

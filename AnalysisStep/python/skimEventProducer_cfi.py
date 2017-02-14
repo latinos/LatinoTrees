@@ -47,6 +47,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     secondJetTag = cms.InputTag("slimmedJetsPuppi"), # miniAOD  slimPatFatJetsTriggerMatch -> alternative jet collection
     fatJetTag = cms.InputTag("slimmedJets"), # miniAOD  slimPatFatJetsTriggerMatch
     pfMetTag = cms.InputTag("slimmedMETs"), # miniAOD pfMet
+    pfUncorrMetTag = cms.InputTag("slimmedMETsUncorrected"), # miniAOD uncorrected pfMet
     pfMetNoHfTag = cms.InputTag("slimmedMETsNoHF"), # miniAOD pfMet no HF
     pupMetTag = cms.InputTag("slimmedMETsPuppi"), #  puppiMet from puppi objects
     tcMetTag = cms.InputTag("slimmedMETs"), # miniAOD tcMet
@@ -384,7 +385,9 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "Flag_EcalDeadCellTriggerPrimitiveFilter",
         "Flag_goodVertices",
         "Flag_eeBadScFilter",
-        "Flag_globalTightHalo2016Filter"
+        "Flag_globalTightHalo2016Filter",
+	"Flag_duplicateMuons",
+        "Flag_badMuons"
         ),
 
 
