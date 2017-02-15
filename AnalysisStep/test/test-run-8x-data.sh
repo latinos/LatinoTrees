@@ -27,7 +27,7 @@ cmsRun stepB.py print          \
     reportEvery=10             \
     summary=False              \
     is50ns=False               \
-    isPromptRecoData=True      \
+    isPromptRecoData=False      \
     globalTag=80X_dataRun2_2016SeptRepro_v7 \
     label=MuEG                 \
     outputFile=stepB_data.root \

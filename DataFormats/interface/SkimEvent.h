@@ -436,6 +436,8 @@ namespace reco {
     const float metPfType1SumEt() const;
     const float metPfNoHf() const;
     const float metPfUncorr() const;
+    const float metPfMuEGClean() const;
+    const float metPfMuEGCleanPhi() const;
     
     const float metPfProj() const;
     const float metPfProjJetEnUp() const;
@@ -741,6 +743,7 @@ namespace reco {
     void setPFMet(const edm::Handle< std::vector<pat::MET> > &);
     void setPFMetNoHf(const edm::Handle< std::vector<pat::MET> > &);
     void setUncorrPFMet(const edm::Handle< std::vector<pat::MET> > &);
+    void setMuEGCleanPFMet(const edm::Handle< std::vector<pat::MET> > &);
     void setPUpMet(const edm::Handle< std::vector<pat::MET> > &);
     void setTrkMet(const reco::MET &);
     void setMvaMet(const reco::PFMET &met) {mvaMet_ = met;}
@@ -1214,6 +1217,7 @@ namespace reco {
     pat::METRef pfMet_;
     pat::METRef pfMetNoHf_;
     pat::METRef pfUncorrMet_;
+    pat::METRef pfMuEGCleanMet_;
     pat::METRef pupMet_;
     reco::MET   trkMet_;
     reco::PFMET mvaMet_;

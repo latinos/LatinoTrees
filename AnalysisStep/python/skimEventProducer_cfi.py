@@ -48,6 +48,7 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     fatJetTag = cms.InputTag("slimmedJets"), # miniAOD  slimPatFatJetsTriggerMatch
     pfMetTag = cms.InputTag("slimmedMETs"), # miniAOD pfMet
     pfUncorrMetTag = cms.InputTag("slimmedMETsUncorrected"), # miniAOD uncorrected pfMet
+    pfMuEGCleanMetTag = cms.InputTag("slimmedMETsMuEGClean"), # miniAOD uncorrected pfMet
     pfMetNoHfTag = cms.InputTag("slimmedMETsNoHF"), # miniAOD pfMet no HF
     pupMetTag = cms.InputTag("slimmedMETsPuppi"), #  puppiMet from puppi objects
     tcMetTag = cms.InputTag("slimmedMETs"), # miniAOD tcMet

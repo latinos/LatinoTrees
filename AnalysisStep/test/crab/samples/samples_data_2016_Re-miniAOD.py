@@ -67,7 +67,7 @@ samples['MET_Run2016G-03Feb2017-v1']            = ['/MET/Run2016G-03Feb2017-v1/M
 
 pyCfgParams.append('globalTag=80X_dataRun2_2016SeptRepro_v7')
 pyCfgParams.append('is50ns=False')
-pyCfgParams.append('isPromptRecoData=True')  # RECO TriggerResults
+pyCfgParams.append('isPromptRecoData=False')  # PAT TriggerResults
 
 # ICHEP data
 # 36.42/fb

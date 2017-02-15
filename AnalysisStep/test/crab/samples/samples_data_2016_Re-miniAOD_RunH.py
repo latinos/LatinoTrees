@@ -31,7 +31,7 @@ samples['MET_Run2016H-03Feb2017_ver3-v1']     = ['/MET/Run2016H-03Feb2017_ver3-v
 
 pyCfgParams.append('globalTag=80X_dataRun2_Prompt_v16')
 pyCfgParams.append('is50ns=False')
-pyCfgParams.append('isPromptRecoData=True') #RECO TriggerResults
+pyCfgParams.append('isPromptRecoData=False')  # PAT TriggerResults
 
 #ICHEP data
 #config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-276811_13TeV_03Feb2017_Collisions16_JSON.txt'

@@ -462,6 +462,7 @@ else :
 process.skimEventProducer.pfMetNoHfTag = cms.InputTag(options.metNoHF)
 if isMC:
   process.skimEventProducer.pfUncorrMetTag = cms.InputTag("")
+  process.skimEventProducer.pfMuEGCleanMetTag = cms.InputTag("")
 
 #
 # The lines below work in CMSSW_8_0_5
