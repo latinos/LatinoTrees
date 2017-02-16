@@ -125,7 +125,7 @@ if __name__ == '__main__':
                 jobs.Add("All",requestName_i,command)
                 
                 jobs.AddCopy("All",requestName_i,outputFileName, outputDirectory+'/'+outputFileName)
-                jobs.Add("All",requestName_i,"rm latino_" + requestName_i + ".root\n")
+                jobs.Add("All",requestName_i,"rm -f latino_" + requestName_i + ".root\n")
 
             jobs.Sub('1nh','1:00:00')
 
