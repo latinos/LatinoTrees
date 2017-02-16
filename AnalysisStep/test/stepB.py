@@ -218,7 +218,7 @@ options.register ('LHERunInfo',
                   'LHE Info used at beginRun to dump weights explanations')
 
 options.register ('doSoftActivity',
-                  True, # default value
+                  False, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
                   opts.VarParsing.varType.bool,
                   'Turn on soft activity variables (can be \'True\' or \'False\')')
@@ -450,8 +450,8 @@ stepBTree.variables.dataset = str(idn)
 # Change TriggerResults process name (for the MET filters) according to MC/PromptRecoData/17Jul2015Data
 # https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2015#ETmiss_filters
 if isMC :
-  #process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
-  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
+  #process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
 elif options.isPromptRecoData :
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","RECO")
 else :
@@ -460,7 +460,9 @@ else :
 
 # Set metNoHF tag (fix for miniAOD older version)
 process.skimEventProducer.pfMetNoHfTag = cms.InputTag(options.metNoHF)
-
+if isMC:
+  process.skimEventProducer.pfUncorrMetTag = cms.InputTag("")
+  process.skimEventProducer.pfMuEGCleanMetTag = cms.InputTag("")
 
 #
 # The lines below work in CMSSW_8_0_5
@@ -484,11 +486,12 @@ if not isMC :
     setattr(stepBTree.variables, "std_vector_trigger_L1min_prescale",  cms.string("selectedRateTriggerL1minPrescale/120") )
     setattr(stepBTree.variables, "std_vector_trigger_L1max_prescale",  cms.string("selectedRateTriggerL1maxPrescale/120") )
     # special paths, e.g. metFilters. See skimEventProducer_cfi for the list
-    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
+    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/10") )
 if isMC :
-    process.skimEventProducer.SelectedPaths = cms.vstring ("")
+    #process.skimEventProducer.SelectedPaths = cms.vstring ("")
+    setattr(stepBTree.variables, "std_vector_trigger",                 cms.string("selectedRateTrigger/120") )
     # special paths always saved
-    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/8") )
+    setattr(stepBTree.variables, "std_vector_trigger_special",   cms.string("specialRateTrigger/10") )
 
 
 
@@ -518,6 +521,8 @@ else:
 # Run EGMRegression ##
 #    https://twiki.cern.ch/twiki/bin/view/CMS/EGMRegression
 
+from EgammaAnalysis.ElectronTools.regressionWeights_cfi import regressionWeights
+process = regressionWeights(process)
 process.load('EgammaAnalysis.ElectronTools.regressionApplication_cff')
 process.EGMenergyCorrection = cms.Path(process.regressionApplication)
 
@@ -674,13 +679,13 @@ if options.doFatJet :
 
 
 # QG tagger
-qgDatabaseVersion = '80X' # check https://twiki.cern.ch/twiki/bin/viewauth/CMS/QGDataBaseVersion
+qgDatabaseVersion = 'cmssw8020_v2' # from reading sqlite file
 
 from CondCore.DBCommon.CondDBSetup_cfi import *
 QGPoolDBESSource = cms.ESSource("PoolDBESSource",
       CondDBSetup,
       toGet = cms.VPSet(),
-      connect = cms.string('sqlite_fip:LatinoTrees/AnalysisStep/data/QGL_80X.db'),
+      connect = cms.string('sqlite_fip:LatinoTrees/AnalysisStep/data/QGL_cmssw8020_v2.db'),
 )
 
 for type in ['AK4PFchs','AK4PFchs_antib']:
@@ -701,6 +706,17 @@ process.es_prefer_qgLikelihood = cms.ESPrefer('PoolDBESSource','qgLikelihood')
 #process.QGTagger.systematicsLabel = cms.string('')     # Produce systematic smearings (not yet available, keep empty)
 
 #process.patJets.userData.userFloats.src += ['QGTagger:qgLikelihood']
+
+# Configurations for bad muons and bad charged hadron filters for MET
+process.load('RecoMET.METFilters.BadPFMuonFilter_cfi')
+process.BadPFMuonFilter.muons = cms.InputTag("slimmedMuons")
+process.BadPFMuonFilter.PFCandidates = cms.InputTag("packedPFCandidates")
+process.BadPFMuonFilter.taggingMode = cms.bool(True)
+
+process.load('RecoMET.METFilters.BadChargedCandidateFilter_cfi')
+process.BadChargedCandidateFilter.muons = cms.InputTag("slimmedMuons")
+process.BadChargedCandidateFilter.PFCandidates = cms.InputTag("packedPFCandidates")
+process.BadChargedCandidateFilter.taggingMode   = cms.bool(True)
 
 #add dressed leptons sequence
 if isMC:
@@ -1126,7 +1142,8 @@ getattr(process,"Tree").cut = cms.string("1")
 # very important!
 # needed otherwise the "unschedule" approach does not work
 #process.myoutputstep = cms.EndPath(process.outTemp+process.Tree)
-process.myoutputstep = cms.EndPath(process.Tree)
+process.myoutputstep = cms.EndPath(process.BadPFMuonFilter * # Bad muons and bad charged hadron filters for MET
+                                   process.BadChargedCandidateFilter * process.Tree)
 #################
 
 ####

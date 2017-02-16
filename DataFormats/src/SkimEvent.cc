@@ -1106,6 +1106,14 @@ void reco::SkimEvent::setPFMetNoHf(const edm::Handle< std::vector<pat::MET> > & 
   pfMetNoHf_ = pat::METRef(mH,0);
 }
 
+void reco::SkimEvent::setUncorrPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
+  pfUncorrMet_ = pat::METRef(mH,0);
+}
+
+void reco::SkimEvent::setMuEGCleanPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
+  pfMuEGCleanMet_ = pat::METRef(mH,0);
+}
+
 void reco::SkimEvent::setPFMet(const edm::Handle< std::vector<pat::MET> > & mH) {
   pfMet_ = pat::METRef(mH,0);
 }
@@ -3662,6 +3670,25 @@ const float reco::SkimEvent::metPfNoHf() const {
   if(pfMetNoHf_.isNonnull()) return pfMetNoHf_->pt();
   else return defaultvalues::defaultFloat;
 }
+
+const float reco::SkimEvent::metPfUncorr() const {
+  
+  if(pfUncorrMet_.isNonnull()) return pfUncorrMet_->pt();
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfMuEGClean() const {
+  
+  if(pfMuEGCleanMet_.isNonnull()) return pfMuEGCleanMet_->pt();
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfMuEGCleanPhi() const {
+  
+  if(pfMuEGCleanMet_.isNonnull()) return pfMuEGCleanMet_->phi();
+  else return defaultvalues::defaultFloat;
+}
+
 
 const float reco::SkimEvent::metPfType1SumEt() const {
   

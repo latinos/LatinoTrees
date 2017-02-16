@@ -16,8 +16,8 @@ Latino's twiki and indico pages.
     bash -l
 
     export SCRAM_ARCH=slc6_amd64_gcc530
-    cmsrel CMSSW_8_0_24_patch1
-    cd CMSSW_8_0_24_patch1/src/
+    cmsrel CMSSW_8_0_26_patch1
+    cd CMSSW_8_0_26_patch1/src/
     cmsenv
 
 
@@ -44,7 +44,7 @@ First you need to [generate an SSH key](https://help.github.com/articles/generat
 *Do this only if you want to use a tag.*
 
     pushd LatinoTrees
-    git checkout tags/6Jan2017_RogueOne_v6
+    git checkout tags/Feb2017_TheGreatWall_v5
     popd
 
 Test the latino tree production.

@@ -47,6 +47,8 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     secondJetTag = cms.InputTag("slimmedJetsPuppi"), # miniAOD  slimPatFatJetsTriggerMatch -> alternative jet collection
     fatJetTag = cms.InputTag("slimmedJets"), # miniAOD  slimPatFatJetsTriggerMatch
     pfMetTag = cms.InputTag("slimmedMETs"), # miniAOD pfMet
+    pfUncorrMetTag = cms.InputTag("slimmedMETsUncorrected"), # miniAOD uncorrected pfMet
+    pfMuEGCleanMetTag = cms.InputTag("slimmedMETsMuEGClean"), # miniAOD uncorrected pfMet
     pfMetNoHfTag = cms.InputTag("slimmedMETsNoHF"), # miniAOD pfMet no HF
     pupMetTag = cms.InputTag("slimmedMETsPuppi"), #  puppiMet from puppi objects
     tcMetTag = cms.InputTag("slimmedMETs"), # miniAOD tcMet
@@ -63,6 +65,9 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
     trackJetTag = cms.InputTag(""),
     # branchAlias = cms.string("wwelmu"),
     #hypoType = cms.string("WWELMU"),
+
+    BadChargedCandidateFilterTag = cms.InputTag("BadChargedCandidateFilter"),
+    BadPFMuonFilterTag = cms.InputTag("BadPFMuonFilter"),
     
     triggerTag = cms.InputTag("TriggerResults","","HLT"),
     triggerSpecialTag = cms.InputTag("TriggerResults","","PAT"),
@@ -381,7 +386,9 @@ skimEventProducer = cms.EDProducer('SkimEventProducer',
         "Flag_EcalDeadCellTriggerPrimitiveFilter",
         "Flag_goodVertices",
         "Flag_eeBadScFilter",
-        "Flag_globalTightHalo2016Filter"
+        "Flag_globalTightHalo2016Filter",
+	"Flag_duplicateMuons",
+        "Flag_badMuons"
         ),
 
 
