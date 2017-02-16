@@ -201,7 +201,7 @@ samples['GluGluHToWWTo2L2Nu_JHUGen698_M3000']       = ['/GluGluHToWWTo2L2Nu_M300
 
 samples['GluGluHToWWTo2L2NuAMCNLO_M125'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_amcatnloFXFX_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',   ['label=GluGluHToWWTo2L2NuAMCNLO_M125', 'id=07125', 'doMCweights=True']]
 samples['GluGluHToWWTo2L2NuPowheg_M125'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',          ['label=GluGluHToWWTo2L2NuPowheg_M125', 'id=07125', 'doMCweights=True']]
-samples['GluGluHToWWToLNuQQ_M450']       = ['/GluGluHToWWToLNuQQ_M450_13TeV_powheg_JHUgen_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM ',  ['label=GluGluHToWWToLNuQQ_M450',       'id=60450', 'doMCweights=True']]
+samples['GluGluHToWWToLNuQQ_M450']       = ['/GluGluHToWWToLNuQQ_M450_13TeV_powheg_JHUgen_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',  ['label=GluGluHToWWToLNuQQ_M450',       'id=60450', 'doMCweights=True']]
 samples['GluGluHToWWToLNuQQ_M650']       = ['/GluGluHToWWToLNuQQ_M650_13TeV_powheg_JHUgen_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',  ['label=GluGluHToWWToLNuQQ_M650',       'id=60650', 'doMCweights=True']]
 samples['GluGluHToWWToLNuQQ_M1000']      = ['/GluGluHToWWToLNuQQ_M1000_13TeV_powheg_JHUgen_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=GluGluHToWWToLNuQQ_M1000',      'id=61000', 'doMCweights=True']]
 #samples['GluGluHToZZTo4L_M125']          = ['/GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8/RunIISpring16MiniAODv1-PUSpring16RAWAODSIM_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',     ['label=GluGluHToZZTo4L_M125',          'id=11125', 'doMCweights=True']]
@@ -521,7 +521,7 @@ samples['monoH_ZpBaryonic_MZp-10000_MChi-1000'] = ['/MonoHWWllnunu_ZpBaryonic_MZ
 ### Samples submitted to crab-----Adrian 2017/01/24
 samples['GluGluZH_HToWWTo2L2Nu_M125'] = ['/GluGluZH_HToWWTo2L2Nu_M125_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M125', 'id=80113', 'doLHE=False']]
 samples['GluGluZH_HToWWTo2L2Nu_M120'] = ['/GluGluZH_HToWWTo2L2Nu_M120_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M120', 'id=80114', 'doLHE=False']]
-samples['GluGluZH_HToWWTo2L2Nu_M130'] = ['/GluGluZH_HToWWTo2L2Nu_M130_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M130', 'id=80115', 'doLHE=False']]
+samples['GluGluZH_HToWWTo2L2Nu_M130'] = ['/GluGluZH_HToWWTo2L2Nu_M130_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M130', 'id=80115', 'doLHE=False']]
 
 samples['HZJ_HToWWTo2L2Nu_M125'] = ['/HZJ_HToWWTo2L2Nu_M125_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=HZJ_HToWWTo2L2Nu_M125', 'id=80103', 'doLHE=False']]
 samples['HZJ_HToWWTo2L2Nu_M120'] = ['/HZJ_HToWWTo2L2Nu_M120_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=HZJ_HToWWTo2L2Nu_M120', 'id=80104', 'doLHE=False']]
@@ -607,12 +607,20 @@ samples['QCD_Pt-30toInf_DoubleEMEnriched'] = ['/QCD_Pt-30toInf_DoubleEMEnriched_
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #Alternative spin/parity Higgs samples
-samples['H0pm_ToWWTo2L2Nu']  = ['/Higgs0PMToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=H0pm_ToWWTo2L2Nu','id=83451','doMCweights=False']]
-samples['H0ph_ToWWTo2L2Nu']  = ['/Higgs0PHToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=H0ph_ToWWTo2L2Nu','id=83452','doMCweights=False']]
-samples['H0m_ToWWTo2L2Nu']   = ['/Higgs0MToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=H0m_ToWWTo2L2Nu','id=83453','doMCweights=False']]
+samples['H0PM_ToWWTo2L2Nu']  = ['/Higgs0PMToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=H0PM_ToWWTo2L2Nu','id=83451','doMCweights=False','doLHE=false']]
+samples['H0PH_ToWWTo2L2Nu']  = ['/Higgs0PHToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=H0PH_ToWWTo2L2Nu','id=83452','doMCweights=False','doLHE=false']]
+samples['H0M_ToWWTo2L2Nu']    = ['/Higgs0MToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=H0M_ToWWTo2L2Nu','id=83453','doMCweights=False','doLHE=false']]
+samples['H0L1_ToWWTo2L2Nu']  = ['/Higgs0L1ToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=H0L1_ToWWTo2L2Nu','id=83454','doMCweights=False','doLHE=false']]
 samples['H0Mf05_ToWWTo2L2Nu']  = ['/Higgs0Mf05ph0ToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=H0Mf05_ToWWTo2L2Nu','id=83455','doMCweights=False']]
 samples['H0PHf05_ToWWTo2L2Nu'] = ['/Higgs0PHf05ph0ToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=H0PHf05_ToWWTo2L2Nu','id=83456','doMCweights=False']]
 samples['H0L1f05_ToWWTo2L2Nu'] = ['/Higgs0L1f05ph0ToWWTo2L2Nu_M-125_13TeV-powheg2-JHUgenV6/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=H0L1f05_ToWWTo2L2Nu','id=83457','doMCweights=False']]
+
+samples['VBF_H0PH_ToWWTo2L2Nu'] = ['/VBFHiggs0PHToWWTo2L2Nu_M-125_13TeV-JHUGenV6_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=VBF_H0PH_ToWWTo2L2Nu','id=83461','doMCweights=False','doLHE=false']]
+samples['VBF_H0L1_ToWWTo2L2Nu'] = ['/VBFHiggs0L1ToWWTo2L2Nu_M-125_13TeV-JHUGenV6_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=VBF_H0L1_ToWWTo2L2Nu','id=83462','doMCweights=False','doLHE=false']]
+samples['VBF_H0M_ToWWTo2L2Nu']  = ['/VBFHiggs0MToWWTo2L2Nu_M-125_13TeV-JHUGenV6_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=VBF_H0M_ToWWTo2L2Nu','id=83463','doMCweights=False','doLHE=false']]
+samples['VBF_H0PHf05_ToWWTo2L2Nu'] = ['/VBFHiggs0PHf05ph0ToWWTo2L2Nu_M-125_13TeV-JHUGenV6_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=VBF_H0PHf05_ToWWTo2L2Nu','id=83464','doMCweights=False','doLHE=false']]
+samples['VBF_H0L1f05_ToWWTo2L2Nu'] = ['/VBFHiggs0L1f05ph0ToWWTo2L2Nu_M-125_13TeV-JHUGenV6_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=VBF_H0L1f05_ToWWTo2L2Nu','id=83465','doMCweights=False','doLHE=false']]
+samples['VBF_H0Mf05_ToWWTo2L2Nu']  = ['/VBFHiggs0Mf05ph0ToWWTo2L2Nu_M-125_13TeV-JHUGenV6_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',['label=VBF_H0Mf05_ToWWTo2L2Nu','id=83466','doMCweights=False','doLHE=false']]
 
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
