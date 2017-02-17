@@ -73,11 +73,13 @@ samples['WWTo2L2Nu_CUETDown']	        .extend( ['xsec=12.178',	'kfact=1.000',		'
 samples['WZ']			        .extend( ['xsec=47.130',	'kfact=1.000',		'ref=E'] )
 samples['WZTo3LNu']		        .extend( ['xsec=4.42965',	'kfact=1.000',		'ref=E'] )
 samples['WZTo3LNu_mllmin01']	        .extend( ['xsec=35.2665',	'kfact=1.000',		'ref=Q'] )
+samples['WZTo3LNu_mllmin01_ext1']	        .extend( ['xsec=35.2665',	'kfact=1.000',		'ref=Q'] )
 samples['WZJets']		        .extend( ['xsec=5.2890',	'kfact=1.000',		'ref=E'] ) 
 samples['WZTo2L2Q']		        .extend( ['xsec=5.5950',	'kfact=1.000',		'ref=E'] )
 samples['WZTo1L3Nu']                    .extend( ['xsec=3.033',         'kfact=1.000',          'ref=E'] )  # err 0.00206
 samples['WZTo1L1Nu2Q']                  .extend( ['xsec=10.71',         'kfact=1.000',          'ref=E'] )
 samples['VVTo2L2Nu']		        .extend( ['xsec=11.950',	'kfact=1.000',		'ref=E'] )
+samples['VVTo2L2Nu_ext1']		        .extend( ['xsec=11.950',	'kfact=1.000',		'ref=E'] )
 
 
 ## ZZ
