@@ -5,7 +5,6 @@ Latino's twiki and indico pages.
 
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkFor2017
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkTutorials
-    https://indico.cern.ch/category/3374/
 
 
 1. Everything begins here
