@@ -654,10 +654,9 @@ samples['H0PHf05_ToWWTo2L2Nu']  .extend( ['xsec=0.9913',  'kfact=1.000',        
 samples['H0L1f05_ToWWTo2L2Nu'] .extend( ['xsec=0.9913',  'kfact=1.000',        'ref=CF'] ) # 43.92*0.215*0.108*0.108*9 Higgs LHC value
 samples['H0Mf05_ToWWTo2L2Nu'] .extend( ['xsec=0.9913',  'kfact=1.000',        'ref=CF'] ) # 43.92*0.215*0.108*0.108*9 Higgs LHC value
 
-samples['VBF_H0PH_ToWWTo2L2Nu']  .extend( ['xsec=0.9913',  'kfact=1.000',        'ref=CF'] ) # 43.92*0.215*0.108*0.108*9 Higgs LHC value
-samples['VBF_H0L1_ToWWTo2L2Nu'] .extend( ['xsec=0.9913',  'kfact=1.000',        'ref=CF'] ) # 43.92*0.215*0.108*0.108*9 Higgs LHC value
-samples['VBF_H0M_ToWWTo2L2Nu'] .extend( ['xsec=0.9913',  'kfact=1.000',        'ref=CF'] ) # 43.92*0.215*0.108*0.108*9 Higgs LHC value
-samples['VBF_H0PHf05_ToWWTo2L2Nu']  .extend( ['xsec=0.9913',  'kfact=1.000',        'ref=CF'] ) # 43.92*0.215*0.108*0.108*9 Higgs LHC value
-samples['VBF_H0L1f05_ToWWTo2L2Nu'] .extend( ['xsec=0.9913',  'kfact=1.000',        'ref=CF'] ) # 43.92*0.215*0.108*0.108*9 Higgs LHC value
-samples['VBF_H0Mf05_ToWWTo2L2Nu'] .extend( ['xsec=0.9913',  'kfact=1.000',        'ref=CF'] ) # 43.92*0.215*0.108*0.108*9 Higgs LHC value 
-
+samples['VBF_H0PH_ToWWTo2L2Nu']	.extend( ['xsec=0.0846',	'kfact=1.000',		'ref=EF'] ) # 3.75*0.215*0.108*0.108*9 YR value 
+samples['VBF_H0L1_ToWWTo2L2Nu']	.extend( ['xsec=0.0846',	'kfact=1.000',		'ref=EF'] ) # 3.75*0.215*0.108*0.108*9 YR value 
+samples['VBF_H0M_ToWWTo2L2Nu'] 	.extend( ['xsec=0.0846',	'kfact=1.000',		'ref=EF'] ) # 3.75*0.215*0.108*0.108*9 YR value 
+samples['VBF_H0PHf05_ToWWTo2L2Nu'].extend( ['xsec=0.0846',	'kfact=1.000',		'ref=EF'] ) # 3.75*0.215*0.108*0.108*9 YR value 
+samples['VBF_H0L1f05_ToWWTo2L2Nu'].extend( ['xsec=0.0846',	'kfact=1.000',		'ref=EF'] ) # 3.75*0.215*0.108*0.108*9 YR value 
+samples['VBF_H0Mf05_ToWWTo2L2Nu'] .extend( ['xsec=0.0846',	'kfact=1.000',		'ref=EF'] ) # 3.75*0.215*0.108*0.108*9 YR value 
