@@ -23,7 +23,13 @@ Latino's twiki and indico pages.
 2. Get the material
 ====
 
-First you need to [generate an SSH key](https://help.github.com/articles/generating-an-ssh-key/).
+The first time you need to [generate an SSH key](https://help.github.com/articles/generating-an-ssh-key/). If the key is not permanently added (as it currently happens at IFCA) the following should be done in every new login.
+
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_rsa
+    ssh-add -l
+    
+And then proceed normally.
 
     git cms-init
     git clone --branch 13TeV git@github.com:latinos/setup.git LatinosSetup
