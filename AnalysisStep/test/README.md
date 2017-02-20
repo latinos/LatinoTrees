@@ -1,7 +1,7 @@
 0. Documentation
 ====
 
-Latino's twiki and indico pages.
+Latino's twiki pages.
 
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkFor2017
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkTutorials
@@ -85,16 +85,15 @@ Check if you have writing permissions in the common area.
 
 Submit jobs.
 
-    python multicrab.py samples/samples_spring15_miniaodv2_25ns.py
     python multicrab.py samples/samples_dataD_05Oct2015_25ns.py
 
 Resubmit jobs.
 
-    python multicrab.py crab_projects_21October resubmit
+    python multicrab.py crabdir resubmit
 
 Check status.
     
-    python multicrab.py crab_projects_21October status
+    python multicrab.py crabdir status
 
 
 6. How much luminosity?
@@ -126,17 +125,16 @@ The script *translate_samples_config.py* can be used on any samples*.py file in 
 
     python translate_samples_config.py samples/samples_data_2016_ReReco.py list_data_2016_ReReco.py
 
-The next step submits jobs for producing the latino trees with a maximum size of 1GB. In order to work on different T2s it makes use of the batchTools that are also used in the post-processing which requires the following steps:
+The next step submits jobs for producing the latino trees with a maximum size of 1GB. In order to work on different T2s it makes use of the batchTools that are also used in the post-processing. The following steps are required the first time.
 
-    - Go to LatinosAnalysis/Tools/python
-    - cp userConfig_TEMPLATE.py userConfig.py
-    - Edit userConfig.py 'baseDir' variable (You need a location with some reasonable space for job log files) 
+    cd LatinosAnalysis/Tools/python
+    cp userConfig_TEMPLATE.py userConfig.py
 
-By default the python script doesn't submit jobs so you can check if it correctly finds all the samples and directories. To submit the jobs run the command with "1" as the last argument:
+Edit 'baseDir' inside *userConfig.py*, as you need a location with some reasonable space for job log files. By default the python script below does not submit jobs, so you can check if it correctly finds all the samples and directories. To submit the jobs run the command with "1" as the last argument.
 
     python multiLxbatchCmssw2latino_split_autoComplete.py list_data_2016_ReReco.py [0 = no jobs are submitted (default) / 1 = submit jobs ]
 
-Do not forget to delete all stepB.root files from old latino productions. We have a limited eos space.
+Do not forget to delete all stepB.root files from old latino productions. We have limited space.
 
 
 8. Postprocess the latino trees
@@ -148,10 +146,7 @@ Do not forget to delete all stepB.root files from old latino productions. We hav
 A. Combine
 ====
 
-This page documents the CombineHarvester framework for the production and
-analysis of datacards for use with the CMS combine tool. The central part of
-this framework is the CombineHarvester class, which provides a representation
-of the text-format datacards and the associated shape input.
+This page documents the CombineHarvester framework for the production and analysis of datacards for use with the CMS combine tool. The central part of this framework is the CombineHarvester class, which provides a representation of the text-format datacards and the associated shape input.
 
     http://cms-analysis.github.io/CombineHarvester/
     https://twiki.cern.ch/twiki/bin/view/CMS/HWWCombineTools
