@@ -121,23 +121,23 @@ First source the CRAB client if you have not done it yet.
 
     source /cvmfs/cms.cern.ch/crab3/crab.sh
 
-The script *translate_samples_config.py* can be used on any samples*.py file in AnalysisStep/test/crab/samples/ and it will create the input file for the cmssw2latino step.
+The script *translate_samples_config.py* can be used on any AnalysisStep/test/crab/samples/samples*py file. It will create the input file for the cmssw2latino step.
 
     python translate_samples_config.py samples/samples_data_2016_ReReco.py list_data_2016_ReReco.py
 
-The next step submits jobs for producing the latino trees with a maximum size of 1GB. In order to work on different T2s it makes use of the batchTools that are also used in the post-processing. The following steps are required the first time.
+The next step submits jobs for producing the latino trees with a maximum size of 1GB. In order to work on different T2s it makes use of *batchTools.py*, which is also used in the post-processing. The first time you will have to copy *userConfig.py* from the provided template, and edit 'baseDir' to indicate a location with some reasonable space for job log files. 
 
     cd LatinosAnalysis/Tools/python
     cp userConfig_TEMPLATE.py userConfig.py
 
-Edit 'baseDir' inside *userConfig.py*, as you need a location with some reasonable space for job log files. By default the python script below does not submit jobs, so you can check if it correctly finds all the samples and directories. To submit the jobs run the command with "1" as the last argument.
+By default the python script below does not submit jobs, so you can check if it correctly finds all the samples and directories. To submit the jobs run the command with "1" as the last argument.
 
     python multiLxbatchCmssw2latino_split_autoComplete.py list_data_2016_ReReco.py [0 = no jobs are submitted (default) / 1 = submit jobs ]
 
 Do not forget to delete all stepB.root files from old latino productions. We have limited space.
 
 
-8. Postprocess the latino trees
+8. Post-process the latino trees
 ====
 
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosTreesRun2
