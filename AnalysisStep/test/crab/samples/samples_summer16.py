@@ -38,8 +38,12 @@ samples['WJetsToLNu_HT2500_inf_ext1']     = ['/WJetsToLNu_HT-2500ToInf_TuneCUETP
 
 ## DY >> Alicia
 ### Samples sent to crab-----Isabel 2017/01/20
-#samples['DYJetsToLL_M-10to50']              = ['/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM',                  ['label=DYJetsToLL_M-10to50',             'id=00002',     'doMCweights=True']]
-#samples['DYJetsToLL_M-50']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50',                 'id=00003',     'doMCweights=True']]
+
+samples['DYJetsToLL_M-50-UEup']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_CUETP8M1Down/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50-UEup',                 'id=00003',     'doMCweights=True']]
+samples['DYJetsToLL_M-50-UEdo']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_CUETP8M1Up/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50-UEdo',                 'id=00003',     'doMCweights=True']]
+samples['DYJetsToLL_M-50-PSup']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_UpPS/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50-PSup',                 'id=00003',     'doMCweights=True']]
+samples['DYJetsToLL_M-50-PSdo']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_DownPS/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50-PSdo',                 'id=00003',     'doMCweights=True']]
+
 #samples['DYJetsToLL_M-5to50-LO']            = ['/DYJetsToLL_M-5to50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM',                    ['label=DYJetsToLL_M-5to50-LO',           'id=30002',     'doMCweights=True']]
 samples['DYJetsToLL_M-5to50_HT-70to100']      = ['/DYJetsToLL_M-5to50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',               ['label=DYJetsToLL_M-5to50_HT-70to100', 'id=550701001', 'doMCweights=True']]
 samples['DYJetsToLL_M-5to50_HT-100to200']     = ['/DYJetsToLL_M-5to50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',               ['label=DYJetsToLL_M-5to50_HT-100to200', 'id=5501002001', 'doMCweights=True']]
