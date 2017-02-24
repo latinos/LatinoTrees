@@ -8617,6 +8617,36 @@ const float reco::SkimEvent::HTXS_stage1_pTjet25GeV() const{
 }
 
 
+const float reco::SkimEvent::HTXS_ptjet25GeV(size_t i) const{
+  if (htxs_) {
+    if ((htxs_->jets25).size() > i) {
+      return (htxs_->jets25).at(i).pt();
+    }
+    else {
+      return defaultvalues::defaultFloat;
+    }
+  }
+  else
+    return defaultvalues::defaultFloat;
+}
+
+
+
+const float reco::SkimEvent::HTXS_etajet25GeV(size_t i) const{
+  if (htxs_) {
+    if ((htxs_->jets25).size() > i) {
+      return (htxs_->jets25).at(i).eta();
+    }
+    else {
+      return defaultvalues::defaultFloat;
+    }
+  }
+  else
+    return defaultvalues::defaultFloat;
+}
+
+
+
 //--- electrons
 
 void reco::SkimEvent::InitEffectiveAreasElectrons()

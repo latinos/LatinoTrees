@@ -912,6 +912,10 @@ namespace reco {
     const float HTXS_stage1_pTjet30GeV() const;
     const float HTXS_stage1_pTjet25GeV() const;
     
+    const float HTXS_ptjet25GeV (size_t i = 0) const;
+    const float HTXS_etajet25GeV(size_t i = 0) const;
+        
+      
     const int vtxSize() const { return vtxs_.size(); }
     const int nGoodVertices() const;
     const int mitType() const;
