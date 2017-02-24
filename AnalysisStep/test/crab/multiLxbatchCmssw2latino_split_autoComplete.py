@@ -40,7 +40,7 @@ if __name__ == '__main__':
         exit()
 
     # default is 1GB per hadd
-    sizeHadd = 1e9
+    sizeHadd = 2e9
     
     # Don't submit jobs by default
     dryRun = True
@@ -127,7 +127,8 @@ if __name__ == '__main__':
                 jobs.AddCopy("All",requestName_i,outputFileName, outputDirectory+'/'+outputFileName)
                 jobs.Add("All",requestName_i,"rm -f latino_" + requestName_i + ".root\n")
 
-            jobs.Sub('8nh','4:00:00')
+            #jobs.Sub('8nh','4:00:00')
+            jobs.Sub()
 
         os.system("rm list_" + requestName + "*")
 
