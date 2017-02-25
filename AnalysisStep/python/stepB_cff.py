@@ -665,9 +665,9 @@ def addQGJets(process,pt):
             #pt.variables.std_vector_jet_QGRmax       = cms.string("leadingJetQGRmax")
             pt.variables.std_vector_jet_QGlikelihood = cms.string("leadingJetQGlikelihood")
 
-            #pt.variables.std_vector_jet_QGlikelihoodAxis2 = cms.string("leadingJetQGlikelihoodAxis2")
-            #pt.variables.std_vector_jet_QGlikelihoodMult = cms.string("leadingJetQGlikelihoodMult")
-            #pt.variables.std_vector_jet_QGlikelihoodPtD = cms.string("leadingJetQGlikelihoodPtD")
+            pt.variables.std_vector_jet_QGlikelihoodAxis2 = cms.string("leadingJetQGlikelihoodAxis2")
+            pt.variables.std_vector_jet_QGlikelihoodMult = cms.string("leadingJetQGlikelihoodMult")
+            pt.variables.std_vector_jet_QGlikelihoodPtD = cms.string("leadingJetQGlikelihoodPtD")
 
 
 

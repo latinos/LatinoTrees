@@ -620,6 +620,14 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              addQGTagger=True,  # addSoftDrop=True
              ) #, addPrunedSubjets=True )
 
+#
+# small fix for QG: https://hypernews.cern.ch/HyperNews/CMS/get/jet-algorithms/418/1.html
+getattr( process, 'patJetsAK4PFCHS').userData.userFloats.src += ['QGTagger'+'AK4PFCHS' + ':ptD']  
+getattr( process, 'patJetsAK4PFCHS').userData.userInts.src   += ['QGTagger'+'AK4PFCHS' + ':mult']  
+getattr( process, 'patJetsAK4PFCHS').userData.userFloats.src += ['QGTagger'+'AK4PFCHS' + ':axis2']  
+#getattr( proc, 'patJets'+jetALGO+'PF'+PUMethod).userData.userFloats.src += ['QGTagger'+jetALGO+'PF'+PUMethod+':ptD']               
+#
+
 process.jetTracksAssociatorAtVertexAK4PFCHS.tracks = cms.InputTag("unpackedTracksAndVertices")
 
 if options.isFastSim:

@@ -2972,7 +2972,7 @@ const float reco::SkimEvent::leadingJetQGlikelihoodMult(size_t index, float minP
     return defaultvalues::defaultFloat;
   }
   else {
-    return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:mult");
+    return 1.0 * (jets_[index_jet_ordered]->userInt("QGTaggerAK4PFCHS:mult"));
   }
   
 }
