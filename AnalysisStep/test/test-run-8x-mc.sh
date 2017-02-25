@@ -60,3 +60,47 @@ cmsRun stepB.py print                   \
 python cmssw2latino.py stepB_mc_numEvent${EVENTS}.root
 
 rm -rf stepB_mc_numEvent${EVENTS}.root
+
+
+
+
+
+
+
+
+
+
+export MYFILE=root://eoscms.cern.ch//store/mc/RunIISummer16MiniAODv2/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/120000/424381CC-21CD-E611-9783-5065F3820351.root
+### Type              Module                  Label   Process
+### LHEEventProduct   "externalLHEProducer"   ""      "LHE"
+
+
+rm -rf latino_stepB_higgs_mc_numEvent${EVENTS}.root
+
+cmsRun stepB.py print                   \
+    reportEvery=10                      \
+    summary=false                       \
+    is50ns=False                        \
+    isPromptRecoData=False              \
+    globalTag=80X_mcRun2_asymptotic_2016_TrancheIV_v7 \
+    label=DYJetsToLL_M-50_HT-600toInf   \
+    outputFile=stepB_higgs_mc.root      \
+    selection=LooseNoIso                \
+    doNoFilter=False                    \
+    doMuonIsoId=True                    \
+    doEleIsoId=True                     \
+    doBTag=True                         \
+    runPUPPISequence=True               \
+    doPhotonID=True                     \
+    doGen=True                          \
+    doLHE=True                          \
+    doMCweights=True                    \
+    maxEvents=${EVENTS}                 \
+    inputFiles=${MYFILE}                \
+    doHiggs=True                        \
+    LHEweightSource=externalLHEProducer \
+    LHERunInfo=""
+
+python cmssw2latino.py stepB_higgs_mc_numEvent${EVENTS}.root
+
+rm -rf stepB_higgs_mc_numEvent${EVENTS}.root
