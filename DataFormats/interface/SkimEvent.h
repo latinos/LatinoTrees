@@ -249,7 +249,8 @@ namespace reco {
     const float leadingJetEta(size_t a) const;
     const float leadingJetPhi(size_t a) const;
     const float leadingJetMass(size_t a) const;
-
+    const float leadingJetPUjetid(size_t a) const ;
+    
     const float leadingJetPtRaw(size_t a) const;
     const float leadingJetPtL1 (size_t a) const;
     const float leadingJetPtL2 (size_t a) const;
@@ -260,8 +261,10 @@ namespace reco {
     
     const float leadingJetPt(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
     const float leadingJetEta(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
-    const float leadingJetMass(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
     const float leadingJetPhi(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+    const float leadingJetMass(float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+    const float leadingJetPUjetid(float pt,float eta,int applyCorrection,int applyID, size_t a) const;
+    
     
     //             const float leadingJetPt(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
     //             const float leadingJetEta(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
@@ -300,12 +303,18 @@ namespace reco {
     const float leadingJetQGRMScand(size_t index) const ;
     const float leadingJetQGRmax(size_t index) const ;
     const float leadingJetQGlikelihood(size_t index) const ;
+    const float leadingJetQGlikelihoodAxis2(size_t index) const ;
+    const float leadingJetQGlikelihoodMult(size_t index) const ;
+    const float leadingJetQGlikelihoodPtD(size_t index) const ;
     
     const float leadingJetQGaxis1(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
     const float leadingJetQGaxis2(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
     const float leadingJetQGRMScand(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
     const float leadingJetQGRmax(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;
     const float leadingJetQGlikelihood(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
+    const float leadingJetQGlikelihoodAxis2(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
+    const float leadingJetQGlikelihoodMult(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
+    const float leadingJetQGlikelihoodPtD(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
     
     const float leadingJetNChgQC(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
     const float leadingJetNChgptCut(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
@@ -317,6 +326,7 @@ namespace reco {
     const float getJetRhoIso() const ;
     const float getJetRhoCaloIso() const ;
     const float getJetRhoCentralNeutralIso() const ;
+    
     
     const int   leadingJetId(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;
     const float leadingJetMva(size_t a, float pt ,float eta,int applyCorrection, int applyID) const;

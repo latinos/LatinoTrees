@@ -2935,6 +2935,91 @@ const float reco::SkimEvent::leadingJetQGlikelihood(size_t index, float minPt,fl
 
 
 
+//----
+//---- inputs used by the QG discriminator
+//----  see: https://twiki.cern.ch/twiki/bin/view/CMS/QuarkGluonLikelihood
+//----
+
+
+const float reco::SkimEvent::leadingJetQGlikelihoodAxis2(size_t index) const {
+  return leadingJetQGlikelihoodAxis2(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+}
+
+const float reco::SkimEvent::leadingJetQGlikelihoodMult(size_t index) const {
+  return leadingJetQGlikelihoodMult(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+}
+
+const float reco::SkimEvent::leadingJetQGlikelihoodPtD(size_t index) const {
+  return leadingJetQGlikelihoodPtD(index,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_);
+}
+
+const float reco::SkimEvent::leadingJetQGlikelihoodAxis2(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+  
+  unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+  if (index_jet_ordered >= jets_.size()) {
+    return defaultvalues::defaultFloat;
+  }
+  else {
+    return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:axis2");
+  }
+  
+}
+
+const float reco::SkimEvent::leadingJetQGlikelihoodMult(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+  
+  unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+  if (index_jet_ordered >= jets_.size()) {
+    return defaultvalues::defaultFloat;
+  }
+  else {
+    return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:mult");
+  }
+  
+}
+
+const float reco::SkimEvent::leadingJetQGlikelihoodPtD(size_t index, float minPt,float eta,int applyCorrection,int applyID) const {
+  
+  unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+  if (index_jet_ordered >= jets_.size()) {
+    return defaultvalues::defaultFloat;
+  }
+  else {
+    return jets_[index_jet_ordered]->userFloat("QGTaggerAK4PFCHS:ptD");
+  }
+  
+}
+
+
+
+
+//----
+//---- pileup jet id
+//----  AK4PFCHSpileupJetIdEvaluator:fullDiscriminant
+//----
+
+
+const float reco::SkimEvent::leadingJetPUjetid(size_t index) const { 
+  return leadingJetPUjetid(minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_,index);
+}
+
+const float reco::SkimEvent::leadingJetPUjetid(float minPt,float eta,int applyCorrection,int applyID, size_t index) const {
+  
+  unsigned int index_jet_ordered = indexJetByPt(index, minPt, eta, applyCorrection, applyID);
+  if (index_jet_ordered >= jets_.size()) {
+    return defaultvalues::defaultFloat;
+  }
+  else {
+    return jets_[index_jet_ordered]->userFloat("AK4PFCHSpileupJetIdEvaluator:fullDiscriminant");
+  }
+  
+}
+
+
+
+
+
+
+
 
 
 

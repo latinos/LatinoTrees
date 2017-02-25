@@ -132,6 +132,9 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         std_vector_jet_pt_L3Absolute  = cms.string("leadingJetPtL3Absolute"),
         std_vector_jet_area  = cms.string("leadingJetArea"),
 
+        # pile up jet id
+        std_vector_jet_pujetid = cms.string("leadingJetPUjetid"),
+
         std_vector_jet_chargedHadronFraction  = cms.string("leadingJetChargedHadronFraction"),
 
         peaking = cms.string("peaking"),
@@ -661,6 +664,12 @@ def addQGJets(process,pt):
             #pt.variables.std_vector_jet_QGRMScand    = cms.string("leadingJetQGRMScand")
             #pt.variables.std_vector_jet_QGRmax       = cms.string("leadingJetQGRmax")
             pt.variables.std_vector_jet_QGlikelihood = cms.string("leadingJetQGlikelihood")
+
+            #pt.variables.std_vector_jet_QGlikelihoodAxis2 = cms.string("leadingJetQGlikelihoodAxis2")
+            #pt.variables.std_vector_jet_QGlikelihoodMult = cms.string("leadingJetQGlikelihoodMult")
+            #pt.variables.std_vector_jet_QGlikelihoodPtD = cms.string("leadingJetQGlikelihoodPtD")
+
+
 
 
 def addSoftActivityVariables(process,pt):
