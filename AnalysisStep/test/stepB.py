@@ -1032,8 +1032,11 @@ if doHiggs == True :
     tree.variables.std_vector_HTXS_ptjet25GeV = cms.string("HTXS_ptjet25GeV")
     tree.variables.std_vector_HTXS_etajet25GeV = cms.string("HTXS_etajet25GeV")
     
-
-
+    tree.variables.HTXS_ptHiggs = cms.string("HTXS_ptHiggs()")
+    tree.variables.HTXS_etaHiggs = cms.string("HTXS_etaHiggs()")
+    
+    
+    
 if doPDFvar == True :
     tree.variables.pdfscalePDF = cms.string("getPDFscalePDF()")
     tree.variables.pdfx1 = cms.string("getPDFx1()")

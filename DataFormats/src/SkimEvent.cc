@@ -8732,6 +8732,37 @@ const float reco::SkimEvent::HTXS_etajet25GeV(size_t i) const{
 
 
 
+
+
+//---- higgs pt and eta from template xsec tool
+
+const float reco::SkimEvent::HTXS_ptHiggs() const{
+  if (htxs_) {
+    return htxs_->higgs.pt();
+  }
+  else
+    return defaultvalues::defaultFloat;
+}
+
+
+const float reco::SkimEvent::HTXS_etaHiggs() const{
+  if (htxs_) {
+    return htxs_->higgs.eta();
+  }
+  else
+    return defaultvalues::defaultFloat;
+}
+
+
+
+
+
+
+
+
+
+
+
 //--- electrons
 
 void reco::SkimEvent::InitEffectiveAreasElectrons()

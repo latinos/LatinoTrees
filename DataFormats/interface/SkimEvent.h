@@ -925,6 +925,9 @@ namespace reco {
     const float HTXS_ptjet25GeV (size_t i = 0) const;
     const float HTXS_etajet25GeV(size_t i = 0) const;
         
+    const float HTXS_ptHiggs() const;
+    const float HTXS_etaHiggs() const;
+    
       
     const int vtxSize() const { return vtxs_.size(); }
     const int nGoodVertices() const;
