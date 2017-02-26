@@ -39,8 +39,8 @@ samples['WJetsToLNu_HT2500_inf_ext1']     = ['/WJetsToLNu_HT-2500ToInf_TuneCUETP
 ## DY >> Alicia
 ### >>> Isabel 
 
-samples['DYJetsToLL_M-50-UEup']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_CUETP8M1Down/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50-UEup',                 'id=00003',     'doMCweights=True']]
-samples['DYJetsToLL_M-50-UEdo']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_CUETP8M1Up/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50-UEdo',                 'id=00003',     'doMCweights=True']]
+samples['DYJetsToLL_M-50-UEup']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_CUETP8M1Up/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50-UEup',                 'id=00003',     'doMCweights=True']]
+samples['DYJetsToLL_M-50-UEdo']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_CUETP8M1Down/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50-UEdo',                 'id=00003',     'doMCweights=True']]
 samples['DYJetsToLL_M-50-PSup']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_UpPS/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50-PSup',                 'id=00003',     'doMCweights=True']]
 samples['DYJetsToLL_M-50-PSdo']                  = ['/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_DownPS/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                      ['label=DYJetsToLL_M-50-PSdo',                 'id=00003',     'doMCweights=True']]
 
