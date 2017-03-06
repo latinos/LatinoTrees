@@ -470,7 +470,7 @@ samples['WLLJJToLNu_M-4To60_EWK_4F']  		.extend( ['xsec=0.0054845', 	'kfact=1.00
 samples['WLLJJToLNu_M-4To50_QCD_0Jet']  	.extend( ['xsec=2.3011202',	'kfact=1.000',	'ref=N'] )
 samples['WLLJJToLNu_M-4To50_QCD_1Jet']  	.extend( ['xsec=0.5291347',	'kfact=1.000',	'ref=N'] )
 samples['WLLJJToLNu_M-4To50_QCD_2Jet']  	.extend( ['xsec=0.0819247',	'kfact=1.000',	'ref=N'] )
-samples['WLLJJToLNu_M-4To50_QCD_3Jet']  	.extend( ['xsec=0.1000000',	'kfact=1.000',	'ref=N'] )
+samples['WLLJJToLNu_M-4To50_QCD_3Jet']  	.extend( ['xsec=0.0508602',	'kfact=1.000',	'ref=N'] )
 
 # ttDM
 samples['ttDM0001scalar00010'] .extend( ['xsec=19.59'           , 'kfact=1.000', 'ref=J'] )
