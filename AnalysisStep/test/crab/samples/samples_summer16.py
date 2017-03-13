@@ -609,7 +609,16 @@ samples['QCD_Pt-50to80_EMEnriched']        = ['/QCD_Pt-50to80_EMEnriched_TuneCUE
 
 samples['QCD_Pt-30toInf_DoubleEMEnriched'] = ['/QCD_Pt-30toInf_DoubleEMEnriched_MGG-40to80_TuneCUETP8M1_13TeV_Pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=QCD_Pt-30toInf_DoubleEMEnriched', 'id=10007', 'doLHE=False' ]]
 
-
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Giulio
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# VBS OS
+samples['WpWmJJ_EWK'] =                   ['/WWJJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                          ['label=WpWmJJ_EWK', 'id=40004', 'doMCweights=True']]
+samples['WpWmJJ_EWK_QCD_noTop'] =         ['/WWJJToLNuLNu_EWK_QCD_noTop_13TeV-madgraph-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                ['label=WpWmJJ_EWK_QCD_noTop', 'id=40005', 'doMCweights=True']]
+samples['WpWmJJ_EWK_noTop'] =             ['/WWJJToLNuLNu_EWK_noTop_13TeV-madgraph-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                    ['label=WpWmJJ_EWK_noTop', 'id=40006', 'doMCweights=True']]
+samples['WpWmJJ_QCD_noTop'] =             ['/WWJJToLNuLNu_QCD_noTop_13TeV-madgraph-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                    ['label=WpWmJJ_QCD_noTop', 'id=40007', 'doMCweights=True']]
+samples['WpWmJJ_EWK_QCD_noHiggs'] =       ['/WWJJToLNuLNu_EWK_QCD_noHiggs_13TeV-madgraph-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',              ['label=WpWmJJ_EWK_QCD_noHiggs', 'id=40008', 'doMCweights=True']]
+samples['WpWmJJ_EWK_QCD_noTop_noHiggs'] = ['/WWJJToLNuLNu_EWK_QCD_noTop-noHiggs_13TeV-madgraph-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',        ['label=WpWmJJ_EWK_QCD_noTop_noHiggs', 'id=40009', 'doMCweights=True']]
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Adrian
