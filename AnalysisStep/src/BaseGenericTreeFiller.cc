@@ -338,7 +338,7 @@ void tnp::BaseGenericTreeFiller::fill(const reco::CandidateBaseRef &probe)  {
   if (std::strncmp(it->first.c_str(), "v_", strlen("v_")) != 0 &&
       std::strncmp(it->first.c_str(), "std_vector_", strlen("std_vector_")) != 0 &&
       std::strncmp(it->first.c_str(), "std_variable_vector_", strlen("std_variable_vector_")) != 0
-  ) { //---- first normal variables  
+  ) { //---- first normal variables 
     it->second->fill(probe);
   }
  }

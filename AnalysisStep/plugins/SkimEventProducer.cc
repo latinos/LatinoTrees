@@ -493,6 +493,8 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      std::cout << " SkimEventProducer::produce:electrons->size () = " << electrons->size () << std::endl;
     }
     for(size_t i=0;i<electrons->size();++i) {
+      //const pat::Electron* patEle = static_cast<const pat::Electron*> (electrons->ptrAt(i).get());
+      //std::cout<<"Ele superCluster eta: "<<patEle->superCluster()->eta()<<" eta: "<<patEle->eta()<<" pt: "<<patEle->pt()<<std::endl;
      if (isGoodElectron(electrons->ptrAt(i), rhoJetIso)){ 
       skimEvent->back().setLepton(electrons,i);
      }
@@ -506,10 +508,16 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      skimEvent->back().setLepton(muons,k);
     }
 
+    if (_debug >= 1) {
+     std::cout << " SkimEventProducer::produce:softMuons->size () = " << softMuons->size () << std::endl;
+    }
     for(size_t k=0;k<softMuons->size();++k) {
      skimEvent->back().setSoftMuon(softMuons,k);
     }
 
+    if (_debug >= 1) {
+     std::cout << " SkimEventProducer::produce:photons->size () = " << photons->size () << std::endl;
+    }
     for(size_t k=0; k<photons->size();++k){ // Photon
      skimEvent->back().setPhoton(photons,k);
     }

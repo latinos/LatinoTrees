@@ -1528,6 +1528,7 @@ const size_t reco::SkimEvent::indexByPt(size_t i) const {
     if ( i < a.size() ) return a[i].index;
     else                return 9999;
   }
+  return 9999;
   
 }
 
@@ -7136,8 +7137,16 @@ const float reco::SkimEvent::LHEMetEta() const {
   }
   //---- now return ----
   if (number_neutrino==0) return eta;
-  TVector3 pt_ofIndex(sum_px, sum_py, sum_pz ); // pass px, py, pz
-  if (pt_ofIndex.Pt()>0) eta = pt_ofIndex.Eta() ;
+  //TVector3 pt_ofIndex(sum_px, sum_py, sum_pz ); // pass px, py, pz
+  //if (pt_ofIndex.Pt()>0) eta = pt_ofIndex.Eta() ;
+  //
+  float pt = TMath::Sqrt(sum_px*sum_px + sum_py*sum_py);
+  if (pt>0){
+    float norm_momentum = TMath::Sqrt(sum_px*sum_px + sum_py*sum_py + sum_pz*sum_pz);
+    eta = 0.5*TMath::Log((norm_momentum + sum_pz)/(norm_momentum - sum_pz));
+    if(eta > 1.e6) eta = 1.e6;
+  }
+  
   return eta;
 }
 

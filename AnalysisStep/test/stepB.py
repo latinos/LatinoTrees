@@ -247,6 +247,11 @@ options.register ('doCorrectMet',
                   opts.VarParsing.varType.string,
                   'Turn on MET Type-1 correction')
 
+options.register ('debug',
+                  0, # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.int, # string, int, or float
+                  'debug mode')
 
 
 
@@ -373,6 +378,7 @@ import LatinoTrees.AnalysisStep.globalVariables as globalVariables
 #  and all configurations and parameters are defined too
 process.load("LatinoTrees.AnalysisStep.skimEventProducer_cfi")
 
+process.skimEventProducer.debug = cms.untracked.int32(options.debug)
 
 if options.is50ns :
     process.skimEventProducer.apply50nsValues = cms.bool(True)

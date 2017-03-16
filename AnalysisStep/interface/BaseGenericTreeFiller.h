@@ -82,7 +82,9 @@ class ProbeVariable {
 
         /// To be called for each item
         void fill(const reco::CandidateBaseRef &probe) const {
+	  //std::cout<<"BaseGenericTreeFiller: fill"<<std::endl;
             value_ = external_ ? (*handle_)[probe] : function_(*probe);
+	  //std::cout<<"BaseGenericTreeFiller: fill after"<<std::endl;
         }
 
         void fill4D(float x, float y, float z, float t) const {
