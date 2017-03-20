@@ -10,14 +10,14 @@ Latino's twiki pages.
 1. Everything begins here
 ====
 
-     ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
+    ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
 
-     bash -l
+    bash -l
 
-     export SCRAM_ARCH=slc6_amd64_gcc530
-     cmsrel CMSSW_8_0_26_patch1
-     cd CMSSW_8_0_26_patch1/src/
-     cmsenv
+    export SCRAM_ARCH=slc6_amd64_gcc530
+    cmsrel CMSSW_8_0_26_patch1
+    cd CMSSW_8_0_26_patch1/src/
+    cmsenv
 
 
 2. Get the material
