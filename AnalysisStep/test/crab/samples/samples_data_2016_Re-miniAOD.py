@@ -14,55 +14,58 @@
 
 # Xavier
 
-samples['DoubleEG_Run2016B-03Feb2017_ver2-v2']       = ['/DoubleEG/Run2016B-03Feb2017_ver2-v2/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016B-03Feb2017_ver2-v2']     = ['/DoubleMuon/Run2016B-03Feb2017_ver2-v2/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016B-03Feb2017_ver2-v2']         = ['/MuonEG/Run2016B-03Feb2017_ver2-v2/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016B-03Feb2017_ver2-v2'] = ['/SingleElectron/Run2016B-03Feb2017_ver2-v2/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016B-03Feb2017_ver2-v2']     = ['/SingleMuon/Run2016B-03Feb2017_ver2-v2/MINIAOD',     ['label=SingleMuon']]
-samples['MET_Run2016B-03Feb2017_ver2-v2']            = ['/MET/Run2016B-03Feb2017_ver2-v2/MINIAOD',     ['label=MET']]
-
-# Davide
-samples['DoubleEG_Run2016C-03Feb2017-v1']       = ['/DoubleEG/Run2016C-03Feb2017-v1/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016C-03Feb2017-v1']     = ['/DoubleMuon/Run2016C-03Feb2017-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016C-03Feb2017-v1']         = ['/MuonEG/Run2016C-03Feb2017-v1/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016C-03Feb2017-v1'] = ['/SingleElectron/Run2016C-03Feb2017-v1/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016C-03Feb2017-v1']     = ['/SingleMuon/Run2016C-03Feb2017-v1/MINIAOD',     ['label=SingleMuon']]
-samples['MET_Run2016C-03Feb2017-v1']            = ['/MET/Run2016C-03Feb2017-v1/MINIAOD',     ['label=MET']]
-
-# Davide
-samples['DoubleEG_Run2016D-03Feb2017-v1']       = ['/DoubleEG/Run2016D-03Feb2017-v1/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016D-03Feb2017-v1']     = ['/DoubleMuon/Run2016D-03Feb2017-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016D-03Feb2017-v1']         = ['/MuonEG/Run2016D-03Feb2017-v1/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016D-03Feb2017-v1'] = ['/SingleElectron/Run2016D-03Feb2017-v1/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016D-03Feb2017-v1']     = ['/SingleMuon/Run2016D-03Feb2017-v1/MINIAOD',     ['label=SingleMuon']]
-samples['MET_Run2016D-03Feb2017-v1']            = ['/MET/Run2016D-03Feb2017-v1/MINIAOD',     ['label=MET']]
+### samples['DoubleEG_Run2016B-03Feb2017_ver2-v2']       = ['/DoubleEG/Run2016B-03Feb2017_ver2-v2/MINIAOD',       ['label=DoubleEG']]
+### samples['DoubleMuon_Run2016B-03Feb2017_ver2-v2']     = ['/DoubleMuon/Run2016B-03Feb2017_ver2-v2/MINIAOD',     ['label=DoubleMuon']]
+### samples['MuonEG_Run2016B-03Feb2017_ver2-v2']         = ['/MuonEG/Run2016B-03Feb2017_ver2-v2/MINIAOD',         ['label=MuEG']]
+### samples['SingleElectron_Run2016B-03Feb2017_ver2-v2'] = ['/SingleElectron/Run2016B-03Feb2017_ver2-v2/MINIAOD', ['label=SingleElectron']]
+### samples['SingleMuon_Run2016B-03Feb2017_ver2-v2']     = ['/SingleMuon/Run2016B-03Feb2017_ver2-v2/MINIAOD',     ['label=SingleMuon']]
+### samples['MET_Run2016B-03Feb2017_ver2-v2']            = ['/MET/Run2016B-03Feb2017_ver2-v2/MINIAOD',     ['label=MET']]
+### 
+### # Davide
+### samples['DoubleEG_Run2016C-03Feb2017-v1']       = ['/DoubleEG/Run2016C-03Feb2017-v1/MINIAOD',       ['label=DoubleEG']]
+### samples['DoubleMuon_Run2016C-03Feb2017-v1']     = ['/DoubleMuon/Run2016C-03Feb2017-v1/MINIAOD',     ['label=DoubleMuon']]
+### samples['MuonEG_Run2016C-03Feb2017-v1']         = ['/MuonEG/Run2016C-03Feb2017-v1/MINIAOD',         ['label=MuEG']]
+### samples['SingleElectron_Run2016C-03Feb2017-v1'] = ['/SingleElectron/Run2016C-03Feb2017-v1/MINIAOD', ['label=SingleElectron']]
+### samples['SingleMuon_Run2016C-03Feb2017-v1']     = ['/SingleMuon/Run2016C-03Feb2017-v1/MINIAOD',     ['label=SingleMuon']]
+### samples['MET_Run2016C-03Feb2017-v1']            = ['/MET/Run2016C-03Feb2017-v1/MINIAOD',     ['label=MET']]
+### 
+### # Davide
+### samples['DoubleEG_Run2016D-03Feb2017-v1']       = ['/DoubleEG/Run2016D-03Feb2017-v1/MINIAOD',       ['label=DoubleEG']]
+### samples['DoubleMuon_Run2016D-03Feb2017-v1']     = ['/DoubleMuon/Run2016D-03Feb2017-v1/MINIAOD',     ['label=DoubleMuon']]
+### samples['MuonEG_Run2016D-03Feb2017-v1']         = ['/MuonEG/Run2016D-03Feb2017-v1/MINIAOD',         ['label=MuEG']]
+### samples['SingleElectron_Run2016D-03Feb2017-v1'] = ['/SingleElectron/Run2016D-03Feb2017-v1/MINIAOD', ['label=SingleElectron']]
+### samples['SingleMuon_Run2016D-03Feb2017-v1']     = ['/SingleMuon/Run2016D-03Feb2017-v1/MINIAOD',     ['label=SingleMuon']]
+### samples['MET_Run2016D-03Feb2017-v1']            = ['/MET/Run2016D-03Feb2017-v1/MINIAOD',     ['label=MET']]
 
 
 # Post ICHEP
 
-# Davide
+# Jonatan
 samples['DoubleEG_Run2016E-03Feb2017-v1']       = ['/DoubleEG/Run2016E-03Feb2017-v1/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016E-03Feb2017-v1']     = ['/DoubleMuon/Run2016E-03Feb2017-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016E-03Feb2017-v1']         = ['/MuonEG/Run2016E-03Feb2017-v1/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016E-03Feb2017-v1'] = ['/SingleElectron/Run2016E-03Feb2017-v1/MINIAOD', ['label=SingleElectron']]
+### samples['DoubleMuon_Run2016E-03Feb2017-v1']     = ['/DoubleMuon/Run2016E-03Feb2017-v1/MINIAOD',     ['label=DoubleMuon']]
+### samples['MuonEG_Run2016E-03Feb2017-v1']         = ['/MuonEG/Run2016E-03Feb2017-v1/MINIAOD',         ['label=MuEG']]
+### samples['SingleElectron_Run2016E-03Feb2017-v1'] = ['/SingleElectron/Run2016E-03Feb2017-v1/MINIAOD', ['label=SingleElectron']]
 samples['SingleMuon_Run2016E-03Feb2017-v1']     = ['/SingleMuon/Run2016E-03Feb2017-v1/MINIAOD',     ['label=SingleMuon']]
-samples['MET_Run2016E-03Feb2017-v1']     = ['/MET/Run2016E-03Feb2017-v1/MINIAOD',     ['label=MET']]
+### samples['MET_Run2016E-03Feb2017-v1']            = ['/MET/Run2016E-03Feb2017-v1/MINIAOD',            ['label=MET']]
 
 # Rocio
-samples['DoubleEG_Run2016F-03Feb2017-v1']       = ['/DoubleEG/Run2016F-03Feb2017-v1/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016F-03Feb2017-v1']     = ['/DoubleMuon/Run2016F-03Feb2017-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016F-03Feb2017-v1']         = ['/MuonEG/Run2016F-03Feb2017-v1/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016F-03Feb2017-v1'] = ['/SingleElectron/Run2016F-03Feb2017-v1/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016F-03Feb2017-v1']     = ['/SingleMuon/Run2016F-03Feb2017-v1/MINIAOD',     ['label=SingleMuon']]
-samples['MET_Run2016F-03Feb2017-v1']     = ['/MET/Run2016F-03Feb2017-v1/MINIAOD',     ['label=MET']]
+### samples['DoubleEG_Run2016F-03Feb2017-v1']       = ['/DoubleEG/Run2016F-03Feb2017-v1/MINIAOD',       ['label=DoubleEG']]
+### samples['DoubleMuon_Run2016F-03Feb2017-v1']     = ['/DoubleMuon/Run2016F-03Feb2017-v1/MINIAOD',     ['label=DoubleMuon']]
+### samples['MuonEG_Run2016F-03Feb2017-v1']         = ['/MuonEG/Run2016F-03Feb2017-v1/MINIAOD',         ['label=MuEG']]
+### samples['SingleElectron_Run2016F-03Feb2017-v1'] = ['/SingleElectron/Run2016F-03Feb2017-v1/MINIAOD', ['label=SingleElectron']]
+### samples['SingleMuon_Run2016F-03Feb2017-v1']     = ['/SingleMuon/Run2016F-03Feb2017-v1/MINIAOD',     ['label=SingleMuon']]
+### samples['MET_Run2016F-03Feb2017-v1']     = ['/MET/Run2016F-03Feb2017-v1/MINIAOD',     ['label=MET']]
+### 
+### # Jonatan
+### samples['DoubleEG_Run2016G-03Feb2017-v1']       = ['/DoubleEG/Run2016G-03Feb2017-v1/MINIAOD',       ['label=DoubleEG']]
+### samples['DoubleMuon_Run2016G-03Feb2017-v1']     = ['/DoubleMuon/Run2016G-03Feb2017-v1/MINIAOD',     ['label=DoubleMuon']]
+### samples['MuonEG_Run2016G-03Feb2017-v1']         = ['/MuonEG/Run2016G-03Feb2017-v1/MINIAOD',         ['label=MuEG']]
+### samples['SingleElectron_Run2016G-03Feb2017-v1'] = ['/SingleElectron/Run2016G-03Feb2017-v1/MINIAOD', ['label=SingleElectron']]
+### samples['SingleMuon_Run2016G-03Feb2017-v1']     = ['/SingleMuon/Run2016G-03Feb2017-v1/MINIAOD',     ['label=SingleMuon']]
+### samples['MET_Run2016G-03Feb2017-v1']            = ['/MET/Run2016G-03Feb2017-v1/MINIAOD',            ['label=MET']]  # For orthogonal triggers
 
-# Jonatan
-samples['DoubleEG_Run2016G-03Feb2017-v1']       = ['/DoubleEG/Run2016G-03Feb2017-v1/MINIAOD',       ['label=DoubleEG']]
-samples['DoubleMuon_Run2016G-03Feb2017-v1']     = ['/DoubleMuon/Run2016G-03Feb2017-v1/MINIAOD',     ['label=DoubleMuon']]
-samples['MuonEG_Run2016G-03Feb2017-v1']         = ['/MuonEG/Run2016G-03Feb2017-v1/MINIAOD',         ['label=MuEG']]
-samples['SingleElectron_Run2016G-03Feb2017-v1'] = ['/SingleElectron/Run2016G-03Feb2017-v1/MINIAOD', ['label=SingleElectron']]
-samples['SingleMuon_Run2016G-03Feb2017-v1']     = ['/SingleMuon/Run2016G-03Feb2017-v1/MINIAOD',     ['label=SingleMuon']]
-samples['MET_Run2016G-03Feb2017-v1']            = ['/MET/Run2016G-03Feb2017-v1/MINIAOD',            ['label=MET']]  # For orthogonal triggers
+
+config.Site.storageSite = 'T2_ES_IFCA'
 
 
 pyCfgParams.append('globalTag=80X_dataRun2_2016SeptRepro_v7')
