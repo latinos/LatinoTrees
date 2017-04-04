@@ -64,7 +64,7 @@ samples['DYJetsToLL_M-5to50-LO']      	   .extend( ['xsec=71310.0',	'kfact=1.000
 samples['DYJetsToLL_M-10to50-LO']          .extend( ['xsec=18610.0',    'kfact=1.000',          'ref=E'] )
 samples['DYJetsToLL_M-50-LO']      	   .extend( ['xsec=6025.20',	'kfact=1.000',		'ref=E'] )
 samples['DYJetsToLL_M-50-LO-ext1']         .extend( ['xsec=6025.20',    'kfact=1.000',          'ref=E'] )
-samples['DYJetsToLL_M-50_HT-70to100']      .extend( ['xsec=208.977',	'kfact=1.230',	'ref=I'] ) 
+samples['DYJetsToLL_M-50_HT-70to100']      .extend( ['xsec=169.9',	'kfact=1.230889',	'ref=I'] ) 
 samples['DYJetsToLL_M-50_HT-100to200']     .extend( ['xsec=147.40',	'kfact=1.230889',	'ref=E'] ) 
 samples['DYJetsToLL_M-50_HT-100to200_ext1'].extend( ['xsec=147.40',	'kfact=1.230889',	'ref=E'] )  
 samples['DYJetsToLL_M-50_HT-200to400']     .extend( ['xsec=40.99',	'kfact=1.230889',	'ref=E'] ) 
