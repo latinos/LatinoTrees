@@ -82,7 +82,7 @@ samples['DYJetsToTT_MuEle_M-50']           .extend( ['xsec=248.849',    'kfact=1
 samples['DYJetsToTT_MuEle_M-50_ext1']           .extend( ['xsec=248.849',    'kfact=1.000',          'ref=E'] )  # (6025.20/3)*(0.352)^2
 
 ## DY (Low mass)
-samples['DYJetsToLL_M-5to50_HT-70to100']   .extend( ['xsec=301.2',  'kfact=1.000',          'ref=I'] )
+samples['DYJetsToLL_M-5to50_HT-70to100']   .extend( ['xsec=303.8',  'kfact=1.000',          'ref=I'] )
 samples['DYJetsToLL_M-5to50_HT-100to200']  .extend( ['xsec=224.2',  'kfact=1.000',          'ref=E'] )
 samples['DYJetsToLL_M-5to50_HT-200to400']  .extend( ['xsec=37.2',   'kfact=1.000',          'ref=E'] )
 samples['DYJetsToLL_M-5to50_HT-400to600']  .extend( ['xsec=3.581',  'kfact=1.000',          'ref=E'] )
