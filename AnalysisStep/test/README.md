@@ -64,8 +64,6 @@ Old tags.
 
 # 4. Setup CRAB
 
-    cd LatinoTrees/AnalysisStep/test/crab
-
 The CRAB client can be sourced using the command below *after cmsenv*.
 
     source /cvmfs/cms.cern.ch/crab3/crab.sh
@@ -76,6 +74,8 @@ Check if you have writing permissions in the common area.
 
 
 # 5. Run CRAB
+
+    cd LatinoTrees/AnalysisStep/test/crab
 
 Submit jobs.
 
