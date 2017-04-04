@@ -1,5 +1,4 @@
-0. Documentation
-====
+# 0. Documentation
 
 Latino's twiki pages.
 
@@ -7,8 +6,7 @@ Latino's twiki pages.
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosFrameworkTutorials
 
 
-1. Everything begins here
-====
+# 1. Everything begins here
 
     ssh -Y lxplus.cern.ch -o ServerAliveInterval=240
 
@@ -20,8 +18,7 @@ Latino's twiki pages.
     cmsenv
 
 
-2. Get the material
-====
+# 2. Get the material
 
 The first time you need to [generate an SSH key](https://help.github.com/articles/generating-an-ssh-key/). If the key is not permanently added (as it currently happens at IFCA) the following should be done in every new login.
 
@@ -36,8 +33,7 @@ And then proceed normally.
     source LatinosSetup/Setup.sh
 
 
-3. Produce latino trees
-====
+# 3. Produce latino trees
 
 *Do this only if you want to create a tag.*
 
@@ -66,8 +62,7 @@ Old tags.
     26Oct2016_last801X                    -- last tag that works with 8_0_1X
 
 
-4. Setup CRAB
-====
+# 4. Setup CRAB
 
     cd LatinoTrees/AnalysisStep/test/crab
 
@@ -80,8 +75,7 @@ Check if you have writing permissions in the common area.
     crab checkwrite --site=T2_CH_CERN --lfn=/store/group/phys_higgs/cmshww/amassiro/RunII/
 
 
-5. Run CRAB
-====
+# 5. Run CRAB
 
 Submit jobs.
 
@@ -96,8 +90,7 @@ Check status.
     python multicrab.py crabdir status
 
 
-6. How much luminosity?
-====
+# 6. How much luminosity?
 
 *Only for data.* Use [brilcalc](http://cms-service-lumi.web.cern.ch/cms-service-lumi/brilwsdoc.html) to report the analyzed (or missed) luminosity.
 
@@ -114,8 +107,7 @@ The luminosity for Moriond 2016 was 2.318/fb.
         -i /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions15/13TeV/Reprocessing/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON.txt
 
 
-7. Run cmssw2latino
-====
+# 7. Run cmssw2latino
 
 First source the CRAB client if you have not done it yet.
 
@@ -137,14 +129,12 @@ By default the python script below does not submit jobs, so you can check if it 
 Do not forget to delete all stepB.root files from old latino productions. We have limited space.
 
 
-8. Post-process the latino trees
-====
+# 8. Post-process the latino trees
 
     https://twiki.cern.ch/twiki/bin/view/CMS/LatinosTreesRun2
 
 
-A. Combine
-====
+# A. Combine
 
 This page documents the CombineHarvester framework for the production and analysis of datacards for use with the CMS combine tool. The central part of this framework is the CombineHarvester class, which provides a representation of the text-format datacards and the associated shape input.
 
@@ -152,8 +142,7 @@ This page documents the CombineHarvester framework for the production and analys
     https://twiki.cern.ch/twiki/bin/view/CMS/HWWCombineTools
 
 
-B. Share IT EOS space
-====
+# B. Share IT EOS space
 
 Please follow the steps below to share your (cernbox) IT EOS space with the latino community.
 
