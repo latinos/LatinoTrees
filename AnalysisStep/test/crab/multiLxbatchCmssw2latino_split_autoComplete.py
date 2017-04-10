@@ -52,6 +52,8 @@ if __name__ == '__main__':
     
     if 'iihe'  in os.uname()[1]:
         os.system('voms-proxy-init --voms cms --valid 168:0')
+    if 'knu'  in os.uname()[1]:
+        os.system('voms-proxy-init --voms cms --valid 168:0')
 
     samples = {}
     SamplesFile = sys.argv[1]
@@ -128,7 +130,10 @@ if __name__ == '__main__':
                 jobs.Add("All",requestName_i,"rm -f latino_" + requestName_i + ".root\n")
 
             #jobs.Sub('8nh','4:00:00')
-            jobs.Sub()
+            if 'knu'  in os.uname()[1]:
+              jobs.Sub("cms")
+	    else:
+              jobs.Sub()
 
         os.system("rm list_" + requestName + "*")
 
