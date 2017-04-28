@@ -45,7 +45,7 @@ And then proceed normally.
 *Do this only if you want to use a tag.*
 
     pushd LatinoTrees
-    git checkout tags/Feb2017_TheGreatWall_v5
+    git checkout tags/Apr2017_HowToBeALatinLover
     popd
 
 Test the latino tree production.
