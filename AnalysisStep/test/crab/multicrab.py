@@ -20,19 +20,20 @@ config.General.workArea     = 'crabdir'  # Make sure you set this parameter
 config.section_('JobType')
 config.JobType.pluginName       = 'Analysis'
 config.JobType.psetName         = '../stepB.py'
-config.JobType.maxJobRuntimeMin = 2750
+#config.JobType.maxJobRuntimeMin = 2750
 config.JobType.outputFiles      = ['stepB.root']
 config.JobType.allowUndistributedCMSSW = True
-config.JobType.sendExternalFolder = True  # For Electron MVA ID
+#config.JobType.sendExternalFolder = True  # For Electron MVA ID
 
 config.section_('Data')    
 config.Data.inputDBS      = 'global'
 config.Data.splitting     = 'LumiBased'
 config.Data.unitsPerJob   = 150
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/arun/latino_VH_Spring16_V2/'
+#config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/arun/latino_VH_Spring16_V2/'
 
 config.section_('Site')
 config.Site.storageSite = 'T2_CH_CERN'
+config.Site.blacklist = ['T2_US_Vanderbilt','T2_RU_IHEP','T1_RU_JINR']
 
 
 from multiprocessing import Process

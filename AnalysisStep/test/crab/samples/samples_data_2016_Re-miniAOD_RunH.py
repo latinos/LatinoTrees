@@ -12,7 +12,7 @@
 # Production release: 8_0_26_patch1
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# 
+# Gulio?
 samples['DoubleEG_Run2016H-03Feb2017_ver2-v1']       = ['/DoubleEG/Run2016H-03Feb2017_ver2-v1/MINIAOD',       ['label=DoubleEG']]
 samples['DoubleMuon_Run2016H-03Feb2017_ver2-v1']     = ['/DoubleMuon/Run2016H-03Feb2017_ver2-v1/MINIAOD',     ['label=DoubleMuon']]
 samples['MuonEG_Run2016H-03Feb2017_ver2-v1']         = ['/MuonEG/Run2016H-03Feb2017_ver2-v1/MINIAOD',         ['label=MuEG']]
@@ -38,10 +38,10 @@ pyCfgParams.append('isPromptRecoData=False')  # PAT TriggerResults
 # 27.66/fb
 #config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-280385_13TeV_03Feb2017_Collisions16_JSON.txt'
 # 36.42/fb
-config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Final/Cert_271036-284044_13TeV_03Feb2017_Collisions16_JSON.txt'
+config.Data.lumiMask       = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
 config.Data.splitting      = 'LumiBased'
 config.Data.unitsPerJob    = 15
-config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Feb2017/data/25ns/'
+config.Data.outLFNDirBase  = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Apr2017/data/'
 #config.Data.runRange       = '278820-279931'
 #config.JobType.maxMemoryMB = 2500
 

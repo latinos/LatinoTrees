@@ -667,7 +667,7 @@ samples['WJetsToLNu']                = ['/WJetsToLNu_TuneCUETP8M1_13TeV-amcatnlo
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Apr2017/MC/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshww/amassiro/RunII/2016/Feb2017/MC/'
 # this name is used partially in the post-processing.
 # Let's try not to change it for a given production era
 
