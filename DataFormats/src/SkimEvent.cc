@@ -1235,7 +1235,7 @@ const double reco::SkimEvent::egammaHFMinus_sumPt() const {
 }
 
 const float reco::SkimEvent::dmZllReco() const {
-  float dmll = abs(defaultvalues::defaultFloat);
+  float dmll = fabs(defaultvalues::defaultFloat);
   unsigned int i1=0, i2=0;
   for( unsigned int iLep1=0; iLep1 < leps_.size(); ++iLep1 )
   {
@@ -1249,7 +1249,7 @@ const float reco::SkimEvent::dmZllReco() const {
           // check opposite charge and same flavour
           if( leps_[i1]->pdgId() == -1 * leps_[i2]->pdgId() )
           {
-              float dmll_temp = abs( (leps_[i1]->p4() + leps_[i2]->p4()).mass() - 91.1876 );
+              float dmll_temp = fabs( (leps_[i1]->p4() + leps_[i2]->p4()).mass() - 91.1876 );
               if( dmll_temp < dmll )
                   dmll = dmll_temp;
           }
@@ -2327,7 +2327,7 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
   
   else if(applyID == 7) { //---- recommended Run II jet ID: LOOSE
     //---- see https://twiki.cern.ch/twiki/bin/view/CMS/JetID
-    if( abs(jet->eta()) <= 2.7 ) {
+    if( fabs(jet->eta()) <= 2.7 ) {
       if (jet->neutralHadronEnergyFraction() >=0.99) return false;
       if (jet->neutralEmEnergyFraction() >=0.99) return false;
       
@@ -2341,7 +2341,7 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
         if ( jet->chargedEmEnergyFraction() >= 0.99 ) return false;
       }
     }
-    else if( abs(jet->eta()) <= 3.0 ){
+    else if( fabs(jet->eta()) <= 3.0 ){
       if( jet->neutralEmEnergyFraction() <= 0.01 ) return false;
       if( jet->neutralMultiplicity() <= 2 ) return false;
       if (jet->neutralHadronEnergyFraction() >= 0.98) return false;
@@ -2356,7 +2356,7 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
   
   else if(applyID == 8) { //---- recommended Run II jet ID: TIGHT
     //---- see https://twiki.cern.ch/twiki/bin/view/CMS/JetID
-    if( abs(jet->eta()) <= 2.7 ) {
+    if( fabs(jet->eta()) <= 2.7 ) {
       if (jet->neutralHadronEnergyFraction() >=0.90) return false;
       if (jet->neutralEmEnergyFraction() >=0.90) return false;
       
@@ -2370,7 +2370,7 @@ const bool reco::SkimEvent::passJetID(pat::JetRef jet, int applyID) const{
         if ( jet->chargedEmEnergyFraction() >= 0.99 ) return false;
       }
     }
-    else if( abs(jet->eta()) <= 3.0 ){
+    else if( fabs(jet->eta()) <= 3.0 ){
       if( jet->neutralEmEnergyFraction() <= 0.01 ) return false;
       if( jet->neutralMultiplicity() <= 2 ) return false;
       if (jet->neutralHadronEnergyFraction() >= 0.98) return false;
@@ -3670,14 +3670,14 @@ float reco::SkimEvent::sumHtTrackJets() const {
           break;
         }
       }
-      if( !thisJetIsLepton ) sumHt += abs(trackJets_[i]->pt());
+      if( !thisJetIsLepton ) sumHt += fabs(trackJets_[i]->pt());
     }
   }
   return sumHt;
 }
 
 float reco::SkimEvent::sumHtTrackJetsDensity() const {
-  float etaRange = abs(leadingJetEta(0,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_) - leadingJetEta(1,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_)) -0.8;
+  float etaRange = fabs(leadingJetEta(0,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_) - leadingJetEta(1,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_)) -0.8;
   if( etaRange > 0 ) {
     return (sumHtTrackJets()/etaRange);
   }
@@ -3712,7 +3712,7 @@ float reco::SkimEvent::multiplicityTrackJets() const {
 }
 
 float reco::SkimEvent::multiplicityTrackJetsDensity() const {
-  float etaRange = abs(leadingJetEta(0,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_) - leadingJetEta(1,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_)) -0.8;
+  float etaRange = fabs(leadingJetEta(0,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_) - leadingJetEta(1,minPtForJets_,maxEtaForJets_,applyCorrectionForJets_,applyIDForJets_)) -0.8;
   if( etaRange > 0 ) {
     return (multiplicityTrackJets()/etaRange);
   }
@@ -8396,7 +8396,7 @@ const float reco::SkimEvent::leadingGenJetPt(size_t index) const {
   std::vector<float> v_jets_pt ;
   // loop over particles in the event
   for (unsigned int iPart = 0 ; iPart < genJets_.size (); ++iPart) {
-    if ( abs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
+    if ( fabs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
     v_jets_pt.push_back ( genJets_[iPart]->pt());
   }
   if (v_jets_pt.size () > 0) {
@@ -8416,7 +8416,7 @@ const float reco::SkimEvent::leadingGenJetPhi(size_t index) const {
   float phi=-9999.9;
   // loop over particles in the event
   for (unsigned int iPart = 0 ; iPart < genJets_.size (); ++iPart) {
-    if ( abs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
+    if ( fabs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
     if((genJets_[iPart]->pt())!=pt_ofIndex) continue;
     phi = genJets_[iPart]->phi() ;
     break;
@@ -8432,7 +8432,7 @@ const float reco::SkimEvent::leadingGenJetEta(size_t index) const {
   // loop over particles in the event
   
   for (unsigned int iPart = 0 ; iPart < genJets_.size (); ++iPart) {
-    if ( abs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
+    if ( fabs(genJets_[iPart]->eta()) > maxEtaForJets_) continue ;
     if((genJets_[iPart]->pt())!=pt_ofIndex) continue;
     eta = genJets_[iPart]->eta() ;
     break;

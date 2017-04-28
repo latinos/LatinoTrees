@@ -387,7 +387,7 @@ else :
 
 
 # Default parameters for jets
-process.skimEventProducer.maxEtaForJets = cms.double(4.7)
+process.skimEventProducer.maxEtaForJets = cms.double(5.191)
 process.skimEventProducer.minPtForJets = cms.double(0)
 process.skimEventProducer.applyCorrectionForJets = cms.bool(True)
 process.skimEventProducer.applyIDForJets = cms.int32(int(globalVariables.jetId_WP))
