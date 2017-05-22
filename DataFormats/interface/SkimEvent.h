@@ -632,10 +632,21 @@ namespace reco {
     const float leadingTauPhi(size_t a) const;
 
     const float leadingTauVLooseIsoMvaNew(size_t a) const;
+    const float leadingTauLooseIsoMvaNew(size_t a) const;
+    const float leadingTauMediumIsoMvaNew(size_t a) const;
+    const float leadingTauTightIsoMvaNew(size_t a) const;
+    const float leadingTauVTightIsoMvaNew(size_t a) const;
+
     const float leadingTauVLooseIsoMvaOld(size_t a) const;
+    const float leadingTauLooseIsoMvaOld(size_t a) const;
+    const float leadingTauMediumIsoMvaOld(size_t a) const;
+    const float leadingTauTightIsoMvaOld(size_t a) const;
+    const float leadingTauVTightIsoMvaOld(size_t a) const;
+
     const float leadingTauLooseIsoDbeta (size_t a) const;
-    
-    
+    const float leadingTauMediumIsoDbeta (size_t a) const;
+    const float leadingTauTightIsoDbeta (size_t a) const;   
+
     
     const int numberOfbQuarks() const;
     const int numberOftQuarks() const;

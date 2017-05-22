@@ -632,9 +632,25 @@ def addTau(process,pt):
           pt.variables.std_vector_tau_eta = cms.string("leadingTauEta")
           pt.variables.std_vector_tau_phi = cms.string("leadingTauPhi")
 
+          # MVA New Iso WP
           pt.variables.std_vector_tau_vlooseIso_mva_new = cms.string("leadingTauVLooseIsoMvaNew")
+          pt.variables.std_vector_tau_looseIso_mva_new = cms.string("leadingTauLooseIsoMvaNew")
+          pt.variables.std_vector_tau_mediumIso_mva_new = cms.string("leadingTauMediumIsoMvaNew")
+          pt.variables.std_vector_tau_tightIso_mva_new = cms.string("leadingTauTightIsoMvaNew")
+          pt.variables.std_vector_tau_vtightIso_mva_new = cms.string("leadingTauVTightIsoMvaNew")
+
+          # MVA Old Iso WP
           pt.variables.std_vector_tau_vlooseIso_mva_old = cms.string("leadingTauVLooseIsoMvaOld")
+          pt.variables.std_vector_tau_looseIso_mva_old = cms.string("leadingTauLooseIsoMvaOld")
+          pt.variables.std_vector_tau_mediumIso_mva_old = cms.string("leadingTauMediumIsoMvaOld")
+          pt.variables.std_vector_tau_tightIso_mva_old = cms.string("leadingTauTightIsoMvaOld")
+          pt.variables.std_vector_tau_vtightIso_mva_old = cms.string("leadingTauVTightIsoMvaOld")
+
+
+          # DBeta Iso WP
           pt.variables.std_vector_tau_looseIso_dbeta    = cms.string("leadingTauLooseIsoDbeta")
+          pt.variables.std_vector_tau_mediumIso_dbeta    = cms.string("leadingTauMediumIsoDbeta")
+          pt.variables.std_vector_tau_tightIso_dbeta    = cms.string("leadingTauTightIsoDbeta")
 
 
 def addFatJets(process,pt):

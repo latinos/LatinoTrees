@@ -2224,6 +2224,8 @@ const float reco::SkimEvent::leadingTauPhi(size_t index) const {
 }
 
 
+// MVA New Iso WP
+
 const float reco::SkimEvent::leadingTauVLooseIsoMvaNew(size_t index) const {
   
   size_t count = 0;
@@ -2233,6 +2235,45 @@ const float reco::SkimEvent::leadingTauVLooseIsoMvaNew(size_t index) const {
   return -9999.9;  
 }
 
+const float reco::SkimEvent::leadingTauLooseIsoMvaNew(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byLooseIsolationMVArun2v1DBnewDMwLT");
+  }
+  return -9999.9;  
+}
+
+
+const float reco::SkimEvent::leadingTauMediumIsoMvaNew(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byMediumIsolationMVArun2v1DBnewDMwLT");
+  }
+  return -9999.9;  
+}
+
+const float reco::SkimEvent::leadingTauTightIsoMvaNew(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byTightIsolationMVArun2v1DBnewDMwLT");
+  }
+  return -9999.9;  
+}
+
+const float reco::SkimEvent::leadingTauVTightIsoMvaNew(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byVTightIsolationMVArun2v1DBnewDMwLT");
+  }
+  return -9999.9;  
+}
+
+
+// MVA New Iso WP
 
 const float reco::SkimEvent::leadingTauVLooseIsoMvaOld(size_t index) const {
   
@@ -2243,12 +2284,68 @@ const float reco::SkimEvent::leadingTauVLooseIsoMvaOld(size_t index) const {
   return -9999.9;
 }
 
+const float reco::SkimEvent::leadingTauLooseIsoMvaOld(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byLooseIsolationMVArun2v1DBoldDMwLT");
+  }
+  return -9999.9;
+}
+
+const float reco::SkimEvent::leadingTauMediumIsoMvaOld(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byMediumIsolationMVArun2v1DBoldDMwLT");
+  }
+  return -9999.9;
+}
+
+const float reco::SkimEvent::leadingTauTightIsoMvaOld(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byTightIsolationMVArun2v1DBoldDMwLT");
+  }
+  return -9999.9;
+}
+
+const float reco::SkimEvent::leadingTauVTightIsoMvaOld(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byVTightIsolationMVArun2v1DBoldDMwLT");
+  }
+  return -9999.9;
+}
+
+
+// DBeta Iso WP
 
 const float reco::SkimEvent::leadingTauLooseIsoDbeta(size_t index) const {
   
   size_t count = 0;
   for(size_t i=0;i<taus_.size();++i) {
     if(++count > index) return taus_[i].tauID("byLooseCombinedIsolationDeltaBetaCorr3Hits");
+  }
+  return -9999.9; 
+}
+
+const float reco::SkimEvent::leadingTauMediumIsoDbeta(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byMediumCombinedIsolationDeltaBetaCorr3Hits");
+  }
+  return -9999.9; 
+}
+
+const float reco::SkimEvent::leadingTauTightIsoDbeta(size_t index) const {
+  
+  size_t count = 0;
+  for(size_t i=0;i<taus_.size();++i) {
+    if(++count > index) return taus_[i].tauID("byTightCombinedIsolationDeltaBetaCorr3Hits");
   }
   return -9999.9; 
 }
