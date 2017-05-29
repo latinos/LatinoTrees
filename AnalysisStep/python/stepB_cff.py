@@ -673,6 +673,15 @@ def addFatJets(process,pt):
             setattr(pt.variables, "std_vector_fatjet_tau3",          cms.string("leadingFatJetPrunedTau3(0,"+CJVmaxEta+",1,"+fatjetId_WP+"")),
             #setattr(pt.variables, "std_vector_fatjet_tau4",          cms.string("leadingFatJetPrunedTau4(0,"+CJVmaxEta+",1,"+fatjetId_WP+"")),
 
+            setattr(pt.variables, "std_vector_fatjet_puppi_pt",          cms.string("leadingFatJetPuppiPt(0,"+CJVmaxEta+",1,"+fatjetId_WP+"")),
+            setattr(pt.variables, "std_vector_fatjet_puppi_eta",         cms.string("leadingFatJetPuppiEta(0,"+CJVmaxEta+",1,"+fatjetId_WP+"")),
+            setattr(pt.variables, "std_vector_fatjet_puppi_phi",         cms.string("leadingFatJetPuppiPhi(0,"+CJVmaxEta+",1,"+fatjetId_WP+"")),
+            setattr(pt.variables, "std_vector_fatjet_puppi_mass",        cms.string("leadingFatJetPuppiMass(0,"+CJVmaxEta+",1,"+fatjetId_WP+"")),
+            setattr(pt.variables, "std_vector_fatjet_puppi_tau1",        cms.string("leadingFatJetPuppiTau1(0,"+CJVmaxEta+",1,"+fatjetId_WP+"")),
+            setattr(pt.variables, "std_vector_fatjet_puppi_tau2",        cms.string("leadingFatJetPuppiTau2(0,"+CJVmaxEta+",1,"+fatjetId_WP+"")),
+            setattr(pt.variables, "std_vector_fatjet_puppi_tau3",        cms.string("leadingFatJetPuppiTau3(0,"+CJVmaxEta+",1,"+fatjetId_WP+"")),
+
+
 
 def addQGJets(process,pt):
 

@@ -294,6 +294,15 @@ namespace reco {
     const float leadingFatJetPrunedTau3 (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
     const float leadingFatJetPrunedTau4 (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
     
+    const float leadingFatJetPuppiPt   (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+    const float leadingFatJetPuppiEta  (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+    const float leadingFatJetPuppiPhi  (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+    const float leadingFatJetPuppiMass (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+    const float leadingFatJetPuppiTau1 (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+    const float leadingFatJetPuppiTau2 (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+    const float leadingFatJetPuppiTau3 (float pt ,float eta,int applyCorrection, int applyID, size_t a) const;
+    
+    
     
     const float leadingJetPtd(size_t index, float minPt,float eta,int applyCorrection,int applyID) const ;
     const float leadingJetPtD(size_t index, float minPt,float eta,int applyCorrection,int applyID, int QualityCut) const ;

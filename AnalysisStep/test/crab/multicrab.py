@@ -10,7 +10,8 @@ pyCfgParams = ['outputFile=stepB.root',
                'doGen=True', 
                'doBTag=True',
                'runPUPPISequence=True',
-               'doPhotonID=True'
+               'doPhotonID=True',
+               'doFatJet=True'          
                ]
 
 config.section_('General')
