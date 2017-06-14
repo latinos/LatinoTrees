@@ -452,6 +452,17 @@ namespace reco {
     const float metPfType1UnclEnDn() const;
     
     const float metPfType1Phi() const;
+    const float metPfType1PhiJetEnUp() const;
+    const float metPfType1PhiJetEnDn() const;
+    const float metPfType1PhiJetResUp() const;
+    const float metPfType1PhiJetResDn() const;
+    const float metPfType1PhiMuonEnUp() const;
+    const float metPfType1PhiMuonEnDn() const;
+    const float metPfType1PhiElecEnUp() const;
+    const float metPfType1PhiElecEnDn() const;
+    const float metPfType1PhiUnclEnUp() const;
+    const float metPfType1PhiUnclEnDn() const;
+
     const float metPfType1SumEt() const;
     const float metPfNoHf() const;
     const float metPfUncorr() const;

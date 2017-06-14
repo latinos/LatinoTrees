@@ -3982,11 +3982,73 @@ const float reco::SkimEvent::metPfType1SumEt() const {
   if(pfMet_.isNonnull()) return pfMet_->sumEt();
   else return defaultvalues::defaultFloat;
 }
+
+// metPfType1Phi
 const float reco::SkimEvent::metPfType1Phi() const {
   
   if(pfMet_.isNonnull()) return pfMet_->phi();
   else return defaultvalues::defaultFloat;
 }
+
+const float reco::SkimEvent::metPfType1PhiJetEnUp() const {
+    if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::JetEnUp);
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfType1PhiJetEnDn() const {
+  
+  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::JetEnDown);
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfType1PhiJetResUp() const {
+  
+  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::JetResUp);
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfType1PhiJetResDn() const {
+  
+  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::JetResDown);
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfType1PhiMuonEnUp() const {
+  
+  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::MuonEnUp);
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfType1PhiMuonEnDn() const {
+  
+  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::MuonEnDown);
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfType1PhiElecEnUp() const {
+  
+  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::ElectronEnUp);
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfType1PhiElecEnDn() const {
+  
+  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::ElectronEnDown);
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfType1PhiUnclEnUp() const {
+  
+  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::UnclusteredEnUp);
+  else return defaultvalues::defaultFloat;
+}
+
+const float reco::SkimEvent::metPfType1PhiUnclEnDn() const {
+  
+  if(pfMet_.isNonnull()) return pfMet_->shiftedPhi(pat::MET::UnclusteredEnDown);
+  else return defaultvalues::defaultFloat;
+}
+
 // metPfType1
 const float reco::SkimEvent::metPfType1() const {
   

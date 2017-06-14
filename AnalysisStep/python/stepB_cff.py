@@ -187,6 +187,17 @@ stepBTree = cms.EDFilter("GenericTreeProducer",
         metPfType1UnclEnDn = cms.string("metPfType1UnclEnDn"),
 
         metPfType1Phi = cms.string("metPfType1Phi"),
+        metPfType1PhiJetEnUp = cms.string("metPfType1PhiJetEnUp"),
+        metPfType1PhiJetEnDn = cms.string("metPfType1PhiJetEnDn"),
+        metPfType1PhiJetResUp = cms.string("metPfType1PhiJetResUp"),
+        metPfType1PhiJetResDn = cms.string("metPfType1PhiJetResDn"),
+        metPfType1PhiMuonEnUp = cms.string("metPfType1PhiMuonEnUp"),
+        metPfType1PhiMuonEnDn = cms.string("metPfType1PhiMuonEnDn"),
+        metPfType1PhiElecEnUp = cms.string("metPfType1PhiElecEnUp"),
+        metPfType1PhiElecEnDn = cms.string("metPfType1PhiElecEnDn"),
+        metPfType1PhiUnclEnUp = cms.string("metPfType1PhiUnclEnUp"),
+        metPfType1PhiUnclEnDn = cms.string("metPfType1PhiUnclEnDn"),
+
         metPfType1SumEt = cms.string("metPfType1SumEt"),
 
         metPfNoHf = cms.string("metPfNoHf"),
