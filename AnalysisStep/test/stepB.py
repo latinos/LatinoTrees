@@ -1038,6 +1038,9 @@ if doHiggs == True :
     tree.variables.std_vector_HTXS_ptjet25GeV = cms.string("HTXS_ptjet25GeV")
     tree.variables.std_vector_HTXS_etajet25GeV = cms.string("HTXS_etajet25GeV")
     
+    tree.variables.HTXS_njets30 = cms.string("HTXS_njets30()")
+    
+    
     tree.variables.HTXS_ptHiggs = cms.string("HTXS_ptHiggs()")
     tree.variables.HTXS_etaHiggs = cms.string("HTXS_etaHiggs()")
     

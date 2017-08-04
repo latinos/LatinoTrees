@@ -9003,6 +9003,13 @@ const float reco::SkimEvent::HTXS_etajet25GeV(size_t i) const{
 }
 
 
+const float reco::SkimEvent::HTXS_njets30() const{
+  if (htxs_)
+    return 1. * (htxs_->jets30).size();
+  else
+    return defaultvalues::defaultFloat;
+}
+
 
 
 
