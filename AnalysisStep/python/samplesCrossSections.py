@@ -240,6 +240,8 @@ samples['GluGluHToTauTau_M120']		.extend( ['xsec=2.2676',     	'kfact=1.000',		'
 samples['GluGluHToTauTau_M125']		.extend( ['xsec=2.7757',     	'kfact=1.000',		'ref=CF'] ) # 43.92*0.0632
 samples['GluGluHToTauTau_M130']		.extend( ['xsec=1.5260',     	'kfact=1.000',		'ref=KF'] ) # 28.00*0.0545
 
+samples['GluGluHToWWTo2L2Nu_M125_minloHJ_NNLOPS']   .extend( ['xsec=0.9913',  'kfact=1.000',    'ref=CF'] ) # 43.92*0.215*0.108*0.108*9 Higgs LHC value
+
 
 ## W+H
 samples['HWplusJ_HToWW_M120']          	.extend( ['xsec=0.1350',	'kfact=1.000',	       	'ref=EF'] ) # 0.956*0.141
