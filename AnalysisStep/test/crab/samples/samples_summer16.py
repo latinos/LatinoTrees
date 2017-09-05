@@ -643,7 +643,7 @@ samples['WpWmJJ_EWK_noTop'] =             ['/WWJJToLNuLNu_EWK_noTop_13TeV-madgra
 samples['WpWmJJ_QCD_noTop'] =             ['/WWJJToLNuLNu_QCD_noTop_13TeV-madgraph-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',                    ['label=WpWmJJ_QCD_noTop', 'id=40007', 'doMCweights=True']]
 samples['WpWmJJ_EWK_QCD_noHiggs'] =       ['/WWJJToLNuLNu_EWK_QCD_noHiggs_13TeV-madgraph-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',              ['label=WpWmJJ_EWK_QCD_noHiggs', 'id=40008', 'doMCweights=True']]
 samples['WpWmJJ_EWK_QCD_noTop_noHiggs'] = ['/WWJJToLNuLNu_EWK_QCD_noTop-noHiggs_13TeV-madgraph-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',        ['label=WpWmJJ_EWK_QCD_noTop_noHiggs', 'id=40009', 'doMCweights=True']]
-samples['GluGluHToWWTo2L2Nu_M125_minloHJ_NNLOPS'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_minloHJ_NNLOPS_JHUGenV702_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M125_minloHJ_NNLOPS',       'id=0112511', 'doMCweights=True', 'doHiggs=True']]
+samples['GluGluHToWWTo2L2Nu_M125_minloHJ_NNLOPS'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_minloHJ_NNLOPS_JHUGenV702_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_M125_minloHJ_NNLOPS',       'id=0112511', 'doMCweights=True', 'doHiggs=True', 'LHEweightSource=source', 'LHERunInfo=source', 'HiggsProdMode=GGF']]
 
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
