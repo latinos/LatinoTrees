@@ -247,6 +247,12 @@ options.register ('doCorrectMet',
                   opts.VarParsing.varType.string,
                   'Turn on MET Type-1 correction')
 
+options.register ('HiggsProdMode',
+                  'AUTO', # default value
+                  opts.VarParsing.multiplicity.singleton, # singleton or list
+                  opts.VarParsing.varType.string, # string, int, or float
+                  'Higgs production mode for template xsection classification. default is AUTO. GGF=1, VBF=2, WH=3, QQ2ZH=4, GG2ZH=5, TTH=6, BBH=7, TH=8')
+
 options.register ('debug',
                   0, # default value
                   opts.VarParsing.multiplicity.singleton, # singleton or list
@@ -752,7 +758,7 @@ if isMC and doHiggs:
   process.rivetProducerHTXS = cms.EDProducer('HTXSRivetProducer',
     HepMCCollection = cms.InputTag('myGenerator','unsmeared'),
     LHERunInfo = cms.InputTag("externalLHEProducer"),
-    ProductionMode = cms.string('AUTO'),
+    ProductionMode = cms.string(options.HiggsProdMode),
   )
 
   process.HTXSsequence = cms.Sequence(process.mergedGenParticles*process.myGenerator*process.rivetProducerHTXS)
