@@ -418,7 +418,7 @@ if '2015' in label: label = label[:label.find('2015')]
 
 
 # data
-if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG', 'MET', 'SinglePhoton' ]:
+if label in [ 'SingleElectron', 'DoubleEG', 'SingleMuon', 'DoubleMuon', 'MuEG', 'MET', 'SinglePhoton']:
     print " >> DATA:: ", label
     dataset = [label]
     id = options.id
@@ -442,6 +442,9 @@ elif doTauEmbed == True:
     doPDFvar = False
     doGen = False
     doLHE = False
+    isMC = False
+    doMCweights = False
+    process.skimEventProducer.isMC = cms.untracked.int32(0)
 
 # mc
 else:
@@ -463,7 +466,8 @@ stepBTree.variables.dataset = str(idn)
 # https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2015#ETmiss_filters
 if isMC :
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","PAT")
-  #process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
+elif options.doTauEmbed :
+  process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","HLT")
 elif options.isPromptRecoData :
   process.skimEventProducer.triggerSpecialTag = cms.InputTag("TriggerResults","","RECO")
 else :
@@ -856,9 +860,9 @@ from LatinoTrees.AnalysisStep.skimEventProducer_cfi import addEventHypothesis
 process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","HLT")
 #process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","PAT")
 
-if doTauEmbed == True:
-  process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","EmbeddedRECO")
-  process.skimEventProducer.mcGenWeightTag = cms.InputTag("generator:minVisPtFilter")
+# if doTauEmbed == True:
+#   process.skimEventProducer.triggerTag = cms.InputTag("TriggerResults","","EmbeddedRECO")
+#   process.skimEventProducer.mcGenWeightTag = cms.InputTag("generator:minVisPtFilter")
 
 # this is where the "event" is built
 #                                                                sequence and no path

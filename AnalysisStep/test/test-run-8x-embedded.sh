@@ -1,3 +1,5 @@
+# voms-proxy-init -voms cms
+
 if [ $# -lt 1 ]; then
     echo "  "
     echo "  ./test-run-8x-embedded.sh EVENTS"
@@ -14,11 +16,11 @@ MYFILE='root://cms-xrd-global.cern.ch//store/user/jbechtel/gc_storage/ElMu_data_
 rm -rf latino_stepB_embedded_numEvent${EVENTS}.root
 
 cmsRun stepB.py print                       \
-    doLHE=False                             \
     reportEvery=10                          \
-    summary=false                           \
+    summary=False                           \
     is50ns=False                            \
-    isPromptRecoData=True                   \
+    doTauEmbed=True                         \
+    isPromptRecoData=False                  \
     globalTag=80X_dataRun2_2016SeptRepro_v7 \
     label=DYtautau_embedded                 \
     outputFile=stepB_embedded.root          \
