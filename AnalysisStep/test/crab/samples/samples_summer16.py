@@ -377,6 +377,9 @@ samples['GluGluHToWWTo2L2Nu_M125_herwigpp'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_p
 samples['GluGluHToWWTo2L2Nu_M125_CUETDown'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8-CUETP8M1Down/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',          ['label=GluGluHToWWTo2L2Nu_M125_CUETDown', 'id=07125', 'doMCweights=True', 'doHiggs=True']]
 samples['GluGluHToWWTo2L2Nu_M125_CUETUp']   = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8-CUETP8M1Up/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',          ['label=GluGluHToWWTo2L2Nu_M125_CUETUp', 'id=07125', 'doMCweights=True', 'doHiggs=True']]
 
+samples['GluGluHToWWTo2L2Nu_minloHJJ_M125'] = ['/GluGluHToWWTo2L2Nu_M125_13TeV_powheg2_minloHJJ_JHUGenV702_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v5/MINIAODSIM',  ['label=GluGluHToWWTo2L2Nu_minloHJJ_M125', 'id=011252', 'doMCweights=True', 'doHiggs=True']]
+
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Po-Hsun
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
