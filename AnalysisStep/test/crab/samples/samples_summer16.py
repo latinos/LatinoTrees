@@ -606,6 +606,16 @@ samples['DYJetsToLL_Pt-650ToInf_ext1'] = ['/DYJetsToLL_Pt-650ToInf_TuneCUETP8M1_
 samples['DYJetsToLL_Pt-650ToInf_ext2'] = ['/DYJetsToLL_Pt-650ToInf_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/MINIAODSIM', ['label=DYJetsToLL_Pt-650ToInf_ext2', 'id=80516', 'doMCweights=True']]
 
 
+# DY -> tau tau -> e mu embedded samples
+
+samples['DY_EmbeddingRun2016B_emu'] = ['/EmbeddingRun2016B/ElMuFinalState-imputSep16DoubleMu_mirror_miniAOD-v2/USER', ['label=DY_EmbeddingRun2016B_emu', 'id=80600', 'doTauEmbed=True']]
+samples['DY_EmbeddingRun2016C_emu'] = ['/EmbeddingRun2016C/ElMuFinalState-imputSep16DoubleMu_mirror_miniAOD-v2/USER', ['label=DY_EmbeddingRun2016C_emu', 'id=80601', 'doTauEmbed=True']]
+samples['DY_EmbeddingRun2016D_emu'] = ['/EmbeddingRun2016D/ElMuFinalState-imputSep16DoubleMu_mirror_miniAOD-v2/USER', ['label=DY_EmbeddingRun2016D_emu', 'id=80602', 'doTauEmbed=True']]
+samples['DY_EmbeddingRun2016E_emu'] = ['/EmbeddingRun2016E/ElMuFinalState-imputSep16DoubleMu_mirror_miniAOD-v2/USER', ['label=DY_EmbeddingRun2016E_emu', 'id=80603', 'doTauEmbed=True']]
+samples['DY_EmbeddingRun2016F_emu'] = ['/EmbeddingRun2016F/ElMuFinalState-imputSep16DoubleMu_mirror_miniAOD-v2/USER', ['label=DY_EmbeddingRun2016F_emu', 'id=80604', 'doTauEmbed=True']]
+samples['DY_EmbeddingRun2016G_emu'] = ['/EmbeddingRun2016G/ElMuFinalState-imputSep16DoubleMu_mirror_miniAOD-v2/USER', ['label=DY_EmbeddingRun2016G_emu', 'id=80605', 'doTauEmbed=True']]
+samples['DY_EmbeddingRun2016H_emu'] = ['/EmbeddingRun2016H/ElMuFinalState-imputSep16DoubleMu_mirror_miniAOD-v2/USER', ['label=DY_EmbeddingRun2016H_emu', 'id=80606', 'doTauEmbed=True']]
+
 
 ### ZH -> vv/ll WW -> vv lv lv 
 ### >>> Adrian 
