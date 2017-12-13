@@ -620,6 +620,14 @@ samples['DY_EmbeddingRun2016G_emu'] = ['/EmbeddingRun2016G/ElMuFinalState-imputS
 samples['DY_EmbeddingRun2016H_emu'] = ['/EmbeddingRun2016H/ElMuFinalState-imputSep16DoubleMu_mirror_miniAOD-v2/USER', ['label=DY_EmbeddingRun2016H_emu', 'id=80606', 'doTauEmbed=True']]
 
 
+# WW aTGC
+
+samples['WWTo2L2Nu_aTGC_0-400'] = ['/WWTo2L2Nu_MWW-0To400_aTGC_13TeV-amcatnloFXFX-madspin-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=WWTo2L2Nu_aTGC_0-400', 'id=80700', 'doMCweights=True', 'doLHE=False']]
+samples['WWTo2L2Nu_aTGC_400-600'] = ['/WWTo2L2Nu_MWW-400To600_aTGC_13TeV-amcatnloFXFX-madspin-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=WWTo2L2Nu_aTGC_400-600', 'id=80701', 'doMCweights=True', 'doLHE=False']]
+samples['WWTo2L2Nu_aTGC_600-800'] = ['/WWTo2L2Nu_MWW-600To800_aTGC_13TeV-amcatnloFXFX-madspin-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=WWTo2L2Nu_aTGC_600-800', 'id=80702', 'doMCweights=True', 'doLHE=False']]
+samples['WWTo2L2Nu_aTGC_800-Inf'] = ['/WWTo2L2Nu_MWW-800ToInf_aTGC_13TeV-amcatnloFXFX-madspin-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=WWTo2L2Nu_aTGC_800-Inf', 'id=80703', 'doMCweights=True', 'doLHE=False']]
+
+
 ### ZH -> vv/ll WW -> vv lv lv 
 ### >>> Adrian 
 samples['GluGluZH_HToWWTo2L2Nu_M125'] = ['/GluGluZH_HToWWTo2L2Nu_M125_13TeV_powheg_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=GluGluZH_HToWWTo2L2Nu_M125', 'id=80113', 'doLHE=False', 'doMCweights=True', 'doHiggs=True']]
