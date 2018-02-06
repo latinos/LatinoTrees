@@ -110,7 +110,7 @@ void JetUncorrector::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) 
  
  edm::Handle<JetCollection> jets;                         //Define Inputs
  iEvent.getByToken (mInput, jets);                        //Get Inputs
- std::auto_ptr<JetCollection> result (new JetCollection); //Corrected jets --> actually the "uncorrected" ones
+ std::unique_ptr<JetCollection> result (new JetCollection); //Corrected jets --> actually the "uncorrected" ones
  typename JetCollection::const_iterator jet;
  for (jet = jets->begin(); jet != jets->end(); jet++) {
   if (mVerbose) std::cout<<"JetCorrectionProducer::produce-> original jet: "<<jet->print()<<std::endl;
@@ -126,7 +126,7 @@ void JetUncorrector::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) 
  // reorder corrected jets
  std::sort (result->begin (), result->end (), compJets);
  // put corrected jet collection into event
- iEvent.put(result);
+ iEvent.put(std::move(result));
  
 }
 

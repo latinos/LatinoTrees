@@ -78,16 +78,16 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
   if( puInfoH->at(i).getBunchCrossing()==-5) *m5 = puInfoH->at(i).getPU_NumInteractions();
  }
 
- std::auto_ptr<edm::ValueMap<float> > trMap(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > itMap(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > m1Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > p1Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > m2Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > p2Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > m3Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > p3Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > m4Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > m5Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > trMap(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > itMap(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > m1Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > p1Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > m2Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > p2Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > m3Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > p3Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > m4Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > m5Map(new edm::ValueMap<float>);
  
  edm::ValueMap<float>::Filler trFill(*trMap);
  edm::ValueMap<float>::Filler itFill(*itMap);
@@ -133,16 +133,16 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  m4Fill.fill();
  m5Fill.fill();
  
- iEvent.put(trMap,"tr");
- iEvent.put(itMap,"it");
- iEvent.put(p1Map,"p1");
- iEvent.put(m1Map,"m1");
- iEvent.put(p2Map,"p2");
- iEvent.put(m2Map,"m2");
- iEvent.put(p3Map,"p3");
- iEvent.put(m3Map,"m3");
- iEvent.put(m4Map,"m4");
- iEvent.put(m5Map,"m5");
+ iEvent.put(std::move(trMap),"tr");
+ iEvent.put(std::move(itMap),"it");
+ iEvent.put(std::move(p1Map),"p1");
+ iEvent.put(std::move(m1Map),"m1");
+ iEvent.put(std::move(p2Map),"p2");
+ iEvent.put(std::move(m2Map),"m2");
+ iEvent.put(std::move(p3Map),"p3");
+ iEvent.put(std::move(m3Map),"m3");
+ iEvent.put(std::move(m4Map),"m4");
+ iEvent.put(std::move(m5Map),"m5");
  
 }
 
