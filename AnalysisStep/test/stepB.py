@@ -320,7 +320,7 @@ globalTag = options.globalTag
 #process.load("Geometry.TrackerGeometryBuilder.trackerGeometryDB_cfi")
 
 #process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff')
-process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
+process.load('Configuration.StandardSequences.MagneticField_cff')
 
 #process.load('Configuration.StandardSequences.MagneticField_38T_cff')
 #process.load('Configuration.StandardSequences.MagneticField_38T_PostLS1_cff')
@@ -537,10 +537,11 @@ else:
 # Run EGMRegression ##
 #    https://twiki.cern.ch/twiki/bin/view/CMS/EGMRegression
 
-from EgammaAnalysis.ElectronTools.regressionWeights_cfi import regressionWeights
-process = regressionWeights(process)
-process.load('EgammaAnalysis.ElectronTools.regressionApplication_cff')
-process.EGMenergyCorrection = cms.Path(process.regressionApplication)
+#TODO: There is currently no implementation for CMSSW9
+#from EgammaAnalysis.ElectronTools.regressionWeights_cfi import regressionWeights
+#process = regressionWeights(process)
+#process.load('EgammaAnalysis.ElectronTools.regressionApplication_cff')
+#process.EGMenergyCorrection = cms.Path(process.regressionApplication)
 
 # run electron id ##
 # see twiki:
@@ -556,21 +557,28 @@ switchOnVIDElectronIdProducer(process, dataFormat)
 
 # define which IDs we want to produce
 
-my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff',
-                 'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Summer16_80X_V1_cff',
-                 'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring16_GeneralPurpose_V1_cff']
+# Using these IDs currently requires an additional installation:
+# https://twiki.cern.ch/twiki/bin/viewauth/CMS/CutBasedElectronIdentificationRun2#Recipe_for_regular_users_for_92X
+# https://twiki.cern.ch/twiki/bin/viewauth/CMS/MultivariateElectronIdentificationRun2#Recipes_for_regular_users
+my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff', 
+                 'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_noIso_V1_cff', 
+                 'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_iso_V1_cff' ]
 
 process.skimEventProducer.electronIds = cms.vstring(
-    "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto",
-    "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose",
-    "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium",
-    "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight",
-    "egmGsfElectronIDs:cutBasedElectronHLTPreselection-Summer16-V1",
-    "egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp90",
-    "egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp80",
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto",
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose",
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-medium",
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-tight",
+    "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp90",
+    "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp80",
+    "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wpLoose",
+    "egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp90",
+    "egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp80",
+    "egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wpLoose",
     )
 process.skimEventProducer.electronMvaIds = cms.vstring(
-    "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values",
+    "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values",
+    "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values",
     )
 
 # add them to the VID producer
@@ -616,6 +624,7 @@ JEC = ['L1FastJet','L2Relative','L3Absolute']
 if not isMC:
     JEC += ['L2L3Residual']
 
+# There is no 'deepFlavourJetTags:probb' or 'deepFlavourJetTags:probbb' in CMSSW9
 jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              JETCorrPayload='AK4PFchs', JETCorrLevels = JEC,
              miniAOD=True,
@@ -625,7 +634,8 @@ jetToolbox( process, 'ak4', 'myJetSequence', 'outTemp',
              #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','pfCombinedMVAV2BJetTags'],
              #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'],
              #bTagDiscriminators = ['pfTrackCountingHighEffBJetTags','pfTrackCountingHighPurBJetTags','pfJetProbabilityBJetTags','pfJetBProbabilityBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags'],
-             bTagDiscriminators = ['pfJetBProbabilityBJetTags','pfJetProbabilityBJetTags','pfTrackCountingHighPurBJetTags','pfTrackCountingHighEffBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','softPFMuonBJetTags','softPFElectronBJetTags','pfCombinedMVAV2BJetTags','pfCombinedCvsBJetTags','pfCombinedCvsLJetTags','deepFlavourJetTags:probb','deepFlavourJetTags:probbb'],
+             #bTagDiscriminators = ['pfJetBProbabilityBJetTags','pfJetProbabilityBJetTags','pfTrackCountingHighPurBJetTags','pfTrackCountingHighEffBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','softPFMuonBJetTags','softPFElectronBJetTags','pfCombinedMVAV2BJetTags','pfCombinedCvsBJetTags','pfCombinedCvsLJetTags','deepFlavourJetTags:probb','deepFlavourJetTags:probbb'],
+             bTagDiscriminators = ['pfJetBProbabilityBJetTags','pfJetProbabilityBJetTags','pfTrackCountingHighPurBJetTags','pfTrackCountingHighEffBJetTags','pfSimpleSecondaryVertexHighEffBJetTags','pfSimpleSecondaryVertexHighPurBJetTags','pfCombinedSecondaryVertexV2BJetTags','pfCombinedInclusiveSecondaryVertexV2BJetTags','softPFMuonBJetTags','softPFElectronBJetTags','pfCombinedMVAV2BJetTags','pfCombinedCvsBJetTags','pfCombinedCvsLJetTags'],
              addPUJetID=True,
              addPruning=False,
              addTrimming=False,
@@ -644,13 +654,15 @@ getattr( process, 'patJetsAK4PFCHS').userData.userFloats.src += ['QGTagger'+'AK4
 #getattr( proc, 'patJets'+jetALGO+'PF'+PUMethod).userData.userFloats.src += ['QGTagger'+jetALGO+'PF'+PUMethod+':ptD']               
 #
 
-process.jetTracksAssociatorAtVertexAK4PFCHS.tracks = cms.InputTag("unpackedTracksAndVertices")
+#TODO: This causes an error on CMSSW9
+#process.jetTracksAssociatorAtVertexAK4PFCHS.tracks = cms.InputTag("unpackedTracksAndVertices")
 
 if options.isFastSim:
-    from CondCore.DBCommon.CondDBSetup_cfi import *
+    from CondCore.CondDB.CondDB_cfi import *
+    CondDB.__delattr__('connect')
     dbfile=options.jecDBFileFastSim
     print "\nUsing private SQLite file", dbfile, "\n"
-    process.jec = cms.ESSource("PoolDBESSource",CondDBSetup,
+    process.jec = cms.ESSource("PoolDBESSource",CondDB,
                     timetype = cms.string('runnumber'),
                     connect = cms.string( "sqlite_fip:LatinoTrees/AnalysisStep/data/"+dbfile+'.db'),
                     toGet =  cms.VPSet(
@@ -705,9 +717,10 @@ if options.doFatJet :
 # QG tagger
 qgDatabaseVersion = 'cmssw8020_v2' # from reading sqlite file
 
-from CondCore.DBCommon.CondDBSetup_cfi import *
+from CondCore.CondDB.CondDB_cfi import *
+CondDB.__delattr__('connect')
 QGPoolDBESSource = cms.ESSource("PoolDBESSource",
-      CondDBSetup,
+      CondDB,
       toGet = cms.VPSet(),
       connect = cms.string('sqlite_fip:LatinoTrees/AnalysisStep/data/QGL_cmssw8020_v2.db'),
 )

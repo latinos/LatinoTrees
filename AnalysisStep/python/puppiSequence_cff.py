@@ -36,7 +36,8 @@
 
 import FWCore.ParameterSet.Config as cms
 
-from RecoJets.JetProducers.ak5PFJets_cfi  import ak5PFJets
+#TODO: This causes an error on CMSSW9
+#from RecoJets.JetProducers.ak5PFJets_cfi  import ak5PFJets
 
 
 
