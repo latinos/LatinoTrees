@@ -277,7 +277,7 @@ samples['DYJetsToTT_MuEle_M-50']            = ['/DYJetsToTauTau_ForcedMuEleDecay
 samples['DYJetsToTT_MuEle_M-50_ext1']       = ['/DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM', ['label=DYJetsToTT_MuEle_M-50_ext1',           'id=30006',     'doMCweights=True']]
 
 
-samples['WW-LO']        = ['/WW_TuneCUETP8M1_13TeV-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM', ['label=WW-LO',        'id=00004', 'doMCweights=True']]
+samples['WW-LO']        = ['/WW_TuneCUETP8M1_13TeV-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM', ['label=WW-LO',        'id=00004', 'doMCweights=True']]
 samples['WWToLNuQQ']    = ['/WWToLNuQQ_13TeV-powheg/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',        ['label=WWToLNuQQ',    'id=00031', 'doMCweights=True']]
 samples['WWToLNuQQext'] = ['/WWToLNuQQ_13TeV-powheg/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM',   ['label=WWToLNuQQext', 'id=00033', 'doMCweights=True']]
 samples['WWTo4Q']       = ['/WWTo4Q_13TeV-powheg/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',           ['label=WWTo4Q',       'id=00034', 'doMCweights=True']]
@@ -424,9 +424,6 @@ samples['ggZZ2e2t']   = ['/GluGluToContinToZZTo2e2tau_13TeV_MCFM701_pythia8/RunI
 samples['ggZZ2m2t']   = ['/GluGluToContinToZZTo2mu2tau_13TeV_MCFM701_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',  ['label=ggZZ2m2t',  'id=00045','doMCweights=True', 'LHEweightSource=source', 'LHERunInfo=source']]
 
 samples['GluGluHToZZTo4L_M125']          = ['/GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',     ['label=GluGluHToZZTo4L_M125',          'id=11125', 'doMCweights=True']]
-
-#### WW-LO ===============
-samples['WW-LO']        = ['/WW_TuneCUETP8M1_13TeV-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM', ['label=WW-LO', 'id=00004', 'doMCweights=True']]
 
 ########################
 ###  Not Submitted:  ###
