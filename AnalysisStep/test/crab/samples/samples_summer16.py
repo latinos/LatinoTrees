@@ -425,6 +425,9 @@ samples['ggZZ2m2t']   = ['/GluGluToContinToZZTo2mu2tau_13TeV_MCFM701_pythia8/Run
 
 samples['GluGluHToZZTo4L_M125']          = ['/GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM',     ['label=GluGluHToZZTo4L_M125',          'id=11125', 'doMCweights=True']]
 
+#### WW-LO ===============
+samples['WW-LO']        = ['/WW_TuneCUETP8M1_13TeV-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM', ['label=WW-LO', 'id=00004', 'doMCweights=True']]
+
 ########################
 ###  Not Submitted:  ###
 ########################
