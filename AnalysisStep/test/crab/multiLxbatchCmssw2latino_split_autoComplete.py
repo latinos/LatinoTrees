@@ -3,6 +3,7 @@ import sys
 import subprocess
 
 from LatinoAnalysis.Tools.batchTools import *
+from LatinoAnalysis.Tools.commonTools import *
 
 def findFiles( inputDir, target ):
     "Returns a list of subdirectories that contain the target files"
