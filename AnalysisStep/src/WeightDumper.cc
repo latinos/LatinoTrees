@@ -26,6 +26,7 @@
 #include "FWCore/Framework/interface/EDAnalyzer.h"
 
 #include "FWCore/Framework/interface/Event.h"
+#include "FWCore/Framework/interface/Run.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
@@ -194,7 +195,8 @@ void WeightDumper::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
  iEvent.getByToken( GenInfoT_, genEvtInfo );
  
  edm::Handle<LHEEventProduct> productLHEHandle;
- iEvent.getByLabel(mcLHEEventInfoTag_, productLHEHandle);
+//  iEvent.getByLabel(mcLHEEventInfoTag_, productLHEHandle);
+ iEvent.getByToken(productLHET_, productLHEHandle);
  
  //---- See https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideDataFormatGeneratorInterface
  //---- weights: from EventInfo and from LHE
@@ -282,9 +284,9 @@ WeightDumper::endJob()
 }
 
 // ------------ method called when starting to processes a run  ------------
-void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
+void WeightDumper::beginRun(const edm::Run &iRun, edm::EventSetup const&) {
  
- edm::Handle<LHERunInfoProduct> run;
+ edm::Handle<LHERunInfoProduct> product;
  
  typedef std::vector<LHERunInfoProduct::Header>::const_iterator headers_const_iterator;
  
@@ -292,10 +294,10 @@ void WeightDumper::beginRun(edm::Run const& iRun, edm::EventSetup const&) {
  
  if (!(mcLHERunInfoTag_ == edm::InputTag(""))) {
   
-  iRun.getByLabel( mcLHERunInfoTag_, run );
-  //     iRun.getByToken( mcLHERunInfoT_, run );
+//   iRun.getByLabel( mcLHERunInfoTag_, run );
+  iRun.getByToken( mcLHERunInfoT_, product );
   
-  LHERunInfoProduct myLHERunInfoProduct = *(run.product()); 
+  LHERunInfoProduct myLHERunInfoProduct = *(product.product()); 
   
 //   std::cout << " >>> WeightDumper::beginRun after mcLHERunInfoTag check " << std::endl;
   

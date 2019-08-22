@@ -130,7 +130,7 @@ DressedLeptons::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
   
  
 
-  std::auto_ptr< std::vector<CompositeCandidate> > vec_cc_Out(new std::vector<CompositeCandidate>);
+  std::unique_ptr< std::vector<CompositeCandidate> > vec_cc_Out(new std::vector<CompositeCandidate>);
  
   //logic is:
   //1) loop over leptons
@@ -169,7 +169,7 @@ DressedLeptons::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
   }//for leptons
   
   
-  iEvent.put(vec_cc_Out);
+  iEvent.put(std::move(vec_cc_Out));
   
     
 }

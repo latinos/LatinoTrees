@@ -198,7 +198,7 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
      std::cout << " SkimEventProducer::produce " << std::endl;
     }
     
-    std::auto_ptr<std::vector<reco::SkimEvent> > skimEvent(new std::vector<reco::SkimEvent> );
+    std::unique_ptr<std::vector<reco::SkimEvent> > skimEvent(new std::vector<reco::SkimEvent> );
 
     edm::Handle<reco::GenParticleCollection> genParticles;
     if(!(genParticlesTag_ == edm::InputTag(""))) {
@@ -645,7 +645,9 @@ void SkimEventProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
         skimEvent->back().setHTXS(htxs);
     }
     
-    iEvent.put(skimEvent);
+//     iEvent.put(skimEvent);
+    iEvent.put(std::move(skimEvent));
+    
 }
 
 

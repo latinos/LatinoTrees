@@ -54,16 +54,16 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  edm::Handle<edm::View<reco::Candidate> > srcH;
  iEvent.getByToken(recoCandidateT_,srcH);
 
- std::auto_ptr<float> tr(new float(0));
- std::auto_ptr<float> it(new float(0));
- std::auto_ptr<float> m1(new float(0));
- std::auto_ptr<float> p1(new float(0));
- std::auto_ptr<float> m2(new float(0));
- std::auto_ptr<float> p2(new float(0));
- std::auto_ptr<float> m3(new float(0));
- std::auto_ptr<float> p3(new float(0));
- std::auto_ptr<float> m4(new float(0));
- std::auto_ptr<float> m5(new float(0));
+ std::unique_ptr<float> tr(new float(0));
+ std::unique_ptr<float> it(new float(0));
+ std::unique_ptr<float> m1(new float(0));
+ std::unique_ptr<float> p1(new float(0));
+ std::unique_ptr<float> m2(new float(0));
+ std::unique_ptr<float> p2(new float(0));
+ std::unique_ptr<float> m3(new float(0));
+ std::unique_ptr<float> p3(new float(0));
+ std::unique_ptr<float> m4(new float(0));
+ std::unique_ptr<float> m5(new float(0));
  
  for(size_t i=0;i<puInfoH->size();++i) {
   if( puInfoH->at(i).getBunchCrossing()==0 ) *tr = puInfoH->at(i).getTrueNumInteractions();
@@ -78,16 +78,16 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
   if( puInfoH->at(i).getBunchCrossing()==-5) *m5 = puInfoH->at(i).getPU_NumInteractions();
  }
 
- std::auto_ptr<edm::ValueMap<float> > trMap(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > itMap(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > m1Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > p1Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > m2Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > p2Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > m3Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > p3Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > m4Map(new edm::ValueMap<float>);
- std::auto_ptr<edm::ValueMap<float> > m5Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > trMap(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > itMap(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > m1Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > p1Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > m2Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > p2Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > m3Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > p3Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > m4Map(new edm::ValueMap<float>);
+ std::unique_ptr<edm::ValueMap<float> > m5Map(new edm::ValueMap<float>);
  
  edm::ValueMap<float>::Filler trFill(*trMap);
  edm::ValueMap<float>::Filler itFill(*itMap);
@@ -133,16 +133,16 @@ void PileUpMultiplicityCounter::produce(edm::Event& iEvent, const edm::EventSetu
  m4Fill.fill();
  m5Fill.fill();
  
- iEvent.put(trMap,"tr");
- iEvent.put(itMap,"it");
- iEvent.put(p1Map,"p1");
- iEvent.put(m1Map,"m1");
- iEvent.put(p2Map,"p2");
- iEvent.put(m2Map,"m2");
- iEvent.put(p3Map,"p3");
- iEvent.put(m3Map,"m3");
- iEvent.put(m4Map,"m4");
- iEvent.put(m5Map,"m5");
+ iEvent.put(std::move(trMap),"tr");
+ iEvent.put(std::move(itMap),"it");
+ iEvent.put(std::move(p1Map),"p1");
+ iEvent.put(std::move(m1Map),"m1");
+ iEvent.put(std::move(p2Map),"p2");
+ iEvent.put(std::move(m2Map),"m2");
+ iEvent.put(std::move(p3Map),"p3");
+ iEvent.put(std::move(m3Map),"m3");
+ iEvent.put(std::move(m4Map),"m4");
+ iEvent.put(std::move(m5Map),"m5");
  
 }
 

@@ -5800,7 +5800,7 @@ const float reco::SkimEvent::hcalOverEcal(size_t i) const {
 
 const float reco::SkimEvent::numberOfHits(size_t i) const {
   if (i >= leps_.size())  return defaultvalues::defaultFloat;
-  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfTrackerHits(reco::HitPattern::TRACK_HITS);
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfAllTrackerHits(reco::HitPattern::TRACK_HITS);
   else return -999.0;
 }
 
@@ -5828,19 +5828,19 @@ const float reco::SkimEvent::dz(size_t i) const {
 
 const float reco::SkimEvent::expectedMissingInnerHits(size_t i) const {
   if (i >= leps_.size())  return defaultvalues::defaultFloat;
-  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfHits(reco::HitPattern::MISSING_INNER_HITS);
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfAllHits(reco::HitPattern::MISSING_INNER_HITS);
   else return -999.9;
 }
 
 const float reco::SkimEvent::expectedMissingOuterHits(size_t i) const {
   if (i >= leps_.size())  return defaultvalues::defaultFloat;
-  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfHits(reco::HitPattern::MISSING_OUTER_HITS);
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfAllHits(reco::HitPattern::MISSING_OUTER_HITS);
   else return -999.9;
 }
 
 const float reco::SkimEvent::expectedMissingTrackHits(size_t i) const {
   if (i >= leps_.size())  return defaultvalues::defaultFloat;
-  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfHits(reco::HitPattern::TRACK_HITS);
+  else if (isElectron(i)) return getElectron(i)->gsfTrack()->hitPattern().numberOfAllHits(reco::HitPattern::TRACK_HITS);
   else return -999.9;
 }
 
