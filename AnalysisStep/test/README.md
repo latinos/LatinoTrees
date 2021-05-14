@@ -119,7 +119,7 @@ The script *translate_samples_config.py* can be used on any AnalysisStep/test/cr
 
 The next step submits jobs for producing the latino trees with a maximum size of 1GB. In order to work on different T2s it makes use of *batchTools.py*, which is also used in the post-processing. The first time you will have to copy *userConfig.py* from the provided template, and edit 'baseDir' to indicate a location with some reasonable space for job log files. 
 
-    cd LatinosAnalysis/Tools/python
+    cd LatinoAnalysis/Tools/python
     cp userConfig_TEMPLATE.py userConfig.py
 
 By default the python script below does not submit jobs, so you can check if it correctly finds all the samples and directories. To submit the jobs run the command with "1" as the last argument.
